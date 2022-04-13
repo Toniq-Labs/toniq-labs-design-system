@@ -1,0 +1,9 @@
+{
+    "import": ".cspell-base.json",
+    "words": [
+        "dfinity",
+        "rollup",
+        "toniq",
+        "toniqlabs"
+    ]
+}

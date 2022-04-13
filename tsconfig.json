@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "alwaysStrict": true,
+        "baseUrl": ".",
+        "declaration": true,
+        "declarationDir": "types",
+        "esModuleInterop": true,
+        "exactOptionalPropertyTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "noImplicitAny": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUncheckedIndexedAccess": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "strict": true,
+        "target": "ESNext",
+        "useUnknownInCatchVariables": true
+    },
+    "exclude": [
+        "dist",
+        "node_modules",
+        "separate-configs",
+        "src/**/*.stories.tsx",
+        "src/**/*.test.tsx",
+        "test-files"
+    ],
+    "ts-node": {
+        "compilerOptions": {
+            "module": "CommonJS"
+        }
+    }
+}
