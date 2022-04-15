@@ -4,6 +4,9 @@
         "dfinity",
         "rollup",
         "toniq",
-        "toniqlabs"
+        "toniqlabs",
+        "preinstall",
+        "globby",
+        "prismjs"
     ]
 }
