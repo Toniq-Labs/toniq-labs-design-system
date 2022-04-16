@@ -19,6 +19,9 @@ export const virmatorJestConfig: InitialOptionsTsJest = {
             },
         },
     },
+    moduleNameMapper: {
+        '.scoped.(sc|c|sa)ss$': '<rootDir>/test/unit/stubs/style.js',
+    },
 };
 
 export default virmatorJestConfig;
