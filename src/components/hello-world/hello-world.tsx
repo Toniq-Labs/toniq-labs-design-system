@@ -14,7 +14,6 @@ export const defaultHelloWorldProps: Required<HelloWorldProps> = {
 const StyledHelloWorld = styled.div<HelloWorldProps>`
     font-size: 2em;
     font-weight: ${(props) => {
-        console.log({props, defaultHelloWorldProps});
         return props?.bold ?? defaultHelloWorldProps.bold ? 'bold' : 'normal';
     }};
     font-family: sans-serif;
