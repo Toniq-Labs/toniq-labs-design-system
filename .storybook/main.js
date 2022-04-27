@@ -1,4 +1,5 @@
 const path = require('path');
+const globalCSS = ['./src/assets/styles/global.scss'];
 
 module.exports = {
     stories: [
@@ -12,6 +13,9 @@ module.exports = {
     ],
     framework: '@storybook/react',
     webpackFinal: async (config) => {
+        config.resolve.alias['@'] = path.dirname(path.resolve(__dirname));
+        config.resolve.alias['assets'] = path.resolve(__dirname, '../src/assets/');
+
         config.module.rules.push({
             test: /\.scoped\.(sc|c|sa)ss$/,
             include: path.resolve(__dirname, '../'),
@@ -20,6 +24,12 @@ module.exports = {
                 'css-loader',
                 'scoped-css-loader',
                 'sass-loader',
+                {
+                    loader: 'style-resources-loader',
+                    options: {
+                        patterns: globalCSS,
+                    },
+                },
             ],
         });
 

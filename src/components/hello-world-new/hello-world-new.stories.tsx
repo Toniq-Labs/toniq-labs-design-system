@@ -1,13 +1,13 @@
 import React from 'react';
-import {HelloWorld} from './hello-world-new';
+import {HelloWorldNew} from './hello-world-new';
 
 export default {
-    title: 'Design System/HelloWorldNew',
-    component: HelloWorld,
+    title: 'Design System/Hello World New',
+    component: HelloWorldNew,
 };
 
-export const Default = () => <HelloWorld />;
+export const Default = () => <HelloWorldNew />;
 
-export const CustomGreeting = () => <HelloWorld greeting="eat toast" />;
+export const CustomGreeting = () => <HelloWorldNew greeting="eat toast" />;
 
-export const Bold = () => <HelloWorld greeting="eat toast" bold={true} />;
+export const Bold = () => <HelloWorldNew greeting="eat toast" bold={true} />;

@@ -1,24 +1,24 @@
 import React, {FunctionComponent} from 'react';
 import './hello-world-new.scoped.scss';
 
-export type HelloWorldProps = Partial<{
+export type HelloWorldNewProps = Partial<{
     greeting: string;
     bold: boolean;
 }>;
 
-export const defaultHelloWorldProps: Required<HelloWorldProps> = {
+export const defaultHelloWorldNewProps: Required<HelloWorldNewProps> = {
     greeting: 'Hello',
     bold: false,
 };
 
-export const HelloWorld: FunctionComponent<HelloWorldProps | undefined> = (
-    props?: HelloWorldProps,
+export const HelloWorldNew: FunctionComponent<HelloWorldNewProps | undefined> = (
+    props?: HelloWorldNewProps,
 ) => {
-    const greetingText = props?.greeting ?? defaultHelloWorldProps.greeting;
-    const isBold = props?.bold ?? defaultHelloWorldProps.bold;
+    const greetingText = props?.greeting ?? defaultHelloWorldNewProps.greeting;
+    const isBold = props?.bold ?? defaultHelloWorldNewProps.bold;
 
     return (
-        <div className={`hello-world ${isBold ?? defaultHelloWorldProps.bold ? 'bold' : ''}`}>
+        <div className={`hello-world ${isBold ?? defaultHelloWorldNewProps.bold ? 'bold' : ''}`}>
             {greetingText} world!
         </div>
     );

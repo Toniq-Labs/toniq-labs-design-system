@@ -2,7 +2,7 @@ import React from 'react';
 import {HelloWorld} from './hello-world';
 
 export default {
-    title: 'Design System/HelloWorld',
+    title: 'Design System/Hello World',
     component: HelloWorld,
 };
 

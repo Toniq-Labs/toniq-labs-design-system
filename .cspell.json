@@ -1,4 +1,8 @@
 {
+    "ignorePaths": [
+        "src/assets/fonts",
+        "src/assets/styles"
+    ],
     "import": ".cspell-base.json",
     "words": [
         "dfinity",
@@ -7,6 +11,8 @@
         "toniqlabs",
         "preinstall",
         "globby",
-        "prismjs"
+        "prismjs",
+        "overscroll",
+        "callout"
     ]
 }
