@@ -23,6 +23,10 @@
     "[yaml]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "files.associations": {
+        "*.xml": "html",
+        "*.svg": "html"
+    },
     "editor.formatOnSave": true,
     "editor.rulers": [100],
     "typescript.tsdk": "node_modules/typescript/lib"
