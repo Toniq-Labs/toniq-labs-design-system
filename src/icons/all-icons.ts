@@ -38,7 +38,7 @@ import {Lifebuoy24Icon} from './svgs/core-24/lifebuoy-24.icon';
 import {List24Icon} from './svgs/core-24/list-24.icon';
 import {ListDetails24Icon} from './svgs/core-24/list-details-24.icon';
 import {Loader24Icon} from './svgs/core-24/loader-24.icon';
-import {LoaderSeparatePaths24Icon} from './svgs/core-24/loader-separate-paths-24.icon';
+import {LoaderAnimated24Icon} from './svgs/core-24/loader-animated-24.icon';
 import {Lock24Icon} from './svgs/core-24/lock-24.icon';
 import {LockOpen24Icon} from './svgs/core-24/lock-open-24.icon';
 import {Menu24Icon} from './svgs/core-24/menu-24.icon';
@@ -105,7 +105,7 @@ export const allIconsByCategory = {
         List24Icon,
         ListDetails24Icon,
         Loader24Icon,
-        LoaderSeparatePaths24Icon,
+        LoaderAnimated24Icon,
         Lock24Icon,
         LockOpen24Icon,
         Menu24Icon,
