@@ -1,5 +1,6 @@
 import React from 'react';
-import {Copy16Icon} from '../../icons/svgs/core16/copy16.icon';
+import {allIcons} from '../../icons/all-icons';
+import {Copy16Icon} from '../../icons/svgs/core-16/copy-16.icon';
 import {toniqSvgColorCssVarName} from '../../icons/toniq-svg-colors';
 import {ToniqIcon} from './toniq-icon';
 
@@ -21,3 +22,5 @@ export const WithCSSVarColor = () => (
         <ToniqIcon icon={Copy16Icon} />
     </div>
 );
+
+export const WithAllIcons = () => allIcons.map((icon) => <ToniqIcon icon={icon} />);
