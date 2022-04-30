@@ -1,7 +1,6 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
 import {allIconsByCategory} from '../../icons/all-icons';
-import {Copy16Icon} from '../../icons/svgs/core-16/copy-16.icon';
 import {
     toniqSvgColorCssVarName,
     toniqSvgFillColorCssVarName,
@@ -29,27 +28,13 @@ const storyControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArg
     } as const,
 );
 
-const componentMeta: ComponentMeta<typeof ToniqIcon> = {
+const componentStoryMeta: ComponentMeta<typeof ToniqIcon> = {
     title: 'Design System/Toniq Icon',
     component: ToniqIcon,
     argTypes: storyControls as ArgTypes,
 };
 
-export default componentMeta;
-
-export const WithIcon = () => <ToniqIcon icon={Copy16Icon} />;
-
-export const WithCSSColor = () => (
-    <div style={{color: 'blue'}}>
-        <ToniqIcon icon={Copy16Icon} />
-    </div>
-);
-
-export const WithCSSVarColor = () => (
-    <div style={{[toniqSvgColorCssVarName]: 'orange'} as React.CSSProperties}>
-        <ToniqIcon icon={Copy16Icon} />
-    </div>
-);
+export default componentStoryMeta;
 
 export const AllIcons = (controls: Record<keyof typeof storyControls, string>) => {
     const iconCategories = (
