@@ -5,8 +5,6 @@ export const CircleDot24Icon = new ToniqSvg(
     'CircleDot24Icon',
     html`
         <svg
-            fill="none"
-            stroke="${colorUsage.stroke}"
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
             width="24"
@@ -17,8 +15,22 @@ export const CircleDot24Icon = new ToniqSvg(
             clip-rule="evenodd"
             viewBox="0 0 24 24"
         >
-            <circle cx="12" cy="12" r="9" stroke-width="2" />
-            <circle cx="12" cy="12" r="4" stroke="#000" stroke-width="2" />
+            <circle
+                cx="12"
+                cy="12"
+                r="9"
+                fill="none"
+                stroke="${colorUsage.stroke}"
+                stroke-width="2"
+            />
+            <circle
+                cx="12"
+                cy="12"
+                r="4"
+                fill="${colorUsage.fill}"
+                stroke="${colorUsage.fill}"
+                stroke-width="2"
+            />
         </svg>
     `,
 );
