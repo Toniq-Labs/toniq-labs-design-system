@@ -79,7 +79,7 @@ function generateTsCode(iconPaths: string[]): string {
 
     return `${imports.join('\n')}
     
-        export const allIcons = {
+        export const allIconsByCategory = {
             ${categories.join(',\n')}
         } as const;`;
 }

@@ -61,7 +61,7 @@ import {BrandTiktok32Icon} from './svgs/third-party-brands/brand-tiktok-32.icon'
 import {BrandTwitch32Icon} from './svgs/third-party-brands/brand-twitch-32.icon';
 import {BrandTwitter32Icon} from './svgs/third-party-brands/brand-twitter-32.icon';
 
-export const allIcons = {
+export const allIconsByCategory = {
     'core-16': [
         Copy16Icon,
         ExternalLink16Icon,
