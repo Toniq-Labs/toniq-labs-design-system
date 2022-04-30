@@ -3,12 +3,12 @@ import {colorUsage} from '../../toniq-svg-colors';
 
 export const ExternalLink16Icon = new ToniqSvg(html`
     <svg
+        fill="none"
+        stroke="${colorUsage.stroke}"
         xmlns="http://www.w3.org/2000/svg"
         xml:space="preserve"
         width="16"
         height="16"
-        fill="none"
-        stroke="${colorUsage.stroke}"
         fill-rule="evenodd"
         stroke-linecap="round"
         stroke-linejoin="round"

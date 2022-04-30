@@ -15,11 +15,6 @@ export const InfoCircle16Icon = new ToniqSvg(html`
         clip-rule="evenodd"
         viewBox="0 0 16 16"
     >
-        <path
-            fill="none"
-            stroke="#000"
-            stroke-width="2"
-            d="M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 3h0M7 8h1v3h1"
-        />
+        <path stroke-width="2" d="M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 3h0M7 8h1v3h1" />
     </svg>
 `);

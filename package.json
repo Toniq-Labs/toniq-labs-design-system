@@ -40,7 +40,8 @@
         "spellcheck": "virmator spellcheck",
         "storybook": "start-storybook -p 6006",
         "test": "virmator test --no-write-config",
-        "test:full": "npm test && npm run spellcheck && virmator format check"
+        "test:full": "npm test && npm run spellcheck && virmator format check",
+        "update-all-icons-file": "ts-node src/scripts/update-all-icons.ts"
     },
     "resolutions": {
         "fast-glob": "3.2.11",

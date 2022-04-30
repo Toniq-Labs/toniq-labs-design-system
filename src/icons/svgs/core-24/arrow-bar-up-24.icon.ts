@@ -3,6 +3,8 @@ import {colorUsage} from '../../toniq-svg-colors';
 
 export const ArrowBarUp24Icon = new ToniqSvg(html`
     <svg
+        fill="none"
+        stroke="${colorUsage.stroke}"
         xmlns="http://www.w3.org/2000/svg"
         xml:space="preserve"
         width="24"
@@ -11,8 +13,6 @@ export const ArrowBarUp24Icon = new ToniqSvg(html`
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-miterlimit="1.5"
-        fill="none"
-        stroke="${colorUsage.stroke}"
         clip-rule="evenodd"
         viewBox="0 0 24 24"
     >

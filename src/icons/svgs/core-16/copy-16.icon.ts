@@ -3,6 +3,8 @@ import {colorUsage} from '../../toniq-svg-colors';
 
 export const Copy16Icon = new ToniqSvg(html`
     <svg
+        fill="none"
+        stroke="${colorUsage.stroke}"
         xmlns="http://www.w3.org/2000/svg"
         xml:space="preserve"
         width="16"
@@ -11,8 +13,6 @@ export const Copy16Icon = new ToniqSvg(html`
         stroke-linecap="round"
         stroke-linejoin="round"
         clip-rule="evenodd"
-        fill="none"
-        stroke="${colorUsage.stroke}"
         viewBox="0 0 16 16"
     >
         <path

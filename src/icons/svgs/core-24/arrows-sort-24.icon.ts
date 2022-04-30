@@ -1,7 +1,7 @@
 import {html, ToniqSvg} from '../../toniq-svg';
 import {colorUsage} from '../../toniq-svg-colors';
 
-export const ArrowForwardUp24Icon = new ToniqSvg(html`
+export const ArrowsSort24Icon = new ToniqSvg(html`
     <svg
         fill="none"
         stroke="${colorUsage.stroke}"
@@ -16,6 +16,6 @@ export const ArrowForwardUp24Icon = new ToniqSvg(html`
         clip-rule="evenodd"
         viewBox="0 0 24 24"
     >
-        <path stroke-width="2" d="m20 10-4-4m-6 12H9a4 4 0 0 1 0-8h11l-4 4" />
+        <path stroke-width="2" d="M17 5v14l4-4m-4 4-4-4M7 19V5L3 9m4-4 4 4" />
     </svg>
 `);

@@ -1,5 +1,5 @@
 import {html, ToniqSvg} from '../../toniq-svg';
-import {icpData} from '../huge-icp-image-data';
+import {hugeIcpImageData} from '../huge-icp-image-data';
 
 export const Icp16Icon = new ToniqSvg(html`
     <svg
@@ -10,12 +10,12 @@ export const Icp16Icon = new ToniqSvg(html`
         fill="none"
         viewBox="0 0 16 16"
     >
-        <path fill="url(#icp-16-a)" d="M0 0h16v16H0z" />
+        <path fill="url(#icp-16__a)" d="M0 0h16v16H0z" />
         <defs>
-            <pattern id="icp-16-a" width="1" height="1" patternContentUnits="objectBoundingBox">
-                <use xlink:href="#icp-16-b" transform="scale(.0005)" />
+            <pattern id="icp-16__a" width="1" height="1" patternContentUnits="objectBoundingBox">
+                <use xlink:href="#icp-16__b" transform="scale(.0005)" />
             </pattern>
-            <image xlink:href="${icpData}" id="icp-16-b" width="2000" height="2000" />
+            <image xlink:href="${hugeIcpImageData}" id="icp-16__b" width="2000" height="2000" />
         </defs>
     </svg>
 `);

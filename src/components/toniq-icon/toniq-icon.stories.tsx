@@ -23,4 +23,20 @@ export const WithCSSVarColor = () => (
     </div>
 );
 
-export const WithAllIcons = () => allIcons.map((icon) => <ToniqIcon icon={icon} />);
+export const WithAllIcons = () => {
+    const iconCategories = (Object.keys(allIcons) as (keyof typeof allIcons)[]).map(
+        (categoryName) => {
+            const iconInstances = allIcons[categoryName].map((icon) => <ToniqIcon icon={icon} />);
+
+            return (
+                <section style={{fontFamily: 'sans-serif'}}>
+                    <h3>{categoryName}</h3>
+                    <div style={{display: 'flex', gap: '8px'}}>{iconInstances}</div>
+                </section>
+            );
+        },
+    );
+    return (
+        <div style={{display: 'flex', gap: '16px', flexDirection: 'column'}}>{iconCategories}</div>
+    );
+};

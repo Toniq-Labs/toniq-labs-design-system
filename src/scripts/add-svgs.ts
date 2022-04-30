@@ -1,4 +1,5 @@
 import {
+    capitalizeFirstLetter,
     collapseWhiteSpace,
     kebabCaseToCamelCase,
     RequiredAndNotNullBy,
@@ -213,12 +214,19 @@ function getDominantSvgDimensions(svgContents: string): number {
 }
 
 function createTsSvgCode(iconName: string, optimizedSvg: string): string {
-    const capitalizedIconName = iconName[0]?.toUpperCase() + iconName.slice(1);
+    const capitalizedIconName = capitalizeFirstLetter(iconName);
+
+    const hasStroke: boolean = !!safeMatch(optimizedSvg, /fill="none" stroke="#000"/).length;
+
+    const insertedColorUsage = optimizedSvg
+        .replace(/fill="none" stroke="#000"/g, '')
+        .replace(/<svg/, hasStroke ? '<svg fill="none" stroke="${colorUsage.stroke}"' : '<svg');
+
     return `
     import {html, ToniqSvg} from '../../toniq-svg';
     import {colorUsage} from '../../toniq-svg-colors';
     
-    export const ${capitalizedIconName} = new ToniqSvg(html\n\`${optimizedSvg}\n\`);
+    export const ${capitalizedIconName} = new ToniqSvg(html\n\`${insertedColorUsage}\n\`);
 `;
 }
 
