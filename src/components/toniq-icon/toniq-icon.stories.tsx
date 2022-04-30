@@ -56,7 +56,7 @@ export const AllIcons = (controls: Record<keyof typeof storyControls, string>) =
         Object.keys(allIconsByCategory) as (keyof typeof allIconsByCategory)[]
     ).map((categoryName) => {
         const iconInstances = allIconsByCategory[categoryName].map((icon) => (
-            <ToniqIcon icon={icon} />
+            <ToniqIcon title={icon.iconName} icon={icon} />
         ));
 
         const colorStyles =

@@ -1,10 +1,13 @@
 export class ToniqSvg {
     public readonly svgString: string;
+    public readonly iconName: string;
 
     constructor(
+        iconName: string,
         // TypeScript member property shorthand is not working here, probably because of React or Babel
         svgString: string,
     ) {
+        this.iconName = iconName;
         this.svgString = svgString;
     }
 }

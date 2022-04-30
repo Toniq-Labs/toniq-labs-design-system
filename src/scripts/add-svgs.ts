@@ -226,7 +226,7 @@ function createTsSvgCode(iconName: string, optimizedSvg: string): string {
     import {html, ToniqSvg} from '../../toniq-svg';
     import {colorUsage} from '../../toniq-svg-colors';
     
-    export const ${capitalizedIconName} = new ToniqSvg(html\n\`${insertedColorUsage}\n\`);
+    export const ${capitalizedIconName} = new ToniqSvg('${iconName}', html\n\`${insertedColorUsage}\n\`);
 `;
 }
 
