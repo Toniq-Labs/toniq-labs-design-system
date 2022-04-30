@@ -17,8 +17,7 @@ export const ArrowForwardUp24Icon = new ToniqSvg(html`
             fill="none"
             stroke="#000"
             stroke-width="2"
-            d="m19 9-4-4M9 17H8c-2.208 0-4-1.792-4-4s1.792-4 4-4h11l-4 4"
-            transform="translate(1 1)"
+            d="m20 10-4-4m-6 12H9a4 4 0 0 1 0-8h11l-4 4"
         />
     </svg>
 `);

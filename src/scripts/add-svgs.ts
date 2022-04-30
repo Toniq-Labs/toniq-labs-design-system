@@ -1,53 +1,132 @@
-import {readDirRecursive} from 'augment-vir/dist/node-only';
+import {
+    collapseWhiteSpace,
+    kebabCaseToCamelCase,
+    RequiredAndNotNullBy,
+    safeMatch,
+} from 'augment-vir';
+import {readDirRecursive, runShellCommand} from 'augment-vir/dist/node-only';
 import {existsSync} from 'fs';
-import {readFile, stat} from 'fs/promises';
-import {basename} from 'path';
+import {readFile, stat, writeFile} from 'fs/promises';
+import {basename, dirname, join, relative} from 'path';
 import {optimize, OptimizeOptions, PrefixIdsPlugin} from 'svgo';
 
 const scriptName = basename(__filename);
+const srcDir = dirname(dirname(__filename));
 
-type Dimensions = {
-    width: number;
-    height: number;
-};
-
-const baseSvgoOptions: OptimizeOptions = {
+const svgoFloatPrecisionParams = {floatPrecision: 2};
+const baseSvgoOptions: RequiredAndNotNullBy<OptimizeOptions, 'plugins'> = {
     plugins: [
         {
-            name: 'preset-default',
-            params: {
-                overrides: {
-                    // I have run into issues in the past with removed view boxes
-                    removeViewBox: false,
-                },
-            },
+            name: 'removeDoctype',
         },
         {
-            // makes styles more clear imo
+            name: 'removeXMLProcInst',
+        },
+        {
+            name: 'removeComments',
+        },
+        {
+            name: 'removeMetadata',
+        },
+        {
+            name: 'removeEditorsNSData',
+        },
+        {
+            name: 'cleanupAttrs',
+        },
+        {
+            name: 'mergeStyles',
+        },
+        {
+            name: 'inlineStyles',
+        },
+        {
+            name: 'minifyStyles',
+        },
+        {
             name: 'convertStyleToAttrs',
         },
         {
-            // all our SVGs will be inlined, and xmlns is not required for inline SVGs
-            name: 'removeXMLNS',
+            name: 'cleanupIDs',
         },
         {
-            // prevent clashing-ids
-            name: 'prefixIds',
+            name: 'removeUselessDefs',
         },
         {
-            // round viewBox numbers
+            name: 'cleanupNumericValues',
+            params: svgoFloatPrecisionParams,
+        },
+        {
             name: 'cleanupListOfValues',
+            params: svgoFloatPrecisionParams,
         },
         {
-            // only vectors
-            // this may break some images, try out first
-            name: 'removeRasterImages',
+            name: 'convertColors',
+        },
+        {
+            name: 'removeUnknownsAndDefaults',
+        },
+        {
+            name: 'removeNonInheritableGroupAttrs',
+        },
+        {
+            name: 'removeUselessStrokeAndFill',
+        },
+        {
+            name: 'cleanupEnableBackground',
+        },
+        {
+            name: 'removeHiddenElems',
+        },
+        {
+            name: 'removeEmptyText',
+        },
+        {
+            name: 'convertShapeToPath',
+        },
+        {
+            name: 'moveElemsAttrsToGroup',
+        },
+        {
+            name: 'moveGroupAttrsToElems',
+        },
+        {
+            name: 'collapseGroups',
+        },
+        {
+            name: 'convertPathData',
+            params: svgoFloatPrecisionParams,
+        },
+        {
+            name: 'convertEllipseToCircle',
+        },
+        {
+            name: 'convertTransform',
+            params: svgoFloatPrecisionParams,
+        },
+        {
+            name: 'removeEmptyAttrs',
+        },
+        {
+            name: 'removeEmptyContainers',
+        },
+        {
+            name: 'mergePaths',
+        },
+        {
+            name: 'removeUnusedNS',
         },
         {
             name: 'sortAttrs',
         },
         {
-            name: 'removeOffCanvasPaths',
+            name: 'sortDefsChildren',
+        },
+        {
+            name: 'removeTitle',
+        },
+        {
+            name: 'removeDesc',
         },
         {
             name: 'removeStyleElement',
@@ -55,55 +134,136 @@ const baseSvgoOptions: OptimizeOptions = {
         {
             name: 'removeScriptElement',
         },
-        {
-            name: 'reusePaths',
-        },
     ],
 };
 
-function createSvgoOptions(iconName: string): OptimizeOptions {
-    const pluginPrefixOptions: NonNullable<PrefixIdsPlugin['params']> = {
-        prefix: iconName,
+function createSvgoOptions(iconName: IconFileName): OptimizeOptions {
+    // prevent clashing-ids
+    const pluginPrefixOptions: PrefixIdsPlugin = {
+        name: 'prefixIds',
+        params: {
+            prefix: iconName,
+        },
     };
 
-    return {...baseSvgoOptions};
+    return {
+        ...baseSvgoOptions,
+        plugins: [
+            ...baseSvgoOptions.plugins,
+            pluginPrefixOptions,
+        ],
+    };
 }
 
-function getIconName(svgPath: string, size: Dimensions): string {
+type IconFileName = `${string}-${number}`;
+type IconName = `${string}${number}Icon`;
+
+function getIconFileName(svgPath: string, size: number): IconFileName {
     const svgFileName = basename(svgPath);
     const svgName = svgFileName
         .replace(/\.svg$/, '')
         .replace(/-fixed/, '')
-        .replace(/-(\w)/g, (fullMatch, letterGroup) => {
-            if (typeof letterGroup !== 'string') {
-                throw new Error(`Could not match \\w for "${fullMatch}" from "${svgFileName}"`);
-            }
-            return letterGroup.toUpperCase();
-        });
+        .replace(/-\d+/, '');
 
-    const dominantSize = Math.max(size.width, size.height);
-
-    const iconName = `${svgName}${dominantSize}Icon`;
+    const iconName: IconFileName = `${svgName}-${size}`;
 
     return iconName;
 }
 
-function getSvgDimensions(svgContents: string): Dimensions {}
+function getIconName(iconFileName: IconFileName, size: number): IconName {
+    const withoutSizeSuffix = iconFileName.replace(/\d+$/, '');
 
-async function convertAndInsertIcon(svgPath: string): Promise<void> {
-    const svgContents: string = (await readFile(svgPath)).toString();
-
-    const svgDimensions = getSvgDimensions(svgContents);
-
-    const iconName: string = getIconName(svgPath, svgDimensions);
-
-    const svgoOptions = createSvgoOptions(iconName);
-
-    const optimizedSvgContents = optimize(svgContents, svgoOptions);
+    return `${kebabCaseToCamelCase(withoutSizeSuffix, {
+        capitalizeFirstLetter: true,
+    })}${size}Icon`;
 }
 
+function getDominantSvgDimensions(svgContents: string): number {
+    const noWhiteSpace = collapseWhiteSpace(svgContents.replace(/\n/g, ''));
+    const [
+        svgTagMatch,
+    ] = safeMatch(noWhiteSpace, /<svg[^>]+?>/);
+    if (!svgTagMatch) {
+        throw new Error(`Could not extract svg tag from "${noWhiteSpace}"`);
+    }
+
+    function extractDimension(svgTag: string, dimension: 'height' | 'width'): number {
+        const [
+            ,
+            matchedDimension,
+        ] = safeMatch(svgTag, new RegExp(`${dimension}="([^"]+)"`));
+        if (!matchedDimension) {
+            throw new Error(`Could not extract "${dimension}" from "${svgTagMatch}"`);
+        }
+        const dimensionNumber = Number(matchedDimension);
+
+        if (isNaN(dimensionNumber)) {
+            throw new Error(
+                `Could not extract "${dimension}" because matched dimension "${matchedDimension}" is not a number.`,
+            );
+        }
+
+        return dimensionNumber;
+    }
+
+    const width = extractDimension(svgTagMatch, 'width');
+    const height = extractDimension(svgTagMatch, 'height');
+
+    return Math.max(width, height);
+}
+
+function createTsSvgCode(iconName: string, optimizedSvg: string): string {
+    const capitalizedIconName = iconName[0]?.toUpperCase() + iconName.slice(1);
+    return `
+    import {html, ToniqSvg} from '../../toniq-svg';
+    import {colorUsage} from '../../toniq-svg-colors';
+    
+    export const ${capitalizedIconName} = new ToniqSvg(html\n\`${optimizedSvg}\n\`);
+`;
+}
+
+function getTsIconPath(iconFileName: IconFileName, size: number): string {
+    const thirdParty = iconFileName.startsWith('brand');
+    const svgDir = thirdParty ? 'third-party-brands' : `core-${size}`;
+    return join(srcDir, 'icons', 'svgs', svgDir, `${iconFileName}.icon.ts`);
+}
+
+async function convertAndInsertIcon(svgPath: string, dryRun: boolean): Promise<void> {
+    const svgContents: string = (await readFile(svgPath)).toString();
+
+    const dominantSvgDimension: number = getDominantSvgDimensions(svgContents);
+
+    const iconFileName: IconFileName = getIconFileName(svgPath, dominantSvgDimension);
+
+    const svgoOptions = createSvgoOptions(iconFileName);
+
+    const optimizedSvgResults = optimize(svgContents, svgoOptions);
+
+    if (optimizedSvgResults.error || optimizedSvgResults.modernError) {
+        throw optimizedSvgResults.error || optimizedSvgResults.modernError;
+    }
+
+    const optimizedSvgContents = optimizedSvgResults.data;
+
+    const iconName = getIconName(iconFileName, dominantSvgDimension);
+
+    const tsIconCode = createTsSvgCode(iconName, optimizedSvgContents);
+
+    const writePath = getTsIconPath(iconFileName, dominantSvgDimension);
+
+    const startMessage = dryRun ? "Would've written" : 'Writing';
+    console.info(`${startMessage} "${iconName}" to "${relative(process.cwd(), writePath)}"`);
+
+    if (!dryRun) {
+        await writeFile(writePath, tsIconCode);
+    }
+}
+
+const dryRunTrigger = '--dry-run';
 async function main(): Promise<void> {
-    const cliArgs = process.argv.slice(2);
+    const rawArgs = process.argv.slice(2);
+    const cliArgs = rawArgs.filter((arg) => arg !== dryRunTrigger);
+    const dryRun = rawArgs.includes(dryRunTrigger);
     console.log({cliArgs});
 
     if (!cliArgs.length) {
@@ -114,20 +274,20 @@ async function main(): Promise<void> {
 
     const svgFiles: string[] = (
         await Promise.all(
-            cliArgs.map(async (filePath): Promise<string | string[]> => {
-                if (!existsSync(filePath)) {
-                    throw new Error(`Could not anything at path: "${filePath}"`);
+            cliArgs.map(async (fileOrDirPath): Promise<string | string[]> => {
+                if (!existsSync(fileOrDirPath)) {
+                    throw new Error(`Could not anything at path: "${fileOrDirPath}"`);
                 }
-                const fileStats = await stat(filePath);
+                const fileStats = await stat(fileOrDirPath);
                 if (fileStats.isDirectory()) {
-                    return (await readDirRecursive(filePath)).filter((filePath) =>
-                        filePath.toLowerCase().endsWith('.svg'),
-                    );
+                    return (await readDirRecursive(fileOrDirPath))
+                        .filter((filePath) => filePath.toLowerCase().endsWith('.svg'))
+                        .map((fileName) => join(fileOrDirPath, fileName));
                 } else {
-                    if (filePath.toLowerCase().endsWith('.svg')) {
-                        return filePath;
+                    if (fileOrDirPath.toLowerCase().endsWith('.svg')) {
+                        return fileOrDirPath;
                     } else {
-                        throw new Error(`Encountered non .svg file: "${filePath}"`);
+                        throw new Error(`Encountered non .svg file: "${fileOrDirPath}"`);
                     }
                 }
             }),
@@ -142,9 +302,13 @@ async function main(): Promise<void> {
 
     await Promise.all(
         svgFiles.map(async (svgPath) => {
-            await convertAndInsertIcon(svgPath);
+            await convertAndInsertIcon(svgPath, dryRun);
         }),
     );
+
+    if (!dryRun) {
+        await runShellCommand('npm run format', {rejectOnError: true, hookUpToConsole: true});
+    }
 }
 
 main().catch((error) => {
