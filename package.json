@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "0.0.0-beta.1",
+    "version": "0.0.0-beta.2",
     "description": "Design system components for Toniq Labs",
     "keywords": [
         "design system",
@@ -28,8 +28,7 @@
         "name": "Toniq-Labs",
         "url": "https://github.com/Toniq-Labs"
     },
-    "main": "dist/cjs/index.js",
-    "module": "dist/esm/index.js",
+    "main": "dist/index.js",
     "scripts": {
         "build": "rollup -c",
         "build-storybook": "build-storybook",
