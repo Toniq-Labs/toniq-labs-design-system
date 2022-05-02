@@ -5,6 +5,7 @@
         "dfinity",
         "elems",
         "globby",
+        "postpublish",
         "preinstall",
         "prismjs",
         "rollup",

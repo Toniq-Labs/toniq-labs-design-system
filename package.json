@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "0.0.0-beta.3",
+    "version": "0.0.0-beta.4",
     "description": "Design system components for Toniq Labs",
     "keywords": [
         "design system",
@@ -37,7 +37,8 @@
         "build-storybook": "build-storybook",
         "format": "virmator format write",
         "preinstall": "npx npm-force-resolutions",
-        "prepublishOnly": "npm run test:full",
+        "prepublishOnly": "npm run test:full && ts-node src/scripts/publishing.ts prepublish",
+        "postpublish": "ts-node src/scripts/publishing.ts postpublish",
         "spellcheck": "virmator spellcheck",
         "storybook": "start-storybook -p 6006",
         "test": "virmator test --no-write-config",
