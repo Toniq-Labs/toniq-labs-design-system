@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "0.0.0",
+    "version": "0.0.0-beta.3",
     "description": "Design system components for Toniq Labs",
     "keywords": [
         "design system",
@@ -30,9 +30,10 @@
     },
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
         "add-icons": "ts-node src/scripts/add-svgs.ts",
-        "build": "rollup -c",
+        "build": "rm -rf dist && rollup -c",
         "build-storybook": "build-storybook",
         "format": "virmator format write",
         "preinstall": "npx npm-force-resolutions",

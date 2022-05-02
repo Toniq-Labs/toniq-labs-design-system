@@ -20,3 +20,5 @@ tsconfig-base.json
 tsconfig.json
 
 rollup.config.js
+graphics/
+.storybook/

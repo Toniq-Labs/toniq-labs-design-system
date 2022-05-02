@@ -14,3 +14,7 @@ Make sure to run `npm install` first.
     ```
     npm run storybook
     ```
+-   Build for publishing:
+    ```
+    npm run build
+    ```
