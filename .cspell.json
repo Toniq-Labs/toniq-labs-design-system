@@ -1,12 +1,17 @@
 {
     "ignorePaths": [
+        "graphics",
         "src/assets/fonts",
         "src/assets/styles"
     ],
     "import": ".cspell-base.json",
     "words": [
         "dfinity",
+        "globby",
+        "preinstall",
+        "prismjs",
         "rollup",
+        "svgs",
         "toniq",
         "toniqlabs",
         "preinstall",
