@@ -25,5 +25,9 @@
     },
     "editor.formatOnSave": true,
     "editor.rulers": [100],
+    "files.associations": {
+        "*.svg": "html",
+        "*.xml": "html"
+    },
     "typescript.tsdk": "node_modules/typescript/lib"
 }

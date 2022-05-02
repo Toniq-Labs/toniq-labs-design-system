@@ -3,11 +3,13 @@
     "import": ".cspell-base.json",
     "words": [
         "dfinity",
+        "elems",
         "globby",
         "preinstall",
         "prismjs",
         "rollup",
         "svgs",
+        "tiktok",
         "toniq",
         "toniqlabs"
     ]
