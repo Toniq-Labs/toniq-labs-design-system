@@ -1,12 +1,12 @@
 const path = require('path');
-const globalCSS = ['./src/assets/styles/global.scss'];
+const globalCSS = ['./src/assets/styles/main.scss'];
 
 module.exports = {
     stories: [
-        '../src/**/*.stories.mdx',
         '../src/**/*.stories.@(js|jsx|ts|tsx)',
     ],
     addons: [
+        '@storybook/addon-docs',
         '@storybook/addon-links',
         '@storybook/addon-essentials',
         '@storybook/addon-interactions',

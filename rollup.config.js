@@ -30,7 +30,7 @@ export default [
             typescript({tsconfig: './tsconfig.json'}),
             terser(),
             scss({
-                prefix: `@import "./src/assets/styles/global.scss";`,
+                prefix: `@import "./src/assets/styles/main.scss";`,
                 outputStyle: 'compressed',
             }),
         ],
