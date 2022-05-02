@@ -1,6 +1,6 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
-import {allIconsByCategory} from '../../icons/all-icons';
+import {allIconsByCategory} from '../../icons';
 import {
     toniqSvgColorCssVarName,
     toniqSvgFillColorCssVarName,
