@@ -1,3 +1,8 @@
+/*
+    This script will automatically populate the file at "iconIndexPath" (defined below) with imports
+    for, exports from, and a big object containing all the icon files located in "svgsDir" defined
+    below.
+*/
 import {getObjectTypedKeys, kebabCaseToCamelCase} from 'augment-vir/dist';
 import {readDirRecursive, runShellCommand} from 'augment-vir/dist/node-only';
 import {existsSync} from 'fs';
@@ -6,7 +11,7 @@ import {basename, dirname, join, relative} from 'path';
 
 const srcDir = dirname(__dirname);
 const svgsDir = join(srcDir, 'icons', 'svgs');
-const allIconsFilePath = join(srcDir, 'icons', 'all-icons.ts');
+const iconIndexPath = join(srcDir, 'icons', 'index.ts');
 
 function generateIconNameFromFilePath(filePath: string): string {
     return `${kebabCaseToCamelCase(basename(filePath.replace(/\.icon\.ts$/, '')), {
@@ -15,7 +20,7 @@ function generateIconNameFromFilePath(filePath: string): string {
 }
 
 function generateTsImport(iconFilePath: string, iconName: string): string {
-    const relativePath = relative(dirname(allIconsFilePath), iconFilePath).replace(/\.ts$/, '');
+    const relativePath = relative(dirname(iconIndexPath), iconFilePath).replace(/\.ts$/, '');
     return `import {${iconName}} from './${relativePath}';`;
 }
 
@@ -77,7 +82,14 @@ function generateTsCode(iconPaths: string[]): string {
             },
         );
 
+    const exports = imports.map((importLine) => {
+        return importLine.replace(/^import .+ from '(.+)';$/, "export * from '$1';");
+    });
+
     return `${imports.join('\n')}
+        ${exports.join('\n')}
+        export * from './toniq-svg';
+        export * from './toniq-svg-colors';
     
         export const allIconsByCategory = {
             ${categories.join(',\n')}
@@ -85,8 +97,8 @@ function generateTsCode(iconPaths: string[]): string {
 }
 
 async function main() {
-    if (!existsSync(allIconsFilePath)) {
-        throw new Error(`"${allIconsFilePath}" file does not exist.`);
+    if (!existsSync(iconIndexPath)) {
+        throw new Error(`"${iconIndexPath}" file does not exist.`);
     }
 
     const dryRun = process.argv.includes('--dry-run');
@@ -97,11 +109,14 @@ async function main() {
     const tsCode = generateTsCode(allIconPaths);
 
     if (dryRun) {
-        console.info(`Would've written the following to "${allIconsFilePath}": "${tsCode}"`);
+        console.info(`Would've written the following to "${iconIndexPath}": "${tsCode}"`);
     } else {
-        console.info(`Writing to "${allIconsFilePath}"`);
-        await writeFile(allIconsFilePath, tsCode);
-        await runShellCommand('npm run format', {rejectOnError: true, hookUpToConsole: true});
+        console.info(`Writing to "${iconIndexPath}"`);
+        await writeFile(iconIndexPath, tsCode);
+        await runShellCommand(`npm run format ${relative(process.cwd(), iconIndexPath)}`, {
+            rejectOnError: true,
+            hookUpToConsole: true,
+        });
     }
 }
 
