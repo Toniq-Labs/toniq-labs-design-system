@@ -20,12 +20,18 @@ jobs:
               run: |
                   npm ci
                   npm run test:full
+                  npm run build
             - name: pack and set vars
               id: vars
               run: |
                   tagName="${GITHUB_REF#refs/*/}"
                   originalTarName="$(npm pack)"
-                  packageName="$(npm -s run env echo '$npm_package_name')"
+                  # we can't rely on the npm_package_name env var here because it doesn't remove
+                  # scoped package prefixes, like @toniq-labs/this-package, which then confuses
+                  # the write path.
+                  packageNameWithoutFileName="${originalTarName%.tgz}"
+                  tagNameWithoutV="${tagName##v}"
+                  packageName="${packageNameWithoutFileName%-$tagNameWithoutV}"
                   newTarName="$packageName-$tagName.tgz"
                   mv "$originalTarName" "$newTarName"
                   echo ::set-output name=tarName::"$newTarName"
