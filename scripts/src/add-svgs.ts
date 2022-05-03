@@ -8,11 +8,12 @@ import {
 import {readDirRecursive, runShellCommand} from 'augment-vir/dist/node-only';
 import {existsSync} from 'fs';
 import {readFile, stat, writeFile} from 'fs/promises';
-import {basename, dirname, join, relative} from 'path';
+import {basename, join, relative} from 'path';
 import {optimize, OptimizeOptions, PrefixIdsPlugin} from 'svgo';
+import {srcDir} from './common/file-paths';
 
 const scriptName = basename(__filename);
-const srcDir = dirname(dirname(__filename));
+const svgsDir = join(srcDir, 'icons', 'svgs');
 
 const svgoFloatPrecisionParams = {floatPrecision: 2};
 const baseSvgoOptions: RequiredAndNotNullBy<OptimizeOptions, 'plugins'> = {
@@ -233,7 +234,7 @@ function createTsSvgCode(iconName: string, optimizedSvg: string): string {
 function getTsIconPath(iconFileName: IconFileName, size: number): string {
     const thirdParty = iconFileName.startsWith('brand');
     const svgDir = thirdParty ? 'third-party-brands' : `core-${size}`;
-    return join(srcDir, 'icons', 'svgs', svgDir, `${iconFileName}.icon.ts`);
+    return join(svgsDir, svgDir, `${iconFileName}.icon.ts`);
 }
 
 async function convertAndInsertIcon(svgPath: string, dryRun: boolean): Promise<void> {

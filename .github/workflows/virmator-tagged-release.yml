@@ -19,8 +19,8 @@ jobs:
             - name: run test
               run: |
                   npm ci
+                  # the full test includes the build
                   npm run test:full
-                  npm run build
             - name: pack and set vars
               id: vars
               run: |

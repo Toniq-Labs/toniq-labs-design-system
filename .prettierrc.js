@@ -1,5 +1,8 @@
-const fs = require('fs');
-const path = require('path');
+const {existsSync} = require('fs');
+// prettier only handles posix paths
+const {join} = require('path/posix');
+
+const repoRootDir = __dirname;
 
 const plugins = [
     'prettier-plugin-sort-json',
@@ -8,12 +11,13 @@ const plugins = [
     'prettier-plugin-organize-imports',
     'prettier-plugin-jsdoc',
 ].map((pluginName) => {
-    // account for installations where deps are flattened and installations where they're nested
-    const defaultPath = `./node_modules/${pluginName}`;
-    if (fs.existsSync(path.resolve(__dirname, defaultPath))) {
+    // account for installations where deps are flattened
+    const defaultPath = join(repoRootDir, 'node_modules', pluginName);
+    if (existsSync(defaultPath)) {
         return defaultPath;
     } else {
-        return `./node_modules/virmator/node_modules/${pluginName}`;
+        // installations where they're nested
+        return join(repoRootDir, 'node_modules', 'virmator', 'node_modules', pluginName);
     }
 });
 
