@@ -1,6 +1,10 @@
 {
     "name": "scripts",
     "private": true,
+    "scripts": {
+        "check-exports": "ts-node src/update-all-exports.ts --check",
+        "update-exports": "ts-node src/update-all-exports.ts"
+    },
     "devDependencies": {
         "@types/node": "17.0.31"
     }

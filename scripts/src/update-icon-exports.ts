@@ -10,6 +10,13 @@ import {readFile, writeFile} from 'fs/promises';
 import {basename, dirname, join, relative} from 'path';
 import {srcDir} from './common/file-paths';
 import {formatText} from './common/format';
+import {
+    errorIfFailure,
+    parseUpdateExportsArgs,
+    UpdateExportsConfig,
+    UpdateExportsInputs,
+    UpdateExportsResult,
+} from './common/update-exports';
 
 const svgsDir = join(srcDir, 'icons', 'svgs');
 const iconIndexPath = join(srcDir, 'icons', 'index.ts');
@@ -97,46 +104,45 @@ function generateTsCode(iconPaths: string[]): string {
         } as const;`;
 }
 
-function parseArgs() {
-    const dryRun = process.argv.includes('--dry-run');
-    const checkOnly = process.argv.includes('--check');
+export const updateIconExports: UpdateExportsConfig = {
+    executor: async (inputs: UpdateExportsInputs): Promise<UpdateExportsResult> => {
+        const allIconPaths: string[] = (await readDirRecursive(svgsDir))
+            .filter((relativePath) => relativePath.endsWith('.icon.ts'))
+            .map((relativePath) => join(svgsDir, relativePath));
 
-    return {
-        dryRun,
-        checkOnly,
-    };
-}
+        const tsCode = formatText(generateTsCode(allIconPaths), iconIndexPath);
+
+        if (inputs.dryRun) {
+            console.info(`Would've written the following to "${iconIndexPath}": "${tsCode}"`);
+        } else if (inputs.checkOnly) {
+            const currentOutputContents = (await readFile(iconIndexPath)).toString();
+            if (tsCode === currentOutputContents) {
+                console.info(`${iconIndexPath} is up to date.`);
+            } else {
+                return 'check-failed';
+            }
+        } else {
+            console.info(`Writing to "${iconIndexPath}"`);
+            await writeFile(iconIndexPath, tsCode);
+        }
+
+        return 'success';
+    },
+    scriptToRun: __filename,
+};
 
 async function main() {
     if (!existsSync(iconIndexPath)) {
         throw new Error(`"${iconIndexPath}" file does not exist.`);
     }
 
-    const {dryRun, checkOnly} = parseArgs();
-
-    const allIconPaths: string[] = (await readDirRecursive(svgsDir))
-        .filter((relativePath) => relativePath.endsWith('.icon.ts'))
-        .map((relativePath) => join(svgsDir, relativePath));
-
-    const tsCode = formatText(generateTsCode(allIconPaths), iconIndexPath);
-
-    if (dryRun) {
-        console.info(`Would've written the following to "${iconIndexPath}": "${tsCode}"`);
-    } else if (checkOnly) {
-        const currentOutputContents = (await readFile(iconIndexPath)).toString();
-        if (tsCode === currentOutputContents) {
-            console.info(`${iconIndexPath} is up to date.`);
-        } else {
-            console.error(`${iconIndexPath} needs to be updated.`);
-            process.exit(1);
-        }
-    } else {
-        console.info(`Writing to "${iconIndexPath}"`);
-        await writeFile(iconIndexPath, tsCode);
-    }
+    const result = await updateIconExports.executor(parseUpdateExportsArgs());
+    errorIfFailure(updateIconExports, result);
 }
 
-main().catch((error) => {
-    console.error(error);
-    process.exit(1);
-});
+if (require.main === module) {
+    main().catch((error) => {
+        console.error(error);
+        process.exit(1);
+    });
+}

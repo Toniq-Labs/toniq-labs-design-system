@@ -35,14 +35,14 @@
     "scripts": {
         "build": "rm -rf dist && rollup -c",
         "build-storybook": "build-storybook",
-        "format": "virmator format write",
+        "format": "virmator format --no-write-config",
         "preinstall": "npx npm-force-resolutions",
         "prepublishOnly": "npm run test:full && ts-node scripts/src/publishing.ts prepublish && npm run build",
         "postpublish": "ts-node scripts/src/publishing.ts postpublish",
         "spellcheck": "virmator spellcheck",
         "storybook": "start-storybook -p 6006",
         "test": "virmator test --no-write-config",
-        "test:full": "npm test && npm run spellcheck && virmator format check"
+        "test:full": "npm test && npm run spellcheck && npm run format check && cd scripts && npm run check-exports"
     },
     "resolutions": {
         "fast-glob": "3.2.11",
@@ -75,7 +75,7 @@
         "@types/react": "18.0.3",
         "@types/styled-components": "5.1.25",
         "@types/svgo": "2.6.3",
-        "augment-vir": "2.0.2",
+        "augment-vir": "2.1.0",
         "babel-loader": "^8.2.4",
         "react": "18.0.0",
         "react-dom": "^18.0.0",
