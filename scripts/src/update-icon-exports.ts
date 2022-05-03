@@ -4,7 +4,7 @@
     below.
 */
 import {getObjectTypedKeys, kebabCaseToCamelCase} from 'augment-vir/dist';
-import {readDirRecursive} from 'augment-vir/dist/node-only';
+import {readDirRecursive, toPosixPath} from 'augment-vir/dist/node-only';
 import {existsSync} from 'fs';
 import {readFile, writeFile} from 'fs/promises';
 import {basename, dirname, join, relative} from 'path';
@@ -29,7 +29,7 @@ function generateIconNameFromFilePath(filePath: string): string {
 
 function generateTsImport(iconFilePath: string, iconName: string): string {
     const relativePath = relative(dirname(iconIndexPath), iconFilePath).replace(/\.ts$/, '');
-    return `import {${iconName}} from './${relativePath}';`;
+    return `import {${iconName}} from './${toPosixPath(relativePath)}';`;
 }
 
 function generateTsCode(iconPaths: string[]): string {
