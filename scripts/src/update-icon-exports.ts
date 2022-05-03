@@ -4,12 +4,13 @@
     below.
 */
 import {getObjectTypedKeys, kebabCaseToCamelCase} from 'augment-vir/dist';
-import {readDirRecursive, runShellCommand} from 'augment-vir/dist/node-only';
+import {readDirRecursive} from 'augment-vir/dist/node-only';
 import {existsSync} from 'fs';
-import {writeFile} from 'fs/promises';
+import {readFile, writeFile} from 'fs/promises';
 import {basename, dirname, join, relative} from 'path';
+import {srcDir} from './common/file-paths';
+import {formatText} from './common/format';
 
-const srcDir = dirname(__dirname);
 const svgsDir = join(srcDir, 'icons', 'svgs');
 const iconIndexPath = join(srcDir, 'icons', 'index.ts');
 
@@ -96,27 +97,42 @@ function generateTsCode(iconPaths: string[]): string {
         } as const;`;
 }
 
+function parseArgs() {
+    const dryRun = process.argv.includes('--dry-run');
+    const checkOnly = process.argv.includes('--check');
+
+    return {
+        dryRun,
+        checkOnly,
+    };
+}
+
 async function main() {
     if (!existsSync(iconIndexPath)) {
         throw new Error(`"${iconIndexPath}" file does not exist.`);
     }
 
-    const dryRun = process.argv.includes('--dry-run');
+    const {dryRun, checkOnly} = parseArgs();
+
     const allIconPaths: string[] = (await readDirRecursive(svgsDir))
         .filter((relativePath) => relativePath.endsWith('.icon.ts'))
         .map((relativePath) => join(svgsDir, relativePath));
 
-    const tsCode = generateTsCode(allIconPaths);
+    const tsCode = formatText(generateTsCode(allIconPaths), iconIndexPath);
 
     if (dryRun) {
         console.info(`Would've written the following to "${iconIndexPath}": "${tsCode}"`);
+    } else if (checkOnly) {
+        const currentOutputContents = (await readFile(iconIndexPath)).toString();
+        if (tsCode === currentOutputContents) {
+            console.info(`${iconIndexPath} is up to date.`);
+        } else {
+            console.error(`${iconIndexPath} needs to be updated.`);
+            process.exit(1);
+        }
     } else {
         console.info(`Writing to "${iconIndexPath}"`);
         await writeFile(iconIndexPath, tsCode);
-        await runShellCommand(`npm run format ${relative(process.cwd(), iconIndexPath)}`, {
-            rejectOnError: true,
-            hookUpToConsole: true,
-        });
     }
 }
 

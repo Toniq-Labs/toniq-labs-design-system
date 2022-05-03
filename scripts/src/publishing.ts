@@ -6,11 +6,11 @@
     "npm install" locally in this repo, but causes issues when another packages tries to install
     this package from npm (via "npm install @toniq-labs/design-system").
 */
-import {runShellCommand} from 'augment-vir/dist/node-only';
 import {readFile, writeFile} from 'fs/promises';
-import {dirname, join, relative} from 'path';
+import {join} from 'path';
+import {repoRootDir} from './common/file-paths';
+import {formatText} from './common/format';
 
-const repoRootDir = dirname(dirname(__dirname));
 const packageJsonPath = join(repoRootDir, 'package.json');
 const preInstallScript = 'npx npm-force-resolutions';
 
@@ -20,10 +20,11 @@ async function getPackageJsonObject() {
 }
 
 async function writePackageJson(packageJsonContents: any) {
-    await writeFile(packageJsonPath, JSON.stringify(packageJsonContents, null, 4));
-    await runShellCommand(`npm run format ${relative(process.cwd(), packageJsonPath)}`, {
-        rejectOnError: true,
-    });
+    const newFileContents = formatText(
+        JSON.stringify(packageJsonContents, null, 4),
+        packageJsonPath,
+    );
+    await writeFile(packageJsonPath, newFileContents);
 }
 
 async function removePreInstallScript() {

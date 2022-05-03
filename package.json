@@ -33,18 +33,16 @@
     "module": "dist/esm/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "add-icons": "ts-node src/scripts/add-svgs.ts",
         "build": "rm -rf dist && rollup -c",
         "build-storybook": "build-storybook",
         "format": "virmator format write",
         "preinstall": "npx npm-force-resolutions",
-        "prepublishOnly": "npm run test:full && ts-node src/scripts/publishing.ts prepublish && npm run build",
-        "postpublish": "ts-node src/scripts/publishing.ts postpublish",
+        "prepublishOnly": "npm run test:full && ts-node scripts/src/publishing.ts prepublish && npm run build",
+        "postpublish": "ts-node scripts/src/publishing.ts postpublish",
         "spellcheck": "virmator spellcheck",
         "storybook": "start-storybook -p 6006",
         "test": "virmator test --no-write-config",
-        "test:full": "npm test && npm run spellcheck && virmator format check",
-        "update-icon-exports": "ts-node src/scripts/update-icon-exports.ts"
+        "test:full": "npm test && npm run spellcheck && virmator format check"
     },
     "resolutions": {
         "fast-glob": "3.2.11",
