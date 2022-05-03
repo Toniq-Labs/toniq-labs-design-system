@@ -40,7 +40,7 @@
         "prepublishOnly": "npm run test:full && ts-node scripts/src/publishing.ts prepublish && npm run build",
         "postpublish": "ts-node scripts/src/publishing.ts postpublish",
         "spellcheck": "virmator spellcheck",
-        "storybook": "start-storybook -p 6006",
+        "storybook": "start-storybook -p 6006 -s ./.storybook/public",
         "test": "virmator test --no-write-config",
         "test:full": "npm test && npm run spellcheck && npm run format check && npm run build && cd scripts && npm run check-exports"
     },

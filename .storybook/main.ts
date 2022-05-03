@@ -1,4 +1,6 @@
-module.exports = {
+import {StorybookConfig} from '@storybook/core-common';
+
+const storybookConfig: StorybookConfig = {
     stories: [
         '../src/**/*.stories.mdx',
         '../src/**/*.stories.@(js|jsx|ts|tsx)',
@@ -11,3 +13,5 @@ module.exports = {
     ],
     framework: '@storybook/react',
 };
+
+export default storybookConfig;
