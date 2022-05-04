@@ -3,4 +3,4 @@ node_modules/
 package-lock.json
 
 graphics/
-storybook-static/
+.storybook-dist/

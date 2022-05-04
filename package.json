@@ -34,13 +34,14 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "build": "rm -rf dist && rollup -c",
-        "build-storybook": "build-storybook",
         "format": "virmator format --no-write-config",
         "preinstall": "npm-force-resolutions",
         "prepublishOnly": "npm run test:full && ts-node scripts/src/publishing.ts prepublish && npm run build",
         "postpublish": "ts-node scripts/src/publishing.ts postpublish",
         "spellcheck": "virmator spellcheck",
         "storybook": "start-storybook -p 6006 -s ./.storybook/public",
+        "storybook:build": "build-storybook --output-dir .storybook-dist -s ./.storybook/public",
+        "storybook:preview": "npm run storybook:build && http-server .storybook-dist",
         "test": "virmator test --no-write-config",
         "test:full": "npm test && npm run spellcheck && npm run format check && npm run build && cd scripts && npm run check-exports"
     },
@@ -72,6 +73,7 @@
         "@types/svgo": "2.6.3",
         "augment-vir": "2.1.0",
         "babel-loader": "8.2.5",
+        "http-server": "14.1.0",
         "npm-force-resolutions": "0.0.10",
         "react": "18.1.0",
         "react-dom": "18.1.0",
