@@ -8,7 +8,7 @@ const themeConfig = create({
     colorSecondary: '#09d8aa',
 
     brandTitle: 'Entrepot',
-    brandImage: '/logo.png',
+    brandImage: './logo.png',
 });
 
 addons.setConfig({
