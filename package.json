@@ -40,7 +40,7 @@
         "postpublish": "ts-node scripts/src/publishing.ts postpublish",
         "spellcheck": "virmator spellcheck",
         "storybook": "start-storybook -p 6006",
-        "storybook:build": "build-storybook --output-dir .storybook-dist",
+        "storybook:build": "build-storybook -c .storybook --output-dir .storybook-dist",
         "storybook:preview": "npm run storybook:build && http-server .storybook-dist",
         "test": "virmator test --no-write-config",
         "test:full": "npm test && npm run spellcheck && npm run format check && npm run build && npm run storybook:build && cd scripts && npm run check-exports"
