@@ -1,4 +1,6 @@
 dist/
 node_modules/
 package-lock.json
+
 graphics/
+storybook-static/

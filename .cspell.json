@@ -1,5 +1,8 @@
 {
-    "ignorePaths": ["graphics"],
+    "ignorePaths": [
+        "graphics",
+        "storybook-static"
+    ],
     "import": ".cspell-base.json",
     "words": [
         "dfinity",
