@@ -12,18 +12,29 @@ const storyControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArg
     {
         color: {
             name: 'Color',
-            defaultValue: 'red',
+            defaultValue: 'black',
             control: 'color',
         },
         applyColor: {
             name: 'Apply Color To',
             control: 'select',
+            defaultValue: 'Icon color CSS var',
             options: [
                 'Icon color CSS var',
                 'Icon fill color CSS var',
                 'Icon stroke color CSS var',
                 'CSS color property',
             ],
+        },
+        icon: {
+            table: {
+                disable: true,
+            },
+        },
+        title: {
+            table: {
+                disable: true,
+            },
         },
     } as const,
 );

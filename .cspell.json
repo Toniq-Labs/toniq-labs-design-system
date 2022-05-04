@@ -1,9 +1,13 @@
 {
-    "ignorePaths": ["graphics"],
+    "ignorePaths": [
+        "graphics",
+        ".storybook-dist"
+    ],
     "import": ".cspell-base.json",
     "words": [
         "dfinity",
         "elems",
+        "ERESOLVE",
         "globby",
         "postpublish",
         "preinstall",
