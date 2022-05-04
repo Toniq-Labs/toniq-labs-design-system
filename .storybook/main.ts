@@ -1,19 +1,22 @@
 import {StorybookConfig} from '@storybook/core-common';
 
+/** These configs values are exported as individual variables to appease some storybook build warnings. */
+
 export const stories: StorybookConfig['stories'] = [
     '../src/**/*.stories.mdx',
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
 ];
 export const addons: StorybookConfig['addons'] = [
-    '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
 ];
 export const framework: StorybookConfig['framework'] = '@storybook/react';
 
-const maxAssetSize = 1024 * 1024;
+export const staticDirs: StorybookConfig['staticDirs'] = ['./public'];
 
 export const webpackFinal: StorybookConfig['webpackFinal'] = (config) => {
+    const maxAssetSize = 1024 * 1024;
+
     config.optimization = {
         ...config.optimization,
         splitChunks: {
@@ -34,4 +37,5 @@ export const webpackFinal: StorybookConfig['webpackFinal'] = (config) => {
 export const features: StorybookConfig['features'] = {
     /** Decrease bundle size */
     storyStoreV7: true,
+    postcss: false,
 };

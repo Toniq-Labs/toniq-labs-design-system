@@ -39,11 +39,11 @@
         "prepublishOnly": "npm run test:full && ts-node scripts/src/publishing.ts prepublish && npm run build",
         "postpublish": "ts-node scripts/src/publishing.ts postpublish",
         "spellcheck": "virmator spellcheck",
-        "storybook": "start-storybook -p 6006 -s ./.storybook/public",
-        "storybook:build": "build-storybook --output-dir .storybook-dist -s ./.storybook/public",
+        "storybook": "start-storybook -p 6006",
+        "storybook:build": "build-storybook --output-dir .storybook-dist",
         "storybook:preview": "npm run storybook:build && http-server .storybook-dist",
         "test": "virmator test --no-write-config",
-        "test:full": "npm test && npm run spellcheck && npm run format check && npm run build && cd scripts && npm run check-exports"
+        "test:full": "npm test && npm run spellcheck && npm run format check && npm run build && npm run storybook:build && cd scripts && npm run check-exports"
     },
     "resolutions": {
         "glob-parent": "6.0.2",
@@ -57,10 +57,8 @@
         "@rollup/plugin-commonjs": "22.0.0",
         "@rollup/plugin-node-resolve": "13.3.0",
         "@rollup/plugin-typescript": "8.3.2",
-        "@storybook/addon-actions": "6.4.22",
         "@storybook/addon-essentials": "6.4.22",
         "@storybook/addon-interactions": "6.4.22",
-        "@storybook/addon-links": "6.4.22",
         "@storybook/addons": "6.4.22",
         "@storybook/react": "6.4.22",
         "@storybook/testing-library": "0.0.11",
