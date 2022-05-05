@@ -34,6 +34,7 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "build": "rm -rf dist && rollup -c",
+        "check-exports": "cd scripts && npm run check-exports",
         "format": "virmator format --no-write-config",
         "preinstall": "npm-force-resolutions",
         "prepublishOnly": "npm run test:full && ts-node scripts/src/publishing.ts prepublish && npm run build",
@@ -43,7 +44,7 @@
         "storybook:build": "build-storybook --output-dir .storybook-dist",
         "storybook:preview": "npm run storybook:build && http-server .storybook-dist",
         "test": "virmator test --no-write-config",
-        "test:full": "npm test && npm run spellcheck && npm run format check && npm run build && npm run storybook:build && cd scripts && npm run check-exports"
+        "test:full": "npm test && npm run spellcheck && npm run format check && npm run build && npm run storybook:build && npm run check-exports"
     },
     "resolutions": {
         "glob-parent": "6.0.2",

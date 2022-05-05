@@ -1,4 +1,13 @@
+import {existsSync} from 'fs';
+import {readFile, writeFile} from 'fs/promises';
 import {relative} from 'path';
+import {repoRootDir} from './file-paths';
+import {formatCode} from './format';
+
+export class NotUpToDateError extends Error {
+    public override readonly name = 'NotUpToDateError';
+}
+
 export function parseUpdateExportsArgs() {
     const dryRun = process.argv.includes('--dry-run');
     const checkOnly = process.argv.includes('--check');
@@ -9,7 +18,7 @@ export function parseUpdateExportsArgs() {
     };
 }
 
-export type UpdateExportsInputs = {
+export type UpdateExportsArgs = {
     /**
      * Indicates that no file should be written, and logs the code to the console. This option takes
      * precedence over checkOnly.
@@ -22,23 +31,48 @@ export type UpdateExportsInputs = {
     checkOnly?: boolean | undefined;
 };
 
-export type UpdateExportsResult = 'success' | 'check-failed';
-
 export type UpdateExportsConfig = {
-    executor: (inputs: UpdateExportsInputs) => Promise<UpdateExportsResult>;
-    scriptToRun: string;
+    executor: (inputs: UpdateExportsArgs) => Promise<void>;
 };
 
-export function errorIfFailure(
-    config: Pick<UpdateExportsConfig, 'scriptToRun'>,
-    result: UpdateExportsResult,
-) {
-    if (result === 'check-failed') {
-        throw new Error(
-            `${config.scriptToRun} needs to be updated: run 'ts-node ${relative(
-                process.cwd(),
-                __filename,
-            )}'`,
+export async function writeOrCheckFromArgs(
+    fileToWriteTo: string,
+    codeToWrite: string,
+    args: UpdateExportsArgs,
+    scriptName: string,
+): Promise<void> {
+    const formattedCode = formatCode(codeToWrite, fileToWriteTo);
+    const relativeWriteToFile = relative(repoRootDir, fileToWriteTo);
+
+    if (args.dryRun) {
+        console.info(
+            `Would've written the following to "${relativeWriteToFile}":\n"${formattedCode}"`,
         );
+    } else if (args.checkOnly) {
+        const currentOutputContents = (await readFile(fileToWriteTo)).toString();
+        if (formattedCode === currentOutputContents) {
+            console.info(`${relativeWriteToFile} is up to date.`);
+        } else {
+            throw new NotUpToDateError(
+                `\x1b[31m\x1b[1m${relativeWriteToFile} needs to be updated: run 'npx ts-node ${relative(
+                    repoRootDir,
+                    scriptName,
+                )}'\x1b[0m`,
+            );
+        }
+    } else {
+        console.info(`Writing to "${fileToWriteTo}"`);
+        await writeFile(fileToWriteTo, formattedCode);
     }
+}
+
+export async function updateExportsMain(
+    fileCheckPath: string,
+    updateExportsConfig: UpdateExportsConfig,
+): Promise<void> {
+    if (!existsSync(fileCheckPath)) {
+        throw new Error(`"${fileCheckPath}" file does not exist.`);
+    }
+
+    await updateExportsConfig.executor(parseUpdateExportsArgs());
 }
