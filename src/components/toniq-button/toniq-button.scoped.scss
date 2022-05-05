@@ -1,0 +1,19 @@
+.toniq-button {
+    font-family: 'Rubik';
+    font-weight: 700;
+    font-size: 16px;
+
+    border-radius: 8px;
+
+    &.default {
+        background-color: $caribbean-green;
+        padding: 12px;
+        color: $white;
+    }
+
+    &.selection {
+        background-color: $athens-gray;
+        padding: 4px 12px;
+        color: $black;
+    }
+}

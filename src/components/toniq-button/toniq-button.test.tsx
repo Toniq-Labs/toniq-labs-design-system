@@ -1,11 +1,11 @@
 import '@testing-library/jest-dom';
 import {render, screen} from '@testing-library/react';
 import React from 'react';
-import {ButtonPrimary} from './button-primary';
+import {ToniqButton} from './toniq-button';
 
-describe(ButtonPrimary.name, () => {
+describe(ToniqButton.name, () => {
     it('should display text', () => {
-        render(<ButtonPrimary text="Buy Now" />);
+        render(<ToniqButton text="Buy Now" />);
 
         expect(screen.queryByText('Buy Now')).toBeInTheDocument();
     });

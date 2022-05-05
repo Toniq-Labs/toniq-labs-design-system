@@ -19,8 +19,8 @@ export const virmatorJestConfig: InitialOptionsTsJest = {
             },
         },
     },
-    moduleNameMapper: {
-        '.scoped.(sc|c|sa)ss$': '<rootDir>/test/unit/stubs/style.js',
+    transform: {
+        '.+\\.(css|sass|scss)$': 'jest-transform-css',
     },
 };
 
