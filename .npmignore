@@ -19,4 +19,7 @@ test-files/
 tsconfig-base.json
 tsconfig.json
 
+.storybook/
+graphics/
 rollup.config.js
+scripts/

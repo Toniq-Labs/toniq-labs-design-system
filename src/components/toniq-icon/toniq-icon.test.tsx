@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import {render} from '@testing-library/react';
 import {assertNotNullish} from 'augment-vir/dist/jest-only';
 import React from 'react';
-import {Copy16Icon} from '../../icons/svgs/core16/copy16.icon';
+import {Copy16Icon} from '../../icons/svgs/core-16/copy-16.icon';
 import {ToniqIcon} from './toniq-icon';
 
 describe(ToniqIcon.name, () => {

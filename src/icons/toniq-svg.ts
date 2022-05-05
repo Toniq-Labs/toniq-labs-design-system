@@ -1,10 +1,13 @@
 export class ToniqSvg {
     public readonly svgString: string;
+    public readonly iconName: string;
 
     constructor(
+        iconName: string,
         // TypeScript member property shorthand is not working here, probably because of React or Babel
         svgString: string,
     ) {
+        this.iconName = iconName;
         this.svgString = svgString;
     }
 }
@@ -14,7 +17,7 @@ export class ToniqSvg {
  * most formatters (like Prettier, which we use) consider html tagged templates to be HTML code for
  * formatting purposes.
  */
-export function html(strings: TemplateStringsArray, ...values: any[]): string {
+export function html(strings: TemplateStringsArray, ...values: string[]): string {
     const combinedString = strings.reduce((accum, string, stringsIndex) => {
         const value = stringsIndex < values.length ? values[stringsIndex] : '';
         return accum + string + value;

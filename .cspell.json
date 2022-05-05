@@ -2,16 +2,21 @@
     "ignorePaths": [
         "graphics",
         "src/assets/fonts",
-        "src/assets/styles"
+        "src/assets/styles",
+        ".storybook-dist"
     ],
     "import": ".cspell-base.json",
     "words": [
         "dfinity",
+        "elems",
+        "ERESOLVE",
         "globby",
+        "postpublish",
         "preinstall",
         "prismjs",
         "rollup",
         "svgs",
+        "tiktok",
         "toniq",
         "toniqlabs",
         "preinstall",

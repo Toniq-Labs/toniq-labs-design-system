@@ -1,6 +1,5 @@
 import {addons} from '@storybook/addons';
 import {create} from '@storybook/theming';
-import Logo from '../src/storybook/assets/logo.png';
 
 const themeConfig = create({
     base: 'light',
@@ -9,7 +8,7 @@ const themeConfig = create({
     colorSecondary: '#09d8aa',
 
     brandTitle: 'Entrepot',
-    brandImage: Logo,
+    brandImage: './logo.png',
 });
 
 addons.setConfig({
