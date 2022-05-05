@@ -15,5 +15,10 @@
         background-color: $athens-gray;
         padding: 4px 12px;
         color: $black;
+
+        &.selected {
+            background-color: $caribbean-green;
+            color: $white;
+        }
     }
 }

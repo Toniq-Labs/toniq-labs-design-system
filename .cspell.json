@@ -2,7 +2,6 @@
     "ignorePaths": [
         "graphics",
         "src/assets/fonts",
-        "src/assets/styles",
         ".storybook-dist"
     ],
     "import": ".cspell-base.json",
@@ -23,6 +22,10 @@
         "globby",
         "prismjs",
         "overscroll",
-        "callout"
+        "callout",
+        "fonturl",
+        "iefix",
+        "opentype",
+        "truetype"
     ]
 }
