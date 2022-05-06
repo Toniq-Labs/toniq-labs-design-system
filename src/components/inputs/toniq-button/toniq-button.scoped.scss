@@ -9,14 +9,19 @@
         background-color: $caribbean-green;
         padding: 12px;
         color: $white;
+
+        &.secondary {
+            background-color: $athens-gray;
+            color: $black;
+        }
     }
 
-    &.selection {
+    &.toggle {
         background-color: $athens-gray;
         padding: 4px 12px;
         color: $black;
 
-        &.selected {
+        &.active {
             background-color: $caribbean-green;
             color: $white;
         }

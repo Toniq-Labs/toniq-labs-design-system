@@ -74,7 +74,7 @@
         "babel-loader": "8.2.5",
         "babel-plugin-react-scoped-css": "1.1.1",
         "http-server": "14.1.0",
-        "jest-transform-css": "4.0.1",
+        "identity-obj-proxy": "3.0.0",
         "npm-force-resolutions": "0.0.10",
         "react": "18.1.0",
         "react-dom": "18.1.0",

@@ -14,7 +14,7 @@ export const addons: StorybookConfig['addons'] = [
 ];
 export const framework: StorybookConfig['framework'] = '@storybook/react';
 
-export const staticDirs: StorybookConfig['staticDirs'] = ['./public'];
+export const staticDirs: StorybookConfig['staticDirs'] = ['../public'];
 
 export const webpackFinal: StorybookConfig['webpackFinal'] = (config: Configuration) => {
     const maxAssetSize = 1024 * 1024;
