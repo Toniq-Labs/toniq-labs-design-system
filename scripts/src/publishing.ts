@@ -9,7 +9,7 @@
 import {readFile, writeFile} from 'fs/promises';
 import {join} from 'path';
 import {repoRootDir} from './common/file-paths';
-import {formatText} from './common/format';
+import {formatCode} from './common/format';
 
 const packageJsonPath = join(repoRootDir, 'package.json');
 const preInstallScript = 'npx npm-force-resolutions';
@@ -20,7 +20,7 @@ async function getPackageJsonObject() {
 }
 
 async function writePackageJson(packageJsonContents: any) {
-    const newFileContents = formatText(
+    const newFileContents = formatCode(
         JSON.stringify(packageJsonContents, null, 4),
         packageJsonPath,
     );

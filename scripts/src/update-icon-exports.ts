@@ -5,17 +5,13 @@
 */
 import {getObjectTypedKeys, kebabCaseToCamelCase} from 'augment-vir/dist';
 import {readDirRecursive, toPosixPath} from 'augment-vir/dist/node-only';
-import {existsSync} from 'fs';
-import {readFile, writeFile} from 'fs/promises';
 import {basename, dirname, join, relative} from 'path';
 import {srcDir} from './common/file-paths';
-import {formatText} from './common/format';
 import {
-    errorIfFailure,
-    parseUpdateExportsArgs,
+    UpdateExportsArgs,
     UpdateExportsConfig,
-    UpdateExportsInputs,
-    UpdateExportsResult,
+    updateExportsMain,
+    writeOrCheckFromArgs,
 } from './common/update-exports';
 
 const svgsDir = join(srcDir, 'icons', 'svgs');
@@ -32,7 +28,7 @@ function generateTsImport(iconFilePath: string, iconName: string): string {
     return `import {${iconName}} from './${toPosixPath(relativePath)}';`;
 }
 
-function generateTsCode(iconPaths: string[]): string {
+function generateIconImportsAndExports(iconPaths: string[]): string {
     type IconInfo = {
         iconName: string;
         importString: string;
@@ -105,43 +101,22 @@ function generateTsCode(iconPaths: string[]): string {
 }
 
 export const updateIconExports: UpdateExportsConfig = {
-    executor: async (inputs: UpdateExportsInputs): Promise<UpdateExportsResult> => {
+    executor: async (inputs: UpdateExportsArgs): Promise<void> => {
         const allIconPaths: string[] = (await readDirRecursive(svgsDir))
             .filter((relativePath) => relativePath.endsWith('.icon.ts'))
             .map((relativePath) => join(svgsDir, relativePath));
 
-        const tsCode = formatText(generateTsCode(allIconPaths), iconIndexPath);
-
-        if (inputs.dryRun) {
-            console.info(`Would've written the following to "${iconIndexPath}": "${tsCode}"`);
-        } else if (inputs.checkOnly) {
-            const currentOutputContents = (await readFile(iconIndexPath)).toString();
-            if (tsCode === currentOutputContents) {
-                console.info(`${iconIndexPath} is up to date.`);
-            } else {
-                return 'check-failed';
-            }
-        } else {
-            console.info(`Writing to "${iconIndexPath}"`);
-            await writeFile(iconIndexPath, tsCode);
-        }
-
-        return 'success';
+        await writeOrCheckFromArgs(
+            iconIndexPath,
+            generateIconImportsAndExports(allIconPaths),
+            inputs,
+            __filename,
+        );
     },
-    scriptToRun: __filename,
 };
 
-async function main() {
-    if (!existsSync(iconIndexPath)) {
-        throw new Error(`"${iconIndexPath}" file does not exist.`);
-    }
-
-    const result = await updateIconExports.executor(parseUpdateExportsArgs());
-    errorIfFailure(updateIconExports, result);
-}
-
 if (require.main === module) {
-    main().catch((error) => {
+    updateExportsMain(iconIndexPath, updateIconExports).catch((error) => {
         console.error(error);
         process.exit(1);
     });
