@@ -5,7 +5,7 @@ import * as importedRepoConfig from '../../../.prettierrc.js';
 
 const repoConfig: PrettierOptions = importedRepoConfig as PrettierOptions;
 
-export function formatText(text: string, filePath: string): string {
+export function formatCode(text: string, filePath: string): string {
     return prettierFormat(text, {
         ...repoConfig,
         filepath: filePath,

@@ -3,8 +3,16 @@
         "declarationDir": "types",
         "jsx": "react",
         "module": "ESNext",
+        "outDir": "dist",
+        "rootDir": "src",
         "sourceMap": true
     },
-    "exclude": ["scripts"],
+    "exclude": [
+        ".storybook-dist",
+        ".virmator",
+        "graphics",
+        "scripts",
+        "storybook"
+    ],
     "extends": "./tsconfig-base.json"
 }

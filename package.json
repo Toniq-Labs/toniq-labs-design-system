@@ -16,7 +16,7 @@
         "internet computer",
         "ic"
     ],
-    "homepage": "https://github.com/Toniq-Labs/toniq-labs-design-system#readme",
+    "homepage": "https://toniq-labs.github.io/toniq-labs-design-system",
     "bugs": {
         "url": "https://github.com/Toniq-Labs/toniq-labs-design-system/issues"
     },
@@ -34,6 +34,7 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "build": "rm -rf dist && rollup -c",
+        "check-exports": "cd scripts && npm run check-exports",
         "format": "virmator format --no-write-config",
         "preinstall": "npm-force-resolutions",
         "prepublishOnly": "npm run test:full && ts-node scripts/src/publishing.ts prepublish && npm run build",
@@ -43,7 +44,7 @@
         "storybook:build": "build-storybook --output-dir .storybook-dist",
         "storybook:preview": "npm run storybook:build && http-server .storybook-dist",
         "test": "virmator test --no-write-config",
-        "test:full": "npm test && npm run spellcheck && npm run format check && npm run build && npm run storybook:build && cd scripts && npm run check-exports"
+        "test:full": "npm test && npm run spellcheck && npm run format check && npm run build && npm run storybook:build && npm run check-exports"
     },
     "resolutions": {
         "glob-parent": "6.0.2",
@@ -76,6 +77,7 @@
         "http-server": "14.1.0",
         "identity-obj-proxy": "3.0.0",
         "npm-force-resolutions": "0.0.10",
+        "prettier": "2.6.2",
         "react": "18.1.0",
         "react-dom": "18.1.0",
         "rollup": "2.71.1",
