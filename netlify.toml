@@ -1,0 +1,4 @@
+[build]
+  base = "."
+  publish = ".storybook-dist/"
+  command = "npm run storybook:build"
