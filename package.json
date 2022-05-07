@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "0.0.0-beta.7",
+    "version": "0.0.0-beta.8",
     "private": false,
     "description": "Design system components for Toniq Labs",
     "keywords": [
@@ -29,11 +29,10 @@
         "name": "Toniq-Labs",
         "url": "https://github.com/Toniq-Labs"
     },
-    "main": "dist/cjs/index.js",
-    "module": "dist/esm/index.js",
+    "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "build": "rm -rf dist && rollup -c",
+        "build": "rm -rf dist && virmator compile --no-write-config",
         "check-exports": "cd scripts && npm run check-exports",
         "format": "virmator format --no-write-config",
         "preinstall": "npm-force-resolutions",
