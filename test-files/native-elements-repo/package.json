@@ -1,0 +1,21 @@
+{
+    "name": "native-elements-repo",
+    "version": "1.0.0",
+    "description": "",
+    "keywords": [],
+    "license": "MIT",
+    "author": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "vite --force --config ./src/vite/vite.config.ts",
+        "test": "tsc --noEmit && web-test-runner --node-resolve"
+    },
+    "dependencies": {
+        "@toniq-labs/design-system": "file:../../toniq-labs-design-system-0.0.0-beta.8.tgz",
+        "element-vir": "5.4.2"
+    },
+    "devDependencies": {
+        "typescript": "4.6.4",
+        "vite": "2.9.8"
+    }
+}

@@ -27,13 +27,13 @@ async function writePackageJson(packageJsonContents: any) {
     await writeFile(packageJsonPath, newFileContents);
 }
 
-async function removePreInstallScript() {
+export async function removePreInstallScript() {
     const packageJsonContents = await getPackageJsonObject();
     delete packageJsonContents.scripts.preinstall;
     await writePackageJson(packageJsonContents);
 }
 
-async function insertPreInstallScript() {
+export async function insertPreInstallScript() {
     const packageJsonContents = await getPackageJsonObject();
     packageJsonContents.scripts.preinstall = preInstallScript;
     await writePackageJson(packageJsonContents);
