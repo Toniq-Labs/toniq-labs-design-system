@@ -1,0 +1,154 @@
+/*
+** Reset
+*/
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+.hidden {
+    display: none !important;
+    visibility: none;
+}
+h1,
+h2,
+h3,
+h4 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Roboto', 'Open Sans', 'Droid Sans';
+    font-weight: 500;
+}
+
+p {
+    margin: 0 0 1.5em;
+    font-family: 'Inter', 'Roboto', 'Open Sans', 'Droid Sans';
+}
+
+ul,
+ol {
+    margin: 0 0 1.5em;
+    padding: 0;
+
+    font-weight: 300;
+}
+
+button {
+    font-family: 'Inter', 'Roboto', 'Open Sans', 'Droid Sans';
+    border: 0;
+    cursor: pointer;
+    background: none;
+    color: white;
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    font-family: 'Inter', 'Roboto', 'Open Sans', 'Droid Sans';
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+textarea {
+    font-family: 'Inter', 'Roboto', 'Open Sans', 'Droid Sans';
+    border: 0;
+    background-color: white;
+}
+
+select {
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+input {
+    font-family: 'Inter', 'Roboto', 'Open Sans', 'Droid Sans';
+    font-weight: 400;
+    background-color: white;
+    border: 0;
+    outline: 0;
+    border: 0;
+    width: 100%;
+    font-size: 1em;
+    line-height: 17px;
+    color: white;
+    padding: 0px;
+
+    &:focus {
+        @supports (-webkit-touch-callout: none) {
+            font-size: 16px;
+        }
+    }
+}
+
+body,
+html {
+    padding: 0;
+    margin: 0;
+
+    font-family: 'Inter', 'Roboto', 'Open Sans', 'Droid Sans';
+    font-weight: 400;
+    color: white;
+    background-color: white;
+
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overscroll-behavior: none;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+audio,
+canvas,
+progress,
+video {
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:after,
+blockquote:before,
+q:after,
+q:before {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+textarea {
+    overflow: auto;
+    vertical-align: top;
+    resize: none;
+}

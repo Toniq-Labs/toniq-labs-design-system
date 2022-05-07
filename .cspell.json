@@ -1,7 +1,8 @@
 {
     "ignorePaths": [
         "graphics",
-        ".storybook-dist"
+        ".storybook-dist",
+        "*.otf"
     ],
     "import": ".cspell-base.json",
     "words": [
@@ -16,6 +17,15 @@
         "svgs",
         "tiktok",
         "toniq",
-        "toniqlabs"
+        "toniqlabs",
+        "preinstall",
+        "globby",
+        "prismjs",
+        "overscroll",
+        "callout",
+        "fonturl",
+        "iefix",
+        "opentype",
+        "truetype"
     ]
 }

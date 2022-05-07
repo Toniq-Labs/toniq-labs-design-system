@@ -1,2 +1,2 @@
-export * from './hello-world/hello-world';
+export * from './toniq-button/toniq-button';
 export * from './toniq-icon/toniq-icon';

@@ -19,6 +19,9 @@ export const virmatorJestConfig: InitialOptionsTsJest = {
             },
         },
     },
+    moduleNameMapper: {
+        '.+\\.(css|sass|scss)$': 'identity-obj-proxy',
+    },
 };
 
 export default virmatorJestConfig;
