@@ -12,7 +12,7 @@ import {repoRootDir} from './common/file-paths';
 import {formatCode} from './common/format';
 
 const packageJsonPath = join(repoRootDir, 'package.json');
-const preInstallScript = 'npx npm-force-resolutions';
+const preInstallScript = 'npm-force-resolutions';
 
 async function getPackageJsonObject() {
     const packageJsonContents = JSON.parse((await readFile(packageJsonPath)).toString());
