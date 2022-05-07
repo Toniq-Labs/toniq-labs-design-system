@@ -9,7 +9,10 @@
         "dfinity",
         "elems",
         "ERESOLVE",
+        "esbuild",
         "globby",
+        "iefix",
+        "opentype",
         "postpublish",
         "preinstall",
         "prismjs",
@@ -17,15 +20,6 @@
         "svgs",
         "tiktok",
         "toniq",
-        "toniqlabs",
-        "preinstall",
-        "globby",
-        "prismjs",
-        "overscroll",
-        "callout",
-        "fonturl",
-        "iefix",
-        "opentype",
         "truetype"
     ]
 }

@@ -3,8 +3,8 @@
     for, exports from, and a big object containing all the icon files located in "svgsDir" defined
     below.
 */
-import {getObjectTypedKeys, kebabCaseToCamelCase} from 'augment-vir/dist';
-import {readDirRecursive, toPosixPath} from 'augment-vir/dist/node-only';
+import {getObjectTypedKeys, kebabCaseToCamelCase} from 'augment-vir/dist/cjs';
+import {readDirRecursive, toPosixPath} from 'augment-vir/dist/cjs/node-only';
 import {basename, dirname, join, relative} from 'path';
 import {srcDir} from './common/file-paths';
 import {
