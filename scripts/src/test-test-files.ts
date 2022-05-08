@@ -20,6 +20,10 @@ async function runTests(tarFullPath: string) {
                 cwd: testDirPath,
                 rejectOnError: true,
             });
+            await runShellCommand(`npm i`, {
+                cwd: testDirPath,
+                rejectOnError: true,
+            });
 
             const results = await runShellCommand('npm test', {
                 cwd: testDirPath,

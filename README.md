@@ -2,8 +2,8 @@
 
 Reusable components for Toniq Lab's websites. All components are currently React only.
 
-Package on NPM: https://www.npmjs.com/package/@toniq-labs/design-system
-Storybook on GitHub Pages: https://toniq-labs.github.io/toniq-labs-design-system
+-   Package on NPM: https://www.npmjs.com/package/@toniq-labs/design-system
+-   Storybook on GitHub Pages: https://toniq-labs.github.io/toniq-labs-design-system
 
 # Usage
 
