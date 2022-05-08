@@ -1,5 +1,5 @@
 import {awaitedForEach, combineErrors, extractErrorMessage} from 'augment-vir';
-import {runShellCommand} from 'augment-vir/dist/cjs/node-only';
+import {runShellCommand, toPosixPath} from 'augment-vir/dist/cjs/node-only';
 import {readdir, unlink} from 'fs/promises';
 import {join, relative} from 'path';
 import {repoRootDir, testFilesDir} from './common/file-paths';
@@ -16,7 +16,7 @@ async function runTests(tarFullPath: string) {
                 cwd: testDirPath,
                 rejectOnError: true,
             });
-            await runShellCommand(`npm install ${tarPath}`, {
+            await runShellCommand(`npm install ${toPosixPath(tarPath)}`, {
                 cwd: testDirPath,
                 rejectOnError: true,
             });
