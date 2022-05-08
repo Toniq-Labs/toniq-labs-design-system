@@ -4,7 +4,7 @@
     "scripts": {
         "format": "virmator format",
         "start": "BROWSER=none FORCE_COLOR=true PORT=3006 react-scripts start | cat",
-        "test": "./run-tests.sh"
+        "test": "bash run-tests.sh"
     },
     "browserslist": {
         "production": [
