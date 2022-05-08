@@ -1,12 +1,8 @@
 {
     "name": "native-elements-repo",
-    "version": "1.0.0",
-    "description": "",
-    "keywords": [],
-    "license": "MIT",
-    "author": "",
-    "main": "index.js",
+    "private": "true",
     "scripts": {
+        "format": "virmator format",
         "start": "vite --force --config ./src/vite/vite.config.ts",
         "test": "tsc --noEmit && web-test-runner --node-resolve"
     },
@@ -16,6 +12,7 @@
     },
     "devDependencies": {
         "typescript": "4.6.4",
+        "virmator": "2.0.7",
         "vite": "2.9.8"
     }
 }

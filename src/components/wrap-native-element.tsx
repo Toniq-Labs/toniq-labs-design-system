@@ -52,7 +52,11 @@ export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
 
         public override render() {
             const TagName = elementConstructor.tagName as any;
-            return <TagName ref={this.componentRef}>{this.props.children}</TagName>;
+            return (
+                <div>
+                    <TagName ref={this.componentRef}>{this.props.children}</TagName>
+                </div>
+            );
         }
     };
 }

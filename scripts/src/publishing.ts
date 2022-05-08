@@ -41,7 +41,7 @@ export async function insertPreInstallScript() {
 
 async function main() {
     const args = process.argv.slice(2);
-    if (args.includes('prepublish')) {
+    if (args.includes('prepack')) {
         await removePreInstallScript();
     } else {
         await insertPreInstallScript();

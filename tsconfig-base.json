@@ -5,6 +5,7 @@
         "esModuleInterop": true,
         "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
         "module": "CommonJS",
         "moduleResolution": "Node",
         "noImplicitAny": true,

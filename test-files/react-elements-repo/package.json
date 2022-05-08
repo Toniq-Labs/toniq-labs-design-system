@@ -1,0 +1,34 @@
+{
+    "name": "react-elements-repo",
+    "private": true,
+    "scripts": {
+        "format": "virmator format",
+        "start": "BROWSER=none FORCE_COLOR=true PORT=3006 react-scripts start | cat",
+        "test": "./run-tests.sh"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "dependencies": {
+        "@toniq-labs/design-system": "file:../../toniq-labs-design-system-0.0.0-beta.8.tgz"
+    },
+    "devDependencies": {
+        "kill-port": "1.6.1",
+        "puppeteer": "13.7.0",
+        "react": "18.1.0",
+        "react-dom": "18.1.0",
+        "react-scripts": "5.0.1",
+        "ts-node": "10.7.0",
+        "typescript": "4.6.4",
+        "virmator": "2.0.7"
+    }
+}

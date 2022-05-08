@@ -1,4 +1,5 @@
 import {css, defineFunctionalElement, html} from 'element-vir';
+import {unsafeSVG} from 'lit/directives/unsafe-svg.js';
 import {ToniqSvg} from '../../icons/toniq-svg';
 
 export const ToniqIcon = defineFunctionalElement({
@@ -10,7 +11,7 @@ export const ToniqIcon = defineFunctionalElement({
     styles: css``,
     renderCallback: ({props}) => {
         return html`
-            derp
+            <div title=${props.title}>${unsafeSVG(props.icon?.svgString)}</div>
         `;
     },
 });
