@@ -6,7 +6,7 @@ import {
     toniqSvgFillColorCssVarName,
     toniqSvgStrokeColorCssVarName,
 } from '../../icons/toniq-svg-colors';
-import {ToniqIcon} from './toniq-icon';
+import {ToniqIcon} from '../react-components';
 
 const storyControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) => input)(
     {
@@ -80,7 +80,7 @@ export const AllIcons = (controls: Record<keyof typeof storyControls, string>) =
                     fontFamily: 'sans-serif',
                 }}
             >
-                <h3>{categoryName}</h3>
+                <h3 style={{margin: '10px 0', fontSize: '1.3em'}}>{categoryName}</h3>
                 <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap', ...colorStyles}}>
                     {iconInstances}
                 </div>

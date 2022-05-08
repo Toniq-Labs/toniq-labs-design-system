@@ -23,3 +23,8 @@ tsconfig.json
 graphics/
 rollup.config.js
 scripts/
+.storybook-dist
+*.tgz
+tsconfig.*.json
+web-test-runner.config.mjs
+netlify.toml

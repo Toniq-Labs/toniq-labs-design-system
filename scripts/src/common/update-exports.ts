@@ -51,7 +51,7 @@ export async function writeOrCheckFromArgs(
     } else if (args.checkOnly) {
         const currentOutputContents = (await readFile(fileToWriteTo)).toString();
         if (formattedCode === currentOutputContents) {
-            console.info(`${relativeWriteToFile} is up to date.`);
+            console.info(`\x1b[32m${relativeWriteToFile} is up to date.\x1b[0m`);
         } else {
             throw new NotUpToDateError(
                 `\x1b[31m\x1b[1m${relativeWriteToFile} needs to be updated: run 'npx ts-node ${relative(

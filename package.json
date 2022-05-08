@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "0.0.0-beta.7",
+    "version": "0.0.0-beta.8",
     "private": false,
     "description": "Design system components for Toniq Labs",
     "keywords": [
@@ -31,30 +31,35 @@
     },
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
-    "types": "dist/index.d.ts",
+    "types": "dist/types/index.d.ts",
     "scripts": {
-        "build": "rm -rf dist && rollup -c",
+        "build": "rm -rf dist && tsc --project tsconfig.json && tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
         "check-exports": "cd scripts && npm run check-exports",
         "format": "virmator format --no-write-config",
         "preinstall": "npm-force-resolutions",
-        "prepublishOnly": "npm run test:full && ts-node scripts/src/publishing.ts prepublish && npm run build",
-        "postpublish": "ts-node scripts/src/publishing.ts postpublish",
+        "prepack": "ts-node scripts/src/publishing.ts prepack",
+        "postpack": "ts-node scripts/src/publishing.ts postpack",
+        "prepublishOnly": "npm run test:full && npm run build",
         "spellcheck": "virmator spellcheck",
+        "start": "npm run storybook",
         "storybook": "start-storybook -p 6006",
         "storybook:build": "build-storybook --output-dir .storybook-dist",
         "storybook:preview": "npm run storybook:build && http-server .storybook-dist",
-        "test": "virmator test --no-write-config",
-        "test:full": "npm test && npm run spellcheck && npm run format check && npm run build && npm run storybook:build && npm run check-exports"
+        "test": "web-test-runner --node-resolve",
+        "test:full": "npm test && npm run test:scripts && npm run spellcheck && npm run format check && npm run build && npm run storybook:build",
+        "test:scripts": "cd scripts && npm run test"
     },
     "resolutions": {
         "glob-parent": "6.0.2",
         "trim": "1.0.1"
     },
     "dependencies": {
-        "styled-components": "5.3.5"
+        "augment-vir": "2.2.1",
+        "element-vir": "5.4.2"
     },
     "devDependencies": {
-        "@babel/core": "7.17.10",
+        "@esm-bundle/chai": "4.3.4-fix.0",
+        "@open-wc/testing": "3.1.4",
         "@rollup/plugin-commonjs": "22.0.0",
         "@rollup/plugin-node-resolve": "13.3.0",
         "@rollup/plugin-typescript": "8.3.2",
@@ -63,34 +68,23 @@
         "@storybook/addon-interactions": "6.4.22",
         "@storybook/addons": "6.4.22",
         "@storybook/react": "6.4.22",
-        "@storybook/testing-library": "0.0.11",
         "@storybook/theming": "6.4.22",
-        "@testing-library/jest-dom": "5.16.4",
-        "@testing-library/react": "13.2.0",
-        "@testing-library/user-event": "14.1.1",
-        "@types/react": "18.0.8",
-        "@types/styled-components": "5.1.25",
+        "@types/react": "18.0.9",
         "@types/svgo": "2.6.3",
-        "augment-vir": "2.1.0",
-        "babel-loader": "8.2.5",
-        "babel-plugin-react-scoped-css": "1.1.1",
+        "@web/dev-server-esbuild": "0.3.0",
+        "@web/test-runner": "0.13.27",
         "http-server": "14.1.0",
-        "identity-obj-proxy": "3.0.0",
+        "jest-environment-jsdom": "28.1.0",
         "npm-force-resolutions": "0.0.10",
         "prettier": "2.6.2",
         "react": "18.1.0",
         "react-dom": "18.1.0",
-        "rollup": "2.71.1",
+        "rollup": "2.72.1",
         "rollup-plugin-dts": "4.2.1",
         "rollup-plugin-peer-deps-external": "2.2.4",
         "rollup-plugin-scss": "3.0.0",
         "rollup-plugin-terser": "7.0.2",
-        "sass": "1.50.1",
-        "sass-loader": "10.1.1",
-        "scoped-css-loader": "1.0.0",
-        "style-resources-loader": "1.5.0",
-        "styled-components": "5.3.5",
         "svgo": "2.8.0",
-        "virmator": "2.0.6"
+        "virmator": "2.0.7"
     }
 }

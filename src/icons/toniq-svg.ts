@@ -4,9 +4,10 @@ export class ToniqSvg {
 
     constructor(
         iconName: string,
-        // TypeScript member property shorthand is not working here, probably because of React or Babel
+        /** Never insert user input into this svgString! */
         svgString: string,
     ) {
+        // TypeScript member property shorthand is not working here, probably because of React or Babel
         this.iconName = iconName;
         this.svgString = svgString;
     }

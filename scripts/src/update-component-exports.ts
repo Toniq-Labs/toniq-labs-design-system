@@ -1,4 +1,4 @@
-import {toPosixPath} from 'augment-vir/dist/node-only';
+import {toPosixPath} from 'augment-vir/dist/cjs/node-only';
 import {existsSync} from 'fs';
 import {readdir, stat} from 'fs/promises';
 import {join, relative} from 'path';
@@ -11,7 +11,7 @@ import {
 } from './common/update-exports';
 
 const componentsDir = join(srcDir, 'components');
-const componentIndexPath = join(componentsDir, 'index.tsx');
+const componentIndexPath = join(componentsDir, 'index.ts');
 
 async function getComponentFilePaths(): Promise<string[]> {
     const allComponentDirChildrenWithStats = await Promise.all(
@@ -33,7 +33,7 @@ async function getComponentFilePaths(): Promise<string[]> {
         })
         .map((child) => child.childName);
     const allComponentFilePaths = allComponentDirectoryNames.map((componentDir) => {
-        const fileName = `${componentDir}.tsx`;
+        const fileName = `${componentDir}.component.ts`;
         return join(componentsDir, componentDir, fileName);
     });
     return allComponentFilePaths;
@@ -54,7 +54,7 @@ async function verifyComponentFilePaths(filePaths: string[]): Promise<void> {
 
 function generateComponentExports(filePaths: string[]): string {
     const exportLines = filePaths.map((filePath) => {
-        const relativePath = relative(componentsDir, filePath).replace(/\.tsx?$/, '');
+        const relativePath = relative(componentsDir, filePath).replace(/\.ts?$/, '');
 
         return `export * from './${toPosixPath(relativePath)}';`;
     });

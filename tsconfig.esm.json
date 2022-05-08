@@ -1,7 +1,5 @@
 {
     "compilerOptions": {
-        "declarationDir": "dist/types",
-        "jsx": "react",
         "module": "ESNext",
         "outDir": "dist/esm",
         "rootDir": "src"

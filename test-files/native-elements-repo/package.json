@@ -1,0 +1,18 @@
+{
+    "name": "native-elements-repo",
+    "private": "true",
+    "scripts": {
+        "format": "virmator format",
+        "start": "vite --force --config ./src/vite/vite.config.ts",
+        "test": "tsc --noEmit && web-test-runner --node-resolve"
+    },
+    "dependencies": {
+        "@toniq-labs/design-system": "file:../../toniq-labs-design-system-0.0.0-beta.8.tgz",
+        "element-vir": "5.4.2"
+    },
+    "devDependencies": {
+        "typescript": "4.6.4",
+        "virmator": "2.0.7",
+        "vite": "2.9.8"
+    }
+}

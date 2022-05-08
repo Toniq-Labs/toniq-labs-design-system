@@ -6,7 +6,6 @@ const cwd = process.cwd();
 export const virmatorJestConfig: InitialOptionsTsJest = {
     preset: 'ts-jest',
     testEnvironment: 'jsdom',
-    rootDir: cwd,
     modulePathIgnorePatterns: ['.*.type.test.ts$'],
     roots: [join(cwd, 'src')],
     setupFilesAfterEnv: [join(__dirname, 'jest-setup.ts')],
@@ -18,9 +17,6 @@ export const virmatorJestConfig: InitialOptionsTsJest = {
                 ignoreCodes: ['TS151001'],
             },
         },
-    },
-    moduleNameMapper: {
-        '.+\\.(css|sass|scss)$': 'identity-obj-proxy',
     },
 };
 

@@ -12,7 +12,7 @@ import {repoRootDir} from './common/file-paths';
 import {formatCode} from './common/format';
 
 const packageJsonPath = join(repoRootDir, 'package.json');
-const preInstallScript = 'npx npm-force-resolutions';
+const preInstallScript = 'npm-force-resolutions';
 
 async function getPackageJsonObject() {
     const packageJsonContents = JSON.parse((await readFile(packageJsonPath)).toString());
@@ -27,13 +27,13 @@ async function writePackageJson(packageJsonContents: any) {
     await writeFile(packageJsonPath, newFileContents);
 }
 
-async function removePreInstallScript() {
+export async function removePreInstallScript() {
     const packageJsonContents = await getPackageJsonObject();
     delete packageJsonContents.scripts.preinstall;
     await writePackageJson(packageJsonContents);
 }
 
-async function insertPreInstallScript() {
+export async function insertPreInstallScript() {
     const packageJsonContents = await getPackageJsonObject();
     packageJsonContents.scripts.preinstall = preInstallScript;
     await writePackageJson(packageJsonContents);
@@ -41,7 +41,7 @@ async function insertPreInstallScript() {
 
 async function main() {
     const args = process.argv.slice(2);
-    if (args.includes('prepublish')) {
+    if (args.includes('prepack')) {
         await removePreInstallScript();
     } else {
         await insertPreInstallScript();

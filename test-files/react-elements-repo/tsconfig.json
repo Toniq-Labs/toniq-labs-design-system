@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "noEmit": true,
+        "rootDir": "puppeteer-src"
+    },
+    "exclude": ["react-src"],
+    "extends": "../../tsconfig-base.json"
+}

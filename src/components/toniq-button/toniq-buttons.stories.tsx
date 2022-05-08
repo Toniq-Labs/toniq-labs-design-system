@@ -1,5 +1,6 @@
 import React from 'react';
-import {ToniqButton} from './toniq-button';
+import {ToniqButton} from '../react-components';
+import {ToniqButtonType, ToniqButtonVariant} from './toniq-button.component';
 
 export default {
     title: 'Design System/Toniq Button',
@@ -8,6 +9,8 @@ export default {
 
 export const Primary = () => <ToniqButton text="Buy Now" />;
 
-export const Secondary = () => <ToniqButton text="Buy Now" variant="secondary" />;
+export const Secondary = () => (
+    <ToniqButton text="Buy Now" variant={ToniqButtonVariant.Secondary} />
+);
 
-export const Toggle = () => <ToniqButton text="For Sale" type="toggle" />;
+export const Toggle = () => <ToniqButton text="For Sale" type={ToniqButtonType.Toggle} />;
