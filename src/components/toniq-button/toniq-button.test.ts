@@ -15,7 +15,7 @@ describe(ToniqButton.tagName, () => {
             `,
         );
         expect(rendered.shadowRoot?.querySelector('button')?.className.trim()).to.equal(
-            'type-default variant-primary',
+            'variant-primary',
         );
     });
 
