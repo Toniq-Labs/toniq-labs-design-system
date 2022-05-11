@@ -4,6 +4,8 @@ export const ToniqToggleButton = defineFunctionalElement({
     tagName: 'toniq-toggle-button',
     props: {
         text: '',
+        checked: false,
+        onchange: (e: Event) => {},
     },
     styles: css`
         span {
@@ -13,11 +15,10 @@ export const ToniqToggleButton = defineFunctionalElement({
             font-weight: 700;
             font-size: 16px;
             -webkit-tap-highlight-color: transparent;
-
             border-radius: 8px;
-
             background-color: var(--toniq-secondary-interaction-background-color, #f1f3f6);
             color: var(--toniq-secondary-interaction-text-color, black);
+
             padding: 4px 12px;
         }
 
@@ -25,17 +26,22 @@ export const ToniqToggleButton = defineFunctionalElement({
             display: none;
         }
 
-        input[type='checkbox']:checked + span {
+        input[type='checkbox']:checked + span,
+        input[checked='true'] + span {
             background-color: var(--toniq-primary-interaction-background-color, #00d093);
             color: var(--toniq-primary-interaction-text-color, white);
         }
     `,
-    renderCallback: ({props}) => {
+    renderCallback: ({props, dispatch, events}) => {
         return html`
             <label>
-                <!-- Add @change event props -->
-                <input type="checkbox" />
-                <span>${props.text}</span>
+                <input
+                    id=${props.text}
+                    type="checkbox"
+                    ?checked=${props.checked}
+                    @change=${props.onchange}
+                />
+                <span for=${props.text}>${props.text}</span>
             </label>
         `;
     },

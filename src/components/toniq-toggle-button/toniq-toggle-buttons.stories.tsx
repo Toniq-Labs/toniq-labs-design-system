@@ -6,4 +6,10 @@ export default {
     component: ToniqToggleButton,
 };
 
-export const Primary = () => <ToniqToggleButton text="Buy Now" />;
+const handleChange = (e: Event) => {
+    console.log((e.target as HTMLInputElement).checked);
+};
+
+export const Toggle = () => <ToniqToggleButton text="Buy Now" onchange={handleChange} />;
+
+export const ForceChecked = () => <ToniqToggleButton text="Buy Now" checked />;
