@@ -1,10 +1,4 @@
 import {css, defineFunctionalElement, html} from 'element-vir';
-
-export enum ToniqButtonType {
-    Default = 'default',
-    Toggle = 'toggle',
-}
-
 export enum ToniqButtonVariant {
     Primary = 'primary',
     Secondary = 'secondary',
@@ -14,7 +8,6 @@ export const ToniqButton = defineFunctionalElement({
     tagName: 'toniq-button',
     props: {
         text: '',
-        type: ToniqButtonType.Default,
         variant: ToniqButtonVariant.Primary,
         active: false,
     },
@@ -40,22 +33,9 @@ export const ToniqButton = defineFunctionalElement({
             background-color: var(--toniq-secondary-interaction-background-color, #f1f3f6);
             color: var(--toniq-secondary-interaction-text-color, black);
         }
-
-        button.type-toggle {
-            background-color: var(--toniq-secondary-interaction-background-color, #f1f3f6);
-            color: var(--toniq-secondary-interaction-text-color, black);
-            padding: 4px 12px;
-        }
-
-        button.type-toggle.active {
-            background-color: var(--toniq-primary-interaction-background-color, #00d093);
-            color: var(--toniq-primary-interaction-text-color, white);
-        }
     `,
     renderCallback: ({props}) => {
-        const buttonActiveClass = props.active ? 'active' : '';
-
-        const buttonClasses = `type-${props.type} variant-${props.variant} ${buttonActiveClass}`;
+        const buttonClasses = `variant-${props.variant}`;
 
         return html`
             <button class=${buttonClasses}>${props.text}</button>
