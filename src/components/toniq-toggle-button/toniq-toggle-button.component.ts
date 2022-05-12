@@ -1,11 +1,13 @@
-import {css, defineFunctionalElement, html} from 'element-vir';
+import {css, defineElementEvent, defineFunctionalElement, html} from 'element-vir';
 
 export const ToniqToggleButton = defineFunctionalElement({
     tagName: 'toniq-toggle-button',
     props: {
         text: '',
         checked: false,
-        onchange: (e: Event) => {},
+    },
+    events: {
+        change: defineElementEvent<boolean>(),
     },
     styles: css`
         span {
@@ -18,8 +20,14 @@ export const ToniqToggleButton = defineFunctionalElement({
             border-radius: 8px;
             background-color: var(--toniq-secondary-interaction-background-color, #f1f3f6);
             color: var(--toniq-secondary-interaction-text-color, black);
-
             padding: 4px 12px;
+
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Old versions of Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
         }
 
         input[type='checkbox'] {
@@ -39,7 +47,11 @@ export const ToniqToggleButton = defineFunctionalElement({
                     id=${props.text}
                     type="checkbox"
                     ?checked=${props.checked}
-                    @change=${props.onchange}
+                    @change=${(e: Event) => {
+                        dispatch(
+                            new events.change((e.target as HTMLInputElement).checked as boolean),
+                        );
+                    }}
                 />
                 <span for=${props.text}>${props.text}</span>
             </label>
