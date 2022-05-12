@@ -1,3 +1,4 @@
+import {TypedEvent} from 'element-vir';
 import React from 'react';
 import {ToniqCheckbox} from '../react-components';
 
@@ -6,4 +7,12 @@ export default {
     component: ToniqCheckbox,
 };
 
-export const Label = () => <ToniqCheckbox text="Orange" />;
+const handleChange = (e: TypedEvent) => {
+    console.log(e.detail);
+};
+
+export const Default = () => <ToniqCheckbox text="Orange" />;
+
+export const Checked = () => <ToniqCheckbox text="Orange" checked />;
+
+export const ChangeEvent = () => <ToniqCheckbox text="Orange" onChange={handleChange} />;

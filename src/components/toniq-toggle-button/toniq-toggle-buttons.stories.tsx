@@ -11,6 +11,8 @@ const handleChange = (e: TypedEvent) => {
     console.log(e.detail);
 };
 
-export const Toggle = () => <ToniqToggleButton text="Buy Now" onChange={handleChange} />;
+export const Default = () => <ToniqToggleButton text="Buy Now" />;
 
-export const ForceChecked = () => <ToniqToggleButton text="Buy Now" checked />;
+export const Checked = () => <ToniqToggleButton text="Buy Now" checked />;
+
+export const ChangeEvent = () => <ToniqToggleButton text="Buy Now" onChange={handleChange} />;
