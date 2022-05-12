@@ -15,6 +15,8 @@ export const ToniqToggleButton = defineFunctionalElement({
             border: 0;
             cursor: pointer;
             font-weight: 700;
+            font-style: normal;
+            line-height: 24px;
             font-size: 16px;
             -webkit-tap-highlight-color: transparent;
             border-radius: 8px;

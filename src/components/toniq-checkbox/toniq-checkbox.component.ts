@@ -38,8 +38,10 @@ export const ToniqCheckbox = defineFunctionalElement({
 
         .label {
             font-family: var(--toniq-font, 'Rubik');
+            font-style: normal;
             font-weight: 700;
             font-size: 16px;
+            line-height: 24px;
             color: var(--toniq-secondary-interaction-text-color, black);
             margin-left: 16px;
 

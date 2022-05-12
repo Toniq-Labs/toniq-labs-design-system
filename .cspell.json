@@ -24,6 +24,8 @@
         "svgs",
         "tiktok",
         "toniq",
-        "truetype"
+        "truetype",
+        "khtml",
+        "Konqueror"
     ]
 }
