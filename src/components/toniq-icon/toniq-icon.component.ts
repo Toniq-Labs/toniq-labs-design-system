@@ -8,7 +8,11 @@ export const ToniqIcon = defineFunctionalElement({
         icon: undefined as undefined | ToniqSvg,
         title: '',
     },
-    styles: css``,
+    styles: css`
+        svg {
+            display: block;
+        }
+    `,
     renderCallback: ({props}) => {
         return html`
             <div title=${props.title}>${unsafeSVG(props.icon?.svgString)}</div>

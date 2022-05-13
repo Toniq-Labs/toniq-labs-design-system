@@ -40,7 +40,7 @@ export const ToniqButton = defineFunctionalElement({
         const buttonClasses = `variant-${props.variant}`;
 
         return html`
-            <button class=${buttonClasses}>${props.text}</button>
+            <button class=${buttonClasses}><slot>${props.text}</slot></button>
         `;
     },
 });

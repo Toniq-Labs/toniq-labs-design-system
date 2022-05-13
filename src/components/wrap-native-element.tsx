@@ -32,7 +32,7 @@ export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
                             currentProp(event);
                         });
                     } else {
-                        componentInstance[propKey] = currentProp;
+                        if (propKey !== 'children') componentInstance[propKey] = currentProp;
                     }
                 });
             }
