@@ -9,7 +9,6 @@ export const ToniqButton = defineFunctionalElement({
     props: {
         text: '',
         variant: ToniqButtonVariant.Primary,
-        active: false,
     },
     styles: css`
         button {
