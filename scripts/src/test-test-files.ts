@@ -24,6 +24,8 @@ async function runTests(tarFullPath: string) {
                 cwd: testDirPath,
                 rejectOnError: true,
             });
+            // package-lock gets updated when we install a tar, delete it
+            await unlink(join(testDirPath, 'package-lock.json'));
 
             const results = await runShellCommand('npm test', {
                 cwd: testDirPath,

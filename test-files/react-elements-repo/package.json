@@ -3,7 +3,7 @@
     "private": true,
     "scripts": {
         "format": "virmator format",
-        "start": "cross-env BROWSER=none FORCE_COLOR=true PORT=3006 react-scripts start | cat",
+        "start": "react-scripts start",
         "test": "bash run-tests.sh"
     },
     "browserslist": {
