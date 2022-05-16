@@ -10,7 +10,7 @@ export const ToniqIcon = defineToniqElement({
     },
     styles: css`
         svg {
-            /* img including svg by default in browsers is set to inline which gives it space under the image See: https://stackoverflow.com/a/34952703 */
+            /* svg is set to inline by default which gives it space under the image. See: https://stackoverflow.com/a/34952703 */
             display: block;
         }
     `,

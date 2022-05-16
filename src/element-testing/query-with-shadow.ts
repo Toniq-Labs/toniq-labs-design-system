@@ -7,28 +7,41 @@ export function queryWithShadow(
     query: string | string[],
     context: Element | ShadowRoot,
     queryAll?: false | undefined,
+    debug?: boolean | undefined,
 ): Element | undefined;
 // with truthy queryAll
 export function queryWithShadow(
     query: string | string[],
     context: Element | ShadowRoot,
     queryAll: true,
+    debug?: boolean | undefined,
 ): Element[];
 // with possibly defined queryAll
 export function queryWithShadow(
     query: string | string[],
     context: Element | ShadowRoot,
     queryAll: boolean | undefined,
+    debug?: boolean | undefined,
 ): Element | undefined | Element[];
 // complete function signature
 export function queryWithShadow(
     query: string | string[],
     context: Element | ShadowRoot,
     queryAll?: boolean | undefined,
+    debug?: boolean | undefined,
 ): Element | undefined | Element[] {
+    if (debug) {
+        const tagName = 'tagName' in context ? context.tagName : 'shadowRoot';
+        console.log(`> ${tagName}`);
+        console.log(context.innerHTML.trim());
+    }
     const finalQuery: string = Array.isArray(query) ? query[query.length - 1] ?? '' : query;
     if ('shadowRoot' in context && context.shadowRoot) {
         context = context.shadowRoot;
+        if (debug) {
+            console.log('>> shadowRoot');
+            console.log(context.innerHTML.trim());
+        }
     }
 
     if (Array.isArray(query)) {
@@ -48,4 +61,12 @@ export function queryWithShadow(
     } else {
         return context.querySelector(finalQuery) ?? undefined;
     }
+}
+
+export function textContentWithShadow(element: Element | ShadowRoot): string | undefined {
+    if ('shadowRoot' in element && element.shadowRoot) {
+        element = element.shadowRoot;
+    }
+
+    return element.textContent?.trim() ?? undefined;
 }
