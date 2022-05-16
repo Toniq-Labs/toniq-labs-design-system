@@ -1,7 +1,8 @@
 import {randomString} from 'augment-vir';
-import {css, defineElementEvent, defineFunctionalElement, html} from 'element-vir';
+import {css, defineElementEvent, html} from 'element-vir';
+import {defineToniqElement} from '../define-toniq-element';
 
-export const ToniqToggleButton = defineFunctionalElement({
+export const ToniqToggleButton = defineToniqElement({
     initCallback: ({setProps}) => {
         setProps({inputId: randomString()});
     },

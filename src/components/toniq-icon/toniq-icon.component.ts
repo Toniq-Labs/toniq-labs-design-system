@@ -1,8 +1,9 @@
-import {css, defineFunctionalElement, html} from 'element-vir';
+import {css, html} from 'element-vir';
 import {unsafeSVG} from 'lit/directives/unsafe-svg.js';
 import {ToniqSvg} from '../../icons/toniq-svg';
+import {defineToniqElement} from '../define-toniq-element';
 
-export const ToniqIcon = defineFunctionalElement({
+export const ToniqIcon = defineToniqElement({
     tagName: 'toniq-icon',
     props: {
         icon: undefined as undefined | ToniqSvg,
