@@ -1,5 +1,7 @@
-import {assert, expect, fixture} from '@open-wc/testing';
+import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
+import {assertDefinedAndNotNull, assertInstanceOf} from '../../element-testing/assertion-helpers';
+import {queryWithShadow} from '../../element-testing/query-with-shadow';
 import {ToniqButton} from './toniq-button.element';
 
 describe(ToniqButton.tagName, () => {
@@ -14,9 +16,11 @@ describe(ToniqButton.tagName, () => {
                 <${ToniqButton}></${ToniqButton}>
             `,
         );
-        expect(rendered.shadowRoot?.querySelector('button')?.className.trim()).to.equal(
-            'variant-primary',
-        );
+
+        const innerButton = queryWithShadow('button', rendered);
+        assertInstanceOf(innerButton, HTMLButtonElement);
+
+        assert.equal(innerButton.className.trim(), 'variant-primary');
     });
 
     it('should render assigned text', async () => {
@@ -29,6 +33,7 @@ describe(ToniqButton.tagName, () => {
                 ></${ToniqButton}>
             `,
         );
-        expect(rendered.shadowRoot?.textContent?.trim()).to.equal(textToRender);
+        assertDefinedAndNotNull(rendered.shadowRoot?.textContent);
+        assert.equal(rendered.shadowRoot.textContent.trim(), textToRender);
     });
 });

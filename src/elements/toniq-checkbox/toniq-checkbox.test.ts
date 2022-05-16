@@ -1,4 +1,4 @@
-import {assert, expect, fixture} from '@open-wc/testing';
+import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
 import {ToniqCheckbox} from './toniq-checkbox.element';
 
@@ -18,6 +18,6 @@ describe(ToniqCheckbox.tagName, () => {
                 ></${ToniqCheckbox}>
             `,
         );
-        expect(rendered.shadowRoot?.textContent?.trim()).to.equal(textToRender);
+        assert.equal(rendered.shadowRoot?.textContent?.trim(), textToRender);
     });
 });
