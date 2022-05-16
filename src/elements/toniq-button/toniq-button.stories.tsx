@@ -5,32 +5,37 @@ import {ToniqButton, ToniqIcon} from '../react-components';
 import {ToniqButtonVariant} from './toniq-button.element';
 
 export default {
-    title: 'Design System/Toniq Button',
+    title: 'Toniq Button',
     component: ToniqButton,
 };
-
 const handleClick = (e: TypedEvent) => {
     console.log(e);
 };
+export const mainStory = () => (
+    <article
+        style={{
+            fontFamily: 'sans-serif',
+        }}
+    >
+        <h3>Primary</h3>
+        <ToniqButton onClick={handleClick}>Buy Now</ToniqButton>
 
-export const Primary = () => <ToniqButton>Buy Now</ToniqButton>;
+        <h3>Secondary</h3>
+        <ToniqButton onClick={handleClick} variant={ToniqButtonVariant.Secondary}>
+            Buy Now
+        </ToniqButton>
 
-export const Secondary = () => (
-    <ToniqButton variant={ToniqButtonVariant.Secondary}>Buy Now</ToniqButton>
+        <h3>With HTML child</h3>
+        <ToniqButton onClick={handleClick}>
+            <div>
+                <span>Buy Now</span>
+            </div>
+        </ToniqButton>
+
+        <h3>With ToniqIcon child</h3>
+        <ToniqButton onClick={handleClick} variant={ToniqButtonVariant.Secondary}>
+            <ToniqIcon title="ExternalLink16Icon" icon={ExternalLink24Icon} />
+        </ToniqButton>
+    </article>
 );
-
-export const HTML = () => (
-    <ToniqButton>
-        <div>
-            <span>Buy Now</span>
-        </div>
-    </ToniqButton>
-);
-
-export const ButtonToniqIcon = () => (
-    <ToniqButton variant={ToniqButtonVariant.Secondary}>
-        <ToniqIcon title="ExternalLink16Icon" icon={ExternalLink24Icon} />
-    </ToniqButton>
-);
-
-export const ClickEvent = () => <ToniqButton onClick={handleClick}>Buy Now</ToniqButton>;
+mainStory.storyName = 'Toniq Button';

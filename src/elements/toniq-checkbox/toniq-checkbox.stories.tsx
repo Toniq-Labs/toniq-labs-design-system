@@ -3,7 +3,7 @@ import React from 'react';
 import {ToniqCheckbox} from '../react-components';
 
 export default {
-    title: 'Design System/Toniq Checkbox',
+    title: 'Toniq Checkbox',
     component: ToniqCheckbox,
 };
 
@@ -11,8 +11,15 @@ const handleChange = (event: TypedEvent) => {
     console.log(event.detail);
 };
 
-export const Default = () => <ToniqCheckbox text="Orange" />;
+export const mainStory = () => {
+    return (
+        <>
+            <h3>Unchecked by default</h3>
+            <ToniqCheckbox onCheckedChange={handleChange} text="Orange" />
 
-export const Checked = () => <ToniqCheckbox text="Orange" checked />;
-
-export const ChangeEvent = () => <ToniqCheckbox text="Orange" onCheckedChange={handleChange} />;
+            <h3>Checked by default</h3>
+            <ToniqCheckbox onCheckedChange={handleChange} text="Orange" checked />
+        </>
+    );
+};
+mainStory.storyName = 'Toniq Checkbox';
