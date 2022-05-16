@@ -2,7 +2,7 @@ import {TypedEvent} from 'element-vir';
 import React from 'react';
 import {ExternalLink24Icon} from '../../icons/svgs/core-24/external-link-24.icon';
 import {ToniqButton, ToniqIcon} from '../react-components';
-import {ToniqButtonVariant} from './toniq-button.component';
+import {ToniqButtonVariant} from './toniq-button.element';
 
 export default {
     title: 'Design System/Toniq Button',

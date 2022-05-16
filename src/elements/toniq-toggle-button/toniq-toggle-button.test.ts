@@ -1,6 +1,6 @@
 import {assert, expect, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
-import {ToniqToggleButton} from './toniq-toggle-button.component';
+import {ToniqToggleButton} from './toniq-toggle-button.element';
 
 describe(ToniqToggleButton.tagName, () => {
     it('should be registered as a component', () => {

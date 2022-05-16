@@ -1,6 +1,6 @@
 import {assert, expect, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
-import {ToniqCheckbox} from './toniq-checkbox.component';
+import {ToniqCheckbox} from './toniq-checkbox.element';
 
 describe(ToniqCheckbox.tagName, () => {
     it('should be registered as a component', () => {
