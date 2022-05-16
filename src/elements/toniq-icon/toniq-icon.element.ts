@@ -7,7 +7,6 @@ export const ToniqIcon = defineToniqElement({
     tagName: 'toniq-icon',
     props: {
         icon: undefined as undefined | ToniqSvg,
-        title: '',
     },
     styles: css`
         svg {
@@ -17,7 +16,7 @@ export const ToniqIcon = defineToniqElement({
     `,
     renderCallback: ({props}) => {
         return html`
-            <div title=${props.title}>${unsafeSVG(props.icon?.svgString)}</div>
+            ${unsafeSVG(props.icon?.svgString)}
         `;
     },
 });
