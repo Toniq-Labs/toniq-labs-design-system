@@ -1,6 +1,8 @@
 import {assign, css, html, listen} from 'element-vir';
 import {copyToClipboard} from '../../clipboard';
 import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
+import {interactionDuration} from '../../shared-styles/animation';
+import {interactionHoverColor} from '../../shared-styles/colors';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
@@ -49,7 +51,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
     styles: css`
         :host {
             /* 5 frames at 60 fps */
-            transition: 84ms;
+            transition: ${interactionDuration};
         }
 
         :host,
@@ -59,7 +61,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
         }
 
         :host(.clickable:hover) {
-            color: var(--toniq-interaction-color-hover, #00d093);
+            color: ${interactionHoverColor};
         }
 
         ${ToniqIcon} {
