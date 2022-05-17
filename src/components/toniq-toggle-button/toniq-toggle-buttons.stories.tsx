@@ -7,12 +7,12 @@ export default {
     component: ToniqToggleButton,
 };
 
-const handleChange = (e: TypedEvent) => {
-    console.log(e.detail);
+const handleChange = (event: TypedEvent) => {
+    console.log(event.detail);
 };
 
 export const Default = () => <ToniqToggleButton text="Buy Now" />;
 
-export const Checked = () => <ToniqToggleButton text="Buy Now" checked />;
+export const Active = () => <ToniqToggleButton text="Buy Now" active />;
 
-export const ChangeEvent = () => <ToniqToggleButton text="Buy Now" onChange={handleChange} />;
+export const ChangeEvent = () => <ToniqToggleButton text="Buy Now" onActiveChange={handleChange} />;

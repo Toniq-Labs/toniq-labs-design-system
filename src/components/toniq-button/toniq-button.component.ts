@@ -11,8 +11,12 @@ export const ToniqButton = defineFunctionalElement({
         variant: ToniqButtonVariant.Primary,
     },
     styles: css`
-        button {
+        :host {
             font-family: var(--toniq-font, 'Rubik');
+        }
+
+        button {
+            font-family: inherit;
             border: 0;
             cursor: pointer;
             font-style: normal;

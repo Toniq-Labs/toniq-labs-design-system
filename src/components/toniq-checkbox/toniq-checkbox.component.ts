@@ -1,43 +1,54 @@
+import {randomString} from 'augment-vir';
 import {css, defineElementEvent, defineFunctionalElement, html} from 'element-vir';
 
 export const ToniqCheckbox = defineFunctionalElement({
+    initCallback: ({setProps}) => {
+        setProps({inputId: randomString()});
+    },
     tagName: 'toniq-checkbox',
     props: {
         text: '',
         checked: false,
+        inputId: '',
     },
     events: {
-        change: defineElementEvent<boolean>(),
+        checkedChange: defineElementEvent<boolean>(),
     },
     styles: css`
+        :host {
+            font-family: var(--toniq-font, 'Rubik');
+            display: inline-flex;
+        }
+
         .toniq-checkbox {
-            display: flex;
+            display: inline-flex;
+            flex-grow: 1;
             align-items: center;
             cursor: pointer;
         }
 
-        .toniq-checkbox:hover input[type='checkbox']:not(:checked) + .checkbox,
-        .toniq-checkbox:hover input[checked='false'] + .checkbox {
+        :host:hover input[type='checkbox']:not(:checked) + .checkbox,
+        :host:hover input[checked='false'] + .checkbox {
             background-color: var(--toniq-checkbox-background-color-hover, #e0dfdb);
         }
 
-        .toniq-checkbox:hover input[type='checkbox']:checked + .checkbox,
+        :host:hover input[type='checkbox']:checked + .checkbox,
         .toniq-checkbox:hover input[checked='true'] + .checkbox {
             background-color: var(--toniq-checkbox-background-color-checked-hover, #02c58c);
         }
 
-        .toniq-checkbox:hover input[type='checkbox']:not(:checked) + .checkbox + .label,
-        .toniq-checkbox:hover input[checked='false'] + .checkbox + .label {
+        :host:hover input[type='checkbox']:not(:checked) ~ .label,
+        :host:hover input[checked='false'] ~ .label {
             color: var(--toniq-checkbox-label-color-hover, #303030);
         }
 
-        .toniq-checkbox:hover input[type='checkbox']:checked + .checkbox + .label,
-        .toniq-checkbox:hover input[checked='true'] + .checkbox + .label {
+        .:hos:hover input[type='checkbox']:checked + .checkbox + .label,
+        :host:hover input[checked='true'] ~ .label {
             color: var(--toniq-checkbox-label-color-checked-hover, #02c58c);
         }
 
         .label {
-            font-family: var(--toniq-font, 'Rubik');
+            font-family: inherit;
             font-style: normal;
             font-weight: 700;
             font-size: 16px;
@@ -47,9 +58,6 @@ export const ToniqCheckbox = defineFunctionalElement({
 
             -webkit-touch-callout: none; /* iOS Safari */
             -webkit-user-select: none; /* Safari */
-            -khtml-user-select: none; /* Konqueror HTML */
-            -moz-user-select: none; /* Old versions of Firefox */
-            -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
         }
 
@@ -57,18 +65,19 @@ export const ToniqCheckbox = defineFunctionalElement({
             display: none;
         }
 
-        input[type='checkbox']:checked + span,
-        input[checked='true'] + span {
+        input[type='checkbox']:checked + .checkbox,
+        input[checked='true'] + .checkbox {
             background-color: var(--toniq-checkbox-background-color-checked, #00d093);
             color: var(--toniq-primary-interaction-text-color, white);
         }
 
-        input[type='checkbox']:checked + span + .label,
-        input[checked='true'] + span + .label {
+        input[type='checkbox']:checked ~ .label,
+        input[checked='true'] ~ .label {
             color: var(--toniq-accent-interaction-text-color, #00d093);
         }
 
         .checkbox {
+            font-family: inherit;
             display: inline-block;
             background-color: var(--toniq-checkbox-background-color, #f1f3f6);
             height: 24px;
@@ -78,19 +87,19 @@ export const ToniqCheckbox = defineFunctionalElement({
     `,
     renderCallback: ({props, dispatch, events}) => {
         return html`
-            <label class="toniq-checkbox">
+            <label for=${props.inputId} class="toniq-checkbox">
                 <input
-                    id=${props.text}
+                    id=${props.inputId}
                     type="checkbox"
                     ?checked=${props.checked}
-                    @change=${(e: Event) => {
+                    @change=${(event: Event) => {
                         dispatch(
-                            new events.change((e.target as HTMLInputElement).checked as boolean),
+                            new events.checkedChange((event.target as HTMLInputElement).checked),
                         );
                     }}
                 />
                 <span class="checkbox"></span>
-                <span for=${props.text} class="label">${props.text}</span>
+                <span class="label">${props.text}</span>
             </label>
         `;
     },

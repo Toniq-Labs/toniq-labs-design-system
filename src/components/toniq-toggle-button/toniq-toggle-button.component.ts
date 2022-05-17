@@ -1,19 +1,28 @@
+import {randomString} from 'augment-vir';
 import {css, defineElementEvent, defineFunctionalElement, html} from 'element-vir';
 
 export const ToniqToggleButton = defineFunctionalElement({
+    initCallback: ({setProps}) => {
+        setProps({inputId: randomString()});
+    },
     tagName: 'toniq-toggle-button',
     props: {
         text: '',
-        checked: false,
+        active: false,
+        inputId: '',
     },
     events: {
-        change: defineElementEvent<boolean>(),
+        activeChange: defineElementEvent<boolean>(),
     },
     styles: css`
-        span {
+        :host {
             font-family: var(--toniq-font, 'Rubik');
+        }
+
+        span {
             border: 0;
             cursor: pointer;
+            font-family: inherit;
             font-weight: 700;
             font-style: normal;
             line-height: 24px;
@@ -26,9 +35,6 @@ export const ToniqToggleButton = defineFunctionalElement({
 
             -webkit-touch-callout: none; /* iOS Safari */
             -webkit-user-select: none; /* Safari */
-            -khtml-user-select: none; /* Konqueror HTML */
-            -moz-user-select: none; /* Old versions of Firefox */
-            -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
         }
 
@@ -44,18 +50,18 @@ export const ToniqToggleButton = defineFunctionalElement({
     `,
     renderCallback: ({props, dispatch, events}) => {
         return html`
-            <label>
+            <label for=${props.inputId}>
                 <input
-                    id=${props.text}
+                    id=${props.inputId}
                     type="checkbox"
-                    ?checked=${props.checked}
-                    @change=${(e: Event) => {
+                    ?checked=${props.active}
+                    @change=${(event: Event) => {
                         dispatch(
-                            new events.change((e.target as HTMLInputElement).checked as boolean),
+                            new events.activeChange((event.target as HTMLInputElement).checked),
                         );
                     }}
                 />
-                <span for=${props.text}>${props.text}</span>
+                <span>${props.text}</span>
             </label>
         `;
     },

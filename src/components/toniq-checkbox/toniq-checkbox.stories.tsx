@@ -7,12 +7,12 @@ export default {
     component: ToniqCheckbox,
 };
 
-const handleChange = (e: TypedEvent) => {
-    console.log(e.detail);
+const handleChange = (event: TypedEvent) => {
+    console.log(event.detail);
 };
 
 export const Default = () => <ToniqCheckbox text="Orange" />;
 
 export const Checked = () => <ToniqCheckbox text="Orange" checked />;
 
-export const ChangeEvent = () => <ToniqCheckbox text="Orange" onChange={handleChange} />;
+export const ChangeEvent = () => <ToniqCheckbox text="Orange" onCheckedChange={handleChange} />;
