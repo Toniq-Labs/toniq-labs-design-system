@@ -8,7 +8,12 @@ export const ToniqIcon = defineFunctionalElement({
         icon: undefined as undefined | ToniqSvg,
         title: '',
     },
-    styles: css``,
+    styles: css`
+        svg {
+            /* img including svg by default in browsers is set to inline which gives it space under the image See: https://stackoverflow.com/a/34952703 */
+            display: block;
+        }
+    `,
     renderCallback: ({props}) => {
         return html`
             <div title=${props.title}>${unsafeSVG(props.icon?.svgString)}</div>
