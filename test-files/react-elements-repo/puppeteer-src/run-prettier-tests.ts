@@ -1,5 +1,3 @@
-// the following import will be resolved in tests
-// @ts-ignore
 import {Copy16Icon} from '@toniq-labs/design-system/dist/cjs/icons/svgs/core-16/copy-16.icon';
 import {collapseWhiteSpace} from 'augment-vir';
 import puppeteer from 'puppeteer';
@@ -16,6 +14,8 @@ async function main() {
     const browser = await puppeteer.launch();
     console.info('opening new page');
     const page = await browser.newPage();
+    // GitHub Actions on Windows struggles with the default timeout of 30 seconds
+    page.setDefaultNavigationTimeout(120000);
     console.info(`navigating to ${testUrl}`);
     await page.goto(testUrl);
 
