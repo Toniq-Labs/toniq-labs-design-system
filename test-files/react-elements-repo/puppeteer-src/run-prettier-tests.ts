@@ -1,3 +1,5 @@
+// the following import will be resolved in tests
+// @ts-ignore
 import {Copy16Icon} from '@toniq-labs/design-system/dist/cjs/icons/svgs/core-16/copy-16.icon';
 import {collapseWhiteSpace} from 'augment-vir';
 import puppeteer from 'puppeteer';

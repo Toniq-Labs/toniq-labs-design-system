@@ -3,12 +3,12 @@ import {FunctionalElement, FunctionalElementInstance} from 'element-vir';
 import React, {Component} from 'react';
 
 type ReactWrapperProps<NativeComponent extends FunctionalElement> = Partial<
-    NativeComponent['initInput']['props']
+    NativeComponent['init']['props']
 > &
     Record<string, any>;
 
 type ReactWrapperElementInstance<NativeComponent extends FunctionalElement> =
-    FunctionalElementInstance<NativeComponent['props']> & ReactWrapperProps<NativeComponent>;
+    FunctionalElementInstance<NativeComponent> & ReactWrapperProps<NativeComponent>;
 
 export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
     elementConstructor: ElementGeneric,

@@ -3,28 +3,28 @@
  * array is recursively called on context.
  */
 // with falsy queryAll
-export function queryWithShadow(
+export function queryThroughShadow(
     query: string | string[],
     context: Element | ShadowRoot,
     queryAll?: false | undefined,
     debug?: boolean | undefined,
 ): Element | undefined;
 // with truthy queryAll
-export function queryWithShadow(
+export function queryThroughShadow(
     query: string | string[],
     context: Element | ShadowRoot,
     queryAll: true,
     debug?: boolean | undefined,
 ): Element[];
 // with possibly defined queryAll
-export function queryWithShadow(
+export function queryThroughShadow(
     query: string | string[],
     context: Element | ShadowRoot,
     queryAll: boolean | undefined,
     debug?: boolean | undefined,
 ): Element | undefined | Element[];
 // complete function signature
-export function queryWithShadow(
+export function queryThroughShadow(
     query: string | string[],
     context: Element | ShadowRoot,
     queryAll?: boolean | undefined,
@@ -53,7 +53,7 @@ export function queryWithShadow(
         const nextQueryInput: string | string[] =
             nextQueryArray.length > 1 ? nextQueryArray : nextQueryArray[0] ?? '';
 
-        return queryWithShadow(nextQueryInput, newContext, queryAll);
+        return queryThroughShadow(nextQueryInput, newContext, queryAll);
     }
 
     if (queryAll) {
@@ -63,7 +63,7 @@ export function queryWithShadow(
     }
 }
 
-export function textContentWithShadow(element: Element | ShadowRoot): string | undefined {
+export function getTextContentThroughShadow(element: Element | ShadowRoot): string | undefined {
     if ('shadowRoot' in element && element.shadowRoot) {
         element = element.shadowRoot;
     }

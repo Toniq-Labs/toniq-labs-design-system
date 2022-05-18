@@ -1,14 +1,17 @@
 import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
-import {unsafeHTML} from 'lit/directives/unsafe-html.js';
-import {assertDefinedAndNotNull} from '../../element-testing/assertion-helpers';
-import {queryWithShadow, textContentWithShadow} from '../../element-testing/query-with-shadow';
+import {assertInstanceOf} from '../../element-testing/assertion-helpers';
+import {
+    getTextContentThroughShadow,
+    queryThroughShadow,
+} from '../../element-testing/query-with-shadow';
+import {assertIconEquals} from '../../element-testing/test-icon';
 import {ExternalLink24Icon} from '../../icons';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {ellipsisCharacter, ToniqMiddleEllipsis} from './toniq-middle-ellipsis.element';
 
 describe(ToniqMiddleEllipsis.tagName, () => {
-    it('should be registered as a component', () => {
+    it('should be registered as a custom element', () => {
         const newlyCreated = document.createElement(ToniqMiddleEllipsis.tagName);
         assert.instanceOf(newlyCreated, ToniqMiddleEllipsis);
     });
@@ -19,8 +22,8 @@ describe(ToniqMiddleEllipsis.tagName, () => {
                 <${ToniqMiddleEllipsis}></${ToniqMiddleEllipsis}>
             `,
         );
-        assert.equal(textContentWithShadow(rendered), '');
-        assert.isUndefined(queryWithShadow(ToniqIcon.tagName, rendered));
+        assert.equal(getTextContentThroughShadow(rendered), '');
+        assert.isUndefined(queryThroughShadow(ToniqIcon.tagName, rendered));
     });
 
     it('should not even render icons when no text is assigned', async () => {
@@ -32,8 +35,8 @@ describe(ToniqMiddleEllipsis.tagName, () => {
                 </${ToniqMiddleEllipsis}>
             `,
         );
-        assert.equal(textContentWithShadow(rendered), '');
-        assert.isUndefined(queryWithShadow(ToniqIcon.tagName, rendered));
+        assert.equal(getTextContentThroughShadow(rendered), '');
+        assert.isUndefined(queryThroughShadow(ToniqIcon.tagName, rendered));
     });
 
     it('should render external link icon', async () => {
@@ -47,26 +50,9 @@ describe(ToniqMiddleEllipsis.tagName, () => {
                 ></${ToniqMiddleEllipsis}>
             `,
         );
-        const innerSvg = queryWithShadow(
-            [
-                ToniqIcon.tagName,
-                'svg',
-            ],
-            renderedWithToniqIcon,
-        );
-        assertDefinedAndNotNull(innerSvg);
-        const toniqIconSvg = innerSvg.outerHTML.trim();
-
-        const iconSvg = (
-            await fixture(
-                html`
-                    ${unsafeHTML(iconToRender.svgString)}
-                `,
-            )
-        ).outerHTML.trim();
-
-        assert.isNotEmpty(iconSvg);
-        assert.equal(toniqIconSvg, iconSvg);
+        const toniqIconInstance = queryThroughShadow(ToniqIcon.tagName, renderedWithToniqIcon);
+        assertInstanceOf(toniqIconInstance, ToniqIcon);
+        await assertIconEquals(toniqIconInstance, iconToRender);
     });
 
     it('should not truncate small text by default', async () => {
@@ -79,7 +65,7 @@ describe(ToniqMiddleEllipsis.tagName, () => {
                 ></${ToniqMiddleEllipsis}>
             `,
         );
-        assert.equal(textContentWithShadow(rendered), shortText);
+        assert.equal(getTextContentThroughShadow(rendered), shortText);
     });
 
     it('should truncate long text by default', async () => {
@@ -90,7 +76,7 @@ describe(ToniqMiddleEllipsis.tagName, () => {
                 ></${ToniqMiddleEllipsis}>
             `,
         );
-        assert.equal(textContentWithShadow(rendered), `this${ellipsisCharacter}text`);
+        assert.equal(getTextContentThroughShadow(rendered), `this${ellipsisCharacter}text`);
     });
 
     it('should not truncate long text when count is high', async () => {
@@ -104,7 +90,7 @@ describe(ToniqMiddleEllipsis.tagName, () => {
                 ></${ToniqMiddleEllipsis}>
             `,
         );
-        assert.equal(textContentWithShadow(rendered), longText);
+        assert.equal(getTextContentThroughShadow(rendered), longText);
     });
 
     it('should truncate short text when count is very low', async () => {
@@ -116,6 +102,6 @@ describe(ToniqMiddleEllipsis.tagName, () => {
                 ></${ToniqMiddleEllipsis}>
             `,
         );
-        assert.equal(textContentWithShadow(rendered), `a${ellipsisCharacter}e`);
+        assert.equal(getTextContentThroughShadow(rendered), `a${ellipsisCharacter}e`);
     });
 });

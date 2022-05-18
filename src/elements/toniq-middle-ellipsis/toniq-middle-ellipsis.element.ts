@@ -19,7 +19,7 @@ function isWholeNumber(input: number): boolean {
 }
 
 /**
- * This component takes text and truncates it in the middle, so the start and end characters are
+ * This element takes text and truncates it in the middle, so the start and end characters are
  * visible. Text that isn't too long won't be truncated.
  *
  * Examples:

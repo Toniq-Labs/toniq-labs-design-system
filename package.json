@@ -2,19 +2,20 @@
     "name": "@toniq-labs/design-system",
     "version": "0.0.0-beta.8",
     "private": false,
-    "description": "Design system components for Toniq Labs",
+    "description": "Design system elements for Toniq Labs",
     "keywords": [
+        "components",
         "design system",
         "design",
-        "system",
-        "react",
-        "components",
-        "toniq labs",
-        "toniq",
-        "labs",
         "dfinity",
+        "elements",
+        "ic",
         "internet computer",
-        "ic"
+        "labs",
+        "react",
+        "system",
+        "toniq labs",
+        "toniq"
     ],
     "homepage": "https://toniq-labs.github.io/toniq-labs-design-system",
     "bugs": {
@@ -55,7 +56,7 @@
     },
     "dependencies": {
         "augment-vir": "2.2.1",
-        "element-vir": "5.4.2"
+        "element-vir": "5.5.1"
     },
     "devDependencies": {
         "@esm-bundle/chai": "4.3.4-fix.0",

@@ -1,12 +1,12 @@
 import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
-import {queryWithShadow} from '../../element-testing/query-with-shadow';
+import {queryThroughShadow} from '../../element-testing/query-with-shadow';
 import {Copy16Icon} from '../../icons';
 import {ToniqIcon} from './toniq-icon.element';
 
 describe(ToniqIcon.tagName, () => {
-    it('should be registered as a component', () => {
+    it('should be registered as a custom element', () => {
         const newlyCreated = document.createElement(ToniqIcon.tagName);
         assert.instanceOf(newlyCreated, ToniqIcon);
     });
@@ -17,7 +17,7 @@ describe(ToniqIcon.tagName, () => {
                 <${ToniqIcon}></${ToniqIcon}>
             `,
         );
-        assert.isUndefined(queryWithShadow('svg', rendered));
+        assert.isUndefined(queryThroughShadow('svg', rendered));
     });
 
     it('should render assigned icon', async () => {
@@ -30,7 +30,7 @@ describe(ToniqIcon.tagName, () => {
                 ></${ToniqIcon}>
             `,
         );
-        const toniqIconSvg = queryWithShadow('svg', renderedToniqIcon)?.outerHTML.trim();
+        const toniqIconSvg = queryThroughShadow('svg', renderedToniqIcon)?.outerHTML.trim();
 
         const iconSvg = (
             await fixture(

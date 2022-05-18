@@ -54,7 +54,7 @@ export const mainStory = (controls: Record<keyof typeof middleEllipsisControls, 
             }}
         >
             <h3>Long</h3>
-            <span style={{marginRight: `16px`}}>{longText}:</span>
+            <span style={{marginRight: `16px`}}>"{longText}":</span>
             <ToniqMiddleEllipsis text={longText} letterCount={controls.letterCount} />
             <h3>Short</h3>
             <span style={{marginRight: `16px`}}>"{shortText}":</span>

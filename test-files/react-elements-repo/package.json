@@ -19,10 +19,9 @@
         ]
     },
     "dependencies": {
-        "@toniq-labs/design-system": "file:../../toniq-labs-design-system-0.0.0-beta.8.tgz"
+        "@toniq-labs/design-system": "file:../../../toniq-labs-design-system.tgz"
     },
     "devDependencies": {
-        "cross-env": "7.0.3",
         "kill-port": "1.6.1",
         "puppeteer": "13.7.0",
         "react": "18.1.0",
