@@ -5,6 +5,7 @@ import type {Configuration} from 'webpack';
 
 export const stories: StorybookConfig['stories'] = [
     '../src/**/*.stories.@(ts|tsx)',
+    '../src/**/*.story.@(ts|tsx)',
 ];
 export const addons: StorybookConfig['addons'] = [
     '@storybook/addon-essentials',

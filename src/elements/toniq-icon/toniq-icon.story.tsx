@@ -40,7 +40,7 @@ const storyControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArg
 );
 
 const componentStoryMeta: ComponentMeta<typeof ToniqIcon> = {
-    title: 'Toniq Icon',
+    title: 'Elements/Toniq Icon',
     component: ToniqIcon,
     argTypes: storyControls as ArgTypes,
 };

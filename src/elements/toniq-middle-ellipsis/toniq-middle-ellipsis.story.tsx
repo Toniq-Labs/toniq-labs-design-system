@@ -29,7 +29,7 @@ const middleEllipsisControls = (<SpecificArgsGeneric extends ArgTypes>(
 } as const);
 
 const componentStoryMeta: ComponentMeta<typeof ToniqMiddleEllipsis> = {
-    title: 'Toniq Middle Ellipsis',
+    title: 'Elements/Toniq Middle Ellipsis',
     component: ToniqMiddleEllipsis,
     argTypes: middleEllipsisControls as ArgTypes,
     // default args

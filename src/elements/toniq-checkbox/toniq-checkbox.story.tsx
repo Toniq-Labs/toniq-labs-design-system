@@ -1,11 +1,14 @@
+import {ComponentMeta} from '@storybook/react';
 import {TypedEvent} from 'element-vir';
 import React from 'react';
-import {ToniqCheckbox} from '../react-components';
+import {ToniqCheckbox, ToniqToggleButton} from '../react-components';
 
-export default {
-    title: 'Toniq Checkbox',
+const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
+    title: 'Elements/Toniq Checkbox',
     component: ToniqCheckbox,
 };
+
+export default componentStoryMeta;
 
 const handleChange = (event: TypedEvent) => {
     console.log(event.detail);
