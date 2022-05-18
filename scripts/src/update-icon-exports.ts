@@ -8,10 +8,10 @@ import {readDirRecursive, toPosixPath} from 'augment-vir/dist/cjs/node-only';
 import {basename, dirname, join, relative} from 'path';
 import {srcDir} from './common/file-paths';
 import {
+    formatAndWriteOrCheckFromArgs,
     UpdateExportsArgs,
     UpdateExportsConfig,
     updateExportsMain,
-    writeOrCheckFromArgs,
 } from './common/update-exports';
 
 const svgsDir = join(srcDir, 'icons', 'svgs');
@@ -106,7 +106,7 @@ export const updateIconExports: UpdateExportsConfig = {
             .filter((relativePath) => relativePath.endsWith('.icon.ts'))
             .map((relativePath) => join(svgsDir, relativePath));
 
-        await writeOrCheckFromArgs(
+        await formatAndWriteOrCheckFromArgs(
             iconIndexPath,
             generateIconImportsAndExports(allIconPaths),
             inputs,

@@ -47,6 +47,7 @@
         "storybook:build": "build-storybook --output-dir .storybook-dist",
         "storybook:preview": "npm run storybook:build && http-server .storybook-dist",
         "test": "web-test-runner --node-resolve",
+        "test:exports": "cd scripts && npm run test:exports",
         "test:full": "npm test && npm run test:scripts && npm run spellcheck && npm run format check && npm run build && npm run storybook:build",
         "test:scripts": "cd scripts && npm run test"
     },

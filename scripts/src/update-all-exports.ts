@@ -6,10 +6,12 @@ import {
 } from './common/update-exports';
 import {updateElementExports} from './update-element-exports';
 import {updateIconExports} from './update-icon-exports';
+import {updateReactWrappers} from './update-react-wrappers';
 
 const updateExportsConfigs: UpdateExportsConfig[] = [
     updateIconExports,
     updateElementExports,
+    updateReactWrappers,
 ];
 
 async function main() {
