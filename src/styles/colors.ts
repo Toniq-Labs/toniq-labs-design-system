@@ -2,14 +2,14 @@ import {camelCaseToKebabCase, mapObject} from 'augment-vir';
 import {css} from 'element-vir';
 import {CSSResult, unsafeCSS} from 'lit';
 
-export type ColorName = keyof typeof defaultPalette;
+export type ColorKey = keyof typeof defaultPalette;
 
 /** This ensures the value of the input while maintaining object key names. */
 function cssResults<T extends Record<string, CSSResult>>(input: T): T {
     return input;
 }
 
-const standardPalette = cssResults({
+const lightPalette = cssResults({
     /** Primary brand color: the logo color. */
     primaryBrandColor: css`#00D093`,
     /** Page background color. */
@@ -27,7 +27,7 @@ const standardPalette = cssResults({
     dropShadowColor: css`#D2EEFA`,
 });
 
-const accentPalette = cssResults({
+const lightAccentPalette = cssResults({
     /** Color for primary accents, like primary buttons. */
     accentPrimaryBackgroundColor: css`#00D093`,
     /** Color for the foreground (text) on top of accentPrimaryBackgroundColor. */
@@ -48,8 +48,8 @@ const accentPalette = cssResults({
  * block the CSS vars from being effective.
  */
 const defaultPalette = cssResults({
-    ...standardPalette,
-    ...accentPalette,
+    ...lightPalette,
+    ...lightAccentPalette,
 });
 
 /**
@@ -57,7 +57,7 @@ const defaultPalette = cssResults({
  * the "colors" object exported below for that. These values should be used as properties. Meaning,
  * these values should only be used for setting the CSS variable values (if needed).
  */
-export const colorCssVarNames: Record<ColorName, CSSResult> = mapObject(
+export const colorCssVarNames: Record<ColorKey, CSSResult> = mapObject(
     defaultPalette,
     (colorName) => {
         const cssVarName = `--toniq-${camelCaseToKebabCase(colorName)}`;
@@ -72,7 +72,7 @@ export const colorCssVarNames: Record<ColorName, CSSResult> = mapObject(
  * system palette. To override any of these colors, set the CSS var from the corresponding ColorName
  * key in colorCssVarNames.
  */
-export const colors: Record<ColorName, CSSResult> = mapObject(
+export const colors: Record<ColorKey, CSSResult> = mapObject(
     colorCssVarNames,
     (colorName, cssColorVarName) => {
         const fallbackColor = defaultPalette[colorName];
