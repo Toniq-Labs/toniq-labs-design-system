@@ -1,6 +1,6 @@
 import {awaitedForEach, combineErrors, extractErrorMessage} from 'augment-vir';
 import {runShellCommand, toPosixPath} from 'augment-vir/dist/cjs/node-only';
-import {readdir, unlink} from 'fs/promises';
+import {readdir, rename, unlink} from 'fs/promises';
 import {join, relative} from 'path';
 import {repoRootDir, testFilesDir} from './common/file-paths';
 import {insertPreInstallScript, removePreInstallScript} from './publishing';
@@ -9,8 +9,9 @@ async function runTests(tarFullPath: string) {
     const testDirNames = await readdir(testFilesDir);
     const errors: Error[] = [];
     await awaitedForEach(testDirNames, async (testDirName) => {
+        const testDirPath = join(testFilesDir, testDirName);
+
         try {
-            const testDirPath = join(testFilesDir, testDirName);
             const tarPath = relative(testDirPath, tarFullPath);
             await runShellCommand('npm uninstall @toniq-labs/design-system', {
                 cwd: testDirPath,
@@ -40,6 +41,9 @@ async function runTests(tarFullPath: string) {
             }
         } catch (error) {
             errors.push(new Error(extractErrorMessage(error)));
+        } finally {
+            // package-lock gets updated when we install a tar, delete it
+            await unlink(join(testDirPath, 'package-lock.json'));
         }
     });
 
@@ -65,7 +69,12 @@ async function main() {
         if (!tarName) {
             throw new Error(`Could not extract tar from ${results.stdout}`);
         }
-        tarPath = join(repoRootDir, tarName);
+        const originalTarPath = join(repoRootDir, tarName);
+        tarPath = originalTarPath.replace(
+            /toniq-labs-design-system.+\.tgz/,
+            'toniq-labs-design-system.tgz',
+        );
+        await rename(originalTarPath, tarPath);
         await runTests(tarPath);
     } catch (error) {
         throw error;

@@ -12,7 +12,7 @@ set -e
 # tsconfig-paths is needed here to make ts-node read the tsconfig baseUrl correctly
 
 npx kill-port 3006
-npm start &
+BROWSER=none FORCE_COLOR=true PORT=3006 npm start &
 
-npx ts-node puppeteer-src/index.ts
+npx ts-node puppeteer-src/run-prettier-tests.ts
 npx kill-port 3006

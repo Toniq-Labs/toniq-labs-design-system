@@ -35,7 +35,7 @@ export type UpdateExportsConfig = {
     executor: (inputs: UpdateExportsArgs) => Promise<void>;
 };
 
-export async function writeOrCheckFromArgs(
+export async function formatAndWriteOrCheckFromArgs(
     fileToWriteTo: string,
     codeToWrite: string,
     args: UpdateExportsArgs,

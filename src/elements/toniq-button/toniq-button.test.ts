@@ -1,9 +1,14 @@
-import {assert, expect, fixture} from '@open-wc/testing';
+import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
-import {ToniqButton} from './toniq-button.component';
+import {assertInstanceOf} from '../../element-testing/assertion-helpers';
+import {
+    getTextContentThroughShadow,
+    queryThroughShadow,
+} from '../../element-testing/query-with-shadow';
+import {ToniqButton} from './toniq-button.element';
 
 describe(ToniqButton.tagName, () => {
-    it('should be registered as a component', () => {
+    it('should be registered as a custom element', () => {
         const newlyCreated = document.createElement(ToniqButton.tagName);
         assert.instanceOf(newlyCreated, ToniqButton);
     });
@@ -14,9 +19,11 @@ describe(ToniqButton.tagName, () => {
                 <${ToniqButton}></${ToniqButton}>
             `,
         );
-        expect(rendered.shadowRoot?.querySelector('button')?.className.trim()).to.equal(
-            'variant-primary',
-        );
+
+        const innerButton = queryThroughShadow('button', rendered);
+        assertInstanceOf(innerButton, HTMLButtonElement);
+
+        assert.equal(innerButton.className.trim(), 'variant-primary');
     });
 
     it('should render assigned text', async () => {
@@ -29,6 +36,6 @@ describe(ToniqButton.tagName, () => {
                 ></${ToniqButton}>
             `,
         );
-        expect(rendered.shadowRoot?.textContent?.trim()).to.equal(textToRender);
+        assert.equal(getTextContentThroughShadow(rendered), textToRender);
     });
 });

@@ -28,3 +28,7 @@ scripts/
 tsconfig.*.json
 web-test-runner.config.mjs
 netlify.toml
+dist/*/element-testing
+*.stories.js
+*.stories.d.ts
+public/logo.png

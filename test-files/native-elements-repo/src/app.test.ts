@@ -5,7 +5,7 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 import {AppElement} from './app.element';
 
 describe(AppElement.tagName, () => {
-    it('should be registered as a component', () => {
+    it('should be registered as a custom element', () => {
         const newlyCreated = document.createElement(AppElement.tagName);
         assert.instanceOf(newlyCreated, AppElement);
     });

@@ -1,10 +1,12 @@
-import {css, defineFunctionalElement, html} from 'element-vir';
+import {css, html} from 'element-vir';
+import {defineToniqElement} from '../define-toniq-element';
+
 export enum ToniqButtonVariant {
     Primary = 'primary',
     Secondary = 'secondary',
 }
 
-export const ToniqButton = defineFunctionalElement({
+export const ToniqButton = defineToniqElement({
     tagName: 'toniq-button',
     props: {
         text: '',

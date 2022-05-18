@@ -40,19 +40,21 @@ const storyControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArg
 );
 
 const componentStoryMeta: ComponentMeta<typeof ToniqIcon> = {
-    title: 'Design System/Toniq Icon',
+    title: 'Toniq Icon',
     component: ToniqIcon,
     argTypes: storyControls as ArgTypes,
 };
 
 export default componentStoryMeta;
 
-export const AllIcons = (controls: Record<keyof typeof storyControls, string>) => {
+export const mainStory = (controls: Record<keyof typeof storyControls, string>) => {
     const iconCategories = (
         Object.keys(allIconsByCategory) as (keyof typeof allIconsByCategory)[]
     ).map((categoryName) => {
         const iconInstances = allIconsByCategory[categoryName].map((icon) => (
-            <ToniqIcon title={icon.iconName} icon={icon} />
+            <div title={icon.iconName}>
+                <ToniqIcon icon={icon} />
+            </div>
         ));
 
         const colorStyles =
@@ -75,19 +77,14 @@ export const AllIcons = (controls: Record<keyof typeof storyControls, string>) =
                 : {};
 
         return (
-            <section
-                style={{
-                    fontFamily: 'sans-serif',
-                }}
-            >
-                <h3 style={{margin: '10px 0', fontSize: '1.3em'}}>{categoryName}</h3>
+            <section>
+                <h3>{categoryName}</h3>
                 <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap', ...colorStyles}}>
                     {iconInstances}
                 </div>
             </section>
         );
     });
-    return (
-        <div style={{display: 'flex', gap: '16px', flexDirection: 'column'}}>{iconCategories}</div>
-    );
+    return <article>{iconCategories}</article>;
 };
+mainStory.storyName = 'Toniq Icon';

@@ -1,9 +1,10 @@
-import {assert, expect, fixture} from '@open-wc/testing';
+import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
-import {ToniqToggleButton} from './toniq-toggle-button.component';
+import {getTextContentThroughShadow} from '../../element-testing/query-with-shadow';
+import {ToniqToggleButton} from './toniq-toggle-button.element';
 
 describe(ToniqToggleButton.tagName, () => {
-    it('should be registered as a component', () => {
+    it('should be registered as a custom element', () => {
         const newlyCreated = document.createElement(ToniqToggleButton.tagName);
         assert.instanceOf(newlyCreated, ToniqToggleButton);
     });
@@ -18,6 +19,6 @@ describe(ToniqToggleButton.tagName, () => {
                 ></${ToniqToggleButton}>
             `,
         );
-        expect(rendered.shadowRoot?.textContent?.trim()).to.equal(textToRender);
+        assert.equal(getTextContentThroughShadow(rendered), textToRender);
     });
 });

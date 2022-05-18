@@ -7,17 +7,20 @@ function cleanUpSvg(code: string): string {
     return collapseWhiteSpace(replacedStuff);
 }
 
-const urlToLoad = 'http://localhost:3006';
+const testUrl = 'http://localhost:3006';
 
 async function main() {
     console.info('launch');
     const browser = await puppeteer.launch();
     console.info('opening new page');
     const page = await browser.newPage();
-    console.info(`navigating to ${urlToLoad}`);
-    await page.goto(urlToLoad);
+    // GitHub Actions on Windows struggles with the default timeout of 30 seconds
+    page.setDefaultNavigationTimeout(120000);
+    console.info(`navigating to ${testUrl}`);
+    await page.goto(testUrl);
 
     await page.waitForSelector('body');
+    await page.waitForSelector('toniq-icon', {timeout: 2000});
 
     const iconSvg = Copy16Icon.svgString;
 
