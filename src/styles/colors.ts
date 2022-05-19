@@ -137,3 +137,10 @@ export const colors: Record<ColorKey, DualColorDefinition> = mapObject(
         };
     },
 );
+
+export function applyBackgroundAndForeground(colorDefinition: DualColorDefinition): CSSResult {
+    return css`
+        background-color: ${colorDefinition.backgroundColor};
+        color: ${colorDefinition.foregroundColor};
+    `;
+}

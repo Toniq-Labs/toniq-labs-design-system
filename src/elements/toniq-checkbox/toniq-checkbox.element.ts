@@ -1,5 +1,6 @@
 import {randomString} from 'augment-vir';
 import {css, defineElementEvent, html} from 'element-vir';
+import {applyBackgroundAndForeground, colors} from '../../styles/colors';
 import {defineToniqElement} from '../define-toniq-element';
 
 export const ToniqCheckbox = defineToniqElement({
@@ -28,33 +29,13 @@ export const ToniqCheckbox = defineToniqElement({
             cursor: pointer;
         }
 
-        :host:hover input[type='checkbox']:not(:checked) + .checkbox,
-        :host:hover input[checked='false'] + .checkbox {
-            background-color: var(--toniq-checkbox-background-color-hover, #e0dfdb);
-        }
-
-        :host:hover input[type='checkbox']:checked + .checkbox,
-        .toniq-checkbox:hover input[checked='true'] + .checkbox {
-            background-color: var(--toniq-checkbox-background-color-checked-hover, #02c58c);
-        }
-
-        :host:hover input[type='checkbox']:not(:checked) ~ .label,
-        :host:hover input[checked='false'] ~ .label {
-            color: var(--toniq-checkbox-label-color-hover, #303030);
-        }
-
-        .:hos:hover input[type='checkbox']:checked + .checkbox + .label,
-        :host:hover input[checked='true'] ~ .label {
-            color: var(--toniq-checkbox-label-color-checked-hover, #02c58c);
-        }
-
         .label {
             font-family: inherit;
             font-style: normal;
             font-weight: 700;
             font-size: 16px;
             line-height: 24px;
-            color: var(--toniq-secondary-interaction-text-color, black);
+            color: inherit;
             margin-left: 16px;
 
             -webkit-touch-callout: none; /* iOS Safari */
@@ -68,19 +49,18 @@ export const ToniqCheckbox = defineToniqElement({
 
         input[type='checkbox']:checked + .checkbox,
         input[checked='true'] + .checkbox {
-            background-color: var(--toniq-checkbox-background-color-checked, #00d093);
-            color: var(--toniq-primary-interaction-text-color, white);
+            ${applyBackgroundAndForeground(colors.accentPrimary)};
         }
 
         input[type='checkbox']:checked ~ .label,
         input[checked='true'] ~ .label {
-            color: var(--toniq-accent-interaction-text-color, #00d093);
+            color: ${colors.pageInteraction.foregroundColor};
         }
 
         .checkbox {
             font-family: inherit;
             display: inline-block;
-            background-color: var(--toniq-checkbox-background-color, #f1f3f6);
+            background-color: ${colors.accentSecondary.backgroundColor};
             height: 24px;
             width: 24px;
             border-radius: 8px;
