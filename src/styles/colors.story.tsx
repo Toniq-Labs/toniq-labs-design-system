@@ -1,7 +1,7 @@
 import {ComponentMeta} from '@storybook/react';
 import {getObjectTypedKeys} from 'augment-vir';
 import React from 'react';
-import {colorCssVarNames, colors} from './colors';
+import {toniqColorCssVarNames, toniqColors} from './colors';
 
 const componentStoryMeta: ComponentMeta<any> = {
     title: 'Styles/Colors',
@@ -10,9 +10,9 @@ const componentStoryMeta: ComponentMeta<any> = {
 export default componentStoryMeta;
 
 export const mainStory = () => {
-    const colorInstances = getObjectTypedKeys(colors).map((colorKey) => {
-        const colorDefinitions = colors[colorKey];
-        const colorCssVars = colorCssVarNames[colorKey];
+    const colorInstances = getObjectTypedKeys(toniqColors).map((colorKey) => {
+        const colorDefinitions = toniqColors[colorKey];
+        const colorCssVars = toniqColorCssVarNames[colorKey];
 
         return (
             <div
@@ -30,7 +30,7 @@ export const mainStory = () => {
                         alignItems: 'center',
                         padding: '24px',
                         borderRadius: '4px',
-                        border: `1px solid ${colors.divider.foregroundColor}`,
+                        border: `1px solid ${toniqColors.divider.foregroundColor}`,
                     }}
                 >
                     <div
@@ -40,7 +40,7 @@ export const mainStory = () => {
                             height: '75px',
                             boxSizing: 'border-box',
                             borderRadius: '4px',
-                            border: `1px solid ${colors.divider.foregroundColor}`,
+                            border: `1px solid ${toniqColors.divider.foregroundColor}`,
                             backgroundColor: String(colorDefinitions.backgroundColor),
                             color: String(colorDefinitions.foregroundColor),
                             textDecoration: 'underline',
@@ -53,10 +53,10 @@ export const mainStory = () => {
                         Aa
                     </div>
                     <span>{colorKey}</span>
-                    <span style={{color: String(colors.pageTertiary.foregroundColor)}}>
+                    <span style={{color: String(toniqColors.pageTertiary.foregroundColor)}}>
                         {String(colorCssVars.foregroundColor)}
                     </span>
-                    <span style={{color: String(colors.pageTertiary.foregroundColor)}}>
+                    <span style={{color: String(toniqColors.pageTertiary.foregroundColor)}}>
                         {String(colorCssVars.backgroundColor)}
                     </span>
                 </div>

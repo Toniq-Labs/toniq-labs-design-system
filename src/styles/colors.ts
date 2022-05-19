@@ -97,10 +97,10 @@ function colorKeyToCssVarName(colorKey: ColorKey, type: keyof DualColorDefinitio
 
 /**
  * CSS var names for all the design system colors. These should not be used as VALUES in CSS, use
- * the "colors" object exported below for that. These values should be used as properties. Meaning,
- * these values should only be used for setting the CSS variable values (if needed).
+ * the "toniqColors" object exported below for CSS values. This object's values should be used as
+ * properties. Meaning, these values should only be used for setting the CSS variables (if needed).
  */
-export const colorCssVarNames: Record<ColorKey, DualColorDefinition> = mapObject(
+export const toniqColorCssVarNames: Record<ColorKey, DualColorDefinition> = mapObject(
     fallbackColors,
     (colorKey) => {
         const cssVarsDefinition: DualColorDefinition = {
@@ -116,7 +116,7 @@ function colorValueToVarCallDualDefinition(
     type: keyof DualColorDefinition,
 ): CSSResult {
     const fallbackColor = fallbackColors[colorKey][type];
-    const cssVarName = colorCssVarNames[colorKey][type];
+    const cssVarName = toniqColorCssVarNames[colorKey][type];
 
     return css`var(${cssVarName}, ${fallbackColor})`;
 }
@@ -125,11 +125,11 @@ function colorValueToVarCallDualDefinition(
  * Colors for the design system. These should be used directly as values in CSS.
  *
  * These colors use all the design system CSS vars and include fallback values to the default design
- * system palette. To override any of these colors, set the CSS var from the corresponding ColorName
- * key in colorCssVarNames.
+ * system palette. To override any of these colors, set the CSS var from the corresponding ColorKey
+ * in toniqColorCssVarNames.
  */
-export const colors: Record<ColorKey, DualColorDefinition> = mapObject(
-    colorCssVarNames,
+export const toniqColors: Record<ColorKey, DualColorDefinition> = mapObject(
+    toniqColorCssVarNames,
     (colorKey): DualColorDefinition => {
         return {
             foregroundColor: colorValueToVarCallDualDefinition(colorKey, 'foregroundColor'),

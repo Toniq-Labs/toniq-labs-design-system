@@ -2,7 +2,7 @@ import {assign, css, html, listen} from 'element-vir';
 import {copyToClipboard} from '../../clipboard';
 import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
 import {interactionDuration} from '../../styles/animation';
-import {colors} from '../../styles/colors';
+import {toniqColors} from '../../styles/colors';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
@@ -61,7 +61,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
         }
 
         :host(.clickable:hover) {
-            color: ${colors.pageInteraction.foregroundColor};
+            color: ${toniqColors.pageInteraction.foregroundColor};
         }
 
         ${ToniqIcon} {

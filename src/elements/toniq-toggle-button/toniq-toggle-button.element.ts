@@ -1,6 +1,6 @@
 import {randomString} from 'augment-vir';
 import {css, defineElementEvent, html} from 'element-vir';
-import {applyBackgroundAndForeground, colors} from '../../styles/colors';
+import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {defineToniqElement} from '../define-toniq-element';
 
 export const ToniqToggleButton = defineToniqElement({
@@ -32,7 +32,7 @@ export const ToniqToggleButton = defineToniqElement({
             -webkit-tap-highlight-color: transparent;
             border-radius: 8px;
 
-            ${applyBackgroundAndForeground(colors.accentSecondary)};
+            ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
             padding: 4px 12px;
 
             -webkit-touch-callout: none; /* iOS Safari */
@@ -46,7 +46,7 @@ export const ToniqToggleButton = defineToniqElement({
 
         input[type='checkbox']:checked + span,
         input[checked='true'] + span {
-            ${applyBackgroundAndForeground(colors.accentPrimary)};
+            ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
     `,
     renderCallback: ({props, dispatch, events}) => {

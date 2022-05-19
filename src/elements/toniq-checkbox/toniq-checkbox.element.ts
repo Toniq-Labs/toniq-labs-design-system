@@ -1,6 +1,6 @@
 import {randomString} from 'augment-vir';
 import {css, defineElementEvent, html} from 'element-vir';
-import {applyBackgroundAndForeground, colors} from '../../styles/colors';
+import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {defineToniqElement} from '../define-toniq-element';
 
 export const ToniqCheckbox = defineToniqElement({
@@ -49,18 +49,18 @@ export const ToniqCheckbox = defineToniqElement({
 
         input[type='checkbox']:checked + .checkbox,
         input[checked='true'] + .checkbox {
-            ${applyBackgroundAndForeground(colors.accentPrimary)};
+            ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
         input[type='checkbox']:checked ~ .label,
         input[checked='true'] ~ .label {
-            color: ${colors.pageInteraction.foregroundColor};
+            color: ${toniqColors.pageInteraction.foregroundColor};
         }
 
         .checkbox {
             font-family: inherit;
             display: inline-block;
-            background-color: ${colors.accentSecondary.backgroundColor};
+            background-color: ${toniqColors.accentSecondary.backgroundColor};
             height: 24px;
             width: 24px;
             border-radius: 8px;

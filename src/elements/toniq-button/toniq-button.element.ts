@@ -1,5 +1,5 @@
 import {css, html} from 'element-vir';
-import {applyBackgroundAndForeground, colors} from '../../styles/colors';
+import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {defineToniqElement} from '../define-toniq-element';
 
 export enum ToniqButtonVariant {
@@ -32,12 +32,12 @@ export const ToniqButton = defineToniqElement({
         }
 
         button {
-            ${applyBackgroundAndForeground(colors.accentPrimary)};
+            ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
             padding: 12px;
         }
 
         button.variant-secondary {
-            ${applyBackgroundAndForeground(colors.accentSecondary)};
+            ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
         }
     `,
     renderCallback: ({props}) => {
