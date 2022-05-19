@@ -1,11 +1,7 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
 import {allIconsByCategory} from '../../icons';
-import {
-    toniqSvgColorCssVarName,
-    toniqSvgFillColorCssVarName,
-    toniqSvgStrokeColorCssVarName,
-} from '../../icons/toniq-svg-colors';
+import {toniqIconColorCssVarNames} from '../../styles/icon-colors';
 import {ToniqIcon} from '../react-components';
 
 const storyControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) => input)(
@@ -60,15 +56,15 @@ export const mainStory = (controls: Record<keyof typeof storyControls, string>) 
         const colorStyles =
             controls.applyColor === 'Icon color CSS var'
                 ? {
-                      [toniqSvgColorCssVarName]: controls.color,
+                      [String(toniqIconColorCssVarNames.color)]: controls.color,
                   }
                 : controls.applyColor === 'Icon fill color CSS var'
                 ? {
-                      [toniqSvgFillColorCssVarName]: controls.color,
+                      [String(toniqIconColorCssVarNames.fillColor)]: controls.color,
                   }
                 : controls.applyColor === 'Icon stroke color CSS var'
                 ? {
-                      [toniqSvgStrokeColorCssVarName]: controls.color,
+                      [String(toniqIconColorCssVarNames.strokeColor)]: controls.color,
                   }
                 : controls.applyColor === 'CSS color property'
                 ? {

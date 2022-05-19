@@ -1,5 +1,5 @@
+import {toniqIconColors} from '../../../styles/icon-colors';
 import {html, ToniqSvg} from '../../toniq-svg';
-import {colorUsage} from '../../toniq-svg-colors';
 
 export const CirclePlusFill24Icon = new ToniqSvg(
     'CirclePlusFill24Icon',
@@ -16,7 +16,7 @@ export const CirclePlusFill24Icon = new ToniqSvg(
             viewBox="0 0 24 24"
         >
             <path
-                fill="${colorUsage.fill}"
+                fill="${toniqIconColors.fill}"
                 stroke="none"
                 d="M12 2a10 10 0 1 0 .01 20.01A10 10 0 0 0 12 2Zm-1 9H9a1 1 0 0 0 0 2h2v2a1 1 0 0 0 2 0v-2h2a1 1 0 0 0 0-2h-2V9a1 1 0 0 0-2 0v2Z"
             />

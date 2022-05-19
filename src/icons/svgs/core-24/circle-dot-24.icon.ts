@@ -1,5 +1,5 @@
+import {toniqIconColors} from '../../../styles/icon-colors';
 import {html, ToniqSvg} from '../../toniq-svg';
-import {colorUsage} from '../../toniq-svg-colors';
 
 export const CircleDot24Icon = new ToniqSvg(
     'CircleDot24Icon',
@@ -20,15 +20,15 @@ export const CircleDot24Icon = new ToniqSvg(
                 cy="12"
                 r="9"
                 fill="none"
-                stroke="${colorUsage.stroke}"
+                stroke="${toniqIconColors.stroke}"
                 stroke-width="2"
             />
             <circle
                 cx="12"
                 cy="12"
                 r="4"
-                fill="${colorUsage.fill}"
-                stroke="${colorUsage.fill}"
+                fill="${toniqIconColors.fill}"
+                stroke="${toniqIconColors.fill}"
                 stroke-width="2"
             />
         </svg>
