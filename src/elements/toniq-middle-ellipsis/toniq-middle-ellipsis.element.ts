@@ -61,7 +61,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
         }
 
         :host(.clickable:hover) {
-            color: ${colors.accentPrimaryBackgroundColor};
+            color: ${colors.pageInteraction.foregroundColor};
         }
 
         ${ToniqIcon} {

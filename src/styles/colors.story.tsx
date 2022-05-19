@@ -1,7 +1,7 @@
 import {ComponentMeta} from '@storybook/react';
 import {getObjectTypedKeys} from 'augment-vir';
 import React from 'react';
-import {colorCssVarNames, ColorKey, colors} from './colors';
+import {colorCssVarNames, colors} from './colors';
 
 const componentStoryMeta: ComponentMeta<any> = {
     title: 'Styles/Colors',
@@ -10,20 +10,10 @@ const componentStoryMeta: ComponentMeta<any> = {
 export default componentStoryMeta;
 
 export const mainStory = () => {
-    type ColorInfo = {colorValue: string; colorKey: ColorKey; cssVarName: string};
+    const colorInstances = getObjectTypedKeys(colors).map((colorKey) => {
+        const colorDefinitions = colors[colorKey];
+        const colorCssVars = colorCssVarNames[colorKey];
 
-    const colorsAndNames: ColorInfo[] = getObjectTypedKeys(colors).map((colorKey) => {
-        const colorValue = colors[colorKey];
-        const cssVarName = colorCssVarNames[colorKey];
-
-        return {
-            colorValue: String(colorValue),
-            colorKey,
-            cssVarName: String(cssVarName),
-        };
-    });
-
-    const colorInstances = colorsAndNames.map((colorInfo) => {
         return (
             <div
                 style={{
@@ -40,21 +30,35 @@ export const mainStory = () => {
                         alignItems: 'center',
                         padding: '24px',
                         borderRadius: '4px',
-                        border: `1px solid ${colors.dividerForegroundColor}`,
+                        border: `1px solid ${colors.divider.foregroundColor}`,
                     }}
                 >
                     <div
+                        className="color-swatch"
                         style={{
-                            width: '200px',
+                            width: '150px',
                             height: '75px',
                             boxSizing: 'border-box',
                             borderRadius: '4px',
-                            border: '1px solid black',
-                            backgroundColor: colorInfo.colorValue,
+                            border: `1px solid ${colors.divider.foregroundColor}`,
+                            backgroundColor: String(colorDefinitions.backgroundColor),
+                            color: String(colorDefinitions.foregroundColor),
+                            textDecoration: 'underline',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            fontSize: '2.5em',
                         }}
-                    ></div>
-                    <span>{colorInfo.colorKey}</span>
-                    <span>{colorInfo.cssVarName}</span>
+                    >
+                        Aa
+                    </div>
+                    <span>{colorKey}</span>
+                    <span style={{color: String(colors.pageTertiary.foregroundColor)}}>
+                        {String(colorCssVars.foregroundColor)}
+                    </span>
+                    <span style={{color: String(colors.pageTertiary.foregroundColor)}}>
+                        {String(colorCssVars.backgroundColor)}
+                    </span>
                 </div>
             </div>
         );

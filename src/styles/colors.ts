@@ -2,68 +2,124 @@ import {camelCaseToKebabCase, mapObject} from 'augment-vir';
 import {css} from 'element-vir';
 import {CSSResult, unsafeCSS} from 'lit';
 
-export type ColorKey = keyof typeof defaultPalette;
+export type ColorKey = keyof typeof fallbackColors;
+
+export type DualColorDefinition = Readonly<{
+    foregroundColor: CSSResult;
+    backgroundColor: CSSResult;
+}>;
 
 /** This ensures the value of the input while maintaining object key names. */
-function cssResults<T extends Record<string, CSSResult>>(input: T): T {
+function wrapColors<T extends Record<string, DualColorDefinition>>(input: T): Readonly<T> {
     return input;
 }
 
-const lightPalette = cssResults({
-    /** Primary brand color: the logo color. */
-    primaryBrandColor: css`#00D093`,
-    /** Page background color. */
-    primaryBackgroundColor: css`#ffffff`,
-    /** Page foreground (text) color. */
-    primaryForegroundColor: css`#000000`,
-    primaryForegroundInteractionHoverColor: css`#00D093`,
+const mainLightPalette = (() => {
+    const pagePrimary: DualColorDefinition = {
+        /** Default page background color. */
+        backgroundColor: css`#ffffff`,
+        /** Default page foreground (usually text) color. */
+        foregroundColor: css`#000000`,
+    };
     /** For secondary foreground (text) elements, lighter than the primary foreground color. */
-    secondaryForegroundColor: css`#5B5D5C`,
+    const pageSecondary: DualColorDefinition = {
+        ...pagePrimary,
+        foregroundColor: css`#5B5D5C`,
+    };
     /** For tertiary foreground (text) elements, slightly lighter than the secondary foreground color. */
-    tertiaryForegroundColor: css`#ACADAD`,
-    /** The foreground color for divider lines. */
-    dividerForegroundColor: css`#D6D6D6`,
-    /** Drop shadow for some rounded rectangle shapes. */
-    dropShadowColor: css`#D2EEFA`,
-});
+    const pageTertiary: DualColorDefinition = {
+        ...pagePrimary,
+        foregroundColor: css`#ACADAD`,
+    };
 
-const lightAccentPalette = cssResults({
-    /** Color for primary accents, like primary buttons. */
-    accentPrimaryBackgroundColor: css`#00D093`,
-    /** Color for the foreground (text) on top of accentPrimaryBackgroundColor. */
-    accentPrimaryForegroundColor: css`#ffffff`,
-    /** Color for secondary item backgrounds, like inactive toggle buttons or header backgrounds. */
-    accentSecondaryBackgroundColor: css`#F1F3F6`,
-    /** Color for foreground (text) on top of accentSecondaryBackgroundColor. */
-    accentSecondaryForegroundColor: css`#000000`,
-    /**
-     * Additional color for secondary foregrounds (text) when an element is inactive or its
-     * foreground is just a placeholder.
-     */
-    accentSecondaryInactiveForegroundColor: css`#9A9A9D`,
-});
+    const brandPrimary: DualColorDefinition = {
+        ...pagePrimary,
+        foregroundColor: css`#00D093`,
+    };
+
+    /** The color for divider lines. */
+    const divider: DualColorDefinition = {
+        ...pagePrimary,
+        foregroundColor: css`#D6D6D6`,
+    };
+    /** Drop shadow for some rounded rectangle shapes. */
+    const dropShadow: DualColorDefinition = {
+        ...pagePrimary,
+        backgroundColor: css`#D2EEFA`,
+    };
+    const accentPrimary: DualColorDefinition = {
+        /** Color for primary accents, like primary buttons. */
+        backgroundColor: brandPrimary.foregroundColor,
+        /** Color for the foreground (text) on top of accentPrimaryBackgroundColor. */
+        foregroundColor: css`#ffffff`,
+    };
+    const accentSecondary: DualColorDefinition = {
+        /** Color for secondary item backgrounds, like inactive toggle buttons or header backgrounds. */
+        backgroundColor: css`#F1F3F6`,
+        /** Color for foreground (text) on top of accentSecondaryBackgroundColor. */
+        foregroundColor: css`#000000`,
+    };
+    const accentTertiary: DualColorDefinition = {
+        ...accentSecondary,
+        /**
+         * Additional color for secondary foregrounds (text) when an element is inactive or its
+         * foreground is just a placeholder.
+         */
+        foregroundColor: css`#9A9A9D`,
+    };
+    const pageInteraction: DualColorDefinition = {
+        ...brandPrimary,
+    };
+
+    return wrapColors({
+        brandPrimary,
+        pagePrimary,
+        pageSecondary,
+        pageTertiary,
+        pageInteraction,
+        divider,
+        dropShadow,
+        accentPrimary,
+        accentSecondary,
+        accentTertiary,
+    });
+})();
 
 /**
  * These are used as fallback values for CSS vars. They should never be used directly, as that would
  * block the CSS vars from being effective.
  */
-const defaultPalette = cssResults({
-    ...lightPalette,
-    ...lightAccentPalette,
-});
+const fallbackColors = mainLightPalette;
+
+function colorKeyToCssVarName(colorKey: ColorKey, type: keyof DualColorDefinition): CSSResult {
+    return unsafeCSS(`--toniq-${camelCaseToKebabCase(colorKey)}-${camelCaseToKebabCase(type)}`);
+}
 
 /**
  * CSS var names for all the design system colors. These should not be used as VALUES in CSS, use
  * the "colors" object exported below for that. These values should be used as properties. Meaning,
  * these values should only be used for setting the CSS variable values (if needed).
  */
-export const colorCssVarNames: Record<ColorKey, CSSResult> = mapObject(
-    defaultPalette,
-    (colorName) => {
-        const cssVarName = `--toniq-${camelCaseToKebabCase(colorName)}`;
-        return unsafeCSS(cssVarName);
+export const colorCssVarNames: Record<ColorKey, DualColorDefinition> = mapObject(
+    fallbackColors,
+    (colorKey) => {
+        const cssVarsDefinition: DualColorDefinition = {
+            backgroundColor: colorKeyToCssVarName(colorKey, 'backgroundColor'),
+            foregroundColor: colorKeyToCssVarName(colorKey, 'foregroundColor'),
+        };
+        return cssVarsDefinition;
     },
 );
+
+function colorValueToVarCallDualDefinition(
+    colorKey: ColorKey,
+    type: keyof DualColorDefinition,
+): CSSResult {
+    const fallbackColor = fallbackColors[colorKey][type];
+    const cssVarName = colorCssVarNames[colorKey][type];
+
+    return css`var(${cssVarName}, ${fallbackColor})`;
+}
 
 /**
  * Colors for the design system. These should be used directly as values in CSS.
@@ -72,10 +128,12 @@ export const colorCssVarNames: Record<ColorKey, CSSResult> = mapObject(
  * system palette. To override any of these colors, set the CSS var from the corresponding ColorName
  * key in colorCssVarNames.
  */
-export const colors: Record<ColorKey, CSSResult> = mapObject(
+export const colors: Record<ColorKey, DualColorDefinition> = mapObject(
     colorCssVarNames,
-    (colorName, cssColorVarName) => {
-        const fallbackColor = defaultPalette[colorName];
-        return css`var(${cssColorVarName}, ${fallbackColor})`;
+    (colorKey): DualColorDefinition => {
+        return {
+            foregroundColor: colorValueToVarCallDualDefinition(colorKey, 'foregroundColor'),
+            backgroundColor: colorValueToVarCallDualDefinition(colorKey, 'backgroundColor'),
+        };
     },
 );
