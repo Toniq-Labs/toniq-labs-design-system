@@ -5,6 +5,21 @@ import {join, relative} from 'path';
 import {repoRootDir, testFilesDir} from './common/file-paths';
 import {insertPreInstallScript, removePreInstallScript} from './publishing';
 
+async function deleteAllCaches(testDirPath: string) {
+    await runShellCommand('rm -rf ./node_modules/@toniq-labs/design-system', {
+        cwd: testDirPath,
+        rejectOnError: true,
+    });
+    await runShellCommand('rm -rf ./node_modules/.cache', {
+        cwd: testDirPath,
+        rejectOnError: true,
+    });
+    await runShellCommand('rm -rf ./node_modules/.vite', {
+        cwd: testDirPath,
+        rejectOnError: true,
+    });
+}
+
 async function runTests(tarFullPath: string) {
     const testDirNames = await readdir(testFilesDir);
     const errors: Error[] = [];
@@ -17,6 +32,7 @@ async function runTests(tarFullPath: string) {
                 cwd: testDirPath,
                 rejectOnError: true,
             });
+            await deleteAllCaches(testDirPath);
             await runShellCommand(`npm install ${toPosixPath(tarPath)}`, {
                 cwd: testDirPath,
                 rejectOnError: true,

@@ -1,5 +1,5 @@
+import {toniqIconColors} from '../../../styles/icon-colors';
 import {html, ToniqSvg} from '../../toniq-svg';
-import {colorUsage} from '../../toniq-svg-colors';
 
 export const LoaderAnimated24Icon = new ToniqSvg(
     'LoaderAnimated24Icon',
@@ -59,7 +59,7 @@ export const LoaderAnimated24Icon = new ToniqSvg(
         <svg
             class="loader-animated-24-icon__svg"
             fill="none"
-            stroke="${colorUsage.stroke}"
+            stroke="${toniqIconColors.stroke}"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"

@@ -1,12 +1,12 @@
+import {toniqIconColors} from '../../../styles/icon-colors';
 import {html, ToniqSvg} from '../../toniq-svg';
-import {colorUsage} from '../../toniq-svg-colors';
 
 export const Copy16Icon = new ToniqSvg(
     'Copy16Icon',
     html`
         <svg
             fill="none"
-            stroke="${colorUsage.stroke}"
+            stroke="${toniqIconColors.stroke}"
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
             width="16"

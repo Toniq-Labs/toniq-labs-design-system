@@ -5,7 +5,7 @@ import {
     RequiredAndNotNullBy,
     safeMatch,
 } from 'augment-vir';
-import {readDirRecursive, runShellCommand} from 'augment-vir/dist/node-only';
+import {readDirRecursive, runShellCommand} from 'augment-vir/dist/cjs/node-only';
 import {existsSync} from 'fs';
 import {readFile, stat, writeFile} from 'fs/promises';
 import {basename, join, relative} from 'path';

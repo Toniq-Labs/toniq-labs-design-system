@@ -93,7 +93,6 @@ function generateIconImportsAndExports(iconPaths: string[]): string {
     return `${imports.join('\n')}
         ${exports.join('\n')}
         export * from './toniq-svg';
-        export * from './toniq-svg-colors';
     
         export const allIconsByCategory = {
             ${categories.join(',\n')}

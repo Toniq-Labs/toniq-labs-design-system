@@ -1,12 +1,12 @@
+import {toniqIconColors} from '../../../styles/icon-colors';
 import {html, ToniqSvg} from '../../toniq-svg';
-import {colorUsage} from '../../toniq-svg-colors';
 
 export const ChevronUp24Icon = new ToniqSvg(
     'ChevronUp24Icon',
     html`
         <svg
             fill="none"
-            stroke="${colorUsage.stroke}"
+            stroke="${toniqIconColors.stroke}"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"

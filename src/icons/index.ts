@@ -123,7 +123,6 @@ export * from './svgs/third-party-brands/brand-tiktok-32.icon';
 export * from './svgs/third-party-brands/brand-twitch-32.icon';
 export * from './svgs/third-party-brands/brand-twitter-32.icon';
 export * from './toniq-svg';
-export * from './toniq-svg-colors';
 
 export const allIconsByCategory = {
     'core-16': [
