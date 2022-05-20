@@ -12,8 +12,8 @@ const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
 
 export default componentStoryMeta;
 
-const handleClick = (e: TypedEvent) => {
-    console.log(e);
+const handleClick = (event: TypedEvent) => {
+    console.log(event);
 };
 
 export const mainStory = () => (
