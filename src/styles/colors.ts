@@ -1,6 +1,7 @@
 import {camelCaseToKebabCase, mapObject} from 'augment-vir';
 import {css} from 'element-vir';
 import {CSSResult, unsafeCSS} from 'lit';
+import {wrapTypeWithReadonly} from '../augments/type';
 
 export type ColorKey = keyof typeof fallbackColors;
 
@@ -8,11 +9,6 @@ export type DualColorDefinition = Readonly<{
     foregroundColor: CSSResult;
     backgroundColor: CSSResult;
 }>;
-
-/** This ensures the value of the input while maintaining object key names. */
-function wrapColors<T extends Record<string, DualColorDefinition>>(input: T): Readonly<T> {
-    return input;
-}
 
 const mainLightPalette = (() => {
     const pagePrimary: DualColorDefinition = {
@@ -71,7 +67,7 @@ const mainLightPalette = (() => {
         ...brandPrimary,
     };
 
-    return wrapColors({
+    return wrapTypeWithReadonly<Record<string, DualColorDefinition>>()({
         brandPrimary,
         pagePrimary,
         pageSecondary,
