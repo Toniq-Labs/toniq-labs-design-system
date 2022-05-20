@@ -4,10 +4,10 @@ import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {defineToniqElement} from '../define-toniq-element';
 
 export const ToniqToggleButton = defineToniqElement({
+    tagName: 'toniq-toggle-button',
     initCallback: ({setProps}) => {
         setProps({inputId: randomString()});
     },
-    tagName: 'toniq-toggle-button',
     props: {
         text: '',
         active: false,
