@@ -5,7 +5,7 @@
         "test": "npm run test:files && npm run test:exports",
         "test:exports": "ts-node src/update-all-exports.ts --check",
         "test:files": "ts-node src/test-test-files.ts",
-        "update-exports": "ts-node src/update-all-exports.ts"
+        "update:exports": "ts-node src/update-all-exports.ts"
     },
     "devDependencies": {
         "@types/node": "17.0.31"

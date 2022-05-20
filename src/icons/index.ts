@@ -1,3 +1,5 @@
+/** This file is automatically updated by update-icon-exports.ts */
+
 import {Copy16Icon} from './svgs/core-16/copy-16.icon';
 import {ExternalLink16Icon} from './svgs/core-16/external-link-16.icon';
 import {Icp16Icon} from './svgs/core-16/icp-16.icon';

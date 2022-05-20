@@ -1,6 +1,7 @@
 import {existsSync} from 'fs';
 import {readFile, writeFile} from 'fs/promises';
-import {relative} from 'path';
+import {basename, relative} from 'path';
+import {generateAutomaticallyUpdatedByComment} from './automatically-updated';
 import {repoRootDir} from './file-paths';
 import {formatCode} from './format';
 
@@ -41,7 +42,10 @@ export async function formatAndWriteOrCheckFromArgs(
     args: UpdateExportsArgs,
     scriptName: string,
 ): Promise<void> {
-    const formattedCode = formatCode(codeToWrite, fileToWriteTo);
+    const codeWithComment =
+        generateAutomaticallyUpdatedByComment(basename(scriptName)) + '\n\n' + codeToWrite;
+
+    const formattedCode = formatCode(codeWithComment, fileToWriteTo);
     const relativeWriteToFile = relative(repoRootDir, fileToWriteTo);
 
     if (args.dryRun) {

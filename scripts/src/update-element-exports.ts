@@ -16,6 +16,7 @@ function generateElementExports(filePaths: string[]): string {
 
         return `export * from './${toPosixPath(relativePath)}';`;
     });
+
     return exportLines.join('\n');
 }
 
