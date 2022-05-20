@@ -1,6 +1,8 @@
 import {existsSync} from 'fs';
 import {readFile, writeFile} from 'fs/promises';
-import {relative} from 'path';
+import {basename, relative} from 'path';
+import {generateAutomaticallyUpdatedByComment} from './automatically-updated';
+import {cliColors} from './cli-colors';
 import {repoRootDir} from './file-paths';
 import {formatCode} from './format';
 
@@ -41,27 +43,34 @@ export async function formatAndWriteOrCheckFromArgs(
     args: UpdateExportsArgs,
     scriptName: string,
 ): Promise<void> {
-    const formattedCode = formatCode(codeToWrite, fileToWriteTo);
+    const codeWithComment =
+        generateAutomaticallyUpdatedByComment(basename(scriptName)) + '\n\n' + codeToWrite;
+
+    const formattedCode = formatCode(codeWithComment, fileToWriteTo);
     const relativeWriteToFile = relative(repoRootDir, fileToWriteTo);
+    const currentOutputContents = (await readFile(fileToWriteTo)).toString();
+    const qualifier = args.checkOnly ? '' : ' already';
+    if (formattedCode === currentOutputContents) {
+        console.info(
+            `${cliColors.green}Up to date${qualifier}: "${relativeWriteToFile}".${cliColors.reset}`,
+        );
+        return;
+    }
 
     if (args.dryRun) {
         console.info(
             `Would've written the following to "${relativeWriteToFile}":\n"${formattedCode}"`,
         );
     } else if (args.checkOnly) {
-        const currentOutputContents = (await readFile(fileToWriteTo)).toString();
-        if (formattedCode === currentOutputContents) {
-            console.info(`\x1b[32m${relativeWriteToFile} is up to date.\x1b[0m`);
-        } else {
-            throw new NotUpToDateError(
-                `\x1b[31m\x1b[1m${relativeWriteToFile} needs to be updated: run 'npx ts-node ${relative(
-                    repoRootDir,
-                    scriptName,
-                )}'\x1b[0m`,
-            );
-        }
+        throw new NotUpToDateError(
+            `${cliColors.red}${cliColors.bold}"${relativeWriteToFile}" needs to be updated: run '${
+                cliColors.reset
+            }${cliColors.blue}npx ts-node ${relative(repoRootDir, scriptName)}${cliColors.red}${
+                cliColors.bold
+            }'${cliColors.reset}`,
+        );
     } else {
-        console.info(`Writing to "${fileToWriteTo}"`);
+        console.info(`${cliColors.blue}Writing to "${fileToWriteTo}".${cliColors.reset}`);
         await writeFile(fileToWriteTo, formattedCode);
     }
 }

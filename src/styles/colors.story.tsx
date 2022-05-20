@@ -1,7 +1,9 @@
 import {ComponentMeta} from '@storybook/react';
 import {getObjectTypedKeys} from 'augment-vir';
 import React from 'react';
+import {cssToReactStyleObject} from '../augments/react';
 import {toniqColorCssVarNames, toniqColors} from './colors';
+import {toniqFontStyles} from './fonts';
 
 const componentStoryMeta: ComponentMeta<any> = {
     title: 'Styles/Colors',
@@ -16,11 +18,11 @@ export const mainStory = () => {
 
         return (
             <div
+                key={colorKey}
                 style={{
                     display: 'flex',
-                    width: '460px',
                     justifyContent: 'center',
-                    margin: '24px 0',
+                    alignItems: 'flex-start',
                 }}
             >
                 <div
@@ -28,7 +30,7 @@ export const mainStory = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        padding: '24px',
+                        padding: '32px',
                         borderRadius: '4px',
                         border: `1px solid ${toniqColors.divider.foregroundColor}`,
                     }}
@@ -37,7 +39,7 @@ export const mainStory = () => {
                         className="color-swatch"
                         style={{
                             width: '150px',
-                            height: '75px',
+                            height: '100px',
                             boxSizing: 'border-box',
                             borderRadius: '4px',
                             border: `1px solid ${toniqColors.divider.foregroundColor}`,
@@ -47,12 +49,12 @@ export const mainStory = () => {
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            fontSize: '2.5em',
+                            ...cssToReactStyleObject(String(toniqFontStyles.h1Font)),
                         }}
                     >
                         Aa
                     </div>
-                    <span>{colorKey}</span>
+                    <span style={{marginTop: '4px'}}>{colorKey}</span>
                     <span style={{color: String(toniqColors.pageTertiary.foregroundColor)}}>
                         {String(colorCssVars.foregroundColor)}
                     </span>
@@ -65,7 +67,15 @@ export const mainStory = () => {
     });
 
     return (
-        <article style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
+        <article
+            style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '64px',
+                padding: '48px 64px',
+                justifyContent: 'center',
+            }}
+        >
             {colorInstances}
         </article>
     );

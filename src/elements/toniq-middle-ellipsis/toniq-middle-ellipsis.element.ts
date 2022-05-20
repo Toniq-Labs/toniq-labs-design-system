@@ -3,6 +3,7 @@ import {copyToClipboard} from '../../clipboard';
 import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
 import {interactionDuration} from '../../styles/animation';
 import {toniqColors} from '../../styles/colors';
+import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
@@ -52,6 +53,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
         :host {
             /* 5 frames at 60 fps */
             transition: ${interactionDuration};
+            ${toniqFontStyles.toniqFont};
         }
 
         :host,

@@ -1,3 +1,5 @@
+/** This file is automatically updated by update-react-wrappers.ts */
+
 import {ToniqButton as NativeToniqButton} from './toniq-button/toniq-button.element';
 import {ToniqCheckbox as NativeToniqCheckbox} from './toniq-checkbox/toniq-checkbox.element';
 import {ToniqIcon as NativeToniqIcon} from './toniq-icon/toniq-icon.element';

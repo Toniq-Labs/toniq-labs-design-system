@@ -1,6 +1,7 @@
 import {randomString} from 'augment-vir';
 import {css, defineElementEvent, html} from 'element-vir';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
+import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
 
 export const ToniqToggleButton = defineToniqElement({
@@ -18,17 +19,15 @@ export const ToniqToggleButton = defineToniqElement({
     },
     styles: css`
         :host {
-            font-family: var(--toniq-font, 'Rubik');
+            ${toniqFontStyles.toniqFont};
         }
 
         span {
             border: 0;
             cursor: pointer;
-            font-family: inherit;
-            font-weight: 700;
-            font-style: normal;
-            line-height: 24px;
-            font-size: 16px;
+            ${toniqFontStyles.paragraphFont};
+            ${toniqFontStyles.boldFont};
+
             -webkit-tap-highlight-color: transparent;
             border-radius: 8px;
 
