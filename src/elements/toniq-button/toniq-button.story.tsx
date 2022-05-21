@@ -14,12 +14,12 @@ const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
 
 export default componentStoryMeta;
 
-const handleClick = (event: Event) => {
-    action(event.type)(event);
-};
-
 export const mainStory = () => (
-    <article>
+    <article
+        onClick={(event) => {
+            action(event.type)(event);
+        }}
+    >
         <h3
             style={{
                 ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
@@ -27,7 +27,7 @@ export const mainStory = () => (
         >
             Primary
         </h3>
-        <ToniqButton onClick={handleClick}>Buy Now</ToniqButton>
+        <ToniqButton>Buy Now</ToniqButton>
 
         <h3
             style={{
@@ -36,9 +36,7 @@ export const mainStory = () => (
         >
             Secondary
         </h3>
-        <ToniqButton onClick={handleClick} variant={ToniqButtonVariant.Secondary}>
-            Buy Now
-        </ToniqButton>
+        <ToniqButton variant={ToniqButtonVariant.Secondary}>Buy Now</ToniqButton>
 
         <h3
             style={{
@@ -47,7 +45,7 @@ export const mainStory = () => (
         >
             With HTML child
         </h3>
-        <ToniqButton onClick={handleClick}>
+        <ToniqButton>
             <div>
                 <span>Buy Now</span>
             </div>
@@ -60,7 +58,7 @@ export const mainStory = () => (
         >
             With ToniqIcon child
         </h3>
-        <ToniqButton onClick={handleClick} variant={ToniqButtonVariant.Secondary}>
+        <ToniqButton variant={ToniqButtonVariant.Secondary}>
             <ToniqIcon title="ExternalLink16Icon" icon={ExternalLink24Icon} />
         </ToniqButton>
     </article>

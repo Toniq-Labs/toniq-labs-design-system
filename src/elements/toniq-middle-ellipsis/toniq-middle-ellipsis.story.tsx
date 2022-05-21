@@ -1,8 +1,10 @@
+import {action} from '@storybook/addon-actions';
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
 import {cssToReactStyleObject} from '../../augments/react';
 import {toniqFontStyles} from '../../styles';
 import {ToniqMiddleEllipsis} from '../react-components';
+import {ToniqMiddleEllipsis as NativeToniqMiddleEllipsis} from './toniq-middle-ellipsis.element';
 
 const middleEllipsisControls = (<SpecificArgsGeneric extends ArgTypes>(
     input: SpecificArgsGeneric,
@@ -44,6 +46,10 @@ const componentStoryMeta: ComponentMeta<typeof ToniqMiddleEllipsis> = {
 };
 
 export default componentStoryMeta;
+
+function handleCopied(event: typeof NativeToniqMiddleEllipsis.events.copied) {
+    action(event.type)(event);
+}
 
 export const mainStory = (controls: Record<keyof typeof middleEllipsisControls, any>) => {
     const longText = 'long string inside of text';
@@ -93,6 +99,7 @@ export const mainStory = (controls: Record<keyof typeof middleEllipsisControls, 
                 Copyable
             </h3>
             <ToniqMiddleEllipsis
+                onCopied={handleCopied}
                 text={'herp derp what is this madness'}
                 letterCount={controls.letterCount}
                 copyOnClick={true}
@@ -105,6 +112,7 @@ export const mainStory = (controls: Record<keyof typeof middleEllipsisControls, 
                 Custom
             </h3>
             <ToniqMiddleEllipsis
+                onCopied={handleCopied}
                 text={controls.text}
                 letterCount={controls.letterCount}
                 externalLink={controls.externalLink}
