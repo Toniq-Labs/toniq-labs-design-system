@@ -57,7 +57,8 @@
     },
     "dependencies": {
         "augment-vir": "2.2.1",
-        "element-vir": "5.5.1"
+        "element-vir": "5.5.1",
+        "lit": "2.2.4"
     },
     "devDependencies": {
         "@esm-bundle/chai": "4.3.4-fix.0",
