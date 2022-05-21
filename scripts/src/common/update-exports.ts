@@ -70,7 +70,7 @@ export async function formatAndWriteOrCheckFromArgs(
             }'${cliColors.reset}`,
         );
     } else {
-        console.info(`${cliColors.blue}Writing to "${fileToWriteTo}".${cliColors.reset}`);
+        console.info(`${cliColors.blue}Writing to "${relativeWriteToFile}".${cliColors.reset}`);
         await writeFile(fileToWriteTo, formattedCode);
     }
 }
