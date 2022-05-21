@@ -1,17 +1,83 @@
-import {Meta} from '@storybook/react';
-import {getObjectTypedKeys} from 'augment-vir';
+import {ArgTypes, Meta} from '@storybook/react';
+import {getEnumTypedValues, getObjectTypedKeys} from 'augment-vir';
 import React from 'react';
 import {cssToReactStyleObject} from '../augments/react';
+import {wrapTypeWithReadonly} from '../augments/type';
 import {toniqColorCssVarNames, toniqColors} from './colors';
 import {toniqFontStyles} from './fonts';
 
+const flattenedCssVarNames: string[] = Object.values(toniqColorCssVarNames)
+    .map((value): string[] => {
+        return Object.values(value).map((mappingValue): string => String(mappingValue));
+    })
+    .flat();
+
+enum ExtraApplyColorOptions {
+    None = 'None',
+    AllForeground = 'All Foreground CSS vars',
+    AllBackground = 'All Background CSS vars',
+    All = 'All CSS vars',
+}
+const storyControls = wrapTypeWithReadonly<ArgTypes>()({
+    color: {
+        name: 'Color',
+        control: 'color',
+    },
+    applyColor: {
+        name: 'Apply Color To',
+        control: 'select',
+        options: [
+            ...getEnumTypedValues(ExtraApplyColorOptions),
+            ...flattenedCssVarNames,
+        ],
+    },
+} as const);
+
 const componentStoryMeta: Meta<any> = {
     title: 'Styles/Colors',
+    argTypes: storyControls as ArgTypes,
+    args: {
+        color: undefined,
+        applyColor: ExtraApplyColorOptions.None,
+    },
 };
+
+function createCssVarColorMap(color: string, cssVars: string[]) {
+    return cssVars.reduce((accum, currentCssVarName) => {
+        accum[currentCssVarName] = color;
+        return accum;
+    }, {} as Record<string, string>);
+}
+
+function generateAppliedCssVarColors(controls: Record<keyof typeof storyControls, string>) {
+    if (!controls.applyColor || !controls.color) {
+        return {};
+    }
+    if (controls.applyColor === ExtraApplyColorOptions.None) {
+        return {};
+    }
+    if (controls.applyColor === ExtraApplyColorOptions.All) {
+        return createCssVarColorMap(controls.color, flattenedCssVarNames);
+    }
+    if (controls.applyColor === ExtraApplyColorOptions.AllBackground) {
+        return createCssVarColorMap(
+            controls.color,
+            flattenedCssVarNames.filter((cssVarName) => cssVarName.endsWith('background-color')),
+        );
+    }
+    if (controls.applyColor === ExtraApplyColorOptions.AllForeground) {
+        return createCssVarColorMap(
+            controls.color,
+            flattenedCssVarNames.filter((cssVarName) => cssVarName.endsWith('foreground-color')),
+        );
+    }
+
+    return {[controls.applyColor]: controls.color};
+}
 
 export default componentStoryMeta;
 
-export const mainStory = () => {
+export const mainStory = (controls: Record<keyof typeof storyControls, string>) => {
     const colorInstances = getObjectTypedKeys(toniqColors).map((colorKey) => {
         const colorDefinitions = toniqColors[colorKey];
         const colorCssVars = toniqColorCssVarNames[colorKey];
@@ -30,7 +96,7 @@ export const mainStory = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        padding: '32px',
+                        padding: '16px',
                         borderRadius: '4px',
                         border: `1px solid ${toniqColors.divider.foregroundColor}`,
                     }}
@@ -38,8 +104,8 @@ export const mainStory = () => {
                     <div
                         className="color-swatch"
                         style={{
-                            width: '150px',
-                            height: '75px',
+                            width: '100px',
+                            height: '50px',
                             boxSizing: 'border-box',
                             borderRadius: '4px',
                             border: `1px solid ${toniqColors.divider.foregroundColor}`,
@@ -66,14 +132,17 @@ export const mainStory = () => {
         );
     });
 
+    const cssVarStyling = generateAppliedCssVarColors(controls);
+
     return (
         <article
             style={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: '32px',
-                padding: '32px',
+                gap: '16px',
+                padding: '16px',
                 justifyContent: 'center',
+                ...cssVarStyling,
             }}
         >
             {colorInstances}

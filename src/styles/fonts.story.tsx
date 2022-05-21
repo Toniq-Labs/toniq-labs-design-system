@@ -58,7 +58,7 @@ export const mainStory = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        padding: '32px',
+                        padding: '16px',
                         borderRadius: '4px',
                         border: `1px solid ${toniqColors.divider.foregroundColor}`,
                     }}
@@ -103,8 +103,8 @@ export const mainStory = () => {
             style={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: '32px',
-                padding: '32px',
+                gap: '16px',
+                padding: '16px',
                 justifyContent: 'center',
             }}
         >
