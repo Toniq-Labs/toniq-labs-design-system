@@ -1,11 +1,11 @@
-import {ComponentMeta} from '@storybook/react';
+import {Meta} from '@storybook/react';
 import {getObjectTypedKeys} from 'augment-vir';
 import React from 'react';
 import {cssToReactStyleObject} from '../augments/react';
 import {toniqColorCssVarNames, toniqColors} from './colors';
 import {toniqFontStyles} from './fonts';
 
-const componentStoryMeta: ComponentMeta<any> = {
+const componentStoryMeta: Meta<any> = {
     title: 'Styles/Colors',
 };
 

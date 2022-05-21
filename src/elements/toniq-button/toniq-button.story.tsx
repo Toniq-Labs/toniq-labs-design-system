@@ -1,5 +1,5 @@
+import {action} from '@storybook/addon-actions';
 import {ComponentMeta} from '@storybook/react';
-import {TypedEvent} from 'element-vir';
 import React from 'react';
 import {cssToReactStyleObject} from '../../augments/react';
 import {ExternalLink24Icon} from '../../icons/svgs/core-24/external-link-24.icon';
@@ -14,8 +14,8 @@ const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
 
 export default componentStoryMeta;
 
-const handleClick = (event: TypedEvent) => {
-    console.log(event);
+const handleClick = (event: Event) => {
+    action(event.type)(event);
 };
 
 export const mainStory = () => (

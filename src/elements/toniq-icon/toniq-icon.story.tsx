@@ -10,13 +10,11 @@ const storyControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArg
     {
         color: {
             name: 'Color',
-            defaultValue: 'black',
             control: 'color',
         },
         applyColor: {
             name: 'Apply Color To',
             control: 'select',
-            defaultValue: 'Icon color CSS var',
             options: [
                 'Icon color CSS var',
                 'Icon fill color CSS var',
@@ -41,6 +39,10 @@ const componentStoryMeta: ComponentMeta<typeof ToniqIcon> = {
     title: 'Elements/Toniq Icon',
     component: ToniqIcon,
     argTypes: storyControls as ArgTypes,
+    args: {
+        color: 'black',
+        applyColor: 'Icon color CSS var',
+    },
 };
 
 export default componentStoryMeta;
@@ -50,7 +52,7 @@ export const mainStory = (controls: Record<keyof typeof storyControls, string>) 
         Object.keys(allIconsByCategory) as (keyof typeof allIconsByCategory)[]
     ).map((categoryName) => {
         const iconInstances = allIconsByCategory[categoryName].map((icon) => (
-            <div title={icon.iconName}>
+            <div key={icon.iconName} title={icon.iconName}>
                 <ToniqIcon icon={icon} />
             </div>
         ));
@@ -75,7 +77,7 @@ export const mainStory = (controls: Record<keyof typeof storyControls, string>) 
                 : {};
 
         return (
-            <section>
+            <section key={categoryName}>
                 <h3
                     style={{
                         ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),

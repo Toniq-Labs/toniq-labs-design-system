@@ -1,11 +1,11 @@
-import {ComponentMeta} from '@storybook/react';
+import {Meta} from '@storybook/react';
 import {getObjectTypedKeys} from 'augment-vir';
 import React from 'react';
 import {cssToReactStyleObject} from '../augments/react';
 import {toniqColors} from './colors';
 import {toniqFontStyles, toniqFontStylesCssVarNames} from './fonts';
 
-const componentStoryMeta: ComponentMeta<any> = {
+const componentStoryMeta: Meta<any> = {
     title: 'Styles/Fonts',
 };
 
@@ -19,7 +19,15 @@ export const mainStory = () => {
         const varsTemplate = getObjectTypedKeys(fontStyleCssVars).map((cssPropName) => {
             const varName = String(fontStyleCssVars[cssPropName]);
             return (
-                <>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                    key={cssPropName}
+                >
                     <span
                         style={{
                             marginTop: '8px',
@@ -32,7 +40,7 @@ export const mainStory = () => {
                     <span style={{color: String(toniqColors.pageTertiary.foregroundColor)}}>
                         {varName}
                     </span>
-                </>
+                </div>
             );
         });
 

@@ -17,6 +17,7 @@ export const ToniqButton = defineToniqElement({
     styles: css`
         :host {
             ${toniqFontStyles.toniqFont};
+            display: inline-block;
         }
 
         button {
@@ -26,11 +27,7 @@ export const ToniqButton = defineToniqElement({
             ${toniqFontStyles.paragraphFont};
             ${toniqFontStyles.boldFont};
             -webkit-tap-highlight-color: transparent;
-
             border-radius: 8px;
-        }
-
-        button {
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
             padding: 12px;
         }
