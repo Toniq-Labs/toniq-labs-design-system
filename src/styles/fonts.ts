@@ -2,6 +2,7 @@ import {camelCaseToKebabCase, getObjectTypedKeys, mapObject} from 'augment-vir';
 import {css} from 'element-vir';
 import {CSSResult, unsafeCSS} from 'lit';
 import {wrapTypeWithReadonly} from '../augments/type';
+import {toniqColors} from './colors';
 
 export type FontStyleDefinition = CSSResult;
 export type FontStyleKey = keyof typeof toniqFontStylesCssVarNames;
@@ -73,40 +74,49 @@ function combineFallbacksAndVars(fontStylesKey: FontStyleKey): CSSResult {
 }
 
 export const toniqFontStyles = (() => {
-    const toniqFont = combineFallbacksAndVars('toniqFont');
+    const toniqFont = css`
+        color: ${toniqColors.pagePrimary.foregroundColor};
+        ${combineFallbacksAndVars('toniqFont')};
+    `;
 
     const normalWeightFont = combineFallbacksAndVars('normalWeightFont');
     const boldFont = combineFallbacksAndVars('boldFont');
     const extraBoldFont = combineFallbacksAndVars('extraBoldFont');
 
     const paragraphFont = css`
+        ${toniqFont};
         font-style: normal;
         ${combineFallbacksAndVars('paragraphFont')};
         ${normalWeightFont};
     `;
     const boldParagraphFont = css`
+        ${toniqFont};
         ${paragraphFont};
         ${boldFont};
     `;
     const labelFont = css`
+        ${toniqFont};
         font-style: normal;
         ${combineFallbacksAndVars('labelFont')};
         ${boldFont}
     `;
 
     const h1Font = css`
+        ${toniqFont};
         font-style: normal;
         ${combineFallbacksAndVars('h1Font')};
         ${extraBoldFont};
     `;
 
     const h2Font = css`
+        ${toniqFont};
         font-style: normal;
         ${combineFallbacksAndVars('h2Font')};
         ${boldFont};
     `;
 
     const h3Font = css`
+        ${toniqFont};
         font-style: normal;
         ${combineFallbacksAndVars('h3Font')};
         ${boldFont};

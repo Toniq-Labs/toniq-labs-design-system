@@ -19,14 +19,13 @@ export const ToniqToggleButton = defineToniqElement({
     },
     styles: css`
         :host {
-            ${toniqFontStyles.toniqFont};
+            ${toniqFontStyles.boldParagraphFont};
         }
 
         span {
             border: 0;
             cursor: pointer;
-            ${toniqFontStyles.paragraphFont};
-            ${toniqFontStyles.boldFont};
+            font: inherit;
 
             -webkit-tap-highlight-color: transparent;
             border-radius: 8px;

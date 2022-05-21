@@ -56,7 +56,6 @@ export const ToniqMiddleEllipsis = defineToniqElement({
         :host {
             /* 5 frames at 60 fps */
             transition: ${interactionDuration};
-            ${toniqFontStyles.toniqFont};
             ${toniqFontStyles.paragraphFont};
         }
 

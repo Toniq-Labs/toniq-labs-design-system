@@ -16,16 +16,15 @@ export const ToniqButton = defineToniqElement({
     },
     styles: css`
         :host {
-            ${toniqFontStyles.toniqFont};
+            ${toniqFontStyles.boldParagraphFont};
             display: inline-block;
         }
 
         button {
-            font-family: inherit;
+            font: inherit;
             border: 0;
             cursor: pointer;
-            ${toniqFontStyles.paragraphFont};
-            ${toniqFontStyles.boldFont};
+            font: inherit;
             -webkit-tap-highlight-color: transparent;
             border-radius: 8px;
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};

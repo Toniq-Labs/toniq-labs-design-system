@@ -19,7 +19,7 @@ export const ToniqCheckbox = defineToniqElement({
     },
     styles: css`
         :host {
-            ${toniqFontStyles.toniqFont};
+            ${toniqFontStyles.boldParagraphFont};
             display: inline-flex;
         }
 
@@ -31,9 +31,7 @@ export const ToniqCheckbox = defineToniqElement({
         }
 
         .label {
-            font-family: inherit;
-            ${toniqFontStyles.paragraphFont};
-            ${toniqFontStyles.boldFont};
+            font: inherit;
             color: inherit;
             margin-left: 16px;
 
@@ -57,7 +55,7 @@ export const ToniqCheckbox = defineToniqElement({
         }
 
         .checkbox {
-            font-family: inherit;
+            font: inherit;
             display: inline-block;
             background-color: ${toniqColors.accentSecondary.backgroundColor};
             height: 24px;
