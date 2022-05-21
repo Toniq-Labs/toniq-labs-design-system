@@ -1,6 +1,6 @@
 import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
-import {getTextContentThroughShadow} from '../../element-testing/query-with-shadow';
+import {getTextContentThroughShadow} from '../../element-testing/query-through-shadow';
 import {ToniqToggleButton} from './toniq-toggle-button.element';
 
 describe(ToniqToggleButton.tagName, () => {

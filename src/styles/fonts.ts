@@ -26,8 +26,11 @@ const fontStylesFallbacks = wrapTypeWithReadonly<
         'line-height': css`24px`,
         'font-size': css`16px`,
     },
-    boldParagraphFont: {
-        'font-weight': css`900`,
+    // no additional CSS styles, this will just be a combination of paragraphFont and boldFont
+    boldParagraphFont: {},
+    labelFont: {
+        'font-size': css`12px`,
+        'line-height': css`16px`,
     },
     h1Font: {
         'line-height': css`96px`,
@@ -85,6 +88,11 @@ export const toniqFontStyles = (() => {
         ${paragraphFont};
         ${boldFont};
     `;
+    const labelFont = css`
+        font-style: normal;
+        ${combineFallbacksAndVars('labelFont')};
+        ${boldFont}
+    `;
 
     const h1Font = css`
         font-style: normal;
@@ -111,6 +119,7 @@ export const toniqFontStyles = (() => {
         extraBoldFont,
         paragraphFont,
         boldParagraphFont,
+        labelFont,
         h1Font,
         h2Font,
         h3Font,

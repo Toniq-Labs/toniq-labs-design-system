@@ -1,7 +1,7 @@
 import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
-import {queryThroughShadow} from '../../element-testing/query-with-shadow';
+import {queryThroughShadow} from '../../element-testing/query-through-shadow';
 import {Copy16Icon} from '../../icons';
 import {ToniqIcon} from './toniq-icon.element';
 
