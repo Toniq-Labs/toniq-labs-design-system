@@ -39,7 +39,7 @@ export const mainStory = () => {
                         className="color-swatch"
                         style={{
                             width: '150px',
-                            height: '100px',
+                            height: '75px',
                             boxSizing: 'border-box',
                             borderRadius: '4px',
                             border: `1px solid ${toniqColors.divider.foregroundColor}`,
@@ -49,7 +49,7 @@ export const mainStory = () => {
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            ...cssToReactStyleObject(String(toniqFontStyles.h1Font)),
+                            ...cssToReactStyleObject(String(toniqFontStyles.h2Font)),
                         }}
                     >
                         Aa
@@ -71,8 +71,8 @@ export const mainStory = () => {
             style={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: '64px',
-                padding: '48px 64px',
+                gap: '32px',
+                padding: '32px',
                 justifyContent: 'center',
             }}
         >

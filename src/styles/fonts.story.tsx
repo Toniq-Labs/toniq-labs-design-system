@@ -95,8 +95,8 @@ export const mainStory = () => {
             style={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: '64px',
-                padding: '48px 64px',
+                gap: '32px',
+                padding: '32px',
                 justifyContent: 'center',
             }}
         >

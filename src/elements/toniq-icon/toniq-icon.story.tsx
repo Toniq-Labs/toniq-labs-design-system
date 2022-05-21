@@ -1,6 +1,8 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
+import {cssToReactStyleObject} from '../../augments/react';
 import {allIconsByCategory} from '../../icons';
+import {toniqFontStyles} from '../../styles';
 import {toniqIconColorCssVarNames} from '../../styles/icon-colors';
 import {ToniqIcon} from '../react-components';
 
@@ -74,7 +76,13 @@ export const mainStory = (controls: Record<keyof typeof storyControls, string>) 
 
         return (
             <section>
-                <h3>{categoryName}</h3>
+                <h3
+                    style={{
+                        ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                    }}
+                >
+                    {categoryName}
+                </h3>
                 <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap', ...colorStyles}}>
                     {iconInstances}
                 </div>

@@ -1,6 +1,8 @@
 import {ComponentMeta} from '@storybook/react';
 import {TypedEvent} from 'element-vir';
 import React from 'react';
+import {cssToReactStyleObject} from '../../augments/react';
+import {toniqFontStyles} from '../../styles/fonts';
 import {ToniqCheckbox, ToniqToggleButton} from '../react-components';
 
 const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
@@ -17,10 +19,22 @@ const handleChange = (event: TypedEvent) => {
 export const mainStory = () => {
     return (
         <>
-            <h3>Unchecked by default</h3>
+            <h3
+                style={{
+                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                }}
+            >
+                Unchecked by default
+            </h3>
             <ToniqCheckbox onCheckedChange={handleChange} text="Orange" />
 
-            <h3>Checked by default</h3>
+            <h3
+                style={{
+                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                }}
+            >
+                Checked by default
+            </h3>
             <ToniqCheckbox onCheckedChange={handleChange} text="Orange" checked />
         </>
     );

@@ -1,5 +1,7 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
+import {cssToReactStyleObject} from '../../augments/react';
+import {toniqFontStyles} from '../../styles';
 import {ToniqMiddleEllipsis} from '../react-components';
 
 const middleEllipsisControls = (<SpecificArgsGeneric extends ArgTypes>(
@@ -53,25 +55,55 @@ export const mainStory = (controls: Record<keyof typeof middleEllipsisControls, 
                 fontFamily: 'sans-serif',
             }}
         >
-            <h3>Long</h3>
+            <h3
+                style={{
+                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                }}
+            >
+                Long
+            </h3>
             <span style={{marginRight: `16px`}}>"{longText}":</span>
             <ToniqMiddleEllipsis text={longText} letterCount={controls.letterCount} />
-            <h3>Short</h3>
+            <h3
+                style={{
+                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                }}
+            >
+                Short
+            </h3>
             <span style={{marginRight: `16px`}}>"{shortText}":</span>
             <ToniqMiddleEllipsis text={shortText} letterCount={controls.letterCount} />
-            <h3>External Link</h3>
+            <h3
+                style={{
+                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                }}
+            >
+                External Link
+            </h3>
             <ToniqMiddleEllipsis
                 text={longText}
                 letterCount={controls.letterCount}
                 externalLink="https://entrepot.app"
             />
-            <h3>Copyable</h3>
+            <h3
+                style={{
+                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                }}
+            >
+                Copyable
+            </h3>
             <ToniqMiddleEllipsis
                 text={'herp derp what is this madness'}
                 letterCount={controls.letterCount}
                 copyOnClick={true}
             />
-            <h3>Custom</h3>
+            <h3
+                style={{
+                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                }}
+            >
+                Custom
+            </h3>
             <ToniqMiddleEllipsis
                 text={controls.text}
                 letterCount={controls.letterCount}
