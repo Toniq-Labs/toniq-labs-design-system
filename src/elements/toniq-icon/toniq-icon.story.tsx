@@ -1,8 +1,8 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
-import {cssToReactStyleObject} from '../../augments/react';
 import {allIconsByCategory} from '../../icons';
 import {toniqFontStyles} from '../../styles';
+import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {toniqIconColorCssVarNames} from '../../styles/icon-colors';
 import {ToniqIcon} from '../react-components';
 
@@ -43,6 +43,11 @@ const componentStoryMeta: ComponentMeta<typeof ToniqIcon> = {
         color: 'black',
         applyColor: 'Icon color CSS var',
     },
+    parameters: {
+        actions: {
+            disabled: true,
+        },
+    },
 };
 
 export default componentStoryMeta;
@@ -80,7 +85,7 @@ export const mainStory = (controls: Record<keyof typeof storyControls, string>) 
             <section key={categoryName}>
                 <h3
                     style={{
-                        ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                        ...cssToReactStyleObject(toniqFontStyles.h3Font),
                     }}
                 >
                     {categoryName}

@@ -1,8 +1,8 @@
 import {action} from '@storybook/addon-actions';
 import {ComponentMeta} from '@storybook/react';
 import React from 'react';
-import {cssToReactStyleObject} from '../../augments/react';
 import {toniqFontStyles} from '../../styles';
+import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqToggleButton} from '../react-components';
 import {ToniqToggleButton as NativeToniqToggleButton} from './toniq-toggle-button.element';
 
@@ -22,7 +22,7 @@ export const mainStory = () => {
         <>
             <h3
                 style={{
-                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
                 }}
             >
                 Inactive by default
@@ -31,7 +31,7 @@ export const mainStory = () => {
 
             <h3
                 style={{
-                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
                 }}
             >
                 Active by default

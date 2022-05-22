@@ -10,8 +10,7 @@ export const ToniqIcon = defineToniqElement({
     },
     styles: css`
         :host {
-            display: inline-block;
-            vertical-align: middle;
+            display: block;
         }
         svg {
             /* svg is set to inline by default which gives it space under the image. See: https://stackoverflow.com/a/34952703 */

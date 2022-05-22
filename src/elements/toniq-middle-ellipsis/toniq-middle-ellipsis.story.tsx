@@ -1,8 +1,8 @@
 import {action} from '@storybook/addon-actions';
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
-import {cssToReactStyleObject} from '../../augments/react';
 import {toniqFontStyles} from '../../styles';
+import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqMiddleEllipsis} from '../react-components';
 import {ToniqMiddleEllipsis as NativeToniqMiddleEllipsis} from './toniq-middle-ellipsis.element';
 
@@ -63,7 +63,7 @@ export const mainStory = (controls: Record<keyof typeof middleEllipsisControls, 
         >
             <h3
                 style={{
-                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
                 }}
             >
                 Long
@@ -72,7 +72,7 @@ export const mainStory = (controls: Record<keyof typeof middleEllipsisControls, 
             <ToniqMiddleEllipsis text={longText} letterCount={controls.letterCount} />
             <h3
                 style={{
-                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
                 }}
             >
                 Short
@@ -81,7 +81,7 @@ export const mainStory = (controls: Record<keyof typeof middleEllipsisControls, 
             <ToniqMiddleEllipsis text={shortText} letterCount={controls.letterCount} />
             <h3
                 style={{
-                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
                 }}
             >
                 External Link
@@ -93,7 +93,7 @@ export const mainStory = (controls: Record<keyof typeof middleEllipsisControls, 
             />
             <h3
                 style={{
-                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
                 }}
             >
                 Copyable
@@ -106,7 +106,7 @@ export const mainStory = (controls: Record<keyof typeof middleEllipsisControls, 
             />
             <h3
                 style={{
-                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
                 }}
             >
                 Custom

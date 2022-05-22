@@ -1,13 +1,18 @@
 import {ComponentMeta} from '@storybook/react';
 import React from 'react';
-import {cssToReactStyleObject} from '../../augments/react';
 import {Copy16Icon, Icp16Icon} from '../../icons';
 import {toniqFontStyles} from '../../styles';
+import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqChip, ToniqIcon} from '../react-components';
 
 const componentStoryMeta: ComponentMeta<typeof ToniqChip> = {
     title: 'Elements/Toniq Chip',
     component: ToniqChip,
+    parameters: {
+        actions: {
+            disabled: true,
+        },
+    },
 };
 
 export default componentStoryMeta;
@@ -18,7 +23,7 @@ export const mainStory = () => {
             <>
                 <h3
                     style={{
-                        ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                        ...cssToReactStyleObject(toniqFontStyles.h3Font),
                     }}
                 >
                     {heading}

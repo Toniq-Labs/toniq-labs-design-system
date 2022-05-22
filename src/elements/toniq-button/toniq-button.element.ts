@@ -1,6 +1,7 @@
 import {css, html} from 'element-vir';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {toniqFontStyles} from '../../styles/fonts';
+import {noUserSelect} from '../../styles/user-select';
 import {defineToniqElement} from '../define-toniq-element';
 
 export enum ToniqButtonVariant {
@@ -18,11 +19,13 @@ export const ToniqButton = defineToniqElement({
         :host {
             ${toniqFontStyles.boldParagraphFont};
             display: inline-block;
+            ${noUserSelect};
         }
 
         button {
             font: inherit;
             border: 0;
+            margin: 0;
             cursor: pointer;
             font: inherit;
             -webkit-tap-highlight-color: transparent;

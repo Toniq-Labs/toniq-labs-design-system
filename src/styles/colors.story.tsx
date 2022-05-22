@@ -1,12 +1,13 @@
 import {ArgTypes, Meta} from '@storybook/react';
 import {getEnumTypedValues, getObjectTypedKeys} from 'augment-vir';
 import React from 'react';
-import {cssToReactStyleObject} from '../augments/react';
 import {wrapTypeWithReadonly} from '../augments/type';
 import {toniqColorCssVarNames, toniqColors} from './colors';
+import {cssToReactStyleObject} from './css-to-react';
 import {toniqFontStyles} from './fonts';
+import {createCssVarMap} from './helpers/css-var-story-helpers';
 
-const flattenedCssVarNames: string[] = Object.values(toniqColorCssVarNames)
+const flattenedColorCssVarNames: string[] = Object.values(toniqColorCssVarNames)
     .map((value): string[] => {
         return Object.values(value).map((mappingValue): string => String(mappingValue));
     })
@@ -18,6 +19,7 @@ enum ExtraApplyColorOptions {
     AllBackground = 'All Background CSS vars',
     All = 'All CSS vars',
 }
+
 const storyControls = wrapTypeWithReadonly<ArgTypes>()({
     color: {
         name: 'Color',
@@ -28,26 +30,24 @@ const storyControls = wrapTypeWithReadonly<ArgTypes>()({
         control: 'select',
         options: [
             ...getEnumTypedValues(ExtraApplyColorOptions),
-            ...flattenedCssVarNames,
+            ...flattenedColorCssVarNames,
         ],
     },
 } as const);
 
 const componentStoryMeta: Meta<any> = {
-    title: 'Styles/Colors',
+    title: 'Styles/Toniq Colors',
     argTypes: storyControls as ArgTypes,
     args: {
         color: undefined,
         applyColor: ExtraApplyColorOptions.None,
     },
+    parameters: {
+        actions: {
+            disabled: true,
+        },
+    },
 };
-
-function createCssVarColorMap(color: string, cssVars: string[]) {
-    return cssVars.reduce((accum, currentCssVarName) => {
-        accum[currentCssVarName] = color;
-        return accum;
-    }, {} as Record<string, string>);
-}
 
 function generateAppliedCssVarColors(controls: Record<keyof typeof storyControls, string>) {
     if (!controls.applyColor || !controls.color) {
@@ -57,18 +57,22 @@ function generateAppliedCssVarColors(controls: Record<keyof typeof storyControls
         return {};
     }
     if (controls.applyColor === ExtraApplyColorOptions.All) {
-        return createCssVarColorMap(controls.color, flattenedCssVarNames);
+        return createCssVarMap(controls.color, flattenedColorCssVarNames);
     }
     if (controls.applyColor === ExtraApplyColorOptions.AllBackground) {
-        return createCssVarColorMap(
+        return createCssVarMap(
             controls.color,
-            flattenedCssVarNames.filter((cssVarName) => cssVarName.endsWith('background-color')),
+            flattenedColorCssVarNames.filter((cssVarName) =>
+                cssVarName.endsWith('background-color'),
+            ),
         );
     }
     if (controls.applyColor === ExtraApplyColorOptions.AllForeground) {
-        return createCssVarColorMap(
+        return createCssVarMap(
             controls.color,
-            flattenedCssVarNames.filter((cssVarName) => cssVarName.endsWith('foreground-color')),
+            flattenedColorCssVarNames.filter((cssVarName) =>
+                cssVarName.endsWith('foreground-color'),
+            ),
         );
     }
 
@@ -115,7 +119,7 @@ export const mainStory = (controls: Record<keyof typeof storyControls, string>) 
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            ...cssToReactStyleObject(String(toniqFontStyles.h2Font)),
+                            ...cssToReactStyleObject(toniqFontStyles.h2Font),
                         }}
                     >
                         Aa
@@ -142,6 +146,7 @@ export const mainStory = (controls: Record<keyof typeof storyControls, string>) 
                 gap: '16px',
                 padding: '16px',
                 justifyContent: 'center',
+                ...cssToReactStyleObject(toniqFontStyles.paragraphFont),
                 ...cssVarStyling,
             }}
         >
@@ -149,4 +154,4 @@ export const mainStory = (controls: Record<keyof typeof storyControls, string>) 
         </article>
     );
 };
-mainStory.storyName = 'Colors';
+mainStory.storyName = 'Toniq Colors';

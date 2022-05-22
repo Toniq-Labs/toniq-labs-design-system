@@ -1,7 +1,7 @@
 import {action} from '@storybook/addon-actions';
 import {ComponentMeta} from '@storybook/react';
 import React from 'react';
-import {cssToReactStyleObject} from '../../augments/react';
+import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {toniqFontStyles} from '../../styles/fonts';
 import {ToniqCheckbox, ToniqToggleButton} from '../react-components';
 import {ToniqCheckbox as NativeToniqCheckbox} from './toniq-checkbox.element';
@@ -22,7 +22,7 @@ export const mainStory = () => {
         <article>
             <h3
                 style={{
-                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
                 }}
             >
                 Unchecked by default
@@ -31,7 +31,7 @@ export const mainStory = () => {
 
             <h3
                 style={{
-                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
                 }}
             >
                 Checked by default
