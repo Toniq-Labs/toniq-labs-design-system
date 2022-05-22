@@ -4,7 +4,7 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 import {ToniqIcon} from '../elements/toniq-icon/toniq-icon.element';
 import {ToniqSvg} from '../icons';
 import {assertInstanceOf} from './assertion-helpers';
-import {queryThroughShadow} from './query-with-shadow';
+import {queryThroughShadow} from './query-through-shadow';
 
 export async function assertIconEquals(
     toniqIconInstance: FunctionalElementInstance<typeof ToniqIcon>,

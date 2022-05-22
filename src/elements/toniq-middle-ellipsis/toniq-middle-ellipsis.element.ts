@@ -1,4 +1,4 @@
-import {assign, css, html, listen} from 'element-vir';
+import {assign, css, defineElementEvent, html, listen} from 'element-vir';
 import {copyToClipboard} from '../../clipboard';
 import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
 import {interactionDuration} from '../../styles/animation';
@@ -49,11 +49,14 @@ export const ToniqMiddleEllipsis = defineToniqElement({
         copyOnClick: false,
         externalLink: '',
     },
+    events: {
+        copied: defineElementEvent<void>(),
+    },
     styles: css`
         :host {
             /* 5 frames at 60 fps */
             transition: ${interactionDuration};
-            ${toniqFontStyles.toniqFont};
+            ${toniqFontStyles.paragraphFont};
         }
 
         :host,
@@ -82,7 +85,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
             color: inherit;
         }
     `,
-    renderCallback: ({props, setProps, host}) => {
+    renderCallback: ({props, setProps, host, dispatch, events}) => {
         // make sure that the letter count is a whole number
         if (!isWholeNumber(props.letterCount)) {
             setProps({letterCount: Math.floor(props.letterCount)});
@@ -140,6 +143,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
                         class="text-wrapper copyable"
                         ${listen('click', async () => {
                             await copyToClipboard(props.text);
+                            dispatch(new events.copied());
                         })}
                     >
                         <span title=${hoverText}>${renderText}</span>

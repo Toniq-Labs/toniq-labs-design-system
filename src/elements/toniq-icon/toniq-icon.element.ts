@@ -9,6 +9,9 @@ export const ToniqIcon = defineToniqElement({
         icon: undefined as undefined | ToniqSvg,
     },
     styles: css`
+        :host {
+            display: block;
+        }
         svg {
             /* svg is set to inline by default which gives it space under the image. See: https://stackoverflow.com/a/34952703 */
             display: block;

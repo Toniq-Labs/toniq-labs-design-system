@@ -2,6 +2,7 @@ import {randomString} from 'augment-vir';
 import {css, defineElementEvent, html} from 'element-vir';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {toniqFontStyles} from '../../styles/fonts';
+import {noUserSelect} from '../../styles/user-select';
 import {defineToniqElement} from '../define-toniq-element';
 
 export const ToniqToggleButton = defineToniqElement({
@@ -19,24 +20,20 @@ export const ToniqToggleButton = defineToniqElement({
     },
     styles: css`
         :host {
-            ${toniqFontStyles.toniqFont};
+            ${toniqFontStyles.boldParagraphFont};
+            ${noUserSelect};
         }
 
         span {
             border: 0;
             cursor: pointer;
-            ${toniqFontStyles.paragraphFont};
-            ${toniqFontStyles.boldFont};
+            font: inherit;
 
             -webkit-tap-highlight-color: transparent;
             border-radius: 8px;
 
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
             padding: 4px 12px;
-
-            -webkit-touch-callout: none; /* iOS Safari */
-            -webkit-user-select: none; /* Safari */
-            user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
         }
 
         input[type='checkbox'] {

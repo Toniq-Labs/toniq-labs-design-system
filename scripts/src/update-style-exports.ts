@@ -1,4 +1,4 @@
-import {readdir} from 'fs/promises';
+import {readdir, stat} from 'fs/promises';
 import {join} from 'path';
 import {generateExportsFromFilePaths, stylesDir} from './common/file-paths';
 import {
@@ -12,9 +12,13 @@ const elementsIndexPath = join(stylesDir, 'index.ts');
 
 export const updateStylesExports: UpdateExportsConfig = {
     executor: async (inputs: UpdateExportsArgs): Promise<void> => {
-        const stylesFilePaths = (await readdir(stylesDir))
+        const stylesPaths = (await readdir(stylesDir))
             .filter((styleFile) => !styleFile.includes('index.ts') && styleFile.endsWith('.ts'))
             .map((styleFileName) => join(stylesDir, styleFileName));
+        const isFile = await Promise.all(
+            stylesPaths.map(async (filePath) => (await stat(filePath)).isFile()),
+        );
+        const stylesFilePaths = stylesPaths.filter((path, index) => isFile[index]);
 
         await formatAndWriteOrCheckFromArgs(
             elementsIndexPath,

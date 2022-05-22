@@ -1,6 +1,10 @@
 import {collapseWhiteSpace, kebabCaseToCamelCase} from 'augment-vir';
+import {CSSResult} from 'lit';
 
-export function cssToReactStyleObject(input: string): React.CSSProperties {
+export function cssToReactStyleObject(input: string | CSSResult): React.CSSProperties {
+    if (typeof input !== 'string') {
+        input = String(input);
+    }
     const collapsedSpacesAndSemicolons = collapseWhiteSpace(input).replace(/;(?:\s*;)+/g, ';');
     const innerCssJsonString = collapsedSpacesAndSemicolons
         .replace(/; /g, '", "')

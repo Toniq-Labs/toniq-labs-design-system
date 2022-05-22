@@ -10,6 +10,11 @@ type ReactWrapperProps<NativeComponent extends FunctionalElement> = Partial<
 type ReactWrapperElementInstance<NativeComponent extends FunctionalElement> =
     FunctionalElementInstance<NativeComponent> & ReactWrapperProps<NativeComponent>;
 
+const ignoreTheseProps = new Set<PropertyKey>([
+    'children',
+    'style',
+]);
+
 export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
     elementConstructor: ElementGeneric,
 ) {
@@ -22,6 +27,12 @@ export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
 
         public override componentDidMount() {
             const componentInstance = this.componentRef.current;
+            /**
+             * This toJSON method makes it so that events can be properly logged in storybook.
+             * Otherwise, it tries to stringify the event, which tries to call .toJSON on the
+             * element (as it'll be in the event as "target" or "srcElement", etc.
+             */
+            componentInstance.toJSON = () => componentInstance.tagName;
             if (componentInstance) {
                 getObjectTypedKeys(this.props).forEach((propKey) => {
                     const currentProp = this.props[propKey];
@@ -31,8 +42,10 @@ export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
                         componentInstance.addEventListener(listenerType, (event: Event) => {
                             currentProp(event);
                         });
-                    } else {
-                        if (propKey !== 'children') componentInstance[propKey] = currentProp;
+                    } else if (!listenerType) {
+                        if (!ignoreTheseProps.has(propKey)) {
+                            componentInstance[propKey] = currentProp;
+                        }
                     }
                 });
             }
@@ -44,7 +57,11 @@ export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
             getObjectTypedKeys(this.props).forEach((propKey) => {
                 const currentProp = this.props[propKey];
 
-                if (componentInstance && prevProps[propKey] !== currentProp) {
+                if (
+                    !ignoreTheseProps.has(propKey) &&
+                    componentInstance &&
+                    prevProps[propKey] !== currentProp
+                ) {
                     componentInstance[propKey] = currentProp;
                 }
             });
@@ -52,7 +69,11 @@ export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
 
         public override render() {
             const TagName = elementConstructor.tagName as any;
-            return <TagName ref={this.componentRef}>{this.props.children}</TagName>;
+            return (
+                <TagName style={this.props.style} ref={this.componentRef}>
+                    {this.props.children}
+                </TagName>
+            );
         }
     };
 }

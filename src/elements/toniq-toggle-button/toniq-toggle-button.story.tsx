@@ -1,9 +1,10 @@
+import {action} from '@storybook/addon-actions';
 import {ComponentMeta} from '@storybook/react';
-import {TypedEvent} from 'element-vir';
 import React from 'react';
-import {cssToReactStyleObject} from '../../augments/react';
 import {toniqFontStyles} from '../../styles';
+import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqToggleButton} from '../react-components';
+import {ToniqToggleButton as NativeToniqToggleButton} from './toniq-toggle-button.element';
 
 const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
     title: 'Elements/Toniq Toggle Button',
@@ -12,16 +13,16 @@ const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
 
 export default componentStoryMeta;
 
-const handleChange = (event: TypedEvent) => {
-    console.log(event);
-};
+function handleChange(event: typeof NativeToniqToggleButton.events.activeChange) {
+    action(event.type)(event);
+}
 
 export const mainStory = () => {
     return (
         <>
             <h3
                 style={{
-                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
                 }}
             >
                 Inactive by default
@@ -30,7 +31,7 @@ export const mainStory = () => {
 
             <h3
                 style={{
-                    ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
                 }}
             >
                 Active by default

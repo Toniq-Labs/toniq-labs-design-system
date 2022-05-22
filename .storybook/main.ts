@@ -9,7 +9,6 @@ export const stories: StorybookConfig['stories'] = [
 ];
 export const addons: StorybookConfig['addons'] = [
     '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
 ];
 export const framework: StorybookConfig['framework'] = '@storybook/react';
 

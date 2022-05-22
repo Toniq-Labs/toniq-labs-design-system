@@ -2,6 +2,7 @@ import {camelCaseToKebabCase, getObjectTypedKeys, mapObject} from 'augment-vir';
 import {css} from 'element-vir';
 import {CSSResult, unsafeCSS} from 'lit';
 import {wrapTypeWithReadonly} from '../augments/type';
+import {toniqColors} from './colors';
 
 export type FontStyleDefinition = CSSResult;
 export type FontStyleKey = keyof typeof toniqFontStylesCssVarNames;
@@ -26,8 +27,11 @@ const fontStylesFallbacks = wrapTypeWithReadonly<
         'line-height': css`24px`,
         'font-size': css`16px`,
     },
-    boldParagraphFont: {
-        'font-weight': css`900`,
+    // no additional CSS styles, this will just be a combination of paragraphFont and boldFont
+    boldParagraphFont: {},
+    labelFont: {
+        'line-height': css`16px`,
+        'font-size': css`12px`,
     },
     h1Font: {
         'line-height': css`96px`,
@@ -70,35 +74,58 @@ function combineFallbacksAndVars(fontStylesKey: FontStyleKey): CSSResult {
 }
 
 export const toniqFontStyles = (() => {
-    const toniqFont = combineFallbacksAndVars('toniqFont');
+    const toniqFont = css`
+        color: ${toniqColors.pagePrimary.foregroundColor};
+        ${combineFallbacksAndVars('toniqFont')};
+    `;
 
-    const normalWeightFont = combineFallbacksAndVars('normalWeightFont');
-    const boldFont = combineFallbacksAndVars('boldFont');
-    const extraBoldFont = combineFallbacksAndVars('extraBoldFont');
+    const normalWeightFont = css`
+        ${toniqFont};
+        ${combineFallbacksAndVars('normalWeightFont')};
+    `;
+    const boldFont = css`
+        ${toniqFont};
+        ${combineFallbacksAndVars('boldFont')};
+    `;
+    const extraBoldFont = css`
+        ${toniqFont};
+        ${combineFallbacksAndVars('extraBoldFont')};
+    `;
 
     const paragraphFont = css`
+        ${toniqFont};
         font-style: normal;
         ${combineFallbacksAndVars('paragraphFont')};
         ${normalWeightFont};
     `;
     const boldParagraphFont = css`
+        ${toniqFont};
         ${paragraphFont};
         ${boldFont};
     `;
+    const labelFont = css`
+        ${toniqFont};
+        font-style: normal;
+        ${combineFallbacksAndVars('labelFont')};
+        ${boldFont}
+    `;
 
     const h1Font = css`
+        ${toniqFont};
         font-style: normal;
         ${combineFallbacksAndVars('h1Font')};
         ${extraBoldFont};
     `;
 
     const h2Font = css`
+        ${toniqFont};
         font-style: normal;
         ${combineFallbacksAndVars('h2Font')};
         ${boldFont};
     `;
 
     const h3Font = css`
+        ${toniqFont};
         font-style: normal;
         ${combineFallbacksAndVars('h3Font')};
         ${boldFont};
@@ -111,6 +138,7 @@ export const toniqFontStyles = (() => {
         extraBoldFont,
         paragraphFont,
         boldParagraphFont,
+        labelFont,
         h1Font,
         h2Font,
         h3Font,

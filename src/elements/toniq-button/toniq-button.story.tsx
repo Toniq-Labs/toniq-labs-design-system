@@ -1,9 +1,9 @@
+import {action} from '@storybook/addon-actions';
 import {ComponentMeta} from '@storybook/react';
-import {TypedEvent} from 'element-vir';
 import React from 'react';
-import {cssToReactStyleObject} from '../../augments/react';
 import {ExternalLink24Icon} from '../../icons/svgs/core-24/external-link-24.icon';
 import {toniqFontStyles} from '../../styles';
+import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqButton, ToniqIcon, ToniqToggleButton} from '../react-components';
 import {ToniqButtonVariant} from './toniq-button.element';
 
@@ -14,15 +14,15 @@ const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
 
 export default componentStoryMeta;
 
-const handleClick = (event: TypedEvent) => {
-    console.log(event);
-};
+function handleClick(event: Event) {
+    action(event.type)(event);
+}
 
 export const mainStory = () => (
     <article>
         <h3
             style={{
-                ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                ...cssToReactStyleObject(toniqFontStyles.h3Font),
             }}
         >
             Primary
@@ -31,7 +31,7 @@ export const mainStory = () => (
 
         <h3
             style={{
-                ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                ...cssToReactStyleObject(toniqFontStyles.h3Font),
             }}
         >
             Secondary
@@ -42,7 +42,7 @@ export const mainStory = () => (
 
         <h3
             style={{
-                ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                ...cssToReactStyleObject(toniqFontStyles.h3Font),
             }}
         >
             With HTML child
@@ -55,7 +55,7 @@ export const mainStory = () => (
 
         <h3
             style={{
-                ...cssToReactStyleObject(String(toniqFontStyles.h3Font)),
+                ...cssToReactStyleObject(toniqFontStyles.h3Font),
             }}
         >
             With ToniqIcon child

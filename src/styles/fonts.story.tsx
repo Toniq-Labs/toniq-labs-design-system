@@ -1,17 +1,69 @@
-import {ComponentMeta} from '@storybook/react';
-import {getObjectTypedKeys} from 'augment-vir';
+import {ArgTypes, Meta} from '@storybook/react';
+import {getEnumTypedValues, getObjectTypedKeys} from 'augment-vir';
 import React from 'react';
-import {cssToReactStyleObject} from '../augments/react';
+import {wrapTypeWithReadonly} from '../augments/type';
 import {toniqColors} from './colors';
+import {cssToReactStyleObject} from './css-to-react';
 import {toniqFontStyles, toniqFontStylesCssVarNames} from './fonts';
+import {createCssVarMap} from './helpers/css-var-story-helpers';
 
-const componentStoryMeta: ComponentMeta<any> = {
-    title: 'Styles/Fonts',
+const flattenedFontStyleCssVarNames: string[] = Object.values(toniqFontStylesCssVarNames)
+    .map((value): string[] => {
+        return Object.values(value).map((mappingValue): string => String(mappingValue));
+    })
+    .flat();
+
+enum ExtraApplyStyleOptions {
+    None = 'None',
+    All = 'All CSS vars',
+}
+
+const storyControls = wrapTypeWithReadonly<ArgTypes>()({
+    styleInput: {
+        name: 'Style',
+        control: 'text',
+    },
+    applyStyle: {
+        name: 'Apply Style To',
+        control: 'select',
+        options: [
+            ...getEnumTypedValues(ExtraApplyStyleOptions),
+            ...flattenedFontStyleCssVarNames,
+        ],
+    },
+} as const);
+
+const componentStoryMeta: Meta<any> = {
+    title: 'Styles/Toniq Fonts',
+    argTypes: storyControls as ArgTypes,
+    args: {
+        styleInput: '',
+        applyStyle: ExtraApplyStyleOptions.None,
+    },
+    parameters: {
+        actions: {
+            disabled: true,
+        },
+    },
 };
+
+function generateAppliedCssVarStyles(controls: Record<keyof typeof storyControls, string>) {
+    if (!controls.applyStyle || !controls.styleInput) {
+        return {};
+    }
+    if (controls.applyStyle === ExtraApplyStyleOptions.None) {
+        return {};
+    }
+    if (controls.applyStyle === ExtraApplyStyleOptions.All) {
+        return createCssVarMap(controls.styleInput, flattenedFontStyleCssVarNames);
+    }
+
+    return {[controls.applyStyle]: controls.styleInput};
+}
 
 export default componentStoryMeta;
 
-export const mainStory = () => {
+export const mainStory = (controls: Record<keyof typeof storyControls, string>) => {
     const colorInstances = getObjectTypedKeys(toniqFontStyles).map((fontStyleKey) => {
         const fontStyle = toniqFontStyles[fontStyleKey];
         const fontStyleCssVars = toniqFontStylesCssVarNames[fontStyleKey];
@@ -19,7 +71,15 @@ export const mainStory = () => {
         const varsTemplate = getObjectTypedKeys(fontStyleCssVars).map((cssPropName) => {
             const varName = String(fontStyleCssVars[cssPropName]);
             return (
-                <>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                    key={cssPropName}
+                >
                     <span
                         style={{
                             marginTop: '8px',
@@ -32,7 +92,7 @@ export const mainStory = () => {
                     <span style={{color: String(toniqColors.pageTertiary.foregroundColor)}}>
                         {varName}
                     </span>
-                </>
+                </div>
             );
         });
 
@@ -50,7 +110,7 @@ export const mainStory = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        padding: '32px',
+                        padding: '16px',
                         borderRadius: '4px',
                         border: `1px solid ${toniqColors.divider.foregroundColor}`,
                     }}
@@ -62,7 +122,7 @@ export const mainStory = () => {
                             border: `1px solid ${toniqColors.divider.foregroundColor}`,
                             padding: '8px 24px',
                             display: 'inline-block',
-                            ...cssToReactStyleObject(String(fontStyle)),
+                            ...cssToReactStyleObject(fontStyle),
                         }}
                     >
                         Aa Bb Cc
@@ -78,7 +138,7 @@ export const mainStory = () => {
                     >
                         <span
                             style={{
-                                ...cssToReactStyleObject(String(toniqFontStyles.boldFont)),
+                                ...cssToReactStyleObject(toniqFontStyles.boldFont),
                             }}
                         >
                             {fontStyleKey}
@@ -90,18 +150,22 @@ export const mainStory = () => {
         );
     });
 
+    const cssVarStyles = generateAppliedCssVarStyles(controls);
+
     return (
         <article
             style={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: '32px',
-                padding: '32px',
+                gap: '16px',
+                padding: '16px',
                 justifyContent: 'center',
+                ...cssToReactStyleObject(toniqFontStyles.paragraphFont),
+                ...cssVarStyles,
             }}
         >
             {colorInstances}
         </article>
     );
 };
-mainStory.storyName = 'Fonts';
+mainStory.storyName = 'Toniq Fonts';
