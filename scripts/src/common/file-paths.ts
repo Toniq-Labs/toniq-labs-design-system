@@ -1,11 +1,25 @@
+import {toPosixPath} from 'augment-vir/dist/cjs/node-only';
 import {existsSync} from 'fs';
 import {readdir, stat} from 'fs/promises';
-import {dirname, join} from 'path';
+import {dirname, join, relative} from 'path';
 
 export const repoRootDir = dirname(dirname(dirname(__dirname)));
 export const srcDir = join(repoRootDir, 'src');
 export const testFilesDir = join(repoRootDir, 'test-files');
 export const elementsDir = join(srcDir, 'elements');
+export const stylesDir = join(srcDir, 'styles');
+
+export function generateExportsFromFilePaths(filePaths: string[], relativeDir: string): string {
+    const exportLines = filePaths.map((filePath) => {
+        const relativePath = relative(relativeDir, filePath).replace(/\.ts?$/, '');
+        const posixPath = toPosixPath(relativePath);
+        const exportPath = posixPath.startsWith('.') ? posixPath : `./${posixPath}`;
+
+        return `export * from '${exportPath}';`;
+    });
+
+    return exportLines.join('\n');
+}
 
 export async function getElementFilePaths(): Promise<string[]> {
     const allElementsDirChildrenWithStats = await Promise.all(

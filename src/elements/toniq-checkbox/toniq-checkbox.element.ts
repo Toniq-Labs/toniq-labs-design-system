@@ -1,6 +1,7 @@
 import {randomString} from 'augment-vir';
 import {css, defineElementEvent, html} from 'element-vir';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
+import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
 
 export const ToniqCheckbox = defineToniqElement({
@@ -18,7 +19,7 @@ export const ToniqCheckbox = defineToniqElement({
     },
     styles: css`
         :host {
-            font-family: var(--toniq-font, 'Rubik');
+            ${toniqFontStyles.boldParagraphFont};
             display: inline-flex;
         }
 
@@ -30,11 +31,7 @@ export const ToniqCheckbox = defineToniqElement({
         }
 
         .label {
-            font-family: inherit;
-            font-style: normal;
-            font-weight: 700;
-            font-size: 16px;
-            line-height: 24px;
+            font: inherit;
             color: inherit;
             margin-left: 16px;
 
@@ -58,7 +55,7 @@ export const ToniqCheckbox = defineToniqElement({
         }
 
         .checkbox {
-            font-family: inherit;
+            font: inherit;
             display: inline-block;
             background-color: ${toniqColors.accentSecondary.backgroundColor};
             height: 24px;

@@ -1,6 +1,5 @@
-import {toPosixPath} from 'augment-vir/dist/cjs/node-only';
-import {join, relative} from 'path';
-import {elementsDir, getElementFilePaths} from './common/file-paths';
+import {join} from 'path';
+import {elementsDir, generateExportsFromFilePaths, getElementFilePaths} from './common/file-paths';
 import {
     formatAndWriteOrCheckFromArgs,
     UpdateExportsArgs,
@@ -10,22 +9,13 @@ import {
 
 const elementsIndexPath = join(elementsDir, 'index.ts');
 
-function generateElementExports(filePaths: string[]): string {
-    const exportLines = filePaths.map((filePath) => {
-        const relativePath = relative(elementsDir, filePath).replace(/\.ts?$/, '');
-
-        return `export * from './${toPosixPath(relativePath)}';`;
-    });
-    return exportLines.join('\n');
-}
-
 export const updateElementExports: UpdateExportsConfig = {
     executor: async (inputs: UpdateExportsArgs): Promise<void> => {
         const elementFilePaths = await getElementFilePaths();
 
         await formatAndWriteOrCheckFromArgs(
             elementsIndexPath,
-            generateElementExports(elementFilePaths),
+            generateExportsFromFilePaths(elementFilePaths, elementsDir),
             inputs,
             __filename,
         );

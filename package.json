@@ -35,7 +35,6 @@
     "types": "dist/types/index.d.ts",
     "scripts": {
         "build": "rm -rf dist && tsc --project tsconfig.json && tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
-        "check-exports": "cd scripts && npm run check-exports",
         "format": "virmator format --no-write-config",
         "preinstall": "npm-force-resolutions",
         "prepack": "ts-node scripts/src/publishing.ts prepack",
@@ -49,7 +48,8 @@
         "test": "web-test-runner --node-resolve",
         "test:exports": "cd scripts && npm run test:exports",
         "test:full": "npm test && npm run test:scripts && npm run spellcheck && npm run format check && npm run build && npm run storybook:build",
-        "test:scripts": "cd scripts && npm run test"
+        "test:scripts": "cd scripts && npm run test",
+        "update:exports": "cd scripts && npm run update:exports"
     },
     "resolutions": {
         "glob-parent": "6.0.2",
@@ -57,7 +57,8 @@
     },
     "dependencies": {
         "augment-vir": "2.2.1",
-        "element-vir": "5.5.1"
+        "element-vir": "5.5.1",
+        "lit": "2.2.4"
     },
     "devDependencies": {
         "@esm-bundle/chai": "4.3.4-fix.0",
@@ -67,7 +68,6 @@
         "@rollup/plugin-typescript": "8.3.2",
         "@storybook/addon-docs": "6.4.22",
         "@storybook/addon-essentials": "6.4.22",
-        "@storybook/addon-interactions": "6.4.22",
         "@storybook/addons": "6.4.22",
         "@storybook/react": "6.4.22",
         "@storybook/theming": "6.4.22",

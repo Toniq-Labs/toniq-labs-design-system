@@ -36,37 +36,47 @@ export function queryThroughShadow(
         console.log(context.innerHTML.trim());
     }
     const finalQuery: string = Array.isArray(query) ? query[query.length - 1] ?? '' : query;
-    if ('shadowRoot' in context && context.shadowRoot) {
-        context = context.shadowRoot;
-        if (debug) {
-            console.log('>> shadowRoot');
-            console.log(context.innerHTML.trim());
-        }
-    }
 
     if (Array.isArray(query)) {
         const newContext = context.querySelector(query[0] ?? '');
-        if (!newContext) {
+        if (newContext) {
+            const nextQueryArray = query.slice(1);
+            const nextQueryInput: string | string[] =
+                nextQueryArray.length > 1 ? nextQueryArray : nextQueryArray[0] ?? '';
+
+            return queryThroughShadow(nextQueryInput, newContext, queryAll);
+        } else if ('shadowRoot' in context && context.shadowRoot) {
+            return queryThroughShadow(query, context.shadowRoot, queryAll, debug);
+        } else {
             return undefined;
         }
-        const nextQueryArray = query.slice(1);
-        const nextQueryInput: string | string[] =
-            nextQueryArray.length > 1 ? nextQueryArray : nextQueryArray[0] ?? '';
-
-        return queryThroughShadow(nextQueryInput, newContext, queryAll);
     }
 
     if (queryAll) {
-        return Array.from(context.querySelectorAll(finalQuery));
+        const topLevelQuery = Array.from(context.querySelectorAll(finalQuery));
+        if (topLevelQuery.length) {
+            return topLevelQuery;
+        } else if ('shadowRoot' in context && context.shadowRoot) {
+            return queryThroughShadow(query, context.shadowRoot, queryAll, debug);
+        } else {
+            return [];
+        }
     } else {
-        return context.querySelector(finalQuery) ?? undefined;
+        const returnValue = context.querySelector(finalQuery);
+        if (returnValue) {
+            return returnValue ?? undefined;
+        } else if ('shadowRoot' in context && context.shadowRoot) {
+            return queryThroughShadow(query, context.shadowRoot, queryAll, debug);
+        } else {
+            return undefined;
+        }
     }
 }
 
-export function getTextContentThroughShadow(element: Element | ShadowRoot): string | undefined {
+export function getTextContentThroughShadow(element: Element | ShadowRoot): string {
     if ('shadowRoot' in element && element.shadowRoot) {
         element = element.shadowRoot;
     }
 
-    return element.textContent?.trim() ?? undefined;
+    return element.textContent?.trim() || '';
 }

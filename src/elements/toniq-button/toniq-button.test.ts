@@ -4,7 +4,7 @@ import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {
     getTextContentThroughShadow,
     queryThroughShadow,
-} from '../../element-testing/query-with-shadow';
+} from '../../element-testing/query-through-shadow';
 import {ToniqButton} from './toniq-button.element';
 
 describe(ToniqButton.tagName, () => {

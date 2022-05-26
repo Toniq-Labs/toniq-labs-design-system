@@ -4,7 +4,7 @@ import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {
     getTextContentThroughShadow,
     queryThroughShadow,
-} from '../../element-testing/query-with-shadow';
+} from '../../element-testing/query-through-shadow';
 import {assertIconEquals} from '../../element-testing/test-icon';
 import {ExternalLink24Icon} from '../../icons';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
