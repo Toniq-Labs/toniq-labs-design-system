@@ -11,8 +11,8 @@ import {wrapInReactComponent} from './wrap-native-element';
 
 export const ToniqButton = wrapInReactComponent(NativeToniqButton);
 export const ToniqCheckbox = wrapInReactComponent(NativeToniqCheckbox);
-export const ToniqDropdown = wrapInReactComponent(NativeToniqDropdown);
 export const ToniqChip = wrapInReactComponent(NativeToniqChip);
+export const ToniqDropdown = wrapInReactComponent(NativeToniqDropdown);
 export const ToniqIcon = wrapInReactComponent(NativeToniqIcon);
 export const ToniqMiddleEllipsis = wrapInReactComponent(NativeToniqMiddleEllipsis);
 export const ToniqToggleButton = wrapInReactComponent(NativeToniqToggleButton);

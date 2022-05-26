@@ -31,10 +31,10 @@ export default componentStoryMeta;
 
 export const mainStory = () => (
     <article>
-        <h3>No Initial Selection (First option default)</h3>
+        <h3>No Default Option (First option selected as default)</h3>
         <ToniqDropdown list={list} />
 
-        <h3>Has Initial Selection</h3>
+        <h3>User Default Option</h3>
         <ToniqDropdown list={list} select={list[2]} />
 
         <h3>onSelectChange Event</h3>
