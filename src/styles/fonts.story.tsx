@@ -42,7 +42,7 @@ const componentStoryMeta: Meta<any> = {
     },
     parameters: {
         actions: {
-            disabled: true,
+            disable: true,
         },
     },
 };

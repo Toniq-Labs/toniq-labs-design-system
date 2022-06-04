@@ -39,12 +39,12 @@ const componentStoryMeta: Meta<any> = {
     title: 'Styles/Toniq Colors',
     argTypes: colorsStroyControls as ArgTypes,
     args: {
-        color: undefined,
+        color: '',
         applyColor: ExtraApplyColorOptions.None,
     },
     parameters: {
         actions: {
-            disabled: true,
+            disable: true,
         },
     },
 };
