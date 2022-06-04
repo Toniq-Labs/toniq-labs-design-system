@@ -1,6 +1,7 @@
 import {css, html} from 'element-vir';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {toniqFontStyles} from '../../styles/fonts';
+import {removeNativeButtonStyles} from '../../styles/native-styles';
 import {noUserSelect} from '../../styles/user-select';
 import {defineToniqElement} from '../define-toniq-element';
 
@@ -24,12 +25,7 @@ export const ToniqButton = defineToniqElement({
         }
 
         button {
-            font: inherit;
-            border: 0;
-            margin: 0;
-            cursor: pointer;
-            font: inherit;
-            -webkit-tap-highlight-color: transparent;
+            ${removeNativeButtonStyles};
             border-radius: 8px;
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
             padding: 12px;

@@ -4,6 +4,7 @@ import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
 import {interactionDuration} from '../../styles/animation';
 import {toniqColors} from '../../styles/colors';
 import {toniqFontStyles} from '../../styles/fonts';
+import {removeNativeButtonStyles} from '../../styles/native-styles';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
@@ -80,18 +81,15 @@ export const ToniqMiddleEllipsis = defineToniqElement({
         a {
             color: inherit;
             text-decoration: none;
+            border-radius: 8px;
         }
         a:visited {
             color: inherit;
         }
 
         button {
-            background: none;
-            border: none;
-            font: inherit;
-            padding: 0;
-            margin: 0;
-            color: inherit;
+            ${removeNativeButtonStyles};
+            border-radius: 8px;
         }
     `,
     renderCallback: ({props, setProps, host, dispatch, events}) => {

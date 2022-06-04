@@ -1,23 +1,19 @@
-import {randomString} from 'augment-vir';
 import {assign, css, defineElementEvent, html, listen} from 'element-vir';
 import {ToniqSvg} from '../../icons';
 import {interactionDuration} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {toniqFontStyles} from '../../styles/fonts';
+import {removeNativeButtonStyles} from '../../styles/native-styles';
 import {noUserSelect} from '../../styles/user-select';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 export const ToniqToggleButton = defineToniqElement({
-    initCallback: ({setProps}) => {
-        setProps({labelId: randomString()});
-    },
     tagName: 'toniq-toggle-button',
     props: {
         text: '',
         active: false,
         icon: undefined as undefined | ToniqSvg,
-        labelId: '',
     },
     events: {
         activeChange: defineElementEvent<boolean>(),
@@ -31,17 +27,13 @@ export const ToniqToggleButton = defineToniqElement({
         }
 
         button {
-            display: inline-flex;
-            background: none;
-            padding: 0;
-            margin: 0;
+            ${removeNativeButtonStyles};
         }
 
         .wrapper {
             border: 0;
             display: inline-flex;
             cursor: pointer;
-            font: inherit;
             align-items: center;
 
             -webkit-tap-highlight-color: transparent;
