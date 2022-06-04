@@ -40,7 +40,7 @@ const componentStoryMeta: ComponentMeta<typeof ToniqChip> = {
     argTypes: chipStoryControls,
     parameters: {
         actions: {
-            disabled: true,
+            disable: true,
         },
     },
     args: {

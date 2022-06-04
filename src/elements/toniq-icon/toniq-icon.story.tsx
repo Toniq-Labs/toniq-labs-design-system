@@ -44,7 +44,7 @@ const componentStoryMeta: ComponentMeta<typeof ToniqIcon> = {
     },
     parameters: {
         actions: {
-            disabled: true,
+            disable: true,
         },
     },
 };
