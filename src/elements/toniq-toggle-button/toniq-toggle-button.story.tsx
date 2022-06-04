@@ -1,6 +1,7 @@
 import {action} from '@storybook/addon-actions';
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
+import {allIconsByCategory, Rocket24Icon} from '../../icons';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqToggleButton} from '../react-components';
@@ -14,6 +15,27 @@ const toggleButtonStoryControls = (<SpecificArgsGeneric extends ArgTypes>(
             disable: true,
         },
     },
+    icon: {
+        table: {
+            disable: true,
+        },
+    },
+    iconControl: {
+        name: '24px Icon',
+        control: 'select',
+        options: [
+            'None',
+            ...allIconsByCategory['core-24'].map((icon) => icon.iconName),
+        ],
+    },
+    hostClass: {
+        name: 'Host Class',
+        control: 'select',
+        options: [
+            'None',
+            'toniq-toggle-button-text-only',
+        ],
+    },
     active: {
         table: {
             disable: true,
@@ -24,10 +46,10 @@ const toggleButtonStoryControls = (<SpecificArgsGeneric extends ArgTypes>(
             disable: true,
         },
     },
-    activeInput: {
+    activeControl: {
         name: 'Active',
     },
-    textInput: {
+    textControl: {
         name: 'Text',
         control: 'text',
     },
@@ -38,8 +60,10 @@ const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
     component: ToniqToggleButton,
     argTypes: toggleButtonStoryControls,
     args: {
-        textInput: 'Custom text here',
-        activeInput: false,
+        textControl: 'Custom text here',
+        activeControl: false,
+        iconControl: 'None',
+        hostClass: 'None',
     },
 };
 
@@ -52,28 +76,51 @@ function handleChange(event: typeof NativeToniqToggleButton.events.activeChange)
 export const mainStory = (
     controls: Record<keyof typeof toggleButtonStoryControls, string | boolean>,
 ) => {
-    const customText = String(controls.textInput);
-    const isActive = !!controls.activeInput;
+    const customText = String(controls.textControl);
+    const isActive = !!controls.activeControl;
+    const customIcon = allIconsByCategory['core-24'].find(
+        (icon) => icon.iconName === controls.iconControl,
+    );
+
+    function generateSection(active: boolean) {
+        const title = `${active ? 'Active' : 'Inactive'} by default`;
+        return (
+            <>
+                <h3
+                    style={{
+                        ...cssToReactStyleObject(toniqFontStyles.h3Font),
+                    }}
+                >
+                    {title}
+                </h3>
+                <section style={{display: 'flex', gap: '8px'}}>
+                    <ToniqToggleButton
+                        onActiveChange={handleChange}
+                        text="Toggle Me"
+                        active={active}
+                    />
+                    <ToniqToggleButton
+                        className="toniq-toggle-button-text-only"
+                        onActiveChange={handleChange}
+                        text="Text Only"
+                        active={active}
+                    />
+                    <ToniqToggleButton
+                        className="toniq-toggle-button-text-only"
+                        onActiveChange={handleChange}
+                        icon={Rocket24Icon}
+                        text="With Icon"
+                        active={active}
+                    />
+                </section>
+            </>
+        );
+    }
 
     return (
         <>
-            <h3
-                style={{
-                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
-                }}
-            >
-                Inactive by default
-            </h3>
-            <ToniqToggleButton onActiveChange={handleChange} text="Toggle Me" />
-
-            <h3
-                style={{
-                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
-                }}
-            >
-                Active by default
-            </h3>
-            <ToniqToggleButton onActiveChange={handleChange} text="Toggle Me" active />
+            {generateSection(false)}
+            {generateSection(true)}
 
             <h3
                 style={{
@@ -82,7 +129,13 @@ export const mainStory = (
             >
                 Custom Inputs
             </h3>
-            <ToniqToggleButton onActiveChange={handleChange} text={customText} active={isActive} />
+            <ToniqToggleButton
+                className={controls.hostClass}
+                onActiveChange={handleChange}
+                icon={customIcon}
+                text={customText}
+                active={isActive}
+            />
         </>
     );
 };
