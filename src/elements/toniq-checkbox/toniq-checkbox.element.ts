@@ -1,8 +1,11 @@
 import {randomString} from 'augment-vir';
-import {css, defineElementEvent, html} from 'element-vir';
+import {assign, css, defineElementEvent, html} from 'element-vir';
+import {CheckMark24Icon} from '../../icons/svgs/core-24/check-mark-24.icon';
+import {interactionDuration, noUserSelect} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
+import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 export const ToniqCheckbox = defineToniqElement({
     initCallback: ({setProps}) => {
@@ -21,6 +24,7 @@ export const ToniqCheckbox = defineToniqElement({
         :host {
             ${toniqFontStyles.boldParagraphFont};
             display: inline-flex;
+            transition: ${interactionDuration};
         }
 
         .toniq-checkbox {
@@ -30,40 +34,50 @@ export const ToniqCheckbox = defineToniqElement({
             cursor: pointer;
         }
 
+        label {
+            transition: inherit;
+        }
+
         .label {
             font: inherit;
             color: inherit;
             margin-left: 16px;
-
-            -webkit-touch-callout: none; /* iOS Safari */
-            -webkit-user-select: none; /* Safari */
-            user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+            ${noUserSelect};
+            transition: inherit;
         }
 
-        input[type='checkbox'] {
+        input {
             display: none;
         }
 
-        input[type='checkbox']:checked + .checkbox,
-        input[checked='true'] + .checkbox {
+        .checkbox.checked {
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
-        input[type='checkbox']:checked ~ .label,
-        input[checked='true'] ~ .label {
+        .checkbox.checked ~ .label {
             color: ${toniqColors.pageInteraction.foregroundColor};
         }
 
         .checkbox {
-            font: inherit;
+            transition: inherit;
             display: inline-block;
             background-color: ${toniqColors.accentSecondary.backgroundColor};
             height: 24px;
             width: 24px;
             border-radius: 8px;
         }
+
+        .check-mark {
+            color: ${toniqColors.accentPrimary.foregroundColor};
+            transition: inherit;
+            opacity: 1;
+        }
+
+        .check-mark.hidden {
+            opacity: 0;
+        }
     `,
-    renderCallback: ({props, dispatch, events}) => {
+    renderCallback: ({props, dispatch, events, setProps}) => {
         return html`
             <label for=${props.inputId} class="toniq-checkbox">
                 <input
@@ -71,12 +85,16 @@ export const ToniqCheckbox = defineToniqElement({
                     type="checkbox"
                     ?checked=${props.checked}
                     @change=${(event: Event) => {
-                        dispatch(
-                            new events.checkedChange((event.target as HTMLInputElement).checked),
-                        );
+                        const isChecked = (event.target as HTMLInputElement).checked;
+                        setProps({checked: isChecked});
+                        dispatch(new events.checkedChange(isChecked));
                     }}
                 />
-                <span class="checkbox"></span>
+                <span class="checkbox ${props.checked ? 'checked' : ''}">
+                    <${ToniqIcon}
+                        class="check-mark ${props.checked ? '' : 'hidden'}"
+                        ${assign(ToniqIcon.props.icon, CheckMark24Icon)}
+                    ></${ToniqIcon}></span>
                 <span class="label">${props.text}</span>
             </label>
         `;

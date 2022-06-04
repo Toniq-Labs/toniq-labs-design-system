@@ -6,53 +6,52 @@ import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {toniqIconColorCssVarNames} from '../../styles/icon-colors';
 import {ToniqIcon} from '../react-components';
 
-const storyControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) => input)(
-    {
-        color: {
-            name: 'Color',
-            control: 'color',
+const iconStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
+    input)({
+    color: {
+        name: 'Color',
+        control: 'color',
+    },
+    applyColor: {
+        name: 'Apply Color To',
+        control: 'select',
+        options: [
+            'Icon color CSS var',
+            'Icon fill color CSS var',
+            'Icon stroke color CSS var',
+            'CSS color property',
+        ],
+    },
+    icon: {
+        table: {
+            disable: true,
         },
-        applyColor: {
-            name: 'Apply Color To',
-            control: 'select',
-            options: [
-                'Icon color CSS var',
-                'Icon fill color CSS var',
-                'Icon stroke color CSS var',
-                'CSS color property',
-            ],
+    },
+    title: {
+        table: {
+            disable: true,
         },
-        icon: {
-            table: {
-                disable: true,
-            },
-        },
-        title: {
-            table: {
-                disable: true,
-            },
-        },
-    } as const,
-);
+    },
+} as const);
 
 const componentStoryMeta: ComponentMeta<typeof ToniqIcon> = {
     title: 'Elements/Toniq Icon',
     component: ToniqIcon,
-    argTypes: storyControls as ArgTypes,
+    argTypes: iconStoryControls as ArgTypes,
     args: {
         color: 'black',
         applyColor: 'Icon color CSS var',
     },
     parameters: {
         actions: {
-            disabled: true,
+            disable: true,
         },
     },
 };
 
 export default componentStoryMeta;
 
-export const mainStory = (controls: Record<keyof typeof storyControls, string>) => {
+export const mainStory = (controls: Record<keyof typeof iconStoryControls, string>) => {
     const iconCategories = (
         Object.keys(allIconsByCategory) as (keyof typeof allIconsByCategory)[]
     ).map((categoryName) => {

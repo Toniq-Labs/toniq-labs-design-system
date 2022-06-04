@@ -18,7 +18,7 @@ enum ExtraApplyStyleOptions {
     All = 'All CSS vars',
 }
 
-const storyControls = wrapTypeWithReadonly<ArgTypes>()({
+const fontsStoryControls = wrapTypeWithReadonly<ArgTypes>()({
     styleInput: {
         name: 'Style',
         control: 'text',
@@ -35,19 +35,19 @@ const storyControls = wrapTypeWithReadonly<ArgTypes>()({
 
 const componentStoryMeta: Meta<any> = {
     title: 'Styles/Toniq Fonts',
-    argTypes: storyControls as ArgTypes,
+    argTypes: fontsStoryControls as ArgTypes,
     args: {
         styleInput: '',
         applyStyle: ExtraApplyStyleOptions.None,
     },
     parameters: {
         actions: {
-            disabled: true,
+            disable: true,
         },
     },
 };
 
-function generateAppliedCssVarStyles(controls: Record<keyof typeof storyControls, string>) {
+function generateAppliedCssVarStyles(controls: Record<keyof typeof fontsStoryControls, string>) {
     if (!controls.applyStyle || !controls.styleInput) {
         return {};
     }
@@ -63,7 +63,7 @@ function generateAppliedCssVarStyles(controls: Record<keyof typeof storyControls
 
 export default componentStoryMeta;
 
-export const mainStory = (controls: Record<keyof typeof storyControls, string>) => {
+export const mainStory = (controls: Record<keyof typeof fontsStoryControls, string>) => {
     const colorInstances = getObjectTypedKeys(toniqFontStyles).map((fontStyleKey) => {
         const fontStyle = toniqFontStyles[fontStyleKey];
         const fontStyleCssVars = toniqFontStylesCssVarNames[fontStyleKey];

@@ -20,7 +20,7 @@ enum ExtraApplyColorOptions {
     All = 'All CSS vars',
 }
 
-const storyControls = wrapTypeWithReadonly<ArgTypes>()({
+const colorsStroyControls = wrapTypeWithReadonly<ArgTypes>()({
     color: {
         name: 'Color',
         control: 'color',
@@ -37,19 +37,19 @@ const storyControls = wrapTypeWithReadonly<ArgTypes>()({
 
 const componentStoryMeta: Meta<any> = {
     title: 'Styles/Toniq Colors',
-    argTypes: storyControls as ArgTypes,
+    argTypes: colorsStroyControls as ArgTypes,
     args: {
-        color: undefined,
+        color: '',
         applyColor: ExtraApplyColorOptions.None,
     },
     parameters: {
         actions: {
-            disabled: true,
+            disable: true,
         },
     },
 };
 
-function generateAppliedCssVarColors(controls: Record<keyof typeof storyControls, string>) {
+function generateAppliedCssVarColors(controls: Record<keyof typeof colorsStroyControls, string>) {
     if (!controls.applyColor || !controls.color) {
         return {};
     }
@@ -81,7 +81,7 @@ function generateAppliedCssVarColors(controls: Record<keyof typeof storyControls
 
 export default componentStoryMeta;
 
-export const mainStory = (controls: Record<keyof typeof storyControls, string>) => {
+export const mainStory = (controls: Record<keyof typeof colorsStroyControls, string>) => {
     const colorInstances = getObjectTypedKeys(toniqColors).map((colorKey) => {
         const colorDefinitions = toniqColors[colorKey];
         const colorCssVars = toniqColorCssVarNames[colorKey];
