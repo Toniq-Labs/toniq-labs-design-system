@@ -1,6 +1,7 @@
 import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
+import {fixtureTest} from '../../element-testing/fixture-test';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
 import {assertIconEquals} from '../../element-testing/test-icon';
 import {Copy24Icon} from '../../icons';
@@ -13,12 +14,14 @@ describe(ToniqChip.tagName, () => {
         assert.instanceOf(newlyCreated, ToniqChip);
     });
 
-    it('should render child elements', async () => {
-        const textToRender = 'Stuff in there';
-        const iconToRender = Copy24Icon;
+    it(
+        'should render child elements',
+        fixtureTest(async () => {
+            const textToRender = 'Stuff in there';
+            const iconToRender = Copy24Icon;
 
-        const rendered = await fixture(
-            html`
+            const rendered = await fixture(
+                html`
                 <${ToniqChip}>
                     <${ToniqIcon}
                         ${assign(ToniqIcon.props.icon, iconToRender)}
@@ -27,10 +30,11 @@ describe(ToniqChip.tagName, () => {
                     ${textToRender}
                 </${ToniqChip}>
             `,
-        );
-        assert.equal(rendered.textContent?.trim(), textToRender);
-        const iconInstance = queryThroughShadow(ToniqIcon.tagName, rendered);
-        assertInstanceOf(iconInstance, ToniqIcon);
-        assertIconEquals(iconInstance, iconToRender);
-    });
+            );
+            assert.equal(rendered.textContent?.trim(), textToRender);
+            const iconInstance = queryThroughShadow(ToniqIcon.tagName, rendered);
+            assertInstanceOf(iconInstance, ToniqIcon);
+            assertIconEquals(iconInstance, iconToRender);
+        }),
+    );
 });
