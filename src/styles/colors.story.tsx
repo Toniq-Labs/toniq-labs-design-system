@@ -108,6 +108,7 @@ export const mainStory = (controls: Record<keyof typeof storyControls, string>) 
                     <div
                         className="color-swatch"
                         style={{
+                            ...cssToReactStyleObject(toniqFontStyles.h2Font),
                             width: '100px',
                             height: '50px',
                             boxSizing: 'border-box',
@@ -119,7 +120,6 @@ export const mainStory = (controls: Record<keyof typeof storyControls, string>) 
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            ...cssToReactStyleObject(toniqFontStyles.h2Font),
                         }}
                     >
                         Aa
