@@ -1,7 +1,7 @@
 import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
-import {fixtureTest} from '../../element-testing/fixture-test';
+import {createFixtureTest} from '../../element-testing/fixture-test';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
 import {Copy16Icon} from '../../icons';
 import {ToniqIcon} from './toniq-icon.element';
@@ -14,7 +14,7 @@ describe(ToniqIcon.tagName, () => {
 
     it(
         'should render nothing when no icon is assigned',
-        fixtureTest(async () => {
+        createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
                 <${ToniqIcon}></${ToniqIcon}>
@@ -26,7 +26,7 @@ describe(ToniqIcon.tagName, () => {
 
     it(
         'should render assigned icon',
-        fixtureTest(async () => {
+        createFixtureTest(async () => {
             const iconToRender = Copy16Icon;
 
             const renderedToniqIcon = await fixture(

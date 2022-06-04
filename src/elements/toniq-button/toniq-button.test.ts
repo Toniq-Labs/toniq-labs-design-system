@@ -1,7 +1,7 @@
 import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
-import {fixtureTest} from '../../element-testing/fixture-test';
+import {createFixtureTest} from '../../element-testing/fixture-test';
 import {
     getTextContentThroughShadow,
     queryThroughShadow,
@@ -16,7 +16,7 @@ describe(ToniqButton.tagName, () => {
 
     it(
         'renders with default values',
-        fixtureTest(async () => {
+        createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
                 <${ToniqButton}></${ToniqButton}>
@@ -32,7 +32,7 @@ describe(ToniqButton.tagName, () => {
 
     it(
         'should render assigned text',
-        fixtureTest(async () => {
+        createFixtureTest(async () => {
             const textToRender = 'Buy Now';
 
             const rendered = await fixture(

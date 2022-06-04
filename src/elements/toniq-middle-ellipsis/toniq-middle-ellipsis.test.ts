@@ -1,12 +1,12 @@
 import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
-import {fixtureTest} from '../../element-testing/fixture-test';
+import {createFixtureTest} from '../../element-testing/fixture-test';
+import {assertIconEquals} from '../../element-testing/icon-test-helpers';
 import {
     getTextContentThroughShadow,
     queryThroughShadow,
 } from '../../element-testing/query-through-shadow';
-import {assertIconEquals} from '../../element-testing/test-icon';
 import {ExternalLink24Icon} from '../../icons';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {ellipsisCharacter, ToniqMiddleEllipsis} from './toniq-middle-ellipsis.element';
@@ -19,7 +19,7 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
     it(
         'should not render text when none is input',
-        fixtureTest(async () => {
+        createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
                 <${ToniqMiddleEllipsis}></${ToniqMiddleEllipsis}>
@@ -32,7 +32,7 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
     it(
         'should not even render icons when no text is assigned',
-        fixtureTest(async () => {
+        createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
                 <${ToniqMiddleEllipsis}
@@ -48,7 +48,7 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
     it(
         'should render external link icon',
-        fixtureTest(async () => {
+        createFixtureTest(async () => {
             const iconToRender = ExternalLink24Icon;
 
             const renderedWithToniqIcon = await fixture(
@@ -67,7 +67,7 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
     it(
         'should not truncate small text by default',
-        fixtureTest(async () => {
+        createFixtureTest(async () => {
             const shortText = 'short';
 
             const rendered = await fixture(
@@ -83,7 +83,7 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
     it(
         'should truncate long text by default',
-        fixtureTest(async () => {
+        createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
                 <${ToniqMiddleEllipsis}
@@ -97,7 +97,7 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
     it(
         'should not truncate long text when count is high',
-        fixtureTest(async () => {
+        createFixtureTest(async () => {
             const longText = 'this-is-some-long-text';
 
             const rendered = await fixture(
@@ -114,7 +114,7 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
     it(
         'should truncate short text when count is very low',
-        fixtureTest(async () => {
+        createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
                 <${ToniqMiddleEllipsis}
