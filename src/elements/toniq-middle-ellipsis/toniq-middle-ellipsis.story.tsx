@@ -6,7 +6,7 @@ import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqMiddleEllipsis} from '../react-components';
 import {ToniqMiddleEllipsis as NativeToniqMiddleEllipsis} from './toniq-middle-ellipsis.element';
 
-const middleEllipsisControls = (<SpecificArgsGeneric extends ArgTypes>(
+const middleEllipsisStoryControls = (<SpecificArgsGeneric extends ArgTypes>(
     input: SpecificArgsGeneric,
 ) => input)({
     text: {
@@ -35,7 +35,7 @@ const middleEllipsisControls = (<SpecificArgsGeneric extends ArgTypes>(
 const componentStoryMeta: ComponentMeta<typeof ToniqMiddleEllipsis> = {
     title: 'Elements/Toniq Middle Ellipsis',
     component: ToniqMiddleEllipsis,
-    argTypes: middleEllipsisControls as ArgTypes,
+    argTypes: middleEllipsisStoryControls as ArgTypes,
     // default args
     args: {
         letterCount: 4,
@@ -51,7 +51,7 @@ function handleCopied(event: typeof NativeToniqMiddleEllipsis.events.copied) {
     action(event.type)(event);
 }
 
-export const mainStory = (controls: Record<keyof typeof middleEllipsisControls, any>) => {
+export const mainStory = (controls: Record<keyof typeof middleEllipsisStoryControls, any>) => {
     const longText = 'long string inside of text';
     const shortText = 'short text';
 

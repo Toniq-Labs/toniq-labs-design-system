@@ -1,23 +1,55 @@
-import {ComponentMeta} from '@storybook/react';
+import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
-import {Copy16Icon, Icp16Icon} from '../../icons';
+import {allIconsByCategory, Copy16Icon, Icp16Icon} from '../../icons';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqChip, ToniqIcon} from '../react-components';
 
+const chipStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
+    input)({
+    text: {
+        name: 'Text',
+        control: 'text',
+    },
+    iconName: {
+        name: '16px Icon',
+        control: 'select',
+        options: allIconsByCategory['core-16'].map((icon) => icon.iconName),
+    },
+    className: {
+        name: 'Host class',
+        control: 'select',
+        options: [
+            'None',
+            'toniq-chip-secondary',
+        ],
+    },
+    icon: {
+        table: {
+            disable: true,
+        },
+    },
+} as const);
+
 const componentStoryMeta: ComponentMeta<typeof ToniqChip> = {
     title: 'Elements/Toniq Chip',
     component: ToniqChip,
+    argTypes: chipStoryControls,
     parameters: {
         actions: {
             disabled: true,
         },
     },
+    args: {
+        text: 'Custom text here',
+        iconName: undefined,
+        className: 'None',
+    },
 };
 
 export default componentStoryMeta;
 
-export const mainStory = () => {
+export const mainStory = (controls: Record<keyof typeof chipStoryControls, string>) => {
     function generateSection(heading: string, className: string = '') {
         return (
             <>
@@ -49,7 +81,7 @@ export const mainStory = () => {
                     />
                     <ToniqChip
                         className={className}
-                        text={'with increased spacing'}
+                        text={'with increased spacing styles'}
                         icon={Icp16Icon}
                         style={{
                             gap: '8px',
@@ -61,10 +93,24 @@ export const mainStory = () => {
             </>
         );
     }
+
+    const customIcon = allIconsByCategory['core-16'].find(
+        (icon) => icon.iconName === controls.iconName,
+    );
+
     return (
         <>
             {generateSection('Primary')}
             {generateSection('Secondary', 'toniq-chip-secondary')}
+            <h3
+                style={{
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
+                }}
+            >
+                Custom Inputs
+            </h3>
+
+            <ToniqChip className={controls.className} text={controls.text} icon={customIcon} />
         </>
     );
 };
