@@ -1,8 +1,10 @@
 import {randomString} from 'augment-vir';
-import {css, defineElementEvent, html} from 'element-vir';
+import {assign, css, defineElementEvent, html} from 'element-vir';
+import {CheckMark24Icon} from '../../icons/svgs/core-24/checkmark-24.icon';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
+import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 export const ToniqCheckbox = defineToniqElement({
     initCallback: ({setProps}) => {
@@ -63,7 +65,11 @@ export const ToniqCheckbox = defineToniqElement({
             border-radius: 8px;
         }
     `,
-    renderCallback: ({props, dispatch, events}) => {
+    renderCallback: ({props, dispatch, events, setProps}) => {
+        const checkMarkIcon = props.checked
+            ? html`<${ToniqIcon} ${assign(ToniqIcon.props.icon, CheckMark24Icon)}></${ToniqIcon}>`
+            : '';
+
         return html`
             <label for=${props.inputId} class="toniq-checkbox">
                 <input
@@ -71,12 +77,12 @@ export const ToniqCheckbox = defineToniqElement({
                     type="checkbox"
                     ?checked=${props.checked}
                     @change=${(event: Event) => {
-                        dispatch(
-                            new events.checkedChange((event.target as HTMLInputElement).checked),
-                        );
+                        const isChecked = (event.target as HTMLInputElement).checked;
+                        setProps({checked: isChecked});
+                        dispatch(new events.checkedChange(isChecked));
                     }}
                 />
-                <span class="checkbox"></span>
+                <span class="checkbox">${checkMarkIcon}</span>
                 <span class="label">${props.text}</span>
             </label>
         `;
