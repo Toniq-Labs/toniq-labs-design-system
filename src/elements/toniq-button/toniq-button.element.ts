@@ -19,6 +19,7 @@ export const ToniqButton = defineToniqElement({
         :host {
             ${toniqFontStyles.boldParagraphFont};
             display: inline-block;
+            vertical-align: middle;
             ${noUserSelect};
         }
 

@@ -14,7 +14,10 @@ const chipStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: Specifi
     iconName: {
         name: '16px Icon',
         control: 'select',
-        options: allIconsByCategory['core-16'].map((icon) => icon.iconName),
+        options: [
+            'None',
+            ...allIconsByCategory['core-16'].map((icon) => icon.iconName),
+        ],
     },
     className: {
         name: 'Host class',
@@ -42,7 +45,7 @@ const componentStoryMeta: ComponentMeta<typeof ToniqChip> = {
     },
     args: {
         text: 'Custom text here',
-        iconName: undefined,
+        iconName: 'None',
         className: 'None',
     },
 };
