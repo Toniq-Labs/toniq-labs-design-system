@@ -84,6 +84,15 @@ export const ToniqMiddleEllipsis = defineToniqElement({
         a:visited {
             color: inherit;
         }
+
+        button {
+            background: none;
+            border: none;
+            font: inherit;
+            padding: 0;
+            margin: 0;
+            color: inherit;
+        }
     `,
     renderCallback: ({props, setProps, host, dispatch, events}) => {
         // make sure that the letter count is a whole number
@@ -139,7 +148,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
                 `;
             } else if (shouldCopy) {
                 return html`
-                    <span
+                    <button
                         class="text-wrapper copyable"
                         ${listen('click', async () => {
                             await copyToClipboard(props.text);
@@ -148,7 +157,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
                     >
                         <span title=${hoverText}>${renderText}</span>
                         ${iconTemplate}
-                    </span>
+                    </button>
                 `;
             } else {
                 return html`
