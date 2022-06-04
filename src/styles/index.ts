@@ -5,4 +5,5 @@ export * from './colors';
 export * from './css-to-react';
 export * from './fonts';
 export * from './icon-colors';
+export * from './native-styles';
 export * from './user-select';
