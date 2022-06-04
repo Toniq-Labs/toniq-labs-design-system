@@ -1,6 +1,6 @@
 import {randomString} from 'augment-vir';
 import {assign, css, defineElementEvent, html} from 'element-vir';
-import {CheckMark24Icon} from '../../icons/svgs/core-24/checkmark-24.icon';
+import {CheckMark24Icon} from '../../icons/svgs/core-24/check-mark-24.icon';
 import {interactionDuration, noUserSelect} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {toniqFontStyles} from '../../styles/fonts';
