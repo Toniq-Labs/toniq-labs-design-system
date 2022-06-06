@@ -2,9 +2,10 @@
     "name": "scripts",
     "private": true,
     "scripts": {
-        "test": "npm run test:files && npm run test:exports",
+        "test": "npm run test:files && npm run test:exports && npm run test:node-versions",
         "test:exports": "ts-node src/update-all-exports.ts --check",
         "test:files": "ts-node src/test-test-files.ts",
+        "test:node-versions": "ts-node src/test-node-versions.ts",
         "update:exports": "ts-node src/update-all-exports.ts"
     },
     "devDependencies": {

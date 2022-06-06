@@ -1,14 +1,70 @@
 import {action} from '@storybook/addon-actions';
-import {ComponentMeta} from '@storybook/react';
+import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
+import {allIconsByCategory, Rocket24Icon} from '../../icons';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqToggleButton} from '../react-components';
 import {ToniqToggleButton as NativeToniqToggleButton} from './toniq-toggle-button.element';
 
+const toggleButtonStoryControls = (<SpecificArgsGeneric extends ArgTypes>(
+    input: SpecificArgsGeneric,
+) => input)({
+    text: {
+        table: {
+            disable: true,
+        },
+    },
+    icon: {
+        table: {
+            disable: true,
+        },
+    },
+    iconControl: {
+        name: '24px Icon',
+        control: 'select',
+        options: [
+            'None',
+            ...allIconsByCategory['core-24'].map((icon) => icon.iconName),
+        ],
+    },
+    hostClass: {
+        name: 'Host Class',
+        control: 'select',
+        options: [
+            'None',
+            'toniq-toggle-button-text-only',
+        ],
+    },
+    active: {
+        table: {
+            disable: true,
+        },
+    },
+    inputId: {
+        table: {
+            disable: true,
+        },
+    },
+    activeControl: {
+        name: 'Active',
+    },
+    textControl: {
+        name: 'Text',
+        control: 'text',
+    },
+} as const);
+
 const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
     title: 'Elements/Toniq Toggle Button',
     component: ToniqToggleButton,
+    argTypes: toggleButtonStoryControls,
+    args: {
+        textControl: 'Custom text here',
+        activeControl: false,
+        iconControl: 'None',
+        hostClass: 'None',
+    },
 };
 
 export default componentStoryMeta;
@@ -17,26 +73,69 @@ function handleChange(event: typeof NativeToniqToggleButton.events.activeChange)
     action(event.type)(event);
 }
 
-export const mainStory = () => {
+export const mainStory = (
+    controls: Record<keyof typeof toggleButtonStoryControls, string | boolean>,
+) => {
+    const customText = String(controls.textControl);
+    const isActive = !!controls.activeControl;
+    const customIcon = allIconsByCategory['core-24'].find(
+        (icon) => icon.iconName === controls.iconControl,
+    );
+
+    function generateSection(active: boolean) {
+        const title = `${active ? 'Active' : 'Inactive'} by default`;
+        return (
+            <>
+                <h3
+                    style={{
+                        ...cssToReactStyleObject(toniqFontStyles.h3Font),
+                    }}
+                >
+                    {title}
+                </h3>
+                <section style={{display: 'flex', gap: '8px'}}>
+                    <ToniqToggleButton
+                        onActiveChange={handleChange}
+                        text="Toggle Me"
+                        active={active}
+                    />
+                    <ToniqToggleButton
+                        className="toniq-toggle-button-text-only"
+                        onActiveChange={handleChange}
+                        text="Text Only"
+                        active={active}
+                    />
+                    <ToniqToggleButton
+                        className="toniq-toggle-button-text-only"
+                        onActiveChange={handleChange}
+                        icon={Rocket24Icon}
+                        text="With Icon"
+                        active={active}
+                    />
+                </section>
+            </>
+        );
+    }
+
     return (
         <>
-            <h3
-                style={{
-                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
-                }}
-            >
-                Inactive by default
-            </h3>
-            <ToniqToggleButton onActiveChange={handleChange} text="Buy Now" />
+            {generateSection(false)}
+            {generateSection(true)}
 
             <h3
                 style={{
                     ...cssToReactStyleObject(toniqFontStyles.h3Font),
                 }}
             >
-                Active by default
+                Custom Inputs
             </h3>
-            <ToniqToggleButton onActiveChange={handleChange} text="Buy Now" active />
+            <ToniqToggleButton
+                className={controls.hostClass}
+                onActiveChange={handleChange}
+                icon={customIcon}
+                text={customText}
+                active={isActive}
+            />
         </>
     );
 };
