@@ -7,6 +7,7 @@ export const ToniqSlider = defineToniqElement({
     props: {
         min: 0,
         max: 100,
+        value: 0,
     },
     styles: css`
         :host {
@@ -30,7 +31,7 @@ export const ToniqSlider = defineToniqElement({
             height: 8px;
             width: 400px;
             z-index: 1;
-            margin: -4px 0 0 0;
+            margin: -4px 0 0 2px;
             content: '';
             border-radius: 4px;
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
@@ -39,10 +40,10 @@ export const ToniqSlider = defineToniqElement({
         .progress {
             position: absolute;
             height: 8px;
-            width: calc(400px * 0.5);
+            width: 0;
             z-index: 2;
             pointer-events: none;
-            margin: 3px 2px;
+            margin: 3px 4px;
             content: '';
             border-radius: 4px 0 0 4px;
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
@@ -66,27 +67,42 @@ export const ToniqSlider = defineToniqElement({
         }
     `,
     renderCallback: ({props, host}) => {
+        const value =
+            props.value > props.max ? props.max : props.value < props.min ? props.min : props.value;
         const minValue = props.min;
         const maxValue = props.max;
 
+        const setProgress = (value: number) => {
+            const progress = host.shadowRoot?.querySelector('.progress') as HTMLElement;
+
+            // TODO: Get Slider width value instead of 400
+            progress.style.width = Math.floor((400 * value) / maxValue) + 'px';
+            console.log(value);
+        };
+
         // Query elements after shadowRoot has rendered
         setTimeout(() => {
-            const slider = host.shadowRoot?.querySelector('.input-slider') as HTMLElement;
-            const progress = host.shadowRoot?.querySelector('.progress') as HTMLElement;
+            const slider = host.shadowRoot?.querySelector('.input-slider') as HTMLInputElement;
+            slider.value = props.value.toString();
+            setProgress(value);
 
             slider.addEventListener('input', (event: Event) => {
                 const value = parseInt((event.target as HTMLInputElement).value);
-                // TODO: Get Slider width value instead of 400
-                progress.style.width = (400 * value) / maxValue + 'px';
-                console.log(value);
+                setProgress(value);
             });
-        }, 500);
+        }, 250);
 
         return html`
             <div class="container">
                 <div class="slider">
                     <div class="progress"></div>
-                    <input type="range" class="input-slider" min=${minValue} max=${maxValue} />
+                    <input
+                        type="range"
+                        class="input-slider"
+                        value=${value}
+                        min=${minValue}
+                        max=${maxValue}
+                    />
                 </div>
             </div>
         `;
