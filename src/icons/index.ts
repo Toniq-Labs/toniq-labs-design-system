@@ -15,6 +15,7 @@ import {Bucket24Icon} from './svgs/core-24/bucket-24.icon';
 import {BuildingStore24Icon} from './svgs/core-24/building-store-24.icon';
 import {CalendarEvent24Icon} from './svgs/core-24/calendar-event-24.icon';
 import {Cash24Icon} from './svgs/core-24/cash-24.icon';
+import {CheckMark24Icon} from './svgs/core-24/check-mark-24.icon';
 import {ChevronDown24Icon} from './svgs/core-24/chevron-down-24.icon';
 import {ChevronUp24Icon} from './svgs/core-24/chevron-up-24.icon';
 import {Circle24Icon} from './svgs/core-24/circle-24.icon';
@@ -77,6 +78,7 @@ export * from './svgs/core-24/bucket-24.icon';
 export * from './svgs/core-24/building-store-24.icon';
 export * from './svgs/core-24/calendar-event-24.icon';
 export * from './svgs/core-24/cash-24.icon';
+export * from './svgs/core-24/check-mark-24.icon';
 export * from './svgs/core-24/chevron-down-24.icon';
 export * from './svgs/core-24/chevron-up-24.icon';
 export * from './svgs/core-24/circle-24.icon';
@@ -145,6 +147,7 @@ export const allIconsByCategory = {
         BuildingStore24Icon,
         CalendarEvent24Icon,
         Cash24Icon,
+        CheckMark24Icon,
         ChevronDown24Icon,
         ChevronUp24Icon,
         Circle24Icon,

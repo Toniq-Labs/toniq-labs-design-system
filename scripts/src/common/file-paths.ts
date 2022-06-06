@@ -9,6 +9,15 @@ export const testFilesDir = join(repoRootDir, 'test-files');
 export const elementsDir = join(srcDir, 'elements');
 export const stylesDir = join(srcDir, 'styles');
 
+const gitHubWorkflowsDir = join(repoRootDir, '.github', 'workflows');
+export const gitHubWorkflowFilePaths = {
+    storybookDeploy: join(gitHubWorkflowsDir, 'deploy-storybook-gh-pages.yml'),
+    taggedRelease: join(gitHubWorkflowsDir, 'virmator-tagged-release.yml'),
+    tests: join(gitHubWorkflowsDir, 'virmator-tests.yml'),
+};
+
+export const netlifyConfigPath = join(repoRootDir, 'netlify.toml');
+
 export function generateExportsFromFilePaths(filePaths: string[], relativeDir: string): string {
     const exportLines = filePaths.map((filePath) => {
         const relativePath = relative(relativeDir, filePath).replace(/\.ts?$/, '');
