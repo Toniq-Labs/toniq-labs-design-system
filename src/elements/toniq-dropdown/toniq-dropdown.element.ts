@@ -36,6 +36,12 @@ export const ToniqDropdown = defineToniqElement({
             width: 288px;
             height: 48px;
             position: relative;
+            border: 0px transparent;
+            border-radius: 8px;
+            font: inherit;
+            padding: 0;
+            margin: 0;
+            color: inherit;
         }
 
         toniq-icon 
@@ -81,6 +87,7 @@ export const ToniqDropdown = defineToniqElement({
         .select-options .option {
             padding: 16px;
             cursor: pointer;
+            text-align: left;
             ${noUserSelect};
         }
 
@@ -103,7 +110,7 @@ export const ToniqDropdown = defineToniqElement({
         }
 
         function clickOutside(event: Event) {
-            const dropDownEl = host.shadowRoot?.querySelector('div.dropdown') as HTMLElement;
+            const dropDownEl = host.shadowRoot?.querySelector('button.dropdown') as HTMLElement;
             const withinBoundaries = event.composedPath().includes(dropDownEl);
             if (!withinBoundaries && props.dropdownOpen) {
                 setProps({dropdownOpen: false});
@@ -123,7 +130,7 @@ export const ToniqDropdown = defineToniqElement({
         }
 
         return html`
-            <div class="dropdown ${props.dropdownOpen ? 'open' : ''}"
+            <button class="dropdown ${props.dropdownOpen ? 'open' : ''}"
                 @click=${(event: Event) => {
                     event.preventDefault();
                     onToggleDropdown();
@@ -153,7 +160,7 @@ export const ToniqDropdown = defineToniqElement({
                             `,
                     )}
                 </div>
-            </div>
+            </button>
         `;
     },
 });
