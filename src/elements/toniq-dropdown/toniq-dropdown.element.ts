@@ -1,56 +1,35 @@
 import {assign, css, defineElementEvent, html} from 'element-vir';
-import {ReactiveController, ReactiveControllerHost} from 'lit';
 import {ChevronDown24Icon} from '../../icons';
+import {noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
-export interface ToniqDropdownSelect {
-    value: string | number | undefined;
-    label: string | undefined;
+declare global {
+    interface Window {
+        dropdownListenerAdded: any;
+    }
 }
+window.dropdownListenerAdded = window.dropdownListenerAdded || false;
 
-export class ToniqDropdownController implements ReactiveController {
-    host: ReactiveControllerHost;
-    dropDownEl: HTMLElement;
-
-    constructor(host: ReactiveControllerHost, dropDownEl: HTMLElement) {
-        (this.host = host).addController(this);
-        this.dropDownEl = dropDownEl;
-    }
-
-    clickOutside(event: Event) {
-        const withinBoundaries = event.composedPath().includes(this.dropDownEl);
-        if (!withinBoundaries && this.dropDownEl && this.dropDownEl.classList.contains('open')) {
-            this.dropDownEl.classList.remove('open');
-        }
-    }
-
-    hostConnected() {
-        window.addEventListener('click', this.clickOutside.bind(this));
-    }
-
-    hostDisconnected() {
-        window.removeEventListener('click', this.clickOutside.bind(this));
-    }
+export interface ToniqDropdownOption {
+    value: unknown;
+    label: string;
 }
 
 export const ToniqDropdown = defineToniqElement({
     tagName: 'toniq-dropdown',
     props: {
-        list: [] as undefined | ToniqDropdownSelect[],
-        select: {} as undefined | ToniqDropdownSelect,
+        list: [] as ToniqDropdownOption[],
+        select: undefined as undefined | ToniqDropdownOption,
+        dropdownOpen: false,
     },
     events: {
-        selectChange: defineElementEvent<object>(),
+        selectChange: defineElementEvent<ToniqDropdownOption>(),
     },
     styles: css`
         :host {
-            font-family: var(--toniq-font, 'Rubik');
-            font-style: normal;
-            font-weight: 700;
-            font-size: 16px;
-            line-height: 24px;
+            ${toniqFontStyles.boldParagraphFont};
         }
 
         .dropdown {
@@ -59,15 +38,11 @@ export const ToniqDropdown = defineToniqElement({
             position: relative;
         }
 
-        toniq-icon {
-            -moz-transition: all 0.2s linear;
-            -webkit-transition: all 0.2s linear;
+        toniq-icon 
             transition: all 0.2s linear;
         }
 
         .dropdown.open toniq-icon {
-            -moz-transform: rotate(180deg);
-            -webkit-transform: rotate(180deg);
             transform: rotate(180deg);
         }
 
@@ -75,15 +50,19 @@ export const ToniqDropdown = defineToniqElement({
             display: grid;
         }
 
+        .dropdown.open .select {
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+
         .select {
             display: flex;
             justify-content: space-between;
             border-radius: 8px;
             cursor: pointer;
-            padding: 12px 12px 12px 16px;
-            -webkit-touch-callout: none; /* iOS Safari */
-            -webkit-user-select: none; /* Safari */
-            user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+            padding: 12px;
+            padding-left: 16px;
+            ${noUserSelect};
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)}
         }
 
@@ -100,85 +79,77 @@ export const ToniqDropdown = defineToniqElement({
         }
 
         .select-options .option {
-            padding: 16px 16px 8px 16px;
+            padding: 16px;
             cursor: pointer;
-            user-select: none;
+            ${noUserSelect};
         }
 
-        .select-options .option.selected,
-        .option:hover {
+        .select-options .option.selected {
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)}
         }
 
+        .select-options .option:not(.selected):hover {
+            ${applyBackgroundAndForeground(toniqColors.accentSecondary)}
+        }
+
         .select-options .option:last-child {
-            padding: 16px 16px 16px 16px;
             border-radius: 0px 0px 8px 8px;
         }
     `,
-    renderCallback: ({dispatch, events, props, setProps, host}) => {
-        const defaultSelectProps: Required<ToniqDropdownSelect> = {
-            value: props.list?.length ? props.list[0]?.value : '',
-            label: props.list?.length ? props.list[0]?.label : '',
-        };
+    initCallback: ({props, host, setProps}) => {
+        if (!window.dropdownListenerAdded) {
+            window.addEventListener('click', clickOutside);
+            window.dropdownListenerAdded = true;
+        }
 
-        const list = props.list ?? [];
-        const select =
-            typeof props.select === 'object' && Object.keys(props.select).length
-                ? props.select
-                : defaultSelectProps;
-        let dropDownEl: HTMLElement;
-
-        // Get dropdown element after rendering
-        setTimeout(() => {
-            dropDownEl = host.shadowRoot?.querySelector('div.dropdown') as HTMLElement;
-            new ToniqDropdownController(host, dropDownEl);
-        }, 500);
-
-        const onToggleDropdown = () => {
-            if (dropDownEl) {
-                if (dropDownEl.classList.contains('open')) {
-                    dropDownEl.classList.remove('open');
-                } else {
-                    dropDownEl.classList.add('open');
-                }
+        function clickOutside(event: Event) {
+            const dropDownEl = host.shadowRoot?.querySelector('div.dropdown') as HTMLElement;
+            const withinBoundaries = event.composedPath().includes(dropDownEl);
+            if (!withinBoundaries && props.dropdownOpen) {
+                setProps({dropdownOpen: false});
             }
-        };
+        }
+    },
+    renderCallback: ({dispatch, events, props, setProps}) => {
+        const selectedOption = typeof props.select != 'undefined' ? props.select : props.list[0];
 
-        const onSelectOption = (event: Event, item: ToniqDropdownSelect) => {
-            setProps({select: item});
-            dispatch(new events.selectChange({event, item}));
+        function onToggleDropdown() {
+            props.dropdownOpen ? setProps({dropdownOpen: false}) : setProps({dropdownOpen: true});
+        }
 
-            // Close dropdown
-            if (dropDownEl && dropDownEl.classList.contains('open')) {
-                dropDownEl.classList.remove('open');
-            }
-        };
+        function onSelectOption(event: Event, item: ToniqDropdownOption) {
+            setProps({select: item, dropdownOpen: false});
+            dispatch(new events.selectChange(item));
+        }
 
         return html`
-            <div class="dropdown" @click=${(event: Event) => {
-                event.preventDefault();
-                onToggleDropdown();
-            }}>
+            <div class="dropdown ${props.dropdownOpen ? 'open' : ''}"
+                @click=${(event: Event) => {
+                    event.preventDefault();
+                    onToggleDropdown();
+                }}
+                role="listbox">
                 <div class="select">
-                    <span class="select-selected">${select.label}</span>
+                    <span class="select-selected">${selectedOption?.label}</span>
                     <${ToniqIcon} ${assign(ToniqIcon.props.icon, ChevronDown24Icon)}></${ToniqIcon}>
                 </div>
                 <div class="select-options">
-                    ${list.map(
+                    ${props.list.map(
                         (item) =>
                             html`
-                                <span
-                                    class=${`option ${
-                                        item.value === select.value ? 'selected' : ''
-                                    }`}
+                                <option
+                                    class="option ${item.value === selectedOption?.value
+                                        ? 'selected'
+                                        : ''}"
                                     @click=${(event: Event) => {
                                         event.preventDefault();
                                         event.stopPropagation();
                                         onSelectOption(event, item);
                                     }}
+                                    role="option"
                                 >
                                     ${item.label}
-                                </span>
+                                </option>
                             `,
                     )}
                 </div>
