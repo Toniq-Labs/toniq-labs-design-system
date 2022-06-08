@@ -41,11 +41,6 @@ const toggleButtonStoryControls = (<SpecificArgsGeneric extends ArgTypes>(
             disable: true,
         },
     },
-    inputId: {
-        table: {
-            disable: true,
-        },
-    },
     activeControl: {
         name: 'Active',
     },

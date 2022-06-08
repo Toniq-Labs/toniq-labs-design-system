@@ -1,47 +1,62 @@
 import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
+import {createFixtureTest} from '../../element-testing/fixture-test';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
+import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
+import {createFocusTests} from '../../element-testing/test-focus';
 import {Copy16Icon} from '../../icons';
 import {ToniqIcon} from './toniq-icon.element';
 
 describe(ToniqIcon.tagName, () => {
-    it('should be registered as a custom element', () => {
-        const newlyCreated = document.createElement(ToniqIcon.tagName);
-        assert.instanceOf(newlyCreated, ToniqIcon);
-    });
+    createElementRegistrationTest(ToniqIcon);
 
-    it('should render nothing when no icon is assigned', async () => {
-        const rendered = await fixture(
-            html`
+    it(
+        'should render nothing when no icon is assigned',
+        createFixtureTest(async () => {
+            const rendered = await fixture(
+                html`
                 <${ToniqIcon}></${ToniqIcon}>
             `,
-        );
-        assert.isUndefined(queryThroughShadow('svg', rendered));
-    });
+            );
+            assert.isUndefined(queryThroughShadow('svg', rendered));
+        }),
+    );
 
-    it('should render assigned icon', async () => {
-        const iconToRender = Copy16Icon;
+    it(
+        'should render assigned icon',
+        createFixtureTest(async () => {
+            const iconToRender = Copy16Icon;
 
-        const renderedToniqIcon = await fixture(
-            html`
-                <${ToniqIcon}
-                    ${assign(ToniqIcon.props.icon, iconToRender)}
-                ></${ToniqIcon}>
-            `,
-        );
-        const toniqIconSvg = queryThroughShadow('svg', renderedToniqIcon)?.outerHTML.trim();
-
-        const iconSvg = (
-            await fixture(
+            const renderedToniqIcon = await fixture(
                 html`
-                    ${unsafeHTML(iconToRender.svgString)}
+                    <${ToniqIcon}
+                        ${assign(ToniqIcon.props.icon, iconToRender)}
+                    ></${ToniqIcon}>
                 `,
-            )
-        ).outerHTML.trim();
+            );
+            const toniqIconSvg = queryThroughShadow('svg', renderedToniqIcon)?.outerHTML.trim();
 
-        assert.isNotEmpty(iconSvg);
+            const iconSvg = (
+                await fixture(
+                    html`
+                        ${unsafeHTML(iconToRender.svgString)}
+                    `,
+                )
+            ).outerHTML.trim();
 
-        assert.equal(toniqIconSvg, iconSvg);
-    });
+            assert.isNotEmpty(iconSvg);
+
+            assert.equal(toniqIconSvg, iconSvg);
+        }),
+    );
+
+    createFocusTests(
+        html`
+            <${ToniqIcon}
+                ${assign(ToniqIcon.props.icon, Copy16Icon)}
+            ></${ToniqIcon}>
+        `,
+        false,
+    );
 });

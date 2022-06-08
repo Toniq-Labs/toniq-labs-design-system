@@ -1,24 +1,29 @@
 import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
+import {createFixtureTest} from '../../element-testing/fixture-test';
 import {getTextContentThroughShadow} from '../../element-testing/query-through-shadow';
+import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
+import {createFocusTests} from '../../element-testing/test-focus';
 import {ToniqCheckbox} from './toniq-checkbox.element';
 
 describe(ToniqCheckbox.tagName, () => {
-    it('should be registered as a custom element', () => {
-        const newlyCreated = document.createElement(ToniqCheckbox.tagName);
-        assert.instanceOf(newlyCreated, ToniqCheckbox);
-    });
+    createElementRegistrationTest(ToniqCheckbox);
 
-    it('should render assigned text', async () => {
-        const textToRender = 'Orange';
+    it(
+        'should render assigned text',
+        createFixtureTest(async () => {
+            const textToRender = 'Orange';
 
-        const rendered = await fixture(
-            html`
+            const rendered = await fixture(
+                html`
                 <${ToniqCheckbox}
                     ${assign(ToniqCheckbox.props.text, textToRender)}
                 ></${ToniqCheckbox}>
             `,
-        );
-        assert.equal(getTextContentThroughShadow(rendered), textToRender);
-    });
+            );
+            assert.equal(getTextContentThroughShadow(rendered), textToRender);
+        }),
+    );
+
+    createFocusTests(html`<${ToniqCheckbox}></${ToniqCheckbox}>`, true);
 });
