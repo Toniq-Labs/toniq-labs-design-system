@@ -20,8 +20,8 @@ export interface ToniqDropdownOption {
 export const ToniqDropdown = defineToniqElement({
     tagName: 'toniq-dropdown',
     props: {
-        list: [] as ToniqDropdownOption[],
-        select: undefined as undefined | ToniqDropdownOption,
+        list: [] as Readonly<ToniqDropdownOption[]>,
+        select: undefined as undefined | Readonly<ToniqDropdownOption>,
         dropdownOpen: false,
     },
     events: {
@@ -118,7 +118,7 @@ export const ToniqDropdown = defineToniqElement({
         }
     },
     renderCallback: ({dispatch, events, props, setProps}) => {
-        const selectedOption = typeof props.select != 'undefined' ? props.select : props.list[0];
+        const selectedOption = props.select != undefined ? props.select : props.list[0];
 
         function onToggleDropdown() {
             props.dropdownOpen ? setProps({dropdownOpen: false}) : setProps({dropdownOpen: true});

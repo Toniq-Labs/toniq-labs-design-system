@@ -17,7 +17,7 @@ describe(ToniqDropdown.tagName, () => {
             value: '3',
             label: 'Option 3',
         },
-    ];
+    ] as const;
 
     it('should be registered as a custom element', () => {
         const newlyCreated = document.createElement(ToniqDropdown.tagName);
@@ -46,7 +46,7 @@ describe(ToniqDropdown.tagName, () => {
         );
 
         const selectedOption = queryThroughShadow('span.select-selected', rendered);
-        expect(selectedOption).to.have.text(list[2]!.label);
+        expect(selectedOption).to.have.text(list[2].label);
     });
 
     it('should display the correct number of options', async () => {
