@@ -6,6 +6,7 @@ import {
     getTextContentThroughShadow,
     queryThroughShadow,
 } from '../../element-testing/query-through-shadow';
+import {createFocusTests} from '../../element-testing/test-focus';
 import {ToniqButton} from './toniq-button.element';
 
 describe(ToniqButton.tagName, () => {
@@ -45,4 +46,6 @@ describe(ToniqButton.tagName, () => {
             assert.equal(getTextContentThroughShadow(rendered), textToRender);
         }),
     );
+
+    createFocusTests(html`<${ToniqButton}></${ToniqButton}>`, true);
 });

@@ -3,6 +3,7 @@ import {assign, html} from 'element-vir';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
+import {createFocusTests} from '../../element-testing/test-focus';
 import {Copy16Icon} from '../../icons';
 import {ToniqIcon} from './toniq-icon.element';
 
@@ -31,10 +32,10 @@ describe(ToniqIcon.tagName, () => {
 
             const renderedToniqIcon = await fixture(
                 html`
-                <${ToniqIcon}
-                    ${assign(ToniqIcon.props.icon, iconToRender)}
-                ></${ToniqIcon}>
-            `,
+                    <${ToniqIcon}
+                        ${assign(ToniqIcon.props.icon, iconToRender)}
+                    ></${ToniqIcon}>
+                `,
             );
             const toniqIconSvg = queryThroughShadow('svg', renderedToniqIcon)?.outerHTML.trim();
 
@@ -50,5 +51,14 @@ describe(ToniqIcon.tagName, () => {
 
             assert.equal(toniqIconSvg, iconSvg);
         }),
+    );
+
+    createFocusTests(
+        html`
+            <${ToniqIcon}
+                ${assign(ToniqIcon.props.icon, Copy16Icon)}
+            ></${ToniqIcon}>
+        `,
+        false,
     );
 });

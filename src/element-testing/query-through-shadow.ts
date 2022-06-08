@@ -74,9 +74,13 @@ export function queryThroughShadow(
 }
 
 export function getTextContentThroughShadow(element: Element | ShadowRoot): string {
-    if ('shadowRoot' in element && element.shadowRoot) {
-        element = element.shadowRoot;
+    const topLevelTextContent: string = element.textContent?.trim() ?? '';
+
+    if (topLevelTextContent) {
+        return topLevelTextContent;
+    } else if ('shadowRoot' in element && element.shadowRoot) {
+        return getTextContentThroughShadow(element.shadowRoot);
     }
 
-    return element.textContent?.trim() || '';
+    return topLevelTextContent;
 }

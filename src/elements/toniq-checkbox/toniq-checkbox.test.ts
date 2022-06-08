@@ -2,6 +2,7 @@ import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {getTextContentThroughShadow} from '../../element-testing/query-through-shadow';
+import {createFocusTests} from '../../element-testing/test-focus';
 import {ToniqCheckbox} from './toniq-checkbox.element';
 
 describe(ToniqCheckbox.tagName, () => {
@@ -25,4 +26,6 @@ describe(ToniqCheckbox.tagName, () => {
             assert.equal(getTextContentThroughShadow(rendered), textToRender);
         }),
     );
+
+    createFocusTests(html`<${ToniqCheckbox}></${ToniqCheckbox}>`, true);
 });

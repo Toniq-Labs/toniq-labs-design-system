@@ -7,6 +7,7 @@ import {
     getTextContentThroughShadow,
     queryThroughShadow,
 } from '../../element-testing/query-through-shadow';
+import {createFocusTests} from '../../element-testing/test-focus';
 import {ExternalLink24Icon} from '../../icons';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {ellipsisCharacter, ToniqMiddleEllipsis} from './toniq-middle-ellipsis.element';
@@ -22,8 +23,8 @@ describe(ToniqMiddleEllipsis.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                <${ToniqMiddleEllipsis}></${ToniqMiddleEllipsis}>
-            `,
+                    <${ToniqMiddleEllipsis}></${ToniqMiddleEllipsis}>
+                `,
             );
             assert.equal(getTextContentThroughShadow(rendered), '');
             assert.isUndefined(queryThroughShadow(ToniqIcon.tagName, rendered));
@@ -35,10 +36,10 @@ describe(ToniqMiddleEllipsis.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                <${ToniqMiddleEllipsis}
-                    ${assign(ToniqMiddleEllipsis.props.externalLink, 'https://entrepot.app')}
-                >
-                </${ToniqMiddleEllipsis}>
+                    <${ToniqMiddleEllipsis}
+                        ${assign(ToniqMiddleEllipsis.props.externalLink, 'https://entrepot.app')}
+                    >
+                    </${ToniqMiddleEllipsis}>
             `,
             );
             assert.equal(getTextContentThroughShadow(rendered), '');
@@ -53,10 +54,10 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
             const renderedWithToniqIcon = await fixture(
                 html`
-                <${ToniqMiddleEllipsis}
-                    ${assign(ToniqMiddleEllipsis.props.text, 'link')}
-                    ${assign(ToniqMiddleEllipsis.props.externalLink, 'https://entrepot.app')}
-                ></${ToniqMiddleEllipsis}>
+                    <${ToniqMiddleEllipsis}
+                        ${assign(ToniqMiddleEllipsis.props.text, 'link')}
+                        ${assign(ToniqMiddleEllipsis.props.externalLink, 'https://entrepot.app')}
+                    ></${ToniqMiddleEllipsis}>
             `,
             );
             const toniqIconInstance = queryThroughShadow(ToniqIcon.tagName, renderedWithToniqIcon);
@@ -72,10 +73,10 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
             const rendered = await fixture(
                 html`
-                <${ToniqMiddleEllipsis}
-                    ${assign(ToniqMiddleEllipsis.props.text, shortText)}
-                ></${ToniqMiddleEllipsis}>
-            `,
+                    <${ToniqMiddleEllipsis}
+                        ${assign(ToniqMiddleEllipsis.props.text, shortText)}
+                    ></${ToniqMiddleEllipsis}>
+                `,
             );
             assert.equal(getTextContentThroughShadow(rendered), shortText);
         }),
@@ -86,10 +87,10 @@ describe(ToniqMiddleEllipsis.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                <${ToniqMiddleEllipsis}
-                    ${assign(ToniqMiddleEllipsis.props.text, 'this-is-some-long-text')}
-                ></${ToniqMiddleEllipsis}>
-            `,
+                    <${ToniqMiddleEllipsis}
+                        ${assign(ToniqMiddleEllipsis.props.text, 'this-is-some-long-text')}
+                    ></${ToniqMiddleEllipsis}>
+                `,
             );
             assert.equal(getTextContentThroughShadow(rendered), `this${ellipsisCharacter}text`);
         }),
@@ -102,11 +103,11 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
             const rendered = await fixture(
                 html`
-                <${ToniqMiddleEllipsis}
-                    ${assign(ToniqMiddleEllipsis.props.text, longText)}
-                    ${assign(ToniqMiddleEllipsis.props.letterCount, 500)}
-                ></${ToniqMiddleEllipsis}>
-            `,
+                    <${ToniqMiddleEllipsis}
+                        ${assign(ToniqMiddleEllipsis.props.text, longText)}
+                        ${assign(ToniqMiddleEllipsis.props.letterCount, 500)}
+                    ></${ToniqMiddleEllipsis}>
+                `,
             );
             assert.equal(getTextContentThroughShadow(rendered), longText);
         }),
@@ -117,13 +118,48 @@ describe(ToniqMiddleEllipsis.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                <${ToniqMiddleEllipsis}
-                    ${assign(ToniqMiddleEllipsis.props.text, 'abcde')}
-                    ${assign(ToniqMiddleEllipsis.props.letterCount, 1)}
-                ></${ToniqMiddleEllipsis}>
-            `,
+                    <${ToniqMiddleEllipsis}
+                        ${assign(ToniqMiddleEllipsis.props.text, 'abcde')}
+                        ${assign(ToniqMiddleEllipsis.props.letterCount, 1)}
+                    ></${ToniqMiddleEllipsis}>
+                `,
             );
             assert.equal(getTextContentThroughShadow(rendered), `a${ellipsisCharacter}e`);
         }),
+    );
+
+    createFocusTests(
+        html`
+            <${ToniqMiddleEllipsis}
+                ${assign(ToniqMiddleEllipsis.props.externalLink, 'https://entrepot.app')}
+                ${assign(ToniqMiddleEllipsis.props.text, 'entrepot')}
+            >
+            </${ToniqMiddleEllipsis}>
+        `,
+        true,
+        'with link input',
+    );
+
+    createFocusTests(
+        html`
+            <${ToniqMiddleEllipsis}
+                ${assign(ToniqMiddleEllipsis.props.copyOnClick, true)}
+                ${assign(ToniqMiddleEllipsis.props.text, 'copy')}
+            >
+            </${ToniqMiddleEllipsis}>
+        `,
+        true,
+        'with copyable set to true',
+    );
+
+    createFocusTests(
+        html`
+            <${ToniqMiddleEllipsis}
+                ${assign(ToniqMiddleEllipsis.props.text, 'not tabbable')}
+            >
+            </${ToniqMiddleEllipsis}>
+        `,
+        false,
+        'with no interaction',
     );
 });
