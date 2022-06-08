@@ -6,14 +6,14 @@ import {TemplateResult} from 'lit';
 import {assertInstanceOf} from './assertion-helpers';
 import {createFixtureTest, withFixtureCleanup} from './fixture-test';
 
-async function hitTab() {
+async function hitTab(): Promise<void> {
     await sendKeys({
         press: 'Tab',
     });
 }
 
-function getTagName(singleInstanceTemplate: TemplateResult): Promise<string> {
-    return withFixtureCleanup(async () => {
+async function getTagName(singleInstanceTemplate: TemplateResult): Promise<string> {
+    return await withFixtureCleanup(async () => {
         const rendered = await fixture(singleInstanceTemplate);
         assertInstanceOf(rendered, HTMLElement);
         const tagName = rendered.tagName;
@@ -23,15 +23,9 @@ function getTagName(singleInstanceTemplate: TemplateResult): Promise<string> {
 
 function checkActiveElement(element: Element, shouldBeActive: boolean): void {
     if (shouldBeActive) {
-        // using assert here does something weird where it never resolves:
-        // assert.strictEqual(document.activeElement, element);
-        if (document.activeElement !== element) {
-            throw new Error(`Expected ${element.tagName} to be the focused element but it wasn't.`);
-        }
+        assert.strictEqual(document.activeElement, element);
     } else {
-        if (document.activeElement === element) {
-            throw new Error(`Expected ${element.tagName} NOT to be the focused element but it is.`);
-        }
+        assert.notStrictEqual(document.activeElement, element);
     }
 }
 
@@ -77,11 +71,11 @@ export function createFocusTests(
                 );
                 assertInstanceOf(rendered, HTMLDivElement);
                 const allInstances: Element[] = Array.from(document.querySelectorAll(tagName));
-                // assert.strictEqual(
-                //     allInstances.length,
-                //     instanceCount,
-                //     `Got the wrong number of ${tagName} instances.`,
-                // );
+                assert.strictEqual(
+                    allInstances.length,
+                    instanceCount,
+                    `Got the wrong number of ${tagName} instances.`,
+                );
 
                 await awaitedForEach(allInstances, async (currentInstance, index) => {
                     await hitTab();
