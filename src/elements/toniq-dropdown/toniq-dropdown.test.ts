@@ -4,7 +4,7 @@ import {queryThroughShadow} from '../../element-testing/query-through-shadow';
 import {ToniqDropdown} from './toniq-dropdown.element';
 
 describe(ToniqDropdown.tagName, () => {
-    const list = [
+    const options = [
         {
             value: 1,
             label: 'Option 1',
@@ -27,36 +27,36 @@ describe(ToniqDropdown.tagName, () => {
     it('should correctly set default option', async () => {
         const rendered = await fixture(
             html`
-                <${ToniqDropdown} ${assign(ToniqDropdown.props.list, list)} />
+                <${ToniqDropdown} ${assign(ToniqDropdown.props.options, options)} />
             `,
         );
 
         const selectedOption = queryThroughShadow('span.select-selected', rendered);
-        expect(selectedOption).to.have.text(list[0]!.label);
+        expect(selectedOption).to.have.text(options[0].label);
     });
 
     it('should correctly set selected default option', async () => {
         const rendered = await fixture(
             html`
                 <${ToniqDropdown}
-                    ${assign(ToniqDropdown.props.list, list)}
-                    ${assign(ToniqDropdown.props.select, list[2])}
+                    ${assign(ToniqDropdown.props.options, options)}
+                    ${assign(ToniqDropdown.props.selected, options[2])}
                 />
             `,
         );
 
         const selectedOption = queryThroughShadow('span.select-selected', rendered);
-        expect(selectedOption).to.have.text(list[2].label);
+        expect(selectedOption).to.have.text(options[2].label);
     });
 
     it('should display the correct number of options', async () => {
         const rendered = await fixture(
             html`
-                <${ToniqDropdown} ${assign(ToniqDropdown.props.list, list)} />
+                <${ToniqDropdown} ${assign(ToniqDropdown.props.options, options)} />
             `,
         );
 
-        const options = queryThroughShadow('div.select-options', rendered);
-        expect(options?.childElementCount).equals(list.length);
+        const optionlist = queryThroughShadow('div.select-options', rendered);
+        expect(optionlist?.childElementCount).equals(options.length);
     });
 });

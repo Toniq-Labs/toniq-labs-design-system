@@ -5,7 +5,7 @@ import React from 'react';
 import {ToniqDropdown} from '../react-components';
 import {ToniqDropdownOption} from './toniq-dropdown.element';
 
-const list: ToniqDropdownOption[] = [
+const options: ToniqDropdownOption[] = [
     {
         value: 1,
         label: 'Option 1',
@@ -22,15 +22,15 @@ const list: ToniqDropdownOption[] = [
 
 const dropdownStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
     input)({
-    select: {
-        options: Object.keys(list),
-        mapping: list,
+    selected: {
+        options: Object.keys(options),
+        mapping: options,
         control: {
             type: 'select',
             labels: {
-                0: list[0]?.label,
-                1: list[1]?.label,
-                2: list[2]?.label,
+                0: options[0]?.label,
+                1: options[1]?.label,
+                2: options[2]?.label,
             },
         },
     },
@@ -45,8 +45,8 @@ const componentStoryMeta: ComponentMeta<typeof ToniqDropdown> = {
     argTypes: dropdownStoryControls as ArgTypes,
     // default args
     args: {
-        select: list[0],
-        list: list,
+        selected: options[0],
+        options: options,
         dropdownOpen: false,
     },
 };
@@ -61,8 +61,8 @@ export const mainStory = (controls: Record<keyof typeof dropdownStoryControls, a
     <article>
         <h3>Dropdown</h3>
         <ToniqDropdown
-            list={list}
-            select={controls.select}
+            options={options}
+            selected={controls.selected}
             dropdownOpen={controls.dropdownOpen}
             onSelectChange={handleChange}
         />

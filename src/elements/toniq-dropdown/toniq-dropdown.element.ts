@@ -1,13 +1,14 @@
 import {assign, css, defineElementEvent, html} from 'element-vir';
 import {ChevronDown24Icon} from '../../icons';
-import {noUserSelect, toniqFontStyles} from '../../styles';
+import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
+import {removeNativeButtonStyles} from '../../styles/native-styles';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 declare global {
     interface Window {
-        dropdownListenerAdded: any;
+        dropdownListenerAdded: boolean;
     }
 }
 window.dropdownListenerAdded = window.dropdownListenerAdded || false;
@@ -20,8 +21,8 @@ export interface ToniqDropdownOption {
 export const ToniqDropdown = defineToniqElement({
     tagName: 'toniq-dropdown',
     props: {
-        list: [] as Readonly<ToniqDropdownOption[]>,
-        select: undefined as undefined | Readonly<ToniqDropdownOption>,
+        options: [] as Readonly<ToniqDropdownOption[]>,
+        selected: undefined as undefined | Readonly<ToniqDropdownOption>,
         dropdownOpen: false,
     },
     events: {
@@ -36,19 +37,15 @@ export const ToniqDropdown = defineToniqElement({
             width: 288px;
             height: 48px;
             position: relative;
-            border: 0px transparent;
+            border: ${removeNativeButtonStyles}
             border-radius: 8px;
-            font: inherit;
-            padding: 0;
-            margin: 0;
-            color: inherit;
         }
 
-        toniq-icon 
-            transition: all 0.2s linear;
+        ${ToniqIcon} {
+            transition: ${interactionDuration} linear;
         }
 
-        .dropdown.open toniq-icon {
+        .dropdown.open ${ToniqIcon} {
             transform: rotate(180deg);
         }
 
@@ -118,33 +115,31 @@ export const ToniqDropdown = defineToniqElement({
         }
     },
     renderCallback: ({dispatch, events, props, setProps}) => {
-        const selectedOption = props.select != undefined ? props.select : props.list[0];
+        const selectedOption = props.selected ? props.selected : props.options[0];
 
         function onToggleDropdown() {
-            props.dropdownOpen ? setProps({dropdownOpen: false}) : setProps({dropdownOpen: true});
+            setProps({dropdownOpen: !props.dropdownOpen});
         }
 
         function onSelectOption(event: Event, item: ToniqDropdownOption) {
-            setProps({select: item, dropdownOpen: false});
+            setProps({selected: item, dropdownOpen: false});
             dispatch(new events.selectChange(item));
         }
 
         return html`
             <button class="dropdown ${props.dropdownOpen ? 'open' : ''}"
-                @click=${(event: Event) => {
-                    event.preventDefault();
-                    onToggleDropdown();
-                }}
-                role="listbox">
+                @click=${() => onToggleDropdown()}
+                role="listbox"
+                aria-expanded=${props.dropdownOpen}>
                 <div class="select">
                     <span class="select-selected">${selectedOption?.label}</span>
                     <${ToniqIcon} ${assign(ToniqIcon.props.icon, ChevronDown24Icon)}></${ToniqIcon}>
                 </div>
                 <div class="select-options">
-                    ${props.list.map(
+                    ${props.options.map(
                         (item) =>
                             html`
-                                <option
+                                <span
                                     class="option ${item.value === selectedOption?.value
                                         ? 'selected'
                                         : ''}"
@@ -156,7 +151,7 @@ export const ToniqDropdown = defineToniqElement({
                                     role="option"
                                 >
                                     ${item.label}
-                                </option>
+                                </span>
                             `,
                     )}
                 </div>

@@ -15,6 +15,7 @@
         "iefix",
         "listbox",
         "opentype",
+        "optionlist",
         "postpack",
         "preinstall",
         "prismjs",
