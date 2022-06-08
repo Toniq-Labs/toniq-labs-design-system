@@ -13,7 +13,7 @@ export const ToniqToggleButton = defineToniqElement({
     props: {
         text: '',
         active: false,
-        icon: undefined as undefined | ToniqSvg,
+        icon: undefined as undefined | Readonly<ToniqSvg>,
     },
     events: {
         activeChange: defineElementEvent<boolean>(),

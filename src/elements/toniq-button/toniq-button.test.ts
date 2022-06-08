@@ -6,14 +6,12 @@ import {
     getTextContentThroughShadow,
     queryThroughShadow,
 } from '../../element-testing/query-through-shadow';
+import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
 import {createFocusTests} from '../../element-testing/test-focus';
 import {ToniqButton} from './toniq-button.element';
 
 describe(ToniqButton.tagName, () => {
-    it('should be registered as a custom element', () => {
-        const newlyCreated = document.createElement(ToniqButton.tagName);
-        assert.instanceOf(newlyCreated, ToniqButton);
-    });
+    createElementRegistrationTest(ToniqButton);
 
     it(
         'renders with default values',

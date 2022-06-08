@@ -7,16 +7,14 @@ import {
     getTextContentThroughShadow,
     queryThroughShadow,
 } from '../../element-testing/query-through-shadow';
+import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
 import {createFocusTests} from '../../element-testing/test-focus';
 import {ExternalLink24Icon} from '../../icons';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {ellipsisCharacter, ToniqMiddleEllipsis} from './toniq-middle-ellipsis.element';
 
 describe(ToniqMiddleEllipsis.tagName, () => {
-    it('should be registered as a custom element', () => {
-        const newlyCreated = document.createElement(ToniqMiddleEllipsis.tagName);
-        assert.instanceOf(newlyCreated, ToniqMiddleEllipsis);
-    });
+    createElementRegistrationTest(ToniqMiddleEllipsis);
 
     it(
         'should not render text when none is input',

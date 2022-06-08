@@ -3,15 +3,13 @@ import {assign, html} from 'element-vir';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
+import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
 import {createFocusTests} from '../../element-testing/test-focus';
 import {Copy16Icon} from '../../icons';
 import {ToniqIcon} from './toniq-icon.element';
 
 describe(ToniqIcon.tagName, () => {
-    it('should be registered as a custom element', () => {
-        const newlyCreated = document.createElement(ToniqIcon.tagName);
-        assert.instanceOf(newlyCreated, ToniqIcon);
-    });
+    createElementRegistrationTest(ToniqIcon);
 
     it(
         'should render nothing when no icon is assigned',
