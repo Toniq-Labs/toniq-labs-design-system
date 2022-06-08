@@ -37,7 +37,7 @@ export const ToniqDropdown = defineToniqElement({
             width: 288px;
             height: 48px;
             position: relative;
-            border: ${removeNativeButtonStyles}
+            ${removeNativeButtonStyles}
             border-radius: 8px;
         }
 
@@ -53,6 +53,7 @@ export const ToniqDropdown = defineToniqElement({
             display: grid;
         }
 
+        .dropdown.open,
         .dropdown.open .select {
             border-bottom-left-radius: 0px;
             border-bottom-right-radius: 0px;
@@ -78,7 +79,7 @@ export const ToniqDropdown = defineToniqElement({
             z-index: 99;
             border-radius: 8px;
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)}
-            filter: drop-shadow(0px 16px 16px rgba(39, 170, 243, 0.16));
+            filter: drop-shadow(0px 16px 16px ${toniqColors.dropShadow.backgroundColor});
         }
 
         .select-options .option {

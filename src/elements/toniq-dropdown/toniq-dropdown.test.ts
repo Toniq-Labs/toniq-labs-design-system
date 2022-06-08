@@ -56,7 +56,7 @@ describe(ToniqDropdown.tagName, () => {
             `,
         );
 
-        const optionlist = queryThroughShadow('div.select-options', rendered);
-        expect(optionlist?.childElementCount).equals(options.length);
+        const optionList = queryThroughShadow('div.select-options', rendered);
+        expect(optionList?.childElementCount).equals(options.length);
     });
 });
