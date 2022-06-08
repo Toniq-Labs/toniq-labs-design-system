@@ -1,9 +1,9 @@
 import {fixtureCleanup} from '@open-wc/testing';
 import {isPromiseLike} from 'augment-vir';
 
-export function createFixtureTest(callback: () => Promise<void>) {
+export function createFixtureTest(callback: () => Promise<void>): () => Promise<void> {
     return async () => {
-        await withFixtureCleanup(callback);
+        return await withFixtureCleanup(callback);
     };
 }
 
