@@ -1,6 +1,8 @@
-import {assert, expect, fixture} from '@open-wc/testing';
+import {expect, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
+import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
+import {createFocusTests} from '../../element-testing/test-focus';
 import {ToniqDropdown} from './toniq-dropdown.element';
 
 describe(ToniqDropdown.tagName, () => {
@@ -19,10 +21,7 @@ describe(ToniqDropdown.tagName, () => {
         },
     ] as const;
 
-    it('should be registered as a custom element', () => {
-        const newlyCreated = document.createElement(ToniqDropdown.tagName);
-        assert.instanceOf(newlyCreated, ToniqDropdown);
-    });
+    createElementRegistrationTest(ToniqDropdown);
 
     it('should correctly set default option', async () => {
         const rendered = await fixture(
@@ -59,4 +58,14 @@ describe(ToniqDropdown.tagName, () => {
         const optionList = queryThroughShadow('div.select-options', rendered);
         expect(optionList?.childElementCount).equals(options.length);
     });
+
+    createFocusTests(
+        html`<${ToniqDropdown} ${assign(ToniqDropdown.props.options, [
+            {
+                label: 'test',
+                value: 'test',
+            },
+        ])}></${ToniqDropdown}>`,
+        true,
+    );
 });
