@@ -10,9 +10,6 @@ import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 export const ToniqToggleButton = defineToniqElement({
     tagName: 'toniq-toggle-button',
-    initCallback: ({setProps}) => {
-        setProps({inputId: randomString()});
-    },
     props: {
         text: '',
         active: false,
