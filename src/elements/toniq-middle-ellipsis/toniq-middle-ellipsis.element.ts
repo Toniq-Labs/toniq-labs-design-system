@@ -4,6 +4,7 @@ import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
 import {interactionDuration} from '../../styles/animation';
 import {toniqColors} from '../../styles/colors';
 import {toniqFontStyles} from '../../styles/fonts';
+import {removeNativeButtonStyles} from '../../styles/native-styles';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
@@ -80,9 +81,15 @@ export const ToniqMiddleEllipsis = defineToniqElement({
         a {
             color: inherit;
             text-decoration: none;
+            border-radius: 8px;
         }
         a:visited {
             color: inherit;
+        }
+
+        button {
+            ${removeNativeButtonStyles};
+            border-radius: 8px;
         }
     `,
     renderCallback: ({props, setProps, host, dispatch, events}) => {
@@ -139,7 +146,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
                 `;
             } else if (shouldCopy) {
                 return html`
-                    <span
+                    <button
                         class="text-wrapper copyable"
                         ${listen('click', async () => {
                             await copyToClipboard(props.text);
@@ -148,7 +155,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
                     >
                         <span title=${hoverText}>${renderText}</span>
                         ${iconTemplate}
-                    </span>
+                    </button>
                 `;
             } else {
                 return html`

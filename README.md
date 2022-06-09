@@ -15,7 +15,10 @@ npm i @toniq-labs/design-system
 
 # Dev
 
-Make sure to run `npm install` first.
+Make sure that:
+
+-   you're on Node.js version `v16.15.0`. So far, later versions of `v16.15` have massive issues running `npm install` for this repo.
+-   you run `npm install` first.
 
 -   Run tests:
     ```bash

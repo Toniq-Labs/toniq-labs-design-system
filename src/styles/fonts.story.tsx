@@ -20,7 +20,7 @@ enum ExtraApplyStyleOptions {
 
 const fontsStoryControls = wrapTypeWithReadonly<ArgTypes>()({
     styleInput: {
-        name: 'Style',
+        name: 'CSS Value',
         control: 'text',
     },
     applyStyle: {

@@ -1,9 +1,9 @@
-import {randomString} from 'augment-vir';
-import {assign, css, defineElementEvent, html} from 'element-vir';
+import {assign, css, defineElementEvent, html, listen} from 'element-vir';
 import {ToniqSvg} from '../../icons';
 import {interactionDuration} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {toniqFontStyles} from '../../styles/fonts';
+import {removeNativeButtonStyles} from '../../styles/native-styles';
 import {noUserSelect} from '../../styles/user-select';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
@@ -16,8 +16,7 @@ export const ToniqToggleButton = defineToniqElement({
     props: {
         text: '',
         active: false,
-        icon: undefined as undefined | ToniqSvg,
-        inputId: '',
+        icon: undefined as undefined | Readonly<ToniqSvg>,
     },
     events: {
         activeChange: defineElementEvent<boolean>(),
@@ -30,22 +29,21 @@ export const ToniqToggleButton = defineToniqElement({
             vertical-align: middle;
         }
 
-        label {
-            display: inline-flex;
+        button {
+            ${removeNativeButtonStyles};
         }
 
         .wrapper {
             border: 0;
             display: inline-flex;
             cursor: pointer;
-            font: inherit;
             align-items: center;
 
             -webkit-tap-highlight-color: transparent;
             border-radius: 8px;
 
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
-            transition: ${interactionDuration};
+            transition: color ${interactionDuration}, background-color ${interactionDuration};
         }
 
         .text-wrapper {
@@ -57,11 +55,7 @@ export const ToniqToggleButton = defineToniqElement({
             margin-left: 12px;
         }
 
-        input {
-            display: none;
-        }
-
-        .active .wrapper {
+        .wrapper.active {
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
@@ -69,7 +63,7 @@ export const ToniqToggleButton = defineToniqElement({
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
             background: none;
         }
-        :host(.toniq-toggle-button-text-only) .active .wrapper {
+        :host(.toniq-toggle-button-text-only) .wrapper.active {
             ${applyBackgroundAndForeground(toniqColors.pageInteraction)};
             background: none;
         }
@@ -94,22 +88,20 @@ export const ToniqToggleButton = defineToniqElement({
             : '';
 
         return html`
-            <label class=${props.active ? 'active' : ''} for=${props.inputId}>
-                <input
-                    id=${props.inputId}
-                    type="checkbox"
-                    ?checked=${props.active}
-                    @change=${(event: Event) => {
-                        const isActive = (event.target as HTMLInputElement).checked;
-                        setProps({active: isActive});
-                        dispatch(new events.activeChange(isActive));
-                    }}
-                />
-                <span class="wrapper">
-                    <span class="icon-wrapper">${iconTemplate}</span>
-                    <span class="text-wrapper">${props.text}</span>
-                </span>
-            </label>
+            <button
+                class="wrapper ${props.active ? 'active' : ''}"
+                ${listen('click', () => {
+                    const active = !props.active;
+                    setProps({active});
+                    dispatch(new events.activeChange(active));
+                })}
+                role="checkbox"
+                aria-checked=${props.active}
+                class="wrapper"
+            >
+                <span class="icon-wrapper">${iconTemplate}</span>
+                <span class="text-wrapper">${props.text}</span>
+            </button>
         `;
     },
 });

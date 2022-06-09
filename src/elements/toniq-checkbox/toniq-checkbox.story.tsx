@@ -13,11 +13,6 @@ const checkboxStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: Spe
             disable: true,
         },
     },
-    inputId: {
-        table: {
-            disable: true,
-        },
-    },
     checked: {
         name: 'Checked',
     },
