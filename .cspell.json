@@ -13,6 +13,7 @@
         "esbuild",
         "globby",
         "iefix",
+        "listbox",
         "opentype",
         "postpack",
         "preinstall",

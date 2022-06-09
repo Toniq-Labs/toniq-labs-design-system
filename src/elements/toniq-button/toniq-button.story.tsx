@@ -6,7 +6,7 @@ import {allIconsByCategory} from '../../icons';
 import {ExternalLink24Icon} from '../../icons/svgs/core-24/external-link-24.icon';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
-import {ToniqButton, ToniqIcon, ToniqToggleButton} from '../react-components';
+import {ToniqButton, ToniqIcon} from '../react-components';
 import {ToniqButtonVariant} from './toniq-button.element';
 
 const buttonStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
@@ -35,7 +35,7 @@ const buttonStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: Speci
     },
 } as const);
 
-const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
+const componentStoryMeta: ComponentMeta<typeof ToniqButton> = {
     title: 'Elements/Toniq Button',
     component: ToniqButton,
     argTypes: buttonStoryControls,
