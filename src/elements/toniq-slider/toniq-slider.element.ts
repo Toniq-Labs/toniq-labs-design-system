@@ -1,7 +1,14 @@
 import {css, html} from 'element-vir';
-import {interactionDuration} from '../../styles';
+import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {defineToniqElement} from '../define-toniq-element';
+
+declare global {
+    interface Window {
+        sliderListenerAdded: boolean;
+    }
+}
+window.sliderListenerAdded = window.sliderListenerAdded || false;
 
 export const ToniqSlider = defineToniqElement({
     tagName: 'toniq-slider',
@@ -9,48 +16,43 @@ export const ToniqSlider = defineToniqElement({
         min: 0,
         max: 100,
         value: 0,
+        range: false,
+        suffix: '',
     },
     styles: css`
-        :host {
+        .wrapper {
             display: flex;
-        }
-
-        .slider {
-            position: absolute;
-        }
-
-        /* TODO: slider width should be auto */
-        .input-slider {
-            -webkit-appearance: none;
-            width: 400px;
-            background-color: transparent;
-            margin: 0;
-        }
-
-        /* TODO: slider width should be auto */
-        .input-slider::after {
-            content: '';
-            position: absolute;
             height: 8px;
-            width: 400px;
-            z-index: 1;
+            width: 100%;
             border-radius: 4px;
+            margin: 32px 0px;
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
         }
 
         .progress {
-            content: '';
             position: absolute;
             height: 8px;
-            width: 0;
-            z-index: 2;
+            z-index: 1;
             pointer-events: none;
-            margin-top: 3px;
-            border-radius: 4px 0px 0px 4px;
+            border-radius: 4px;
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
-        .input-slider::-webkit-slider-thumb {
+        .value {
+            z-index: 1;
+            position: absolute;
+            ${toniqFontStyles.boldParagraphFont};
+            ${noUserSelect};
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            background-color: transparent;
+            margin: 0;
+        }
+
+        .slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             position: relative;
             height: 16px;
@@ -58,53 +60,93 @@ export const ToniqSlider = defineToniqElement({
             z-index: 10;
             cursor: pointer;
             border-radius: 10px;
-            margin-top: -4px;
             transition: ${interactionDuration};
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
-        .input-slider::-webkit-slider-thumb:hover {
+        .slider::-webkit-slider-thumb:hover {
             transform: scale(1.2);
         }
     `,
     renderCallback: ({props, host}) => {
-        const value =
-            props.value > props.max ? props.max : props.value < props.min ? props.min : props.value;
-        const minValue = props.min;
-        const maxValue = props.max;
+        let slider: HTMLInputElement;
 
-        const setProgress = (value: number) => {
-            const progress = host.shadowRoot?.querySelector('.progress') as HTMLElement;
-
-            // TODO: Get Slider width value instead of 400
-            progress.style.width = Math.floor((392 * value) / maxValue) + 'px';
-            console.log(value);
-        };
-
-        // Query elements after shadowRoot has rendered
-        setTimeout(() => {
-            const slider = host.shadowRoot?.querySelector('.input-slider') as HTMLInputElement;
-            slider.value = props.value.toString();
-            setProgress(value);
-
-            slider.addEventListener('input', (event: Event) => {
-                const value = parseInt((event.target as HTMLInputElement).value);
-                // TODO: Get Slider width value instead of 400
-                setProgress(value);
+        // Use MutationObserver to check if element is already rendered in shadowDOM
+        let observer = new MutationObserver((mutations: MutationRecord[]) => {
+            let rendered = mutations.every((mutation) => {
+                return host.shadowRoot?.querySelector('.slider');
             });
-        }, 250);
 
-        return html`
-            <div class="slider">
-                <div class="progress"></div>
-                <input
-                    type="range"
-                    class="input-slider"
-                    value=${value}
-                    min=${minValue}
-                    max=${maxValue}
-                />
-            </div>
-        `;
+            if (rendered) {
+                initElement();
+                slider.addEventListener('input', (event: Event) => {
+                    const value = parseInt((event.target as HTMLInputElement).value);
+                    setProgress(value);
+                    setValue();
+                });
+            }
+        });
+        observer.observe(host.renderRoot, {childList: true});
+
+        function initElement() {
+            slider = host.shadowRoot?.querySelector('.slider') as HTMLInputElement;
+            slider.value = props.value.toString();
+            setProgress(props.value);
+            setValue();
+        }
+
+        function resizeProgress() {
+            setProgress(parseInt(slider.value));
+        }
+
+        if (!window.dropdownListenerAdded) {
+            window.addEventListener('resize', resizeProgress);
+            window.dropdownListenerAdded = true;
+        }
+
+        function setProgress(value: number) {
+            const progress = host.shadowRoot?.querySelector('.progress') as HTMLElement;
+            const sliderWidth = slider.clientWidth;
+
+            //TODO: Refactor to get the right width
+            progress.style.width = Math.floor((sliderWidth * value) / props.max) + 'px';
+        }
+
+        function setValue() {
+            const value = host.shadowRoot?.querySelector('.value') as HTMLElement;
+            const progress = host.shadowRoot?.querySelector('.progress') as HTMLElement;
+            if (slider) {
+                value.innerHTML = `${slider.value} ${props.suffix}`;
+
+                /* To center value text we must get half of the text width plus half of the thumb width
+                 *  then substract to the thumb location. Getting the thumb location is the same as getting
+                 *  progress right location.
+                 */
+                value.style.left = `${Math.round(
+                    progress.getBoundingClientRect().right - (value.offsetWidth / 2 + 8),
+                )}px`;
+
+                //Plus 8px spacing + 8px half of font size
+                value.style.top = `${Math.round(progress.getBoundingClientRect().top) + 16}px`;
+            }
+        }
+
+        if (props.range) {
+            return html``;
+        } else {
+            return html`
+                <div class="wrapper">
+                    <div class="progress"></div>
+                    <span class="value"></span>
+                    <input
+                        type="range"
+                        class="slider"
+                        value=${props.value}
+                        min=${props.min}
+                        max=${props.max}
+                    />
+                </div>
+            `;
+        }
     },
 });

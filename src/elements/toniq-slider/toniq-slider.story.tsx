@@ -12,6 +12,8 @@ export default componentStoryMeta;
 export const mainStory = () => (
     <article>
         <h3>Slider</h3>
+        <ToniqSlider min={1} max={100} />
+        <ToniqSlider min={1} max={100} value={40} />
         <ToniqSlider min={1} max={500} value={340} />
     </article>
 );
