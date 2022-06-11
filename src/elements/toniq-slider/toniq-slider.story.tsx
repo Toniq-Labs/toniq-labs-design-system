@@ -12,9 +12,19 @@ export default componentStoryMeta;
 export const mainStory = () => (
     <article>
         <h3>Slider</h3>
-        <ToniqSlider min={1} max={100} />
-        <ToniqSlider min={1} max={100} value={40} />
-        <ToniqSlider min={1} max={500} value={340} />
+        <ToniqSlider />
+
+        <h3>Slider with set value</h3>
+        <ToniqSlider value={40} />
+
+        <h3>Slider with set min and max</h3>
+        <ToniqSlider min={10} max={50} />
+
+        <h3>Slider with Suffix</h3>
+        <ToniqSlider min={1} max={100} value={40} suffix={'ICP'} />
+
+        <h3>Slider Range</h3>
+        <ToniqSlider min={0} max={500} value={340} range />
     </article>
 );
 mainStory.storyName = 'Toniq Slider';

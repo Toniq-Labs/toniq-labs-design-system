@@ -1,14 +1,7 @@
-import {css, html} from 'element-vir';
+import {css, html, onDomCreated, onResize} from 'element-vir';
 import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {defineToniqElement} from '../define-toniq-element';
-
-declare global {
-    interface Window {
-        sliderListenerAdded: boolean;
-    }
-}
-window.sliderListenerAdded = window.sliderListenerAdded || false;
 
 export const ToniqSlider = defineToniqElement({
     tagName: 'toniq-slider',
@@ -25,7 +18,8 @@ export const ToniqSlider = defineToniqElement({
             height: 8px;
             width: 100%;
             border-radius: 4px;
-            margin: 32px 0px;
+            margin: 0;
+            margin-bottom: 48px;
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
         }
 
@@ -68,71 +62,91 @@ export const ToniqSlider = defineToniqElement({
             transform: scale(1.2);
         }
     `,
+    initCallback: ({props, setProps}) => {
+        setProps({value: props.value < props.min ? props.min : props.value});
+    },
     renderCallback: ({props, host}) => {
-        let slider: HTMLInputElement;
-
-        // Use MutationObserver to check if element is already rendered in shadowDOM
-        let observer = new MutationObserver((mutations: MutationRecord[]) => {
-            let rendered = mutations.every((mutation) => {
-                return host.shadowRoot?.querySelector('.slider');
-            });
-
-            if (rendered) {
-                initElement();
-                slider.addEventListener('input', (event: Event) => {
-                    const value = parseInt((event.target as HTMLInputElement).value);
-                    setProgress(value);
-                    setValue();
-                });
-            }
-        });
-        observer.observe(host.renderRoot, {childList: true});
-
-        function initElement() {
-            slider = host.shadowRoot?.querySelector('.slider') as HTMLInputElement;
-            slider.value = props.value.toString();
+        function onSliderCreated(slider: Element) {
+            (slider as HTMLInputElement).value = props.value.toString();
             setProgress(props.value);
-            setValue();
+            slider.addEventListener('input', (event: Event) => {
+                const value = parseInt((event.target as HTMLInputElement).value);
+                setProgress(value);
+            });
         }
 
-        function resizeProgress() {
-            setProgress(parseInt(slider.value));
-        }
-
-        if (!window.dropdownListenerAdded) {
-            window.addEventListener('resize', resizeProgress);
-            window.dropdownListenerAdded = true;
+        function onSliderResize(
+            entry: Readonly<Pick<ResizeObserverEntry, 'target' | 'contentRect'>>,
+        ) {
+            setProgress(parseInt((entry.target as HTMLInputElement).value));
         }
 
         function setProgress(value: number) {
+            const slider = host.shadowRoot?.querySelector('.slider') as HTMLInputElement;
             const progress = host.shadowRoot?.querySelector('.progress') as HTMLElement;
+            const labelValue = host.shadowRoot?.querySelector('.value') as HTMLElement;
             const sliderWidth = slider.clientWidth;
 
-            //TODO: Refactor to get the right width
-            progress.style.width = Math.floor((sliderWidth * value) / props.max) + 'px';
+            const sliderOffset = (8 * value) / props.max;
+            const progressOffset = ((value - props.min) * (0 - 8)) / (props.max - props.min) + 8;
+
+            const progressWidth =
+                (sliderWidth * valueMap(value, props.min, props.max, 0, props.max)) / props.max -
+                sliderOffset;
+            progress.style.width = `${progressWidth + progressOffset}px`;
+
+            labelValue.innerHTML = `${slider.value} ${props.suffix}`;
+
+            /*  Since the input range thumb is a pseudo element, the trick to getting its
+             *  location is by getting the progress bar right location minus half of the
+             *  label value width. Then set label value left to that computed value.
+             */
+            labelValue.style.left = `${
+                progress.getBoundingClientRect().right - labelValue.offsetWidth / 2
+            }px`;
+
+            // Plus 16px (8px half of font size + 8px spacing from thumb to label based on design)
+            labelValue.style.top = `${progress.getBoundingClientRect().top + 16}px`;
         }
 
-        function setValue() {
-            const value = host.shadowRoot?.querySelector('.value') as HTMLElement;
-            const progress = host.shadowRoot?.querySelector('.progress') as HTMLElement;
-            if (slider) {
-                value.innerHTML = `${slider.value} ${props.suffix}`;
-
-                /* To center value text we must get half of the text width plus half of the thumb width
-                 *  then substract to the thumb location. Getting the thumb location is the same as getting
-                 *  progress right location.
-                 */
-                value.style.left = `${Math.round(
-                    progress.getBoundingClientRect().right - (value.offsetWidth / 2 + 8),
-                )}px`;
-
-                //Plus 8px spacing + 8px half of font size
-                value.style.top = `${Math.round(progress.getBoundingClientRect().top) + 16}px`;
-            }
+        /* Re-maps a number from one range to another.
+         * https://www.arduino.cc/reference/en/language/functions/math/map/
+         */
+        function valueMap(
+            value: number,
+            inMin: number,
+            inMax: number,
+            outMin: number,
+            outMax: number,
+        ) {
+            return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
         }
 
         if (props.range) {
-            return html``;
+            return html`
+                <div class="wrapper">
+                    <div class="progress"></div>
+                    <span class="value"></span>
+                    <input
+                        type="range"
+                        class="slider"
+                        value=${props.value}
+                        min=${props.min}
+                        max=${props.max}
+                        ${onDomCreated(onSliderCreated)}
+                        ${onResize(onSliderResize)}
+                    />
+                    <input
+                        type="range"
+                        class="slider"
+                        value=${props.value}
+                        min=${props.min}
+                        max=${props.max}
+                        ${onDomCreated(onSliderCreated)}
+                        ${onResize(onSliderResize)}
+                    />
+                </div>
+            `;
         } else {
             return html`
                 <div class="wrapper">
@@ -144,6 +158,8 @@ export const ToniqSlider = defineToniqElement({
                         value=${props.value}
                         min=${props.min}
                         max=${props.max}
+                        ${onDomCreated(onSliderCreated)}
+                        ${onResize(onSliderResize)}
                     />
                 </div>
             `;
