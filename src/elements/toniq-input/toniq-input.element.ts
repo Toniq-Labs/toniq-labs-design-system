@@ -108,7 +108,7 @@ export const ToniqInput = defineToniqElement({
         inputBlocked: defineElementEvent<string>(),
     },
     styles: css``,
-    renderCallback: ({props, setProps, dispatch, events}) => {
+    renderCallback: ({props, setProps, dispatch, events, host}) => {
         const {filtered: filteredValue} = filterToAllowedCharactersOnly({
             value: props.value,
             allowed: props.allowedInputs,
@@ -134,9 +134,17 @@ export const ToniqInput = defineToniqElement({
                 .value=${props.value}
                 ${listen('input', (event) => {
                     if (!props.innerInputElement) {
-                        throw new Error(
-                            `Caught input event but input element has not yet been assigned.`,
-                        );
+                        const innerInputElement = host.shadowRoot?.querySelector('input');
+                        if (!(innerInputElement instanceof HTMLInputElement)) {
+                            throw new Error(`Failed to get inner input element in listener`);
+                        }
+                        setProps({innerInputElement});
+                        // this is just a type guard
+                        if (!props.innerInputElement) {
+                            throw new Error(
+                                `Even after assigning input element again, it still isn't found.`,
+                            );
+                        }
                     }
                     /**
                      * When attached to an input element (like here) this event type should always

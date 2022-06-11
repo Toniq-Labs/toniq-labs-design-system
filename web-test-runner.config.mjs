@@ -7,4 +7,10 @@ export default {
     plugins: [esbuildPlugin({ts: true})],
     // 2 minutes cause GitHub Actions be blow
     browserStartTimeout: 120000,
+    testFramework: {
+        config: {
+            // // uncomment for debugging
+            // timeout: 100000,
+        },
+    },
 };
