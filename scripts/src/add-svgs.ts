@@ -273,7 +273,7 @@ async function main(): Promise<void> {
     const rawArgs = process.argv.slice(2);
     const cliArgs = rawArgs.filter((arg) => arg !== dryRunTrigger);
     const dryRun = rawArgs.includes(dryRunTrigger);
-    console.log({cliArgs});
+    console.info({cliArgs});
 
     if (!cliArgs.length) {
         throw new Error(
