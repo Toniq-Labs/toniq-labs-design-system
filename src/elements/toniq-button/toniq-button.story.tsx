@@ -1,9 +1,9 @@
-import {action} from '@storybook/addon-actions';
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import {capitalizeFirstLetter, getEnumTypedValues, isEnumValue} from 'augment-vir';
 import React from 'react';
 import {allIconsByCategory} from '../../icons';
 import {ExternalLink24Icon} from '../../icons/svgs/core-24/external-link-24.icon';
+import {handleEventAsAction} from '../../storybook-helpers/actions';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqButton, ToniqIcon} from '../react-components';
@@ -35,7 +35,7 @@ const buttonStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: Speci
     },
 } as const);
 
-const componentStoryMeta: ComponentMeta<typeof ToniqButton> = {
+const buttonComponentStoryMeta: ComponentMeta<typeof ToniqButton> = {
     title: 'Elements/Toniq Button',
     component: ToniqButton,
     argTypes: buttonStoryControls,
@@ -45,11 +45,7 @@ const componentStoryMeta: ComponentMeta<typeof ToniqButton> = {
     },
 };
 
-export default componentStoryMeta;
-
-function handleClick(event: Event) {
-    action(event.type)(event);
-}
+export default buttonComponentStoryMeta;
 
 export const mainStory = (controls: Record<keyof typeof buttonStoryControls, string>) => {
     function createVariantSection(variant: ToniqButtonVariant) {
@@ -64,10 +60,10 @@ export const mainStory = (controls: Record<keyof typeof buttonStoryControls, str
                     {title}
                 </h3>
                 <section style={{display: 'flex', gap: '16px'}}>
-                    <ToniqButton variant={variant} onClick={handleClick}>
+                    <ToniqButton variant={variant} onClick={handleEventAsAction}>
                         Default {title}
                     </ToniqButton>
-                    <ToniqButton variant={variant} onClick={handleClick}>
+                    <ToniqButton variant={variant} onClick={handleEventAsAction}>
                         <div>
                             <span>With HTML Child</span>
                         </div>
@@ -75,7 +71,7 @@ export const mainStory = (controls: Record<keyof typeof buttonStoryControls, str
                     <ToniqButton
                         title="with toniq-icon child"
                         variant={variant}
-                        onClick={handleClick}
+                        onClick={handleEventAsAction}
                     >
                         <ToniqIcon icon={ExternalLink24Icon} />
                     </ToniqButton>
@@ -105,7 +101,11 @@ export const mainStory = (controls: Record<keyof typeof buttonStoryControls, str
             >
                 Custom Inputs
             </h3>
-            <ToniqButton variant={customVariant} onClick={handleClick} text={controls.textInput}>
+            <ToniqButton
+                variant={customVariant}
+                onClick={handleEventAsAction}
+                text={controls.textInput}
+            >
                 {iconTemplate}
             </ToniqButton>
         </article>
