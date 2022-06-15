@@ -1,5 +1,7 @@
 import {css, defineElementEvent, html, listen, onDomCreated} from 'element-vir';
+import {toniqColors, toniqFontStyles} from '../../styles';
 import {defineToniqElement} from '../define-toniq-element';
+import {buttonBorderRadius} from '../toniq-button/toniq-button.element';
 
 function doesMatch({input, matcher}: {input: string; matcher: string | RegExp}): boolean {
     if (!input || !matcher) {
@@ -112,7 +114,16 @@ export const ToniqInput = defineToniqElement({
         }
 
         input {
-            font: inherit;
+            padding: 12px 16px;
+            border-radius: ${buttonBorderRadius};
+            background-color: ${toniqColors.accentTertiary.backgroundColor};
+            font: ${toniqFontStyles.paragraphFont};
+            border: none;
+            margin: 0;
+        }
+
+        input::placeholder {
+            color: ${toniqColors.accentTertiary.foregroundColor};
         }
     `,
     renderCallback: ({props, setProps, dispatch, events, host}) => {
