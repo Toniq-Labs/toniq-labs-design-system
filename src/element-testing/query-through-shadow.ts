@@ -32,8 +32,8 @@ export function queryThroughShadow(
 ): Element | undefined | Element[] {
     if (debug) {
         const tagName = 'tagName' in context ? context.tagName : 'shadowRoot';
-        console.log(`> ${tagName}`);
-        console.log(context.innerHTML.trim());
+        console.info(`> ${tagName}`);
+        console.info(context.innerHTML.trim());
     }
     const finalQuery: string = Array.isArray(query) ? query[query.length - 1] ?? '' : query;
 

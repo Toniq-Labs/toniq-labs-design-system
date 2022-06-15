@@ -6,9 +6,21 @@ import {TemplateResult} from 'lit';
 import {assertInstanceOf} from './assertion-helpers';
 import {createFixtureTest, withFixtureCleanup} from './fixture-test';
 
-async function hitTab(): Promise<void> {
+export async function hitTab(): Promise<void> {
     await sendKeys({
         press: 'Tab',
+    });
+}
+
+export async function hitShiftTab(): Promise<void> {
+    await sendKeys({
+        down: 'Shift',
+    });
+    await sendKeys({
+        press: 'Tab',
+    });
+    await sendKeys({
+        up: 'Shift',
     });
 }
 
@@ -21,12 +33,12 @@ async function getTagName(singleInstanceTemplate: TemplateResult): Promise<strin
     });
 }
 
-function checkActiveElement(element: Element, shouldBeActive: boolean): void {
-    if (shouldBeActive) {
-        assert.strictEqual(document.activeElement, element);
-    } else {
-        assert.notStrictEqual(document.activeElement, element);
-    }
+export function assertFocused(element: Element, shouldBeActive: boolean, message?: string): void {
+    const defaultMessage = shouldBeActive
+        ? `${element.tagName} should have been focused but wasn't`
+        : `${element.tagName} should NOT have been focused but was`;
+    // accessing document.activeElement often causes web-test-runner to seize up for some reason
+    assert.strictEqual(element.matches(':focus'), shouldBeActive, message || defaultMessage);
 }
 
 export function createFocusTests(
@@ -43,11 +55,11 @@ export function createFocusTests(
                 await hitTab();
 
                 if (isFocusable) {
-                    checkActiveElement(rendered, true);
+                    assertFocused(rendered, true);
                     await hitTab();
-                    checkActiveElement(rendered, false);
+                    assertFocused(rendered, false);
                 } else {
-                    checkActiveElement(rendered, false);
+                    assertFocused(rendered, false);
                 }
             }),
         );
@@ -81,14 +93,14 @@ export function createFocusTests(
                     await hitTab();
 
                     if (isFocusable) {
-                        checkActiveElement(currentInstance, true);
+                        assertFocused(currentInstance, true);
                         if (index > 0) {
                             const lastInstance = allInstances[index - 1];
                             assertInstanceOf(lastInstance, HTMLElement);
-                            assert.notStrictEqual(document.activeElement, lastInstance);
+                            assertFocused(lastInstance, false);
                         }
                     } else {
-                        checkActiveElement(currentInstance, false);
+                        assertFocused(currentInstance, false);
                     }
                 });
             }),

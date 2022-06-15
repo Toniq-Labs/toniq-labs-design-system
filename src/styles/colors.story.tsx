@@ -2,7 +2,8 @@ import {ArgTypes, Meta} from '@storybook/react';
 import {getEnumTypedValues, getObjectTypedKeys} from 'augment-vir';
 import React from 'react';
 import {wrapTypeWithReadonly} from '../augments/type';
-import {toniqColorCssVarNames, toniqColors} from './colors';
+import {getAllCssVars} from '../storybook-helpers/get-css-vars';
+import {applyBackgroundAndForeground, toniqColorCssVarNames, toniqColors} from './colors';
 import {cssToReactStyleObject} from './css-to-react';
 import {toniqFontStyles} from './fonts';
 import {createCssVarMap} from './helpers/css-var-story-helpers';
@@ -85,6 +86,8 @@ export const mainStory = (controls: Record<keyof typeof colorsStroyControls, str
     const colorInstances = getObjectTypedKeys(toniqColors).map((colorKey) => {
         const colorDefinitions = toniqColors[colorKey];
         const colorCssVars = toniqColorCssVarNames[colorKey];
+        const appliedStyles = applyBackgroundAndForeground(colorDefinitions);
+        const allCssVarStyles = getAllCssVars(appliedStyles);
 
         return (
             <div
@@ -126,10 +129,12 @@ export const mainStory = (controls: Record<keyof typeof colorsStroyControls, str
                     </div>
                     <span style={{marginTop: '4px'}}>{colorKey}</span>
                     <span style={{color: String(toniqColors.pageTertiary.foregroundColor)}}>
-                        {String(colorCssVars.foregroundColor)}
+                        {String(colorCssVars.foregroundColor)}:{' '}
+                        <code>{allCssVarStyles.color?.defaultValue}</code>
                     </span>
                     <span style={{color: String(toniqColors.pageTertiary.foregroundColor)}}>
-                        {String(colorCssVars.backgroundColor)}
+                        {String(colorCssVars.backgroundColor)}{' '}
+                        <code>{allCssVarStyles.backgroundColor?.defaultValue}</code>
                     </span>
                 </div>
             </div>

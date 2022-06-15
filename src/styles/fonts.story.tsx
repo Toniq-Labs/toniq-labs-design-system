@@ -2,6 +2,7 @@ import {ArgTypes, Meta} from '@storybook/react';
 import {getEnumTypedValues, getObjectTypedKeys} from 'augment-vir';
 import React from 'react';
 import {wrapTypeWithReadonly} from '../augments/type';
+import {getAllCssVars} from '../storybook-helpers/get-css-vars';
 import {toniqColors} from './colors';
 import {cssToReactStyleObject} from './css-to-react';
 import {toniqFontStyles, toniqFontStylesCssVarNames} from './fonts';
@@ -66,10 +67,12 @@ export default componentStoryMeta;
 export const mainStory = (controls: Record<keyof typeof fontsStoryControls, string>) => {
     const colorInstances = getObjectTypedKeys(toniqFontStyles).map((fontStyleKey) => {
         const fontStyle = toniqFontStyles[fontStyleKey];
-        const fontStyleCssVars = toniqFontStylesCssVarNames[fontStyleKey];
+        const fontStyleCssVars = getAllCssVars(fontStyle);
 
         const varsTemplate = getObjectTypedKeys(fontStyleCssVars).map((cssPropName) => {
-            const varName = String(fontStyleCssVars[cssPropName]);
+            const varName = fontStyleCssVars[cssPropName]?.cssVarName;
+            const defaultValue = fontStyleCssVars[cssPropName]?.defaultValue;
+
             return (
                 <div
                     style={{
@@ -86,7 +89,7 @@ export const mainStory = (controls: Record<keyof typeof fontsStoryControls, stri
                             color: String(toniqColors.pageSecondary.foregroundColor),
                         }}
                     >
-                        {cssPropName}
+                        {cssPropName}: <code>{defaultValue}</code>
                     </span>
 
                     <span style={{color: String(toniqColors.pageTertiary.foregroundColor)}}>
@@ -116,7 +119,7 @@ export const mainStory = (controls: Record<keyof typeof fontsStoryControls, stri
                     }}
                 >
                     <div
-                        className="font-style-preview"
+                        className={`${fontStyleKey} font-style-preview`}
                         style={{
                             borderRadius: '4px',
                             border: `1px solid ${toniqColors.divider.foregroundColor}`,
