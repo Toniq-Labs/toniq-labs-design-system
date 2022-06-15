@@ -107,7 +107,14 @@ export const ToniqInput = defineToniqElement({
          */
         inputBlocked: defineElementEvent<string>(),
     },
-    styles: css``,
+    styles: css`
+        :host {
+        }
+
+        input {
+            font: inherit;
+        }
+    `,
     renderCallback: ({props, setProps, dispatch, events, host}) => {
         const {filtered: filteredValue} = filterToAllowedCharactersOnly({
             value: props.value,

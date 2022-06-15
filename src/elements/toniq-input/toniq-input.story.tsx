@@ -16,6 +16,10 @@ const inputStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: Specif
         name: 'Placeholder',
         control: 'text',
     },
+    disabled: {
+        name: 'Disabled',
+        control: 'boolean',
+    },
     allowedInputs: {
         name: 'Allowed Letters',
         control: 'text',
@@ -36,9 +40,10 @@ const inputComponentStoryMeta: ComponentMeta<typeof ToniqInput> = {
     component: ToniqInput,
     argTypes: inputStoryControls as ArgTypes,
     args: {
-        placeholder: '',
+        placeholder: 'Custom placeholder',
         allowedInputs: '',
         blockedInputs: '',
+        disabled: false,
     },
 };
 
@@ -117,6 +122,7 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                 placeholder={controls.placeholder}
                 allowedInputs={controls.allowedInputs}
                 blockedInputs={controls.blockedInputs}
+                disabled={!!controls.disabled}
             />
         </article>
     );

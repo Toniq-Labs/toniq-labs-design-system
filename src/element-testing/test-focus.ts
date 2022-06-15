@@ -12,6 +12,18 @@ export async function hitTab(): Promise<void> {
     });
 }
 
+export async function hitShiftTab(): Promise<void> {
+    await sendKeys({
+        down: 'Shift',
+    });
+    await sendKeys({
+        press: 'Tab',
+    });
+    await sendKeys({
+        up: 'Shift',
+    });
+}
+
 async function getTagName(singleInstanceTemplate: TemplateResult): Promise<string> {
     return await withFixtureCleanup(async () => {
         const rendered = await fixture(singleInstanceTemplate);
@@ -21,9 +33,12 @@ async function getTagName(singleInstanceTemplate: TemplateResult): Promise<strin
     });
 }
 
-export function assertFocused(element: Element, shouldBeActive: boolean): void {
+export function assertFocused(element: Element, shouldBeActive: boolean, message?: string): void {
+    const defaultMessage = shouldBeActive
+        ? `${element.tagName} should have been focused but wasn't`
+        : `${element.tagName} should NOT have been focused but was`;
     // accessing document.activeElement often causes web-test-runner to seize up for some reason
-    assert.strictEqual(element.matches(':focus'), shouldBeActive);
+    assert.strictEqual(element.matches(':focus'), shouldBeActive, message || defaultMessage);
 }
 
 export function createFocusTests(
