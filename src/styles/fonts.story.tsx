@@ -2,11 +2,11 @@ import {ArgTypes, Meta} from '@storybook/react';
 import {getEnumTypedValues, getObjectTypedKeys} from 'augment-vir';
 import React from 'react';
 import {wrapTypeWithReadonly} from '../augments/type';
-import {getAllCssVars} from '../storybook-helpers/get-css-vars';
+import {createCssVarMap} from '../storybook-helpers/css-var-story-helpers';
+import {getAllCssVars} from '../storybook-helpers/css-vars';
 import {toniqColors} from './colors';
 import {cssToReactStyleObject} from './css-to-react';
 import {toniqFontStyles, toniqFontStylesCssVarNames} from './fonts';
-import {createCssVarMap} from './helpers/css-var-story-helpers';
 
 const flattenedFontStyleCssVarNames: string[] = Object.values(toniqFontStylesCssVarNames)
     .map((value): string[] => {

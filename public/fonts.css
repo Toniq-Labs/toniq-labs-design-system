@@ -8,12 +8,12 @@
     font-weight: 400;
     font-style: normal;
     font-display: swap;
-    src: url('./fonts/Rubik-Regular.eot');
-    src: url('./fonts/Rubik-Regular.eot?#iefix') format('embedded-opentype'),
-        url('./fonts/Rubik-Regular.ttf') format('truetype'),
-        url('./fonts/Rubik-Regular.woff') format('woff'),
-        url('./fonts/Rubik-Regular.woff2') format('woff2'),
-        url('./fonts/Rubik-Regular.otf') format('opentype');
+    src: url('./fonts/rubik-regular.eot');
+    src: url('./fonts/rubik-regular.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/rubik-regular.ttf') format('truetype'),
+        url('./fonts/rubik-regular.woff') format('woff'),
+        url('./fonts/rubik-regular.woff2') format('woff2'),
+        url('./fonts/rubik-regular.otf') format('opentype');
 }
 
 @font-face {
@@ -21,12 +21,12 @@
     font-weight: 500;
     font-style: normal;
     font-display: swap;
-    src: url('./fonts/Rubik-Medium.eot');
-    src: url('./fonts/Rubik-Medium.eot?#iefix') format('embedded-opentype'),
-        url('./fonts/Rubik-Medium.ttf') format('truetype'),
-        url('./fonts/Rubik-Medium.woff') format('woff'),
-        url('./fonts/Rubik-Medium.woff2') format('woff2'),
-        url('./fonts/Rubik-Medium.otf') format('opentype');
+    src: url('./fonts/rubik-medium.eot');
+    src: url('./fonts/rubik-medium.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/rubik-medium.ttf') format('truetype'),
+        url('./fonts/rubik-medium.woff') format('woff'),
+        url('./fonts/rubik-medium.woff2') format('woff2'),
+        url('./fonts/rubik-medium.otf') format('opentype');
 }
 
 @font-face {
@@ -34,12 +34,12 @@
     font-weight: 600;
     font-style: normal;
     font-display: swap;
-    src: url('./fonts/Rubik-SemiBold.eot');
-    src: url('./fonts/Rubik-SemiBold.eot?#iefix') format('embedded-opentype'),
-        url('./fonts/Rubik-SemiBold.ttf') format('truetype'),
-        url('./fonts/Rubik-SemiBold.woff') format('woff'),
-        url('./fonts/Rubik-SemiBold.woff2') format('woff2'),
-        url('./fonts/Rubik-SemiBold.otf') format('opentype');
+    src: url('./fonts/rubik-semi-bold.eot');
+    src: url('./fonts/rubik-semi-bold.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/rubik-semi-bold.ttf') format('truetype'),
+        url('./fonts/rubik-semi-bold.woff') format('woff'),
+        url('./fonts/rubik-semi-bold.woff2') format('woff2'),
+        url('./fonts/rubik-semi-bold.otf') format('opentype');
 }
 
 @font-face {
@@ -47,22 +47,22 @@
     font-weight: 700;
     font-style: normal;
     font-display: swap;
-    src: url('./fonts/Rubik-Bold.eot');
-    src: url('./fonts/Rubik-Bold.eot?#iefix') format('embedded-opentype'),
-        url('./fonts/Rubik-Bold.ttf') format('truetype'),
-        url('./fonts/Rubik-Bold.woff') format('woff'),
-        url('./fonts/Rubik-Bold.woff2') format('woff2'),
-        url('./fonts/Rubik-Bold.otf') format('opentype');
+    src: url('./fonts/rubik-bold.eot');
+    src: url('./fonts/rubik-bold.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/rubik-bold.ttf') format('truetype'),
+        url('./fonts/rubik-bold.woff') format('woff'),
+        url('./fonts/rubik-bold.woff2') format('woff2'),
+        url('./fonts/rubik-bold.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'Rubik';
     font-style: italic;
     font-display: swap;
-    src: url('./fonts/Rubik-Italic.eot');
-    src: url('./fonts/Rubik-Italic.eot?#iefix') format('embedded-opentype'),
-        url('./fonts/Rubik-Italic.ttf') format('truetype'),
-        url('./fonts/Rubik-Italic.woff') format('woff'),
-        url('./fonts/Rubik-Italic.woff2') format('woff2'),
-        url('./fonts/Rubik-Italic.otf') format('opentype');
+    src: url('./fonts/rubik-italic.eot');
+    src: url('./fonts/rubik-italic.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/rubik-italic.ttf') format('truetype'),
+        url('./fonts/rubik-italic.woff') format('woff'),
+        url('./fonts/rubik-italic.woff2') format('woff2'),
+        url('./fonts/rubik-italic.otf') format('opentype');
 }

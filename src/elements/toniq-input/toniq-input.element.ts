@@ -110,9 +110,6 @@ export const ToniqInput = defineToniqElement({
         inputBlocked: defineElementEvent<string>(),
     },
     styles: css`
-        :host {
-        }
-
         input {
             padding: 12px 16px;
             border-radius: ${buttonBorderRadius};
