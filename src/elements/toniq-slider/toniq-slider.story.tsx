@@ -23,8 +23,8 @@ export const mainStory = () => (
         <h3>Slider with Suffix</h3>
         <ToniqSlider min={1} max={100} value={40} suffix={'ICP'} />
 
-        <h3>Slider Range</h3>
-        <ToniqSlider min={0} max={500} value={340} range />
+        <h3>Slider Double Range</h3>
+        <ToniqSlider min={0} max={500} value={{min: 120, max: 340}} suffix={'ICP'} double />
     </article>
 );
 mainStory.storyName = 'Toniq Slider';
