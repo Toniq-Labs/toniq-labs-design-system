@@ -1,7 +1,6 @@
-import {action} from '@storybook/addon-actions';
 import {ArgTypes, ComponentMeta} from '@storybook/react';
-import {TypedEvent} from 'element-vir';
 import React from 'react';
+import {handleEventAsAction} from '../../storybook-helpers/actions';
 import {ToniqDropdown} from '../react-components';
 import {ToniqDropdownOption} from './toniq-dropdown.element';
 
@@ -51,10 +50,6 @@ const componentStoryMeta: ComponentMeta<typeof ToniqDropdown> = {
     },
 };
 
-function handleChange(event: TypedEvent) {
-    action(event.type)(event.detail);
-}
-
 export default componentStoryMeta;
 
 export const mainStory = (controls: Record<keyof typeof dropdownStoryControls, any>) => (
@@ -64,7 +59,7 @@ export const mainStory = (controls: Record<keyof typeof dropdownStoryControls, a
             options={options}
             selected={controls.selected}
             dropdownOpen={controls.dropdownOpen}
-            onSelectChange={handleChange}
+            onSelectChange={handleEventAsAction}
         />
     </article>
 );

@@ -10,6 +10,8 @@ export enum ToniqButtonVariant {
     Secondary = 'secondary',
 }
 
+export const buttonBorderRadius = css`8px`;
+
 export const ToniqButton = defineToniqElement({
     tagName: 'toniq-button',
     props: {
@@ -26,7 +28,7 @@ export const ToniqButton = defineToniqElement({
 
         button {
             ${removeNativeButtonStyles};
-            border-radius: 8px;
+            border-radius: ${buttonBorderRadius};
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
             padding: 12px;
         }

@@ -1,11 +1,10 @@
-import {action} from '@storybook/addon-actions';
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
 import {allIconsByCategory, Rocket24Icon} from '../../icons';
+import {handleEventAsAction} from '../../storybook-helpers/actions';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqToggleButton} from '../react-components';
-import {ToniqToggleButton as NativeToniqToggleButton} from './toniq-toggle-button.element';
 
 const toggleButtonStoryControls = (<SpecificArgsGeneric extends ArgTypes>(
     input: SpecificArgsGeneric,
@@ -64,10 +63,6 @@ const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
 
 export default componentStoryMeta;
 
-function handleChange(event: typeof NativeToniqToggleButton.events.activeChange) {
-    action(event.type)(event);
-}
-
 export const mainStory = (
     controls: Record<keyof typeof toggleButtonStoryControls, string | boolean>,
 ) => {
@@ -90,19 +85,19 @@ export const mainStory = (
                 </h3>
                 <section style={{display: 'flex', gap: '8px'}}>
                     <ToniqToggleButton
-                        onActiveChange={handleChange}
+                        onActiveChange={handleEventAsAction}
                         text="Toggle Me"
                         active={active}
                     />
                     <ToniqToggleButton
                         className="toniq-toggle-button-text-only"
-                        onActiveChange={handleChange}
+                        onActiveChange={handleEventAsAction}
                         text="Text Only"
                         active={active}
                     />
                     <ToniqToggleButton
                         className="toniq-toggle-button-text-only"
-                        onActiveChange={handleChange}
+                        onActiveChange={handleEventAsAction}
                         icon={Rocket24Icon}
                         text="With Icon"
                         active={active}
@@ -126,7 +121,7 @@ export const mainStory = (
             </h3>
             <ToniqToggleButton
                 className={controls.hostClass}
-                onActiveChange={handleChange}
+                onActiveChange={handleEventAsAction}
                 icon={customIcon}
                 text={customText}
                 active={isActive}

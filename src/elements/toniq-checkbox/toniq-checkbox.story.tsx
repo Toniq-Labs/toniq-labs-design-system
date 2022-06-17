@@ -1,10 +1,9 @@
-import {action} from '@storybook/addon-actions';
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
+import {handleEventAsAction} from '../../storybook-helpers/actions';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {toniqFontStyles} from '../../styles/fonts';
 import {ToniqCheckbox, ToniqToggleButton} from '../react-components';
-import {ToniqCheckbox as NativeToniqCheckbox} from './toniq-checkbox.element';
 
 const checkboxStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
     input)({
@@ -34,10 +33,6 @@ const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
 
 export default componentStoryMeta;
 
-function handleCheckedChange(event: typeof NativeToniqCheckbox.events.checkedChange) {
-    action(event.type)(event);
-}
-
 export const mainStory = (
     controls: Record<keyof typeof checkboxStoryControls, string | boolean>,
 ) => {
@@ -53,7 +48,7 @@ export const mainStory = (
             >
                 Unchecked by default
             </h3>
-            <ToniqCheckbox onCheckedChange={handleCheckedChange} text="Orange" />
+            <ToniqCheckbox onCheckedChange={handleEventAsAction} text="Orange" />
 
             <h3
                 style={{
@@ -62,7 +57,7 @@ export const mainStory = (
             >
                 Checked by default
             </h3>
-            <ToniqCheckbox onCheckedChange={handleCheckedChange} text="Orange" checked />
+            <ToniqCheckbox onCheckedChange={handleEventAsAction} text="Orange" checked />
             <h3
                 style={{
                     ...cssToReactStyleObject(toniqFontStyles.h3Font),
@@ -71,7 +66,7 @@ export const mainStory = (
                 Custom Inputs
             </h3>
             <ToniqCheckbox
-                onCheckedChange={handleCheckedChange}
+                onCheckedChange={handleEventAsAction}
                 text={customText}
                 checked={isChecked}
             />

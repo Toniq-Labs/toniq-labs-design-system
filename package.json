@@ -76,6 +76,7 @@
         "@types/svgo": "2.6.3",
         "@web/dev-server-esbuild": "0.3.0",
         "@web/test-runner": "0.13.27",
+        "@web/test-runner-commands": "0.6.2",
         "http-server": "14.1.0",
         "jest-environment-jsdom": "28.1.0",
         "npm-force-resolutions": "0.0.10",
