@@ -1,4 +1,4 @@
-import {getObjectTypedKeys} from 'augment-vir';
+import {getObjectTypedKeys, Writeable} from 'augment-vir';
 import {FunctionalElement, FunctionalElementInstance} from 'element-vir';
 import React, {Component} from 'react';
 
@@ -18,7 +18,7 @@ const ignoreTheseProps = new Set<PropertyKey>([
 export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
     elementConstructor: ElementGeneric,
 ) {
-    return class extends Component<ReactWrapperProps<ElementGeneric>> {
+    const wrappedComponent = class extends Component<ReactWrapperProps<ElementGeneric>> {
         public componentRef: any = React.createRef<ReactWrapperElementInstance<ElementGeneric>>();
 
         constructor(props: Partial<ReactWrapperProps<ElementGeneric>>) {
@@ -76,6 +76,14 @@ export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
             );
         }
     };
+
+    const extendedWrappedComponent = wrappedComponent as Pick<ElementGeneric, 'tagName'> &
+        typeof wrappedComponent;
+
+    (extendedWrappedComponent as Writeable<typeof extendedWrappedComponent>).tagName =
+        elementConstructor.tagName;
+
+    return extendedWrappedComponent;
 }
 
 function extractListenerType(propKey: PropertyKey): string | undefined {

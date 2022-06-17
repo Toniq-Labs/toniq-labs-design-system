@@ -28,6 +28,8 @@ async function main() {
         () => document.querySelector('toniq-icon')?.shadowRoot?.querySelector('svg')?.outerHTML,
     );
 
+    const textContent = await page.evaluate(() => document.body.textContent?.trim());
+
     await browser.close();
 
     if (!renderedSvg) {
@@ -43,6 +45,10 @@ async function main() {
     if (cleanedRenderedSvg !== cleanedIconSvg) {
         console.error({cleanedRenderedSvg, cleanedIconSvg});
         throw new Error(`cleanedRenderedSvg does not equal cleanedIconSvg`);
+    }
+
+    if (textContent !== `toniq-button`) {
+        throw new Error(`ToniqButton tag name was not preserved: "${textContent}"`);
     }
 }
 
