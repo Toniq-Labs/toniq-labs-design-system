@@ -1,4 +1,4 @@
-import {css, html, onDomCreated, onResize} from 'element-vir';
+import {css, defineElementEvent, html, listen, onDomCreated, onResize} from 'element-vir';
 import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {defineToniqElement} from '../define-toniq-element';
@@ -27,6 +27,9 @@ export const ToniqSlider = defineToniqElement({
         double: false,
         /** Use to add suffix to the value. */
         suffix: '',
+    },
+    events: {
+        valueChange: defineElementEvent<number | ToniqSliderDoubleRangeValue>(),
     },
     styles: css`
         .range {
@@ -96,7 +99,7 @@ export const ToniqSlider = defineToniqElement({
     initCallback: ({props, setProps}) => {
         setProps({value: props.value < props.min ? props.min : props.value});
     },
-    renderCallback: ({props, host}) => {
+    renderCallback: ({props, host, dispatch, events}) => {
         function onSliderResize(
             entry: Readonly<Pick<ResizeObserverEntry, 'target' | 'contentRect'>>,
         ) {
@@ -335,6 +338,13 @@ export const ToniqSlider = defineToniqElement({
                         max=${props.max}
                         ${onDomCreated(onSliderCreated)}
                         ${onResize(onSliderResize)}
+                        ${listen('input', (event) => {
+                            dispatch(
+                                new events.valueChange(
+                                    parseInt((event.target as HTMLInputElement).value),
+                                ),
+                            );
+                        })}
                     />
                 </div>
             `;
@@ -358,6 +368,16 @@ export const ToniqSlider = defineToniqElement({
                             max=${props.max}
                             ${onDomCreated(onSliderCreated)}
                             ${onResize(onSliderResize)}
+                            ${listen('input', (event) => {
+                                const upperSlider = host.shadowRoot?.querySelector(
+                                    '#upperSlider',
+                                ) as HTMLInputElement;
+                                const value = {
+                                    min: parseInt((event.target as HTMLInputElement).value),
+                                    max: parseInt(upperSlider.value),
+                                };
+                                dispatch(new events.valueChange(value));
+                            })}
                         />
                         <input
                             id="upperSlider"
@@ -368,6 +388,16 @@ export const ToniqSlider = defineToniqElement({
                             max="${props.max}"
                             ${onDomCreated(onSliderCreated)}
                             ${onResize(onSliderResize)}
+                            ${listen('input', (event) => {
+                                const lowerSlider = host.shadowRoot?.querySelector(
+                                    '#lowerSlider',
+                                ) as HTMLInputElement;
+                                const value = {
+                                    min: parseInt(lowerSlider.value),
+                                    max: parseInt((event.target as HTMLInputElement).value),
+                                };
+                                dispatch(new events.valueChange(value));
+                            })}
                         />
                     </div>
                 </div>
