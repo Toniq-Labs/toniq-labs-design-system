@@ -7,13 +7,31 @@ React wrappers for all elements also included and are importable through `@toniq
 -   Package on NPM: https://www.npmjs.com/package/@toniq-labs/design-system
 -   Storybook on GitHub Pages: https://toniq-labs.github.io/toniq-labs-design-system
 
-# Usage
+## Usage
 
 ```bash
 npm i @toniq-labs/design-system
 ```
 
-# Dev
+### importing into React
+
+Import React-wrapped versions of each component from `dist/esm/elements/react-components`:
+
+```TSX
+import {ToniqIcon} from '@toniq-labs/design-system/dist/esm/elements/react-components';
+import {Copy16Icon} from '@toniq-labs/design-system'
+
+
+function myComponentFunction() {
+    return (
+        <>
+            <ToniqIcon icon={Copy16Icon} />
+        </>
+    );
+}
+```
+
+## Dev
 
 Make sure that:
 
