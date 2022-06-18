@@ -17,7 +17,7 @@ export const ToniqChip = defineToniqElement({
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            ${toniqFontStyles.labelFont}
+            ${toniqFontStyles.labelFontBold}
             padding: 4px 8px;
             border-radius: 8px;
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};

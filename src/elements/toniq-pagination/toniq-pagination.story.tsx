@@ -21,7 +21,7 @@ export const mainStory = () => {
             >
                 Toniq Pagination
             </h3>
-            <ToniqPagination />
+            <ToniqPagination currentPage={2}>Content Here</ToniqPagination>
         </article>
     );
 };

@@ -103,7 +103,14 @@ export const toniqFontStyles = (() => {
         ${paragraphFont};
         ${boldFont};
     `;
+
     const labelFont = css`
+        ${toniqFont};
+        font-style: normal;
+        ${combineFallbacksAndVars('labelFont')};
+    `;
+
+    const labelFontBold = css`
         ${toniqFont};
         font-style: normal;
         ${combineFallbacksAndVars('labelFont')};
@@ -139,6 +146,7 @@ export const toniqFontStyles = (() => {
         paragraphFont,
         boldParagraphFont,
         labelFont,
+        labelFontBold,
         h1Font,
         h2Font,
         h3Font,

@@ -41,7 +41,7 @@ export const ToniqButton = defineToniqElement({
         const buttonClasses = `variant-${props.variant}`;
 
         return html`
-            <button class=${buttonClasses}><slot>${props.text}</slot></button>
+            <button part="inner-button" class=${buttonClasses}><slot>${props.text}</slot></button>
         `;
     },
 });
