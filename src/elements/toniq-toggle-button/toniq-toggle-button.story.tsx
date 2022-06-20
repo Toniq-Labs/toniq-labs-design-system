@@ -1,5 +1,5 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
-import React from 'react';
+import React, {useReducer} from 'react';
 import {allIconsByCategory, Rocket24Icon} from '../../icons';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
 import {toniqFontStyles} from '../../styles';
@@ -40,9 +40,6 @@ const toggleButtonStoryControls = (<SpecificArgsGeneric extends ArgTypes>(
             disable: true,
         },
     },
-    activeControl: {
-        name: 'Active',
-    },
     textControl: {
         name: 'Text',
         control: 'text',
@@ -55,7 +52,6 @@ const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
     argTypes: toggleButtonStoryControls,
     args: {
         textControl: 'Custom text here',
-        activeControl: false,
         iconControl: 'None',
         hostClass: 'None',
     },
@@ -63,17 +59,72 @@ const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
 
 export default componentStoryMeta;
 
+const toggleButtonStatesInit = {
+    true: {
+        default: true,
+        textOnly: true,
+        withIcon: true,
+    },
+    false: {
+        default: false,
+        textOnly: false,
+        withIcon: false,
+    },
+    custom: false,
+} as const;
+
+type BooleanSubKeys = keyof typeof toggleButtonStatesInit['true'];
+
+type ToggleButtonStoryState = Readonly<{
+    [P in keyof typeof toggleButtonStatesInit]: typeof toggleButtonStatesInit[P] extends object
+        ? Record<BooleanSubKeys, boolean>
+        : boolean;
+}>;
+
 export const mainStory = (
     controls: Record<keyof typeof toggleButtonStoryControls, string | boolean>,
 ) => {
     const customText = String(controls.textControl);
-    const isActive = !!controls.activeControl;
     const customIcon = allIconsByCategory['core-24'].find(
         (icon) => icon.iconName === controls.iconControl,
     );
 
+    const [
+        toggleButtonStates,
+        updateToggleButtonStates,
+    ] = useReducer(
+        (
+            state: ToggleButtonStoryState,
+            {
+                key,
+                subKey,
+            }: {
+                key: keyof ToggleButtonStoryState;
+                subKey: BooleanSubKeys | undefined;
+            },
+        ): ToggleButtonStoryState => {
+            if (key === 'custom') {
+                return {...state, custom: !state.custom};
+            } else if (subKey !== undefined) {
+                return {
+                    ...state,
+                    [key]: {
+                        ...state[key],
+                        [subKey]: !state[key][subKey],
+                    },
+                };
+            } else {
+                throw new Error(`Key was not custom but subKey was not defined.`);
+            }
+        },
+        toggleButtonStatesInit,
+    );
+
     function generateSection(active: boolean) {
-        const title = `${active ? 'Active' : 'Inactive'} by default`;
+        const title = `Initially ${active ? 'Active' : 'Inactive'}`;
+        const stateProp = String(active) as 'true' | 'false';
+        const states = toggleButtonStates[stateProp];
+
         return (
             <>
                 <h3
@@ -85,22 +136,40 @@ export const mainStory = (
                 </h3>
                 <section style={{display: 'flex', gap: '8px'}}>
                     <ToniqToggleButton
-                        onActiveChange={handleEventAsAction}
+                        onClick={(event: MouseEvent) => {
+                            updateToggleButtonStates({
+                                key: stateProp,
+                                subKey: 'default',
+                            });
+                            handleEventAsAction(event);
+                        }}
                         text="Toggle Me"
-                        active={active}
+                        active={states.default}
                     />
                     <ToniqToggleButton
                         className="toniq-toggle-button-text-only"
-                        onActiveChange={handleEventAsAction}
+                        onClick={(event: MouseEvent) => {
+                            updateToggleButtonStates({
+                                key: stateProp,
+                                subKey: 'textOnly',
+                            });
+                            handleEventAsAction(event);
+                        }}
                         text="Text Only"
-                        active={active}
+                        active={states.textOnly}
                     />
                     <ToniqToggleButton
                         className="toniq-toggle-button-text-only"
-                        onActiveChange={handleEventAsAction}
+                        onClick={(event: MouseEvent) => {
+                            updateToggleButtonStates({
+                                key: stateProp,
+                                subKey: 'withIcon',
+                            });
+                            handleEventAsAction(event);
+                        }}
                         icon={Rocket24Icon}
                         text="With Icon"
-                        active={active}
+                        active={states.withIcon}
                     />
                 </section>
             </>
@@ -121,10 +190,16 @@ export const mainStory = (
             </h3>
             <ToniqToggleButton
                 className={controls.hostClass}
-                onActiveChange={handleEventAsAction}
+                onClick={(event: MouseEvent) => {
+                    updateToggleButtonStates({
+                        key: 'custom',
+                        subKey: undefined,
+                    });
+                    handleEventAsAction(event);
+                }}
                 icon={customIcon}
                 text={customText}
-                active={isActive}
+                active={toggleButtonStates.custom}
             />
         </>
     );

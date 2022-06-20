@@ -1,4 +1,4 @@
-import {assign, css, defineElementEvent, html, listen} from 'element-vir';
+import {assign, css, html} from 'element-vir';
 import {ToniqSvg} from '../../icons';
 import {interactionDuration} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
@@ -14,9 +14,6 @@ export const ToniqToggleButton = defineToniqElement({
         text: '',
         active: false,
         icon: undefined as undefined | Readonly<ToniqSvg>,
-    },
-    events: {
-        activeChange: defineElementEvent<boolean>(),
     },
     styles: css`
         :host {
@@ -87,11 +84,6 @@ export const ToniqToggleButton = defineToniqElement({
         return html`
             <button
                 class="wrapper ${props.active ? 'active' : ''}"
-                ${listen('click', () => {
-                    const active = !props.active;
-                    setProps({active});
-                    dispatch(new events.activeChange(active));
-                })}
                 role="checkbox"
                 aria-checked=${props.active}
                 class="wrapper"

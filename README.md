@@ -49,7 +49,7 @@ Make sure that:
     ```
 -   Run Storybook:
     ```
-    npm run storybook
+    npm start
     ```
 -   Build for publishing:
     ```
