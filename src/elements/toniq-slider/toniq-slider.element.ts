@@ -1,4 +1,5 @@
 import {css, defineElementEvent, html, listen, onDomCreated, onResize} from 'element-vir';
+import {mapRange} from '../../augments/number';
 import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {defineToniqElement} from '../define-toniq-element';
@@ -8,30 +9,45 @@ export interface ToniqSliderDoubleRangeValue {
     max: number;
 }
 
+export interface ToniqSliderReferenceElements {
+    progress: HTMLElement | null | undefined;
+    slider?: HTMLInputElement | null | undefined;
+    label?: HTMLElement | null | undefined;
+    lowerSlider?: HTMLInputElement | null | undefined;
+    upperSlider?: HTMLInputElement | null | undefined;
+    lowerLabel?: HTMLElement | null | undefined;
+    upperLabel?: HTMLElement | null | undefined;
+}
+
 export const ToniqSlider = defineToniqElement({
     tagName: 'toniq-slider',
     props: {
         /** Use to programmatically set the default value. */
         value: 0 as number | ToniqSliderDoubleRangeValue,
         /**
-         * Use to programmatically set the default min value. If the default value is lesser than
-         * min. Then the default value will automatically be set to min.
+         * Use to set the min value. If the value is less than this min then the value will
+         * automatically be clipped up to this min.
          */
         min: 0,
         /**
-         * Use to programmatically set the default max value. If the default value is greater than
-         * max. Then the default value will automatically be set to max.
+         * Use to set the max value. If the input is greater than the max then the value will
+         * clipped down to this max.
          */
         max: 100,
         /** Set to true to enable double range slider. */
         double: false,
         /** Use to add suffix to the value. */
         suffix: '',
+        referenceElements: undefined as undefined | ToniqSliderReferenceElements,
     },
     events: {
         valueChange: defineElementEvent<number | ToniqSliderDoubleRangeValue>(),
     },
     styles: css`
+        :host {
+            display: block;
+        }
+
         .range {
             display: flex;
             height: 8px;
@@ -54,7 +70,7 @@ export const ToniqSlider = defineToniqElement({
         .label {
             z-index: 1;
             position: absolute;
-            top: 16px;
+            margin-top: 16px;
             ${toniqFontStyles.boldParagraphFont};
             ${noUserSelect};
         }
@@ -67,8 +83,8 @@ export const ToniqSlider = defineToniqElement({
             margin: 0;
         }
 
-        #lowerSlider,
-        #upperSlider {
+        .lowerSlider,
+        .upperSlider {
             position: absolute;
             left: 0;
             pointer-events: none;
@@ -96,310 +112,448 @@ export const ToniqSlider = defineToniqElement({
             transform: scale(1.2);
         }
     `,
-    initCallback: ({props, setProps}) => {
-        setProps({value: props.value < props.min ? props.min : props.value});
-    },
-    renderCallback: ({props, host, dispatch, events}) => {
+    renderCallback: ({props, host, events, dispatch, setProps}) => {
+        const progress = props.referenceElements?.progress;
+        const slider = props.referenceElements?.slider;
+        const label = props.referenceElements?.label;
+        const lowerSliderElement = props.referenceElements?.lowerSlider;
+        const upperSliderElement = props.referenceElements?.upperSlider;
+        const lowerLabelElement = props.referenceElements?.lowerLabel;
+        const upperLabelElement = props.referenceElements?.upperLabel;
+        const doubleSliderOffset = 2;
+
+        if (props.double) {
+            if (!isDoubleRangeValue(props.value)) {
+                setProps({
+                    value: {
+                        min: props.min,
+                        max: props.max,
+                    },
+                });
+            } else if (
+                lowerSliderElement instanceof HTMLInputElement &&
+                upperSliderElement instanceof HTMLInputElement
+            ) {
+                const defaultMin = 0;
+                const defaultMax = 100;
+                setProps({
+                    value: {
+                        min:
+                            props.value.min < props.min
+                                ? props.min
+                                : props.value.min > props.max
+                                ? props.max
+                                : parseInt(lowerSliderElement.value) !== defaultMin
+                                ? parseInt(lowerSliderElement.value)
+                                : props.value.min,
+                        max:
+                            props.value.max < props.min
+                                ? props.min
+                                : props.value.max > props.max
+                                ? props.max
+                                : parseInt(upperSliderElement.value) !== defaultMax
+                                ? parseInt(upperSliderElement.value)
+                                : props.value.max,
+                    },
+                });
+            }
+
+            fillDoubleRangeSlider();
+        } else {
+            setProps({
+                value:
+                    props.value < props.min
+                        ? props.min
+                        : props.value > props.max
+                        ? props.max
+                        : props.value,
+            });
+
+            if (
+                !isDoubleRangeValue(props.value) &&
+                slider instanceof HTMLInputElement &&
+                progress instanceof HTMLElement &&
+                label instanceof HTMLElement
+            ) {
+                fillRangeSlider(props.value);
+            }
+        }
+
         function onSliderResize(
             entry: Readonly<Pick<ResizeObserverEntry, 'target' | 'contentRect'>>,
         ) {
             if (props.double) {
                 fillDoubleRangeSlider();
             } else {
-                fillRangeSlider(parseInt((entry.target as HTMLInputElement).value));
+                if (entry.target instanceof HTMLInputElement)
+                    fillRangeSlider(parseInt(entry.target.value));
             }
         }
 
         function fillRangeSlider(value: number) {
-            const slider = host.shadowRoot?.querySelector('.slider') as HTMLInputElement;
-            const progress = host.shadowRoot?.querySelector('.progress') as HTMLElement;
-            const label = host.shadowRoot?.querySelector('.label') as HTMLElement;
-            const sliderWidth = slider.clientWidth;
+            if (
+                slider instanceof HTMLInputElement &&
+                progress instanceof HTMLElement &&
+                label instanceof HTMLElement
+            ) {
+                const sliderWidth = slider.clientWidth;
 
-            const sliderOffset = (8 * value) / props.max;
-            const progressOffset = ((value - props.min) * (0 - 8)) / (props.max - props.min) + 8;
+                const thumbOffset = 8;
+                const inputRangeOffsetRange = {
+                    min: 0,
+                    max: 8,
+                };
+                const sliderOffset = (thumbOffset * value) / props.max;
+                const progressOffset =
+                    ((value - props.min) *
+                        (inputRangeOffsetRange.min - inputRangeOffsetRange.max)) /
+                        (props.max - props.min) +
+                    thumbOffset;
 
-            const progressWidth =
-                (sliderWidth * valueMap(value, props.min, props.max, 0, props.max)) / props.max -
-                sliderOffset;
-            progress.style.width = `${progressWidth + progressOffset}px`;
+                progress.style.width = `${
+                    (sliderWidth * mapRange(value, props.min, props.max, 0, props.max)) /
+                        props.max -
+                    sliderOffset +
+                    progressOffset
+                }px`;
+                label.innerHTML = `${props.value} ${props.suffix}`;
+                /**
+                 * Since the input range thumb is a pseudo element, the trick to getting its
+                 * location is by getting the progress bar right location minus half of the label
+                 * value width. Then set label value left to that computed value.
+                 */
+                const labelOffset = progress.getBoundingClientRect().right - label.offsetWidth / 2;
 
-            label.innerHTML = `${slider.value} ${props.suffix}`;
-            /**
-             * Since the input range thumb is a pseudo element, the trick to getting its location is
-             * by getting the progress bar right location minus half of the label value width. Then
-             * set label value left to that computed value.
-             */
-            const labelOffset = progress.getBoundingClientRect().right - label.offsetWidth / 2;
-
-            label.style.left = `${
-                labelOffset < slider.getBoundingClientRect().left
-                    ? slider.getBoundingClientRect().left
-                    : labelOffset + label.clientWidth > slider.getBoundingClientRect().right
-                    ? slider.getBoundingClientRect().right - label.clientWidth
-                    : labelOffset
-            }px`;
-
-            // Plus 16px (8px half of font size + 8px spacing from thumb to label based on design)
-            label.style.top = `${progress.getBoundingClientRect().top + 16}px`;
+                label.style.left = `${
+                    labelOffset < slider.getBoundingClientRect().left
+                        ? slider.getBoundingClientRect().left
+                        : labelOffset + label.clientWidth > slider.getBoundingClientRect().right
+                        ? slider.getBoundingClientRect().right - label.clientWidth
+                        : labelOffset
+                }px`;
+            }
         }
 
         function fillDoubleRangeSlider() {
-            const lowerSlider = host.shadowRoot?.querySelector('#lowerSlider') as HTMLInputElement;
-            const upperSlider = host.shadowRoot?.querySelector('#upperSlider') as HTMLInputElement;
-            const progress = host.shadowRoot?.querySelector('.progress') as HTMLElement;
-            const lowerLabel = host.shadowRoot?.querySelector('#lowerLabel') as HTMLElement;
-            const upperLabel = host.shadowRoot?.querySelector('#upperLabel') as HTMLElement;
-            const lowerSliderWidth = lowerSlider.clientWidth;
-            const upperSliderWidth = upperSlider.clientWidth;
-
-            /** Get offset from range 24 to 8 as input ranges from min to max. */
-            const lowerSliderOffset = valueMap(
-                parseInt(lowerSlider.value),
-                props.min,
-                props.max,
-                24,
-                8,
-            );
-            const upperSliderOffset = valueMap(
-                parseInt(upperSlider.value),
-                props.min,
-                props.max,
-                24,
-                8,
-            );
-
-            const lowerSliderLeft =
-                (lowerSliderWidth *
-                    valueMap(parseInt(lowerSlider.value), props.min, props.max, 0, props.max)) /
-                    props.max +
-                lowerSliderOffset;
-
-            const upperSliderLeft =
-                (upperSliderWidth *
-                    valueMap(parseInt(upperSlider.value), props.min, props.max, 0, props.max)) /
-                    props.max +
-                upperSliderOffset;
-
-            progress.style.left = lowerSliderLeft + 'px';
-            progress.style.right = upperSliderLeft + 'px';
-            progress.style.width = `${upperSliderLeft - lowerSliderLeft}px`;
-
-            lowerLabel.innerHTML = `${lowerSlider.value} ${props.suffix}`;
-            upperLabel.innerHTML = `${upperSlider.value} ${props.suffix}`;
-
-            /**
-             * Since the input range thumb is a pseudo element, the trick to getting its location is
-             * by getting the progress bar right location minus half of the label value width. Then
-             * set label value left to that computed value.
-             */
-
-            const lowerLabelOffset = lowerSliderLeft - lowerLabel.offsetWidth / 2;
-            lowerLabel.style.left = `${
-                lowerLabelOffset < lowerSlider.getBoundingClientRect().left
-                    ? lowerSlider.getBoundingClientRect().left
-                    : lowerLabelOffset
-            }px`;
-
-            const upperLabelOffset =
-                progress.getBoundingClientRect().right - upperLabel.offsetWidth / 2;
-            upperLabel.style.left = `${
-                upperLabelOffset + upperLabel.clientWidth >
-                upperSlider.getBoundingClientRect().right
-                    ? upperSlider.getBoundingClientRect().right - upperLabel.clientWidth
-                    : upperLabelOffset
-            }px`;
-
-            // Plus 16px (8px half of font size + 8px spacing from thumb to label based on design)
-            lowerLabel.style.top = `${progress.getBoundingClientRect().top + 16}px`;
-            upperLabel.style.top = `${progress.getBoundingClientRect().top + 16}px`;
-
-            const valueOffset = 10;
             if (
-                lowerLabel.getBoundingClientRect().right + valueOffset >=
-                    upperLabel.getBoundingClientRect().left ||
-                upperLabel.getBoundingClientRect().left <= lowerLabel.getBoundingClientRect().right
+                progress instanceof HTMLElement &&
+                lowerSliderElement instanceof HTMLInputElement &&
+                upperSliderElement instanceof HTMLInputElement &&
+                lowerLabelElement instanceof HTMLElement &&
+                upperLabelElement instanceof HTMLElement &&
+                isDoubleRangeValue(props.value)
             ) {
-                const lowerLabelOffset =
-                    progress.getBoundingClientRect().left -
-                    lowerLabel.getBoundingClientRect().width;
-                const upperLabelOffset = progress.getBoundingClientRect().right;
-                const lowerLabelMin = lowerSlider.getBoundingClientRect().left;
+                const lowerSliderWidth = lowerSliderElement.clientWidth;
+                const upperSliderWidth = upperSliderElement.clientWidth;
 
-                const lowerLabelMax =
-                    lowerSlider.getBoundingClientRect().right -
-                    upperLabel.getBoundingClientRect().width -
-                    lowerLabel.getBoundingClientRect().width -
-                    valueOffset;
+                /** Get offset from range 24 to 8 as input ranges from min to max. */
+                const lowerSliderOffset = mapRange(props.value.min, props.min, props.max, 24, 8);
+                const upperSliderOffset = mapRange(props.value.max, props.min, props.max, 24, 8);
 
-                const upperLabelMin =
-                    upperSlider.getBoundingClientRect().left +
-                    lowerLabel.getBoundingClientRect().width +
-                    valueOffset;
-                const upperLabelMax =
-                    upperSlider.getBoundingClientRect().right -
-                    upperLabel.getBoundingClientRect().width;
+                const lowerSliderLeft =
+                    (lowerSliderWidth *
+                        mapRange(props.value.min, props.min, props.max, 0, props.max)) /
+                        props.max +
+                    lowerSliderOffset;
 
-                lowerLabel.style.left = `${
-                    lowerLabelOffset < lowerLabelMin
-                        ? lowerLabelMin
-                        : lowerLabelOffset > lowerLabelMax
-                        ? lowerLabelMax
+                const upperSliderLeft =
+                    (upperSliderWidth *
+                        mapRange(props.value.max, props.min, props.max, 0, props.max)) /
+                        props.max +
+                    upperSliderOffset;
+
+                progress.style.left = lowerSliderLeft + 'px';
+                progress.style.right = upperSliderLeft + 'px';
+                progress.style.width = `${upperSliderLeft - lowerSliderLeft}px`;
+
+                lowerLabelElement.innerHTML = `${props.value.min} ${props.suffix}`;
+                upperLabelElement.innerHTML = `${props.value.max} ${props.suffix}`;
+
+                /**
+                 * Since the input range thumb is a pseudo element, the trick to getting its
+                 * location is by getting the progress bar right location minus half of the label
+                 * value width. Then set label value left to that computed value.
+                 */
+
+                const lowerLabelOffset = lowerSliderLeft - lowerLabelElement.offsetWidth / 2;
+                lowerLabelElement.style.left = `${
+                    lowerLabelOffset < lowerSliderElement.getBoundingClientRect().left
+                        ? lowerSliderElement.getBoundingClientRect().left
                         : lowerLabelOffset
                 }px`;
-                upperLabel.style.left = `${
-                    upperLabelOffset < upperLabelMin
-                        ? upperLabelMin
-                        : upperLabelOffset > upperLabelMax
-                        ? upperLabelMax
+
+                const upperLabelOffset =
+                    progress.getBoundingClientRect().right - upperLabelElement.offsetWidth / 2;
+                upperLabelElement.style.left = `${
+                    upperLabelOffset + upperLabelElement.clientWidth >
+                    upperSliderElement.getBoundingClientRect().right
+                        ? upperSliderElement.getBoundingClientRect().right -
+                          upperLabelElement.clientWidth
                         : upperLabelOffset
                 }px`;
-            }
-        }
 
-        function onSliderCreated(slider: Element) {
-            const element = slider as HTMLInputElement;
-            if (props.double && element.id === 'lowerSlider') {
-                (slider as HTMLInputElement).value = `${
-                    (props.value as ToniqSliderDoubleRangeValue).min
-                }`;
-            } else if (props.double && element.id === 'upperSlider') {
-                (slider as HTMLInputElement).value = `${
-                    (props.value as ToniqSliderDoubleRangeValue).max
-                }`;
-            } else {
-                (slider as HTMLInputElement).value = props.value.toString();
-            }
+                const valueOffset = 10;
+                if (
+                    lowerLabelElement.getBoundingClientRect().right + valueOffset >=
+                        upperLabelElement.getBoundingClientRect().left ||
+                    upperLabelElement.getBoundingClientRect().left <=
+                        lowerLabelElement.getBoundingClientRect().right
+                ) {
+                    const lowerLabelOffset =
+                        progress.getBoundingClientRect().left -
+                        lowerLabelElement.getBoundingClientRect().width;
+                    const upperLabelOffset = progress.getBoundingClientRect().right;
+                    const lowerLabelMin = lowerSliderElement.getBoundingClientRect().left;
 
-            slider.addEventListener('input', () => {
-                if (props.double) {
-                    fillDoubleRangeSlider();
-                    if (element.id === 'lowerSlider') {
-                        lowerSliderController();
-                    } else {
-                        upperSliderController();
-                    }
-                } else {
-                    const value = parseInt(element.value);
-                    fillRangeSlider(value);
+                    const lowerLabelMax =
+                        lowerSliderElement.getBoundingClientRect().right -
+                        upperLabelElement.getBoundingClientRect().width -
+                        lowerLabelElement.getBoundingClientRect().width -
+                        valueOffset;
+
+                    const upperLabelMin =
+                        upperSliderElement.getBoundingClientRect().left +
+                        lowerLabelElement.getBoundingClientRect().width +
+                        valueOffset;
+                    const upperLabelMax =
+                        upperSliderElement.getBoundingClientRect().right -
+                        upperLabelElement.getBoundingClientRect().width;
+
+                    lowerLabelElement.style.left = `${
+                        lowerLabelOffset < lowerLabelMin
+                            ? lowerLabelMin
+                            : lowerLabelOffset > lowerLabelMax
+                            ? lowerLabelMax
+                            : lowerLabelOffset
+                    }px`;
+                    upperLabelElement.style.left = `${
+                        upperLabelOffset < upperLabelMin
+                            ? upperLabelMin
+                            : upperLabelOffset > upperLabelMax
+                            ? upperLabelMax
+                            : upperLabelOffset
+                    }px`;
                 }
-            });
+            }
         }
 
         function lowerSliderController() {
-            const lowerSlider = host.shadowRoot?.querySelector('#lowerSlider') as HTMLInputElement;
-            const upperSlider = host.shadowRoot?.querySelector('#upperSlider') as HTMLInputElement;
-            if (parseInt(lowerSlider.value) > parseInt(upperSlider.value) - 2) {
-                upperSlider.value = `${parseInt(lowerSlider.value) + 2}`;
+            if (
+                lowerSliderElement instanceof HTMLInputElement &&
+                upperSliderElement instanceof HTMLInputElement &&
+                parseInt(lowerSliderElement.value) >
+                    parseInt(upperSliderElement.value) - doubleSliderOffset
+            ) {
+                upperSliderElement.value = `${
+                    parseInt(lowerSliderElement.value) + doubleSliderOffset
+                }`;
 
-                if (parseInt(upperSlider.value) === parseInt(upperSlider.max)) {
-                    lowerSlider.value = `${parseInt(upperSlider.max) - 2}`;
+                if (parseInt(upperSliderElement.value) === parseInt(upperSliderElement.max)) {
+                    lowerSliderElement.value = `${
+                        parseInt(upperSliderElement.max) - doubleSliderOffset
+                    }`;
                 }
             }
         }
 
         function upperSliderController() {
-            const lowerSlider = host.shadowRoot?.querySelector('#lowerSlider') as HTMLInputElement;
-            const upperSlider = host.shadowRoot?.querySelector('#upperSlider') as HTMLInputElement;
+            if (
+                lowerSliderElement instanceof HTMLInputElement &&
+                upperSliderElement instanceof HTMLInputElement &&
+                parseInt(upperSliderElement.value) <
+                    parseInt(lowerSliderElement.value) + doubleSliderOffset
+            ) {
+                lowerSliderElement.value = `${
+                    parseInt(upperSliderElement.value) - doubleSliderOffset
+                }`;
 
-            if (parseInt(upperSlider.value) < parseInt(lowerSlider.value) + 2) {
-                lowerSlider.value = `${parseInt(upperSlider.value) - 2}`;
-
-                if (parseInt(lowerSlider.value) === parseInt(lowerSlider.min)) {
-                    upperSlider.value = '2';
+                if (parseInt(lowerSliderElement.value) === parseInt(lowerSliderElement.min)) {
+                    upperSliderElement.value = `${doubleSliderOffset}`;
                 }
             }
         }
 
-        /**
-         * Re-maps a number from one range to another.
-         * https://www.arduino.cc/reference/en/language/functions/math/map/
-         */
-        function valueMap(
-            value: number,
-            inMin: number,
-            inMax: number,
-            outMin: number,
-            outMax: number,
-        ) {
-            return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+        function isDoubleRangeValue(
+            value: number | ToniqSliderDoubleRangeValue,
+        ): value is ToniqSliderDoubleRangeValue {
+            return (
+                (value as ToniqSliderDoubleRangeValue).min !== undefined &&
+                (value as ToniqSliderDoubleRangeValue).max !== undefined
+            );
         }
 
-        if (!props.double) {
+        if (props.double && isDoubleRangeValue(props.value)) {
             return html`
                 <div class="range">
                     <div class="progress"></div>
-                    <span class="label">${props.value} ${props.suffix}</span>
-                    <input
-                        type="range"
-                        class="slider"
-                        value=${props.value}
-                        min=${props.min}
-                        max=${props.max}
-                        ${onDomCreated(onSliderCreated)}
-                        ${onResize(onSliderResize)}
-                        ${listen('input', (event) => {
-                            dispatch(
-                                new events.valueChange(
-                                    parseInt((event.target as HTMLInputElement).value),
-                                ),
-                            );
-                        })}
-                    />
+                    <span class="lowerLabel label"></span>
+                    <span class="upperLabel label"></span>
+                    <div class="slider-wrapper">
+                        <input
+                            type="range"
+                            class="lowerSlider slider"
+                            .value=${props.value.min}
+                            .min=${props.min}
+                            .max=${props.max}
+                            ${onDomCreated((element) => {
+                                const progress = host.shadowRoot?.querySelector('.progress');
+                                const lowerSlider = host.shadowRoot?.querySelector('.lowerSlider');
+                                const lowerLabel = host.shadowRoot?.querySelector('.lowerLabel');
+                                const upperSlider = host.shadowRoot?.querySelector('.upperSlider');
+                                const upperLabel = host.shadowRoot?.querySelector('.upperLabel');
+
+                                if (
+                                    progress instanceof HTMLElement &&
+                                    lowerSlider instanceof HTMLInputElement &&
+                                    upperSlider instanceof HTMLInputElement &&
+                                    lowerLabel instanceof HTMLElement &&
+                                    upperLabel instanceof HTMLElement
+                                ) {
+                                    setProps({
+                                        referenceElements: {
+                                            progress,
+                                            lowerSlider,
+                                            lowerLabel,
+                                            upperSlider,
+                                            upperLabel,
+                                        },
+                                    });
+                                }
+
+                                if (!(element instanceof HTMLInputElement)) {
+                                    throw new Error(`Failed to get input element in listener`);
+                                }
+
+                                if (isDoubleRangeValue(props.value)) {
+                                    element.value = `${props.value.min}`;
+                                }
+                            })}
+                            ${onResize(onSliderResize)}
+                            ${listen('input', (event) => {
+                                if (
+                                    event.target instanceof HTMLInputElement &&
+                                    upperSliderElement instanceof HTMLInputElement
+                                ) {
+                                    const value = {
+                                        min: parseInt(event.target.value),
+                                        max: parseInt(upperSliderElement.value),
+                                    };
+                                    setProps({value});
+                                }
+                                fillDoubleRangeSlider();
+                                lowerSliderController();
+                            })}
+                            ${listen('change', (event) => {
+                                if (
+                                    event.target instanceof HTMLInputElement &&
+                                    upperSliderElement instanceof HTMLInputElement
+                                ) {
+                                    const value = {
+                                        min: parseInt(event.target.value),
+                                        max: parseInt(upperSliderElement.value),
+                                    };
+                                    setProps({value});
+                                    dispatch(new events.valueChange(value));
+                                }
+                            })}
+                        />
+                        <input
+                            type="range"
+                            class="upperSlider slider"
+                            .value=${props.value.max}
+                            .min=${props.min}
+                            .max="${props.max}"
+                            ${onDomCreated((element) => {
+                                if (element instanceof HTMLInputElement) {
+                                    if (isDoubleRangeValue(props.value)) {
+                                        element.value = `${props.value.max}`;
+                                    }
+                                } else {
+                                    throw new Error(`Failed to get input element in listener`);
+                                }
+                            })}
+                            ${onResize(onSliderResize)}
+                            ${listen('input', (event) => {
+                                if (
+                                    event.target instanceof HTMLInputElement &&
+                                    lowerSliderElement instanceof HTMLInputElement
+                                ) {
+                                    const value = {
+                                        min: parseInt(lowerSliderElement.value),
+                                        max: parseInt(event.target.value),
+                                    };
+                                    setProps({value});
+                                }
+                                fillDoubleRangeSlider();
+                                upperSliderController();
+                            })}
+                            ${listen('change', (event) => {
+                                if (
+                                    event.target instanceof HTMLInputElement &&
+                                    lowerSliderElement instanceof HTMLInputElement
+                                ) {
+                                    const value = {
+                                        min: parseInt(lowerSliderElement.value),
+                                        max: parseInt(event.target.value),
+                                    };
+                                    setProps({value});
+                                    dispatch(new events.valueChange(value));
+                                }
+                            })}
+                        />
+                    </div>
                 </div>
             `;
         } else {
             return html`
                 <div class="range">
                     <div class="progress"></div>
-                    <span id="lowerLabel" class="label">
-                        ${(props.value as ToniqSliderDoubleRangeValue).min} ${props.suffix}
-                    </span>
-                    <span id="upperLabel" class="label">
-                        ${(props.value as ToniqSliderDoubleRangeValue).max} ${props.suffix}
-                    </span>
-                    <div class="slider-wrapper">
-                        <input
-                            id="lowerSlider"
-                            type="range"
-                            class="slider"
-                            value=${(props.value as ToniqSliderDoubleRangeValue).min}
-                            min=${props.min}
-                            max=${props.max}
-                            ${onDomCreated(onSliderCreated)}
-                            ${onResize(onSliderResize)}
-                            ${listen('input', (event) => {
-                                const upperSlider = host.shadowRoot?.querySelector(
-                                    '#upperSlider',
-                                ) as HTMLInputElement;
-                                const value = {
-                                    min: parseInt((event.target as HTMLInputElement).value),
-                                    max: parseInt(upperSlider.value),
-                                };
-                                dispatch(new events.valueChange(value));
-                            })}
-                        />
-                        <input
-                            id="upperSlider"
-                            type="range"
-                            class="slider"
-                            value=${(props.value as ToniqSliderDoubleRangeValue).max}
-                            min=${props.min}
-                            max="${props.max}"
-                            ${onDomCreated(onSliderCreated)}
-                            ${onResize(onSliderResize)}
-                            ${listen('input', (event) => {
-                                const lowerSlider = host.shadowRoot?.querySelector(
-                                    '#lowerSlider',
-                                ) as HTMLInputElement;
-                                const value = {
-                                    min: parseInt(lowerSlider.value),
-                                    max: parseInt((event.target as HTMLInputElement).value),
-                                };
-                                dispatch(new events.valueChange(value));
-                            })}
-                        />
-                    </div>
+                    <span class="label">${props.suffix}</span>
+                    <input
+                        type="range"
+                        class="slider"
+                        .value=${props.value}
+                        .min=${props.min}
+                        .max=${props.max}
+                        ${onDomCreated((element) => {
+                            const progressElement = host.shadowRoot?.querySelector('.progress');
+                            const sliderElement = host.shadowRoot?.querySelector('.slider');
+                            const labelElement = host.shadowRoot?.querySelector('.label');
+
+                            if (
+                                sliderElement instanceof HTMLInputElement &&
+                                progressElement instanceof HTMLElement &&
+                                labelElement instanceof HTMLElement
+                            ) {
+                                setProps({
+                                    referenceElements: {
+                                        slider: sliderElement,
+                                        progress: progressElement,
+                                        label: labelElement,
+                                    },
+                                });
+                            }
+
+                            if (!(element instanceof HTMLInputElement)) {
+                                throw new Error(`Failed to get input element in listener`);
+                            }
+                            fillRangeSlider(parseInt(element.value));
+                        })}
+                        ${onResize(onSliderResize)}
+                        ${listen('input', (event) => {
+                            if (!(event.target instanceof HTMLInputElement)) {
+                                throw new Error(`Failed to get input element in listener`);
+                            }
+                            setProps({value: parseInt(event.target.value)});
+                            fillRangeSlider(parseInt(event.target.value));
+                        })}
+                        ${listen('change', (event) => {
+                            if (event.target instanceof HTMLInputElement) {
+                                dispatch(new events.valueChange(parseInt(event.target.value)));
+                                setProps({value: parseInt(event.target.value)});
+                            }
+                        })}
+                    />
                 </div>
             `;
         }
