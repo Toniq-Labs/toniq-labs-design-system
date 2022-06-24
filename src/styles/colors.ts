@@ -17,6 +17,11 @@ const mainLightPalette = (() => {
         /** Default page foreground (usually text) color. */
         foregroundColor: css`#000000`,
     };
+
+    const brandPrimary: DualColorDefinition = {
+        ...pagePrimary,
+        foregroundColor: css`#00D093`,
+    };
     /** For secondary foreground (text) elements, lighter than the primary foreground color. */
     const pageSecondary: DualColorDefinition = {
         ...pagePrimary,
@@ -28,9 +33,8 @@ const mainLightPalette = (() => {
         foregroundColor: css`#ACADAD`,
     };
 
-    const brandPrimary: DualColorDefinition = {
-        ...pagePrimary,
-        foregroundColor: css`#00D093`,
+    const pageInteraction: DualColorDefinition = {
+        ...brandPrimary,
     };
 
     /** The color for divider lines. */
@@ -38,11 +42,13 @@ const mainLightPalette = (() => {
         ...pagePrimary,
         foregroundColor: css`#D6D6D6`,
     };
+
     /** Drop shadow for some rounded rectangle shapes. */
     const dropShadow: DualColorDefinition = {
         ...pagePrimary,
         backgroundColor: css`#D2EEFA`,
     };
+
     const accentPrimary: DualColorDefinition = {
         /** Color for primary accents, like primary buttons. */
         backgroundColor: brandPrimary.foregroundColor,
@@ -62,9 +68,6 @@ const mainLightPalette = (() => {
          * foreground is just a placeholder.
          */
         foregroundColor: css`#9A9A9D`,
-    };
-    const pageInteraction: DualColorDefinition = {
-        ...brandPrimary,
     };
 
     return wrapTypeWithReadonly<Record<string, DualColorDefinition>>()({
