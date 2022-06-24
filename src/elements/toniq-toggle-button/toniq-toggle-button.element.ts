@@ -49,7 +49,8 @@ export const ToniqToggleButton = defineToniqElement({
             margin-left: 12px;
         }
 
-        .wrapper.active {
+        .wrapper.active,
+        :host(:hover) .wrapper {
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
@@ -57,7 +58,8 @@ export const ToniqToggleButton = defineToniqElement({
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
             background: none;
         }
-        :host(.toniq-toggle-button-text-only) .wrapper.active {
+        :host(.toniq-toggle-button-text-only) .wrapper.active,
+        :host(.toniq-toggle-button-text-only:hover) .wrapper {
             ${applyBackgroundAndForeground(toniqColors.pageInteraction)};
             background: none;
         }
@@ -72,7 +74,7 @@ export const ToniqToggleButton = defineToniqElement({
             margin-right: 8px;
         }
     `,
-    renderCallback: ({props, dispatch, events, setProps}) => {
+    renderCallback: ({props}) => {
         const iconTemplate = props.icon
             ? html`
                 <${ToniqIcon}
