@@ -37,6 +37,26 @@ describe(ToniqSlider.tagName, () => {
     );
 
     it(
+        'should correctly set label',
+        createFixtureTest(async () => {
+            const value = 5;
+            const suffix = 'ICP';
+            const rendered = await fixture(
+                html`
+                    <${ToniqSlider}
+                        ${assign(ToniqSlider.props.value, value)}
+                        ${assign(ToniqSlider.props.suffix, suffix)}
+                    />
+                `,
+            );
+
+            const label = queryThroughShadow('span.label', rendered);
+            assertInstanceOf(label, HTMLSpanElement);
+            assert.equal(`${label.innerText}`, `${value} ${suffix}`);
+        }),
+    );
+
+    it(
         'should correctly set suffix',
         createFixtureTest(async () => {
             const suffix = 'ICP';

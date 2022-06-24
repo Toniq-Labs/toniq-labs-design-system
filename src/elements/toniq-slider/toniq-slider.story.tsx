@@ -33,6 +33,26 @@ const sliderStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: Speci
             disable: true,
         },
     },
+    progressStyle: {
+        table: {
+            disable: true,
+        },
+    },
+    labelStyle: {
+        table: {
+            disable: true,
+        },
+    },
+    lowerLabelStyle: {
+        table: {
+            disable: true,
+        },
+    },
+    upperLabelStyle: {
+        table: {
+            disable: true,
+        },
+    },
 } as const);
 
 const componentStoryMeta: ComponentMeta<typeof ToniqSlider> = {

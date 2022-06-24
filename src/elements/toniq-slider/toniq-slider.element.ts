@@ -19,6 +19,17 @@ export interface ToniqSliderReferenceElements {
     upperLabel?: HTMLElement | null | undefined;
 }
 
+export interface ToniqSliderProgressStyle {
+    width: string;
+    left?: string;
+    right?: string;
+}
+
+export interface ToniqSliderLabelStyle {
+    innerText: string;
+    left?: string;
+}
+
 export const ToniqSlider = defineToniqElement({
     tagName: 'toniq-slider',
     props: {
@@ -38,7 +49,44 @@ export const ToniqSlider = defineToniqElement({
         double: false,
         /** Use to add suffix to the value. */
         suffix: '',
+        /**
+         * This is used to grab the position of the reference elements. Warning: externally
+         * overriding this will cause weird things to happen!
+         */
         referenceElements: undefined as undefined | ToniqSliderReferenceElements,
+        /**
+         * This is use to declaratively set the progress bar styling. Warning: externally overriding
+         * this will cause weird things to happen!
+         */
+        progressStyle: {
+            width: '0px',
+            left: '0px',
+            right: '0px',
+        } as ToniqSliderProgressStyle,
+        /**
+         * This is use to declaratively set the label styling for single range slider. Warning:
+         * externally overriding this will cause weird things to happen!
+         */
+        labelStyle: {
+            innerText: '',
+            left: '0px',
+        } as ToniqSliderLabelStyle,
+        /**
+         * This is use to declaratively set the lower label styling for double range slider.
+         * Warning: externally overriding this will cause weird things to happen!
+         */
+        lowerLabelStyle: {
+            innerText: '',
+            left: '0px',
+        } as ToniqSliderLabelStyle,
+        /**
+         * This is use to declaratively set the upper label styling for double range slider.
+         * Warning: externally overriding this will cause weird things to happen!
+         */
+        upperLabelStyle: {
+            innerText: '',
+            left: '0px',
+        } as ToniqSliderLabelStyle,
     },
     events: {
         valueChange: defineElementEvent<number | ToniqSliderDoubleRangeValue>(),
@@ -136,37 +184,48 @@ export const ToniqSlider = defineToniqElement({
             ) {
                 const defaultMin = 0;
                 const defaultMax = 100;
+                const initValue = {
+                    min:
+                        props.value.min < props.min
+                            ? props.min
+                            : props.value.min > props.max
+                            ? props.max
+                            : parseInt(lowerSliderElement.value) !== defaultMin
+                            ? parseInt(lowerSliderElement.value)
+                            : props.value.min,
+                    max:
+                        props.value.max < props.min
+                            ? props.min
+                            : props.value.max > props.max
+                            ? props.max
+                            : parseInt(upperSliderElement.value) !== defaultMax
+                            ? parseInt(upperSliderElement.value)
+                            : props.value.max,
+                };
                 setProps({
-                    value: {
-                        min:
-                            props.value.min < props.min
-                                ? props.min
-                                : props.value.min > props.max
-                                ? props.max
-                                : parseInt(lowerSliderElement.value) !== defaultMin
-                                ? parseInt(lowerSliderElement.value)
-                                : props.value.min,
-                        max:
-                            props.value.max < props.min
-                                ? props.min
-                                : props.value.max > props.max
-                                ? props.max
-                                : parseInt(upperSliderElement.value) !== defaultMax
-                                ? parseInt(upperSliderElement.value)
-                                : props.value.max,
+                    value: initValue,
+                    lowerLabelStyle: {
+                        innerText: `${initValue.min} ${props.suffix}`,
+                    },
+                    upperLabelStyle: {
+                        innerText: `${initValue.max} ${props.suffix}`,
                     },
                 });
             }
 
             fillDoubleRangeSlider();
         } else {
+            const initValue =
+                props.value < props.min
+                    ? props.min
+                    : props.value > props.max
+                    ? props.max
+                    : props.value;
             setProps({
-                value:
-                    props.value < props.min
-                        ? props.min
-                        : props.value > props.max
-                        ? props.max
-                        : props.value,
+                value: initValue,
+                labelStyle: {
+                    innerText: `${initValue} ${props.suffix}`,
+                },
             });
 
             if (
@@ -210,27 +269,41 @@ export const ToniqSlider = defineToniqElement({
                         (props.max - props.min) +
                     thumbOffset;
 
-                progress.style.width = `${
+                const progressCalculatedWidth =
                     (sliderWidth * mapRange(value, props.min, props.max, 0, props.max)) /
                         props.max -
                     sliderOffset +
-                    progressOffset
-                }px`;
-                label.innerHTML = `${props.value} ${props.suffix}`;
+                    progressOffset;
+
+                setProps({
+                    progressStyle: {
+                        width: `${progressCalculatedWidth}px`,
+                    },
+                });
+
                 /**
                  * Since the input range thumb is a pseudo element, the trick to getting its
                  * location is by getting the progress bar right location minus half of the label
                  * value width. Then set label value left to that computed value.
                  */
-                const labelOffset = progress.getBoundingClientRect().right - label.offsetWidth / 2;
+                const labelOffset =
+                    progress.getBoundingClientRect().left +
+                    progressCalculatedWidth -
+                    label.offsetWidth / 2;
 
-                label.style.left = `${
-                    labelOffset < slider.getBoundingClientRect().left
-                        ? slider.getBoundingClientRect().left
-                        : labelOffset + label.clientWidth > slider.getBoundingClientRect().right
-                        ? slider.getBoundingClientRect().right - label.clientWidth
-                        : labelOffset
-                }px`;
+                setProps({
+                    labelStyle: {
+                        innerText: `${props.value} ${props.suffix}`,
+                        left: `${
+                            labelOffset < slider.getBoundingClientRect().left
+                                ? slider.getBoundingClientRect().left
+                                : labelOffset + label.clientWidth >
+                                  slider.getBoundingClientRect().right
+                                ? slider.getBoundingClientRect().right - label.clientWidth
+                                : labelOffset
+                        }px`,
+                    },
+                });
             }
         }
 
@@ -262,12 +335,13 @@ export const ToniqSlider = defineToniqElement({
                         props.max +
                     upperSliderOffset;
 
-                progress.style.left = lowerSliderLeft + 'px';
-                progress.style.right = upperSliderLeft + 'px';
-                progress.style.width = `${upperSliderLeft - lowerSliderLeft}px`;
-
-                lowerLabelElement.innerHTML = `${props.value.min} ${props.suffix}`;
-                upperLabelElement.innerHTML = `${props.value.max} ${props.suffix}`;
+                setProps({
+                    progressStyle: {
+                        width: `${upperSliderLeft - lowerSliderLeft}px`,
+                        left: lowerSliderLeft + 'px',
+                        right: upperSliderLeft + 'px',
+                    },
+                });
 
                 /**
                  * Since the input range thumb is a pseudo element, the trick to getting its
@@ -276,28 +350,37 @@ export const ToniqSlider = defineToniqElement({
                  */
 
                 const lowerLabelOffset = lowerSliderLeft - lowerLabelElement.offsetWidth / 2;
-                lowerLabelElement.style.left = `${
-                    lowerLabelOffset < lowerSliderElement.getBoundingClientRect().left
-                        ? lowerSliderElement.getBoundingClientRect().left
-                        : lowerLabelOffset
-                }px`;
-
                 const upperLabelOffset =
                     progress.getBoundingClientRect().right - upperLabelElement.offsetWidth / 2;
-                upperLabelElement.style.left = `${
+
+                const lowerLabelCalculatedLeft =
+                    lowerLabelOffset < lowerSliderElement.getBoundingClientRect().left
+                        ? lowerSliderElement.getBoundingClientRect().left
+                        : lowerLabelOffset;
+                const upperLabelCalculatedLeft =
                     upperLabelOffset + upperLabelElement.clientWidth >
                     upperSliderElement.getBoundingClientRect().right
                         ? upperSliderElement.getBoundingClientRect().right -
                           upperLabelElement.clientWidth
-                        : upperLabelOffset
-                }px`;
+                        : upperLabelOffset;
+                setProps({
+                    lowerLabelStyle: {
+                        innerText: `${props.value.min} ${props.suffix}`,
+                        left: `${lowerLabelCalculatedLeft}px`,
+                    },
+                    upperLabelStyle: {
+                        innerText: `${props.value.max} ${props.suffix}`,
+                        left: `${upperLabelCalculatedLeft}px`,
+                    },
+                });
 
-                const valueOffset = 10;
+                /** Offset in px between two labels if the thumbs are close to each other. */
+                const labelsOffset = 10;
                 if (
-                    lowerLabelElement.getBoundingClientRect().right + valueOffset >=
-                        upperLabelElement.getBoundingClientRect().left ||
-                    upperLabelElement.getBoundingClientRect().left <=
-                        lowerLabelElement.getBoundingClientRect().right
+                    lowerLabelCalculatedLeft + lowerLabelElement.offsetWidth + labelsOffset >=
+                        upperLabelCalculatedLeft ||
+                    upperLabelCalculatedLeft <=
+                        lowerLabelCalculatedLeft + lowerLabelElement.offsetWidth
                 ) {
                     const lowerLabelOffset =
                         progress.getBoundingClientRect().left -
@@ -309,30 +392,38 @@ export const ToniqSlider = defineToniqElement({
                         lowerSliderElement.getBoundingClientRect().right -
                         upperLabelElement.getBoundingClientRect().width -
                         lowerLabelElement.getBoundingClientRect().width -
-                        valueOffset;
+                        labelsOffset;
 
                     const upperLabelMin =
                         upperSliderElement.getBoundingClientRect().left +
                         lowerLabelElement.getBoundingClientRect().width +
-                        valueOffset;
+                        labelsOffset;
                     const upperLabelMax =
                         upperSliderElement.getBoundingClientRect().right -
                         upperLabelElement.getBoundingClientRect().width;
 
-                    lowerLabelElement.style.left = `${
-                        lowerLabelOffset < lowerLabelMin
-                            ? lowerLabelMin
-                            : lowerLabelOffset > lowerLabelMax
-                            ? lowerLabelMax
-                            : lowerLabelOffset
-                    }px`;
-                    upperLabelElement.style.left = `${
-                        upperLabelOffset < upperLabelMin
-                            ? upperLabelMin
-                            : upperLabelOffset > upperLabelMax
-                            ? upperLabelMax
-                            : upperLabelOffset
-                    }px`;
+                    setProps({
+                        lowerLabelStyle: {
+                            innerText: `${props.value.min} ${props.suffix}`,
+                            left: `${
+                                lowerLabelOffset < lowerLabelMin
+                                    ? lowerLabelMin
+                                    : lowerLabelOffset > lowerLabelMax
+                                    ? lowerLabelMax
+                                    : lowerLabelOffset
+                            }px`,
+                        },
+                        upperLabelStyle: {
+                            innerText: `${props.value.max} ${props.suffix}`,
+                            left: `${
+                                upperLabelOffset < upperLabelMin
+                                    ? upperLabelMin
+                                    : upperLabelOffset > upperLabelMax
+                                    ? upperLabelMax
+                                    : upperLabelOffset
+                            }px`,
+                        },
+                    });
                 }
             }
         }
@@ -385,9 +476,17 @@ export const ToniqSlider = defineToniqElement({
         if (props.double && isDoubleRangeValue(props.value)) {
             return html`
                 <div class="range">
-                    <div class="progress"></div>
-                    <span class="lowerLabel label"></span>
-                    <span class="upperLabel label"></span>
+                    <div
+                        class="progress"
+                        style="width:${props.progressStyle.width}; left:${props.progressStyle
+                            .left}; right:${props.progressStyle.right}"
+                    ></div>
+                    <span class="lowerLabel label" style="left:${props.lowerLabelStyle.left}">
+                        ${props.lowerLabelStyle.innerText}
+                    </span>
+                    <span class="upperLabel label" style="left:${props.upperLabelStyle.left}">
+                        ${props.upperLabelStyle.innerText}
+                    </span>
                     <div class="slider-wrapper">
                         <input
                             type="range"
@@ -507,8 +606,10 @@ export const ToniqSlider = defineToniqElement({
         } else {
             return html`
                 <div class="range">
-                    <div class="progress"></div>
-                    <span class="label">${props.suffix}</span>
+                    <div class="progress" style="width:${props.progressStyle.width}"></div>
+                    <span class="label" style="left:${props.labelStyle.left}">
+                        ${props.labelStyle.innerText}
+                    </span>
                     <input
                         type="range"
                         class="slider"
