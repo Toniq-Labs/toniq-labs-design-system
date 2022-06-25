@@ -62,13 +62,19 @@ export default componentStoryMeta;
 const toggleButtonStatesInit = {
     true: {
         default: true,
+        defaultWithIcon: true,
+        defaultIconOnly: true,
         textOnly: true,
         withIcon: true,
+        iconOnly: true,
     },
     false: {
         default: false,
+        defaultWithIcon: false,
+        defaultIconOnly: false,
         textOnly: false,
         withIcon: false,
+        iconOnly: false,
     },
     custom: false,
 } as const;
@@ -147,6 +153,30 @@ export const mainStory = (
                         active={states.default}
                     />
                     <ToniqToggleButton
+                        onClick={(event: MouseEvent) => {
+                            updateToggleButtonStates({
+                                key: stateProp,
+                                subKey: 'defaultWithIcon',
+                            });
+                            handleEventAsAction(event);
+                        }}
+                        icon={Rocket24Icon}
+                        text="With icon"
+                        active={states.defaultWithIcon}
+                    />
+                    <ToniqToggleButton
+                        onClick={(event: MouseEvent) => {
+                            updateToggleButtonStates({
+                                key: stateProp,
+                                subKey: 'defaultIconOnly',
+                            });
+                            handleEventAsAction(event);
+                        }}
+                        icon={Rocket24Icon}
+                        title="Icon only"
+                        active={states.defaultIconOnly}
+                    />
+                    <ToniqToggleButton
                         className="toniq-toggle-button-text-only"
                         onClick={(event: MouseEvent) => {
                             updateToggleButtonStates({
@@ -170,6 +200,19 @@ export const mainStory = (
                         icon={Rocket24Icon}
                         text="With Icon"
                         active={states.withIcon}
+                    />
+                    <ToniqToggleButton
+                        className="toniq-toggle-button-text-only"
+                        onClick={(event: MouseEvent) => {
+                            updateToggleButtonStates({
+                                key: stateProp,
+                                subKey: 'iconOnly',
+                            });
+                            handleEventAsAction(event);
+                        }}
+                        title="icon only"
+                        icon={Rocket24Icon}
+                        active={states.iconOnly}
                     />
                 </section>
             </>

@@ -1,5 +1,4 @@
 import {assign, css, html} from 'element-vir';
-import {TemplateResult} from 'lit';
 import {ToniqSvg} from '../../icons';
 import {interactionDuration} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
@@ -70,17 +69,17 @@ export const ToniqButton = defineToniqElement({
         }
     `,
     renderCallback: ({props}) => {
-        const iconTemplate: TemplateResult | undefined = props.icon
+        const iconTemplate = props.icon
             ? html`<${ToniqIcon} class="icon-template" ${assign(
                   ToniqIcon.props.icon,
                   props.icon,
               )}></${ToniqIcon}>`
-            : undefined;
-        const textTemplate: TemplateResult | undefined = props.text
+            : '';
+        const textTemplate = props.text
             ? html`
                   <span class="text-template">${props.text}</span>
               `
-            : undefined;
+            : '';
 
         return html`
             <button>

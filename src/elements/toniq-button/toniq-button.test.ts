@@ -24,8 +24,6 @@ describe(ToniqButton.tagName, () => {
 
             const innerButton = queryThroughShadow('button', rendered);
             assertInstanceOf(innerButton, HTMLButtonElement);
-
-            assert.equal(innerButton.className.trim(), 'variant-primary');
         }),
     );
 
