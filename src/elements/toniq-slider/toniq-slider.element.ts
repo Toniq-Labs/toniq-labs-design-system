@@ -168,7 +168,7 @@ export const ToniqSlider = defineToniqElement({
         const upperSliderElement = props.referenceElements?.upperSlider;
         const lowerLabelElement = props.referenceElements?.lowerLabel;
         const upperLabelElement = props.referenceElements?.upperLabel;
-        const doubleSliderOffset = 2;
+        const doubleSliderOffset = 1;
 
         if (props.double) {
             if (!isDoubleRangeValue(props.value)) {
@@ -184,23 +184,26 @@ export const ToniqSlider = defineToniqElement({
             ) {
                 const defaultMin = 0;
                 const defaultMax = 100;
+
                 const initValue = {
-                    min:
-                        props.value.min < props.min
-                            ? props.min
-                            : props.value.min > props.max
-                            ? props.max
-                            : parseInt(lowerSliderElement.value) !== defaultMin
-                            ? parseInt(lowerSliderElement.value)
-                            : props.value.min,
-                    max:
-                        props.value.max < props.min
-                            ? props.min
-                            : props.value.max > props.max
-                            ? props.max
-                            : parseInt(upperSliderElement.value) !== defaultMax
-                            ? parseInt(upperSliderElement.value)
-                            : props.value.max,
+                    min: Math.min(
+                        Math.max(
+                            parseInt(lowerSliderElement.value) !== defaultMin
+                                ? parseInt(lowerSliderElement.value)
+                                : props.value.min,
+                            props.min,
+                        ),
+                        props.max,
+                    ),
+                    max: Math.min(
+                        Math.max(
+                            parseInt(upperSliderElement.value) !== defaultMax
+                                ? parseInt(upperSliderElement.value)
+                                : props.value.max,
+                            props.min,
+                        ),
+                        props.max,
+                    ),
                 };
                 setProps({
                     value: initValue,
@@ -215,25 +218,14 @@ export const ToniqSlider = defineToniqElement({
 
             fillDoubleRangeSlider();
         } else {
-            const initValue =
-                props.value < props.min
-                    ? props.min
-                    : props.value > props.max
-                    ? props.max
-                    : props.value;
-            setProps({
-                value: initValue,
-                labelStyle: {
-                    innerText: `${initValue} ${props.suffix}`,
-                },
-            });
-
-            if (
-                !isDoubleRangeValue(props.value) &&
-                slider instanceof HTMLInputElement &&
-                progress instanceof HTMLElement &&
-                label instanceof HTMLElement
-            ) {
+            if (!isDoubleRangeValue(props.value)) {
+                const initValue = Math.min(Math.max(props.value, props.min), props.max);
+                setProps({
+                    value: initValue,
+                    labelStyle: {
+                        innerText: `${initValue} ${props.suffix}`,
+                    },
+                });
                 fillRangeSlider(props.value);
             }
         }
@@ -353,10 +345,10 @@ export const ToniqSlider = defineToniqElement({
                 const upperLabelOffset =
                     progress.getBoundingClientRect().right - upperLabelElement.offsetWidth / 2;
 
-                const lowerLabelCalculatedLeft =
-                    lowerLabelOffset < lowerSliderElement.getBoundingClientRect().left
-                        ? lowerSliderElement.getBoundingClientRect().left
-                        : lowerLabelOffset;
+                const lowerLabelCalculatedLeft = Math.max(
+                    lowerLabelOffset,
+                    lowerSliderElement.getBoundingClientRect().left,
+                );
                 const upperLabelCalculatedLeft =
                     upperLabelOffset + upperLabelElement.clientWidth >
                     upperSliderElement.getBoundingClientRect().right
@@ -405,23 +397,17 @@ export const ToniqSlider = defineToniqElement({
                     setProps({
                         lowerLabelStyle: {
                             innerText: `${props.value.min} ${props.suffix}`,
-                            left: `${
-                                lowerLabelOffset < lowerLabelMin
-                                    ? lowerLabelMin
-                                    : lowerLabelOffset > lowerLabelMax
-                                    ? lowerLabelMax
-                                    : lowerLabelOffset
-                            }px`,
+                            left: `${Math.min(
+                                Math.max(lowerLabelOffset, lowerLabelMin),
+                                lowerLabelMax,
+                            )}px`,
                         },
                         upperLabelStyle: {
                             innerText: `${props.value.max} ${props.suffix}`,
-                            left: `${
-                                upperLabelOffset < upperLabelMin
-                                    ? upperLabelMin
-                                    : upperLabelOffset > upperLabelMax
-                                    ? upperLabelMax
-                                    : upperLabelOffset
-                            }px`,
+                            left: `${Math.min(
+                                Math.max(upperLabelOffset, upperLabelMin),
+                                upperLabelMax,
+                            )}px`,
                         },
                     });
                 }
