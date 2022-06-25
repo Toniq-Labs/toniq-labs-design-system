@@ -10,6 +10,13 @@ export type DualColorDefinition = Readonly<{
     backgroundColor: CSSResult;
 }>;
 
+function swapColors(input: DualColorDefinition): DualColorDefinition {
+    return {
+        foregroundColor: input.backgroundColor,
+        backgroundColor: input.foregroundColor,
+    };
+}
+
 const mainLightPalette = (() => {
     const pagePrimary: DualColorDefinition = {
         /** Default page background color. */
@@ -37,6 +44,16 @@ const mainLightPalette = (() => {
         ...brandPrimary,
     };
 
+    const pageInteractionHover: DualColorDefinition = {
+        ...brandPrimary,
+        foregroundColor: css`#00A876`,
+    };
+
+    const pageInteractionActive: DualColorDefinition = {
+        ...brandPrimary,
+        foregroundColor: css`#007D57`,
+    };
+
     /** The color for divider lines. */
     const divider: DualColorDefinition = {
         ...pagePrimary,
@@ -49,12 +66,10 @@ const mainLightPalette = (() => {
         backgroundColor: css`#D2EEFA`,
     };
 
-    const accentPrimary: DualColorDefinition = {
-        /** Color for primary accents, like primary buttons. */
-        backgroundColor: brandPrimary.foregroundColor,
-        /** Color for the foreground (text) on top of accentPrimaryBackgroundColor. */
-        foregroundColor: css`#ffffff`,
-    };
+    const accentPrimary: DualColorDefinition = swapColors(pageInteraction);
+    const accentPrimaryHover: DualColorDefinition = swapColors(pageInteractionHover);
+    const accentPrimaryActive: DualColorDefinition = swapColors(pageInteractionActive);
+
     const accentSecondary: DualColorDefinition = {
         /** Color for secondary item backgrounds, like inactive toggle buttons or header backgrounds. */
         backgroundColor: css`#F1F3F6`,
@@ -76,9 +91,13 @@ const mainLightPalette = (() => {
         pageSecondary,
         pageTertiary,
         pageInteraction,
+        pageInteractionHover,
+        pageInteractionActive,
         divider,
         dropShadow,
         accentPrimary,
+        accentPrimaryHover,
+        accentPrimaryActive,
         accentSecondary,
         accentTertiary,
     });
