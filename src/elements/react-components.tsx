@@ -7,6 +7,7 @@ import {ToniqDropdown as NativeToniqDropdown} from './toniq-dropdown/toniq-dropd
 import {ToniqIcon as NativeToniqIcon} from './toniq-icon/toniq-icon.element';
 import {ToniqInput as NativeToniqInput} from './toniq-input/toniq-input.element';
 import {ToniqMiddleEllipsis as NativeToniqMiddleEllipsis} from './toniq-middle-ellipsis/toniq-middle-ellipsis.element';
+import {ToniqSlider as NativeToniqSlider} from './toniq-slider/toniq-slider.element';
 import {ToniqToggleButton as NativeToniqToggleButton} from './toniq-toggle-button/toniq-toggle-button.element';
 import {wrapInReactComponent} from './wrap-native-element';
 
@@ -17,4 +18,5 @@ export const ToniqDropdown = wrapInReactComponent(NativeToniqDropdown);
 export const ToniqIcon = wrapInReactComponent(NativeToniqIcon);
 export const ToniqInput = wrapInReactComponent(NativeToniqInput);
 export const ToniqMiddleEllipsis = wrapInReactComponent(NativeToniqMiddleEllipsis);
+export const ToniqSlider = wrapInReactComponent(NativeToniqSlider);
 export const ToniqToggleButton = wrapInReactComponent(NativeToniqToggleButton);
