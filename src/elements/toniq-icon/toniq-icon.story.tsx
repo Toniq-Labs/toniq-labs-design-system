@@ -32,6 +32,21 @@ const iconStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: Specifi
             disable: true,
         },
     },
+    hostClass: {
+        name: 'Host Class',
+        control: 'select',
+        options: [
+            'None',
+            'toniq-icon-fit-icon',
+        ],
+    },
+    size: {
+        name: 'Size',
+        control: {
+            type: 'number',
+            min: 1,
+        },
+    },
 } as const);
 
 const componentStoryMeta: ComponentMeta<typeof ToniqIcon> = {
@@ -41,6 +56,8 @@ const componentStoryMeta: ComponentMeta<typeof ToniqIcon> = {
     args: {
         color: 'black',
         applyColor: 'Icon color CSS var',
+        hostClass: 'None',
+        size: 24,
     },
     parameters: {
         actions: {
@@ -52,12 +69,17 @@ const componentStoryMeta: ComponentMeta<typeof ToniqIcon> = {
 export default componentStoryMeta;
 
 export const mainStory = (controls: Record<keyof typeof iconStoryControls, string>) => {
+    const sizeStyles =
+        controls.size && controls.hostClass === 'toniq-icon-fit-icon'
+            ? {height: `${controls.size}px`, width: `${controls.size}px`}
+            : {};
+
     const iconCategories = (
         Object.keys(allIconsByCategory) as (keyof typeof allIconsByCategory)[]
     ).map((categoryName) => {
         const iconInstances = allIconsByCategory[categoryName].map((icon) => (
             <div key={icon.iconName} title={icon.iconName}>
-                <ToniqIcon icon={icon} />
+                <ToniqIcon style={sizeStyles} className={controls.hostClass} icon={icon} />
             </div>
         ));
 
