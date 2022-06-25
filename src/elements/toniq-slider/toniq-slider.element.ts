@@ -1,5 +1,5 @@
 import {css, defineElementEvent, html, listen, onDomCreated, onResize} from 'element-vir';
-import {mapRange} from '../../augments/number';
+import {clamp, mapRange} from '../../augments/number';
 import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {defineToniqElement} from '../define-toniq-element';
@@ -186,22 +186,18 @@ export const ToniqSlider = defineToniqElement({
                 const defaultMax = 100;
 
                 const initValue = {
-                    min: Math.min(
-                        Math.max(
-                            parseInt(lowerSliderElement.value) !== defaultMin
-                                ? parseInt(lowerSliderElement.value)
-                                : props.value.min,
-                            props.min,
-                        ),
+                    min: clamp(
+                        parseInt(lowerSliderElement.value) !== defaultMin
+                            ? parseInt(lowerSliderElement.value)
+                            : props.value.min,
+                        props.min,
                         props.max,
                     ),
-                    max: Math.min(
-                        Math.max(
-                            parseInt(upperSliderElement.value) !== defaultMax
-                                ? parseInt(upperSliderElement.value)
-                                : props.value.max,
-                            props.min,
-                        ),
+                    max: clamp(
+                        parseInt(upperSliderElement.value) !== defaultMax
+                            ? parseInt(upperSliderElement.value)
+                            : props.value.max,
+                        props.min,
                         props.max,
                     ),
                 };
@@ -219,7 +215,7 @@ export const ToniqSlider = defineToniqElement({
             fillDoubleRangeSlider();
         } else {
             if (!isDoubleRangeValue(props.value)) {
-                const initValue = Math.min(Math.max(props.value, props.min), props.max);
+                const initValue = clamp(props.value, props.min, props.max);
                 setProps({
                     value: initValue,
                     labelStyle: {
@@ -397,17 +393,11 @@ export const ToniqSlider = defineToniqElement({
                     setProps({
                         lowerLabelStyle: {
                             innerText: `${props.value.min} ${props.suffix}`,
-                            left: `${Math.min(
-                                Math.max(lowerLabelOffset, lowerLabelMin),
-                                lowerLabelMax,
-                            )}px`,
+                            left: `${clamp(lowerLabelOffset, lowerLabelMin, lowerLabelMax)}px`,
                         },
                         upperLabelStyle: {
                             innerText: `${props.value.max} ${props.suffix}`,
-                            left: `${Math.min(
-                                Math.max(upperLabelOffset, upperLabelMin),
-                                upperLabelMax,
-                            )}px`,
+                            left: `${clamp(upperLabelOffset, upperLabelMin, upperLabelMax)}px`,
                         },
                     });
                 }

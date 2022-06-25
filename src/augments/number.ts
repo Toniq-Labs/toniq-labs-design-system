@@ -12,3 +12,7 @@ export function mapRange(
 ) {
     return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
 }
+
+export function clamp(number: number, lower: number, upper: number) {
+    return Math.min(Math.max(number, lower), upper);
+}
