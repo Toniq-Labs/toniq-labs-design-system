@@ -104,14 +104,13 @@ export const ToniqPagination = defineToniqElement({
         });
 
         const getRange = (start: number, end: number) => {
-            return Array(end - start + 1)
-                .fill(undefined)
-                .map((v, i) => i + start);
+            const length = end - start + 1;
+            return Array.from({length}, (_, i) => start + i);
         };
 
         const pagination = (currentPage: number, pageCount: number, pageSize: number) => {
             let delta: number;
-
+            currentPage = clamp(currentPage, 1, pageCount);
             pageSize = clamp(pageSize, MINIMUM_PAGE_SIZE, pageCount);
             const centerPageSize = pageSize - 5;
             const boundaryPageSize = pageSize - 3;
