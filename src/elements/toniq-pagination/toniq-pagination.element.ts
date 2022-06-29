@@ -17,7 +17,8 @@ export const ToniqPagination = defineToniqElement({
     tagName: 'toniq-pagination',
     props: {
         currentPage: 1,
-        totalPages: 1,
+        /** This is required to set the total pages */
+        pageCount: 10,
         pageSize: 7,
     },
     styles: css`
@@ -41,11 +42,14 @@ export const ToniqPagination = defineToniqElement({
             ${applyBackgroundAndForeground(toniqColors.accentTertiary)};
         }
 
+        button {
+            ${removeNativeButtonStyles}
+        }
+
         .page {
             position: relative;
             width: 32px;
             height: 32px;
-            ${removeNativeButtonStyles}
             ${toniqFontStyles.labelFont}
         }
 
@@ -75,24 +79,28 @@ export const ToniqPagination = defineToniqElement({
         }
     `,
     events: {
+        /** For fetching initial API calls and data for rendering pagination */
+        created: defineElementEvent<undefined>(),
         /** Called on click page number */
         pageChange: defineElementEvent<number>(),
         /** Called on click previous button */
         previous: defineElementEvent<number>(),
         /** Called on click next button */
         next: defineElementEvent<number>(),
-        /** Fetch initial API calls and data */
-        created: defineElementEvent<null>(),
     },
     initCallback: ({dispatch, events}) => {
-        dispatch(new events.created(null));
+        dispatch(new events.created(undefined));
     },
     renderCallback: ({props, events, setProps, dispatch}) => {
-        const MINIMUM_PAGE_SIZE = 7;
+        /**
+         * Set minimum page size to 5. Lesser than 5 will show a [1 ...] or [1 ... ... 10] scenario
+         * which makes no sense.
+         */
+        const MINIMUM_PAGE_SIZE = 5;
 
         setProps({
-            currentPage: clamp(props.currentPage, 1, props.totalPages),
-            pageSize: clamp(props.pageSize, MINIMUM_PAGE_SIZE, props.totalPages),
+            currentPage: clamp(props.currentPage, 1, props.pageCount),
+            pageSize: clamp(props.pageSize, MINIMUM_PAGE_SIZE, props.pageCount),
         });
 
         const getRange = (start: number, end: number) => {
@@ -101,22 +109,20 @@ export const ToniqPagination = defineToniqElement({
                 .map((v, i) => i + start);
         };
 
-        /**
-         * Pagination with max width of 7 pages. This prevents the pages button to move around as
-         * user selects pages.
-         */
-        const pagination = (currentPage: number, totalPages: number) => {
+        const pagination = (currentPage: number, pageCount: number, pageSize: number) => {
             let delta: number;
-            if (totalPages <= props.pageSize) {
-                delta = props.pageSize;
+
+            pageSize = clamp(pageSize, MINIMUM_PAGE_SIZE, pageCount);
+            const centerPageSize = pageSize - 5;
+            const boundaryPageSize = pageSize - 3;
+
+            if (pageCount <= pageSize) {
+                delta = pageSize;
             } else {
-                // delta is 2: [1 ... 4 5 6 ... 10]
-                // delta is 4: [1 2 3 4 5...10]
                 delta =
-                    currentPage > props.pageSize - 3 &&
-                    currentPage < totalPages - props.pageSize + 4
-                        ? props.pageSize - 5
-                        : props.pageSize - 3;
+                    currentPage < boundaryPageSize || currentPage > pageCount - boundaryPageSize
+                        ? boundaryPageSize
+                        : centerPageSize;
             }
 
             const range = {
@@ -124,7 +130,7 @@ export const ToniqPagination = defineToniqElement({
                 end: Math.round(currentPage + delta / 2),
             };
 
-            if (range.start - 1 === 1 || range.end + 1 === totalPages) {
+            if (range.start - 1 === 1 || range.end + 1 === pageCount) {
                 range.start += 1;
                 range.end += 1;
             }
@@ -132,13 +138,17 @@ export const ToniqPagination = defineToniqElement({
             let pages: (string | number)[] =
                 currentPage > delta
                     ? getRange(
-                          Math.min(range.start, totalPages - delta),
-                          Math.min(range.end, totalPages),
+                          Math.min(range.start, pageCount - delta),
+                          Math.min(range.end, pageCount),
                       )
-                    : getRange(1, Math.min(totalPages, delta + 1));
+                    : getRange(1, Math.min(pageCount, delta + 1));
+
+            if (currentPage > pageCount - boundaryPageSize) {
+                pages = getRange(pageCount - delta, pageCount);
+            }
 
             const withDots = (value: number, pair: (string | number)[]) =>
-                pages.length + 1 !== totalPages ? pair : [value];
+                pages.length + 1 !== pageCount ? pair : [value];
             if (pages[0] !== 1) {
                 pages = withDots(1, [
                     1,
@@ -146,11 +156,11 @@ export const ToniqPagination = defineToniqElement({
                 ]).concat(pages);
             }
             const lastPage = pages[pages.length - 1];
-            if (lastPage && lastPage < totalPages) {
+            if (lastPage && lastPage < pageCount) {
                 pages = pages.concat(
-                    withDots(totalPages, [
+                    withDots(pageCount, [
                         '...',
-                        totalPages,
+                        pageCount,
                     ]),
                 );
             }
@@ -159,57 +169,53 @@ export const ToniqPagination = defineToniqElement({
         };
 
         return html`
-            <div>
-                <${ToniqButton}
-                    ${assign(ToniqButton.props.variant, ToniqButtonVariant.Secondary)}
-                    ${listen('click', () => {
-                        if (props.currentPage > 1) {
-                            setProps({currentPage: props.currentPage - 1});
-                            dispatch(new events.previous(props.currentPage));
-                        }
-                    })}
-                    class=${props.currentPage <= 1 ? 'disabled' : ''}
-                    ?disabled=${props.currentPage <= 1}
-                >
-                    <${ToniqIcon}
-                        ${assign(ToniqIcon.props.icon, ArrowLeft24Icon)}></${ToniqIcon}>
-                </${ToniqButton}>
-                ${map(
-                    pagination(props.currentPage, props.totalPages),
-                    (i: string | number) =>
-                        html`
-                            <button
-                                class=${classMap({
-                                    page: true,
-                                    selected: props.currentPage === i,
-                                })}
-                                ?disabled=${i === '...' || props.currentPage === i}
-                                ${listen('click', () => {
-                                    if (typeof i === 'number') {
-                                        setProps({currentPage: i});
-                                        dispatch(new events.pageChange(i));
-                                    }
-                                })}
-                            >
-                                ${i}
-                            </button>
-                        `,
-                )}
-                <${ToniqButton}
-                    ${assign(ToniqButton.props.variant, ToniqButtonVariant.Secondary)}
-                    ${listen('click', () => {
-                        if (props.currentPage < props.totalPages) {
-                            setProps({currentPage: props.currentPage + 1});
-                            dispatch(new events.next(props.currentPage));
-                        }
-                    })}
-                    class=${props.currentPage >= props.totalPages ? 'disabled' : ''}
-                    ?disabled=${props.currentPage >= props.totalPages}
-                >
-                    <${ToniqIcon}
-                        ${assign(ToniqIcon.props.icon, ArrowRight24Icon)}></${ToniqIcon}>
-                </${ToniqButton}>
-            </div>
+            <${ToniqButton}
+                ${assign(ToniqButton.props.variant, ToniqButtonVariant.Secondary)}
+                ${listen('click', () => {
+                    if (props.currentPage > 1) {
+                        setProps({currentPage: props.currentPage - 1});
+                        dispatch(new events.previous(props.currentPage));
+                    }
+                })}
+                class=${props.currentPage <= 1 ? 'disabled' : ''}
+            >
+                <${ToniqIcon}
+                    ${assign(ToniqIcon.props.icon, ArrowLeft24Icon)}></${ToniqIcon}>
+            </${ToniqButton}>
+            ${map(
+                pagination(props.currentPage, props.pageCount, props.pageSize),
+                (i: string | number) =>
+                    html`
+                        <button
+                            class=${classMap({
+                                page: true,
+                                selected: props.currentPage === i,
+                            })}
+                            ?disabled=${i === '...' || props.currentPage === i}
+                            ${listen('click', () => {
+                                if (typeof i === 'number') {
+                                    setProps({currentPage: i});
+                                    dispatch(new events.pageChange(i));
+                                }
+                            })}
+                        >
+                            ${i}
+                        </button>
+                    `,
+            )}
+            <${ToniqButton}
+                ${assign(ToniqButton.props.variant, ToniqButtonVariant.Secondary)}
+                ${listen('click', () => {
+                    if (props.currentPage < props.pageCount) {
+                        setProps({currentPage: props.currentPage + 1});
+                        dispatch(new events.next(props.currentPage));
+                    }
+                })}
+                class=${props.currentPage >= props.pageCount ? 'disabled' : ''}
+            >
+                <${ToniqIcon}
+                    ${assign(ToniqIcon.props.icon, ArrowRight24Icon)}></${ToniqIcon}>
+            </${ToniqButton}>
         `;
     },
 });
