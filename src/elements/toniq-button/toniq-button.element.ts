@@ -19,7 +19,7 @@ export const ToniqButton = defineToniqElement({
     styles: css`
         :host {
             ${toniqFontStyles.boldParagraphFont};
-            display: inline-block;
+            display: inline-flex;
             vertical-align: middle;
             ${noUserSelect};
         }
@@ -40,7 +40,7 @@ export const ToniqButton = defineToniqElement({
             align-items: center;
             border-radius: ${buttonBorderRadius};
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
-            padding: 12px;
+            padding: 10px;
             transition: color ${interactionDuration}, background-color ${interactionDuration},
                 border-color ${interactionDuration};
         }
