@@ -57,6 +57,19 @@
 
 @font-face {
     font-family: 'Rubik';
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+    src: url('./fonts/rubik-black.eot');
+    src: url('./fonts/rubik-black.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/rubik-black.ttf') format('truetype'),
+        url('./fonts/rubik-black.woff') format('woff'),
+        url('./fonts/rubik-black.woff2') format('woff2'),
+        url('./fonts/rubik-black.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Rubik';
     font-style: italic;
     font-display: swap;
     src: url('./fonts/rubik-italic.eot');
