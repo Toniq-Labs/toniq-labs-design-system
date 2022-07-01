@@ -43,7 +43,7 @@ export const ToniqToggleButton = defineToniqElement({
         }
 
         :host(:hover) button {
-            background-color: ${toniqColors.pageTertiary.foregroundColor};
+            ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
         :host(:hover) button.active {
@@ -66,7 +66,7 @@ export const ToniqToggleButton = defineToniqElement({
             ${applyBackgroundAndForeground(toniqColors.pageInteractionHover)};
         }
         :host(.toniq-toggle-button-text-only:hover) button {
-            color: ${toniqColors.pageSecondary.foregroundColor};
+            color: ${toniqColors.pageInteraction.foregroundColor};
         }
         :host(.toniq-toggle-button-text-only:active) button.active {
             ${applyBackgroundAndForeground(toniqColors.pageInteractionActive)};
