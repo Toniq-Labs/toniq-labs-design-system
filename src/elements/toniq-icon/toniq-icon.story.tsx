@@ -1,7 +1,7 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
 import {allIconsByCategory} from '../../icons';
-import {toniqFontStyles} from '../../styles';
+import {toniqColors, toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {toniqIconColorCssVarNames} from '../../styles/icon-colors';
 import {ToniqIcon} from '../react-components';
@@ -78,8 +78,25 @@ export const mainStory = (controls: Record<keyof typeof iconStoryControls, strin
         Object.keys(allIconsByCategory) as (keyof typeof allIconsByCategory)[]
     ).map((categoryName) => {
         const iconInstances = allIconsByCategory[categoryName].map((icon) => (
-            <div key={icon.iconName} title={icon.iconName}>
-                <ToniqIcon style={sizeStyles} className={controls.hostClass} icon={icon} />
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    border: `1px solid ${toniqColors.divider.foregroundColor}`,
+                    color: String(toniqColors.pageTertiary.foregroundColor),
+                    borderRadius: '8px',
+                    padding: '8px',
+                }}
+                key={icon.iconName}
+                title={icon.iconName}
+            >
+                <ToniqIcon
+                    style={{...sizeStyles, color: String(toniqColors.pagePrimary.foregroundColor)}}
+                    className={controls.hostClass}
+                    icon={icon}
+                />
+                <span>{icon.iconName}</span>
             </div>
         ));
 
