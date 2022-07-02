@@ -5,20 +5,23 @@ import {clamp} from '../../augments/number';
 import {ArrowLeft24Icon, ArrowRight24Icon} from '../../icons';
 import {
     applyBackgroundAndForeground,
+    noUserSelect,
     removeNativeButtonStyles,
     toniqColors,
     toniqFontStyles,
 } from '../../styles';
 import {defineToniqElement} from '../define-toniq-element';
-import {ToniqButton, ToniqButtonVariant} from '../toniq-button/toniq-button.element';
+import {buttonBorderRadius} from '../toniq-button/toniq-button.element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 export const ToniqPagination = defineToniqElement({
     tagName: 'toniq-pagination',
     props: {
+        /** Set the selected page */
         currentPage: 1,
         /** This is required to set the total pages */
         pageCount: 10,
+        /** Controls the fixed number of pages */
         pageSize: 7,
     },
     styles: css`
@@ -28,22 +31,24 @@ export const ToniqPagination = defineToniqElement({
             justify-content: center;
         }
 
-        ${ToniqButton}::part(inner-button) {
+        button {
+            ${removeNativeButtonStyles}
+        }
+
+        .control {
+            border-radius: ${buttonBorderRadius};
+            ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
             margin: 0 8px;
             padding: 4px;
         }
 
-        ${ToniqButton}::part(inner-button):hover {
+        .control:hover {
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
-        ${ToniqButton}.disabled::part(inner-button) {
-            pointer-events: none;
+        .control[disabled] {
+            cursor: auto;
             ${applyBackgroundAndForeground(toniqColors.accentTertiary)};
-        }
-
-        button {
-            ${removeNativeButtonStyles}
         }
 
         .page {
@@ -51,6 +56,7 @@ export const ToniqPagination = defineToniqElement({
             width: 32px;
             height: 32px;
             ${toniqFontStyles.labelFont}
+            ${noUserSelect}
         }
 
         .page[disabled],
@@ -97,11 +103,6 @@ export const ToniqPagination = defineToniqElement({
          * which makes no sense.
          */
         const MINIMUM_PAGE_SIZE = 5;
-
-        setProps({
-            currentPage: clamp(props.currentPage, 1, props.pageCount),
-            pageSize: clamp(props.pageSize, MINIMUM_PAGE_SIZE, props.pageCount),
-        });
 
         const getRange = (start: number, end: number) => {
             const length = end - start + 1;
@@ -167,20 +168,23 @@ export const ToniqPagination = defineToniqElement({
             return pages;
         };
 
-        return html`
-            <${ToniqButton}
-                ${assign(ToniqButton.props.variant, ToniqButtonVariant.Secondary)}
+        if (props.pageCount <= 1) {
+            return html``;
+        } else {
+            return html`
+            <button
                 ${listen('click', () => {
                     if (props.currentPage > 1) {
                         setProps({currentPage: props.currentPage - 1});
                         dispatch(new events.previous(props.currentPage));
                     }
                 })}
-                class=${props.currentPage <= 1 ? 'disabled' : ''}
+                class="control"
+                ?disabled=${props.currentPage <= 1}
             >
                 <${ToniqIcon}
                     ${assign(ToniqIcon.props.icon, ArrowLeft24Icon)}></${ToniqIcon}>
-            </${ToniqButton}>
+            </button>
             ${map(
                 pagination(props.currentPage, props.pageCount, props.pageSize),
                 (i: string | number) =>
@@ -202,19 +206,20 @@ export const ToniqPagination = defineToniqElement({
                         </button>
                     `,
             )}
-            <${ToniqButton}
-                ${assign(ToniqButton.props.variant, ToniqButtonVariant.Secondary)}
+            <button
                 ${listen('click', () => {
                     if (props.currentPage < props.pageCount) {
                         setProps({currentPage: props.currentPage + 1});
                         dispatch(new events.next(props.currentPage));
                     }
                 })}
-                class=${props.currentPage >= props.pageCount ? 'disabled' : ''}
+                class="control"
+                ?disabled=${props.currentPage >= props.pageCount}
             >
                 <${ToniqIcon}
                     ${assign(ToniqIcon.props.icon, ArrowRight24Icon)}></${ToniqIcon}>
-            </${ToniqButton}>
+            </button>
         `;
+        }
     },
 });

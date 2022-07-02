@@ -111,10 +111,8 @@ export const toniqFontStyles = (() => {
     `;
 
     const labelFontBold = css`
-        ${toniqFont};
-        font-style: normal;
-        ${combineFallbacksAndVars('labelFont')};
-        ${boldFont}
+        ${labelFont};
+        ${boldFont};
     `;
 
     const h1Font = css`
