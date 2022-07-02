@@ -14,6 +14,11 @@ const buttonStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: Speci
             disable: true,
         },
     },
+    icon: {
+        table: {
+            disable: true,
+        },
+    },
     textInput: {
         name: 'Text',
         control: 'text',
@@ -43,7 +48,7 @@ const buttonComponentStoryMeta: ComponentMeta<typeof ToniqButton> = {
     argTypes: buttonStoryControls,
     args: {
         textInput: 'Custom text here',
-        iconName: undefined,
+        iconName: 'None',
         hostClass: 'None',
     },
 };
