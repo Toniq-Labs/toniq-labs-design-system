@@ -20,9 +20,40 @@ export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
 ) {
     const wrappedComponent = class extends Component<ReactWrapperProps<ElementGeneric>> {
         public componentRef: any = React.createRef<ReactWrapperElementInstance<ElementGeneric>>();
+        public listenerMap = new Map<string, (event: Event) => void>();
 
         constructor(props: Partial<ReactWrapperProps<ElementGeneric>>) {
             super(props);
+        }
+
+        public attachLatestProps(previousProps: ReactWrapperProps<ElementGeneric> | undefined) {
+            const componentInstance = this.componentRef.current as HTMLElement;
+            getObjectTypedKeys(this.props).forEach((propKey) => {
+                const currentProp = this.props[propKey];
+                const listenerType = extractListenerType(propKey);
+                const newPropIsDifferent = previousProps
+                    ? previousProps[propKey] !== currentProp
+                    : true;
+
+                if (newPropIsDifferent) {
+                    if (listenerType && typeof currentProp === 'function') {
+                        const lastListener = this.listenerMap.get(listenerType);
+                        if (lastListener) {
+                            componentInstance.removeEventListener(listenerType, lastListener);
+                        }
+                        const newListener = (event: Event) => {
+                            currentProp(event);
+                        };
+                        this.listenerMap.set(listenerType, newListener);
+
+                        componentInstance.addEventListener(listenerType, newListener);
+                    } else if (!listenerType) {
+                        if (!ignoreTheseProps.has(propKey)) {
+                            (componentInstance as any)[propKey] = currentProp;
+                        }
+                    }
+                }
+            });
         }
 
         public override componentDidMount() {
@@ -32,39 +63,16 @@ export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
              * Otherwise, it tries to stringify the event, which tries to call .toJSON on the
              * element (as it'll be in the event as "target" or "srcElement", etc.
              */
-            componentInstance.toJSON = () => componentInstance.tagName;
-            if (componentInstance) {
-                getObjectTypedKeys(this.props).forEach((propKey) => {
-                    const currentProp = this.props[propKey];
-                    const listenerType = extractListenerType(propKey);
 
-                    if (listenerType && typeof currentProp === 'function') {
-                        componentInstance.addEventListener(listenerType, (event: Event) => {
-                            currentProp(event);
-                        });
-                    } else if (!listenerType) {
-                        if (!ignoreTheseProps.has(propKey)) {
-                            componentInstance[propKey] = currentProp;
-                        }
-                    }
-                });
+            if (componentInstance) {
+                componentInstance.toJSON = () => componentInstance.tagName;
+
+                this.attachLatestProps(undefined);
             }
         }
 
         public override componentDidUpdate(prevProps: ReactWrapperProps<ElementGeneric>) {
-            const componentInstance = this.componentRef.current;
-
-            getObjectTypedKeys(this.props).forEach((propKey) => {
-                const currentProp = this.props[propKey];
-
-                if (
-                    !ignoreTheseProps.has(propKey) &&
-                    componentInstance &&
-                    prevProps[propKey] !== currentProp
-                ) {
-                    componentInstance[propKey] = currentProp;
-                }
-            });
+            this.attachLatestProps(prevProps);
         }
 
         public override render() {
