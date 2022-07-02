@@ -1,4 +1,4 @@
-import {assign, css, defineElementEvent, html, listen} from 'element-vir';
+import {assign, css, html} from 'element-vir';
 import {ToniqSvg} from '../../icons';
 import {interactionDuration} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
@@ -15,9 +15,6 @@ export const ToniqToggleButton = defineToniqElement({
         active: false,
         icon: undefined as undefined | Readonly<ToniqSvg>,
     },
-    events: {
-        activeChange: defineElementEvent<boolean>(),
-    },
     styles: css`
         :host {
             ${toniqFontStyles.boldParagraphFont};
@@ -28,9 +25,6 @@ export const ToniqToggleButton = defineToniqElement({
 
         button {
             ${removeNativeButtonStyles};
-        }
-
-        .wrapper {
             border: 0;
             display: inline-flex;
             cursor: pointer;
@@ -38,66 +32,75 @@ export const ToniqToggleButton = defineToniqElement({
 
             -webkit-tap-highlight-color: transparent;
             border-radius: 8px;
+            padding: 4px 12px;
 
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
             transition: color ${interactionDuration}, background-color ${interactionDuration};
         }
 
-        .text-wrapper {
-            margin: 4px 12px;
-            margin-left: 0;
-        }
-
-        .icon-wrapper {
-            margin-left: 12px;
-        }
-
-        .wrapper.active {
+        button.active {
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
-        :host(.toniq-toggle-button-text-only) .wrapper {
+        :host(:hover) button {
+            ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
+        }
+
+        :host(:hover) button.active {
+            ${applyBackgroundAndForeground(toniqColors.accentPrimaryHover)};
+        }
+
+        :host(:active) button.active {
+            ${applyBackgroundAndForeground(toniqColors.accentPrimaryActive)};
+        }
+
+        :host(.toniq-toggle-button-text-only) button {
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
             background: none;
         }
-        :host(.toniq-toggle-button-text-only) .wrapper.active {
+        :host(.toniq-toggle-button-text-only) button.active {
             ${applyBackgroundAndForeground(toniqColors.pageInteraction)};
             background: none;
         }
-        :host(.toniq-toggle-button-text-only) .text-wrapper {
-            margin-right: 8px;
+        :host(.toniq-toggle-button-text-only:hover) button.active {
+            ${applyBackgroundAndForeground(toniqColors.pageInteractionHover)};
         }
-        :host(.toniq-toggle-button-text-only) .icon-wrapper {
-            margin-left: 8px;
+        :host(.toniq-toggle-button-text-only:hover) button {
+            color: ${toniqColors.pageInteraction.foregroundColor};
+        }
+        :host(.toniq-toggle-button-text-only:active) button.active {
+            ${applyBackgroundAndForeground(toniqColors.pageInteractionActive)};
+        }
+        :host(.toniq-toggle-button-text-only) button {
+            padding: 0 8px;
         }
 
-        ${ToniqIcon} {
-            margin-right: 8px;
+        .icon-template + .text-template {
+            margin-left: 8px;
         }
     `,
-    renderCallback: ({props, dispatch, events, setProps}) => {
+    renderCallback: ({props}) => {
         const iconTemplate = props.icon
             ? html`
                 <${ToniqIcon}
+                class="icon-template"
                     ${assign(ToniqIcon.props.icon, props.icon)}
                 ></${ToniqIcon}>
             `
             : '';
+        const textTemplate = props.text
+            ? html`
+                  <span class="text-template">${props.text}</span>
+              `
+            : '';
 
         return html`
             <button
-                class="wrapper ${props.active ? 'active' : ''}"
-                ${listen('click', () => {
-                    const active = !props.active;
-                    setProps({active});
-                    dispatch(new events.activeChange(active));
-                })}
+                class="${props.active ? 'active' : ''}"
                 role="checkbox"
                 aria-checked=${props.active}
-                class="wrapper"
             >
-                <span class="icon-wrapper">${iconTemplate}</span>
-                <span class="text-wrapper">${props.text}</span>
+                ${iconTemplate} ${textTemplate}
             </button>
         `;
     },

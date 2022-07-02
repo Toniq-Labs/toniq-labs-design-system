@@ -3,6 +3,7 @@ import {ChevronDown24Icon} from '../../icons';
 import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {removeNativeButtonStyles} from '../../styles/native-styles';
+import {toniqShadows} from '../../styles/shadows';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
@@ -79,7 +80,7 @@ export const ToniqDropdown = defineToniqElement({
             z-index: 99;
             border-radius: 8px;
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)}
-            filter: drop-shadow(0px 16px 16px ${toniqColors.dropShadow.backgroundColor});
+            ${toniqShadows.popupShadow};
         }
 
         .select-options .option {

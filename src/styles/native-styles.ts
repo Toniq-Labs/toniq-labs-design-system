@@ -8,5 +8,7 @@ export const removeNativeButtonStyles = css`
     font: inherit;
     color: inherit;
     cursor: pointer;
+    text-transform: inherit;
+    text-decoration: inherit;
     -webkit-tap-highlight-color: transparent;
 `;
