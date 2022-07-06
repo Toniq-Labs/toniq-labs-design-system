@@ -108,6 +108,7 @@ export const toniqFontStyles = (() => {
         ${toniqFont};
         font-style: normal;
         ${combineFallbacksAndVars('labelFont')};
+        ${normalWeightFont};
     `;
 
     const labelFontBold = css`

@@ -17,8 +17,8 @@ const paginationStoryControls = (<SpecificArgsGeneric extends ArgTypes>(
         name: 'Page Count',
         control: 'number',
     },
-    pageSize: {
-        name: 'Page Size',
+    pagesShown: {
+        name: 'Pages Shown',
         control: 'number',
     },
 } as const);
@@ -31,7 +31,7 @@ const paginationComponentStoryMeta: ComponentMeta<typeof ToniqPagination> = {
     args: {
         currentPage: 1,
         pageCount: 10,
-        pageSize: 7,
+        pagesShown: 7,
     },
 };
 
@@ -50,7 +50,7 @@ export const mainStory = (controls: Record<keyof typeof paginationStoryControls,
             <ToniqPagination
                 currentPage={controls.currentPage}
                 pageCount={controls.pageCount}
-                pageSize={controls.pageSize}
+                pagesShown={controls.pagesShown}
                 onPageChange={handleEventAsAction}
                 onCreated={handleEventAsAction}
                 onPrevious={handleEventAsAction}

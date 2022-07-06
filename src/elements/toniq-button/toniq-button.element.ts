@@ -21,27 +21,34 @@ export const ToniqButton = defineToniqElement({
     styles: css`
         :host {
             ${toniqFontStyles.boldParagraphFont};
-            display: inline-block;
-            vertical-align: middle;
             ${noUserSelect};
+            border-radius: ${buttonBorderRadius};
+            padding: 12px;
+            ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
+            cursor: pointer;
+        }
+
+        :host(.variant-secondary) {
+            ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
+        }
+
+        :host([disabled]),
+        :host([disabled]) button {
+            cursor: auto;
         }
 
         button {
             ${removeNativeButtonStyles};
-            border-radius: ${buttonBorderRadius};
-            ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
-            padding: 12px;
-        }
-
-        button.variant-secondary {
-            ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
+            display: inline-block;
+            vertical-align: middle;
         }
     `,
-    renderCallback: ({props}) => {
-        const buttonClasses = `variant-${props.variant}`;
+    renderCallback: ({host, props}) => {
+        const hostClasses = `variant-${props.variant}`;
+        host.classList.add(hostClasses);
 
         return html`
-            <button class=${buttonClasses}><slot>${props.text}</slot></button>
+            <button><slot>${props.text}</slot></button>
         `;
     },
 });

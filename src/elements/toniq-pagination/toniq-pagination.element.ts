@@ -1,7 +1,7 @@
 import {assign, css, defineElementEvent, html, listen} from 'element-vir';
 import {classMap} from 'lit/directives/class-map.js';
 import {map} from 'lit/directives/map.js';
-import {clamp} from '../../augments/number';
+import {pagination} from '../../augments/array';
 import {ArrowLeft24Icon, ArrowRight24Icon} from '../../icons';
 import {
     applyBackgroundAndForeground,
@@ -11,7 +11,7 @@ import {
     toniqFontStyles,
 } from '../../styles';
 import {defineToniqElement} from '../define-toniq-element';
-import {buttonBorderRadius} from '../toniq-button/toniq-button.element';
+import {buttonBorderRadius, ToniqButton} from '../toniq-button/toniq-button.element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 export const ToniqPagination = defineToniqElement({
@@ -21,8 +21,11 @@ export const ToniqPagination = defineToniqElement({
         currentPage: 1,
         /** This is required to set the total pages */
         pageCount: 10,
-        /** Controls the fixed number of pages */
-        pageSize: 7,
+        /**
+         * The number of pages to show. When pageCount exceeds this number, the excess will be
+         * converted into "...". Instances of "..." are included in the pagesShown count.
+         */
+        pagesShown: 7,
     },
     styles: css`
         :host {
@@ -52,11 +55,15 @@ export const ToniqPagination = defineToniqElement({
         }
 
         .page {
+            display: flex;
             position: relative;
             width: 32px;
             height: 32px;
             ${toniqFontStyles.labelFont}
             ${noUserSelect}
+            justify-content: center;
+            background: none;
+            padding: 0;
         }
 
         .page[disabled],
@@ -70,16 +77,6 @@ export const ToniqPagination = defineToniqElement({
 
         .page.selected {
             color: white;
-        }
-
-        .page.selected::after {
-            content: '';
-            position: absolute;
-            z-index: -1;
-            height: 32px;
-            width: 32px;
-            margin: auto;
-            inset: 0;
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
             border-radius: 16px;
         }
@@ -98,81 +95,11 @@ export const ToniqPagination = defineToniqElement({
         dispatch(new events.created(undefined));
     },
     renderCallback: ({props, events, setProps, dispatch}) => {
-        /**
-         * Set minimum page size to 5. Lesser than 5 will show a [1 ...] or [1 ... ... 10] scenario
-         * which makes no sense.
-         */
-        const MINIMUM_PAGE_SIZE = 5;
-
-        const getRange = (start: number, end: number) => {
-            const length = end - start + 1;
-            return Array.from({length}, (_, i) => start + i);
-        };
-
-        const pagination = (currentPage: number, pageCount: number, pageSize: number) => {
-            let delta: number;
-            currentPage = clamp(currentPage, 1, pageCount);
-            pageSize = clamp(pageSize, MINIMUM_PAGE_SIZE, pageCount);
-            const centerPageSize = pageSize - 5;
-            const boundaryPageSize = pageSize - 3;
-
-            if (pageCount <= pageSize) {
-                delta = pageSize;
-            } else {
-                delta =
-                    currentPage < boundaryPageSize || currentPage > pageCount - boundaryPageSize
-                        ? boundaryPageSize
-                        : centerPageSize;
-            }
-
-            const range = {
-                start: Math.round(currentPage - delta / 2),
-                end: Math.round(currentPage + delta / 2),
-            };
-
-            if (range.start - 1 === 1 || range.end + 1 === pageCount) {
-                range.start += 1;
-                range.end += 1;
-            }
-
-            let pages: (string | number)[] =
-                currentPage > delta
-                    ? getRange(
-                          Math.min(range.start, pageCount - delta),
-                          Math.min(range.end, pageCount),
-                      )
-                    : getRange(1, Math.min(pageCount, delta + 1));
-
-            if (currentPage > pageCount - boundaryPageSize) {
-                pages = getRange(pageCount - delta, pageCount);
-            }
-
-            const withDots = (value: number, pair: (string | number)[]) =>
-                pages.length + 1 !== pageCount ? pair : [value];
-            if (pages[0] !== 1) {
-                pages = withDots(1, [
-                    1,
-                    '...',
-                ]).concat(pages);
-            }
-            const lastPage = pages[pages.length - 1];
-            if (lastPage && lastPage < pageCount) {
-                pages = pages.concat(
-                    withDots(pageCount, [
-                        '...',
-                        pageCount,
-                    ]),
-                );
-            }
-
-            return pages;
-        };
-
         if (props.pageCount <= 1) {
             return html``;
         } else {
             return html`
-            <button
+            <${ToniqButton}
                 ${listen('click', () => {
                     if (props.currentPage > 1) {
                         setProps({currentPage: props.currentPage - 1});
@@ -184,12 +111,12 @@ export const ToniqPagination = defineToniqElement({
             >
                 <${ToniqIcon}
                     ${assign(ToniqIcon.props.icon, ArrowLeft24Icon)}></${ToniqIcon}>
-            </button>
+            </${ToniqButton}>
             ${map(
-                pagination(props.currentPage, props.pageCount, props.pageSize),
+                pagination(props.currentPage, props.pageCount, props.pagesShown),
                 (i: string | number) =>
                     html`
-                        <button
+                        <${ToniqButton}
                             class=${classMap({
                                 page: true,
                                 selected: props.currentPage === i,
@@ -203,10 +130,10 @@ export const ToniqPagination = defineToniqElement({
                             })}
                         >
                             ${i}
-                        </button>
+                        </${ToniqButton}>
                     `,
             )}
-            <button
+            <${ToniqButton}
                 ${listen('click', () => {
                     if (props.currentPage < props.pageCount) {
                         setProps({currentPage: props.currentPage + 1});
@@ -218,7 +145,7 @@ export const ToniqPagination = defineToniqElement({
             >
                 <${ToniqIcon}
                     ${assign(ToniqIcon.props.icon, ArrowRight24Icon)}></${ToniqIcon}>
-            </button>
+            </${ToniqButton}>
         `;
         }
     },

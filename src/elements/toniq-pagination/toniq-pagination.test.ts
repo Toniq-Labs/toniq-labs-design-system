@@ -48,15 +48,15 @@ describe(ToniqPagination.tagName, () => {
     it(
         'should correctly set page size',
         createFixtureTest(async () => {
-            const pageSize = 7;
+            const pagesShown = 7;
             const rendered = await fixture(
                 html`
-                    <${ToniqPagination} ${assign(ToniqPagination.props.pageSize, pageSize)} />
+                    <${ToniqPagination} ${assign(ToniqPagination.props.pagesShown, pagesShown)} />
                 `,
             );
 
             const page = queryThroughShadow('button.page', rendered, true);
-            assert.strictEqual(page.length, pageSize);
+            assert.strictEqual(page.length, pagesShown);
         }),
     );
 });
