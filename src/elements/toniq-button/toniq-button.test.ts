@@ -2,10 +2,7 @@ import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';
-import {
-    getTextContentThroughShadow,
-    queryThroughShadow,
-} from '../../element-testing/query-through-shadow';
+import {getTextContentThroughShadow} from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
 import {createFocusTests} from '../../element-testing/test-focus';
 import {ToniqButton} from './toniq-button.element';
@@ -22,10 +19,9 @@ describe(ToniqButton.tagName, () => {
             `,
             );
 
-            const innerButton = queryThroughShadow('button', rendered);
-            assertInstanceOf(innerButton, HTMLButtonElement);
+            assertInstanceOf(rendered, HTMLElement);
 
-            assert.equal(innerButton.className.trim(), 'variant-primary');
+            assert.equal(rendered.className.trim(), 'variant-primary');
         }),
     );
 
