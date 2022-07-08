@@ -10,12 +10,24 @@ export type DualColorDefinition = Readonly<{
     backgroundColor: CSSResult;
 }>;
 
+function swapColors(input: DualColorDefinition): DualColorDefinition {
+    return {
+        foregroundColor: input.backgroundColor,
+        backgroundColor: input.foregroundColor,
+    };
+}
+
 const mainLightPalette = (() => {
     const pagePrimary: DualColorDefinition = {
         /** Default page background color. */
         backgroundColor: css`#ffffff`,
         /** Default page foreground (usually text) color. */
         foregroundColor: css`#000000`,
+    };
+
+    const brandPrimary: DualColorDefinition = {
+        ...pagePrimary,
+        foregroundColor: css`#00D093`,
     };
     /** For secondary foreground (text) elements, lighter than the primary foreground color. */
     const pageSecondary: DualColorDefinition = {
@@ -28,9 +40,18 @@ const mainLightPalette = (() => {
         foregroundColor: css`#ACADAD`,
     };
 
-    const brandPrimary: DualColorDefinition = {
-        ...pagePrimary,
-        foregroundColor: css`#00D093`,
+    const pageInteraction: DualColorDefinition = {
+        ...brandPrimary,
+    };
+
+    const pageInteractionHover: DualColorDefinition = {
+        ...brandPrimary,
+        foregroundColor: css`#00A876`,
+    };
+
+    const pageInteractionActive: DualColorDefinition = {
+        ...brandPrimary,
+        foregroundColor: css`#007D57`,
     };
 
     /** The color for divider lines. */
@@ -38,17 +59,17 @@ const mainLightPalette = (() => {
         ...pagePrimary,
         foregroundColor: css`#D6D6D6`,
     };
+
     /** Drop shadow for some rounded rectangle shapes. */
     const dropShadow: DualColorDefinition = {
         ...pagePrimary,
         backgroundColor: css`#D2EEFA`,
     };
-    const accentPrimary: DualColorDefinition = {
-        /** Color for primary accents, like primary buttons. */
-        backgroundColor: brandPrimary.foregroundColor,
-        /** Color for the foreground (text) on top of accentPrimaryBackgroundColor. */
-        foregroundColor: css`#ffffff`,
-    };
+
+    const accentPrimary: DualColorDefinition = swapColors(pageInteraction);
+    const accentPrimaryHover: DualColorDefinition = swapColors(pageInteractionHover);
+    const accentPrimaryActive: DualColorDefinition = swapColors(pageInteractionActive);
+
     const accentSecondary: DualColorDefinition = {
         /** Color for secondary item backgrounds, like inactive toggle buttons or header backgrounds. */
         backgroundColor: css`#F1F3F6`,
@@ -63,9 +84,6 @@ const mainLightPalette = (() => {
          */
         foregroundColor: css`#9A9A9D`,
     };
-    const pageInteraction: DualColorDefinition = {
-        ...brandPrimary,
-    };
 
     return wrapTypeWithReadonly<Record<string, DualColorDefinition>>()({
         brandPrimary,
@@ -73,9 +91,13 @@ const mainLightPalette = (() => {
         pageSecondary,
         pageTertiary,
         pageInteraction,
+        pageInteractionHover,
+        pageInteractionActive,
         divider,
         dropShadow,
         accentPrimary,
+        accentPrimaryHover,
+        accentPrimaryActive,
         accentSecondary,
         accentTertiary,
     });

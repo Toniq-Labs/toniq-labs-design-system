@@ -1,5 +1,4 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
-import {capitalizeFirstLetter, getEnumTypedValues, isEnumValue} from 'augment-vir';
 import React from 'react';
 import {allIconsByCategory} from '../../icons';
 import {ExternalLink24Icon} from '../../icons/svgs/core-24/external-link-24.icon';
@@ -7,7 +6,6 @@ import {handleEventAsAction} from '../../storybook-helpers/actions';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqButton, ToniqIcon} from '../react-components';
-import {ToniqButtonVariant} from './toniq-button.element';
 
 const buttonStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
     input)({
@@ -16,14 +14,23 @@ const buttonStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: Speci
             disable: true,
         },
     },
+    icon: {
+        table: {
+            disable: true,
+        },
+    },
     textInput: {
         name: 'Text',
         control: 'text',
     },
-    variant: {
-        name: 'Variant',
+    hostClass: {
+        name: 'Host Class',
         control: 'select',
-        options: getEnumTypedValues(ToniqButtonVariant),
+        options: [
+            'None',
+            'toniq-button-secondary',
+            'toniq-button-outline',
+        ],
     },
     iconName: {
         name: '24px Icon',
@@ -41,15 +48,17 @@ const buttonComponentStoryMeta: ComponentMeta<typeof ToniqButton> = {
     argTypes: buttonStoryControls,
     args: {
         textInput: 'Custom text here',
-        iconName: undefined,
+        iconName: 'None',
+        hostClass: 'None',
     },
 };
 
 export default buttonComponentStoryMeta;
 
 export const mainStory = (controls: Record<keyof typeof buttonStoryControls, string>) => {
-    function createVariantSection(variant: ToniqButtonVariant) {
-        const title = capitalizeFirstLetter(variant);
+    function createVariantSection(hostClass: string) {
+        const title = hostClass || 'Default';
+
         return (
             <>
                 <h3
@@ -60,17 +69,31 @@ export const mainStory = (controls: Record<keyof typeof buttonStoryControls, str
                     {title}
                 </h3>
                 <section style={{display: 'flex', gap: '16px'}}>
-                    <ToniqButton variant={variant} onClick={handleEventAsAction}>
-                        Default {title}
-                    </ToniqButton>
-                    <ToniqButton variant={variant} onClick={handleEventAsAction}>
+                    <ToniqButton
+                        className={hostClass}
+                        text={`Default ${title}`}
+                        onClick={handleEventAsAction}
+                    ></ToniqButton>
+                    <ToniqButton
+                        className={hostClass}
+                        text={`Icon and text inputs`}
+                        icon={ExternalLink24Icon}
+                        onClick={handleEventAsAction}
+                    ></ToniqButton>
+                    <ToniqButton
+                        className={hostClass}
+                        title="Just icon input"
+                        icon={ExternalLink24Icon}
+                        onClick={handleEventAsAction}
+                    ></ToniqButton>
+                    <ToniqButton className={hostClass} onClick={handleEventAsAction}>
                         <div>
                             <span>With HTML Child</span>
                         </div>
                     </ToniqButton>
                     <ToniqButton
                         title="with toniq-icon child"
-                        variant={variant}
+                        className={hostClass}
                         onClick={handleEventAsAction}
                     >
                         <ToniqIcon icon={ExternalLink24Icon} />
@@ -80,10 +103,6 @@ export const mainStory = (controls: Record<keyof typeof buttonStoryControls, str
         );
     }
 
-    const customVariant: ToniqButtonVariant = isEnumValue(controls.variant, ToniqButtonVariant)
-        ? controls.variant
-        : ToniqButtonVariant.Primary;
-
     const customIcon = allIconsByCategory['core-24'].find(
         (icon) => icon.iconName === controls.iconName,
     );
@@ -91,8 +110,9 @@ export const mainStory = (controls: Record<keyof typeof buttonStoryControls, str
 
     return (
         <article>
-            {createVariantSection(ToniqButtonVariant.Primary)}
-            {createVariantSection(ToniqButtonVariant.Secondary)}
+            {createVariantSection('')}
+            {createVariantSection('toniq-button-secondary')}
+            {createVariantSection('toniq-button-outline')}
 
             <h3
                 style={{
@@ -102,7 +122,7 @@ export const mainStory = (controls: Record<keyof typeof buttonStoryControls, str
                 Custom Inputs
             </h3>
             <ToniqButton
-                variant={customVariant}
+                className={controls.hostClass}
                 onClick={handleEventAsAction}
                 text={controls.textInput}
             >

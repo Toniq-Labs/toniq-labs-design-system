@@ -16,6 +16,11 @@ export const ToniqIcon = defineToniqElement({
             /* svg is set to inline by default which gives it space under the image. See: https://stackoverflow.com/a/34952703 */
             display: block;
         }
+
+        :host(.toniq-icon-fit-icon) svg {
+            height: 100%;
+            width: 100%;
+        }
     `,
     renderCallback: ({props}) => {
         return html`

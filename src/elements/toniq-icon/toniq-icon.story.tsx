@@ -1,7 +1,7 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
 import {allIconsByCategory} from '../../icons';
-import {toniqFontStyles} from '../../styles';
+import {toniqColors, toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {toniqIconColorCssVarNames} from '../../styles/icon-colors';
 import {ToniqIcon} from '../react-components';
@@ -32,6 +32,21 @@ const iconStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: Specifi
             disable: true,
         },
     },
+    hostClass: {
+        name: 'Host Class',
+        control: 'select',
+        options: [
+            'None',
+            'toniq-icon-fit-icon',
+        ],
+    },
+    size: {
+        name: 'Size',
+        control: {
+            type: 'number',
+            min: 1,
+        },
+    },
 } as const);
 
 const componentStoryMeta: ComponentMeta<typeof ToniqIcon> = {
@@ -41,6 +56,8 @@ const componentStoryMeta: ComponentMeta<typeof ToniqIcon> = {
     args: {
         color: 'black',
         applyColor: 'Icon color CSS var',
+        hostClass: 'None',
+        size: 24,
     },
     parameters: {
         actions: {
@@ -52,12 +69,34 @@ const componentStoryMeta: ComponentMeta<typeof ToniqIcon> = {
 export default componentStoryMeta;
 
 export const mainStory = (controls: Record<keyof typeof iconStoryControls, string>) => {
+    const sizeStyles =
+        controls.size && controls.hostClass === 'toniq-icon-fit-icon'
+            ? {height: `${controls.size}px`, width: `${controls.size}px`}
+            : {};
+
     const iconCategories = (
         Object.keys(allIconsByCategory) as (keyof typeof allIconsByCategory)[]
     ).map((categoryName) => {
         const iconInstances = allIconsByCategory[categoryName].map((icon) => (
-            <div key={icon.iconName} title={icon.iconName}>
-                <ToniqIcon icon={icon} />
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    border: `1px solid ${toniqColors.divider.foregroundColor}`,
+                    color: String(toniqColors.pageTertiary.foregroundColor),
+                    borderRadius: '8px',
+                    padding: '8px',
+                }}
+                key={icon.iconName}
+                title={icon.iconName}
+            >
+                <ToniqIcon
+                    style={{...sizeStyles, color: String(toniqColors.pagePrimary.foregroundColor)}}
+                    className={controls.hostClass}
+                    icon={icon}
+                />
+                <span>{icon.iconName}</span>
             </div>
         ));
 
