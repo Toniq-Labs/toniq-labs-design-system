@@ -3,6 +3,7 @@
 export * from './animation';
 export * from './colors';
 export * from './css-to-react';
+export * from './focus';
 export * from './fonts';
 export * from './icon-colors';
 export * from './native-styles';

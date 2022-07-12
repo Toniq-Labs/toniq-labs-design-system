@@ -8,7 +8,6 @@ export function getAllCssVars(
     const stylesObject = cssToReactStyleObject(fontStyle);
     const cssVars = mapObject(stylesObject, (key, value) => {
         const match = String(value).match(/var\(\s*(--[^,]+),\s*([^\)]+)\s*\)/);
-        console.log({match, value});
         return match;
     });
 

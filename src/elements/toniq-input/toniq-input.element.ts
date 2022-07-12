@@ -154,7 +154,6 @@ export const ToniqInput = defineToniqElement({
         });
     },
     renderCallback: ({props, setProps, dispatch, events, host}) => {
-        console.log({...props});
         if (props.innerInputFocused) {
             host.classList.add('toniq-input-focused');
         } else {
