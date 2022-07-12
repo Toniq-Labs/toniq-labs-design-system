@@ -2,8 +2,9 @@ import {assign, css, html} from 'element-vir';
 import {ToniqSvg} from '../../icons';
 import {interactionDuration} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
+import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
-import {removeNativeButtonStyles} from '../../styles/native-styles';
+import {removeNativeFormStyles} from '../../styles/native-styles';
 import {noUserSelect} from '../../styles/user-select';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
@@ -24,11 +25,13 @@ export const ToniqToggleButton = defineToniqElement({
         }
 
         button {
-            ${removeNativeButtonStyles};
+            ${removeNativeFormStyles};
             border: 0;
             display: inline-flex;
             cursor: pointer;
             align-items: center;
+            position: relative;
+            outline: none;
 
             -webkit-tap-highlight-color: transparent;
             border-radius: 8px;
@@ -37,6 +40,8 @@ export const ToniqToggleButton = defineToniqElement({
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
             transition: color ${interactionDuration}, background-color ${interactionDuration};
         }
+
+        ${createFocusStyles('button:focus', 0)}
 
         button.active {
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};

@@ -1,7 +1,12 @@
-import {css, defineElementEvent, html, listen, onDomCreated} from 'element-vir';
+import {assign, css, defineElementEvent, html, listen, onDomCreated} from 'element-vir';
+import {TemplateResult} from 'lit';
+import {ToniqSvg} from '../../icons';
 import {toniqColors, toniqFontStyles} from '../../styles';
+import {createFocusStyles} from '../../styles/focus';
+import {removeNativeFormStyles} from '../../styles/native-styles';
 import {defineToniqElement} from '../define-toniq-element';
 import {buttonBorderRadius} from '../toniq-button/toniq-button.element';
+import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 function doesMatch({input, matcher}: {input: string; matcher: string | RegExp}): boolean {
     if (!input || !matcher) {
@@ -74,6 +79,7 @@ function filterToAllowedCharactersOnly(inputs: IsAllowedInputs): {
 export const ToniqInput = defineToniqElement({
     tagName: 'toniq-input',
     props: {
+        icon: undefined as ToniqSvg | undefined,
         /** Use to programmatically fill out the input's value field. */
         value: '',
         /** Shown when no other text is present. Input restrictions do not apply to this property. */
@@ -95,6 +101,7 @@ export const ToniqInput = defineToniqElement({
          * cause weird things to happen!
          */
         innerInputElement: undefined as undefined | HTMLInputElement,
+        innerInputFocused: false,
     },
     events: {
         /**
@@ -110,20 +117,50 @@ export const ToniqInput = defineToniqElement({
         inputBlocked: defineElementEvent<string>(),
     },
     styles: css`
-        input {
+        :host {
+            cursor: pointer;
+            display: inline-flex;
+            box-sizing: border-box;
+            position: relative;
             padding: 12px 16px;
             border-radius: ${buttonBorderRadius};
             background-color: ${toniqColors.accentTertiary.backgroundColor};
             font: ${toniqFontStyles.paragraphFont};
-            border: none;
-            margin: 0;
+        }
+
+        ${createFocusStyles(':host(.toniq-input-focused)', 0)}
+
+        ${ToniqIcon} {
+            margin-right: 10px;
+        }
+
+        input {
+            ${removeNativeFormStyles};
+        }
+
+        input:focus {
+            outline: none;
         }
 
         input::placeholder {
             color: ${toniqColors.accentTertiary.foregroundColor};
         }
     `,
+    initCallback: ({host, props}) => {
+        host.addEventListener('click', () => {
+            if (props.innerInputElement) {
+                props.innerInputElement.focus();
+            }
+        });
+    },
     renderCallback: ({props, setProps, dispatch, events, host}) => {
+        console.log({...props});
+        if (props.innerInputFocused) {
+            host.classList.add('toniq-input-focused');
+        } else {
+            host.classList.remove('toniq-input-focused');
+        }
+
         const {filtered: filteredValue} = filterToAllowedCharactersOnly({
             value: props.value,
             allowed: props.allowedInputs,
@@ -134,7 +171,16 @@ export const ToniqInput = defineToniqElement({
             setProps({value: filteredValue});
         }
 
+        const iconTemplate: TemplateResult | string = props.icon
+            ? html`
+                <${ToniqIcon}
+                    ${assign(ToniqIcon.props.icon, props.icon)}
+                ></${ToniqIcon}>
+            `
+            : '';
+
         return html`
+            ${iconTemplate}
             <input
                 ?disabled=${props.disabled}
                 ${onDomCreated((element) => {
@@ -147,6 +193,12 @@ export const ToniqInput = defineToniqElement({
                     }
                 })}
                 .value=${props.value}
+                ${listen('focus', () => {
+                    setProps({innerInputFocused: true});
+                })}
+                ${listen('blur', () => {
+                    setProps({innerInputFocused: false});
+                })}
                 ${listen('input', (event) => {
                     if (!props.innerInputElement) {
                         const innerInputElement = host.shadowRoot?.querySelector('input');

@@ -2,6 +2,7 @@ import {css, defineElementEvent, html, listen, onDomCreated, onResize} from 'ele
 import {clamp, mapRange} from '../../augments/number';
 import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
+import {createFocusStyles} from '../../styles/focus';
 import {defineToniqElement} from '../define-toniq-element';
 
 export interface ToniqSliderDoubleRangeValue {
@@ -29,6 +30,24 @@ export interface ToniqSliderLabelStyle {
     innerText: string;
     left?: string;
 }
+
+const thumbStyle = css`
+    -webkit-appearance: none;
+    position: relative;
+    border: none;
+    height: 16px;
+    width: 16px;
+    z-index: 10;
+    cursor: pointer;
+    pointer-events: all;
+    border-radius: 10px;
+    transition: ${interactionDuration};
+    ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
+`;
+
+const thumbHoverStyle = css`
+    transform: scale(1.2);
+`;
 
 export const ToniqSlider = defineToniqElement({
     tagName: 'toniq-slider',
@@ -129,7 +148,12 @@ export const ToniqSlider = defineToniqElement({
             width: 100%;
             background-color: transparent;
             margin: 0;
+            position: relative;
+            outline: none;
         }
+
+        /* this does not work in firefox */
+        ${createFocusStyles('.slider', 0)}
 
         .lowerSlider,
         .upperSlider {
@@ -143,21 +167,24 @@ export const ToniqSlider = defineToniqElement({
             width: 100%;
         }
 
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            position: relative;
-            height: 16px;
-            width: 16px;
-            z-index: 10;
-            cursor: pointer;
-            pointer-events: all;
-            border-radius: 10px;
-            transition: ${interactionDuration};
-            ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
+        /* these selectors fail if combined with a comma */
+        .slider::-moz-range-thumb {
+            ${thumbStyle}
         }
 
+        /* these selectors fail if combined with a comma */
+        .slider::-webkit-slider-thumb {
+            ${thumbStyle}
+        }
+
+        /* these selectors fail if combined with a comma */
         .slider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
+            ${thumbHoverStyle}
+        }
+
+        /* these selectors fail if combined with a comma */
+        .slider::-moz-range-thumb:hover {
+            ${thumbHoverStyle}
         }
     `,
     renderCallback: ({props, host, events, dispatch, setProps}) => {

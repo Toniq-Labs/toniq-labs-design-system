@@ -1,5 +1,6 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
+import {Search24Icon} from '../../icons';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
@@ -59,16 +60,24 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
             >
                 With assigned values
             </h3>
-            <ToniqInput
-                onValueChange={handleEventAsAction}
-                onInputBlocked={handleEventAsAction}
-                value="with value"
-            />
-            <ToniqInput
-                onValueChange={handleEventAsAction}
-                onInputBlocked={handleEventAsAction}
-                placeholder="with placeholder"
-            />
+            <section style={{display: 'flex', gap: '8px'}}>
+                <ToniqInput
+                    onValueChange={handleEventAsAction}
+                    onInputBlocked={handleEventAsAction}
+                    value="with value"
+                />
+                <ToniqInput
+                    onValueChange={handleEventAsAction}
+                    onInputBlocked={handleEventAsAction}
+                    placeholder="with placeholder"
+                />
+                <ToniqInput
+                    onValueChange={handleEventAsAction}
+                    onInputBlocked={handleEventAsAction}
+                    placeholder="with icon"
+                    icon={Search24Icon}
+                />
+            </section>
             <h3
                 style={{
                     ...cssToReactStyleObject(toniqFontStyles.h3Font),
@@ -76,24 +85,26 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
             >
                 With input restrictions
             </h3>
-            <ToniqInput
-                onValueChange={handleEventAsAction}
-                onInputBlocked={handleEventAsAction}
-                placeholder="letter 'd' is blocked"
-                blockedInputs="d"
-            />
-            <ToniqInput
-                onValueChange={handleEventAsAction}
-                onInputBlocked={handleEventAsAction}
-                placeholder="only numbers are allowed"
-                allowedInputs={/\d/}
-            />
-            <ToniqInput
-                onValueChange={handleEventAsAction}
-                onInputBlocked={handleEventAsAction}
-                placeholder="numbers are blocked"
-                allowedInputs={/\D/}
-            />
+            <section style={{display: 'flex', gap: '8px'}}>
+                <ToniqInput
+                    onValueChange={handleEventAsAction}
+                    onInputBlocked={handleEventAsAction}
+                    placeholder="letter 'd' is blocked"
+                    blockedInputs="d"
+                />
+                <ToniqInput
+                    onValueChange={handleEventAsAction}
+                    onInputBlocked={handleEventAsAction}
+                    placeholder="only numbers are allowed"
+                    allowedInputs={/\d/}
+                />
+                <ToniqInput
+                    onValueChange={handleEventAsAction}
+                    onInputBlocked={handleEventAsAction}
+                    placeholder="numbers are blocked"
+                    allowedInputs={/\D/}
+                />
+            </section>
 
             <h3
                 style={{
@@ -102,12 +113,14 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
             >
                 Disabled
             </h3>
-            <ToniqInput
-                value="cannot type into"
-                disabled={true}
-                onValueChange={handleEventAsAction}
-                onInputBlocked={handleEventAsAction}
-            />
+            <section style={{display: 'flex', gap: '8px'}}>
+                <ToniqInput
+                    value="cannot type into"
+                    disabled={true}
+                    onValueChange={handleEventAsAction}
+                    onInputBlocked={handleEventAsAction}
+                />
+            </section>
 
             <h3
                 style={{
@@ -116,14 +129,16 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
             >
                 Custom inputs
             </h3>
-            <ToniqInput
-                onValueChange={handleEventAsAction}
-                onInputBlocked={handleEventAsAction}
-                placeholder={controls.placeholder}
-                allowedInputs={controls.allowedInputs}
-                blockedInputs={controls.blockedInputs}
-                disabled={!!controls.disabled}
-            />
+            <section style={{display: 'flex', gap: '8px'}}>
+                <ToniqInput
+                    onValueChange={handleEventAsAction}
+                    onInputBlocked={handleEventAsAction}
+                    placeholder={controls.placeholder}
+                    allowedInputs={controls.allowedInputs}
+                    blockedInputs={controls.blockedInputs}
+                    disabled={!!controls.disabled}
+                />
+            </section>
         </article>
     );
 };
