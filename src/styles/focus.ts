@@ -14,7 +14,7 @@ export const focusStyles = css`
     width: calc(100% + calc(var(--outline-spacing) * 2));
     height: calc(100% + calc(var(--outline-spacing) * 2));
     box-sizing: border-box;
-    border: var(--outline-width) solid ${toniqColors.pagePrimary.foregroundColor};
+    border: var(--outline-width) solid ${toniqColors.brandPrimary.foregroundColor};
     border-radius: 12px;
     z-index: 100;
 `;

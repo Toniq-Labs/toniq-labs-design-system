@@ -153,7 +153,7 @@ export const ToniqSlider = defineToniqElement({
         }
 
         /* this does not work in firefox */
-        ${createFocusStyles('.slider', 0)}
+        ${createFocusStyles('.slider:focus', 0)}
 
         .lowerSlider,
         .upperSlider {
