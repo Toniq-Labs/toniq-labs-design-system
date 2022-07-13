@@ -19,7 +19,21 @@ export const ToniqButton = defineToniqElement({
     styles: css`
         :host {
             ${toniqFontStyles.boldParagraphFont};
+            display: inline-flex;
+            vertical-align: middle;
             ${noUserSelect};
+        }
+
+        :host(:hover) button {
+            ${applyBackgroundAndForeground(toniqColors.accentPrimaryHover)};
+        }
+
+        :host(:active) button {
+            ${applyBackgroundAndForeground(toniqColors.accentPrimaryActive)};
+        }
+
+        button {
+            ${removeNativeButtonStyles};
             border: 2px solid transparent;
             box-sizing: border-box;
             display: inline-flex;
@@ -31,37 +45,58 @@ export const ToniqButton = defineToniqElement({
                 border-color ${interactionDuration};
         }
 
-        :host(:hover) {
-            ${applyBackgroundAndForeground(toniqColors.accentPrimaryHover)};
-        }
-
-        :host(:active) {
-            ${applyBackgroundAndForeground(toniqColors.accentPrimaryActive)};
-        }
-
-        button {
-            ${removeNativeButtonStyles};
-            display: inline-flex;
-            vertical-align: middle;
-        }
-
-        :host(.toniq-button-secondary) {
+        :host(.toniq-button-secondary) button {
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
         }
 
-        :host(.toniq-button-outline) {
+        :host(.toniq-button-outline) button {
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
             border-color: ${toniqColors.accentPrimary.backgroundColor};
         }
 
-        :host(.toniq-button-secondary:hover),
-        :host(.toniq-button-outline:hover) {
+        :host(.toniq-button-secondary:hover) button,
+        :host(.toniq-button-outline:hover) button {
             border-color: ${toniqColors.accentPrimaryHover.backgroundColor};
         }
 
-        :host(.toniq-button-secondary:active),
-        :host(.toniq-button-outline:active) {
+        :host(.toniq-button-secondary:active) button,
+        :host(.toniq-button-outline:active) button {
             border-color: ${toniqColors.accentPrimaryActive.backgroundColor};
+        }
+
+        :host(.toniq-button-text-only) button {
+            background: none;
+            color: #000000;
+        }
+
+        :host(.toniq-button-text-only[disabled]) button,
+        :host(.toniq-button-text-only.selected) button {
+            cursor: auto;
+        }
+
+        :host(.toniq-button-text-only:not(.selected):not([disabled]):hover) button {
+            ${applyBackgroundAndForeground(toniqColors.pageInteraction)}
+        }
+
+        :host(.toniq-button-text-only.selected) button {
+            background: none;
+            color: #ffffff;
+        }
+
+        :host(.toniq-button-icon-only) button {
+            ${applyBackgroundAndForeground(toniqColors.accentSecondary)}
+            border-radius: ${buttonBorderRadius};
+            margin: 0 8px;
+            padding: 4px;
+        }
+
+        :host(.toniq-button-icon-only:not([disabled]):hover) button {
+            ${applyBackgroundAndForeground(toniqColors.accentPrimary)}
+        }
+
+        :host(.toniq-button-icon-only[disabled]) button {
+            cursor: auto;
+            ${applyBackgroundAndForeground(toniqColors.accentTertiary)};
         }
 
         button .icon-template + .text-template {
