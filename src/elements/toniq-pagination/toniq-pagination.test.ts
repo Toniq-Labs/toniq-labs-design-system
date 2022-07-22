@@ -7,7 +7,6 @@ import {
     queryThroughShadow,
 } from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
-import {ToniqButton} from '../toniq-button/toniq-button.element';
 import {ToniqPagination} from './toniq-pagination.element';
 
 describe(ToniqPagination.tagName, () => {
@@ -23,8 +22,8 @@ describe(ToniqPagination.tagName, () => {
                 `,
             );
 
-            const page = queryThroughShadow(`${ToniqButton.tagName}.page.selected`, rendered);
-            assertInstanceOf(page, ToniqButton);
+            const page = queryThroughShadow('button.page.selected', rendered);
+            assertInstanceOf(page, HTMLButtonElement);
             assert.strictEqual(parseInt(getTextContentThroughShadow(page)), currentPage);
         }),
     );
@@ -39,9 +38,9 @@ describe(ToniqPagination.tagName, () => {
                 `,
             );
 
-            const page = queryThroughShadow(`${ToniqButton.tagName}.page`, rendered, true);
+            const page = queryThroughShadow('button.page', rendered, true);
             const lastPage = page[page.length - 1];
-            assertInstanceOf(lastPage, ToniqButton);
+            assertInstanceOf(lastPage, HTMLButtonElement);
             assert.strictEqual(parseInt(getTextContentThroughShadow(lastPage)), pageCount);
         }),
     );
@@ -56,7 +55,7 @@ describe(ToniqPagination.tagName, () => {
                 `,
             );
 
-            const page = queryThroughShadow(`${ToniqButton.tagName}.page`, rendered, true);
+            const page = queryThroughShadow('button.page', rendered, true);
             assert.strictEqual(page.length, pagesShown);
         }),
     );
