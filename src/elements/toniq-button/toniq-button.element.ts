@@ -64,41 +64,6 @@ export const ToniqButton = defineToniqElement({
             border-color: ${toniqColors.accentPrimaryActive.backgroundColor};
         }
 
-        :host(.toniq-button-text-only) button {
-            background: none;
-            color: #000000;
-        }
-
-        :host(.toniq-button-text-only[disabled]) button,
-        :host(.toniq-button-text-only.selected) button {
-            cursor: auto;
-        }
-
-        :host(.toniq-button-text-only:not(.selected):not([disabled]):hover) button {
-            ${applyBackgroundAndForeground(toniqColors.pageInteraction)}
-        }
-
-        :host(.toniq-button-text-only.selected) button {
-            background: none;
-            color: #ffffff;
-        }
-
-        :host(.toniq-button-icon-only) button {
-            ${applyBackgroundAndForeground(toniqColors.accentSecondary)}
-            border-radius: ${buttonBorderRadius};
-            margin: 0 8px;
-            padding: 4px;
-        }
-
-        :host(.toniq-button-icon-only:not([disabled]):hover) button {
-            ${applyBackgroundAndForeground(toniqColors.accentPrimary)}
-        }
-
-        :host(.toniq-button-icon-only[disabled]) button {
-            cursor: auto;
-            ${applyBackgroundAndForeground(toniqColors.accentTertiary)};
-        }
-
         button .icon-template + .text-template {
             margin-left: 8px;
         }

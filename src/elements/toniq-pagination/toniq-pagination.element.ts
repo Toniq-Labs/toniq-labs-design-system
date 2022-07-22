@@ -11,7 +11,6 @@ import {
     toniqFontStyles,
 } from '../../styles';
 import {defineToniqElement} from '../define-toniq-element';
-import {ToniqButton} from '../toniq-button/toniq-button.element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 export const ToniqPagination = defineToniqElement({
@@ -30,11 +29,32 @@ export const ToniqPagination = defineToniqElement({
     styles: css`
         :host {
             display: flex;
-            align-items: center;
         }
 
         button {
             ${removeNativeButtonStyles}
+            display: flex;
+            align-items: center;
+            ${noUserSelect};
+        }
+
+        .control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 8px;
+            padding: 4px;
+            border-radius: 8px;
+            ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
+        }
+
+        .control:hover {
+            ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
+        }
+
+        .control[disabled] {
+            pointer-events: none;
+            ${applyBackgroundAndForeground(toniqColors.accentTertiary)};
         }
 
         .page {
@@ -76,27 +96,26 @@ export const ToniqPagination = defineToniqElement({
             return html``;
         } else {
             return html`
-            <${ToniqButton}
+            <button
                 ${listen('click', () => {
                     if (props.currentPage > 1) {
                         setProps({currentPage: props.currentPage - 1});
                         dispatch(new events.previous(props.currentPage));
                     }
                 })}
-                class="control toniq-button-icon-only"
+                class="control"
                 ?disabled=${props.currentPage <= 1}
             >
                 <${ToniqIcon}
                     ${assign(ToniqIcon.props.icon, ArrowLeft24Icon)}></${ToniqIcon}>
-            </${ToniqButton}>
+            </button>
             ${map(
                 pagination(props.currentPage, props.pageCount, props.pagesShown),
                 (i: string | number) =>
                     html`
-                        <${ToniqButton}
+                        <button
                             class=${classMap({
                                 page: true,
-                                'toniq-button-text-only': true,
                                 selected: props.currentPage === i,
                             })}
                             ?disabled=${i === '...' || props.currentPage === i}
@@ -108,22 +127,22 @@ export const ToniqPagination = defineToniqElement({
                             })}
                         >
                             ${i}
-                        </${ToniqButton}>
+                        </button>
                     `,
             )}
-            <${ToniqButton}
+            <button
                 ${listen('click', () => {
                     if (props.currentPage < props.pageCount) {
                         setProps({currentPage: props.currentPage + 1});
                         dispatch(new events.next(props.currentPage));
                     }
                 })}
-                class="control toniq-button-icon-only"
+                class="control"
                 ?disabled=${props.currentPage >= props.pageCount}
             >
                 <${ToniqIcon}
                     ${assign(ToniqIcon.props.icon, ArrowRight24Icon)}></${ToniqIcon}>
-            </${ToniqButton}>
+            </button>
         `;
         }
     },
