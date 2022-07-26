@@ -9,7 +9,8 @@ export function cssToReactStyleObject(input: string | CSSResult): React.CSSPrope
     const innerCssJsonString = collapsedSpacesAndSemicolons
         .replace(/; /g, '", "')
         .replace(/: /g, '": "')
-        .replace(';', '');
+        .replace(';', '')
+        .replace(/"/g, '\\"');
     const cssJson = `{"${innerCssJsonString}"}`;
 
     try {
