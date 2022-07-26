@@ -85,12 +85,12 @@
     font-weight: 600;
     font-style: normal;
     font-display: swap;
-    src: url('./fonts/inconsolata-bold.eot');
-    src: url('./fonts/inconsolata-bold.eot?#iefix') format('embedded-opentype'),
-        url('./fonts/inconsolata-bold.ttf') format('truetype'),
-        url('./fonts/inconsolata-bold.woff') format('woff'),
-        url('./fonts/inconsolata-bold.woff2') format('woff2'),
-        url('./fonts/inconsolata-bold.otf') format('opentype');
+    src: url('./fonts/inconsolata-black.eot');
+    src: url('./fonts/inconsolata-black.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/inconsolata-black.ttf') format('truetype'),
+        url('./fonts/inconsolata-black.woff') format('woff'),
+        url('./fonts/inconsolata-black.woff2') format('woff2'),
+        url('./fonts/inconsolata-black.otf') format('opentype');
 }
 
 @font-face {
@@ -98,10 +98,10 @@
     font-weight: 400;
     font-style: normal;
     font-display: swap;
-    src: url('./fonts/inconsolata-regular.eot');
-    src: url('./fonts/inconsolata-regular.eot?#iefix') format('embedded-opentype'),
-        url('./fonts/inconsolata-regular.ttf') format('truetype'),
-        url('./fonts/inconsolata-regular.woff') format('woff'),
-        url('./fonts/inconsolata-regular.woff2') format('woff2'),
-        url('./fonts/inconsolata-regular.otf') format('opentype');
+    src: url('./fonts/inconsolata-medium.eot');
+    src: url('./fonts/inconsolata-medium.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/inconsolata-medium.ttf') format('truetype'),
+        url('./fonts/inconsolata-medium.woff') format('woff'),
+        url('./fonts/inconsolata-medium.woff2') format('woff2'),
+        url('./fonts/inconsolata-medium.otf') format('opentype');
 }
