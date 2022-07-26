@@ -42,6 +42,7 @@
         "prepublishOnly": "npm run test:full && npm run build",
         "spellcheck": "virmator spellcheck",
         "start": "npm run storybook",
+        "start:clean": "rm -rf node_modules/.cache && npm run storybook",
         "storybook": "start-storybook -p 6006",
         "storybook:build": "build-storybook --output-dir .storybook-dist",
         "storybook:preview": "npm run storybook:build && http-server .storybook-dist",
