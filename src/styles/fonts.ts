@@ -33,6 +33,7 @@ const fontStylesFallbacks = wrapTypeWithReadonly<
         'line-height': css`16px`,
         'font-size': css`12px`,
     },
+    boldLabelFont: {},
     h1Font: {
         'line-height': css`96px`,
         'font-size': css`64px`,
@@ -45,6 +46,10 @@ const fontStylesFallbacks = wrapTypeWithReadonly<
         'line-height': css`32px`,
         'font-size': css`24px`,
     },
+    monospaceFont: {
+        'font-family': css`'Space Mono', monospace`,
+    },
+    boldMonospaceFont: {},
 });
 
 export const toniqFontStylesCssVarNames = mapObject(
@@ -75,6 +80,7 @@ function combineFallbacksAndVars(fontStylesKey: FontStyleKey): CSSResult {
 
 export const toniqFontStyles = (() => {
     const toniqFont = css`
+        font-style: normal;
         color: ${toniqColors.pagePrimary.foregroundColor};
         ${combineFallbacksAndVars('toniqFont')};
     `;
@@ -94,7 +100,6 @@ export const toniqFontStyles = (() => {
 
     const paragraphFont = css`
         ${toniqFont};
-        font-style: normal;
         ${combineFallbacksAndVars('paragraphFont')};
         ${normalWeightFont};
     `;
@@ -106,35 +111,38 @@ export const toniqFontStyles = (() => {
 
     const labelFont = css`
         ${toniqFont};
-        font-style: normal;
         ${combineFallbacksAndVars('labelFont')};
         ${normalWeightFont};
     `;
 
-    const labelFontBold = css`
+    const boldLabelFont = css`
         ${labelFont};
         ${boldFont};
     `;
 
     const h1Font = css`
-        ${toniqFont};
-        font-style: normal;
         ${combineFallbacksAndVars('h1Font')};
         ${extraBoldFont};
     `;
 
     const h2Font = css`
-        ${toniqFont};
-        font-style: normal;
         ${combineFallbacksAndVars('h2Font')};
         ${boldFont};
     `;
 
     const h3Font = css`
-        ${toniqFont};
-        font-style: normal;
         ${combineFallbacksAndVars('h3Font')};
         ${boldFont};
+    `;
+
+    const monospaceFont = css`
+        ${normalWeightFont};
+        ${combineFallbacksAndVars('monospaceFont')}
+    `;
+
+    const boldMonospaceFont = css`
+        ${monospaceFont};
+        ${combineFallbacksAndVars('boldFont')};
     `;
 
     return wrapTypeWithReadonly<Record<FontStyleKey, FontStyleDefinition>>()({
@@ -145,9 +153,11 @@ export const toniqFontStyles = (() => {
         paragraphFont,
         boldParagraphFont,
         labelFont,
-        labelFontBold,
+        boldLabelFont,
         h1Font,
         h2Font,
         h3Font,
+        monospaceFont,
+        boldMonospaceFont,
     });
 })();
