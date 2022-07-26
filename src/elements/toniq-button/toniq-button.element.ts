@@ -2,8 +2,9 @@ import {assign, css, html} from 'element-vir';
 import {ToniqSvg} from '../../icons';
 import {interactionDuration} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
+import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
-import {removeNativeButtonStyles} from '../../styles/native-styles';
+import {removeNativeFormStyles} from '../../styles/native-styles';
 import {noUserSelect} from '../../styles/user-select';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
@@ -21,6 +22,7 @@ export const ToniqButton = defineToniqElement({
             ${toniqFontStyles.boldParagraphFont};
             display: inline-flex;
             vertical-align: middle;
+            box-sizing: border-box;
             ${noUserSelect};
         }
 
@@ -33,7 +35,9 @@ export const ToniqButton = defineToniqElement({
         }
 
         button {
-            ${removeNativeButtonStyles};
+            ${removeNativeFormStyles};
+            position: relative;
+            outline: none;
             border: 2px solid transparent;
             box-sizing: border-box;
             display: inline-flex;
@@ -44,6 +48,8 @@ export const ToniqButton = defineToniqElement({
             transition: color ${interactionDuration}, background-color ${interactionDuration},
                 border-color ${interactionDuration};
         }
+
+        ${createFocusStyles('button:focus', 2)}
 
         :host(.toniq-button-secondary) button {
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};

@@ -1,6 +1,6 @@
 import {css} from 'element-vir';
 
-export const removeNativeButtonStyles = css`
+export const removeNativeFormStyles = css`
     background: none;
     padding: 0;
     margin: 0;

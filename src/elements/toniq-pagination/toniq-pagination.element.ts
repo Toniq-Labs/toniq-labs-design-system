@@ -6,7 +6,7 @@ import {ArrowLeft24Icon, ArrowRight24Icon} from '../../icons';
 import {
     applyBackgroundAndForeground,
     noUserSelect,
-    removeNativeButtonStyles,
+    removeNativeFormStyles,
     toniqColors,
     toniqFontStyles,
 } from '../../styles';
@@ -32,7 +32,7 @@ export const ToniqPagination = defineToniqElement({
         }
 
         button {
-            ${removeNativeButtonStyles}
+            ${removeNativeFormStyles}
             display: flex;
             align-items: center;
             ${noUserSelect};

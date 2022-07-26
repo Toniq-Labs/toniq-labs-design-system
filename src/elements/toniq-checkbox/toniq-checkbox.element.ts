@@ -2,8 +2,9 @@ import {assign, css, defineElementEvent, html, listen} from 'element-vir';
 import {CheckMark24Icon} from '../../icons/svgs/core-24/check-mark-24.icon';
 import {interactionDuration, noUserSelect} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
+import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
-import {removeNativeButtonStyles} from '../../styles/native-styles';
+import {removeNativeFormStyles} from '../../styles/native-styles';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
@@ -26,7 +27,7 @@ export const ToniqCheckbox = defineToniqElement({
         }
 
         button {
-            ${removeNativeButtonStyles};
+            ${removeNativeFormStyles};
             border-radius: 8px;
         }
 
@@ -35,6 +36,8 @@ export const ToniqCheckbox = defineToniqElement({
             display: inline-flex;
             flex-grow: 1;
             align-items: center;
+            position: relative;
+            outline: none;
         }
 
         .label {
@@ -61,6 +64,8 @@ export const ToniqCheckbox = defineToniqElement({
             width: 24px;
             border-radius: 8px;
         }
+
+        ${createFocusStyles('.wrapper:focus', 0)}
 
         .check-mark {
             color: ${toniqColors.accentPrimary.foregroundColor};

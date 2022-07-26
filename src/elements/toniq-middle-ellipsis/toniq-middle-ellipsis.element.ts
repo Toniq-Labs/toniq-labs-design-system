@@ -3,8 +3,9 @@ import {copyToClipboard} from '../../clipboard';
 import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
 import {interactionDuration} from '../../styles/animation';
 import {toniqColors} from '../../styles/colors';
+import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
-import {removeNativeButtonStyles} from '../../styles/native-styles';
+import {removeNativeFormStyles} from '../../styles/native-styles';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
@@ -82,15 +83,22 @@ export const ToniqMiddleEllipsis = defineToniqElement({
             color: inherit;
             text-decoration: none;
             border-radius: 8px;
+            position: relative;
+            outline: none;
         }
         a:visited {
             color: inherit;
         }
 
         button {
-            ${removeNativeButtonStyles};
+            ${removeNativeFormStyles};
             border-radius: 8px;
+            position: relative;
+            outline: none;
         }
+
+        ${createFocusStyles('button:focus', 0)}
+        ${createFocusStyles('a:focus', 0)}
     `,
     renderCallback: ({props, setProps, host, dispatch, events}) => {
         // make sure that the letter count is a whole number

@@ -2,7 +2,8 @@ import {assign, css, defineElementEvent, html} from 'element-vir';
 import {ChevronDown24Icon} from '../../icons';
 import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
-import {removeNativeButtonStyles} from '../../styles/native-styles';
+import {createFocusStyles} from '../../styles/focus';
+import {removeNativeFormStyles} from '../../styles/native-styles';
 import {toniqShadows} from '../../styles/shadows';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
@@ -38,9 +39,12 @@ export const ToniqDropdown = defineToniqElement({
             width: 288px;
             height: 48px;
             position: relative;
-            ${removeNativeButtonStyles}
+            ${removeNativeFormStyles}
             border-radius: 8px;
+            outline: none;
         }
+
+        ${createFocusStyles('.dropdown:focus', 0)}
 
         ${ToniqIcon} {
             transition: ${interactionDuration} linear;
