@@ -48,7 +48,7 @@ const fontStylesFallbacks = wrapTypeWithReadonly<
     },
     monospaceFont: {
         'font-family': css`'Inconsolata', monospace`,
-        'font-size': css`1.2em`,
+        'font-size': css`1.1em`,
     },
     boldMonospaceFont: {},
 });
