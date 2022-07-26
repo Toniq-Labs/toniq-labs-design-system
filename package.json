@@ -47,9 +47,10 @@
         "storybook:preview": "npm run storybook:build && http-server .storybook-dist",
         "test": "web-test-runner --node-resolve",
         "test:exports": "cd scripts && npm run test:exports",
-        "test:full": "npm test && npm run test:scripts && npm run spellcheck && npm run format check && npm run build && npm run storybook:build",
+        "test:full": "npm run test:types && npm test && npm run test:scripts && npm run spellcheck && npm run format check && npm run build && npm run storybook:build",
         "test:node-versions": "cd scripts && npm run test:node-versions",
         "test:scripts": "cd scripts && npm run test",
+        "test:types": "tsc --noEmit",
         "update:exports": "cd scripts && npm run update:exports"
     },
     "resolutions": {
