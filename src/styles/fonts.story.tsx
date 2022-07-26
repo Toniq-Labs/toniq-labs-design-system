@@ -129,6 +129,8 @@ export const mainStory = (controls: Record<keyof typeof fontsStoryControls, stri
                         }}
                     >
                         Aa Bb Cc
+                        <br />
+                        01 23 45
                     </div>
                     <div
                         style={{

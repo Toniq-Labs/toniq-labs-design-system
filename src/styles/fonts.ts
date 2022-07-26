@@ -47,7 +47,8 @@ const fontStylesFallbacks = wrapTypeWithReadonly<
         'font-size': css`24px`,
     },
     monospaceFont: {
-        'font-family': css`'Space Mono', monospace`,
+        'font-family': css`'Inconsolata', monospace`,
+        'font-size': css`1.2em`,
     },
     boldMonospaceFont: {},
 });
@@ -136,7 +137,7 @@ export const toniqFontStyles = (() => {
     `;
 
     const monospaceFont = css`
-        ${normalWeightFont};
+        ${paragraphFont};
         ${combineFallbacksAndVars('monospaceFont')}
     `;
 
