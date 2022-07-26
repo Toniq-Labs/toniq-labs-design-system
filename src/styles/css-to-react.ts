@@ -5,12 +5,14 @@ export function cssToReactStyleObject(input: string | CSSResult): React.CSSPrope
     if (typeof input !== 'string') {
         input = String(input);
     }
-    const collapsedSpacesAndSemicolons = collapseWhiteSpace(input).replace(/;(?:\s*;)+/g, ';');
+    const collapsedSpacesAndSemicolons = collapseWhiteSpace(input.replace(/"/g, '\\"')).replace(
+        /;(?:\s*;)+/g,
+        ';',
+    );
     const innerCssJsonString = collapsedSpacesAndSemicolons
         .replace(/; /g, '", "')
         .replace(/: /g, '": "')
-        .replace(';', '')
-        .replace(/"/g, '\\"');
+        .replace(';', '');
     const cssJson = `{"${innerCssJsonString}"}`;
 
     try {
