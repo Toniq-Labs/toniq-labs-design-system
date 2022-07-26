@@ -79,3 +79,29 @@
         url('./fonts/rubik-italic.woff2') format('woff2'),
         url('./fonts/rubik-italic.otf') format('opentype');
 }
+
+@font-face {
+    font-family: 'Space Mono';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./fonts/space-mono-bold.eot');
+    src: url('./fonts/space-mono-bold.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/space-mono-bold.ttf') format('truetype'),
+        url('./fonts/space-mono-bold.woff') format('woff'),
+        url('./fonts/space-mono-bold.woff2') format('woff2'),
+        url('./fonts/space-mono-bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Space Mono';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./fonts/space-mono-regular.eot');
+    src: url('./fonts/space-mono-regular.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/space-mono-regular.ttf') format('truetype'),
+        url('./fonts/space-mono-regular.woff') format('woff'),
+        url('./fonts/space-mono-regular.woff2') format('woff2'),
+        url('./fonts/space-mono-regular.otf') format('opentype');
+}
