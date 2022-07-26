@@ -25,7 +25,7 @@ jobs:
               id: vars
               run: |
                   tagName="${GITHUB_REF#refs/*/}"
-                  originalTarName="$(npm pack)"
+                  originalTarName="$(npm pack | tail -1)"
                   # we can't rely on the npm_package_name env var here because it doesn't remove
                   # scoped package prefixes, like @toniq-labs/this-package, which then confuses
                   # the write path.
