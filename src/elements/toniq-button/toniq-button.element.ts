@@ -21,6 +21,7 @@ export const ToniqButton = defineToniqElement({
         :host {
             ${toniqFontStyles.boldParagraphFont};
             display: inline-flex;
+            position: relative;
             vertical-align: middle;
             box-sizing: border-box;
             ${noUserSelect};
@@ -37,10 +38,13 @@ export const ToniqButton = defineToniqElement({
         button {
             ${removeNativeFormStyles};
             position: relative;
+            width: 100%;
+            height: 100%;
             outline: none;
             border: 2px solid transparent;
             box-sizing: border-box;
             display: inline-flex;
+            justify-content: center;
             align-items: center;
             border-radius: ${buttonBorderRadius};
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};

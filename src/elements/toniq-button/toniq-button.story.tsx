@@ -68,7 +68,7 @@ export const mainStory = (controls: Record<keyof typeof buttonStoryControls, str
                 >
                     {title}
                 </h3>
-                <section style={{display: 'flex', gap: '16px'}}>
+                <section style={{display: 'flex', gap: '16px', alignItems: 'flex-start'}}>
                     <ToniqButton
                         className={hostClass}
                         text={`Default ${title}`}
@@ -76,7 +76,7 @@ export const mainStory = (controls: Record<keyof typeof buttonStoryControls, str
                     ></ToniqButton>
                     <ToniqButton
                         className={hostClass}
-                        text={`Icon and text inputs`}
+                        text="Icon and text inputs"
                         icon={ExternalLink24Icon}
                         onClick={handleEventAsAction}
                     ></ToniqButton>
@@ -98,6 +98,12 @@ export const mainStory = (controls: Record<keyof typeof buttonStoryControls, str
                     >
                         <ToniqIcon icon={ExternalLink24Icon} />
                     </ToniqButton>
+                    <ToniqButton
+                        text="with changed size"
+                        style={{width: '250px', height: '75px'}}
+                        className={hostClass}
+                        onClick={handleEventAsAction}
+                    ></ToniqButton>
                 </section>
             </>
         );
