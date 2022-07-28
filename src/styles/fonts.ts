@@ -48,8 +48,8 @@ const fontStylesFallbacks = wrapTypeWithReadonly<
     },
     monospaceFont: {
         'font-family': css`'Inconsolata', monospace`,
+        'line-height': css`1.125em`,
     },
-    boldMonospaceFont: {},
 });
 
 export const toniqFontStylesCssVarNames = mapObject(
@@ -136,13 +136,7 @@ export const toniqFontStyles = (() => {
     `;
 
     const monospaceFont = css`
-        ${paragraphFont};
         ${combineFallbacksAndVars('monospaceFont')}
-    `;
-
-    const boldMonospaceFont = css`
-        ${monospaceFont};
-        ${combineFallbacksAndVars('boldFont')};
     `;
 
     return wrapTypeWithReadonly<Record<FontStyleKey, FontStyleDefinition>>()({
@@ -158,6 +152,5 @@ export const toniqFontStyles = (() => {
         h2Font,
         h3Font,
         monospaceFont,
-        boldMonospaceFont,
     });
 })();

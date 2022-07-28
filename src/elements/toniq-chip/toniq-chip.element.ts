@@ -16,6 +16,7 @@ export const ToniqChip = defineToniqElement({
         :host {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 4px;
             ${toniqFontStyles.boldLabelFont}
             padding: 4px 8px;

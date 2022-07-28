@@ -1,6 +1,6 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
-import {allIconsByCategory, Copy16Icon, Icp16Icon} from '../../icons';
+import {allIconsByCategory, Copy16Icon} from '../../icons';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqChip, ToniqIcon} from '../react-components';
@@ -83,14 +83,10 @@ export const mainStory = (controls: Record<keyof typeof chipStoryControls, strin
                         icon={Copy16Icon}
                     />
                     <ToniqChip
+                        style={{width: '200px'}}
                         className={className}
-                        text={'with increased spacing styles'}
-                        icon={Icp16Icon}
-                        style={{
-                            gap: '8px',
-                            paddingRight: '12px',
-                            paddingLeft: '12px',
-                        }}
+                        text={'with custom size'}
+                        icon={Copy16Icon}
                     />
                 </div>
             </>
