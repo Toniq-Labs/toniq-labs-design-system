@@ -1,10 +1,14 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
-import React from 'react';
+import {ArrayElement} from 'augment-vir';
+import {css} from 'element-vir';
+import React, {useReducer} from 'react';
+import {ArrowsSort24Icon} from '../../icons';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
+import {toniqColorCssVarNames} from '../../styles';
 import {ToniqDropdown} from '../react-components';
-import {ToniqDropdownOption} from './toniq-dropdown.element';
+import {ToniqDropdown as NativeToniqDropdown, ToniqDropdownOption} from './toniq-dropdown.element';
 
-const options: ToniqDropdownOption[] = [
+const options: ToniqDropdownOption<number | string>[] = [
     {
         value: 1,
         label: 'Option 1',
@@ -26,11 +30,10 @@ const dropdownStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: Spe
         mapping: options,
         control: {
             type: 'select',
-            labels: {
-                0: options[0]?.label,
-                1: options[1]?.label,
-                2: options[2]?.label,
-            },
+            labels: options.reduce((accum, option) => {
+                accum[option.value] = option.label;
+                return accum;
+            }, {} as Record<PropertyKey, string>),
         },
     },
     dropdownOpen: {
@@ -52,15 +55,144 @@ const componentStoryMeta: ComponentMeta<typeof ToniqDropdown> = {
 
 export default componentStoryMeta;
 
-export const mainStory = (controls: Record<keyof typeof dropdownStoryControls, any>) => (
-    <article>
-        <h3>Dropdown</h3>
-        <ToniqDropdown
-            options={options}
-            selected={controls.selected}
-            dropdownOpen={controls.dropdownOpen}
-            onSelectChange={handleEventAsAction}
-        />
-    </article>
-);
+const dropdownSelectionStateInit = {
+    static: {
+        default: options[0]!,
+        defaultWithIcon: options[0]!,
+        withPrefixAndIcon: options[0]!,
+        withPrefixOnly: options[0]!,
+        withDifferentBackgroundColor: options[0]!,
+    },
+    custom: options[0]!,
+} as const;
+
+type DropdownStoryState = typeof dropdownSelectionStateInit;
+
+export const mainStory = (controls: Record<keyof typeof dropdownStoryControls, any>) => {
+    const [
+        dropdownSelectionStates,
+        updateDropdownSelectionStates,
+    ] = useReducer(
+        (
+            state: DropdownStoryState,
+            {
+                key,
+                subKey,
+                option,
+            }: {
+                key: keyof DropdownStoryState;
+                subKey: keyof DropdownStoryState['static'] | undefined;
+                option: ArrayElement<typeof options>;
+            },
+        ): DropdownStoryState => {
+            if (key === 'custom') {
+                return {...state, custom: option};
+            } else if (subKey !== undefined) {
+                return {
+                    ...state,
+                    [key]: {
+                        ...state[key],
+                        [subKey]: option,
+                    },
+                };
+            } else {
+                throw new Error(`Key was not custom but subKey was not defined.`);
+            }
+        },
+        dropdownSelectionStateInit,
+    );
+
+    return (
+        <>
+            <style
+                dangerouslySetInnerHTML={{
+                    __html: String(css`
+                        ${NativeToniqDropdown} {
+                            margin: 8px;
+                        }
+                    `),
+                }}
+            />
+            <article>
+                <h3>Static examples</h3>
+                <ToniqDropdown
+                    options={options}
+                    selected={dropdownSelectionStates.static.default}
+                    onSelectChange={(event: CustomEvent<ArrayElement<typeof options>>) => {
+                        updateDropdownSelectionStates({
+                            key: 'static',
+                            subKey: 'default',
+                            option: event.detail,
+                        });
+                        handleEventAsAction(event);
+                    }}
+                />
+                <ToniqDropdown
+                    options={options}
+                    icon={ArrowsSort24Icon}
+                    selected={dropdownSelectionStates.static.defaultWithIcon}
+                    onSelectChange={(event: CustomEvent<ArrayElement<typeof options>>) => {
+                        updateDropdownSelectionStates({
+                            key: 'static',
+                            subKey: 'defaultWithIcon',
+                            option: event.detail,
+                        });
+                        handleEventAsAction(event);
+                    }}
+                />
+                <ToniqDropdown
+                    options={options}
+                    icon={ArrowsSort24Icon}
+                    selectedLabelPrefix={'Sort By: '}
+                    selected={dropdownSelectionStates.static.withPrefixAndIcon}
+                    onSelectChange={(event: CustomEvent<ArrayElement<typeof options>>) => {
+                        updateDropdownSelectionStates({
+                            key: 'static',
+                            subKey: 'withPrefixAndIcon',
+                            option: event.detail,
+                        });
+                        handleEventAsAction(event);
+                    }}
+                />
+                <ToniqDropdown
+                    options={options}
+                    selectedLabelPrefix={'Sort By: '}
+                    selected={dropdownSelectionStates.static.withPrefixOnly}
+                    onSelectChange={(event: CustomEvent<ArrayElement<typeof options>>) => {
+                        updateDropdownSelectionStates({
+                            key: 'static',
+                            subKey: 'withPrefixOnly',
+                            option: event.detail,
+                        });
+                        handleEventAsAction(event);
+                    }}
+                />
+                <ToniqDropdown
+                    style={{
+                        [String(toniqColorCssVarNames.accentSecondary.backgroundColor)]:
+                            'transparent',
+                    }}
+                    options={options}
+                    icon={ArrowsSort24Icon}
+                    selected={dropdownSelectionStates.static.withDifferentBackgroundColor}
+                    onSelectChange={(event: CustomEvent<ArrayElement<typeof options>>) => {
+                        updateDropdownSelectionStates({
+                            key: 'static',
+                            subKey: 'withDifferentBackgroundColor',
+                            option: event.detail,
+                        });
+                        handleEventAsAction(event);
+                    }}
+                />
+                <h3>Customized example</h3>
+                <ToniqDropdown
+                    options={options}
+                    selected={controls.selected}
+                    dropdownOpen={controls.dropdownOpen}
+                    onSelectChange={handleEventAsAction}
+                />
+            </article>
+        </>
+    );
+};
 mainStory.storyName = 'Toniq Dropdown';

@@ -2,9 +2,12 @@ import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';
+import {assertIconEquals} from '../../element-testing/icon-test-helpers';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
 import {createFocusTests} from '../../element-testing/test-focus';
+import {ArrowsSort24Icon} from '../../icons';
+import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {ToniqDropdown} from './toniq-dropdown.element';
 
 describe(ToniqDropdown.tagName, () => {
@@ -37,6 +40,27 @@ describe(ToniqDropdown.tagName, () => {
             const selectedOption = queryThroughShadow('span.select-selected', rendered);
             assertInstanceOf(selectedOption, HTMLElement);
             assert.strictEqual(selectedOption.innerText, options[0].label);
+        }),
+    );
+
+    it(
+        'should render an icon when that input is set',
+        createFixtureTest(async () => {
+            const rendered = await fixture(
+                html`
+                    <${ToniqDropdown}
+                        ${assign(ToniqDropdown.props.options, options)}
+                        ${assign(ToniqDropdown.props.icon, ArrowsSort24Icon)}
+                    />
+                `,
+            );
+
+            const renderedIcon = queryThroughShadow(
+                '[data-test-id="rendered-input-icon"]',
+                rendered,
+            );
+            assertInstanceOf(renderedIcon, ToniqIcon);
+            assertIconEquals(renderedIcon, ArrowsSort24Icon);
         }),
     );
 
