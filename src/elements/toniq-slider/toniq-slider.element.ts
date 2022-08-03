@@ -302,17 +302,14 @@ export const ToniqSlider = defineToniqElement({
                  * location is by getting the progress bar right location minus half of the label
                  * value width. Then set label value left to that computed value.
                  */
-                const labelOffset =
-                    progress.getBoundingClientRect().left +
-                    progressCalculatedWidth -
-                    label.offsetWidth / 2;
-
+                const labelOffset = progressCalculatedWidth - label.offsetWidth / 2;
+                console.log(slider.getBoundingClientRect().left);
                 setProps({
                     labelStyle: {
                         innerText: `${props.value} ${props.suffix}`,
                         left: `${
-                            labelOffset < slider.getBoundingClientRect().left
-                                ? slider.getBoundingClientRect().left
+                            labelOffset < 0
+                                ? 0
                                 : labelOffset + label.clientWidth >
                                   slider.getBoundingClientRect().right
                                 ? slider.getBoundingClientRect().right - label.clientWidth
@@ -361,12 +358,9 @@ export const ToniqSlider = defineToniqElement({
 
                 const lowerLabelOffset = lowerSliderLeft - lowerLabelElement.offsetWidth / 2;
                 const upperLabelOffset =
-                    progress.getBoundingClientRect().right - upperLabelElement.offsetWidth / 2;
+                    progress.offsetLeft + progress.offsetWidth - upperLabelElement.offsetWidth / 2;
 
-                const lowerLabelCalculatedLeft = Math.max(
-                    lowerLabelOffset,
-                    lowerSliderElement.getBoundingClientRect().left,
-                );
+                const lowerLabelCalculatedLeft = Math.max(lowerLabelOffset, 0);
                 const upperLabelCalculatedLeft =
                     upperLabelOffset + upperLabelElement.clientWidth >
                     upperSliderElement.getBoundingClientRect().right
@@ -392,25 +386,22 @@ export const ToniqSlider = defineToniqElement({
                     upperLabelCalculatedLeft <=
                         lowerLabelCalculatedLeft + lowerLabelElement.offsetWidth
                 ) {
-                    const lowerLabelOffset =
-                        progress.getBoundingClientRect().left -
-                        lowerLabelElement.getBoundingClientRect().width;
-                    const upperLabelOffset = progress.getBoundingClientRect().right;
-                    const lowerLabelMin = lowerSliderElement.getBoundingClientRect().left;
+                    const lowerLabelOffset = progress.offsetLeft - lowerLabelElement.offsetWidth;
+                    const upperLabelOffset = progress.offsetLeft + progress.offsetWidth;
+                    const lowerLabelMin = 0;
 
                     const lowerLabelMax =
-                        lowerSliderElement.getBoundingClientRect().right -
-                        upperLabelElement.getBoundingClientRect().width -
-                        lowerLabelElement.getBoundingClientRect().width -
+                        lowerSliderElement.offsetLeft +
+                        lowerSliderElement.offsetWidth -
+                        upperLabelElement.offsetWidth -
+                        lowerLabelElement.offsetWidth -
                         labelsOffset;
 
-                    const upperLabelMin =
-                        upperSliderElement.getBoundingClientRect().left +
-                        lowerLabelElement.getBoundingClientRect().width +
-                        labelsOffset;
+                    const upperLabelMin = lowerLabelElement.offsetWidth + labelsOffset;
                     const upperLabelMax =
-                        upperSliderElement.getBoundingClientRect().right -
-                        upperLabelElement.getBoundingClientRect().width;
+                        upperSliderElement.offsetLeft +
+                        upperSliderElement.offsetWidth -
+                        upperLabelElement.offsetWidth;
 
                     setProps({
                         lowerLabelStyle: {
