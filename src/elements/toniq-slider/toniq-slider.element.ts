@@ -303,7 +303,6 @@ export const ToniqSlider = defineToniqElement({
                  * value width. Then set label value left to that computed value.
                  */
                 const labelOffset = progressCalculatedWidth - label.offsetWidth / 2;
-                console.log(slider.getBoundingClientRect().left);
                 setProps({
                     labelStyle: {
                         innerText: `${props.value} ${props.suffix}`,
