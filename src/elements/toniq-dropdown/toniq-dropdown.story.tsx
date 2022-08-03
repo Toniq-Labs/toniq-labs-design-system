@@ -21,6 +21,10 @@ const options: ToniqDropdownOption<number | string>[] = [
         value: '3',
         label: 'Option 3',
     },
+    {
+        value: 6,
+        label: 'Really really super duper long option!',
+    },
 ];
 
 const dropdownStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
@@ -61,6 +65,8 @@ const dropdownSelectionStateInit = {
         defaultWithIcon: options[0]!,
         withPrefixAndIcon: options[0]!,
         withPrefixOnly: options[0]!,
+        customSize: options[3]!,
+        growHeight: options[3]!,
         withDifferentBackgroundColor: options[0]!,
     },
     custom: options[0]!,
@@ -162,6 +168,36 @@ export const mainStory = (controls: Record<keyof typeof dropdownStoryControls, a
                         updateDropdownSelectionStates({
                             key: 'static',
                             subKey: 'withPrefixOnly',
+                            option: event.detail,
+                        });
+                        handleEventAsAction(event);
+                    }}
+                />
+                <ToniqDropdown
+                    style={{
+                        width: '350px',
+                        height: '200px',
+                    }}
+                    options={options}
+                    selectedLabelPrefix={'Sort By: '}
+                    selected={dropdownSelectionStates.static.customSize}
+                    onSelectChange={(event: CustomEvent<ArrayElement<typeof options>>) => {
+                        updateDropdownSelectionStates({
+                            key: 'static',
+                            subKey: 'customSize',
+                            option: event.detail,
+                        });
+                        handleEventAsAction(event);
+                    }}
+                />
+                <ToniqDropdown
+                    options={options}
+                    selectedLabelPrefix={'Sort By: '}
+                    selected={dropdownSelectionStates.static.growHeight}
+                    onSelectChange={(event: CustomEvent<ArrayElement<typeof options>>) => {
+                        updateDropdownSelectionStates({
+                            key: 'static',
+                            subKey: 'growHeight',
                             option: event.detail,
                         });
                         handleEventAsAction(event);

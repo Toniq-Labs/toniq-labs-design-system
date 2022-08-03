@@ -29,12 +29,14 @@ export const ToniqDropdown = defineToniqElement({
         :host {
             display: inline-flex;
             vertical-align: middle;
+            width: 288px;
+            min-height: 48px;
             ${toniqFontStyles.boldParagraphFont};
         }
 
         .dropdown {
-            width: 288px;
-            height: 48px;
+            align-self: stretch;
+            flex-grow: 1;
             position: relative;
             ${removeNativeFormStyles}
             border-radius: 8px;
@@ -43,8 +45,13 @@ export const ToniqDropdown = defineToniqElement({
 
         ${createFocusStyles('.dropdown:focus', 0)}
 
-        ${ToniqIcon} {
-            transition: ${interactionDuration} linear;
+        .trigger-icon {
+            transform: rotate(0);
+            transition: ${interactionDuration} linear transform;
+        }
+
+        .trigger-icon {
+            align-self: flex-start;
         }
 
         .dropdown.open .trigger-icon {
@@ -63,9 +70,16 @@ export const ToniqDropdown = defineToniqElement({
             border-bottom-right-radius: 0px;
         }
 
+        .dropdown-trigger.dropdown-trigger {
+            height: 100%;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
         .select {
             display: flex;
             gap: 8px;
+            text-align: left;
             border-radius: 8px;
             cursor: pointer;
             padding: 12px;
@@ -159,7 +173,7 @@ export const ToniqDropdown = defineToniqElement({
                 @click=${() => onToggleDropdown()}
                 role="listbox"
                 aria-expanded=${props.dropdownOpen}>
-                <div class="select">
+                <div class="select dropdown-trigger">
                     ${leadingIconTemplate}
                     <span class="select-selected">
                         ${prefixTemplate}
