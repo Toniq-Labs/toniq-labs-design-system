@@ -338,12 +338,12 @@ export const ToniqSlider = defineToniqElement({
                 const lowerSliderLeft =
                     (lowerSliderWidth *
                         mapRange(props.value.min, props.min, props.max, 0, props.max)) /
-                        props.max;
+                    props.max;
 
                 const upperSliderLeft =
                     (upperSliderWidth *
                         mapRange(props.value.max, props.min, props.max, 0, props.max)) /
-                        props.max;
+                    props.max;
 
                 setProps({
                     progressStyle: {

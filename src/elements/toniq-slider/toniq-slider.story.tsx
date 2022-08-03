@@ -111,17 +111,17 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
             With Padding
         </h3>
 
-        <div style={{ padding: "16px" }}>
+        <div style={{padding: '16px'}}>
             <ToniqSlider
                 value={controls.value}
                 min={controls.min}
                 max={controls.max}
                 suffix={controls.suffix}
                 onValueChange={handleEventAsAction}
-                style={{ padding: "16px" }}
+                style={{padding: '16px'}}
             />
         </div>
-        <div style={{ padding: "16px" }}>
+        <div style={{padding: '16px'}}>
             <ToniqSlider
                 min={0}
                 max={500}
@@ -129,7 +129,7 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                 suffix={controls.suffix}
                 double
                 onValueChange={handleEventAsAction}
-                style={{ padding: "16px" }}
+                style={{padding: '16px'}}
             />
         </div>
     </article>
