@@ -102,6 +102,36 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
             double
             onValueChange={handleEventAsAction}
         />
+
+        <h3
+            style={{
+                ...cssToReactStyleObject(toniqFontStyles.h3Font),
+            }}
+        >
+            With Padding
+        </h3>
+
+        <div style={{padding: '16px'}}>
+            <ToniqSlider
+                value={controls.value}
+                min={controls.min}
+                max={controls.max}
+                suffix={controls.suffix}
+                onValueChange={handleEventAsAction}
+                style={{padding: '16px'}}
+            />
+        </div>
+        <div style={{padding: '16px'}}>
+            <ToniqSlider
+                min={0}
+                max={500}
+                value={{min: 120, max: 250}}
+                suffix={controls.suffix}
+                double
+                onValueChange={handleEventAsAction}
+                style={{padding: '16px'}}
+            />
+        </div>
     </article>
 );
 mainStory.storyName = 'Toniq Slider';

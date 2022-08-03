@@ -122,6 +122,7 @@ export const ToniqSlider = defineToniqElement({
             border-radius: 4px;
             margin: 0;
             margin-bottom: 48px;
+            position: relative;
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
         }
 
@@ -301,17 +302,13 @@ export const ToniqSlider = defineToniqElement({
                  * location is by getting the progress bar right location minus half of the label
                  * value width. Then set label value left to that computed value.
                  */
-                const labelOffset =
-                    progress.getBoundingClientRect().left +
-                    progressCalculatedWidth -
-                    label.offsetWidth / 2;
-
+                const labelOffset = progressCalculatedWidth - label.offsetWidth / 2;
                 setProps({
                     labelStyle: {
                         innerText: `${props.value} ${props.suffix}`,
                         left: `${
-                            labelOffset < slider.getBoundingClientRect().left
-                                ? slider.getBoundingClientRect().left
+                            labelOffset < 0
+                                ? 0
                                 : labelOffset + label.clientWidth >
                                   slider.getBoundingClientRect().right
                                 ? slider.getBoundingClientRect().right - label.clientWidth
@@ -334,21 +331,15 @@ export const ToniqSlider = defineToniqElement({
                 const lowerSliderWidth = lowerSliderElement.clientWidth;
                 const upperSliderWidth = upperSliderElement.clientWidth;
 
-                /** Get offset from range 24 to 8 as input ranges from min to max. */
-                const lowerSliderOffset = mapRange(props.value.min, props.min, props.max, 24, 8);
-                const upperSliderOffset = mapRange(props.value.max, props.min, props.max, 24, 8);
-
                 const lowerSliderLeft =
                     (lowerSliderWidth *
                         mapRange(props.value.min, props.min, props.max, 0, props.max)) /
-                        props.max +
-                    lowerSliderOffset;
+                    props.max;
 
                 const upperSliderLeft =
                     (upperSliderWidth *
                         mapRange(props.value.max, props.min, props.max, 0, props.max)) /
-                        props.max +
-                    upperSliderOffset;
+                    props.max;
 
                 setProps({
                     progressStyle: {
@@ -366,12 +357,9 @@ export const ToniqSlider = defineToniqElement({
 
                 const lowerLabelOffset = lowerSliderLeft - lowerLabelElement.offsetWidth / 2;
                 const upperLabelOffset =
-                    progress.getBoundingClientRect().right - upperLabelElement.offsetWidth / 2;
+                    progress.offsetLeft + progress.offsetWidth - upperLabelElement.offsetWidth / 2;
 
-                const lowerLabelCalculatedLeft = Math.max(
-                    lowerLabelOffset,
-                    lowerSliderElement.getBoundingClientRect().left,
-                );
+                const lowerLabelCalculatedLeft = Math.max(lowerLabelOffset, 0);
                 const upperLabelCalculatedLeft =
                     upperLabelOffset + upperLabelElement.clientWidth >
                     upperSliderElement.getBoundingClientRect().right
@@ -397,25 +385,22 @@ export const ToniqSlider = defineToniqElement({
                     upperLabelCalculatedLeft <=
                         lowerLabelCalculatedLeft + lowerLabelElement.offsetWidth
                 ) {
-                    const lowerLabelOffset =
-                        progress.getBoundingClientRect().left -
-                        lowerLabelElement.getBoundingClientRect().width;
-                    const upperLabelOffset = progress.getBoundingClientRect().right;
-                    const lowerLabelMin = lowerSliderElement.getBoundingClientRect().left;
+                    const lowerLabelOffset = progress.offsetLeft - lowerLabelElement.offsetWidth;
+                    const upperLabelOffset = progress.offsetLeft + progress.offsetWidth;
+                    const lowerLabelMin = 0;
 
                     const lowerLabelMax =
-                        lowerSliderElement.getBoundingClientRect().right -
-                        upperLabelElement.getBoundingClientRect().width -
-                        lowerLabelElement.getBoundingClientRect().width -
+                        lowerSliderElement.offsetLeft +
+                        lowerSliderElement.offsetWidth -
+                        upperLabelElement.offsetWidth -
+                        lowerLabelElement.offsetWidth -
                         labelsOffset;
 
-                    const upperLabelMin =
-                        upperSliderElement.getBoundingClientRect().left +
-                        lowerLabelElement.getBoundingClientRect().width +
-                        labelsOffset;
+                    const upperLabelMin = lowerLabelElement.offsetWidth + labelsOffset;
                     const upperLabelMax =
-                        upperSliderElement.getBoundingClientRect().right -
-                        upperLabelElement.getBoundingClientRect().width;
+                        upperSliderElement.offsetLeft +
+                        upperSliderElement.offsetWidth -
+                        upperLabelElement.offsetWidth;
 
                     setProps({
                         lowerLabelStyle: {
