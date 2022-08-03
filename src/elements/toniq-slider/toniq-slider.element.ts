@@ -122,6 +122,7 @@ export const ToniqSlider = defineToniqElement({
             border-radius: 4px;
             margin: 0;
             margin-bottom: 48px;
+            position: relative;
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
         }
 
@@ -334,21 +335,15 @@ export const ToniqSlider = defineToniqElement({
                 const lowerSliderWidth = lowerSliderElement.clientWidth;
                 const upperSliderWidth = upperSliderElement.clientWidth;
 
-                /** Get offset from range 24 to 8 as input ranges from min to max. */
-                const lowerSliderOffset = mapRange(props.value.min, props.min, props.max, 24, 8);
-                const upperSliderOffset = mapRange(props.value.max, props.min, props.max, 24, 8);
-
                 const lowerSliderLeft =
                     (lowerSliderWidth *
                         mapRange(props.value.min, props.min, props.max, 0, props.max)) /
-                        props.max +
-                    lowerSliderOffset;
+                        props.max;
 
                 const upperSliderLeft =
                     (upperSliderWidth *
                         mapRange(props.value.max, props.min, props.max, 0, props.max)) /
-                        props.max +
-                    upperSliderOffset;
+                        props.max;
 
                 setProps({
                     progressStyle: {
