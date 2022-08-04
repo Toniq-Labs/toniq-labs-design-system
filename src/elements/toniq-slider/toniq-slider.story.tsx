@@ -95,9 +95,9 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
             Double range
         </h3>
         <ToniqSlider
-            min={0}
-            max={500}
-            value={{min: 120, max: 250}}
+            min={controls.min}
+            max={controls.max}
+            value={{min: 1, max: 50}}
             suffix={controls.suffix}
             double
             onValueChange={handleEventAsAction}
@@ -123,9 +123,9 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
         </div>
         <div style={{padding: '16px'}}>
             <ToniqSlider
-                min={0}
-                max={500}
-                value={{min: 120, max: 250}}
+                min={controls.min}
+                max={controls.max}
+                value={{min: 1, max: 50}}
                 suffix={controls.suffix}
                 double
                 onValueChange={handleEventAsAction}
