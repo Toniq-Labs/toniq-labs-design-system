@@ -2,6 +2,7 @@ import {isObject} from 'augment-vir';
 import {css, defineElementEvent, html, listen, onResize} from 'element-vir';
 import {unsafeCSS} from 'lit';
 import {clamp, toPercent, toPixel} from '../../augments/number';
+import {testId} from '../../directives/test-id.directive';
 import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
@@ -58,15 +59,22 @@ const thumbHoverStyle = css`
     transform: scale(1.2);
 `;
 
-const ClassNames = {
-    LowerLabelWrapper: 'lower-label-wrapper',
-    UpperLabelWrapper: 'upper-label-wrapper',
-    LabelPercentMarginWrapper: 'label-percent-wrapper',
-    LabelPixelMarginWrapper: 'label-pixel-wrapper',
-    LabelOuterWrapper: 'label-outer-wrapper',
-    RightAlignedLabelWrapper: 'label-right-wrapper',
-    Range: 'range',
+const classNames = {
+    lowerLabelWrapper: 'lower-label-wrapper',
+    upperLabelWrapper: 'upper-label-wrapper',
+    labelPercentMarginWrapper: 'label-percent-wrapper',
+    labelPixelMarginWrapper: 'label-pixel-wrapper',
+    labelOuterWrapper: 'label-outer-wrapper',
+    rightAlignedLabelWrapper: 'label-right-wrapper',
+    range: 'range',
 } as const;
+
+export const sliderTestIds = {
+    label: 'label',
+    upperLabel: 'upper-label',
+    lowerLabel: 'upper-label',
+    slider: 'slider',
+};
 
 export const ToniqSlider = defineToniqElement({
     tagName: 'toniq-slider',
@@ -99,7 +107,7 @@ export const ToniqSlider = defineToniqElement({
             display: block;
         }
 
-        .${unsafeCSS(ClassNames.Range)} {
+        .${unsafeCSS(classNames.range)} {
             display: flex;
             height: 8px;
             width: 100%;
@@ -119,7 +127,7 @@ export const ToniqSlider = defineToniqElement({
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
-        .${unsafeCSS(ClassNames.LabelOuterWrapper)} {
+        .${unsafeCSS(classNames.labelOuterWrapper)} {
             position: absolute;
             z-index: 1;
             margin-top: 16px;
@@ -129,13 +137,13 @@ export const ToniqSlider = defineToniqElement({
             ${noUserSelect};
         }
 
-        .${unsafeCSS(ClassNames.LabelPixelMarginWrapper)},
-            .${unsafeCSS(ClassNames.LabelPercentMarginWrapper)} {
+        .${unsafeCSS(classNames.labelPixelMarginWrapper)},
+            .${unsafeCSS(classNames.labelPercentMarginWrapper)} {
             position: relative;
             flex-shrink: 0;
         }
 
-        .${unsafeCSS(ClassNames.RightAlignedLabelWrapper)} {
+        .${unsafeCSS(classNames.rightAlignedLabelWrapper)} {
             justify-content: flex-end;
         }
 
@@ -258,32 +266,34 @@ export const ToniqSlider = defineToniqElement({
                         style="left: ${progressBarPosition.left}; right:${progressBarPosition.right}"
                     ></div>
                     <span
-                        class="${ClassNames.LabelOuterWrapper} ${ClassNames.LowerLabelWrapper}"
+                        class="${classNames.labelOuterWrapper} ${classNames.lowerLabelWrapper}"
                         style="left: ${progressBarPosition.left}"
                     >
                         <span
-                            class="${ClassNames.LabelPercentMarginWrapper}"
+                            class="${classNames.labelPercentMarginWrapper}"
                             style="margin-left: ${toPercent(lowerLabelPercentMargin)}"
                         >
                             <span
-                                class="${ClassNames.LabelPixelMarginWrapper}"
+                                class="${classNames.labelPixelMarginWrapper}"
                                 style="margin-right: ${toPixel(lowerPixelMargin)}"
+                                ${testId(sliderTestIds.lowerLabel)}
                             >
                                 ${lowerLabel}
                             </span>
                         </span>
                     </span>
                     <span
-                        class="${ClassNames.LabelOuterWrapper} ${ClassNames.UpperLabelWrapper} ${ClassNames.RightAlignedLabelWrapper}"
+                        class="${classNames.labelOuterWrapper} ${classNames.upperLabelWrapper} ${classNames.rightAlignedLabelWrapper}"
                         style="right: ${progressBarPosition.right}"
                     >
                         <span
-                            class="${ClassNames.LabelPercentMarginWrapper}"
+                            class="${classNames.labelPercentMarginWrapper}"
                             style="margin-right: ${toPercent(upperLabelPercentMargin)}"
                         >
                             <span
-                                class="${ClassNames.LabelPixelMarginWrapper}"
+                                class="${classNames.labelPixelMarginWrapper}"
                                 style="margin-left: ${toPixel(upperPixelMargin)}"
+                                ${testId(sliderTestIds.upperLabel)}
                             >
                                 ${upperLabel}
                             </span>
@@ -316,6 +326,7 @@ export const ToniqSlider = defineToniqElement({
                             .min=${limits.min}
                             .max=${limits.max}
                             .value=${doubleRangeValue.max}
+                            ${testId(sliderTestIds.slider)}
                             ${listen('input', (event) => {
                                 const inputElement = event.target as HTMLInputElement;
                                 const newValue = {
@@ -359,12 +370,13 @@ export const ToniqSlider = defineToniqElement({
                 >
                     <div class="progress" style="left: 0px; right: ${progressRightPosition}"></div>
                     <span
-                        class="${ClassNames.LabelOuterWrapper} ${ClassNames.RightAlignedLabelWrapper}"
+                        class="${classNames.labelOuterWrapper} ${classNames.rightAlignedLabelWrapper}"
                         style="right: ${progressRightPosition}"
                     >
                         <span
-                            class="${ClassNames.LabelPercentMarginWrapper}"
+                            class="${classNames.labelPercentMarginWrapper}"
                             style="margin-right: ${toPercent(labelMargin)}"
+                            ${testId(sliderTestIds.label)}
                         >
                             ${label}
                         </span>
@@ -376,6 +388,7 @@ export const ToniqSlider = defineToniqElement({
                         .min=${limits.min}
                         .max=${limits.max}
                         .value=${singleValue}
+                        ${testId(sliderTestIds.slider)}
                         ${listen('input', (event) => {
                             const inputElement = event.target as HTMLInputElement;
                             const newValue = Number(inputElement.value);
@@ -393,10 +406,10 @@ export const ToniqSlider = defineToniqElement({
 
 function getLabelElementBoxes(host: HTMLElement) {
     const lowerLabel = host.shadowRoot?.querySelector(
-        `.${ClassNames.LowerLabelWrapper} .${ClassNames.LabelPercentMarginWrapper}`,
+        `.${classNames.lowerLabelWrapper} .${classNames.labelPercentMarginWrapper}`,
     );
     const upperLabel = host.shadowRoot?.querySelector(
-        `.${ClassNames.UpperLabelWrapper} .${ClassNames.LabelPercentMarginWrapper}`,
+        `.${classNames.upperLabelWrapper} .${classNames.labelPercentMarginWrapper}`,
     );
 
     if (upperLabel instanceof HTMLElement && lowerLabel instanceof HTMLElement) {
@@ -443,7 +456,7 @@ function isDoubleRangeValue(value: ToniqSliderValueType): value is ToniqSliderDo
 }
 
 function getRangeWidth(host: HTMLElement): number {
-    const sliderElement = host.shadowRoot?.querySelector(`.${ClassNames.Range}`);
+    const sliderElement = host.shadowRoot?.querySelector(`.${classNames.range}`);
 
     return sliderElement?.clientWidth ?? 0;
 }

@@ -2,10 +2,10 @@ import {assert, fixture} from '@open-wc/testing';
 import {assign, html} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';
-import {queryThroughShadow} from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
 import {createFocusTests} from '../../element-testing/test-focus';
-import {ToniqSlider} from './toniq-slider.element';
+import {getByTestId} from '../../element-testing/test-id-testing';
+import {sliderTestIds, ToniqSlider} from './toniq-slider.element';
 
 describe(ToniqSlider.tagName, () => {
     createElementRegistrationTest(ToniqSlider);
@@ -28,7 +28,7 @@ describe(ToniqSlider.tagName, () => {
                 `,
             );
 
-            const sliderInput = queryThroughShadow('input.slider', rendered);
+            const sliderInput = getByTestId(sliderTestIds.slider, rendered);
             assertInstanceOf(sliderInput, HTMLInputElement);
             assert.strictEqual(parseInt(sliderInput.value), sliderDefault.min);
             assert.strictEqual(parseInt(sliderInput.min), sliderDefault.min);
@@ -50,7 +50,7 @@ describe(ToniqSlider.tagName, () => {
                 `,
             );
 
-            const label = queryThroughShadow('span.label', rendered);
+            const label = getByTestId(sliderTestIds.label, rendered);
             assertInstanceOf(label, HTMLSpanElement);
             assert.equal(`${label.innerText}`, `${value} ${suffix}`);
         }),
@@ -66,7 +66,7 @@ describe(ToniqSlider.tagName, () => {
                 `,
             );
 
-            const label = queryThroughShadow('span.label', rendered);
+            const label = getByTestId(sliderTestIds.label, rendered);
             assertInstanceOf(label, HTMLSpanElement);
             assert.isTrue(new RegExp(suffix).test(label.innerText));
         }),

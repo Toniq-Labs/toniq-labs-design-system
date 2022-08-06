@@ -1,4 +1,5 @@
 import {assign, css, defineElementEvent, html} from 'element-vir';
+import {testId} from '../../directives/test-id.directive';
 import {ChevronDown24Icon, ToniqSvg} from '../../icons';
 import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
@@ -157,7 +158,7 @@ export const ToniqDropdown = defineToniqElement({
         const leadingIconTemplate = props.icon
             ? html`
                 <${ToniqIcon}
-                    data-test-id="rendered-input-icon"
+                    ${testId('rendered-input-icon')}
                     ${assign(ToniqIcon.props.icon, props.icon)}
                 ></${ToniqIcon}>`
             : '';

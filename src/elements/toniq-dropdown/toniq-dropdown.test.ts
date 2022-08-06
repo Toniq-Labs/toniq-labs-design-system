@@ -6,6 +6,7 @@ import {assertIconEquals} from '../../element-testing/icon-test-helpers';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
 import {createFocusTests} from '../../element-testing/test-focus';
+import {getByTestId} from '../../element-testing/test-id-testing';
 import {ArrowsSort24Icon} from '../../icons';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {ToniqDropdown} from './toniq-dropdown.element';
@@ -55,10 +56,7 @@ describe(ToniqDropdown.tagName, () => {
                 `,
             );
 
-            const renderedIcon = queryThroughShadow(
-                '[data-test-id="rendered-input-icon"]',
-                rendered,
-            );
+            const renderedIcon = getByTestId('rendered-input-icon', rendered);
             assertInstanceOf(renderedIcon, ToniqIcon);
             assertIconEquals(renderedIcon, ArrowsSort24Icon);
         }),
