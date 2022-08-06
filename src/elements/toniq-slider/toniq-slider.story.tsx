@@ -72,9 +72,9 @@ export default componentStoryMeta;
 
 const sliderStatesInit = {
     single: 20,
-    double: {min: 1, max: 50},
+    double: {min: 15, max: 32},
     singlePadding: 20,
-    doublePadding: {min: 1, max: 50},
+    doublePadding: {min: 15, max: 32},
 } as const;
 
 type SliderStoryState = Readonly<{
