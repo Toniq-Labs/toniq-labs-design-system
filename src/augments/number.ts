@@ -16,3 +16,11 @@ export function mapRange(
 export function clamp(number: number, lower: number, upper: number) {
     return Math.min(Math.max(number, lower), upper);
 }
+
+export function toPixel(value: number): string {
+    return `${value}px`;
+}
+
+export function toPercent(value: number): string {
+    return `${value}%`;
+}

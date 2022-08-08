@@ -1,5 +1,5 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
-import React from 'react';
+import React, {useReducer} from 'react';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
 import {cssToReactStyleObject, toniqFontStyles} from '../../styles';
 import {ToniqSlider} from '../react-components';
@@ -70,68 +70,124 @@ const componentStoryMeta: ComponentMeta<typeof ToniqSlider> = {
 
 export default componentStoryMeta;
 
-export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any>) => (
-    <article>
-        <h3
-            style={{
-                ...cssToReactStyleObject(toniqFontStyles.h3Font),
-            }}
-        >
-            Single Range
-        </h3>
-        <ToniqSlider
-            value={controls.value}
-            min={controls.min}
-            max={controls.max}
-            suffix={controls.suffix}
-            onValueChange={handleEventAsAction}
-        />
+const sliderStatesInit = {
+    single: 20,
+    double: {min: 15, max: 32},
+    singlePadding: 20,
+    doublePadding: {min: 15, max: 32},
+} as const;
 
-        <h3
-            style={{
-                ...cssToReactStyleObject(toniqFontStyles.h3Font),
-            }}
-        >
-            Double range
-        </h3>
-        <ToniqSlider
-            min={0}
-            max={500}
-            value={{min: 120, max: 250}}
-            suffix={controls.suffix}
-            double
-            onValueChange={handleEventAsAction}
-        />
+type SliderStoryState = Readonly<{
+    [P in keyof typeof sliderStatesInit]: typeof sliderStatesInit[P] extends object
+        ? Readonly<Required<Record<'min' | 'max', number>>>
+        : number;
+}>;
 
-        <h3
-            style={{
-                ...cssToReactStyleObject(toniqFontStyles.h3Font),
-            }}
-        >
-            With Padding
-        </h3>
+export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any>) => {
+    const [
+        sliderStates,
+        updateSliderStates,
+    ] = useReducer(
+        (
+            state: SliderStoryState,
+            {
+                key,
+                value,
+            }: {
+                key: keyof SliderStoryState;
+                value: SliderStoryState[typeof key];
+            },
+        ): SliderStoryState => {
+            return {
+                ...state,
+                [key]: value,
+            };
+        },
+        sliderStatesInit,
+    );
 
-        <div style={{padding: '16px'}}>
+    if (sliderStates.single !== controls.value) {
+        updateSliderStates({key: 'single', value: controls.value});
+    }
+    if (sliderStates.singlePadding !== controls.value) {
+        updateSliderStates({key: 'singlePadding', value: controls.value});
+    }
+
+    return (
+        <article>
+            <h3
+                style={{
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
+                }}
+            >
+                Single Range
+            </h3>
             <ToniqSlider
-                value={controls.value}
+                value={sliderStates.single}
                 min={controls.min}
                 max={controls.max}
                 suffix={controls.suffix}
-                onValueChange={handleEventAsAction}
-                style={{padding: '16px'}}
+                onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
+                    updateSliderStates({key: 'single', value: event.detail});
+                    handleEventAsAction(event);
+                }}
             />
-        </div>
-        <div style={{padding: '16px'}}>
+
+            <h3
+                style={{
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
+                }}
+            >
+                Double range
+            </h3>
             <ToniqSlider
-                min={0}
-                max={500}
-                value={{min: 120, max: 250}}
+                min={controls.min}
+                max={controls.max}
+                value={sliderStates.double}
                 suffix={controls.suffix}
                 double
-                onValueChange={handleEventAsAction}
-                style={{padding: '16px'}}
+                onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
+                    updateSliderStates({key: 'double', value: event.detail});
+                    handleEventAsAction(event);
+                }}
             />
-        </div>
-    </article>
-);
+
+            <h3
+                style={{
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
+                }}
+            >
+                With Padding
+            </h3>
+
+            <div style={{padding: '16px'}}>
+                <ToniqSlider
+                    value={sliderStates.singlePadding}
+                    min={controls.min}
+                    max={controls.max}
+                    suffix={controls.suffix}
+                    onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
+                        updateSliderStates({key: 'singlePadding', value: event.detail});
+                        handleEventAsAction(event);
+                    }}
+                    style={{padding: '16px'}}
+                />
+            </div>
+            <div style={{padding: '16px'}}>
+                <ToniqSlider
+                    min={controls.min}
+                    max={controls.max}
+                    value={sliderStates.doublePadding}
+                    suffix={controls.suffix}
+                    double
+                    onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
+                        updateSliderStates({key: 'doublePadding', value: event.detail});
+                        handleEventAsAction(event);
+                    }}
+                    style={{padding: '16px'}}
+                />
+            </div>
+        </article>
+    );
+};
 mainStory.storyName = 'Toniq Slider';
