@@ -67,6 +67,9 @@ const classNames = {
     labelOuterWrapper: 'label-outer-wrapper',
     rightAlignedLabelWrapper: 'label-right-wrapper',
     range: 'range',
+    lowerSlider: 'lower-slider',
+    upperSlider: 'upper-slider',
+    slider: 'slider',
 } as const;
 
 export const sliderTestIds = {
@@ -147,7 +150,7 @@ export const ToniqSlider = defineToniqElement({
             justify-content: flex-end;
         }
 
-        .slider {
+        .${unsafeCSS(classNames.slider)} {
             -webkit-appearance: none;
             height: 8px;
             width: 100%;
@@ -160,8 +163,8 @@ export const ToniqSlider = defineToniqElement({
         /* this does not work in firefox */
         ${createFocusStyles('.slider:focus', 0)}
 
-        .lower-slider,
-        .upper-slider {
+        .${unsafeCSS(classNames.lowerSlider)},
+        .${unsafeCSS(classNames.upperSlider)} {
             position: absolute;
             left: 0;
             pointer-events: none;
@@ -173,28 +176,30 @@ export const ToniqSlider = defineToniqElement({
         }
 
         /* these selectors fail if combined with a comma */
-        .slider::-moz-range-thumb {
+        .${unsafeCSS(classNames.slider)}::-moz-range-thumb {
             ${thumbStyle}
         }
 
         /* these selectors fail if combined with a comma */
-        .slider::-webkit-slider-thumb {
+        .${unsafeCSS(classNames.slider)}::-webkit-slider-thumb {
             ${thumbStyle}
         }
 
         /* these selectors fail if combined with a comma */
-        .slider::-webkit-slider-thumb:hover {
+        .${unsafeCSS(classNames.slider)}::-webkit-slider-thumb:hover {
             ${thumbHoverStyle}
         }
 
         /* these selectors fail if combined with a comma */
-        .slider::-moz-range-thumb:hover {
+        .${unsafeCSS(classNames.slider)}::-moz-range-thumb:hover {
             ${thumbHoverStyle}
         }
     `,
     renderCallback: ({props, host, events, dispatch, setProps}) => {
         const limits = getCorrectedLimits({...props});
         const value = getCorrectedValue({...props});
+        // update the actual input HTML sliders to the fixed values
+        maybeFixSliderValues(value, host);
 
         const rangeWidth = getRangeWidth(host);
 
@@ -303,7 +308,7 @@ export const ToniqSlider = defineToniqElement({
                         <input
                             type="range"
                             step=${props.step}
-                            class="lower-slider slider"
+                            class="${classNames.lowerSlider} ${classNames.slider}"
                             .min=${limits.min}
                             .max=${limits.max}
                             .value=${doubleRangeValue.min}
@@ -321,7 +326,7 @@ export const ToniqSlider = defineToniqElement({
                         />
                         <input
                             type="range"
-                            class="upper-slider slider"
+                            class="${classNames.upperSlider} ${classNames.slider}"
                             step=${props.step}
                             .min=${limits.min}
                             .max=${limits.max}
@@ -383,7 +388,7 @@ export const ToniqSlider = defineToniqElement({
                     </span>
                     <input
                         type="range"
-                        class="slider"
+                        class="${classNames.slider}"
                         step=${props.step}
                         .min=${limits.min}
                         .max=${limits.max}
@@ -473,6 +478,28 @@ function getCorrectedLimits({min, max}: ToniqSliderDoubleRangeValue): ToniqSlide
         };
     }
     return {min, max};
+}
+
+function maybeFixSliderValues(fixedValue: ToniqSliderValueType, host: HTMLElement) {
+    if (isDoubleRangeValue(fixedValue)) {
+        const lowerSlider = host.shadowRoot?.querySelector(`.${classNames.lowerSlider}`);
+        const upperSlider = host.shadowRoot?.querySelector(`.${classNames.upperSlider}`);
+        if (lowerSlider instanceof HTMLInputElement && upperSlider instanceof HTMLInputElement) {
+            if (Number(lowerSlider.value) !== fixedValue.min) {
+                lowerSlider.value = String(fixedValue.min);
+            }
+            if (Number(upperSlider.value) !== fixedValue.max) {
+                upperSlider.value = String(fixedValue.max);
+            }
+        }
+    } else {
+        const slider = host.querySelector(`.${classNames.slider}`);
+        if (slider instanceof HTMLInputElement) {
+            if (Number(slider.value) !== fixedValue) {
+                slider.value = String(fixedValue);
+            }
+        }
+    }
 }
 
 function getCorrectedValue({
