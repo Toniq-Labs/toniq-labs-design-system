@@ -58,6 +58,7 @@ import {Users24Icon} from './svgs/core-24/users-24.icon';
 import {Wallet24Icon} from './svgs/core-24/wallet-24.icon';
 import {WorldUpload24Icon} from './svgs/core-24/world-upload-24.icon';
 import {X24Icon} from './svgs/core-24/x-24.icon';
+import {Kyc32Icon} from './svgs/core-32/kyc-32.icon';
 import {FolderOff48Icon} from './svgs/core-48/folder-off-48.icon';
 import {EntrepotLogo144Icon} from './svgs/logos/entrepot-logo-144.icon';
 import {BrandInstagram32Icon} from './svgs/third-party-brands/brand-instagram-32.icon';
@@ -122,6 +123,7 @@ export * from './svgs/core-24/users-24.icon';
 export * from './svgs/core-24/wallet-24.icon';
 export * from './svgs/core-24/world-upload-24.icon';
 export * from './svgs/core-24/x-24.icon';
+export * from './svgs/core-32/kyc-32.icon';
 export * from './svgs/core-48/folder-off-48.icon';
 export * from './svgs/logos/entrepot-logo-144.icon';
 export * from './svgs/third-party-brands/brand-instagram-32.icon';
@@ -193,6 +195,7 @@ export const allIconsByCategory = {
         WorldUpload24Icon,
         X24Icon,
     ],
+    'core-32': [Kyc32Icon],
     'core-48': [FolderOff48Icon],
     logos: [EntrepotLogo144Icon],
     'third-party-brands': [
