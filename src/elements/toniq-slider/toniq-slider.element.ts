@@ -17,6 +17,7 @@ import {
     makeLabel,
     maybeFixSliderValues,
     sliderTestIds,
+    ToniqSliderDoubleRangeValue,
     ToniqSliderValueType,
 } from './slider-logic';
 
@@ -163,13 +164,15 @@ export const ToniqSlider = defineToniqElement({
         const value = getCorrectedValue({...props});
         // update the actual input HTML sliders to the fixed values
         maybeFixSliderValues(value, host);
-
         const rangeWidth = getRangeWidth(host);
 
         if (isDoubleRangeValue(value)) {
-            // for type preservation in later callback definitions
-            const doubleRangeValue = value;
+            return doubleRangeSlider(value);
+        } else {
+            return singleRangeSlider(value);
+        }
 
+        function doubleRangeSlider(doubleRangeValue: ToniqSliderDoubleRangeValue) {
             const progressBarPosition = {
                 left: toPixel(
                     ((rangeWidth - thumbSizeNumber) * (doubleRangeValue.min - limits.min)) /
@@ -310,10 +313,9 @@ export const ToniqSlider = defineToniqElement({
                     </div>
                 </div>
             `;
-        } else {
-            // for type preservation in later callback definitions
-            const singleValue = value;
+        }
 
+        function singleRangeSlider(singleValue: number) {
             const progressRightPosition = toPixel(
                 ((rangeWidth - thumbSizeNumber) * (limits.max - singleValue)) /
                     (limits.max - limits.min) +
