@@ -1,5 +1,5 @@
-import {isObject} from 'augment-vir';
-import {clamp} from '../../augments/number';
+import {isObject, truncateNumber} from 'augment-vir';
+import {clamp, findClosestRangeIndex} from '../../augments/number';
 
 export interface ToniqSliderDoubleRangeValue {
     min: number;
@@ -27,7 +27,7 @@ export interface ToniqSliderLabelStyle {
     left?: string;
 }
 
-export type ToniqSliderValueType = number | ToniqSliderDoubleRangeValue;
+export type ToniqSliderValueType = number | Readonly<ToniqSliderDoubleRangeValue>;
 
 export const classNames = {
     lowerLabelWrapper: 'lower-label-wrapper',
@@ -108,8 +108,8 @@ export function getRangeWidth(host: HTMLElement): number {
     return sliderElement?.clientWidth ?? 0;
 }
 
-export function makeLabel(value: number, suffix: string): string {
-    return `${value} ${suffix}`;
+export function makeLabel(value: number, suffix: string, logScale: boolean): string {
+    return `${logScale ? truncateNumber(value) : value} ${suffix}`;
 }
 
 function getCorrectedLimits({min, max}: ToniqSliderDoubleRangeValue): ToniqSliderDoubleRangeValue {
@@ -155,10 +155,56 @@ function getCorrectedValue({
     }
 }
 
+export function getPossiblyLogarithmicValuesForElement({
+    actualValue,
+    actualLimits,
+    logScale,
+    logRange,
+}: {
+    actualValue: ToniqSliderValueType;
+    actualLimits: ToniqSliderDoubleRangeValue;
+    logScale: boolean;
+    logRange: number[];
+}): {elementValue: ToniqSliderValueType; elementLimits: ToniqSliderDoubleRangeValue} {
+    if (logScale) {
+        const mappedLogValue = isDoubleRangeValue(actualValue)
+            ? {
+                  min: findClosestRangeIndex(logRange, actualValue.min),
+                  max: findClosestRangeIndex(logRange, actualValue.max),
+              }
+            : findClosestRangeIndex(logRange, actualValue);
+
+        return {
+            elementValue: mappedLogValue,
+            elementLimits: {
+                min: 0,
+                max: logRange.length - 1,
+            },
+        };
+    } else {
+        return {
+            elementValue: actualValue,
+            elementLimits: actualLimits,
+        };
+    }
+}
+
+export function maybeTransformToLogValue(
+    logValue: number,
+    logRange: number[],
+    logScale: boolean,
+): number {
+    if (logScale) {
+        return logRange[logValue] || 0;
+    } else {
+        return logValue;
+    }
+}
+
 export function getCorrectedLimitsAndValue(
     params: Readonly<
         {
-            value: Readonly<ToniqSliderValueType>;
+            value: ToniqSliderValueType;
             double: boolean;
         } & ToniqSliderDoubleRangeValue
     >,

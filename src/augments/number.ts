@@ -25,6 +25,48 @@ export function toPercent(value: number): string {
     return `${value}%`;
 }
 
+export function findClosestRangeIndex(logRange: number[], findValue: number): number {
+    const lowestValue = logRange[0];
+    const highestValue = logRange[logRange.length - 1];
+    if (!lowestValue) {
+        return 0;
+    }
+    if (!highestValue) {
+        return 0;
+    }
+    if (findValue < lowestValue) {
+        return lowestValue;
+    }
+    if (findValue > highestValue) {
+        return highestValue;
+    }
+
+    const logValueIndex = logRange.findIndex((logValue, index) => {
+        const nextValue = logRange[index + 1];
+        if (nextValue == undefined) {
+            return true;
+        }
+        return logValue <= findValue && nextValue >= findValue;
+    });
+    if (logValueIndex < 0) {
+        return lowestValue;
+    }
+
+    const indexRangeValue = logRange[logValueIndex];
+    if (indexRangeValue == undefined) {
+        return lowestValue;
+    }
+    const nextIndexRangeValue = logRange[logValueIndex + 1];
+    if (nextIndexRangeValue == undefined) {
+        return indexRangeValue;
+    }
+
+    const diffToIndex = findValue - indexRangeValue;
+    const diffToNextIndex = nextIndexRangeValue - findValue;
+
+    return diffToIndex < diffToNextIndex ? logValueIndex : logValueIndex + 1;
+}
+
 export function createReasonableLogarithmicRange(
     min: number,
     max: number,
