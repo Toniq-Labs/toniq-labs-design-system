@@ -74,7 +74,7 @@ const sliderStatesInit = {
     single: 20,
     double: {min: 15, max: 32},
     logScaleSingle: 20,
-    logScaleDouble: {min: 15, max: 5_000},
+    logScaleDouble: {min: 0, max: 5_000},
     singlePadding: 20,
     doublePadding: {min: 15, max: 32},
 } as const;
@@ -156,8 +156,8 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                 value={sliderStates.logScaleDouble}
                 logScale={true}
                 double={true}
-                min={5}
-                max={5_432_109}
+                min={0}
+                max={5_432_109.45}
                 suffix={controls.suffix}
                 onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
                     updateSliderStates({key: 'logScaleDouble', value: event.detail});

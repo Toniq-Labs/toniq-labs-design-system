@@ -28,10 +28,10 @@ export function toPercent(value: number): string {
 export function findClosestRangeIndex(logRange: number[], findValue: number): number {
     const lowestValue = logRange[0];
     const highestValue = logRange[logRange.length - 1];
-    if (!lowestValue) {
+    if (lowestValue == undefined) {
         return 0;
     }
-    if (!highestValue) {
+    if (highestValue == undefined) {
         return 0;
     }
     if (findValue < lowestValue) {
