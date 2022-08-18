@@ -24,3 +24,70 @@ export function toPixel(value: number): string {
 export function toPercent(value: number): string {
     return `${value}%`;
 }
+
+export function createReasonableLogarithmicRange(
+    min: number,
+    max: number,
+    maxStepCount = 100,
+): number[] {
+    if (min > max) {
+        [
+            min,
+            max,
+        ] = [
+            max,
+            min,
+        ];
+    }
+    if (maxStepCount < 2) {
+        // must at least allow 2 steps
+        maxStepCount = 2;
+    }
+    let iterator = snapToLowerMultipleOfPowerOfTen(min);
+    const range: number[] = [min];
+    while (iterator < max) {
+        const currentStep = Math.pow(10, String(iterator).length - 1);
+        const newRangeValue = iterator + currentStep;
+        if (newRangeValue < max) {
+            range.push(newRangeValue);
+        }
+        iterator = newRangeValue;
+    }
+    range.push(max);
+
+    if (range.length > maxStepCount) {
+        mutateRemoveRangeEntries(range, maxStepCount);
+        if (range.length > maxStepCount) {
+            mutateRemoveRangeEntries(range, maxStepCount);
+        }
+    }
+
+    return range;
+}
+
+function mutateRemoveRangeEntries(range: number[], maxStepCount: number): void {
+    const removeCount = range.length - maxStepCount;
+    const removalOffset =
+        (range.length -
+            // subtract two because we don't want to modify the first or last range entries
+            2) /
+        removeCount;
+    for (let index = range.length - 2; index >= 1; index -= removalOffset) {
+        range.splice(Math.floor(index), 1);
+    }
+}
+
+export function snapToLowerMultipleOfPowerOfTen(input: number): number {
+    let negativeModifier = 1;
+    if (!input) {
+        return input;
+    }
+    if (input < 0) {
+        negativeModifier = -1;
+        input = input * -1;
+    }
+    const stringNumber = String(input);
+    const lowerPowerOfTen = Math.pow(10, stringNumber.length - 1);
+    const leadingDigit = Number(stringNumber[0] || 1);
+    return lowerPowerOfTen * leadingDigit * negativeModifier;
+}
