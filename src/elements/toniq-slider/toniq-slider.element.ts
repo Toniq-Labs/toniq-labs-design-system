@@ -1,6 +1,6 @@
 import {css, defineElementEvent, html, listen, onResize} from 'element-vir';
 import {unsafeCSS} from 'lit';
-import {toPercent, toPixel} from '../../augments/number';
+import {createReasonableLogarithmicRange, toPercent, toPixel} from '../../augments/number';
 import {testId} from '../../directives/test-id.directive';
 import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
@@ -11,10 +11,12 @@ import {
     classNames,
     getCorrectedLimitsAndValue,
     getLabelOverlapDistance,
+    getPossiblyLogarithmicValuesForElement,
     getRangeWidth,
     isDoubleRangeValue,
     makeLabel,
     maybeFixSliderValues,
+    maybeTransformToLogValue,
     sliderTestIds,
     ToniqSliderDoubleRangeValue,
     ToniqSliderValueType,
@@ -161,33 +163,47 @@ export const ToniqSlider = defineToniqElement({
     `,
     renderCallback: ({props, host, events, dispatch, setProps}) => {
         const {actualValue, actualLimits} = getCorrectedLimitsAndValue({...props});
-        // const stuff = getPossiblyLogarithmicProps({...props});
+        const logRange = createReasonableLogarithmicRange(actualLimits.min, actualLimits.max);
+        const {elementValue, elementLimits} = getPossiblyLogarithmicValuesForElement({
+            actualValue,
+            actualLimits,
+            logScale: props.logScale,
+            logRange,
+        });
         // update the actual input HTML sliders to the fixed values if needed
-        maybeFixSliderValues(actualValue, host);
+        maybeFixSliderValues(elementValue, host);
         const rangeWidth = getRangeWidth(host);
 
-        if (isDoubleRangeValue(actualValue)) {
-            return doubleRangeSlider(actualValue);
+        if (isDoubleRangeValue(elementValue)) {
+            return doubleRangeSlider(
+                actualValue as ToniqSliderDoubleRangeValue,
+                elementValue,
+                elementLimits,
+            );
         } else {
-            return singleRangeSlider(actualValue);
+            return singleRangeSlider(actualValue as number, elementValue, elementLimits);
         }
 
-        function doubleRangeSlider(doubleRangeValue: ToniqSliderDoubleRangeValue) {
+        function doubleRangeSlider(
+            doubleRangeValue: ToniqSliderDoubleRangeValue,
+            elementValue: ToniqSliderDoubleRangeValue,
+            elementLimits: ToniqSliderDoubleRangeValue,
+        ) {
             const progressBarPosition = {
                 left: toPixel(
-                    ((rangeWidth - thumbSizeNumber) * (doubleRangeValue.min - actualLimits.min)) /
-                        (actualLimits.max - actualLimits.min) +
+                    ((rangeWidth - thumbSizeNumber) * (elementValue.min - elementLimits.min)) /
+                        (elementLimits.max - elementLimits.min) +
                         thumbSizeNumber / 2,
                 ),
                 right: toPixel(
-                    ((rangeWidth - thumbSizeNumber) * (actualLimits.max - doubleRangeValue.max)) /
-                        (actualLimits.max - actualLimits.min) +
+                    ((rangeWidth - thumbSizeNumber) * (elementLimits.max - elementValue.max)) /
+                        (elementLimits.max - elementLimits.min) +
                         thumbSizeNumber / 2,
                 ),
             };
 
-            const lowerLabel = makeLabel(doubleRangeValue.min, props.suffix);
-            const upperLabel = makeLabel(doubleRangeValue.max, props.suffix);
+            const lowerLabel = makeLabel(doubleRangeValue.min, props.suffix, props.logScale);
+            const upperLabel = makeLabel(doubleRangeValue.max, props.suffix, props.logScale);
 
             // super hacky but this ensures that the labels never overlap each other
             setTimeout(() => {
@@ -200,22 +216,22 @@ export const ToniqSlider = defineToniqElement({
             }, 0);
 
             const shouldMoveUpperLabel =
-                (actualLimits.max - doubleRangeValue.max) / (actualLimits.max - actualLimits.min) >
+                (elementLimits.max - elementValue.max) / (elementLimits.max - elementLimits.min) >
                 0.5;
 
             const lowerLabelPercentMargin = calculateLabelMargin({
-                value: doubleRangeValue.min,
+                value: elementValue.min,
                 limits: {
-                    min: actualLimits.min,
-                    max: doubleRangeValue.max,
+                    min: elementLimits.min,
+                    max: elementValue.max,
                 },
                 flip: true,
             });
             const upperLabelPercentMargin = calculateLabelMargin({
-                value: doubleRangeValue.max,
+                value: elementValue.max,
                 limits: {
-                    min: doubleRangeValue.min,
-                    max: actualLimits.max,
+                    min: elementValue.min,
+                    max: elementLimits.max,
                 },
                 flip: false,
             });
@@ -277,14 +293,18 @@ export const ToniqSlider = defineToniqElement({
                             type="range"
                             step=${props.step}
                             class="${classNames.lowerSlider} ${classNames.slider}"
-                            .min=${actualLimits.min}
-                            .max=${actualLimits.max}
-                            .value=${doubleRangeValue.min}
+                            .min=${elementLimits.min}
+                            .max=${elementLimits.max}
+                            .value=${elementValue.min}
                             ${listen('input', (event) => {
                                 const inputElement = event.target as HTMLInputElement;
                                 const newValue = {
                                     ...doubleRangeValue,
-                                    min: Number(inputElement.value),
+                                    min: maybeTransformToLogValue(
+                                        Number(inputElement.value),
+                                        logRange,
+                                        props.logScale,
+                                    ),
                                 };
                                 setProps({
                                     value: newValue,
@@ -296,15 +316,19 @@ export const ToniqSlider = defineToniqElement({
                             type="range"
                             class="${classNames.upperSlider} ${classNames.slider}"
                             step=${props.step}
-                            .min=${actualLimits.min}
-                            .max=${actualLimits.max}
-                            .value=${doubleRangeValue.max}
+                            .min=${elementLimits.min}
+                            .max=${elementLimits.max}
+                            .value=${elementValue.max}
                             ${testId(sliderTestIds.slider)}
                             ${listen('input', (event) => {
                                 const inputElement = event.target as HTMLInputElement;
                                 const newValue = {
                                     ...doubleRangeValue,
-                                    max: Number(inputElement.value),
+                                    max: maybeTransformToLogValue(
+                                        Number(inputElement.value),
+                                        logRange,
+                                        props.logScale,
+                                    ),
                                 };
                                 setProps({
                                     value: newValue,
@@ -317,17 +341,21 @@ export const ToniqSlider = defineToniqElement({
             `;
         }
 
-        function singleRangeSlider(singleValue: number) {
+        function singleRangeSlider(
+            singleValue: number,
+            elementValue: number,
+            elementLimits: ToniqSliderDoubleRangeValue,
+        ) {
             const progressRightPosition = toPixel(
-                ((rangeWidth - thumbSizeNumber) * (actualLimits.max - singleValue)) /
-                    (actualLimits.max - actualLimits.min) +
+                ((rangeWidth - thumbSizeNumber) * (elementLimits.max - elementValue)) /
+                    (elementLimits.max - elementLimits.min) +
                     thumbSizeNumber / 2,
             );
 
-            const label = makeLabel(singleValue, props.suffix);
+            const label = makeLabel(singleValue, props.suffix, props.logScale);
             const labelMargin = calculateLabelMargin({
-                value: singleValue,
-                limits: actualLimits,
+                value: elementValue,
+                limits: elementLimits,
                 flip: false,
             });
 
@@ -357,13 +385,17 @@ export const ToniqSlider = defineToniqElement({
                         type="range"
                         class="${classNames.slider}"
                         step=${props.step}
-                        .min=${actualLimits.min}
-                        .max=${actualLimits.max}
-                        .value=${singleValue}
+                        .min=${elementLimits.min}
+                        .max=${elementLimits.max}
+                        .value=${elementValue}
                         ${testId(sliderTestIds.slider)}
                         ${listen('input', (event) => {
                             const inputElement = event.target as HTMLInputElement;
-                            const newValue = Number(inputElement.value);
+                            const newValue = maybeTransformToLogValue(
+                                Number(inputElement.value),
+                                logRange,
+                                props.logScale,
+                            );
                             setProps({
                                 value: newValue,
                             });

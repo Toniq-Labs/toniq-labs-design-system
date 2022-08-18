@@ -73,6 +73,8 @@ export default componentStoryMeta;
 const sliderStatesInit = {
     single: 20,
     double: {min: 15, max: 32},
+    logScaleSingle: 20,
+    logScaleDouble: {min: 15, max: 5_000},
     singlePadding: 20,
     doublePadding: {min: 15, max: 32},
 } as const;
@@ -129,6 +131,36 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                 suffix={controls.suffix}
                 onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
                     updateSliderStates({key: 'single', value: event.detail});
+                    handleEventAsAction(event);
+                }}
+            />
+            <h3
+                style={{
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
+                }}
+            >
+                Log Scale
+            </h3>
+            <ToniqSlider
+                value={sliderStates.logScaleSingle}
+                logScale={true}
+                min={5}
+                max={5_000_000}
+                suffix={controls.suffix}
+                onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
+                    updateSliderStates({key: 'logScaleSingle', value: event.detail});
+                    handleEventAsAction(event);
+                }}
+            />
+            <ToniqSlider
+                value={sliderStates.logScaleDouble}
+                logScale={true}
+                double={true}
+                min={5}
+                max={5_000_000}
+                suffix={controls.suffix}
+                onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
+                    updateSliderStates({key: 'logScaleDouble', value: event.detail});
                     handleEventAsAction(event);
                 }}
             />
