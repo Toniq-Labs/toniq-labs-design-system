@@ -145,7 +145,7 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                 value={sliderStates.logScaleSingle}
                 logScale={true}
                 min={5}
-                max={5_000_000}
+                max={5_432_109}
                 suffix={controls.suffix}
                 onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
                     updateSliderStates({key: 'logScaleSingle', value: event.detail});
@@ -157,7 +157,7 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                 logScale={true}
                 double={true}
                 min={5}
-                max={5_000_000}
+                max={5_432_109}
                 suffix={controls.suffix}
                 onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
                     updateSliderStates({key: 'logScaleDouble', value: event.detail});
