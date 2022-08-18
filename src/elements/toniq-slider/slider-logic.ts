@@ -112,10 +112,7 @@ export function makeLabel(value: number, suffix: string): string {
     return `${value} ${suffix}`;
 }
 
-export function getCorrectedLimits({
-    min,
-    max,
-}: ToniqSliderDoubleRangeValue): ToniqSliderDoubleRangeValue {
+function getCorrectedLimits({min, max}: ToniqSliderDoubleRangeValue): ToniqSliderDoubleRangeValue {
     if (min > max) {
         return {
             min: max,
@@ -125,29 +122,7 @@ export function getCorrectedLimits({
     return {min, max};
 }
 
-export function maybeFixSliderValues(fixedValue: ToniqSliderValueType, host: HTMLElement) {
-    if (isDoubleRangeValue(fixedValue)) {
-        const lowerSlider = host.shadowRoot?.querySelector(`.${classNames.lowerSlider}`);
-        const upperSlider = host.shadowRoot?.querySelector(`.${classNames.upperSlider}`);
-        if (lowerSlider instanceof HTMLInputElement && upperSlider instanceof HTMLInputElement) {
-            if (Number(lowerSlider.value) !== fixedValue.min) {
-                lowerSlider.value = String(fixedValue.min);
-            }
-            if (Number(upperSlider.value) !== fixedValue.max) {
-                upperSlider.value = String(fixedValue.max);
-            }
-        }
-    } else {
-        const slider = host.querySelector(`.${classNames.slider}`);
-        if (slider instanceof HTMLInputElement) {
-            if (Number(slider.value) !== fixedValue) {
-                slider.value = String(fixedValue);
-            }
-        }
-    }
-}
-
-export function getCorrectedValue({
+function getCorrectedValue({
     value,
     double,
     min,
@@ -176,6 +151,42 @@ export function getCorrectedValue({
             const clampedValue: number = clamp(value, min, max);
 
             return clampedValue;
+        }
+    }
+}
+
+export function getCorrectedLimitsAndValue(
+    params: Readonly<
+        {
+            value: Readonly<ToniqSliderValueType>;
+            double: boolean;
+        } & ToniqSliderDoubleRangeValue
+    >,
+) {
+    return {
+        actualLimits: getCorrectedLimits(params),
+        actualValue: getCorrectedValue(params),
+    };
+}
+
+export function maybeFixSliderValues(fixedValue: ToniqSliderValueType, host: HTMLElement) {
+    if (isDoubleRangeValue(fixedValue)) {
+        const lowerSlider = host.shadowRoot?.querySelector(`.${classNames.lowerSlider}`);
+        const upperSlider = host.shadowRoot?.querySelector(`.${classNames.upperSlider}`);
+        if (lowerSlider instanceof HTMLInputElement && upperSlider instanceof HTMLInputElement) {
+            if (Number(lowerSlider.value) !== fixedValue.min) {
+                lowerSlider.value = String(fixedValue.min);
+            }
+            if (Number(upperSlider.value) !== fixedValue.max) {
+                upperSlider.value = String(fixedValue.max);
+            }
+        }
+    } else {
+        const slider = host.querySelector(`.${classNames.slider}`);
+        if (slider instanceof HTMLInputElement) {
+            if (Number(slider.value) !== fixedValue) {
+                slider.value = String(fixedValue);
+            }
         }
     }
 }
