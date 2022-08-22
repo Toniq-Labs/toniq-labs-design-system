@@ -1,5 +1,5 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
-import React from 'react';
+import React, {CSSProperties} from 'react';
 import {Search24Icon} from '../../icons';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
 import {toniqFontStyles} from '../../styles';
@@ -51,6 +51,8 @@ const inputComponentStoryMeta: ComponentMeta<typeof ToniqInput> = {
 export default inputComponentStoryMeta;
 
 export const mainStory = (controls: Record<keyof typeof inputStoryControls, string>) => {
+    const sectionStyles: CSSProperties = {display: 'flex', gap: '8px', flexWrap: 'wrap'};
+
     return (
         <article>
             <h3
@@ -60,7 +62,7 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
             >
                 With assigned values
             </h3>
-            <section style={{display: 'flex', gap: '8px'}}>
+            <section style={sectionStyles}>
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
@@ -77,6 +79,13 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                     placeholder="with icon"
                     icon={Search24Icon}
                 />
+                <ToniqInput
+                    onValueChange={handleEventAsAction}
+                    onInputBlocked={handleEventAsAction}
+                    placeholder="stretched"
+                    style={{width: '500px'}}
+                    icon={Search24Icon}
+                />
             </section>
             <h3
                 style={{
@@ -85,7 +94,7 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
             >
                 With input restrictions
             </h3>
-            <section style={{display: 'flex', gap: '8px'}}>
+            <section style={sectionStyles}>
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
@@ -113,7 +122,7 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
             >
                 Disabled
             </h3>
-            <section style={{display: 'flex', gap: '8px'}}>
+            <section style={sectionStyles}>
                 <ToniqInput
                     value="cannot type into"
                     disabled={true}
@@ -129,7 +138,7 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
             >
                 Custom inputs
             </h3>
-            <section style={{display: 'flex', gap: '8px'}}>
+            <section style={sectionStyles}>
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}

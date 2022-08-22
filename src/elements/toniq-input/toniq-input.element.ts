@@ -133,6 +133,7 @@ export const ToniqInput = defineToniqElement({
         }
 
         label {
+            flex-grow: 1;
             cursor: pointer;
             display: inline-flex;
             box-sizing: border-box;
@@ -151,6 +152,7 @@ export const ToniqInput = defineToniqElement({
 
         input {
             ${removeNativeFormStyles};
+            flex-grow: 1;
         }
 
         input:focus {
