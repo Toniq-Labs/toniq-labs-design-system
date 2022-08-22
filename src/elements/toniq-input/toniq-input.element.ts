@@ -144,7 +144,7 @@ export const ToniqInput = defineToniqElement({
             font: ${toniqFontStyles.paragraphFont};
         }
 
-        ${createFocusStyles('input:focus ~ .focus-border', 0)}
+        ${createFocusStyles({mainSelector: 'input:focus ~ .focus-border', elementBorderSize: 0})}
 
         ${ToniqIcon} {
             margin-right: 10px;

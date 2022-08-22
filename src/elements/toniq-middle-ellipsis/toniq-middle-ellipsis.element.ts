@@ -97,8 +97,8 @@ export const ToniqMiddleEllipsis = defineToniqElement({
             outline: none;
         }
 
-        ${createFocusStyles('button:focus', 0)}
-        ${createFocusStyles('a:focus', 0)}
+        ${createFocusStyles({mainSelector: 'button:focus', elementBorderSize: 0})}
+        ${createFocusStyles({mainSelector: 'a:focus', elementBorderSize: 0})}
     `,
     renderCallback: ({props, setProps, host, dispatch, events}) => {
         // make sure that the letter count is a whole number

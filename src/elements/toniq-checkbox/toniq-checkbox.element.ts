@@ -65,7 +65,7 @@ export const ToniqCheckbox = defineToniqElement({
             border-radius: 8px;
         }
 
-        ${createFocusStyles('.wrapper:focus', 0)}
+        ${createFocusStyles({mainSelector: '.wrapper:focus', elementBorderSize: 0})}
 
         .check-mark {
             color: ${toniqColors.accentPrimary.foregroundColor};

@@ -127,7 +127,7 @@ export const ToniqSlider = defineToniqElement({
         }
 
         /* this does not work in firefox */
-        ${createFocusStyles('.slider:focus', 0)}
+        ${createFocusStyles({mainSelector: '.slider:focus', elementBorderSize: 0, outlineGap: 6})}
 
         .${unsafeCSS(classNames.lowerSlider)},
         .${unsafeCSS(classNames.upperSlider)} {

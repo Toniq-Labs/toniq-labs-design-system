@@ -53,7 +53,7 @@ export const ToniqButton = defineToniqElement({
                 border-color ${interactionDuration};
         }
 
-        ${createFocusStyles('button:focus', 2)}
+        ${createFocusStyles({mainSelector: 'button:focus', elementBorderSize: 2})}
 
         :host(.toniq-button-secondary) button {
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
