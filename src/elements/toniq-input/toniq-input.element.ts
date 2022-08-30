@@ -134,6 +134,7 @@ export const ToniqInput = defineToniqElement({
 
         label {
             flex-grow: 1;
+            width: 100%;
             cursor: pointer;
             display: inline-flex;
             box-sizing: border-box;
