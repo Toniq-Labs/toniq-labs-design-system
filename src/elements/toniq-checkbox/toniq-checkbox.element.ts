@@ -35,7 +35,7 @@ export const ToniqCheckbox = defineToniqElement({
             transition: inherit;
             display: inline-flex;
             flex-grow: 1;
-            align-items: center;
+            align-items: start;
             position: relative;
             outline: none;
         }
@@ -46,6 +46,7 @@ export const ToniqCheckbox = defineToniqElement({
             margin-left: 16px;
             ${noUserSelect};
             transition: inherit;
+            text-align: start;
         }
 
         .checkbox.checked {
