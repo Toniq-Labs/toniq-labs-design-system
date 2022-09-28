@@ -70,6 +70,27 @@ export const mainStory = (
                 text={customText}
                 checked={isChecked}
             />
+            <h3
+                style={{
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
+                }}
+            >
+                Multiple Checkboxes (Text longer than container)
+            </h3>
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 16,
+                    maxWidth: 250,
+                }}
+            >
+                <ToniqCheckbox onCheckedChange={handleEventAsAction} text="Text" />
+                <ToniqCheckbox
+                    onCheckedChange={handleEventAsAction}
+                    text="Text Longer than container"
+                />
+            </div>
         </article>
     );
 };
