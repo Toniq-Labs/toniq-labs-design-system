@@ -128,7 +128,7 @@ export function snapToLowerMultipleOfPowerOfTen(input: number): number {
         negativeModifier = -1;
         input = input * -1;
     }
-    const stringNumber = String(input.toFixed(0));
+    const stringNumber = input.toFixed(0);
     const lowerPowerOfTen = Math.pow(10, stringNumber.length - 1);
     const leadingDigit = Number(stringNumber[0] || 1);
     return lowerPowerOfTen * leadingDigit * negativeModifier;
