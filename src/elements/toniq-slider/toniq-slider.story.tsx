@@ -75,6 +75,8 @@ const sliderStatesInit = {
     double: {min: 15, max: 32},
     logScaleSingle: 20,
     logScaleDouble: {min: 0, max: 5_000},
+    logScaleSingleWithDecimalPoint: 38.99,
+    logScaleDoubleWithDecimalPoint: {min: 38.99, max: 5_432_109},
     singlePadding: 20,
     doublePadding: {min: 15, max: 32},
 } as const;
@@ -134,6 +136,7 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                     handleEventAsAction(event);
                 }}
             />
+
             <h3
                 style={{
                     ...cssToReactStyleObject(toniqFontStyles.h3Font),
@@ -161,6 +164,43 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                 suffix={controls.suffix}
                 onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
                     updateSliderStates({key: 'logScaleDouble', value: event.detail});
+                    handleEventAsAction(event);
+                }}
+            />
+
+            <h3
+                style={{
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
+                }}
+            >
+                Log Scale that has min with decimal point
+            </h3>
+            <ToniqSlider
+                value={sliderStates.logScaleSingleWithDecimalPoint}
+                logScale={true}
+                min={38.99}
+                max={5_432_109}
+                suffix={controls.suffix}
+                onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
+                    updateSliderStates({
+                        key: 'logScaleSingleWithDecimalPoint',
+                        value: event.detail,
+                    });
+                    handleEventAsAction(event);
+                }}
+            />
+            <ToniqSlider
+                value={sliderStates.logScaleDoubleWithDecimalPoint}
+                logScale={true}
+                double={true}
+                min={38.99}
+                max={5_432_109}
+                suffix={controls.suffix}
+                onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
+                    updateSliderStates({
+                        key: 'logScaleDoubleWithDecimalPoint',
+                        value: event.detail,
+                    });
                     handleEventAsAction(event);
                 }}
             />
