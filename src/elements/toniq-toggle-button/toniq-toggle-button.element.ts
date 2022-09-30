@@ -9,13 +9,12 @@ import {noUserSelect} from '../../styles/user-select';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
-export const ToniqToggleButton = defineToniqElement({
+export const ToniqToggleButton = defineToniqElement<{
+    text: string;
+    toggled: boolean;
+    icon: ToniqSvg | undefined;
+}>()({
     tagName: 'toniq-toggle-button',
-    props: {
-        text: '',
-        active: false,
-        icon: undefined as undefined | Readonly<ToniqSvg>,
-    },
     styles: css`
         :host {
             ${toniqFontStyles.boldParagraphFont};
@@ -43,7 +42,7 @@ export const ToniqToggleButton = defineToniqElement({
 
         ${createFocusStyles({mainSelector: 'button:focus', elementBorderSize: 0})}
 
-        button.active {
+        button.toggled {
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
@@ -51,11 +50,11 @@ export const ToniqToggleButton = defineToniqElement({
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
-        :host(:hover) button.active {
+        :host(:hover) button.toggled {
             ${applyBackgroundAndForeground(toniqColors.accentPrimaryHover)};
         }
 
-        :host(:active) button.active {
+        :host(:active) button.toggled {
             ${applyBackgroundAndForeground(toniqColors.accentPrimaryActive)};
         }
 
@@ -63,17 +62,17 @@ export const ToniqToggleButton = defineToniqElement({
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
             background: none;
         }
-        :host(.toniq-toggle-button-text-only) button.active {
+        :host(.toniq-toggle-button-text-only) button.toggled {
             ${applyBackgroundAndForeground(toniqColors.pageInteraction)};
             background: none;
         }
-        :host(.toniq-toggle-button-text-only:hover) button.active {
+        :host(.toniq-toggle-button-text-only:hover) button.toggled {
             ${applyBackgroundAndForeground(toniqColors.pageInteractionHover)};
         }
         :host(.toniq-toggle-button-text-only:hover) button {
             color: ${toniqColors.pageInteraction.foregroundColor};
         }
-        :host(.toniq-toggle-button-text-only:active) button.active {
+        :host(.toniq-toggle-button-text-only:active) button.toggled {
             ${applyBackgroundAndForeground(toniqColors.pageInteractionActive)};
         }
         :host(.toniq-toggle-button-text-only) button {
@@ -84,26 +83,28 @@ export const ToniqToggleButton = defineToniqElement({
             margin-left: 8px;
         }
     `,
-    renderCallback: ({props}) => {
-        const iconTemplate = props.icon
+    renderCallback: ({inputs}) => {
+        const iconTemplate = inputs.icon
             ? html`
                 <${ToniqIcon}
                 class="icon-template"
-                    ${assign(ToniqIcon.props.icon, props.icon)}
+                    ${assign(ToniqIcon, {
+                        icon: inputs.icon,
+                    })}
                 ></${ToniqIcon}>
             `
             : '';
-        const textTemplate = props.text
+        const textTemplate = inputs.text
             ? html`
-                  <span class="text-template">${props.text}</span>
+                  <span class="text-template">${inputs.text}</span>
               `
             : '';
 
         return html`
             <button
-                class="${props.active ? 'active' : ''}"
+                class="${inputs.toggled ? 'toggled' : ''}"
                 role="checkbox"
-                aria-checked=${props.active}
+                aria-checked=${inputs.toggled}
             >
                 ${iconTemplate} ${textTemplate}
             </button>

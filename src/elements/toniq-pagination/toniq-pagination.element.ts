@@ -1,6 +1,5 @@
 import {assign, css, defineElementEvent, html, listen} from 'element-vir';
 import {classMap} from 'lit/directives/class-map.js';
-import {map} from 'lit/directives/map.js';
 import {pagination} from '../../augments/array';
 import {ArrowLeft24Icon, ArrowRight24Icon} from '../../icons';
 import {
@@ -13,19 +12,18 @@ import {
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
-export const ToniqPagination = defineToniqElement({
+export const ToniqPagination = defineToniqElement<{
+    /** Set the selected page */
+    currentPage: number;
+    /** This is required to set the total pages */
+    pageCount: number;
+    /**
+     * The number of pages to show. When pageCount exceeds this number, the excess will be converted
+     * into "...". Instances of "..." are included in the pagesShown count.
+     */
+    pagesShown?: number | undefined;
+}>()({
     tagName: 'toniq-pagination',
-    props: {
-        /** Set the selected page */
-        currentPage: 1,
-        /** This is required to set the total pages */
-        pageCount: 10,
-        /**
-         * The number of pages to show. When pageCount exceeds this number, the excess will be
-         * converted into "...". Instances of "..." are included in the pagesShown count.
-         */
-        pagesShown: 7,
-    },
     styles: css`
         :host {
             display: flex;
@@ -91,57 +89,54 @@ export const ToniqPagination = defineToniqElement({
     initCallback: ({dispatch, events}) => {
         dispatch(new events.created(undefined));
     },
-    renderCallback: ({props, events, setProps, dispatch}) => {
-        if (props.pageCount <= 1) {
+    renderCallback: ({inputs, events, dispatch}) => {
+        if (inputs.pageCount <= 1) {
             return html``;
         } else {
             return html`
             <button
                 ${listen('click', () => {
-                    if (props.currentPage > 1) {
-                        setProps({currentPage: props.currentPage - 1});
-                        dispatch(new events.previous(props.currentPage));
+                    if (inputs.currentPage > 1) {
+                        dispatch(new events.previous(inputs.currentPage - 1));
                     }
                 })}
                 class="control"
-                ?disabled=${props.currentPage <= 1}
+                ?disabled=${inputs.currentPage <= 1}
             >
                 <${ToniqIcon}
-                    ${assign(ToniqIcon.props.icon, ArrowLeft24Icon)}></${ToniqIcon}>
+                    ${assign(ToniqIcon, {icon: ArrowLeft24Icon})}></${ToniqIcon}>
             </button>
-            ${map(
-                pagination(props.currentPage, props.pageCount, props.pagesShown),
-                (i: string | number) =>
+            ${pagination(inputs.currentPage, inputs.pageCount, inputs.pagesShown).map(
+                (entry) =>
                     html`
                         <button
                             class=${classMap({
                                 page: true,
-                                selected: props.currentPage === i,
+                                selected: inputs.currentPage === entry,
                             })}
-                            ?disabled=${i === '...' || props.currentPage === i}
+                            ?disabled=${entry === '...' || inputs.currentPage === entry}
                             ${listen('click', () => {
-                                if (typeof i === 'number') {
-                                    setProps({currentPage: i});
-                                    dispatch(new events.pageChange(i));
+                                // ignore the "..." entries
+                                if (typeof entry === 'number') {
+                                    dispatch(new events.pageChange(entry));
                                 }
                             })}
                         >
-                            ${i}
+                            ${entry}
                         </button>
                     `,
             )}
             <button
                 ${listen('click', () => {
-                    if (props.currentPage < props.pageCount) {
-                        setProps({currentPage: props.currentPage + 1});
-                        dispatch(new events.next(props.currentPage));
+                    if (inputs.currentPage < inputs.pageCount) {
+                        dispatch(new events.next(inputs.currentPage + 1));
                     }
                 })}
                 class="control"
-                ?disabled=${props.currentPage >= props.pageCount}
+                ?disabled=${inputs.currentPage >= inputs.pageCount}
             >
                 <${ToniqIcon}
-                    ${assign(ToniqIcon.props.icon, ArrowRight24Icon)}></${ToniqIcon}>
+                    ${assign(ToniqIcon, {icon: ArrowRight24Icon})}></${ToniqIcon}>
             </button>
         `;
         }

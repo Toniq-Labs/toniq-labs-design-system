@@ -8,12 +8,11 @@ import {removeNativeFormStyles} from '../../styles/native-styles';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
-export const ToniqCheckbox = defineToniqElement({
+export const ToniqCheckbox = defineToniqElement<{
+    text?: string | undefined;
+    checked: boolean;
+}>()({
     tagName: 'toniq-checkbox',
-    props: {
-        text: '',
-        checked: false,
-    },
     events: {
         checkedChange: defineElementEvent<boolean>(),
     },
@@ -78,25 +77,24 @@ export const ToniqCheckbox = defineToniqElement({
             opacity: 0;
         }
     `,
-    renderCallback: ({props, dispatch, events, setProps}) => {
+    renderCallback: ({inputs, dispatch, events}) => {
         return html`
             <button
-                class="wrapper ${props.checked ? 'checked' : ''}"
+                class="wrapper ${inputs.checked ? 'checked' : ''}"
                 ${listen('click', () => {
-                    const checked = !props.checked;
-                    setProps({checked});
+                    const checked = !inputs.checked;
                     dispatch(new events.checkedChange(checked));
                 })}
                 role="checkbox"
-                aria-checked=${props.checked}
+                aria-checked=${inputs.checked}
                 class="wrapper"
             >
-                <span class="checkbox ${props.checked ? 'checked' : ''}">
+                <span class="checkbox ${inputs.checked ? 'checked' : ''}">
                     <${ToniqIcon}
-                        class="check-mark ${props.checked ? '' : 'hidden'}"
-                        ${assign(ToniqIcon.props.icon, CheckMark24Icon)}
+                        class="check-mark ${inputs.checked ? '' : 'hidden'}"
+                        ${assign(ToniqIcon, {icon: CheckMark24Icon})}
                     ></${ToniqIcon}></span>
-                <span class="label">${props.text}</span>
+                <span class="label">${inputs.text}</span>
             </button>
         `;
     },

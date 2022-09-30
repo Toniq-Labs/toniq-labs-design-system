@@ -1,5 +1,6 @@
 import {isObject, truncateNumber} from 'augment-vir';
 import {clamp, findClosestRangeIndex} from '../../augments/number';
+import {ToniqSliderInputs} from './toniq-slider.element';
 
 export interface ToniqSliderDoubleRangeValue {
     min: number;
@@ -112,7 +113,10 @@ export function makeLabel(value: number, suffix: string, logScale: boolean): str
     return `${logScale ? truncateNumber(value) : value} ${suffix}`;
 }
 
-function getCorrectedLimits({min, max}: ToniqSliderDoubleRangeValue): ToniqSliderDoubleRangeValue {
+function getCorrectedLimits({
+    min,
+    max,
+}: Pick<ToniqSliderInputs, 'min' | 'max'>): ToniqSliderDoubleRangeValue {
     if (min > max) {
         return {
             min: max,
@@ -127,12 +131,7 @@ function getCorrectedValue({
     double,
     min,
     max,
-}: Readonly<
-    {
-        value: Readonly<ToniqSliderValueType>;
-        double: boolean;
-    } & ToniqSliderDoubleRangeValue
->): ToniqSliderValueType {
+}: Pick<ToniqSliderInputs, 'min' | 'max' | 'double' | 'value'>): ToniqSliderValueType {
     if (double) {
         if (isDoubleRangeValue(value)) {
             const clampedValue: ToniqSliderDoubleRangeValue = {
@@ -202,16 +201,11 @@ export function maybeTransformToLogValue(
 }
 
 export function getCorrectedLimitsAndValue(
-    params: Readonly<
-        {
-            value: ToniqSliderValueType;
-            double: boolean;
-        } & ToniqSliderDoubleRangeValue
-    >,
+    inputs: Pick<ToniqSliderInputs, 'min' | 'max' | 'double' | 'value'>,
 ) {
     return {
-        actualLimits: getCorrectedLimits(params),
-        actualValue: getCorrectedValue(params),
+        actualLimits: getCorrectedLimits(inputs),
+        actualValue: getCorrectedValue(inputs),
     };
 }
 

@@ -1,4 +1,4 @@
-import {assign, css, defineElementEvent, html, listen, onDomCreated} from 'element-vir';
+import {assign, css, defineElementEvent, html, listen} from 'element-vir';
 import {TemplateResult} from 'lit';
 import {ToniqSvg} from '../../icons';
 import {toniqColors, toniqFontStyles} from '../../styles';
@@ -25,8 +25,8 @@ function doesMatch({input, matcher}: {input: string; matcher: string | RegExp}):
 
 type IsAllowedInputs = {
     value: string;
-    allowed: string | RegExp;
-    blocked: string | RegExp;
+    allowed: string | RegExp | undefined;
+    blocked: string | RegExp | undefined;
 };
 
 function isAllowed({value, allowed, blocked}: IsAllowedInputs) {
@@ -76,32 +76,25 @@ function filterToAllowedCharactersOnly(inputs: IsAllowedInputs): {
     };
 }
 
-export const ToniqInput = defineToniqElement({
+export const ToniqInput = defineToniqElement<{
+    icon?: undefined | ToniqSvg;
+    value: string;
+    /** Shown when no other text is present. Input restrictions do not apply to this property. */
+    placeholder?: string;
+    /** Set to true to trigger disabled styles and to block all user input. */
+    disabled?: boolean;
+    /**
+     * Only letters in the given string or matches to the given RegExp will be allowed.
+     * blockedInputs takes precedence over this input.
+     *
+     * For example: if allowedInputs is set to "abcd" and blockedInputs is set to "d", only "a",
+     * "b", or "c" letters will be allowed.
+     */
+    allowedInputs?: string | RegExp;
+    /** Any letters in the given string or matches to the given RegExp will be blocked. */
+    blockedInputs?: string | RegExp;
+}>()({
     tagName: 'toniq-input',
-    props: {
-        icon: undefined as ToniqSvg | undefined,
-        /** Use to programmatically fill out the input's value field. */
-        value: '',
-        /** Shown when no other text is present. Input restrictions do not apply to this property. */
-        placeholder: '',
-        /** Set to true to trigger disabled styles and to block all user input. */
-        disabled: false,
-        /**
-         * Only letters in the given string or matches to the given RegExp will be allowed.
-         * blockedInputs takes precedence over this input.
-         *
-         * For example: if allowedInputs is set to "abcd" and blockedInputs is set to "d", only "a",
-         * "b", or "c" letters will be allowed.
-         */
-        allowedInputs: '' as string | RegExp,
-        /** Any letters in the given string or matches to the given RegExp will be blocked. */
-        blockedInputs: '' as string | RegExp,
-        /**
-         * This is used to grab the "value" of user inputs. Warning: externally overriding this will
-         * cause weird things to happen!
-         */
-        innerInputElement: undefined as undefined | HTMLInputElement,
-    },
     events: {
         /**
          * Fires whenever a user input created a new value. Does not fire if all input letters are
@@ -163,21 +156,17 @@ export const ToniqInput = defineToniqElement({
             color: ${toniqColors.accentTertiary.foregroundColor};
         }
     `,
-    renderCallback: ({props, setProps, dispatch, events, host}) => {
+    renderCallback: ({state, inputs, updateState, dispatch, events, host}) => {
         const {filtered: filteredValue} = filterToAllowedCharactersOnly({
-            value: props.value,
-            allowed: props.allowedInputs,
-            blocked: props.blockedInputs,
+            value: inputs.value,
+            allowed: inputs.allowedInputs,
+            blocked: inputs.blockedInputs,
         });
 
-        if (filteredValue !== props.value) {
-            setProps({value: filteredValue});
-        }
-
-        const iconTemplate: TemplateResult | string = props.icon
+        const iconTemplate: TemplateResult | string = inputs.icon
             ? html`
                 <${ToniqIcon}
-                    ${assign(ToniqIcon.props.icon, props.icon)}
+                    ${assign(ToniqIcon, {icon: inputs.icon})}
                 ></${ToniqIcon}>
             `
             : '';
@@ -186,31 +175,9 @@ export const ToniqInput = defineToniqElement({
             <label>
                 ${iconTemplate}
                 <input
-                    ?disabled=${props.disabled}
-                    ${onDomCreated((element) => {
-                        if (element instanceof HTMLInputElement) {
-                            setProps({innerInputElement: element});
-                        } else {
-                            throw new Error(
-                                `Created DOM element was not an input element: "${element.tagName}"`,
-                            );
-                        }
-                    })}
-                    .value=${props.value}
+                    ?disabled=${inputs.disabled}
+                    .value=${filteredValue}
                     ${listen('input', (event) => {
-                        if (!props.innerInputElement) {
-                            const innerInputElement = host.shadowRoot?.querySelector('input');
-                            if (!(innerInputElement instanceof HTMLInputElement)) {
-                                throw new Error(`Failed to get inner input element in listener`);
-                            }
-                            setProps({innerInputElement});
-                            // this is just a type guard
-                            if (!props.innerInputElement) {
-                                throw new Error(
-                                    `Even after assigning input element again, it still isn't found.`,
-                                );
-                            }
-                        }
                         /**
                          * When attached to an input element (like here) this event type should
                          * always be InputEvent.
@@ -220,16 +187,22 @@ export const ToniqInput = defineToniqElement({
                                 `Input event type mismatch: "${event.constructor.name}"`,
                             );
                         }
+                        const inputElement = event.target;
+                        if (!(inputElement instanceof HTMLInputElement)) {
+                            throw new Error(
+                                `Failed to find input element target from input event.`,
+                            );
+                        }
                         /**
                          * This is usually a single character, but can be a bunch of characters in
                          * some circumstances. For example, when a bunch of characters are pasted,
                          * this will be the entire pasted contents.
                          */
                         const changedText = event.data;
-                        const beforeChangeText = props.value;
+                        const beforeChangeText = filteredValue;
 
                         // this will be overwritten below if blocked characters are encountered
-                        let finalText = props.innerInputElement.value ?? '';
+                        let finalText = inputElement.value ?? '';
 
                         /**
                          * When changedText is falsy, that means an operation other than inserting
@@ -240,8 +213,8 @@ export const ToniqInput = defineToniqElement({
                                 if (
                                     !isAllowed({
                                         value: changedText,
-                                        allowed: props.allowedInputs,
-                                        blocked: props.blockedInputs,
+                                        allowed: inputs.allowedInputs,
+                                        blocked: inputs.blockedInputs,
                                     })
                                 ) {
                                     // prevent the change from happening
@@ -253,26 +226,23 @@ export const ToniqInput = defineToniqElement({
                             else {
                                 const {filtered, blocked} = filterToAllowedCharactersOnly({
                                     value: changedText,
-                                    allowed: props.allowedInputs,
-                                    blocked: props.blockedInputs,
+                                    allowed: inputs.allowedInputs,
+                                    blocked: inputs.blockedInputs,
                                 });
                                 finalText = filtered;
                                 dispatch(new events.inputBlocked(blocked));
                             }
                         }
 
-                        if (props.value !== finalText) {
-                            setProps({value: finalText});
-                        }
-                        if (props.innerInputElement.value !== finalText) {
+                        if (inputElement.value !== finalText) {
                             // this prevents blocked inputs by simply overwriting them
-                            props.innerInputElement.value = finalText;
+                            inputElement.value = finalText;
                         }
                         if (beforeChangeText !== finalText) {
                             dispatch(new events.valueChange(finalText));
                         }
                     })}
-                    placeholder=${props.placeholder}
+                    placeholder=${inputs.placeholder}
                 />
                 <div class="focus-border"></div>
             </label>

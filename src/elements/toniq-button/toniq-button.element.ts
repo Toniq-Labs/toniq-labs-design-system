@@ -11,12 +11,11 @@ import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 export const buttonBorderRadius = css`8px`;
 
-export const ToniqButton = defineToniqElement({
+export const ToniqButton = defineToniqElement<{
+    text: string;
+    icon?: undefined | ToniqSvg;
+}>()({
     tagName: 'toniq-button',
-    props: {
-        text: '',
-        icon: undefined as undefined | ToniqSvg,
-    },
     styles: css`
         :host {
             ${toniqFontStyles.boldParagraphFont};
@@ -78,16 +77,15 @@ export const ToniqButton = defineToniqElement({
             margin-left: 8px;
         }
     `,
-    renderCallback: ({props}) => {
-        const iconTemplate = props.icon
-            ? html`<${ToniqIcon} class="icon-template" ${assign(
-                  ToniqIcon.props.icon,
-                  props.icon,
-              )}></${ToniqIcon}>`
+    renderCallback: ({inputs}) => {
+        const iconTemplate = inputs.icon
+            ? html`<${ToniqIcon} class="icon-template" ${assign(ToniqIcon, {
+                  icon: inputs.icon,
+              })}></${ToniqIcon}>`
             : '';
-        const textTemplate = props.text
+        const textTemplate = inputs.text
             ? html`
-                  <span class="text-template">${props.text}</span>
+                  <span class="text-template">${inputs.text}</span>
               `
             : '';
 

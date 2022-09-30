@@ -9,7 +9,7 @@ import {clamp} from './number';
 export function pagination(
     currentPage: number,
     pageCount: number,
-    pagesShown: number,
+    pagesShown: number = 7,
     MINIMUM_PAGE_SHOWN: number = 5,
 ) {
     let delta: number;

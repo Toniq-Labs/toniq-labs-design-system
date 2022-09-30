@@ -44,28 +44,41 @@ const thumbHoverStyle = css`
     transform: scale(1.2);
 `;
 
-export const ToniqSlider = defineToniqElement({
-    tagName: 'toniq-slider',
-    props: {
-        /** Use to programmatically set the slider's value. */
-        value: 0 as ToniqSliderValueType,
+type ToniqSliderSingleValueInputs = {
+    value: number;
+    /** Set to true to enable double range slider. */
+    double?: false | undefined;
+};
+
+type ToniqSliderDoubleValueInputs = {
+    value: Readonly<ToniqSliderDoubleRangeValue>;
+    /** Set to true to enable double range slider. */
+    double: true;
+};
+
+export type ToniqSliderInputs = Readonly<
+    {
         /**
          * Use to set the min value. If the value is less than this min then the value will
          * automatically be clipped up to this min.
          */
-        min: 0,
+        min: number;
         /**
          * Use to set the max value. If the input is greater than the max then the value will
          * clipped down to this max.
          */
-        max: 100,
-        /** Set to true to enable double range slider. */
-        double: false,
+        max: number;
+        logScale?: boolean;
+        step?: number;
         /** Appends the given string to the slider's value for label text. */
-        suffix: '',
-        step: 1,
-        logScale: false,
-        internalRangeWidth: 0,
+        suffix?: string;
+    } & (ToniqSliderSingleValueInputs | ToniqSliderDoubleValueInputs)
+>;
+
+export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
+    tagName: 'toniq-slider',
+    stateInit: {
+        rangeWidth: 0,
         labelOverlap: 0,
     },
     events: {
@@ -161,13 +174,17 @@ export const ToniqSlider = defineToniqElement({
             ${thumbHoverStyle}
         }
     `,
-    renderCallback: ({props, host, events, dispatch, setProps}) => {
-        const {actualValue, actualLimits} = getCorrectedLimitsAndValue({...props});
+    renderCallback: ({inputs, host, events, dispatch, state, updateState}) => {
+        const {actualValue, actualLimits} = getCorrectedLimitsAndValue({...inputs});
         const logRange = createReasonableLogarithmicRange(actualLimits.min, actualLimits.max);
+
+        const isLogScale = inputs.logScale ?? false;
+        const suffix = inputs.suffix ?? '';
+
         const {elementValue, elementLimits} = getPossiblyLogarithmicValuesForElement({
             actualValue,
             actualLimits,
-            logScale: props.logScale,
+            logScale: isLogScale,
             logRange,
         });
         // update the actual input HTML sliders to the fixed values if needed
@@ -202,14 +219,14 @@ export const ToniqSlider = defineToniqElement({
                 ),
             };
 
-            const lowerLabel = makeLabel(doubleRangeValue.min, props.suffix, props.logScale);
-            const upperLabel = makeLabel(doubleRangeValue.max, props.suffix, props.logScale);
+            const lowerLabel = makeLabel(doubleRangeValue.min, suffix, isLogScale);
+            const upperLabel = makeLabel(doubleRangeValue.max, suffix, isLogScale);
 
             // super hacky but this ensures that the labels never overlap each other
             setTimeout(() => {
                 const labelOverlap = getLabelOverlapDistance(host);
-                if (labelOverlap !== props.labelOverlap) {
-                    setProps({
+                if (labelOverlap !== state.labelOverlap) {
+                    updateState({
                         labelOverlap,
                     });
                 }
@@ -237,16 +254,16 @@ export const ToniqSlider = defineToniqElement({
             });
 
             const upperPixelMargin =
-                props.labelOverlap && shouldMoveUpperLabel ? props.labelOverlap : 0;
+                state.labelOverlap && shouldMoveUpperLabel ? state.labelOverlap : 0;
             const lowerPixelMargin =
-                props.labelOverlap && !shouldMoveUpperLabel ? props.labelOverlap : 0;
+                state.labelOverlap && !shouldMoveUpperLabel ? state.labelOverlap : 0;
 
             return html`
                 <div
                     class="range"
                     ${onResize(() => {
-                        setProps({
-                            internalRangeWidth: getRangeWidth(host),
+                        updateState({
+                            rangeWidth: getRangeWidth(host),
                         });
                     })}
                 >
@@ -291,7 +308,7 @@ export const ToniqSlider = defineToniqElement({
                     <div class="slider-wrapper">
                         <input
                             type="range"
-                            step=${props.step}
+                            step=${inputs.step}
                             class="${classNames.lowerSlider} ${classNames.slider}"
                             .min=${elementLimits.min}
                             .max=${elementLimits.max}
@@ -303,19 +320,16 @@ export const ToniqSlider = defineToniqElement({
                                     min: maybeTransformToLogValue(
                                         Number(inputElement.value),
                                         logRange,
-                                        props.logScale,
+                                        isLogScale,
                                     ),
                                 };
-                                setProps({
-                                    value: newValue,
-                                });
                                 dispatch(new events.valueChange(newValue));
                             })}
                         />
                         <input
                             type="range"
                             class="${classNames.upperSlider} ${classNames.slider}"
-                            step=${props.step}
+                            step=${inputs.step}
                             .min=${elementLimits.min}
                             .max=${elementLimits.max}
                             .value=${elementValue.max}
@@ -327,12 +341,9 @@ export const ToniqSlider = defineToniqElement({
                                     max: maybeTransformToLogValue(
                                         Number(inputElement.value),
                                         logRange,
-                                        props.logScale,
+                                        isLogScale,
                                     ),
                                 };
-                                setProps({
-                                    value: newValue,
-                                });
                                 dispatch(new events.valueChange(newValue));
                             })}
                         />
@@ -352,7 +363,7 @@ export const ToniqSlider = defineToniqElement({
                     thumbSizeNumber / 2,
             );
 
-            const label = makeLabel(singleValue, props.suffix, props.logScale);
+            const label = makeLabel(singleValue, suffix, isLogScale);
             const labelMargin = calculateLabelMargin({
                 value: elementValue,
                 limits: elementLimits,
@@ -363,8 +374,8 @@ export const ToniqSlider = defineToniqElement({
                 <div
                     class="range"
                     ${onResize(() => {
-                        setProps({
-                            internalRangeWidth: getRangeWidth(host),
+                        updateState({
+                            rangeWidth: getRangeWidth(host),
                         });
                     })}
                 >
@@ -384,7 +395,7 @@ export const ToniqSlider = defineToniqElement({
                     <input
                         type="range"
                         class="${classNames.slider}"
-                        step=${props.step}
+                        step=${inputs.step}
                         .min=${elementLimits.min}
                         .max=${elementLimits.max}
                         .value=${elementValue}
@@ -394,11 +405,8 @@ export const ToniqSlider = defineToniqElement({
                             const newValue = maybeTransformToLogValue(
                                 Number(inputElement.value),
                                 logRange,
-                                props.logScale,
+                                isLogScale,
                             );
-                            setProps({
-                                value: newValue,
-                            });
                             dispatch(new events.valueChange(newValue));
                         })}
                     />

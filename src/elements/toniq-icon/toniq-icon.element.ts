@@ -3,11 +3,8 @@ import {unsafeSVG} from 'lit/directives/unsafe-svg.js';
 import {ToniqSvg} from '../../icons/toniq-svg';
 import {defineToniqElement} from '../define-toniq-element';
 
-export const ToniqIcon = defineToniqElement({
+export const ToniqIcon = defineToniqElement<{icon: ToniqSvg}>()({
     tagName: 'toniq-icon',
-    props: {
-        icon: undefined as undefined | ToniqSvg,
-    },
     styles: css`
         :host {
             display: block;
@@ -22,9 +19,9 @@ export const ToniqIcon = defineToniqElement({
             width: 100%;
         }
     `,
-    renderCallback: ({props}) => {
+    renderCallback: ({inputs}) => {
         return html`
-            ${unsafeSVG(props.icon?.svgString)}
+            ${unsafeSVG(inputs.icon.svgString)}
         `;
     },
 });

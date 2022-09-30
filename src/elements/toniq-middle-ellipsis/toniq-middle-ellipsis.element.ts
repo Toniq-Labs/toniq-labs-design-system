@@ -1,3 +1,4 @@
+import {typedHasOwnProperty} from 'augment-vir';
 import {assign, css, defineElementEvent, html, listen} from 'element-vir';
 import {copyToClipboard} from '../../clipboard';
 import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
@@ -21,6 +22,23 @@ function isWholeNumber(input: number): boolean {
     return !(input % 1);
 }
 
+function validateLetterCount(inputs: {letterCount?: number}): number {
+    if (!typedHasOwnProperty(inputs, 'letterCount') || inputs.letterCount == undefined) {
+        return 4;
+    }
+
+    // make sure that the letter count is a whole number
+    if (!isWholeNumber(inputs.letterCount)) {
+        return Math.floor(inputs.letterCount);
+    }
+    // make sure that at least one letter is allowed. Funny things happen when this is less than one!
+    if (inputs.letterCount < 1) {
+        return 1;
+    }
+
+    return inputs.letterCount;
+}
+
 /**
  * This element takes text and truncates it in the middle, so the start and end characters are
  * visible. Text that isn't too long won't be truncated.
@@ -33,28 +51,36 @@ function isWholeNumber(input: number): boolean {
  * This doesn't try to do any kind of dynamic ellipsis with CSS, it truncates the text before even
  * rendering it to the DOM.
  */
-export const ToniqMiddleEllipsis = defineToniqElement({
+export const ToniqMiddleEllipsis = defineToniqElement<
+    | {
+          text: string;
+          /**
+           * Determines how many letter render before the truncation ellipsis. The same number of
+           * letters are also rendered after the ellipsis.
+           *
+           * This is customizable, but shouldn't need to be changed very often.
+           */
+          letterCount?: number;
+      } & (
+          | {
+                /**
+                 * Support optional specific behavior where an icon shows up that, when clicked,
+                 * copies the whole text to the user's clipboard.
+                 */
+                copyOnClick?: boolean;
+                externalLink?: undefined;
+            }
+          | {
+                copyOnClick?: undefined;
+                externalLink?: string;
+            }
+      )
+>()({
     tagName: 'toniq-middle-ellipsis',
-    props: {
-        text: '',
-        /**
-         * Determines how many letter render before the truncation ellipsis. The same number of
-         * letters are also rendered after the ellipsis.
-         *
-         * This is customizable, but shouldn't need to be changed very often.
-         */
-        letterCount: 4,
-        /**
-         * Support optional specific behavior where an icon shows up that, when clicked, copies the
-         * whole text to the user's clipboard.
-         */
-        copyOnClick: false,
-        externalLink: '',
-    },
     events: {
         copied: defineElementEvent<void>(),
     },
-    styles: css`
+    styles: ({hostClass}) => css`
         :host {
             /* 5 frames at 60 fps */
             transition: ${interactionDuration};
@@ -67,7 +93,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
             align-items: center;
         }
 
-        :host(.clickable:hover) {
+        :host(.${hostClass.clickable}:hover) {
             color: ${toniqColors.pageInteraction.foregroundColor};
         }
 
@@ -100,30 +126,18 @@ export const ToniqMiddleEllipsis = defineToniqElement({
         ${createFocusStyles({mainSelector: 'button:focus', elementBorderSize: 0})}
         ${createFocusStyles({mainSelector: 'a:focus', elementBorderSize: 0})}
     `,
-    renderCallback: ({props, setProps, host, dispatch, events}) => {
-        // make sure that the letter count is a whole number
-        if (!isWholeNumber(props.letterCount)) {
-            setProps({letterCount: Math.floor(props.letterCount)});
-        }
-        // make sure that at least one letter is allowed. Funny things happen when this is less than one!
-        if (props.letterCount < 1) {
-            setProps({letterCount: 1});
-        }
+    hostClasses: {
+        clickable: ({inputs}) => !!inputs.externalLink || !!inputs.copyOnClick,
+    },
+    renderCallback: ({inputs, dispatch, events}) => {
+        const letterCount = validateLetterCount(inputs);
 
-        const isLink: boolean = !!props.externalLink;
-        const shouldCopy: boolean = props.copyOnClick;
+        const isLink: boolean = !!inputs.externalLink;
+        const shouldCopy: boolean = !!inputs.copyOnClick;
 
-        if (isLink || shouldCopy) {
-            host.classList.add('clickable');
-        } else {
-            host.classList.remove('clickable');
-        }
-
-        const textTooLong = props.text.length > props.letterCount * 2 + 2;
-        const renderText = textTooLong
-            ? truncateInMiddle(props.text, props.letterCount)
-            : props.text;
-        const hoverText = textTooLong ? props.text : '';
+        const textTooLong = inputs.text.length > letterCount * 2 + 2;
+        const renderText = textTooLong ? truncateInMiddle(inputs.text, letterCount) : inputs.text;
+        const hoverText = textTooLong ? inputs.text : '';
         const icon: ToniqSvg | undefined = isLink
             ? ExternalLink24Icon
             : shouldCopy
@@ -133,7 +147,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
         const iconTemplate = icon
             ? html`
                 <${ToniqIcon}
-                    ${assign(ToniqIcon.props.icon, icon)}
+                    ${assign(ToniqIcon, {icon})}
                 ></${ToniqIcon}>
             `
             : '';
@@ -145,7 +159,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
                         target="_blank"
                         rel="noopener noreferrer"
                         class="text-wrapper"
-                        href=${props.externalLink}
+                        href=${inputs.externalLink}
                         title=${hoverText}
                     >
                         <span>${renderText}</span>
@@ -157,7 +171,7 @@ export const ToniqMiddleEllipsis = defineToniqElement({
                     <button
                         class="text-wrapper copyable"
                         ${listen('click', async () => {
-                            await copyToClipboard(props.text);
+                            await copyToClipboard(inputs.text);
                             dispatch(new events.copied());
                         })}
                     >

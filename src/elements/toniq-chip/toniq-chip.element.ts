@@ -6,12 +6,11 @@ import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
-export const ToniqChip = defineToniqElement({
+export const ToniqChip = defineToniqElement<{
+    text: string;
+    icon?: undefined | ToniqSvg;
+}>()({
     tagName: 'toniq-chip',
-    props: {
-        text: '',
-        icon: undefined as ToniqSvg | undefined,
-    },
     styles: css`
         :host {
             display: inline-flex;
@@ -28,14 +27,16 @@ export const ToniqChip = defineToniqElement({
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
         }
     `,
-    renderCallback: ({props}) => {
-        const iconTemplate: TemplateResult | string = props.icon
+    renderCallback: ({inputs}) => {
+        const iconTemplate: TemplateResult | string = inputs.icon
             ? html`<${ToniqIcon}
-                ${assign(ToniqIcon.props.icon, props.icon)}
+                ${assign(ToniqIcon, {
+                    icon: inputs.icon,
+                })}
             ></${ToniqIcon}>`
             : '';
         return html`
-            <slot>${iconTemplate}${props.text}</slot>
+            <slot>${iconTemplate}${inputs.text}</slot>
         `;
     },
 });

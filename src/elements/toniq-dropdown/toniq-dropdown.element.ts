@@ -14,13 +14,14 @@ export interface ToniqDropdownOption<ValueType = unknown> {
     label: string;
 }
 
-export const ToniqDropdown = defineToniqElement({
+export const ToniqDropdown = defineToniqElement<{
+    options: Readonly<ToniqDropdownOption[]>;
+    selected?: undefined | Readonly<ToniqDropdownOption>;
+    icon?: ToniqSvg | undefined;
+    selectedLabelPrefix?: string | undefined;
+}>()({
     tagName: 'toniq-dropdown',
-    props: {
-        options: [] as Readonly<ToniqDropdownOption[]>,
-        selected: undefined as undefined | Readonly<ToniqDropdownOption>,
-        icon: undefined as ToniqSvg | undefined,
-        selectedLabelPrefix: '',
+    stateInit: {
         dropdownOpen: false,
     },
     events: {
@@ -130,50 +131,52 @@ export const ToniqDropdown = defineToniqElement({
             justify-content: flex-end;
         }
     `,
-    initCallback: ({props, host, setProps}) => {
+    initCallback: ({state, host, updateState}) => {
         function clickOutside(event: Event) {
             const dropdownTrigger = host.shadowRoot?.querySelector(
                 'button.dropdown',
             ) as HTMLButtonElement;
             const withinBoundaries = event.composedPath().includes(dropdownTrigger);
-            if (!withinBoundaries && props.dropdownOpen) {
-                setProps({dropdownOpen: false});
+            if (!withinBoundaries && state.dropdownOpen) {
+                updateState({dropdownOpen: false});
             }
         }
 
         window.addEventListener('click', clickOutside);
     },
-    renderCallback: ({dispatch, events, props, setProps}) => {
-        const selectedOption = props.selected ? props.selected : props.options[0];
+    renderCallback: ({dispatch, events, state, inputs, updateState}) => {
+        const selectedOption = inputs.selected ? inputs.selected : inputs.options[0];
 
         function onToggleDropdown() {
-            setProps({dropdownOpen: !props.dropdownOpen});
+            updateState({dropdownOpen: !state.dropdownOpen});
         }
 
         function onSelectOption(item: ToniqDropdownOption) {
-            setProps({dropdownOpen: false});
+            updateState({dropdownOpen: false});
             dispatch(new events.selectChange(item));
         }
 
-        const leadingIconTemplate = props.icon
+        const leadingIconTemplate = inputs.icon
             ? html`
                 <${ToniqIcon}
                     ${testId('rendered-input-icon')}
-                    ${assign(ToniqIcon.props.icon, props.icon)}
+                    ${assign(ToniqIcon, {
+                        icon: inputs.icon,
+                    })}
                 ></${ToniqIcon}>`
             : '';
 
-        const prefixTemplate = props.selectedLabelPrefix
+        const prefixTemplate = inputs.selectedLabelPrefix
             ? html`
-                  <span class="selected-label-prefix">${props.selectedLabelPrefix}</span>
+                  <span class="selected-label-prefix">${inputs.selectedLabelPrefix}</span>
               `
             : '';
 
         return html`
-            <button class="dropdown ${props.dropdownOpen ? 'open' : ''}"
+            <button class="dropdown ${state.dropdownOpen ? 'open' : ''}"
                 @click=${() => onToggleDropdown()}
                 role="listbox"
-                aria-expanded=${props.dropdownOpen}>
+                aria-expanded=${state.dropdownOpen}>
                 <div class="select dropdown-trigger">
                     ${leadingIconTemplate}
                     <span class="select-selected">
@@ -183,12 +186,12 @@ export const ToniqDropdown = defineToniqElement({
                     <span class="trigger-icon-wrapper">
                         <${ToniqIcon}
                             class="trigger-icon"
-                            ${assign(ToniqIcon.props.icon, ChevronDown24Icon)}
+                            ${assign(ToniqIcon, {icon: ChevronDown24Icon})}
                         ></${ToniqIcon}>
                     </span>
                 </div>
                 <div class="select-options">
-                    ${props.options.map(
+                    ${inputs.options.map(
                         (item) =>
                             html`
                                 <span

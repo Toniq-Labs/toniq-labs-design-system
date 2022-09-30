@@ -8,3 +8,5 @@ export function wrapTypeWithReadonly<P>() {
         return input;
     };
 }
+
+export type UndefinedValues<T extends object> = Partial<Record<keyof T, undefined>>;
