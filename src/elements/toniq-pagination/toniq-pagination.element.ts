@@ -31,9 +31,14 @@ export const ToniqPagination = defineToniqElement<{
 
         button {
             ${removeNativeFormStyles}
+        }
+
+        button,
+        .page {
             display: flex;
             align-items: center;
             ${noUserSelect};
+            justify-content: center;
         }
 
         .control {
@@ -56,13 +61,10 @@ export const ToniqPagination = defineToniqElement<{
         }
 
         .page {
-            display: flex;
             position: relative;
             width: 32px;
             height: 32px;
             ${toniqFontStyles.labelFont}
-            ${noUserSelect}
-            justify-content: center;
             padding: 0;
         }
 
@@ -96,26 +98,29 @@ export const ToniqPagination = defineToniqElement<{
                 <${ToniqIcon}
                     ${assign(ToniqIcon, {icon: ArrowLeft24Icon})}></${ToniqIcon}>
             </button>
-            ${pagination(inputs.currentPage, inputs.pageCount, inputs.pagesShown).map(
-                (entry) =>
-                    html`
+            ${pagination(inputs.currentPage, inputs.pageCount, inputs.pagesShown).map((entry) => {
+                // this happens when the entry is '...'
+                if (typeof entry === 'string') {
+                    return html`
+                        <div class="page" disabled>${entry}</div>
+                    `;
+                } else {
+                    return html`
                         <button
                             class=${classMap({
                                 page: true,
                                 selected: inputs.currentPage === entry,
                             })}
-                            ?disabled=${entry === '...' || inputs.currentPage === entry}
+                            ?disabled=${inputs.currentPage === entry}
                             ${listen('click', () => {
-                                // ignore the "..." entries
-                                if (typeof entry === 'number') {
-                                    dispatch(new events.pageChange(entry));
-                                }
+                                dispatch(new events.pageChange(entry));
                             })}
                         >
                             ${entry}
                         </button>
-                    `,
-            )}
+                    `;
+                }
+            })}
             <button
                 ${listen('click', () => {
                     if (inputs.currentPage < inputs.pageCount) {

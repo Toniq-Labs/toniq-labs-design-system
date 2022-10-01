@@ -1,6 +1,7 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
-import React, {useReducer} from 'react';
+import React from 'react';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
+import {createMultiElementState} from '../../storybook-helpers/multi-element-state';
 import {standardControls} from '../../storybook-helpers/standard-controls';
 import {cssToReactStyleObject, toniqFontStyles} from '../../styles';
 import {ToniqSlider} from '../react-components';
@@ -74,6 +75,7 @@ export default componentStoryMeta;
 
 const sliderStatesInit = {
     single: 20,
+    controlledByInputsBelow: 20,
     double: {min: 15, max: 32},
     logScaleSingle: 20,
     logScaleDouble: {min: 0, max: 5_000},
@@ -81,42 +83,17 @@ const sliderStatesInit = {
     logScaleDoubleWithDecimalPoint: {min: 38.99, max: 5_432_109},
     singlePadding: 20,
     doublePadding: {min: 15, max: 32},
-} as const;
-
-type SliderStoryState = Readonly<{
-    [P in keyof typeof sliderStatesInit]: typeof sliderStatesInit[P] extends object
-        ? Readonly<Required<Record<'min' | 'max', number>>>
-        : number;
-}>;
+};
 
 export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any>) => {
     const [
         sliderStates,
         updateSliderStates,
-    ] = useReducer(
-        (
-            state: SliderStoryState,
-            {
-                key,
-                value,
-            }: {
-                key: keyof SliderStoryState;
-                value: SliderStoryState[typeof key];
-            },
-        ): SliderStoryState => {
-            return {
-                ...state,
-                [key]: value,
-            };
-        },
-        sliderStatesInit,
-    );
+        stateKeys,
+    ] = createMultiElementState(sliderStatesInit);
 
-    if (sliderStates.single !== controls.value) {
-        updateSliderStates({key: 'single', value: controls.value});
-    }
-    if (sliderStates.singlePadding !== controls.value) {
-        updateSliderStates({key: 'singlePadding', value: controls.value});
+    if (sliderStates.controlledByInputsBelow !== controls.value) {
+        updateSliderStates({key: stateKeys.controlledByInputsBelow, value: controls.value});
     }
 
     return (
@@ -134,7 +111,30 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                 max={controls.max}
                 suffix={controls.suffix}
                 onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
-                    updateSliderStates({key: 'single', value: event.detail});
+                    updateSliderStates({key: stateKeys.single, value: event.detail});
+                    handleEventAsAction(event);
+                }}
+            />
+            <h3
+                style={{
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
+                }}
+            >
+                Controlled by Storybook controls below
+            </h3>
+            <p style={{...cssToReactStyleObject(toniqFontStyles.paragraphFont)}}>
+                Can't use the mouse or keyboard.
+            </p>
+            <ToniqSlider
+                value={sliderStates.controlledByInputsBelow}
+                min={controls.min}
+                max={controls.max}
+                suffix={controls.suffix}
+                onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
+                    updateSliderStates({
+                        key: stateKeys.controlledByInputsBelow,
+                        value: event.detail,
+                    });
                     handleEventAsAction(event);
                 }}
             />
@@ -153,7 +153,7 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                 max={5_432_109}
                 suffix={controls.suffix}
                 onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
-                    updateSliderStates({key: 'logScaleSingle', value: event.detail});
+                    updateSliderStates({key: stateKeys.logScaleSingle, value: event.detail});
                     handleEventAsAction(event);
                 }}
             />
@@ -165,7 +165,7 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                 max={5_432_109.45}
                 suffix={controls.suffix}
                 onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
-                    updateSliderStates({key: 'logScaleDouble', value: event.detail});
+                    updateSliderStates({key: stateKeys.logScaleDouble, value: event.detail});
                     handleEventAsAction(event);
                 }}
             />
@@ -185,7 +185,7 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                 suffix={controls.suffix}
                 onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
                     updateSliderStates({
-                        key: 'logScaleSingleWithDecimalPoint',
+                        key: stateKeys.logScaleSingleWithDecimalPoint,
                         value: event.detail,
                     });
                     handleEventAsAction(event);
@@ -200,7 +200,7 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                 suffix={controls.suffix}
                 onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
                     updateSliderStates({
-                        key: 'logScaleDoubleWithDecimalPoint',
+                        key: stateKeys.logScaleDoubleWithDecimalPoint,
                         value: event.detail,
                     });
                     handleEventAsAction(event);
@@ -221,7 +221,7 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                 suffix={controls.suffix}
                 double
                 onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
-                    updateSliderStates({key: 'double', value: event.detail});
+                    updateSliderStates({key: stateKeys.double, value: event.detail});
                     handleEventAsAction(event);
                 }}
             />
@@ -241,7 +241,7 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                     max={controls.max}
                     suffix={controls.suffix}
                     onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
-                        updateSliderStates({key: 'singlePadding', value: event.detail});
+                        updateSliderStates({key: stateKeys.singlePadding, value: event.detail});
                         handleEventAsAction(event);
                     }}
                     style={{padding: '16px'}}
@@ -255,7 +255,7 @@ export const mainStory = (controls: Record<keyof typeof sliderStoryControls, any
                     suffix={controls.suffix}
                     double
                     onValueChange={(event: CustomEvent<number | {min: number; max: number}>) => {
-                        updateSliderStates({key: 'doublePadding', value: event.detail});
+                        updateSliderStates({key: stateKeys.doublePadding, value: event.detail});
                         handleEventAsAction(event);
                     }}
                     style={{padding: '16px'}}

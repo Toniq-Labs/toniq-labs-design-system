@@ -1,26 +1,31 @@
 import {getObjectTypedKeys} from 'augment-vir';
-import {useReducer} from 'react';
+import {useReducer, useRef} from 'react';
 
-export function createMultiElementStateReducer<StateGeneric extends Record<string, any>>(
+export function createMultiElementState<StateGeneric extends Record<string, any>>(
     initState: StateGeneric,
 ) {
-    return useReducer(
-        (
-            state: StateGeneric,
-            {key, value}: {key: keyof StateGeneric; value: StateGeneric[typeof key]},
-        ): StateGeneric => {
-            const newState: StateGeneric = {
-                ...state,
-                [key]: value,
-            };
+    const reference = useRef(initState);
+    // since the above is not a state object, we have to force updates with the following:
+    const [
+        ,
+        forceUpdate,
+    ] = useReducer((x) => x + 1, 0);
 
-            return newState;
-        },
-        initState,
-    );
+    function updateState({key, value}: {key: keyof StateGeneric; value: StateGeneric[typeof key]}) {
+        reference.current[key] = value;
+        forceUpdate();
+    }
+
+    const keysEnum = stateToKeyObject(initState);
+
+    return [
+        reference.current as StateGeneric,
+        updateState,
+        keysEnum,
+    ] as const;
 }
 
-export function stateToKeyObject<StateGeneric extends Record<string, any>>(
+function stateToKeyObject<StateGeneric extends Record<string, any>>(
     state: StateGeneric,
 ): Readonly<{[Prop in keyof StateGeneric]: Prop}> {
     return getObjectTypedKeys(state).reduce((accum, key) => {

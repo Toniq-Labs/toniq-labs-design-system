@@ -1,5 +1,9 @@
 import {isObject, truncateNumber} from 'augment-vir';
-import {clamp, findClosestRangeIndex} from '../../augments/number';
+import {
+    clamp,
+    createReasonableLogarithmicRange,
+    findClosestRangeIndex,
+} from '../../augments/number';
 import {ToniqSliderInputs} from './toniq-slider.element';
 
 export interface ToniqSliderDoubleRangeValue {
@@ -154,7 +158,7 @@ function getCorrectedValue({
     }
 }
 
-export function getPossiblyLogarithmicValuesForElement({
+function getPossiblyLogarithmicValuesForElement({
     actualValue,
     actualLimits,
     logScale,
@@ -200,7 +204,7 @@ export function maybeTransformToLogValue(
     }
 }
 
-export function getCorrectedLimitsAndValue(
+function getCorrectedLimitsAndValue(
     inputs: Pick<ToniqSliderInputs, 'min' | 'max' | 'double' | 'value'>,
 ) {
     return {
@@ -209,24 +213,59 @@ export function getCorrectedLimitsAndValue(
     };
 }
 
-export function maybeFixSliderValues(fixedValue: ToniqSliderValueType, host: HTMLElement) {
+export function maybeFixSliderValues(fixedValue: ToniqSliderValueType, host: HTMLElement): boolean {
+    let modified = false;
+
     if (isDoubleRangeValue(fixedValue)) {
         const lowerSlider = host.shadowRoot?.querySelector(`.${classNames.lowerSlider}`);
         const upperSlider = host.shadowRoot?.querySelector(`.${classNames.upperSlider}`);
         if (lowerSlider instanceof HTMLInputElement && upperSlider instanceof HTMLInputElement) {
             if (Number(lowerSlider.value) !== fixedValue.min) {
                 lowerSlider.value = String(fixedValue.min);
+                modified = true;
             }
             if (Number(upperSlider.value) !== fixedValue.max) {
                 upperSlider.value = String(fixedValue.max);
+                modified = true;
             }
         }
     } else {
-        const slider = host.querySelector(`.${classNames.slider}`);
+        const slider = host.shadowRoot?.querySelector(`.${classNames.slider}`);
         if (slider instanceof HTMLInputElement) {
             if (Number(slider.value) !== fixedValue) {
                 slider.value = String(fixedValue);
+                modified = true;
             }
         }
     }
+
+    return modified;
+}
+
+export function getAllVerifiedAndFixedInputs(
+    inputs: Pick<ToniqSliderInputs, 'min' | 'max' | 'double' | 'value' | 'suffix' | 'logScale'>,
+    host: HTMLElement,
+) {
+    const {actualValue, actualLimits} = getCorrectedLimitsAndValue({...inputs});
+    const logRange = createReasonableLogarithmicRange(actualLimits.min, actualLimits.max);
+    const isLogScale = inputs.logScale ?? false;
+    const suffix = inputs.suffix ?? '';
+
+    const {elementValue, elementLimits} = getPossiblyLogarithmicValuesForElement({
+        actualValue,
+        actualLimits,
+        logScale: isLogScale,
+        logRange,
+    });
+    const rangeWidth = getRangeWidth(host);
+
+    return {
+        actualValue,
+        elementLimits,
+        elementValue,
+        isLogScale,
+        logRange,
+        rangeWidth,
+        suffix,
+    };
 }

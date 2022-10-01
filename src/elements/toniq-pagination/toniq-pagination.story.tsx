@@ -44,6 +44,7 @@ export const mainStory = (controls: Record<keyof typeof paginationStoryControls,
         currentPage,
         updateCurrentPage,
     ] = useState(controls.currentPage);
+
     return (
         <article>
             <h3

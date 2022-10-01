@@ -1,10 +1,7 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React, {ComponentProps} from 'react';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
-import {
-    createMultiElementStateReducer,
-    stateToKeyObject,
-} from '../../storybook-helpers/multi-element-state';
+import {createMultiElementState} from '../../storybook-helpers/multi-element-state';
 import {standardControls} from '../../storybook-helpers/standard-controls';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {toniqFontStyles} from '../../styles/fonts';
@@ -48,8 +45,6 @@ const checkboxStatesInit = {
     longText: true,
 } as const;
 
-const StateKeys = stateToKeyObject(checkboxStatesInit);
-
 export const mainStory = (
     controls: Record<keyof typeof checkboxStoryControls, string | boolean>,
 ) => {
@@ -58,7 +53,8 @@ export const mainStory = (
     const [
         state,
         updateState,
-    ] = createMultiElementStateReducer(checkboxStatesInit);
+        stateKeys,
+    ] = createMultiElementState(checkboxStatesInit);
 
     function makeInputs(key: keyof typeof state) {
         const props: ComponentProps<typeof ToniqCheckbox> = {
@@ -84,7 +80,7 @@ export const mainStory = (
             >
                 Unchecked by default
             </h3>
-            <ToniqCheckbox {...makeInputs(StateKeys.uncheckedByDefault)} text="Orange" />
+            <ToniqCheckbox {...makeInputs(stateKeys.uncheckedByDefault)} text="Orange" />
 
             <h3
                 style={{
@@ -93,7 +89,7 @@ export const mainStory = (
             >
                 Checked by default
             </h3>
-            <ToniqCheckbox {...makeInputs(StateKeys.checkedByDefault)} text="Orange" />
+            <ToniqCheckbox {...makeInputs(stateKeys.checkedByDefault)} text="Orange" />
             <h3
                 style={{
                     ...cssToReactStyleObject(toniqFontStyles.h3Font),
@@ -102,8 +98,8 @@ export const mainStory = (
                 Custom Inputs
             </h3>
             <ToniqCheckbox
-                {...makeInputs(StateKeys.custom)}
-                checked={state[StateKeys.custom]}
+                {...makeInputs(stateKeys.custom)}
+                checked={state[stateKeys.custom]}
                 text={customText}
             />
             <h3
@@ -121,9 +117,9 @@ export const mainStory = (
                     maxWidth: 250,
                 }}
             >
-                <ToniqCheckbox {...makeInputs(StateKeys.smallText)} text="Text" />
+                <ToniqCheckbox {...makeInputs(stateKeys.smallText)} text="Text" />
                 <ToniqCheckbox
-                    {...makeInputs(StateKeys.longText)}
+                    {...makeInputs(stateKeys.longText)}
                     text="Text Longer than container"
                 />
             </div>

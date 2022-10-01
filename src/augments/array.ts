@@ -1,5 +1,7 @@
 import {clamp} from './number';
 
+export const threeDots = '...' as const;
+
 /**
  * This function returns a truncated pagination array. The truncation is based on the current page
  * and the set pages to be shown. When pageCount exceeds pagesShown, the excess will be converted
@@ -52,14 +54,14 @@ export function pagination(
     if (pages[0] !== 1) {
         pages = withDots(1, [
             1,
-            '...',
+            threeDots,
         ]).concat(pages);
     }
 
     if (lastPage && lastPage < pageCount) {
         pages = pages.concat(
             withDots(pageCount, [
-                '...',
+                threeDots,
                 pageCount,
             ]),
         );

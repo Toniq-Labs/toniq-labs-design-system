@@ -1,6 +1,6 @@
 import {css, defineElementEvent, html, listen, onResize} from 'element-vir';
 import {unsafeCSS} from 'lit';
-import {createReasonableLogarithmicRange, toPercent, toPixel} from '../../augments/number';
+import {toPercent, toPixel} from '../../augments/number';
 import {testId} from '../../directives/test-id.directive';
 import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
@@ -9,9 +9,8 @@ import {defineToniqElement} from '../define-toniq-element';
 import {
     calculateLabelMargin,
     classNames,
-    getCorrectedLimitsAndValue,
+    getAllVerifiedAndFixedInputs,
     getLabelOverlapDistance,
-    getPossiblyLogarithmicValuesForElement,
     getRangeWidth,
     isDoubleRangeValue,
     makeLabel,
@@ -72,14 +71,39 @@ export type ToniqSliderInputs = Readonly<
         step?: number;
         /** Appends the given string to the slider's value for label text. */
         suffix?: string;
+        disabled?: boolean;
     } & (ToniqSliderSingleValueInputs | ToniqSliderDoubleValueInputs)
 >;
+
+export function maybeFixRecursively(slider: typeof ToniqSlider['instanceType']) {
+    requestAnimationFrame(() => {
+        const doubleCheckedValue = getAllVerifiedAndFixedInputs(
+            slider.instanceInputs,
+            slider,
+        ).elementValue;
+        // update the actual input HTML sliders to the fixed values if needed
+        if (maybeFixSliderValues(doubleCheckedValue, slider)) {
+            /**
+             * Disable the slider for now cause it's doing weird things. This will get overridden in
+             * the template when the slider renders.
+             */
+            slider.setAttribute('disabled', 'true');
+            maybeFixRecursively(slider);
+        }
+    });
+}
 
 export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
     tagName: 'toniq-slider',
     stateInit: {
         rangeWidth: 0,
         labelOverlap: 0,
+        /**
+         * This is used to make sure that situations in which the slider value changes, emits an
+         * event, but the parent does not update the input value are handled properly. Namely, the
+         * slider knob does not move.
+         */
+        internalValue: -1 as ToniqSliderInputs['value'],
     },
     events: {
         valueChange: defineElementEvent<ToniqSliderValueType>(),
@@ -174,24 +198,22 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
             ${thumbHoverStyle}
         }
     `,
-    renderCallback: ({inputs, host, events, dispatch, state, updateState}) => {
-        // debugger;
-        const {actualValue, actualLimits} = getCorrectedLimitsAndValue({...inputs});
-        const logRange = createReasonableLogarithmicRange(actualLimits.min, actualLimits.max);
-        const isLogScale = inputs.logScale ?? false;
-        const suffix = inputs.suffix ?? '';
-
-        console.log({actualValue, actualLimits, inputs: {...inputs}});
-
-        const {elementValue, elementLimits} = getPossiblyLogarithmicValuesForElement({
-            actualValue,
-            actualLimits,
-            logScale: isLogScale,
-            logRange,
+    initCallback: ({host}) => {
+        host.addEventListener('mousemove', () => {
+            maybeFixRecursively(host);
         });
-        // update the actual input HTML sliders to the fixed values if needed
-        maybeFixSliderValues(elementValue, host);
-        const rangeWidth = getRangeWidth(host);
+        host.addEventListener('keydown', () => {
+            maybeFixRecursively(host);
+        });
+        host.addEventListener('keyup', () => {
+            maybeFixRecursively(host);
+        });
+    },
+    renderCallback: ({inputs, host, events, dispatch, state, updateState}) => {
+        const {actualValue, logRange, isLogScale, suffix, elementValue, elementLimits, rangeWidth} =
+            getAllVerifiedAndFixedInputs({...inputs}, host);
+
+        maybeFixRecursively(host);
 
         if (isDoubleRangeValue(elementValue)) {
             return doubleRangeSlider(
@@ -224,15 +246,15 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
             const lowerLabel = makeLabel(doubleRangeValue.min, suffix, isLogScale);
             const upperLabel = makeLabel(doubleRangeValue.max, suffix, isLogScale);
 
-            // super hacky but this ensures that the labels never overlap each other
-            setTimeout(() => {
+            // this ensures that the labels never overlap each other
+            requestAnimationFrame(() => {
                 const labelOverlap = getLabelOverlapDistance(host);
                 if (labelOverlap !== state.labelOverlap) {
                     updateState({
                         labelOverlap,
                     });
                 }
-            }, 0);
+            });
 
             const shouldMoveUpperLabel =
                 (elementLimits.max - elementValue.max) / (elementLimits.max - elementLimits.min) >
@@ -309,6 +331,7 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                     </span>
                     <div class="slider-wrapper">
                         <input
+                            ?disabled=${inputs.disabled ?? false}
                             type="range"
                             step=${inputs.step}
                             class="${classNames.lowerSlider} ${classNames.slider}"
@@ -325,10 +348,11 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                                         isLogScale,
                                     ),
                                 };
-                                dispatch(new events.valueChange(newValue));
+                                updateWithNewValue(newValue);
                             })}
                         />
                         <input
+                            ?disabled=${inputs.disabled ?? false}
                             type="range"
                             class="${classNames.upperSlider} ${classNames.slider}"
                             step=${inputs.step}
@@ -346,12 +370,20 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                                         isLogScale,
                                     ),
                                 };
-                                dispatch(new events.valueChange(newValue));
+                                updateWithNewValue(newValue);
                             })}
                         />
                     </div>
                 </div>
             `;
+        }
+
+        function updateWithNewValue(newValue: ToniqSliderInputs['value']) {
+            updateState({internalValue: newValue});
+
+            if (!inputs.disabled) {
+                dispatch(new events.valueChange(newValue));
+            }
         }
 
         function singleRangeSlider(
@@ -395,6 +427,7 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                         </span>
                     </span>
                     <input
+                        ?disabled=${inputs.disabled ?? false}
                         type="range"
                         class="${classNames.slider}"
                         step=${inputs.step}
@@ -409,7 +442,7 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                                 logRange,
                                 isLogScale,
                             );
-                            dispatch(new events.valueChange(newValue));
+                            updateWithNewValue(newValue);
                         })}
                     />
                 </div>

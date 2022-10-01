@@ -6,7 +6,6 @@ import {
     EventsInitMap,
     PropertyInitMapBase,
 } from 'element-vir';
-import {property} from 'lit/decorators.js';
 import React, {Component, CSSProperties, HTMLAttributes} from 'react';
 import {ValueOf} from '../augments/type';
 
@@ -109,7 +108,8 @@ export function wrapInReactComponent<ElementGeneric extends DeclarativeElementDe
         public attachLatestProps(
             previousProps: ReactWrapperProps<InputGeneric, EventsGeneric> | undefined,
         ) {
-            const componentInstance = this.componentRef.current as HTMLElement;
+            const elementInstance = this.componentRef.current as DeclarativeElement;
+            const inputsToAssign: Partial<InputGeneric> = {};
 
             getObjectTypedKeys(this.props).forEach((propKey) => {
                 const propValue = this.props[propKey];
@@ -122,25 +122,29 @@ export function wrapInReactComponent<ElementGeneric extends DeclarativeElementDe
                     if (listenerType && typeof propValue === 'function') {
                         const lastListener = this.listenerMap.get(listenerType);
                         if (lastListener) {
-                            componentInstance.removeEventListener(listenerType, lastListener);
+                            elementInstance.removeEventListener(listenerType, lastListener);
                         }
                         const newListener = (event: Event) => {
                             propValue(event);
                         };
                         this.listenerMap.set(listenerType, newListener);
 
-                        componentInstance.addEventListener(listenerType, newListener);
+                        elementInstance.addEventListener(listenerType, newListener);
                     } else if (!listenerType) {
                         if (!ignoreTheseProps.has(propKey)) {
-                            console.log({propKey, currentValue: propValue});
-                            if (propKey !== 'className') {
-                                property()(componentInstance, propKey);
+                            if (propKey === 'className') {
+                                elementInstance.className = propValue;
+                            } else {
+                                inputsToAssign[propKey] = propValue;
                             }
-                            (componentInstance as any)[propKey] = propValue;
                         }
                     }
                 }
             });
+
+            if (Object.keys(inputsToAssign).length) {
+                elementInstance.assignInputs(inputsToAssign);
+            }
         }
 
         public override componentDidMount() {
