@@ -1,6 +1,6 @@
 import {ArgTypes} from '@storybook/addons';
 import {ComponentMeta} from '@storybook/react';
-import React from 'react';
+import React, {useState} from 'react';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
 import {standardControls} from '../../storybook-helpers/standard-controls';
 import {toniqFontStyles} from '../../styles';
@@ -40,6 +40,10 @@ const paginationComponentStoryMeta: ComponentMeta<typeof ToniqPagination> = {
 export default paginationComponentStoryMeta;
 
 export const mainStory = (controls: Record<keyof typeof paginationStoryControls, any>) => {
+    const [
+        currentPage,
+        updateCurrentPage,
+    ] = useState(controls.currentPage);
     return (
         <article>
             <h3
@@ -50,13 +54,13 @@ export const mainStory = (controls: Record<keyof typeof paginationStoryControls,
                 Toniq Pagination
             </h3>
             <ToniqPagination
-                currentPage={controls.currentPage}
+                currentPage={currentPage}
                 pageCount={controls.pageCount}
                 pagesShown={controls.pagesShown}
-                onPageChange={handleEventAsAction}
-                onCreated={handleEventAsAction}
-                onPrevious={handleEventAsAction}
-                onNext={handleEventAsAction}
+                onPageChange={(event) => {
+                    updateCurrentPage(event.detail);
+                    handleEventAsAction(event);
+                }}
             />
         </article>
     );

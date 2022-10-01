@@ -77,17 +77,7 @@ export const ToniqPagination = defineToniqElement<{
         }
     `,
     events: {
-        /** For fetching initial API calls and data for rendering pagination */
-        created: defineElementEvent<undefined>(),
-        /** Called on click page number */
         pageChange: defineElementEvent<number>(),
-        /** Called on click previous button */
-        previous: defineElementEvent<number>(),
-        /** Called on click next button */
-        next: defineElementEvent<number>(),
-    },
-    initCallback: ({dispatch, events}) => {
-        dispatch(new events.created(undefined));
     },
     renderCallback: ({inputs, events, dispatch}) => {
         if (inputs.pageCount <= 1) {
@@ -97,7 +87,7 @@ export const ToniqPagination = defineToniqElement<{
             <button
                 ${listen('click', () => {
                     if (inputs.currentPage > 1) {
-                        dispatch(new events.previous(inputs.currentPage - 1));
+                        dispatch(new events.pageChange(inputs.currentPage - 1));
                     }
                 })}
                 class="control"
@@ -129,7 +119,7 @@ export const ToniqPagination = defineToniqElement<{
             <button
                 ${listen('click', () => {
                     if (inputs.currentPage < inputs.pageCount) {
-                        dispatch(new events.next(inputs.currentPage + 1));
+                        dispatch(new events.pageChange(inputs.currentPage + 1));
                     }
                 })}
                 class="control"
