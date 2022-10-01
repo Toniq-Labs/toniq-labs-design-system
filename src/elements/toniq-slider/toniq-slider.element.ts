@@ -175,10 +175,13 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
         }
     `,
     renderCallback: ({inputs, host, events, dispatch, state, updateState}) => {
+        // debugger;
         const {actualValue, actualLimits} = getCorrectedLimitsAndValue({...inputs});
         const logRange = createReasonableLogarithmicRange(actualLimits.min, actualLimits.max);
         const isLogScale = inputs.logScale ?? false;
         const suffix = inputs.suffix ?? '';
+
+        console.log({actualValue, actualLimits, inputs: {...inputs}});
 
         const {elementValue, elementLimits} = getPossiblyLogarithmicValuesForElement({
             actualValue,

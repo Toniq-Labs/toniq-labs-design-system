@@ -112,31 +112,31 @@ export function wrapInReactComponent<ElementGeneric extends DeclarativeElementDe
             const componentInstance = this.componentRef.current as HTMLElement;
 
             getObjectTypedKeys(this.props).forEach((propKey) => {
-                const currentProp = this.props[propKey];
+                const propValue = this.props[propKey];
                 const listenerType = extractListenerType(propKey);
                 const newPropIsDifferent = previousProps
-                    ? previousProps[propKey] !== currentProp
+                    ? previousProps[propKey] !== propValue
                     : true;
 
                 if (newPropIsDifferent) {
-                    if (listenerType && typeof currentProp === 'function') {
+                    if (listenerType && typeof propValue === 'function') {
                         const lastListener = this.listenerMap.get(listenerType);
                         if (lastListener) {
                             componentInstance.removeEventListener(listenerType, lastListener);
                         }
                         const newListener = (event: Event) => {
-                            currentProp(event);
+                            propValue(event);
                         };
                         this.listenerMap.set(listenerType, newListener);
 
                         componentInstance.addEventListener(listenerType, newListener);
                     } else if (!listenerType) {
                         if (!ignoreTheseProps.has(propKey)) {
-                            console.log({propKey});
+                            console.log({propKey, currentValue: propValue});
                             if (propKey !== 'className') {
                                 property()(componentInstance, propKey);
                             }
-                            (componentInstance as any)[propKey] = currentProp;
+                            (componentInstance as any)[propKey] = propValue;
                         }
                     }
                 }

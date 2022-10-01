@@ -14,7 +14,6 @@ export function createMultiElementStateReducer<StateGeneric extends Record<strin
                 [key]: value,
             };
 
-            console.log({newState});
             return newState;
         },
         initState,

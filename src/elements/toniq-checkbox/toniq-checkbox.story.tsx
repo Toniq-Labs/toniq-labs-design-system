@@ -68,7 +68,6 @@ export const mainStory = (
                     key,
                     value: event.detail,
                 };
-                console.log({update});
                 updateState(update);
                 handleEventAsAction(event);
             },
