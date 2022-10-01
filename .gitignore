@@ -5,3 +5,4 @@ dist
 
 /graphics
 /.storybook-dist
+*.tgz

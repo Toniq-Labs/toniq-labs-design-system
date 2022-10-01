@@ -1,8 +1,9 @@
 {
     "ignorePaths": [
-        "graphics",
         ".storybook-dist",
-        "*.otf"
+        "*.otf",
+        "*.tgz",
+        "graphics"
     ],
     "import": ".cspell-base.json",
     "words": [

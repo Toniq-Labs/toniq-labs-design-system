@@ -74,12 +74,14 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
                     placeholder="with placeholder"
+                    value=""
                 />
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
                     placeholder="with icon"
                     icon={Search24Icon}
+                    value=""
                 />
                 <ToniqInput
                     onValueChange={handleEventAsAction}
@@ -87,6 +89,7 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                     placeholder="stretched"
                     style={{width: '500px'}}
                     icon={Search24Icon}
+                    value=""
                 />
             </section>
             <h3
@@ -102,18 +105,21 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                     onInputBlocked={handleEventAsAction}
                     placeholder="letter 'd' is blocked"
                     blockedInputs="d"
+                    value=""
                 />
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
                     placeholder="only numbers are allowed"
                     allowedInputs={/\d/}
+                    value=""
                 />
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
                     placeholder="numbers are blocked"
                     allowedInputs={/\D/}
+                    value=""
                 />
             </section>
 
@@ -148,6 +154,7 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                     allowedInputs={controls.allowedInputs}
                     blockedInputs={controls.blockedInputs}
                     disabled={!!controls.disabled}
+                    value=""
                 />
             </section>
         </article>

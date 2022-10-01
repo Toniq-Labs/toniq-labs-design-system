@@ -1,13 +1,13 @@
 import {Copy16Icon, ToniqIcon} from '@toniq-labs/design-system';
-import {assign, defineFunctionalElement, html} from 'element-vir';
+import {assign, defineElementNoInputs, html} from 'element-vir';
 
-export const AppElement = defineFunctionalElement({
+export const AppElement = defineElementNoInputs({
     tagName: 'toniq-native-elements-app',
     renderCallback: () => {
         return html`
             Hello there
             <${ToniqIcon}
-                ${assign(ToniqIcon.props.icon, Copy16Icon)}
+                ${assign(ToniqIcon, {icon: Copy16Icon})}
             ></${ToniqIcon}>
         `;
     },
