@@ -7,7 +7,8 @@ import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 export const ToniqChip = defineToniqElement<{
-    text: string;
+    /** If no text is supplied, provide children elements. */
+    text?: string | undefined;
     icon?: undefined | ToniqSvg;
 }>()({
     tagName: 'toniq-chip',

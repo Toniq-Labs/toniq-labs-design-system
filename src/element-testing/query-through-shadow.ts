@@ -35,7 +35,16 @@ export function queryThroughShadow(
         console.debug(`> ${tagName}`);
         console.debug(context.innerHTML.trim());
     }
-    const finalQuery: string = Array.isArray(query) ? query[query.length - 1] ?? '' : query;
+
+    // handle the case where the given context already matches the query
+    const firstQuery = Array.isArray(query) ? query[0] : query;
+    if (context instanceof Element && firstQuery && context.matches(firstQuery)) {
+        if (queryAll) {
+            return [context];
+        } else {
+            return context;
+        }
+    }
 
     if (Array.isArray(query)) {
         const newContext = context.querySelector(query[0] ?? '');
@@ -50,25 +59,25 @@ export function queryThroughShadow(
         } else {
             return undefined;
         }
-    }
-
-    if (queryAll) {
-        const topLevelQuery = Array.from(context.querySelectorAll(finalQuery));
-        if (topLevelQuery.length) {
-            return topLevelQuery;
-        } else if ('shadowRoot' in context && context.shadowRoot) {
-            return queryThroughShadow(query, context.shadowRoot, queryAll, debug);
-        } else {
-            return [];
-        }
     } else {
-        const returnValue = context.querySelector(finalQuery);
-        if (returnValue) {
-            return returnValue ?? undefined;
-        } else if ('shadowRoot' in context && context.shadowRoot) {
-            return queryThroughShadow(query, context.shadowRoot, queryAll, debug);
+        if (queryAll) {
+            const topLevelQuery = Array.from(context.querySelectorAll(query));
+            if (topLevelQuery.length) {
+                return topLevelQuery;
+            } else if ('shadowRoot' in context && context.shadowRoot) {
+                return queryThroughShadow(query, context.shadowRoot, queryAll, debug);
+            } else {
+                return [];
+            }
         } else {
-            return undefined;
+            const returnValue = context.querySelector(query);
+            if (returnValue) {
+                return returnValue ?? undefined;
+            } else if ('shadowRoot' in context && context.shadowRoot) {
+                return queryThroughShadow(query, context.shadowRoot, queryAll, debug);
+            } else {
+                return undefined;
+            }
         }
     }
 }

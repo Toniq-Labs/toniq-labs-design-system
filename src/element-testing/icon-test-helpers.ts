@@ -1,5 +1,5 @@
 import {assert, fixture} from '@open-wc/testing';
-import {FunctionalElementInstance, html} from 'element-vir';
+import {html} from 'element-vir';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 import {ToniqIcon} from '../elements/toniq-icon/toniq-icon.element';
 import {ToniqSvg} from '../icons';
@@ -7,10 +7,10 @@ import {assertInstanceOf} from './assertion-helpers';
 import {queryThroughShadow} from './query-through-shadow';
 
 export async function assertIconEquals(
-    toniqIconInstance: FunctionalElementInstance<typeof ToniqIcon>,
+    toniqIconInstance: typeof ToniqIcon['instanceType'],
     expectedIcon: ToniqSvg,
 ): Promise<void> {
-    assert.equal(toniqIconInstance.icon, expectedIcon);
+    assert.equal(toniqIconInstance.instanceInputs.icon, expectedIcon);
 
     const renderedInnerSvg = queryThroughShadow('svg', toniqIconInstance);
     assertInstanceOf(renderedInnerSvg, SVGSVGElement);

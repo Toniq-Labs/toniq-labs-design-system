@@ -1,19 +1,27 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
-import React from 'react';
+import React, {ComponentProps} from 'react';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
+import {
+    createMultiElementStateReducer,
+    stateToKeyObject,
+} from '../../storybook-helpers/multi-element-state';
+import {standardControls} from '../../storybook-helpers/standard-controls';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {toniqFontStyles} from '../../styles/fonts';
 import {ToniqCheckbox, ToniqToggleButton} from '../react-components';
 
 const checkboxStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
     input)({
+    ...standardControls,
     text: {
         table: {
             disable: true,
         },
     },
     checked: {
-        name: 'Checked',
+        table: {
+            disable: true,
+        },
     },
     textInput: {
         name: 'Text',
@@ -27,18 +35,47 @@ const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
     argTypes: checkboxStoryControls,
     args: {
         textInput: 'Custom text here',
-        checked: false,
     },
 };
 
 export default componentStoryMeta;
 
+const checkboxStatesInit = {
+    uncheckedByDefault: false,
+    checkedByDefault: true,
+    custom: true,
+    smallText: true,
+    longText: true,
+} as const;
+
+const StateKeys = stateToKeyObject(checkboxStatesInit);
+
 export const mainStory = (
     controls: Record<keyof typeof checkboxStoryControls, string | boolean>,
 ) => {
     const customText = String(controls.textInput);
-    const isChecked = !!controls.checked;
 
+    const [
+        state,
+        updateState,
+    ] = createMultiElementStateReducer(checkboxStatesInit);
+
+    function makeInputs(key: keyof typeof state) {
+        const props: ComponentProps<typeof ToniqCheckbox> = {
+            checked: state[key],
+            onCheckedChange: (event) => {
+                const update = {
+                    key,
+                    value: event.detail,
+                };
+                console.log({update});
+                updateState(update);
+                handleEventAsAction(event);
+            },
+        };
+
+        return props;
+    }
     return (
         <article>
             <h3
@@ -48,7 +85,7 @@ export const mainStory = (
             >
                 Unchecked by default
             </h3>
-            <ToniqCheckbox onCheckedChange={handleEventAsAction} text="Orange" />
+            <ToniqCheckbox {...makeInputs(StateKeys.uncheckedByDefault)} text="Orange" />
 
             <h3
                 style={{
@@ -57,7 +94,7 @@ export const mainStory = (
             >
                 Checked by default
             </h3>
-            <ToniqCheckbox onCheckedChange={handleEventAsAction} text="Orange" checked />
+            <ToniqCheckbox {...makeInputs(StateKeys.checkedByDefault)} text="Orange" />
             <h3
                 style={{
                     ...cssToReactStyleObject(toniqFontStyles.h3Font),
@@ -66,9 +103,9 @@ export const mainStory = (
                 Custom Inputs
             </h3>
             <ToniqCheckbox
-                onCheckedChange={handleEventAsAction}
+                {...makeInputs(StateKeys.custom)}
+                checked={state[StateKeys.custom]}
                 text={customText}
-                checked={isChecked}
             />
             <h3
                 style={{
@@ -85,9 +122,9 @@ export const mainStory = (
                     maxWidth: 250,
                 }}
             >
-                <ToniqCheckbox onCheckedChange={handleEventAsAction} text="Text" />
+                <ToniqCheckbox {...makeInputs(StateKeys.smallText)} text="Text" />
                 <ToniqCheckbox
-                    onCheckedChange={handleEventAsAction}
+                    {...makeInputs(StateKeys.longText)}
                     text="Text Longer than container"
                 />
             </div>

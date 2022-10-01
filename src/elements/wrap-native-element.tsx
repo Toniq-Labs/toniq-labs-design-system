@@ -1,33 +1,116 @@
-import {getObjectTypedKeys, Writeable} from 'augment-vir';
-import {FunctionalElement, FunctionalElementInstance} from 'element-vir';
-import React, {Component} from 'react';
+import {getObjectTypedKeys, Overwrite, Writeable} from 'augment-vir';
+import {
+    DeclarativeElement,
+    DeclarativeElementDefinition,
+    DefinedTypedEventNameDefinition,
+    EventsInitMap,
+    PropertyInitMapBase,
+} from 'element-vir';
+import {property} from 'lit/decorators.js';
+import React, {Component, CSSProperties, HTMLAttributes} from 'react';
+import {ValueOf} from '../augments/type';
 
-type ReactWrapperProps<NativeComponent extends FunctionalElement> = Partial<
-    NativeComponent['init']['props']
+type DeclarativeElementFromDefinition<DefinitionGeneric extends DeclarativeElementDefinition> =
+    DefinitionGeneric extends DeclarativeElementDefinition<
+        infer InputsGeneric,
+        infer PropertyInitGeneric,
+        infer EventsInitGeneric,
+        infer HostClassKeys,
+        infer CssVarKeys
+    >
+        ? DeclarativeElement<
+              InputsGeneric,
+              PropertyInitGeneric,
+              EventsInitGeneric,
+              HostClassKeys,
+              CssVarKeys
+          >
+        : never;
+
+type ReactExtraProps = Partial<{
+    className: string;
+    style: CSSProperties;
+}>;
+
+export type ElementEventListenerProps<EventsGeneric extends EventsInitMap> = Partial<
+    ValueOf<{
+        [EventName in keyof EventsGeneric]: EventName extends string
+            ? [`on${Capitalize<EventName>}`, EventsGeneric[EventName]]
+            : never;
+    }> extends [infer NewKey, infer EventTypeWrapper]
+        ? NewKey extends PropertyKey
+            ? Record<
+                  NewKey,
+                  EventTypeWrapper extends DefinedTypedEventNameDefinition<infer EventType>
+                      ? (event: CustomEvent<EventType>) => void | Promise<void>
+                      : never
+              >
+            : never
+        : never
+>;
+
+type ReactWrapperProps<
+    InputGeneric extends PropertyInitMapBase,
+    EventsGeneric extends EventsInitMap,
+> = Readonly<
+    InputGeneric &
+        ReactExtraProps &
+        Overwrite<
+            Partial<
+                ElementEventListenerProps<EventsGeneric> extends never
+                    ? {}
+                    : ElementEventListenerProps<EventsGeneric>
+            >,
+            HTMLAttributes<DeclarativeElement>
+        >
 > &
-    Record<string, any>;
+    // allow any HTML attributes
+    Partial<Record<string, unknown>>;
 
-type ReactWrapperElementInstance<NativeComponent extends FunctionalElement> =
-    FunctionalElementInstance<NativeComponent> & ReactWrapperProps<NativeComponent>;
+type ReactWrapperElementInstance<
+    InputGeneric extends PropertyInitMapBase,
+    EventsGeneric extends EventsInitMap,
+    NativeComponent extends DeclarativeElementDefinition<InputGeneric>,
+> = DeclarativeElementFromDefinition<NativeComponent> &
+    ReactWrapperProps<InputGeneric, EventsGeneric>;
 
 const ignoreTheseProps = new Set<PropertyKey>([
     'children',
     'style',
 ]);
 
-export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
+export function wrapInReactComponent<ElementGeneric extends DeclarativeElementDefinition>(
     elementConstructor: ElementGeneric,
 ) {
-    const wrappedComponent = class extends Component<ReactWrapperProps<ElementGeneric>> {
-        public componentRef: any = React.createRef<ReactWrapperElementInstance<ElementGeneric>>();
+    type InputGeneric = ElementGeneric extends DeclarativeElementDefinition<infer InnerInputs>
+        ? InnerInputs
+        : never;
+    type EventsGeneric = ElementGeneric extends DeclarativeElementDefinition<
+        any,
+        any,
+        infer InnerEvents
+    >
+        ? InnerEvents
+        : never;
+
+    const wrappedComponent = class extends Component<
+        ReactWrapperProps<InputGeneric, EventsGeneric>
+    > {
+        public componentRef: any =
+            React.createRef<
+                ReactWrapperElementInstance<InputGeneric, EventsGeneric, ElementGeneric>
+            >();
         public listenerMap = new Map<string, (event: Event) => void>();
 
-        constructor(props: Partial<ReactWrapperProps<ElementGeneric>>) {
+        constructor(props: ReactWrapperProps<InputGeneric, EventsGeneric>) {
             super(props);
         }
 
-        public attachLatestProps(previousProps: ReactWrapperProps<ElementGeneric> | undefined) {
+        public attachLatestProps(
+            previousProps: ReactWrapperProps<InputGeneric, EventsGeneric> | undefined,
+        ) {
             const componentInstance = this.componentRef.current as HTMLElement;
+
             getObjectTypedKeys(this.props).forEach((propKey) => {
                 const currentProp = this.props[propKey];
                 const listenerType = extractListenerType(propKey);
@@ -49,6 +132,10 @@ export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
                         componentInstance.addEventListener(listenerType, newListener);
                     } else if (!listenerType) {
                         if (!ignoreTheseProps.has(propKey)) {
+                            console.log({propKey});
+                            if (propKey !== 'className') {
+                                property()(componentInstance, propKey);
+                            }
                             (componentInstance as any)[propKey] = currentProp;
                         }
                     }
@@ -71,7 +158,9 @@ export function wrapInReactComponent<ElementGeneric extends FunctionalElement>(
             }
         }
 
-        public override componentDidUpdate(prevProps: ReactWrapperProps<ElementGeneric>) {
+        public override componentDidUpdate(
+            prevProps: ReactWrapperProps<InputGeneric, EventsGeneric>,
+        ) {
             this.attachLatestProps(prevProps);
         }
 

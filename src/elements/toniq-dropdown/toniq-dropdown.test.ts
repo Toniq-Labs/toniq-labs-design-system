@@ -34,7 +34,11 @@ describe(ToniqDropdown.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                    <${ToniqDropdown} ${assign(ToniqDropdown.props.options, options)} />
+                    <${ToniqDropdown}
+                        ${assign(ToniqDropdown, {
+                            options,
+                        })}
+                    />
                 `,
             );
 
@@ -50,8 +54,10 @@ describe(ToniqDropdown.tagName, () => {
             const rendered = await fixture(
                 html`
                     <${ToniqDropdown}
-                        ${assign(ToniqDropdown.props.options, options)}
-                        ${assign(ToniqDropdown.props.icon, ArrowsSort24Icon)}
+                        ${assign(ToniqDropdown, {
+                            options,
+                            icon: ArrowsSort24Icon,
+                        })}
                     />
                 `,
             );
@@ -68,8 +74,10 @@ describe(ToniqDropdown.tagName, () => {
             const rendered = await fixture(
                 html`
                     <${ToniqDropdown}
-                        ${assign(ToniqDropdown.props.options, options)}
-                        ${assign(ToniqDropdown.props.selected, options[2])}
+                        ${assign(ToniqDropdown, {
+                            options,
+                            selected: options[2],
+                        })}
                     />
                 `,
             );
@@ -85,7 +93,11 @@ describe(ToniqDropdown.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                    <${ToniqDropdown} ${assign(ToniqDropdown.props.options, options)} />
+                    <${ToniqDropdown}
+                        ${assign(ToniqDropdown, {
+                            options,
+                        })}
+                    />
                 `,
             );
 
@@ -96,12 +108,14 @@ describe(ToniqDropdown.tagName, () => {
 
     createFocusTests(
         html`<${ToniqDropdown}
-            ${assign(ToniqDropdown.props.options, [
-                {
-                    label: 'test',
-                    value: 'test',
-                },
-            ])}
+            ${assign(ToniqDropdown, {
+                options: [
+                    {
+                        label: 'test',
+                        value: 'test',
+                    },
+                ],
+            })}
         ></${ToniqDropdown}>`,
         true,
     );

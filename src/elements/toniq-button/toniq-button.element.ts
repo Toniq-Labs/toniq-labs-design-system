@@ -12,7 +12,8 @@ import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 export const buttonBorderRadius = css`8px`;
 
 export const ToniqButton = defineToniqElement<{
-    text: string;
+    // if text is not given, provide a child element
+    text?: string;
     icon?: undefined | ToniqSvg;
 }>()({
     tagName: 'toniq-button',

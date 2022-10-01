@@ -39,7 +39,9 @@ describe(ToniqChip.tagName, () => {
                 html`
                     <${ToniqChip}>
                         <${ToniqIcon}
-                            ${assign(ToniqIcon.props.icon, iconToRender)}
+                            ${assign(ToniqIcon, {
+                                icon: iconToRender,
+                            })}
                         >
                         </${ToniqIcon}>
                         ${textToRender}
@@ -59,8 +61,7 @@ describe(ToniqChip.tagName, () => {
             await checkRendering(
                 html`
                     <${ToniqChip}
-                        ${assign(ToniqChip.props.icon, iconToRender)}
-                        ${assign(ToniqChip.props.text, textToRender)}
+                        ${assign(ToniqChip, {icon: iconToRender, text: textToRender})}
                     ></${ToniqChip}>
                 `,
                 textToRender,

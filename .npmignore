@@ -35,3 +35,4 @@ dist/*/storybook-helpers/
 *.stories.d.ts
 *.story.d.ts
 public/logo.png
+*test-helper*

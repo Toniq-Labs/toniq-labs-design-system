@@ -1,9 +1,9 @@
 import {assert} from '@open-wc/testing';
-import {FunctionalElementInstance} from 'element-vir';
+import {DeclarativeElementDefinition} from 'element-vir';
 
-export function createElementRegistrationTest(functionalElement: FunctionalElementInstance<any>) {
+export function createElementRegistrationTest(declarativeElement: DeclarativeElementDefinition) {
     it('should be registered as a custom element', () => {
-        const newlyCreated = document.createElement(functionalElement.tagName);
-        assert.instanceOf(newlyCreated, functionalElement);
+        const newlyCreated = document.createElement(declarativeElement.tagName);
+        assert.instanceOf(newlyCreated, declarativeElement);
     });
 }

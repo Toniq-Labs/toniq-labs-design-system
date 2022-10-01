@@ -156,9 +156,9 @@ export const ToniqInput = defineToniqElement<{
             color: ${toniqColors.accentTertiary.foregroundColor};
         }
     `,
-    renderCallback: ({state, inputs, updateState, dispatch, events, host}) => {
+    renderCallback: ({inputs, dispatch, events}) => {
         const {filtered: filteredValue} = filterToAllowedCharactersOnly({
-            value: inputs.value,
+            value: inputs.value ?? '',
             allowed: inputs.allowedInputs,
             blocked: inputs.blockedInputs,
         });

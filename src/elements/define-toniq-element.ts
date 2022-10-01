@@ -8,9 +8,9 @@ export type ToniqTagName = `${typeof tagPrefix}${string}`;
 export function defineToniqElement<InputsGeneric extends PropertyInitMapBase>() {
     function innerDefine<
         StateInit extends PropertyInitMapBase,
-        EventsInitGeneric extends EventsInitMap,
-        HostClassKeys extends string,
-        CssVarKeys extends string,
+        EventsInitGeneric extends EventsInitMap = {},
+        HostClassKeys extends string = '',
+        CssVarKeys extends string = '',
     >(
         elementInit: Overwrite<
             DeclarativeElementInit<

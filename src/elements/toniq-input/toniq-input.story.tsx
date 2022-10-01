@@ -2,12 +2,14 @@ import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React, {CSSProperties} from 'react';
 import {Search24Icon} from '../../icons';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
+import {standardControls} from '../../storybook-helpers/standard-controls';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqInput} from '../react-components';
 
 const inputStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
     input)({
+    ...standardControls,
     value: {
         table: {
             disable: true,

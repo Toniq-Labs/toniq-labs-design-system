@@ -17,8 +17,8 @@ import {
     makeLabel,
     maybeFixSliderValues,
     maybeTransformToLogValue,
-    sliderTestIds,
     ToniqSliderDoubleRangeValue,
+    toniqSliderTestIds,
     ToniqSliderValueType,
 } from './slider-logic';
 
@@ -177,7 +177,6 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
     renderCallback: ({inputs, host, events, dispatch, state, updateState}) => {
         const {actualValue, actualLimits} = getCorrectedLimitsAndValue({...inputs});
         const logRange = createReasonableLogarithmicRange(actualLimits.min, actualLimits.max);
-
         const isLogScale = inputs.logScale ?? false;
         const suffix = inputs.suffix ?? '';
 
@@ -282,7 +281,7 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                             <span
                                 class="${classNames.labelPixelMarginWrapper}"
                                 style="margin-right: ${toPixel(lowerPixelMargin)}"
-                                ${testId(sliderTestIds.lowerLabel)}
+                                ${testId(toniqSliderTestIds.lowerLabel)}
                             >
                                 ${lowerLabel}
                             </span>
@@ -299,7 +298,7 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                             <span
                                 class="${classNames.labelPixelMarginWrapper}"
                                 style="margin-left: ${toPixel(upperPixelMargin)}"
-                                ${testId(sliderTestIds.upperLabel)}
+                                ${testId(toniqSliderTestIds.upperLabel)}
                             >
                                 ${upperLabel}
                             </span>
@@ -333,7 +332,7 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                             .min=${elementLimits.min}
                             .max=${elementLimits.max}
                             .value=${elementValue.max}
-                            ${testId(sliderTestIds.slider)}
+                            ${testId(toniqSliderTestIds.slider)}
                             ${listen('input', (event) => {
                                 const inputElement = event.target as HTMLInputElement;
                                 const newValue = {
@@ -387,7 +386,7 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                         <span
                             class="${classNames.labelPercentMarginWrapper}"
                             style="margin-right: ${toPercent(labelMargin)}"
-                            ${testId(sliderTestIds.label)}
+                            ${testId(toniqSliderTestIds.label)}
                         >
                             ${label}
                         </span>
@@ -399,7 +398,7 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                         .min=${elementLimits.min}
                         .max=${elementLimits.max}
                         .value=${elementValue}
-                        ${testId(sliderTestIds.slider)}
+                        ${testId(toniqSliderTestIds.slider)}
                         ${listen('input', (event) => {
                             const inputElement = event.target as HTMLInputElement;
                             const newValue = maybeTransformToLogValue(

@@ -1,6 +1,7 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
 import {allIconsByCategory} from '../../icons';
+import {standardControls} from '../../storybook-helpers/standard-controls';
 import {toniqColors, toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {toniqIconColorCssVarNames} from '../../styles/icon-colors';
@@ -8,6 +9,7 @@ import {ToniqIcon} from '../react-components';
 
 const iconStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
     input)({
+    ...standardControls,
     color: {
         name: 'Color',
         control: 'color',
@@ -41,7 +43,7 @@ const iconStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: Specifi
         ],
     },
     size: {
-        name: 'Size',
+        name: 'Size (for toniq-icon-fit-icon host class)',
         control: {
             type: 'number',
             min: 1,

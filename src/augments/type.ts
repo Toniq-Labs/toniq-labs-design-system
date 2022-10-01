@@ -10,3 +10,5 @@ export function wrapTypeWithReadonly<P>() {
 }
 
 export type UndefinedValues<T extends object> = Partial<Record<keyof T, undefined>>;
+
+export type ValueOf<T> = T[keyof T];

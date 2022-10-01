@@ -35,7 +35,9 @@ describe(ToniqMiddleEllipsis.tagName, () => {
             const rendered = await fixture(
                 html`
                     <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis.props.externalLink, 'https://entrepot.app')}
+                        ${assign(ToniqMiddleEllipsis, {
+                            externalLink: 'https://entrepot.app',
+                        })}
                     >
                     </${ToniqMiddleEllipsis}>
             `,
@@ -53,8 +55,10 @@ describe(ToniqMiddleEllipsis.tagName, () => {
             const renderedWithToniqIcon = await fixture(
                 html`
                     <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis.props.text, 'link')}
-                        ${assign(ToniqMiddleEllipsis.props.externalLink, 'https://entrepot.app')}
+                        ${assign(ToniqMiddleEllipsis, {
+                            text: 'link',
+                            externalLink: 'https://entrepot.app',
+                        })}
                     ></${ToniqMiddleEllipsis}>
             `,
             );
@@ -72,7 +76,9 @@ describe(ToniqMiddleEllipsis.tagName, () => {
             const rendered = await fixture(
                 html`
                     <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis.props.text, shortText)}
+                        ${assign(ToniqMiddleEllipsis, {
+                            text: shortText,
+                        })}
                     ></${ToniqMiddleEllipsis}>
                 `,
             );
@@ -86,7 +92,9 @@ describe(ToniqMiddleEllipsis.tagName, () => {
             const rendered = await fixture(
                 html`
                     <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis.props.text, 'this-is-some-long-text')}
+                        ${assign(ToniqMiddleEllipsis, {
+                            text: 'this-is-some-long-text',
+                        })}
                     ></${ToniqMiddleEllipsis}>
                 `,
             );
@@ -102,8 +110,10 @@ describe(ToniqMiddleEllipsis.tagName, () => {
             const rendered = await fixture(
                 html`
                     <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis.props.text, longText)}
-                        ${assign(ToniqMiddleEllipsis.props.letterCount, 500)}
+                        ${assign(ToniqMiddleEllipsis, {
+                            text: longText,
+                            letterCount: 500,
+                        })}
                     ></${ToniqMiddleEllipsis}>
                 `,
             );
@@ -117,8 +127,10 @@ describe(ToniqMiddleEllipsis.tagName, () => {
             const rendered = await fixture(
                 html`
                     <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis.props.text, 'abcde')}
-                        ${assign(ToniqMiddleEllipsis.props.letterCount, 1)}
+                        ${assign(ToniqMiddleEllipsis, {
+                            text: 'abcde',
+                            letterCount: 1,
+                        })}
                     ></${ToniqMiddleEllipsis}>
                 `,
             );
@@ -129,8 +141,10 @@ describe(ToniqMiddleEllipsis.tagName, () => {
     createFocusTests(
         html`
             <${ToniqMiddleEllipsis}
-                ${assign(ToniqMiddleEllipsis.props.externalLink, 'https://entrepot.app')}
-                ${assign(ToniqMiddleEllipsis.props.text, 'entrepot')}
+                ${assign(ToniqMiddleEllipsis, {
+                    text: 'entrepot',
+                    externalLink: 'https://entrepot.app',
+                })}
             >
             </${ToniqMiddleEllipsis}>
         `,
@@ -141,8 +155,10 @@ describe(ToniqMiddleEllipsis.tagName, () => {
     createFocusTests(
         html`
             <${ToniqMiddleEllipsis}
-                ${assign(ToniqMiddleEllipsis.props.copyOnClick, true)}
-                ${assign(ToniqMiddleEllipsis.props.text, 'copy')}
+                ${assign(ToniqMiddleEllipsis, {
+                    copyOnClick: true,
+                    text: 'copy',
+                })}
             >
             </${ToniqMiddleEllipsis}>
         `,
@@ -153,7 +169,9 @@ describe(ToniqMiddleEllipsis.tagName, () => {
     createFocusTests(
         html`
             <${ToniqMiddleEllipsis}
-                ${assign(ToniqMiddleEllipsis.props.text, 'not tabbable')}
+                ${assign(ToniqMiddleEllipsis, {
+                    text: 'not tabbable',
+                })}
             >
             </${ToniqMiddleEllipsis}>
         `,

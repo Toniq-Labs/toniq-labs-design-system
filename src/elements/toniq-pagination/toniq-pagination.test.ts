@@ -18,7 +18,12 @@ describe(ToniqPagination.tagName, () => {
             const currentPage = 4;
             const rendered = await fixture(
                 html`
-                    <${ToniqPagination} ${assign(ToniqPagination.props.currentPage, currentPage)} />
+                    <${ToniqPagination}
+                        ${assign(ToniqPagination, {
+                            currentPage,
+                            pageCount: 10,
+                        })}
+                    />
                 `,
             );
 
@@ -34,7 +39,12 @@ describe(ToniqPagination.tagName, () => {
             const pageCount = 10;
             const rendered = await fixture(
                 html`
-                    <${ToniqPagination} ${assign(ToniqPagination.props.pageCount, pageCount)} />
+                    <${ToniqPagination}
+                        ${assign(ToniqPagination, {
+                            pageCount,
+                            currentPage: 1,
+                        })}
+                    />
                 `,
             );
 
@@ -51,7 +61,13 @@ describe(ToniqPagination.tagName, () => {
             const pagesShown = 7;
             const rendered = await fixture(
                 html`
-                    <${ToniqPagination} ${assign(ToniqPagination.props.pagesShown, pagesShown)} />
+                    <${ToniqPagination}
+                        ${assign(ToniqPagination, {
+                            currentPage: 1,
+                            pageCount: 10,
+                            pagesShown,
+                        })}
+                    />
                 `,
             );
 

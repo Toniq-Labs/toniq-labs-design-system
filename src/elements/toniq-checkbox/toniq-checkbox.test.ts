@@ -17,7 +17,10 @@ describe(ToniqCheckbox.tagName, () => {
             const rendered = await fixture(
                 html`
                 <${ToniqCheckbox}
-                    ${assign(ToniqCheckbox.props.text, textToRender)}
+                    ${assign(ToniqCheckbox, {
+                        text: textToRender,
+                        checked: false,
+                    })}
                 ></${ToniqCheckbox}>
             `,
             );

@@ -31,7 +31,9 @@ describe(ToniqIcon.tagName, () => {
             const renderedToniqIcon = await fixture(
                 html`
                     <${ToniqIcon}
-                        ${assign(ToniqIcon.props.icon, iconToRender)}
+                        ${assign(ToniqIcon, {
+                            icon: iconToRender,
+                        })}
                     ></${ToniqIcon}>
                 `,
             );
@@ -54,7 +56,9 @@ describe(ToniqIcon.tagName, () => {
     createFocusTests(
         html`
             <${ToniqIcon}
-                ${assign(ToniqIcon.props.icon, Copy16Icon)}
+                ${assign(ToniqIcon, {
+                    icon: Copy16Icon,
+                })}
             ></${ToniqIcon}>
         `,
         false,

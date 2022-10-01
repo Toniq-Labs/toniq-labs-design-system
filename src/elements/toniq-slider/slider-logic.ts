@@ -43,7 +43,7 @@ export const classNames = {
     slider: 'slider',
 } as const;
 
-export const sliderTestIds = {
+export const toniqSliderTestIds = {
     label: 'label',
     upperLabel: 'upper-label',
     lowerLabel: 'upper-label',

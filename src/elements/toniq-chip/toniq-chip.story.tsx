@@ -1,12 +1,14 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
 import {allIconsByCategory, Copy16Icon} from '../../icons';
+import {standardControls} from '../../storybook-helpers/standard-controls';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqChip, ToniqIcon} from '../react-components';
 
 const chipStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
     input)({
+    ...standardControls,
     text: {
         name: 'Text',
         control: 'text',

@@ -17,7 +17,10 @@ describe(ToniqToggleButton.tagName, () => {
             const rendered = await fixture(
                 html`
                 <${ToniqToggleButton}
-                    ${assign(ToniqToggleButton.props.text, textToRender)}
+                    ${assign(ToniqToggleButton, {
+                        text: textToRender,
+                        toggled: false,
+                    })}
                 ></${ToniqToggleButton}>
             `,
             );

@@ -10,9 +10,9 @@ import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 export const ToniqToggleButton = defineToniqElement<{
-    text: string;
+    text?: string | undefined;
     toggled: boolean;
-    icon: ToniqSvg | undefined;
+    icon?: ToniqSvg | undefined;
 }>()({
     tagName: 'toniq-toggle-button',
     styles: css`

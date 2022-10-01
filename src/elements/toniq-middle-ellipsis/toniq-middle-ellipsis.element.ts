@@ -1,4 +1,3 @@
-import {typedHasOwnProperty} from 'augment-vir';
 import {assign, css, defineElementEvent, html, listen} from 'element-vir';
 import {copyToClipboard} from '../../clipboard';
 import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
@@ -23,7 +22,7 @@ function isWholeNumber(input: number): boolean {
 }
 
 function validateLetterCount(inputs: {letterCount?: number}): number {
-    if (!typedHasOwnProperty(inputs, 'letterCount') || inputs.letterCount == undefined) {
+    if (inputs.letterCount == undefined) {
         return 4;
     }
 
@@ -53,7 +52,7 @@ function validateLetterCount(inputs: {letterCount?: number}): number {
  */
 export const ToniqMiddleEllipsis = defineToniqElement<
     | {
-          text: string;
+          text?: string;
           /**
            * Determines how many letter render before the truncation ellipsis. The same number of
            * letters are also rendered after the ellipsis.
@@ -130,14 +129,20 @@ export const ToniqMiddleEllipsis = defineToniqElement<
         clickable: ({inputs}) => !!inputs.externalLink || !!inputs.copyOnClick,
     },
     renderCallback: ({inputs, dispatch, events}) => {
+        if (!inputs.text) {
+            return html``;
+        }
+
+        const fullText = inputs.text;
+
         const letterCount = validateLetterCount(inputs);
 
         const isLink: boolean = !!inputs.externalLink;
         const shouldCopy: boolean = !!inputs.copyOnClick;
 
-        const textTooLong = inputs.text.length > letterCount * 2 + 2;
-        const renderText = textTooLong ? truncateInMiddle(inputs.text, letterCount) : inputs.text;
-        const hoverText = textTooLong ? inputs.text : '';
+        const textTooLong = fullText.length > letterCount * 2 + 2;
+        const renderText = textTooLong ? truncateInMiddle(fullText, letterCount) : fullText;
+        const hoverText = textTooLong ? fullText : '';
         const icon: ToniqSvg | undefined = isLink
             ? ExternalLink24Icon
             : shouldCopy
@@ -171,7 +176,7 @@ export const ToniqMiddleEllipsis = defineToniqElement<
                     <button
                         class="text-wrapper copyable"
                         ${listen('click', async () => {
-                            await copyToClipboard(inputs.text);
+                            await copyToClipboard(fullText);
                             dispatch(new events.copied());
                         })}
                     >

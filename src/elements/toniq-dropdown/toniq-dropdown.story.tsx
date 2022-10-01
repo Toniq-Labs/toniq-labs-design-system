@@ -4,6 +4,7 @@ import {css} from 'element-vir';
 import React, {useReducer} from 'react';
 import {ArrowsSort24Icon} from '../../icons';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
+import {standardControls} from '../../storybook-helpers/standard-controls';
 import {toniqColorCssVarNames} from '../../styles';
 import {ToniqDropdown} from '../react-components';
 import {ToniqDropdown as NativeToniqDropdown, ToniqDropdownOption} from './toniq-dropdown.element';
@@ -29,6 +30,7 @@ const options: ToniqDropdownOption<number | string>[] = [
 
 const dropdownStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
     input)({
+    ...standardControls,
     selected: {
         options: Object.keys(options),
         mapping: options,

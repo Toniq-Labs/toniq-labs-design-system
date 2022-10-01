@@ -5,35 +5,35 @@ import {createFixtureTest} from '../../element-testing/fixture-test';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
 import {createFocusTests} from '../../element-testing/test-focus';
 import {getByTestId} from '../../element-testing/test-id-testing';
-import {sliderTestIds} from './slider-logic';
+import {toniqSliderTestIds} from './slider-logic';
 import {ToniqSlider} from './toniq-slider.element';
 
 describe(ToniqSlider.tagName, () => {
     createElementRegistrationTest(ToniqSlider);
 
     it(
-        'should correctly set default value',
+        'should correctly set initial value',
         createFixtureTest(async () => {
-            const sliderDefault = {
+            const initialValues = {
                 value: 5,
                 min: 10,
                 max: 100,
             };
             const rendered = await fixture(
                 html`
-                    <${ToniqSlider}
-                        ${assign(ToniqSlider.props.value, sliderDefault.value)}
-                        ${assign(ToniqSlider.props.min, sliderDefault.min)}
-                        ${assign(ToniqSlider.props.max, sliderDefault.max)}
-                    />
+                    <${ToniqSlider} ${assign(ToniqSlider, initialValues)} />
                 `,
             );
 
-            const sliderInput = getByTestId(sliderTestIds.slider, rendered);
+            const sliderInput = getByTestId(toniqSliderTestIds.slider, rendered);
             assertInstanceOf(sliderInput, HTMLInputElement);
-            assert.strictEqual(parseInt(sliderInput.value), sliderDefault.min);
-            assert.strictEqual(parseInt(sliderInput.min), sliderDefault.min);
-            assert.strictEqual(parseInt(sliderInput.max), sliderDefault.max);
+            assert.strictEqual(
+                parseInt(sliderInput.value),
+                initialValues.min,
+                'value is incorrect',
+            );
+            assert.strictEqual(parseInt(sliderInput.min), initialValues.min, 'min is incorrect');
+            assert.strictEqual(parseInt(sliderInput.max), initialValues.max, 'max is incorrect');
         }),
     );
 
@@ -45,13 +45,17 @@ describe(ToniqSlider.tagName, () => {
             const rendered = await fixture(
                 html`
                     <${ToniqSlider}
-                        ${assign(ToniqSlider.props.value, value)}
-                        ${assign(ToniqSlider.props.suffix, suffix)}
+                        ${assign(ToniqSlider, {
+                            min: 0,
+                            max: 100,
+                            value,
+                            suffix,
+                        })}
                     />
                 `,
             );
 
-            const label = getByTestId(sliderTestIds.label, rendered);
+            const label = getByTestId(toniqSliderTestIds.label, rendered);
             assertInstanceOf(label, HTMLSpanElement);
             assert.equal(`${label.innerText}`, `${value} ${suffix}`);
         }),
@@ -63,11 +67,18 @@ describe(ToniqSlider.tagName, () => {
             const suffix = 'ICP';
             const rendered = await fixture(
                 html`
-                    <${ToniqSlider} ${assign(ToniqSlider.props.suffix, suffix)} />
+                    <${ToniqSlider}
+                        ${assign(ToniqSlider, {
+                            max: 100,
+                            min: 0,
+                            value: 0,
+                            suffix,
+                        })}
+                    />
                 `,
             );
 
-            const label = getByTestId(sliderTestIds.label, rendered);
+            const label = getByTestId(toniqSliderTestIds.label, rendered);
             assertInstanceOf(label, HTMLSpanElement);
             assert.isTrue(new RegExp(suffix).test(label.innerText));
         }),

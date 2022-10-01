@@ -9,7 +9,7 @@ import {toniqShadows} from '../../styles/shadows';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
-export interface ToniqDropdownOption<ValueType = unknown> {
+export interface ToniqDropdownOption<ValueType = any> {
     value: ValueType;
     label: string;
 }

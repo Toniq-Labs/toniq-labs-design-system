@@ -2,6 +2,7 @@ import {ArgTypes} from '@storybook/addons';
 import {ComponentMeta} from '@storybook/react';
 import React from 'react';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
+import {standardControls} from '../../storybook-helpers/standard-controls';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqPagination} from '../react-components';
@@ -9,6 +10,7 @@ import {ToniqPagination} from '../react-components';
 const paginationStoryControls = (<SpecificArgsGeneric extends ArgTypes>(
     input: SpecificArgsGeneric,
 ) => input)({
+    ...standardControls,
     currentPage: {
         name: 'Current Page',
         control: 'number',

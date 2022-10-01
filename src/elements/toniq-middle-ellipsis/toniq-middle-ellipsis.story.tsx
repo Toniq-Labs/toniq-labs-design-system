@@ -1,6 +1,7 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React from 'react';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
+import {standardControls} from '../../storybook-helpers/standard-controls';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqMiddleEllipsis} from '../react-components';
@@ -8,6 +9,7 @@ import {ToniqMiddleEllipsis} from '../react-components';
 const middleEllipsisStoryControls = (<SpecificArgsGeneric extends ArgTypes>(
     input: SpecificArgsGeneric,
 ) => input)({
+    ...standardControls,
     text: {
         name: 'Text',
         control: 'text',
@@ -39,7 +41,7 @@ const componentStoryMeta: ComponentMeta<typeof ToniqMiddleEllipsis> = {
     args: {
         letterCount: 4,
         text: 'custom text',
-        externalLink: '',
+        externalLink: undefined,
         copyOnClick: false,
     },
 };

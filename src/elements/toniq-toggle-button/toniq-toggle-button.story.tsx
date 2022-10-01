@@ -1,7 +1,9 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
-import React, {useReducer} from 'react';
+import {Writeable} from 'augment-vir';
+import React, {ComponentProps, UIEvent, useReducer} from 'react';
 import {allIconsByCategory, Rocket24Icon} from '../../icons';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
+import {standardControls} from '../../storybook-helpers/standard-controls';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqToggleButton} from '../react-components';
@@ -9,6 +11,7 @@ import {ToniqToggleButton} from '../react-components';
 const toggleButtonStoryControls = (<SpecificArgsGeneric extends ArgTypes>(
     input: SpecificArgsGeneric,
 ) => input)({
+    ...standardControls,
     text: {
         table: {
             disable: true,
@@ -131,6 +134,9 @@ export const mainStory = (
         const stateProp = String(active) as 'true' | 'false';
         const states = toggleButtonStates[stateProp];
 
+        const what: Writeable<ComponentProps<typeof ToniqToggleButton>> = {} as any;
+        what.onClick = (event) => {};
+
         return (
             <>
                 <h3
@@ -142,7 +148,7 @@ export const mainStory = (
                 </h3>
                 <section style={{display: 'flex', gap: '8px'}}>
                     <ToniqToggleButton
-                        onClick={(event: MouseEvent) => {
+                        onClick={(event) => {
                             updateToggleButtonStates({
                                 key: stateProp,
                                 subKey: 'default',
@@ -150,10 +156,10 @@ export const mainStory = (
                             handleEventAsAction(event);
                         }}
                         text="Toggle Me"
-                        active={states.default}
+                        toggled={states.default}
                     />
                     <ToniqToggleButton
-                        onClick={(event: MouseEvent) => {
+                        onClick={(event: UIEvent) => {
                             updateToggleButtonStates({
                                 key: stateProp,
                                 subKey: 'defaultWithIcon',
@@ -162,10 +168,10 @@ export const mainStory = (
                         }}
                         icon={Rocket24Icon}
                         text="With icon"
-                        active={states.defaultWithIcon}
+                        toggled={states.defaultWithIcon}
                     />
                     <ToniqToggleButton
-                        onClick={(event: MouseEvent) => {
+                        onClick={(event: UIEvent) => {
                             updateToggleButtonStates({
                                 key: stateProp,
                                 subKey: 'defaultIconOnly',
@@ -174,11 +180,11 @@ export const mainStory = (
                         }}
                         icon={Rocket24Icon}
                         title="Icon only"
-                        active={states.defaultIconOnly}
+                        toggled={states.defaultIconOnly}
                     />
                     <ToniqToggleButton
                         className="toniq-toggle-button-text-only"
-                        onClick={(event: MouseEvent) => {
+                        onClick={(event: UIEvent) => {
                             updateToggleButtonStates({
                                 key: stateProp,
                                 subKey: 'textOnly',
@@ -186,11 +192,11 @@ export const mainStory = (
                             handleEventAsAction(event);
                         }}
                         text="Text Only"
-                        active={states.textOnly}
+                        toggled={states.textOnly}
                     />
                     <ToniqToggleButton
                         className="toniq-toggle-button-text-only"
-                        onClick={(event: MouseEvent) => {
+                        onClick={(event: UIEvent) => {
                             updateToggleButtonStates({
                                 key: stateProp,
                                 subKey: 'withIcon',
@@ -199,11 +205,11 @@ export const mainStory = (
                         }}
                         icon={Rocket24Icon}
                         text="With Icon"
-                        active={states.withIcon}
+                        toggled={states.withIcon}
                     />
                     <ToniqToggleButton
                         className="toniq-toggle-button-text-only"
-                        onClick={(event: MouseEvent) => {
+                        onClick={(event: UIEvent) => {
                             updateToggleButtonStates({
                                 key: stateProp,
                                 subKey: 'iconOnly',
@@ -212,7 +218,7 @@ export const mainStory = (
                         }}
                         title="icon only"
                         icon={Rocket24Icon}
-                        active={states.iconOnly}
+                        toggled={states.iconOnly}
                     />
                 </section>
             </>
@@ -232,8 +238,8 @@ export const mainStory = (
                 Custom Inputs
             </h3>
             <ToniqToggleButton
-                className={controls.hostClass}
-                onClick={(event: MouseEvent) => {
+                className={controls.hostClass as string}
+                onClick={(event: UIEvent) => {
                     updateToggleButtonStates({
                         key: 'custom',
                         subKey: undefined,
@@ -242,7 +248,7 @@ export const mainStory = (
                 }}
                 icon={customIcon}
                 text={customText}
-                active={toggleButtonStates.custom}
+                toggled={toggleButtonStates.custom}
             />
         </>
     );

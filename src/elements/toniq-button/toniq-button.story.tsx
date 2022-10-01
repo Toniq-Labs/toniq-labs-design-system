@@ -3,12 +3,14 @@ import React from 'react';
 import {allIconsByCategory} from '../../icons';
 import {ExternalLink24Icon} from '../../icons/svgs/core-24/external-link-24.icon';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
+import {standardControls} from '../../storybook-helpers/standard-controls';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqButton, ToniqIcon} from '../react-components';
 
 const buttonStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
     input)({
+    ...standardControls,
     text: {
         table: {
             disable: true,

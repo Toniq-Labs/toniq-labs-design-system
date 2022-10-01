@@ -35,7 +35,7 @@ describe(ToniqButton.tagName, () => {
             const rendered = await fixture(
                 html`
                 <${ToniqButton}
-                    ${assign(ToniqButton.props.text, textToRender)}
+                    ${assign(ToniqButton, {text: textToRender})}
                 ></${ToniqButton}>
             `,
             );

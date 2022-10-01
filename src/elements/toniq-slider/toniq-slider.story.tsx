@@ -1,11 +1,13 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
 import React, {useReducer} from 'react';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
+import {standardControls} from '../../storybook-helpers/standard-controls';
 import {cssToReactStyleObject, toniqFontStyles} from '../../styles';
 import {ToniqSlider} from '../react-components';
 
 const sliderStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
     input)({
+    ...standardControls,
     value: {
         name: 'Value',
         control: 'number',
