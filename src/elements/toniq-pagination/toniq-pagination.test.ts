@@ -71,7 +71,7 @@ describe(ToniqPagination.tagName, () => {
                 `,
             );
 
-            const page = queryThroughShadow('button.page', rendered, true);
+            const page = queryThroughShadow('.page', rendered, true);
             assert.strictEqual(page.length, pagesShown);
         }),
     );

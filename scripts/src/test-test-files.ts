@@ -33,18 +33,17 @@ async function runTests(tarFullPath: string) {
                 rejectOnError: true,
             });
             await deleteAllCaches(testDirPath);
-            await runShellCommand(`npm install ${toPosixPath(tarPath)}`, {
+            await runShellCommand(`npm i`, {
                 cwd: testDirPath,
                 rejectOnError: true,
             });
-            await runShellCommand(`npm i`, {
+            await runShellCommand(`npm install ${toPosixPath(tarPath)}`, {
                 cwd: testDirPath,
                 rejectOnError: true,
             });
 
             const results = await runShellCommand('npm test', {
                 cwd: testDirPath,
-                rejectOnError: true,
                 hookUpToConsole: true,
             });
 
@@ -54,6 +53,8 @@ async function runTests(tarFullPath: string) {
                     rejectOnError: true,
                 });
                 console.info(`\x1b[32m${testDirName} passed.\x1b[0m`);
+            } else {
+                throw new Error(`npm test in ${testDirPath} failed.`);
             }
         } catch (error) {
             errors.push(new Error(extractErrorMessage(error)));

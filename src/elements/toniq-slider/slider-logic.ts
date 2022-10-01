@@ -158,7 +158,7 @@ function getCorrectedValue({
     }
 }
 
-function getPossiblyLogarithmicValuesForElement({
+export function getPossiblyLogarithmicValuesForElement({
     actualValue,
     actualLimits,
     logScale,
