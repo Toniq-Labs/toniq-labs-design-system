@@ -73,6 +73,13 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
+                    onKeyDown={handleEventAsAction}
+                    placeholder="with keypress listener"
+                    value=""
+                />
+                <ToniqInput
+                    onValueChange={handleEventAsAction}
+                    onInputBlocked={handleEventAsAction}
                     placeholder="with placeholder"
                     value=""
                 />

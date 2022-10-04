@@ -113,7 +113,7 @@ export function wrapInReactComponent<ElementGeneric extends DeclarativeElementDe
 
             getObjectTypedKeys(this.props).forEach((propKey) => {
                 const propValue = this.props[propKey];
-                const listenerType = extractListenerType(propKey);
+                const listenerType = extractListenerType(propKey, elementInstance);
                 const newPropIsDifferent = previousProps
                     ? previousProps[propKey] !== propValue
                     : true;
@@ -187,7 +187,10 @@ export function wrapInReactComponent<ElementGeneric extends DeclarativeElementDe
     return extendedWrappedComponent;
 }
 
-function extractListenerType(propKey: PropertyKey): string | undefined {
+function extractListenerType(
+    propKey: PropertyKey,
+    declarativeElement: DeclarativeElement,
+): string | undefined {
     if (typeof propKey !== 'string') {
         return undefined;
     }
@@ -198,9 +201,14 @@ function extractListenerType(propKey: PropertyKey): string | undefined {
         if (eventType && firstLetter) {
             if (firstLetter === firstLetter.toLowerCase()) {
                 return undefined;
-            } else {
                 // this indicates that the first letter is uppercase
-                return firstLetter.toLowerCase() + eventType.slice(1);
+            } else {
+                const possibleEventName = firstLetter.toLowerCase() + eventType.slice(1);
+                if (possibleEventName in declarativeElement.definition.events) {
+                    return possibleEventName;
+                } else {
+                    return possibleEventName.toLowerCase();
+                }
             }
         } else {
             return undefined;
