@@ -108,7 +108,7 @@ export const ToniqInput = defineToniqElement<{
          */
         inputBlocked: defineElementEvent<string>(),
         /** Fires when a key is pressed. Useful for triggering events like on key Enter and other keys. */
-        keyPress: defineElementEvent<string>(),
+        keyPress: defineElementEvent<string | number>(),
     },
     styles: css`
         :host {
