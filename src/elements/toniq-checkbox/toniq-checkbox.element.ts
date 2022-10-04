@@ -42,7 +42,6 @@ export const ToniqCheckbox = defineToniqElement<{
         .label {
             font: inherit;
             color: inherit;
-            margin-left: 16px;
             ${noUserSelect};
             transition: inherit;
             text-align: start;
@@ -52,7 +51,8 @@ export const ToniqCheckbox = defineToniqElement<{
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
-        .checkbox.checked ~ .label {
+        .checkbox.checked ~ *,
+        .checkbox.checked ~ slot * {
             color: ${toniqColors.pageInteraction.foregroundColor};
         }
 
@@ -63,6 +63,7 @@ export const ToniqCheckbox = defineToniqElement<{
             height: 24px;
             width: 24px;
             border-radius: 8px;
+            margin-right: 16px;
         }
 
         ${createFocusStyles({mainSelector: '.wrapper:focus', elementBorderSize: 0})}
@@ -78,6 +79,19 @@ export const ToniqCheckbox = defineToniqElement<{
         }
     `,
     renderCallback: ({inputs, dispatch, events}) => {
+        console.log(inputs);
+        const iconTemplate = html`<span class="checkbox ${inputs.checked ? 'checked' : ''}">
+            <${ToniqIcon}
+                class="check-mark ${inputs.checked ? '' : 'hidden'}"
+                ${assign(ToniqIcon, {icon: CheckMark24Icon})}
+            ></${ToniqIcon}></span>`;
+
+        const textTemplate = inputs.text
+            ? html`
+                  <span class="label">${inputs.text}</span>
+              `
+            : '';
+
         return html`
             <button
                 class="wrapper ${inputs.checked ? 'checked' : ''}"
@@ -89,12 +103,8 @@ export const ToniqCheckbox = defineToniqElement<{
                 aria-checked=${inputs.checked}
                 class="wrapper"
             >
-                <span class="checkbox ${inputs.checked ? 'checked' : ''}">
-                    <${ToniqIcon}
-                        class="check-mark ${inputs.checked ? '' : 'hidden'}"
-                        ${assign(ToniqIcon, {icon: CheckMark24Icon})}
-                    ></${ToniqIcon}></span>
-                <span class="label">${inputs.text}</span>
+                ${iconTemplate}
+                <slot>${textTemplate}</slot>
             </button>
         `;
     },

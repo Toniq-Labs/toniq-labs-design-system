@@ -41,6 +41,7 @@ const checkboxStatesInit = {
     uncheckedByDefault: false,
     checkedByDefault: true,
     custom: true,
+    htmlChild: true,
     smallText: true,
     longText: true,
 } as const;
@@ -102,6 +103,19 @@ export const mainStory = (
                 checked={state[stateKeys.custom]}
                 text={customText}
             />
+            <h3
+                style={{
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
+                }}
+            >
+                With HTML Child
+            </h3>
+            <ToniqCheckbox
+                {...makeInputs(stateKeys.htmlChild)}
+                checked={state[stateKeys.htmlChild]}
+            >
+                <>{customText}</>
+            </ToniqCheckbox>
             <h3
                 style={{
                     ...cssToReactStyleObject(toniqFontStyles.h3Font),
