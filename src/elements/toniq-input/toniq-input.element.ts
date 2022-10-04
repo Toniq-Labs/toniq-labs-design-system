@@ -107,6 +107,7 @@ export const ToniqInput = defineToniqElement<{
          * that was blocked out of programmatic "value" property assignments.
          */
         inputBlocked: defineElementEvent<string>(),
+        keyPress: defineElementEvent<string>(),
     },
     styles: css`
         :host {
@@ -241,6 +242,9 @@ export const ToniqInput = defineToniqElement<{
                         if (beforeChangeText !== finalText) {
                             dispatch(new events.valueChange(finalText));
                         }
+                    })}
+                    ${listen('keypress', (event: KeyboardEvent) => {
+                        dispatch(new events.keyPress(event.key || event.keyCode));
                     })}
                     placeholder=${inputs.placeholder}
                 />
