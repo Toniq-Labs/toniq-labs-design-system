@@ -114,7 +114,7 @@ export const mainStory = (
                 {...makeInputs(stateKeys.htmlChild)}
                 checked={state[stateKeys.htmlChild]}
             >
-                <>{customText}</>
+                <span>{customText}</span>
             </ToniqCheckbox>
             <h3
                 style={{

@@ -1,4 +1,5 @@
 import {assign, css, defineElementEvent, html, listen} from 'element-vir';
+import {classMap} from 'lit/directives/class-map.js';
 import {CheckMark24Icon} from '../../icons/svgs/core-24/check-mark-24.icon';
 import {interactionDuration, noUserSelect} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
@@ -52,7 +53,7 @@ export const ToniqCheckbox = defineToniqElement<{
         }
 
         .checkbox.checked ~ *,
-        .checkbox.checked ~ slot * {
+        .checkbox.checked ~ slot {
             color: ${toniqColors.pageInteraction.foregroundColor};
         }
 
@@ -79,18 +80,20 @@ export const ToniqCheckbox = defineToniqElement<{
         }
     `,
     renderCallback: ({inputs, dispatch, events}) => {
-        console.log(inputs);
-        const iconTemplate = html`<span class="checkbox ${inputs.checked ? 'checked' : ''}">
-            <${ToniqIcon}
-                class="check-mark ${inputs.checked ? '' : 'hidden'}"
-                ${assign(ToniqIcon, {icon: CheckMark24Icon})}
-            ></${ToniqIcon}></span>`;
+        const iconTemplate = html`
+            <span class="checkbox ${inputs.checked ? 'checked' : ''}">
+                <${ToniqIcon}
+                    class="check-mark ${classMap({hidden: !inputs.checked})}"
+                    ${assign(ToniqIcon, {icon: CheckMark24Icon})}
+                ></${ToniqIcon}>
+            </span>
+        `;
 
-        const textTemplate = inputs.text
-            ? html`
-                  <span class="label">${inputs.text}</span>
-              `
-            : '';
+        const textTemplate = html`
+            <slot>
+                <span class="label">${inputs.text}</span>
+            </slot>
+        `;
 
         return html`
             <button
@@ -103,8 +106,7 @@ export const ToniqCheckbox = defineToniqElement<{
                 aria-checked=${inputs.checked}
                 class="wrapper"
             >
-                ${iconTemplate}
-                <slot>${textTemplate}</slot>
+                ${iconTemplate} ${textTemplate}
             </button>
         `;
     },
