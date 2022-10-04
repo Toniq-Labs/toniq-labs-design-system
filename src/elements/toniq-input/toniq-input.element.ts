@@ -107,7 +107,7 @@ export const ToniqInput = defineToniqElement<{
          * that was blocked out of programmatic "value" property assignments.
          */
         inputBlocked: defineElementEvent<string>(),
-        /** Fires when a key is press. Useful for triggering events like on key Enter and other keys. */
+        /** Fires when a key is pressed. Useful for triggering events like on key Enter and other keys. */
         keyPress: defineElementEvent<string>(),
     },
     styles: css`
