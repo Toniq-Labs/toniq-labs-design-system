@@ -76,6 +76,7 @@ type ReactWrapperElementInstance<
 const ignoreTheseProps = new Set<PropertyKey>([
     'children',
     'style',
+    'key',
 ]);
 
 export function wrapInReactComponent<ElementGeneric extends DeclarativeElementDefinition>(
