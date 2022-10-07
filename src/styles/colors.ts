@@ -60,6 +60,11 @@ const mainLightPalette = (() => {
         foregroundColor: css`#D6D6D6`,
     };
 
+    const dividerFaint: DualColorDefinition = {
+        ...pagePrimary,
+        foregroundColor: css`#EAFBF7`,
+    };
+
     /** Drop shadow for some rounded rectangle shapes. */
     const dropShadow: DualColorDefinition = {
         ...pagePrimary,
@@ -94,6 +99,7 @@ const mainLightPalette = (() => {
         pageInteractionHover,
         pageInteractionActive,
         divider,
+        dividerFaint,
         dropShadow,
         accentPrimary,
         accentPrimaryHover,
