@@ -8,7 +8,7 @@
     },
     "dependencies": {
         "@toniq-labs/design-system": "file:../../../toniq-labs-design-system.tgz",
-        "element-vir": "6.1.6"
+        "element-vir": "6.2.0"
     },
     "devDependencies": {
         "typescript": "4.8.4",
