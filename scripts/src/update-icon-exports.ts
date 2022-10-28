@@ -55,36 +55,34 @@ function generateIconImportsAndExports(iconPaths: string[]): string {
         return accum;
     }, {} as Record<string, IconInfo[]>);
 
-    const {imports, categories} = getObjectTypedKeys(organizedIcons)
-        .sort()
-        .reduce(
-            (accum, categoryName) => {
-                const categoryIconInfos = organizedIcons[categoryName];
+    const {imports, categories} = [...getObjectTypedKeys(organizedIcons)].sort().reduce(
+        (accum, categoryName) => {
+            const categoryIconInfos = organizedIcons[categoryName];
 
-                if (!categoryIconInfos?.length) {
-                    return accum;
-                }
+            if (!categoryIconInfos?.length) {
+                return accum;
+            }
 
-                const allCategoryIconNames = categoryIconInfos
-                    .map((iconInfo) => {
-                        accum.imports.push(iconInfo.importString);
-                        return iconInfo.iconName;
-                    })
-                    .sort();
+            const allCategoryIconNames = categoryIconInfos
+                .map((iconInfo) => {
+                    accum.imports.push(iconInfo.importString);
+                    return iconInfo.iconName;
+                })
+                .sort();
 
-                const categoryCode = `'${categoryName}': [
+            const categoryCode = `'${categoryName}': [
                 ${allCategoryIconNames.join(',\n')}
                 ]`;
 
-                accum.categories.push(categoryCode);
+            accum.categories.push(categoryCode);
 
-                return accum;
-            },
-            {
-                imports: [] as string[],
-                categories: [] as string[],
-            },
-        );
+            return accum;
+        },
+        {
+            imports: [] as string[],
+            categories: [] as string[],
+        },
+    );
 
     const exports = imports.map((importLine) => {
         return importLine.replace(/^import .+ from '(.+)';$/, "export * from '$1';");
