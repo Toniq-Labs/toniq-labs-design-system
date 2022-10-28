@@ -63,7 +63,10 @@ import {FolderOff48Icon} from './svgs/core-48/folder-off-48.icon';
 import {EntrepotLogo144Icon} from './svgs/logos/entrepot-logo-144.icon';
 import {BrandDiscord32Icon} from './svgs/third-party-brands/brand-discord-32.icon';
 import {BrandInstagram32Icon} from './svgs/third-party-brands/brand-instagram-32.icon';
+import {BrandInstagramFlat32Icon} from './svgs/third-party-brands/brand-instagram-flat-32.icon';
+import {BrandTelegram32Icon} from './svgs/third-party-brands/brand-telegram-32.icon';
 import {BrandTiktok32Icon} from './svgs/third-party-brands/brand-tiktok-32.icon';
+import {BrandTiktokFlat32Icon} from './svgs/third-party-brands/brand-tiktok-flat-32.icon';
 import {BrandTwitch32Icon} from './svgs/third-party-brands/brand-twitch-32.icon';
 import {BrandTwitter32Icon} from './svgs/third-party-brands/brand-twitter-32.icon';
 export * from './svgs/core-16/copy-16.icon';
@@ -129,7 +132,10 @@ export * from './svgs/core-48/folder-off-48.icon';
 export * from './svgs/logos/entrepot-logo-144.icon';
 export * from './svgs/third-party-brands/brand-discord-32.icon';
 export * from './svgs/third-party-brands/brand-instagram-32.icon';
+export * from './svgs/third-party-brands/brand-instagram-flat-32.icon';
+export * from './svgs/third-party-brands/brand-telegram-32.icon';
 export * from './svgs/third-party-brands/brand-tiktok-32.icon';
+export * from './svgs/third-party-brands/brand-tiktok-flat-32.icon';
 export * from './svgs/third-party-brands/brand-twitch-32.icon';
 export * from './svgs/third-party-brands/brand-twitter-32.icon';
 export * from './toniq-svg';
@@ -203,7 +209,10 @@ export const allIconsByCategory = {
     'third-party-brands': [
         BrandDiscord32Icon,
         BrandInstagram32Icon,
+        BrandInstagramFlat32Icon,
+        BrandTelegram32Icon,
         BrandTiktok32Icon,
+        BrandTiktokFlat32Icon,
         BrandTwitch32Icon,
         BrandTwitter32Icon,
     ],
