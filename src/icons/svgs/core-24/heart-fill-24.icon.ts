@@ -16,8 +16,8 @@ export const HeartFill24Icon = new ToniqSvg(
             viewBox="0 0 24 24"
         >
             <path
-                fill="${toniqIconColors.fill}"
-                stroke="${toniqIconColors.stroke}"
+                fill="${toniqIconColors.fill()}"
+                stroke="${toniqIconColors.stroke()}"
                 stroke-width="2"
                 d="M19.51 13.59 12.01 21l-7.5-7.43a5 5 0 1 1 7.5-6.56 5 5 0 1 1 7.5 6.57Z"
             />

@@ -20,15 +20,15 @@ export const CircleDot24Icon = new ToniqSvg(
                 cy="12"
                 r="9"
                 fill="none"
-                stroke="${toniqIconColors.stroke}"
+                stroke="${toniqIconColors.stroke()}"
                 stroke-width="2"
             />
             <circle
                 cx="12"
                 cy="12"
                 r="4"
-                fill="${toniqIconColors.fill}"
-                stroke="${toniqIconColors.fill}"
+                fill="${toniqIconColors.fill()}"
+                stroke="${toniqIconColors.fill()}"
                 stroke-width="2"
             />
         </svg>

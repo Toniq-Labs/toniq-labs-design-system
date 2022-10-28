@@ -6,12 +6,15 @@ export const toniqIconColorCssVarNames = {
 
 function createVarCall(
     firstVar: typeof toniqIconColorCssVarNames[keyof typeof toniqIconColorCssVarNames],
+    fallbackValue: string,
 ): string {
-    return `var(${firstVar}, var(${toniqIconColorCssVarNames.color}, currentColor))`;
+    return `var(${firstVar}, var(${toniqIconColorCssVarNames.color}, ${fallbackValue}))`;
 }
 
-/** For usage only in the SVG files themselves to apply the property CSS variable var calls. */
+/** For usage only in the SVG files themselves to apply the CSS variable var calls. */
 export const toniqIconColors = {
-    stroke: createVarCall(toniqIconColorCssVarNames.strokeColor),
-    fill: createVarCall(toniqIconColorCssVarNames.fillColor),
+    stroke: (fallbackColor: string = 'currentColor') =>
+        createVarCall(toniqIconColorCssVarNames.strokeColor, fallbackColor),
+    fill: (fallbackColor: string = 'currentColor') =>
+        createVarCall(toniqIconColorCssVarNames.fillColor, fallbackColor),
 };

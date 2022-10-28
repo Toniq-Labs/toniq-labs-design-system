@@ -17,7 +17,7 @@ export const SquareCheck24Icon = new ToniqSvg(
         >
             <path fill="none" d="M6 6h12v12H6z" />
             <path
-                fill="${toniqIconColors.fill}"
+                fill="${toniqIconColors.fill()}"
                 stroke="none"
                 d="M21 6a3 3 0 0 0-3-3H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V6ZM8.3 12.7l2 2a1 1 0 0 0 1.4 0l4-4a1 1 0 0 0-1.4-1.4L11 12.58l-1.3-1.3a1 1 0 0 0-1.4 1.42Z"
             />

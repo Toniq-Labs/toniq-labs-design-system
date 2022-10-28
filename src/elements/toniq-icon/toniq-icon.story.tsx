@@ -57,7 +57,7 @@ const componentStoryMeta: ComponentMeta<typeof ToniqIcon> = {
     argTypes: iconStoryControls as ArgTypes,
     args: {
         color: 'black',
-        applyColor: 'Icon color CSS var',
+        applyColor: 'CSS color property',
         hostClass: 'None',
         size: 24,
     },
@@ -73,7 +73,10 @@ export default componentStoryMeta;
 export const mainStory = (controls: Record<keyof typeof iconStoryControls, string>) => {
     const sizeStyles =
         controls.size && controls.hostClass === 'toniq-icon-fit-icon'
-            ? {height: `${controls.size}px`, width: `${controls.size}px`}
+            ? {
+                  width: `${controls.size}px`,
+                  height: `${controls.size}px`,
+              }
             : {};
 
     const iconCategories = (
@@ -86,19 +89,20 @@ export const mainStory = (controls: Record<keyof typeof iconStoryControls, strin
                     flexDirection: 'column',
                     alignItems: 'center',
                     border: `1px solid ${toniqColors.divider.foregroundColor}`,
-                    color: String(toniqColors.pageTertiary.foregroundColor),
                     borderRadius: '8px',
                     padding: '8px',
                 }}
                 key={icon.iconName}
                 title={icon.iconName}
             >
-                <ToniqIcon
-                    style={{...sizeStyles, color: String(toniqColors.pagePrimary.foregroundColor)}}
-                    className={controls.hostClass}
-                    icon={icon}
-                />
-                <span>{icon.iconName}</span>
+                <ToniqIcon style={{...sizeStyles}} className={controls.hostClass} icon={icon} />
+                <span
+                    style={{
+                        color: String(toniqColors.pageTertiary.foregroundColor),
+                    }}
+                >
+                    {icon.iconName}
+                </span>
             </div>
         ));
 

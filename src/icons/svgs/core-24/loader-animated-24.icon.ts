@@ -54,7 +54,7 @@ export const LoaderAnimated24Icon = new ToniqSvg(
         <svg
             class="loader-animated-24-icon__svg"
             fill="none"
-            stroke="${toniqIconColors.stroke}"
+            stroke="${toniqIconColors.stroke()}"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
