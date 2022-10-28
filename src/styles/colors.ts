@@ -51,7 +51,7 @@ const mainLightPalette = (() => {
 
     const pageInteractionActive: DualColorDefinition = {
         ...brandPrimary,
-        foregroundColor: css`#007D57`,
+        foregroundColor: css`#1D6852`,
     };
 
     /** The color for divider lines. */
@@ -74,6 +74,8 @@ const mainLightPalette = (() => {
     const accentPrimary: DualColorDefinition = swapColors(pageInteraction);
     const accentPrimaryHover: DualColorDefinition = swapColors(pageInteractionHover);
     const accentPrimaryActive: DualColorDefinition = swapColors(pageInteractionActive);
+
+    const pageDarkPrimary = accentPrimaryActive;
 
     const accentSecondary: DualColorDefinition = {
         /** Color for secondary item backgrounds, like inactive toggle buttons or header backgrounds. */
@@ -101,6 +103,7 @@ const mainLightPalette = (() => {
         divider,
         dividerFaint,
         dropShadow,
+        pageDarkPrimary,
         accentPrimary,
         accentPrimaryHover,
         accentPrimaryActive,
