@@ -45,7 +45,7 @@ Make sure that:
     # run all complex script tests
     npm run test:scripts
     # run ALL tests, including formatting and spellchecking
-    npm run test:full
+    npm run test:all
     ```
 -   Run Storybook:
     ```

@@ -20,7 +20,7 @@ jobs:
               run: |
                   npm ci
                   # the full test includes the build
-                  npm run test:full
+                  npm run test:all
             - name: pack and set vars
               id: vars
               run: |
