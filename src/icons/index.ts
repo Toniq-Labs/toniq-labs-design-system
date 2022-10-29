@@ -11,10 +11,13 @@ import {ArrowLoopLeft24Icon} from './svgs/core-24/arrow-loop-left-24.icon';
 import {ArrowLoopRight24Icon} from './svgs/core-24/arrow-loop-right-24.icon';
 import {ArrowRight24Icon} from './svgs/core-24/arrow-right-24.icon';
 import {ArrowsSort24Icon} from './svgs/core-24/arrows-sort-24.icon';
+import {ArrowsSortAscending24Icon} from './svgs/core-24/arrows-sort-ascending-24.icon';
+import {ArrowsSortDescending24Icon} from './svgs/core-24/arrows-sort-descending-24.icon';
 import {Bucket24Icon} from './svgs/core-24/bucket-24.icon';
 import {BuildingStore24Icon} from './svgs/core-24/building-store-24.icon';
 import {CalendarEvent24Icon} from './svgs/core-24/calendar-event-24.icon';
 import {Cash24Icon} from './svgs/core-24/cash-24.icon';
+import {Chain24Icon} from './svgs/core-24/chain-24.icon';
 import {CheckMark24Icon} from './svgs/core-24/check-mark-24.icon';
 import {ChevronDown24Icon} from './svgs/core-24/chevron-down-24.icon';
 import {ChevronUp24Icon} from './svgs/core-24/chevron-up-24.icon';
@@ -24,6 +27,7 @@ import {CirclePlusFill24Icon} from './svgs/core-24/circle-plus-fill-24.icon';
 import {CirclePlusOutline24Icon} from './svgs/core-24/circle-plus-outline-24.icon';
 import {CircleWavyCheck24Icon} from './svgs/core-24/circle-wavy-check-24.icon';
 import {Clock24Icon} from './svgs/core-24/clock-24.icon';
+import {Code24Icon} from './svgs/core-24/code-24.icon';
 import {Copy24Icon} from './svgs/core-24/copy-24.icon';
 import {DotsVertical24Icon} from './svgs/core-24/dots-vertical-24.icon';
 import {Edit24Icon} from './svgs/core-24/edit-24.icon';
@@ -45,6 +49,7 @@ import {LoaderAnimated24Icon} from './svgs/core-24/loader-animated-24.icon';
 import {Lock24Icon} from './svgs/core-24/lock-24.icon';
 import {LockOpen24Icon} from './svgs/core-24/lock-open-24.icon';
 import {Menu24Icon} from './svgs/core-24/menu-24.icon';
+import {Paper24Icon} from './svgs/core-24/paper-24.icon';
 import {Photo24Icon} from './svgs/core-24/photo-24.icon';
 import {Rocket24Icon} from './svgs/core-24/rocket-24.icon';
 import {Search24Icon} from './svgs/core-24/search-24.icon';
@@ -54,6 +59,7 @@ import {Social24Icon} from './svgs/core-24/social-24.icon';
 import {Square24Icon} from './svgs/core-24/square-24.icon';
 import {SquareCheck24Icon} from './svgs/core-24/square-check-24.icon';
 import {Trash24Icon} from './svgs/core-24/trash-24.icon';
+import {User24Icon} from './svgs/core-24/user-24.icon';
 import {Users24Icon} from './svgs/core-24/users-24.icon';
 import {Wallet24Icon} from './svgs/core-24/wallet-24.icon';
 import {WorldUpload24Icon} from './svgs/core-24/world-upload-24.icon';
@@ -61,14 +67,15 @@ import {X24Icon} from './svgs/core-24/x-24.icon';
 import {Kyc32Icon} from './svgs/core-32/kyc-32.icon';
 import {FolderOff48Icon} from './svgs/core-48/folder-off-48.icon';
 import {EntrepotLogo144Icon} from './svgs/logos/entrepot-logo-144.icon';
-import {BrandDiscord32Icon} from './svgs/third-party-brands/brand-discord-32.icon';
-import {BrandInstagram32Icon} from './svgs/third-party-brands/brand-instagram-32.icon';
-import {BrandInstagramFlat32Icon} from './svgs/third-party-brands/brand-instagram-flat-32.icon';
-import {BrandTelegram32Icon} from './svgs/third-party-brands/brand-telegram-32.icon';
-import {BrandTiktok32Icon} from './svgs/third-party-brands/brand-tiktok-32.icon';
-import {BrandTiktokFlat32Icon} from './svgs/third-party-brands/brand-tiktok-flat-32.icon';
-import {BrandTwitch32Icon} from './svgs/third-party-brands/brand-twitch-32.icon';
-import {BrandTwitter32Icon} from './svgs/third-party-brands/brand-twitter-32.icon';
+import {BrandDiscord24Icon} from './svgs/third-party-brands/brand-discord-24.icon';
+import {BrandIcScan24Icon} from './svgs/third-party-brands/brand-ic-scan-24.icon';
+import {BrandInstagram24Icon} from './svgs/third-party-brands/brand-instagram-24.icon';
+import {BrandInstagramFlat24Icon} from './svgs/third-party-brands/brand-instagram-flat-24.icon';
+import {BrandTelegram24Icon} from './svgs/third-party-brands/brand-telegram-24.icon';
+import {BrandTiktok24Icon} from './svgs/third-party-brands/brand-tiktok-24.icon';
+import {BrandTiktokFlat24Icon} from './svgs/third-party-brands/brand-tiktok-flat-24.icon';
+import {BrandTwitch24Icon} from './svgs/third-party-brands/brand-twitch-24.icon';
+import {BrandTwitter24Icon} from './svgs/third-party-brands/brand-twitter-24.icon';
 export * from './svgs/core-16/copy-16.icon';
 export * from './svgs/core-16/external-link-16.icon';
 export * from './svgs/core-16/icp-16.icon';
@@ -80,10 +87,13 @@ export * from './svgs/core-24/arrow-loop-left-24.icon';
 export * from './svgs/core-24/arrow-loop-right-24.icon';
 export * from './svgs/core-24/arrow-right-24.icon';
 export * from './svgs/core-24/arrows-sort-24.icon';
+export * from './svgs/core-24/arrows-sort-ascending-24.icon';
+export * from './svgs/core-24/arrows-sort-descending-24.icon';
 export * from './svgs/core-24/bucket-24.icon';
 export * from './svgs/core-24/building-store-24.icon';
 export * from './svgs/core-24/calendar-event-24.icon';
 export * from './svgs/core-24/cash-24.icon';
+export * from './svgs/core-24/chain-24.icon';
 export * from './svgs/core-24/check-mark-24.icon';
 export * from './svgs/core-24/chevron-down-24.icon';
 export * from './svgs/core-24/chevron-up-24.icon';
@@ -93,6 +103,7 @@ export * from './svgs/core-24/circle-plus-fill-24.icon';
 export * from './svgs/core-24/circle-plus-outline-24.icon';
 export * from './svgs/core-24/circle-wavy-check-24.icon';
 export * from './svgs/core-24/clock-24.icon';
+export * from './svgs/core-24/code-24.icon';
 export * from './svgs/core-24/copy-24.icon';
 export * from './svgs/core-24/dots-vertical-24.icon';
 export * from './svgs/core-24/edit-24.icon';
@@ -114,6 +125,7 @@ export * from './svgs/core-24/loader-animated-24.icon';
 export * from './svgs/core-24/lock-24.icon';
 export * from './svgs/core-24/lock-open-24.icon';
 export * from './svgs/core-24/menu-24.icon';
+export * from './svgs/core-24/paper-24.icon';
 export * from './svgs/core-24/photo-24.icon';
 export * from './svgs/core-24/rocket-24.icon';
 export * from './svgs/core-24/search-24.icon';
@@ -123,6 +135,7 @@ export * from './svgs/core-24/social-24.icon';
 export * from './svgs/core-24/square-24.icon';
 export * from './svgs/core-24/square-check-24.icon';
 export * from './svgs/core-24/trash-24.icon';
+export * from './svgs/core-24/user-24.icon';
 export * from './svgs/core-24/users-24.icon';
 export * from './svgs/core-24/wallet-24.icon';
 export * from './svgs/core-24/world-upload-24.icon';
@@ -130,14 +143,15 @@ export * from './svgs/core-24/x-24.icon';
 export * from './svgs/core-32/kyc-32.icon';
 export * from './svgs/core-48/folder-off-48.icon';
 export * from './svgs/logos/entrepot-logo-144.icon';
-export * from './svgs/third-party-brands/brand-discord-32.icon';
-export * from './svgs/third-party-brands/brand-instagram-32.icon';
-export * from './svgs/third-party-brands/brand-instagram-flat-32.icon';
-export * from './svgs/third-party-brands/brand-telegram-32.icon';
-export * from './svgs/third-party-brands/brand-tiktok-32.icon';
-export * from './svgs/third-party-brands/brand-tiktok-flat-32.icon';
-export * from './svgs/third-party-brands/brand-twitch-32.icon';
-export * from './svgs/third-party-brands/brand-twitter-32.icon';
+export * from './svgs/third-party-brands/brand-discord-24.icon';
+export * from './svgs/third-party-brands/brand-ic-scan-24.icon';
+export * from './svgs/third-party-brands/brand-instagram-24.icon';
+export * from './svgs/third-party-brands/brand-instagram-flat-24.icon';
+export * from './svgs/third-party-brands/brand-telegram-24.icon';
+export * from './svgs/third-party-brands/brand-tiktok-24.icon';
+export * from './svgs/third-party-brands/brand-tiktok-flat-24.icon';
+export * from './svgs/third-party-brands/brand-twitch-24.icon';
+export * from './svgs/third-party-brands/brand-twitter-24.icon';
 export * from './toniq-svg';
 
 export const allIconsByCategory = {
@@ -155,10 +169,13 @@ export const allIconsByCategory = {
         ArrowLoopRight24Icon,
         ArrowRight24Icon,
         ArrowsSort24Icon,
+        ArrowsSortAscending24Icon,
+        ArrowsSortDescending24Icon,
         Bucket24Icon,
         BuildingStore24Icon,
         CalendarEvent24Icon,
         Cash24Icon,
+        Chain24Icon,
         CheckMark24Icon,
         ChevronDown24Icon,
         ChevronUp24Icon,
@@ -168,6 +185,7 @@ export const allIconsByCategory = {
         CirclePlusOutline24Icon,
         CircleWavyCheck24Icon,
         Clock24Icon,
+        Code24Icon,
         Copy24Icon,
         DotsVertical24Icon,
         Edit24Icon,
@@ -189,6 +207,7 @@ export const allIconsByCategory = {
         Lock24Icon,
         LockOpen24Icon,
         Menu24Icon,
+        Paper24Icon,
         Photo24Icon,
         Rocket24Icon,
         Search24Icon,
@@ -198,6 +217,7 @@ export const allIconsByCategory = {
         Square24Icon,
         SquareCheck24Icon,
         Trash24Icon,
+        User24Icon,
         Users24Icon,
         Wallet24Icon,
         WorldUpload24Icon,
@@ -207,13 +227,14 @@ export const allIconsByCategory = {
     'core-48': [FolderOff48Icon],
     logos: [EntrepotLogo144Icon],
     'third-party-brands': [
-        BrandDiscord32Icon,
-        BrandInstagram32Icon,
-        BrandInstagramFlat32Icon,
-        BrandTelegram32Icon,
-        BrandTiktok32Icon,
-        BrandTiktokFlat32Icon,
-        BrandTwitch32Icon,
-        BrandTwitter32Icon,
+        BrandDiscord24Icon,
+        BrandIcScan24Icon,
+        BrandInstagram24Icon,
+        BrandInstagramFlat24Icon,
+        BrandTelegram24Icon,
+        BrandTiktok24Icon,
+        BrandTiktokFlat24Icon,
+        BrandTwitch24Icon,
+        BrandTwitter24Icon,
     ],
 } as const;

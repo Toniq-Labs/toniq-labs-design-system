@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "0.1.9",
+    "version": "0.1.10",
     "private": false,
     "description": "Design system elements for Toniq Labs",
     "keywords": [
@@ -77,8 +77,8 @@
         "@storybook/theming": "^6.4.22",
         "@types/react": "^18.0.21",
         "@types/svgo": "^2.6.4",
-        "@web/dev-server-esbuild": "^0.3.2",
-        "@web/test-runner": "^0.14.0",
+        "@web/dev-server-esbuild": "^0.3.3",
+        "@web/test-runner": "^0.15.0",
         "@web/test-runner-commands": "^0.6.5",
         "http-server": "^14.1.1",
         "npm-force-resolutions": "^0.0.10",
