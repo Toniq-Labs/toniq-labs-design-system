@@ -15,7 +15,10 @@ export const ToniqToggleButton = defineToniqElement<{
     icon?: ToniqSvg | undefined;
 }>()({
     tagName: 'toniq-toggle-button',
-    styles: css`
+    hostClasses: {
+        textOnly: false,
+    },
+    styles: ({hostClassNames, hostClassSelectors}) => css`
         :host {
             ${toniqFontStyles.boldParagraphFont};
             ${noUserSelect};
@@ -58,24 +61,24 @@ export const ToniqToggleButton = defineToniqElement<{
             ${applyBackgroundAndForeground(toniqColors.accentPrimaryActive)};
         }
 
-        :host(.toniq-toggle-button-text-only) button {
+        ${hostClassSelectors.textOnly} button {
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
             background: none;
         }
-        :host(.toniq-toggle-button-text-only) button.toggled {
+        ${hostClassSelectors.textOnly} button.toggled {
             ${applyBackgroundAndForeground(toniqColors.pageInteraction)};
             background: none;
         }
-        :host(.toniq-toggle-button-text-only:hover) button.toggled {
+        :host(.${hostClassNames.textOnly}:hover) button.toggled {
             ${applyBackgroundAndForeground(toniqColors.pageInteractionHover)};
         }
-        :host(.toniq-toggle-button-text-only:hover) button {
+        :host(.${hostClassNames.textOnly}:hover) button {
             color: ${toniqColors.pageInteraction.foregroundColor};
         }
-        :host(.toniq-toggle-button-text-only:active) button.toggled {
+        :host(.${hostClassNames.textOnly}:active) button.toggled {
             ${applyBackgroundAndForeground(toniqColors.pageInteractionActive)};
         }
-        :host(.toniq-toggle-button-text-only) button {
+        ${hostClassSelectors.textOnly} button {
             padding: 0 8px;
         }
 

@@ -79,7 +79,7 @@ export const ToniqMiddleEllipsis = defineToniqElement<
     events: {
         copied: defineElementEvent<void>(),
     },
-    styles: ({hostClass}) => css`
+    styles: ({hostClassNames}) => css`
         :host {
             /* 5 frames at 60 fps */
             transition: ${interactionDuration};
@@ -92,7 +92,7 @@ export const ToniqMiddleEllipsis = defineToniqElement<
             align-items: center;
         }
 
-        :host(.${hostClass.clickable}:hover) {
+        :host(.${hostClassNames.clickable}:hover) {
             color: ${toniqColors.pageInteraction.foregroundColor};
         }
 

@@ -12,7 +12,10 @@ export const ToniqChip = defineToniqElement<{
     icon?: undefined | ToniqSvg;
 }>()({
     tagName: 'toniq-chip',
-    styles: css`
+    hostClasses: {
+        secondary: false,
+    },
+    styles: ({hostClassSelectors}) => css`
         :host {
             display: inline-flex;
             align-items: center;
@@ -24,7 +27,7 @@ export const ToniqChip = defineToniqElement<{
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
-        :host(.toniq-chip-secondary) {
+        ${hostClassSelectors.secondary} {
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
         }
     `,

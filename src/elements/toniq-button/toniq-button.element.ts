@@ -17,7 +17,11 @@ export const ToniqButton = defineToniqElement<{
     icon?: undefined | ToniqSvg;
 }>()({
     tagName: 'toniq-button',
-    styles: css`
+    hostClasses: {
+        secondary: false,
+        outline: false,
+    },
+    styles: ({hostClassSelectors, hostClassNames}) => css`
         :host {
             ${toniqFontStyles.boldParagraphFont};
             display: inline-flex;
@@ -55,22 +59,22 @@ export const ToniqButton = defineToniqElement<{
 
         ${createFocusStyles({mainSelector: 'button:focus', elementBorderSize: 2})}
 
-        :host(.toniq-button-secondary) button {
+        ${hostClassSelectors.secondary} button {
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
         }
 
-        :host(.toniq-button-outline) button {
+        ${hostClassSelectors.outline} button {
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
             border-color: ${toniqColors.accentPrimary.backgroundColor};
         }
 
-        :host(.toniq-button-secondary:hover) button,
-        :host(.toniq-button-outline:hover) button {
+        :host(.${hostClassNames.secondary}:hover) button,
+        :host(.${hostClassNames.outline}:hover) button {
             border-color: ${toniqColors.accentPrimaryHover.backgroundColor};
         }
 
-        :host(.toniq-button-secondary:active) button,
-        :host(.toniq-button-outline:active) button {
+        :host(.${hostClassNames.secondary}:active) button,
+        :host(.${hostClassNames.outline}:active) button {
             border-color: ${toniqColors.accentPrimaryActive.backgroundColor};
         }
 
