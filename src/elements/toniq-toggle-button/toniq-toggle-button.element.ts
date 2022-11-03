@@ -63,10 +63,12 @@ export const ToniqToggleButton = defineToniqElement<{
 
         ${hostClassSelectors.textOnly} button {
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
+            border: 1px solid transparent;
             background: none;
         }
         ${hostClassSelectors.textOnly} button.toggled {
             ${applyBackgroundAndForeground(toniqColors.pageInteraction)};
+            border-color: ${toniqColors.pageInteraction.foregroundColor};
             background: none;
         }
         :host(.${hostClassNames.textOnly}:hover) button.toggled {
