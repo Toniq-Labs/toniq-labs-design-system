@@ -1,4 +1,4 @@
-import {getObjectTypedKeys, mapObject} from 'augment-vir';
+import {getObjectTypedKeys, mapObjectValues} from 'augment-vir';
 import {CSSResult} from 'lit';
 import {cssToReactStyleObject} from '../styles/css-to-react';
 
@@ -6,7 +6,7 @@ export function getAllCssVars(
     fontStyle: CSSResult,
 ): Record<string, {cssVarName: string; defaultValue: string}> {
     const stylesObject = cssToReactStyleObject(fontStyle);
-    const cssVars = mapObject(stylesObject, (key, value) => {
+    const cssVars = mapObjectValues(stylesObject, (key, value) => {
         const match = String(value).match(/var\(\s*(--[^,]+),\s*([^\)]+)\s*\)/);
         return match;
     });

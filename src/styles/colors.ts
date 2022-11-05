@@ -1,4 +1,4 @@
-import {camelCaseToKebabCase, mapObject} from 'augment-vir';
+import {camelCaseToKebabCase, mapObjectValues} from 'augment-vir';
 import {css} from 'element-vir';
 import {CSSResult, unsafeCSS} from 'lit';
 import {wrapTypeWithReadonly} from '../augments/type';
@@ -32,12 +32,12 @@ const mainLightPalette = (() => {
     /** For secondary foreground (text) elements, lighter than the primary foreground color. */
     const pageSecondary: DualColorDefinition = {
         ...pagePrimary,
-        foregroundColor: css`#5B5D5C`,
+        foregroundColor: css`#ACADAD`,
     };
     /** For tertiary foreground (text) elements, slightly lighter than the secondary foreground color. */
     const pageTertiary: DualColorDefinition = {
         ...pagePrimary,
-        foregroundColor: css`#ACADAD`,
+        foregroundColor: css`#D6D6D6`,
     };
 
     const pageInteraction: DualColorDefinition = {
@@ -56,8 +56,7 @@ const mainLightPalette = (() => {
 
     /** The color for divider lines. */
     const divider: DualColorDefinition = {
-        ...pagePrimary,
-        foregroundColor: css`#D6D6D6`,
+        ...pageTertiary,
     };
 
     const dividerFaint: DualColorDefinition = {
@@ -81,7 +80,7 @@ const mainLightPalette = (() => {
         /** Color for secondary item backgrounds, like inactive toggle buttons or header backgrounds. */
         backgroundColor: css`#F1F3F6`,
         /** Color for foreground (text) on top of accentSecondaryBackgroundColor. */
-        foregroundColor: css`#000000`,
+        foregroundColor: pagePrimary.foregroundColor,
     };
     const accentTertiary: DualColorDefinition = {
         ...accentSecondary,
@@ -127,7 +126,7 @@ function colorKeyToCssVarName(colorKey: ColorKey, type: keyof DualColorDefinitio
  * the "toniqColors" object exported below for CSS values. This object's values should be used as
  * properties. Meaning, these values should only be used for setting the CSS variables (if needed).
  */
-export const toniqColorCssVarNames: Record<ColorKey, DualColorDefinition> = mapObject(
+export const toniqColorCssVarNames: Record<ColorKey, DualColorDefinition> = mapObjectValues(
     fallbackColors,
     (colorKey) => {
         const cssVarsDefinition: DualColorDefinition = {
@@ -155,7 +154,7 @@ function colorValueToVarCallDualDefinition(
  * system palette. To override any of these colors, set the CSS var from the corresponding ColorKey
  * in toniqColorCssVarNames.
  */
-export const toniqColors: Record<ColorKey, DualColorDefinition> = mapObject(
+export const toniqColors: Record<ColorKey, DualColorDefinition> = mapObjectValues(
     toniqColorCssVarNames,
     (colorKey): DualColorDefinition => {
         return {

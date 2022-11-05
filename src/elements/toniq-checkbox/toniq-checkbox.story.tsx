@@ -5,7 +5,7 @@ import {createMultiElementState} from '../../storybook-helpers/multi-element-sta
 import {standardControls} from '../../storybook-helpers/standard-controls';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {toniqFontStyles} from '../../styles/fonts';
-import {ToniqCheckbox, ToniqToggleButton} from '../react-components';
+import {ToniqCheckbox} from '../react-components';
 
 const checkboxStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: SpecificArgsGeneric) =>
     input)({
@@ -26,7 +26,7 @@ const checkboxStoryControls = (<SpecificArgsGeneric extends ArgTypes>(input: Spe
     },
 } as const);
 
-const componentStoryMeta: ComponentMeta<typeof ToniqToggleButton> = {
+const componentStoryMeta: ComponentMeta<typeof ToniqCheckbox> = {
     title: 'Elements/Toniq Checkbox',
     component: ToniqCheckbox,
     argTypes: checkboxStoryControls,
@@ -72,6 +72,7 @@ export const mainStory = (
 
         return props;
     }
+
     return (
         <article>
             <h3

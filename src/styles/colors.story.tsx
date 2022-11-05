@@ -128,11 +128,11 @@ export const mainStory = (controls: Record<keyof typeof colorsStroyControls, str
                         Aa
                     </div>
                     <span style={{marginTop: '4px'}}>{colorKey}</span>
-                    <span style={{color: String(toniqColors.pageTertiary.foregroundColor)}}>
+                    <span style={{color: String(toniqColors.pageSecondary.foregroundColor)}}>
                         {String(colorCssVars.foregroundColor)}:{' '}
                         <code>{allCssVarStyles.color?.defaultValue}</code>
                     </span>
-                    <span style={{color: String(toniqColors.pageTertiary.foregroundColor)}}>
+                    <span style={{color: String(toniqColors.pageSecondary.foregroundColor)}}>
                         {String(colorCssVars.backgroundColor)}{' '}
                         <code>{allCssVarStyles.backgroundColor?.defaultValue}</code>
                     </span>

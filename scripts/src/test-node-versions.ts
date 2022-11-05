@@ -1,4 +1,4 @@
-import {mapObject, safeMatch} from 'augment-vir';
+import {mapObjectValues, safeMatch} from 'augment-vir';
 import {runShellCommand} from 'augment-vir/dist/cjs/node-only';
 import {readFile} from 'fs/promises';
 import {cliColors} from './common/cli-colors';
@@ -48,7 +48,7 @@ function extractGitHubActionsNodeVersion(workflowContents: string): string[] {
 
 async function getGitHubActionsNodeVersions(): Promise<string[]> {
     const versions: string[] = Object.values(
-        await mapObject(gitHubWorkflowFilePaths, async (key, path) => {
+        await mapObjectValues(gitHubWorkflowFilePaths, async (key, path) => {
             let fileContents: string;
             try {
                 fileContents = (await readFile(path)).toString();
@@ -80,7 +80,7 @@ async function ensureMatchingNodeVersions() {
     } as const;
 
     const keyedVersions: Record<keyof typeof versionCallbacksByKey, string | string[]> =
-        await mapObject(versionCallbacksByKey, async (key, callback) => {
+        await mapObjectValues(versionCallbacksByKey, async (key, callback) => {
             const versions: string | string[] = await callback();
             return Array.isArray(versions) ? versions.flat() : versions;
         });

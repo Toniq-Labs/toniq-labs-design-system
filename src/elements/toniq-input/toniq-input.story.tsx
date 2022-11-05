@@ -1,7 +1,8 @@
 import {ArgTypes, ComponentMeta} from '@storybook/react';
-import React, {CSSProperties} from 'react';
+import React, {ComponentProps, CSSProperties} from 'react';
 import {Search24Icon} from '../../icons';
 import {handleEventAsAction} from '../../storybook-helpers/actions';
+import {createMultiElementState} from '../../storybook-helpers/multi-element-state';
 import {standardControls} from '../../storybook-helpers/standard-controls';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
@@ -52,8 +53,41 @@ const inputComponentStoryMeta: ComponentMeta<typeof ToniqInput> = {
 
 export default inputComponentStoryMeta;
 
+const inputsStateInit = {
+    squished: '',
+    squishedOutline: '',
+};
+
 export const mainStory = (controls: Record<keyof typeof inputStoryControls, string>) => {
-    const sectionStyles: CSSProperties = {display: 'flex', gap: '8px', flexWrap: 'wrap'};
+    const sectionStyles: CSSProperties = {
+        display: 'flex',
+        gap: '8px',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+    };
+
+    const [
+        state,
+        updateState,
+        stateKeys,
+    ] = createMultiElementState(inputsStateInit);
+
+    function makeInputs(key: keyof typeof state) {
+        const props: ComponentProps<typeof ToniqInput> = {
+            value: state[key],
+            onValueChange: (event) => {
+                updateState({
+                    key,
+                    value: event.detail,
+                });
+                console.log(state[key]);
+                handleEventAsAction(event);
+            },
+            onInputBlocked: handleEventAsAction,
+        };
+
+        return props;
+    }
 
     return (
         <article>
@@ -97,6 +131,22 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                     style={{width: '500px'}}
                     icon={Search24Icon}
                     value=""
+                />
+                <ToniqInput
+                    onInputBlocked={handleEventAsAction}
+                    placeholder="Search squished"
+                    style={{height: '40px'}}
+                    icon={Search24Icon}
+                    {...makeInputs(stateKeys.squished)}
+                />
+                <ToniqInput
+                    onValueChange={handleEventAsAction}
+                    onInputBlocked={handleEventAsAction}
+                    placeholder="Search outline squished"
+                    className={ToniqInput.hostClasses.outline}
+                    style={{height: '40px'}}
+                    icon={Search24Icon}
+                    {...makeInputs(stateKeys.squishedOutline)}
                 />
             </section>
             <h3

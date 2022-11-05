@@ -1,4 +1,4 @@
-import {camelCaseToKebabCase, getObjectTypedKeys, mapObject} from 'augment-vir';
+import {camelCaseToKebabCase, getObjectTypedKeys, mapObjectValues} from 'augment-vir';
 import {css} from 'element-vir';
 import {CSSResult, unsafeCSS} from 'lit';
 import {wrapTypeWithReadonly} from '../augments/type';
@@ -52,11 +52,11 @@ const fontStylesFallbacks = wrapTypeWithReadonly<
     },
 });
 
-export const toniqFontStylesCssVarNames = mapObject(
+export const toniqFontStylesCssVarNames = mapObjectValues(
     fontStylesFallbacks,
     (fontStyleKey, fontFallbacksRecord) => {
         const styleName = unsafeCSS(camelCaseToKebabCase(fontStyleKey.replace(/Font$/, '')));
-        const cssVarNames = mapObject(fontFallbacksRecord, (fontPropName) => {
+        const cssVarNames = mapObjectValues(fontFallbacksRecord, (fontPropName) => {
             const prop = unsafeCSS(fontPropName);
             return css`--toniq-font-${styleName}-${prop}`;
         });

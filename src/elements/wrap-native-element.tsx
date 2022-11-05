@@ -6,8 +6,8 @@ import {
     EventsInitMap,
     PropertyInitMapBase,
 } from 'element-vir';
+import {HostClassNamesMap} from 'element-vir/dist/declarative-element/host-classes';
 import React, {Component, CSSProperties, HTMLAttributes} from 'react';
-import {ValueOf} from '../augments/type';
 
 type DeclarativeElementFromDefinition<DefinitionGeneric extends DeclarativeElementDefinition> =
     DefinitionGeneric extends DeclarativeElementDefinition<
@@ -31,22 +31,15 @@ type ReactExtraProps = Partial<{
     style: CSSProperties;
 }>;
 
-export type ElementEventListenerProps<EventsGeneric extends EventsInitMap> = Partial<
-    ValueOf<{
-        [EventName in keyof EventsGeneric]: EventName extends string
-            ? [`on${Capitalize<EventName>}`, EventsGeneric[EventName]]
-            : never;
-    }> extends [infer NewKey, infer EventTypeWrapper]
-        ? NewKey extends PropertyKey
-            ? Record<
-                  NewKey,
-                  EventTypeWrapper extends DefinedTypedEventNameDefinition<infer EventType>
-                      ? (event: CustomEvent<EventType>) => void | Promise<void>
-                      : never
-              >
-            : never
-        : never
->;
+type OnEventName<EventName> = EventName extends string ? `on${Capitalize<EventName>}` : never;
+
+export type ElementEventListenerProps<EventsGeneric extends EventsInitMap> = {
+    [EventName in keyof EventsGeneric as OnEventName<EventName>]: EventsGeneric[EventName] extends DefinedTypedEventNameDefinition<
+        infer EventType
+    >
+        ? (event: CustomEvent<EventType>) => void | Promise<void>
+        : never;
+};
 
 type ReactWrapperProps<
     InputGeneric extends PropertyInitMapBase,
@@ -92,6 +85,14 @@ export function wrapInReactComponent<ElementGeneric extends DeclarativeElementDe
     >
         ? InnerEvents
         : never;
+    type HostClassKeysGeneric = ElementGeneric extends DeclarativeElementDefinition<
+        any,
+        any,
+        any,
+        infer HostClassKeys
+    >
+        ? HostClassKeys
+        : never;
 
     const wrappedComponent = class extends Component<
         ReactWrapperProps<InputGeneric, EventsGeneric>
@@ -101,6 +102,11 @@ export function wrapInReactComponent<ElementGeneric extends DeclarativeElementDe
                 ReactWrapperElementInstance<InputGeneric, EventsGeneric, ElementGeneric>
             >();
         public listenerMap = new Map<string, (event: Event) => void>();
+        public static readonly hostClasses: HostClassNamesMap<string, HostClassKeysGeneric> =
+            elementConstructor.hostClasses;
+        public static readonly cssVarNames = elementConstructor.cssVarNames;
+        public static readonly cssVarValues = elementConstructor.cssVarValues;
+        public static readonly native = elementConstructor;
 
         constructor(props: ReactWrapperProps<InputGeneric, EventsGeneric>) {
             super(props);

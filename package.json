@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "0.1.12",
+    "version": "0.1.13",
     "private": false,
     "description": "Design system elements for Toniq Labs",
     "keywords": [
@@ -42,7 +42,7 @@
         "prepublishOnly": "npm run test:all && npm run build",
         "spellcheck": "virmator spellcheck",
         "start": "npm run storybook",
-        "start:clean": "rm -rf node_modules/.cache && npm run storybook",
+        "start:clean": "rm -rf node_modules/.cache && rm -rf dist && rm -rf .storybook-dist && npm run storybook",
         "storybook": "start-storybook -p 6006",
         "storybook:build": "build-storybook --output-dir .storybook-dist",
         "storybook:preview": "npm run storybook:build && http-server .storybook-dist",
@@ -60,9 +60,9 @@
         "trim": "1.0.1"
     },
     "dependencies": {
-        "augment-vir": "^3.0.6",
-        "element-vir": "^6.3.0",
-        "lit": "^2.4.0"
+        "augment-vir": "^3.1.0",
+        "element-vir": "^6.3.1",
+        "lit": "^2.4.1"
     },
     "devDependencies": {
         "@esm-bundle/chai": "^4.3.4-fix.0",

@@ -95,6 +95,10 @@ export const ToniqInput = defineToniqElement<{
     blockedInputs?: string | RegExp;
 }>()({
     tagName: 'toniq-input',
+    hostClasses: {
+        outline: false,
+        hasAValue: ({inputs}) => !!inputs.value,
+    },
     events: {
         /**
          * Fires whenever a user input created a new value. Does not fire if all input letters are
@@ -108,54 +112,84 @@ export const ToniqInput = defineToniqElement<{
          */
         inputBlocked: defineElementEvent<string>(),
     },
-    styles: css`
-        :host {
-            position: relative;
-            display: inline-flex;
-        }
+    styles: ({hostClassNames, hostClassSelectors}) => {
+        console.log(
+            String(css`
+                :host(.${hostClassNames.hasAValue}.${hostClassNames.outline}) ${ToniqIcon} {
+                    color: ${toniqColors.pagePrimary.foregroundColor};
+                }
+            `),
+        );
+        return css`
+            :host {
+                position: relative;
+                display: inline-flex;
+            }
 
-        .focus-border {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: ${buttonBorderRadius};
-            z-index: 0;
-            pointer-events: none;
-        }
+            .focus-border {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: ${buttonBorderRadius};
+                z-index: 0;
+                pointer-events: none;
+            }
 
-        label {
-            flex-grow: 1;
-            cursor: pointer;
-            display: inline-flex;
-            box-sizing: border-box;
-            position: relative;
-            padding: 12px 16px;
-            border-radius: ${buttonBorderRadius};
-            background-color: ${toniqColors.accentTertiary.backgroundColor};
-            font: ${toniqFontStyles.paragraphFont};
-        }
+            ${hostClassSelectors.outline} label {
+                background-color: ${toniqColors.pagePrimary.backgroundColor};
+                border: 1px solid ${toniqColors.pageTertiary.foregroundColor};
+            }
 
-        ${createFocusStyles({mainSelector: 'input:focus ~ .focus-border', elementBorderSize: 0})}
+            ${hostClassSelectors.outline} ${ToniqIcon} {
+                color: ${toniqColors.pageSecondary.foregroundColor};
+            }
 
-        ${ToniqIcon} {
-            margin-right: 10px;
-        }
+            :host(.${hostClassNames.hasAValue}.${hostClassNames.outline}) ${ToniqIcon} {
+                color: ${toniqColors.pagePrimary.foregroundColor};
+            }
 
-        input {
-            ${removeNativeFormStyles};
-            flex-grow: 1;
-        }
+            ${hostClassSelectors.outline} input::placeholder {
+                color: ${toniqColors.pageSecondary.foregroundColor};
+            }
 
-        input:focus {
-            outline: none;
-        }
+            label {
+                flex-grow: 1;
+                cursor: pointer;
+                display: inline-flex;
+                box-sizing: border-box;
+                align-items: center;
+                position: relative;
+                padding: 12px 16px;
+                border-radius: ${buttonBorderRadius};
+                background-color: ${toniqColors.accentTertiary.backgroundColor};
+                font: ${toniqFontStyles.paragraphFont};
+            }
 
-        input::placeholder {
-            color: ${toniqColors.accentTertiary.foregroundColor};
-        }
-    `,
+            ${createFocusStyles({
+                mainSelector: 'input:focus ~ .focus-border',
+                elementBorderSize: 0,
+            })}
+
+            ${ToniqIcon} {
+                margin-right: 10px;
+            }
+
+            input {
+                ${removeNativeFormStyles};
+                flex-grow: 1;
+            }
+
+            input:focus {
+                outline: none;
+            }
+
+            input::placeholder {
+                color: ${toniqColors.accentTertiary.foregroundColor};
+            }
+        `;
+    },
     renderCallback: ({inputs, dispatch, events}) => {
         const {filtered: filteredValue} = filterToAllowedCharactersOnly({
             value: inputs.value ?? '',
@@ -249,3 +283,5 @@ export const ToniqInput = defineToniqElement<{
         `;
     },
 });
+
+ToniqInput.hostClasses.outline;
