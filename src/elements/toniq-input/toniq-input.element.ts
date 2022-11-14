@@ -113,13 +113,6 @@ export const ToniqInput = defineToniqElement<{
         inputBlocked: defineElementEvent<string>(),
     },
     styles: ({hostClassNames, hostClassSelectors}) => {
-        console.log(
-            String(css`
-                :host(.${hostClassNames.hasAValue}.${hostClassNames.outline}) ${ToniqIcon} {
-                    color: ${toniqColors.pagePrimary.foregroundColor};
-                }
-            `),
-        );
         return css`
             :host {
                 position: relative;
