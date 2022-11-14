@@ -56,6 +56,7 @@ export default inputComponentStoryMeta;
 const inputsStateInit = {
     squished: '',
     squishedOutline: '',
+    short: '',
 };
 
 export const mainStory = (controls: Record<keyof typeof inputStoryControls, string>) => {
@@ -138,6 +139,12 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                     style={{height: '40px'}}
                     icon={Search24Icon}
                     {...makeInputs(stateKeys.squished)}
+                />
+                <ToniqInput
+                    onInputBlocked={handleEventAsAction}
+                    placeholder="short"
+                    style={{width: '140px'}}
+                    {...makeInputs(stateKeys.short)}
                 />
                 <ToniqInput
                     onValueChange={handleEventAsAction}
