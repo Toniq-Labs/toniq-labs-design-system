@@ -69,6 +69,7 @@ const dropdownSelectionStateInit = {
         withPrefixOnly: options[0]!,
         customSize: options[3]!,
         growHeight: options[3]!,
+        squishedHeight: options[0],
         withDifferentBackgroundColor: options[0]!,
     },
     custom: options[0]!,
@@ -181,7 +182,7 @@ export const mainStory = (controls: Record<keyof typeof dropdownStoryControls, a
                         height: '200px',
                     }}
                     options={options}
-                    selectedLabelPrefix={'Sort By: '}
+                    selectedLabelPrefix={'custom height: '}
                     selected={dropdownSelectionStates.static.customSize}
                     onSelectChange={(event: CustomEvent<ArrayElement<typeof options>>) => {
                         updateDropdownSelectionStates({
@@ -200,6 +201,20 @@ export const mainStory = (controls: Record<keyof typeof dropdownStoryControls, a
                         updateDropdownSelectionStates({
                             key: 'static',
                             subKey: 'growHeight',
+                            option: event.detail,
+                        });
+                        handleEventAsAction(event);
+                    }}
+                />
+                <ToniqDropdown
+                    options={options}
+                    selectedLabelPrefix={'squished: '}
+                    style={{minHeight: 40, maxHeight: 40}}
+                    selected={dropdownSelectionStates.static.squishedHeight}
+                    onSelectChange={(event: CustomEvent<ArrayElement<typeof options>>) => {
+                        updateDropdownSelectionStates({
+                            key: 'static',
+                            subKey: 'squishedHeight',
                             option: event.detail,
                         });
                         handleEventAsAction(event);

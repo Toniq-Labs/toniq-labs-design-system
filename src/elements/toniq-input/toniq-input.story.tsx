@@ -57,6 +57,13 @@ const inputsStateInit = {
     squished: '',
     squishedOutline: '',
     short: '',
+    withValue: 'with value',
+    cannotType: 'cannot type into',
+    custom: '',
+    withKeyPress: '',
+    withPlaceholder: '',
+    withIcon: '',
+    stretched: '',
 };
 
 export const mainStory = (controls: Record<keyof typeof inputStoryControls, string>) => {
@@ -103,27 +110,27 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
-                    value="with value"
+                    {...makeInputs(stateKeys.withValue)}
                 />
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
                     onKeyDown={handleEventAsAction}
                     placeholder="with keypress listener"
-                    value=""
+                    {...makeInputs(stateKeys.withKeyPress)}
                 />
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
                     placeholder="with placeholder"
-                    value=""
+                    {...makeInputs(stateKeys.withPlaceholder)}
                 />
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
                     placeholder="with icon"
                     icon={Search24Icon}
-                    value=""
+                    {...makeInputs(stateKeys.withIcon)}
                 />
                 <ToniqInput
                     onValueChange={handleEventAsAction}
@@ -131,7 +138,7 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                     placeholder="stretched"
                     style={{width: '500px'}}
                     icon={Search24Icon}
-                    value=""
+                    {...makeInputs(stateKeys.stretched)}
                 />
                 <ToniqInput
                     onInputBlocked={handleEventAsAction}
@@ -169,21 +176,21 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                     onInputBlocked={handleEventAsAction}
                     placeholder="letter 'd' is blocked"
                     blockedInputs="d"
-                    value=""
+                    {...makeInputs(stateKeys.stretched)}
                 />
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
                     placeholder="only numbers are allowed"
                     allowedInputs={/\d/}
-                    value=""
+                    {...makeInputs(stateKeys.stretched)}
                 />
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
                     placeholder="numbers are blocked"
                     allowedInputs={/\D/}
-                    value=""
+                    {...makeInputs(stateKeys.stretched)}
                 />
             </section>
 
@@ -196,7 +203,7 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
             </h3>
             <section style={sectionStyles}>
                 <ToniqInput
-                    value="cannot type into"
+                    {...makeInputs(stateKeys.cannotType)}
                     disabled={true}
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
@@ -218,7 +225,7 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                     allowedInputs={controls.allowedInputs}
                     blockedInputs={controls.blockedInputs}
                     disabled={!!controls.disabled}
-                    value=""
+                    {...makeInputs(stateKeys.custom)}
                 />
             </section>
         </article>

@@ -82,6 +82,7 @@ export const ToniqDropdown = defineToniqElement<{
             display: flex;
             gap: 8px;
             text-align: left;
+            align-items: center;
             border-radius: 8px;
             cursor: pointer;
             padding: 12px;
