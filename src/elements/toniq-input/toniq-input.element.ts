@@ -117,6 +117,8 @@ export const ToniqInput = defineToniqElement<{
             :host {
                 position: relative;
                 display: inline-flex;
+                width: 224px;
+                box-sizing: border-box;
             }
 
             .focus-border {
@@ -174,6 +176,15 @@ export const ToniqInput = defineToniqElement<{
                 ${removeNativeFormStyles};
                 flex-grow: 1;
                 max-width: 100%;
+                /* fix input element not shrinking by default */
+                width: 0;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            input:placeholder-shown {
+                text-overflow: ellipsis;
+                overflow: hidden;
             }
 
             input:focus {
