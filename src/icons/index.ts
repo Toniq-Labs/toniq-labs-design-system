@@ -66,6 +66,9 @@ import {WorldUpload24Icon} from './svgs/core-24/world-upload-24.icon';
 import {X24Icon} from './svgs/core-24/x-24.icon';
 import {Kyc32Icon} from './svgs/core-32/kyc-32.icon';
 import {FolderOff48Icon} from './svgs/core-48/folder-off-48.icon';
+import {Api64Icon} from './svgs/core-64/api-64.icon';
+import {CircleDashes64Icon} from './svgs/core-64/circle-dashes-64.icon';
+import {Rocket64Icon} from './svgs/core-64/rocket-64.icon';
 import {EntrepotLogo144Icon} from './svgs/logos/entrepot-logo-144.icon';
 import {BrandDiscord24Icon} from './svgs/third-party-brands/brand-discord-24.icon';
 import {BrandIcScan24Icon} from './svgs/third-party-brands/brand-ic-scan-24.icon';
@@ -142,6 +145,9 @@ export * from './svgs/core-24/world-upload-24.icon';
 export * from './svgs/core-24/x-24.icon';
 export * from './svgs/core-32/kyc-32.icon';
 export * from './svgs/core-48/folder-off-48.icon';
+export * from './svgs/core-64/api-64.icon';
+export * from './svgs/core-64/circle-dashes-64.icon';
+export * from './svgs/core-64/rocket-64.icon';
 export * from './svgs/logos/entrepot-logo-144.icon';
 export * from './svgs/third-party-brands/brand-discord-24.icon';
 export * from './svgs/third-party-brands/brand-ic-scan-24.icon';
@@ -225,6 +231,11 @@ export const allIconsByCategory = {
     ],
     'core-32': [Kyc32Icon],
     'core-48': [FolderOff48Icon],
+    'core-64': [
+        Api64Icon,
+        CircleDashes64Icon,
+        Rocket64Icon,
+    ],
     logos: [EntrepotLogo144Icon],
     'third-party-brands': [
         BrandDiscord24Icon,
