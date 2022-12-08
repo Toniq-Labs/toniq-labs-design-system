@@ -65,7 +65,7 @@ export async function formatAndWriteOrCheckFromArgs(
         throw new NotUpToDateError(
             `${cliColors.red}${cliColors.bold}"${relativeWriteToFile}" needs to be updated: run '${
                 cliColors.reset
-            }${cliColors.blue}npx ts-node ${relative(repoRootDir, scriptName)}${cliColors.red}${
+            }${cliColors.blue}npx tsx ${relative(repoRootDir, scriptName)}${cliColors.red}${
                 cliColors.bold
             }'${cliColors.reset}`,
         );

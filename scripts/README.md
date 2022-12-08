@@ -1,7 +1,7 @@
 # Scripts
 
-Run scripts in this directory with `ts-node`, like this:
+Run scripts in this directory with `tsx`, like this:
 
 ```
-npx ts-node scripts/src/update-icon-exports.ts
+npx tsx scripts/src/update-icon-exports.ts
 ```

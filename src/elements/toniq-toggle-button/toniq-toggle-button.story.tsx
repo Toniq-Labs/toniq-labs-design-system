@@ -1,5 +1,5 @@
+import {Writeable} from '@augment-vir/common';
 import {ArgTypes, ComponentMeta} from '@storybook/react';
-import {Writeable} from 'augment-vir';
 import React, {ComponentProps, UIEvent, useReducer} from 'react';
 import {allIconsByCategory, Rocket24Icon} from '../../icons';
 import {handleEventAsAction} from '../../storybook-helpers/actions';

@@ -1,5 +1,5 @@
+import {addRegExpFlags} from '@augment-vir/common';
 import {assert} from '@open-wc/testing';
-import {addRegExpFlags} from 'augment-vir';
 import {assign, html, listen} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';

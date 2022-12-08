@@ -1,4 +1,4 @@
-import {getObjectTypedKeys, mapObjectValues} from 'augment-vir';
+import {getObjectTypedKeys, mapObjectValues} from '@augment-vir/common';
 import {CSSResult} from 'lit';
 import {cssToReactStyleObject} from '../styles/css-to-react';
 

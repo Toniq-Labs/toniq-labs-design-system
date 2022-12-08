@@ -3,10 +3,10 @@
     "private": true,
     "scripts": {
         "test": "npm run test:files && npm run test:exports && npm run test:node-versions",
-        "test:exports": "ts-node src/update-all-exports.ts --check",
-        "test:files": "ts-node src/test-test-files.ts",
-        "test:node-versions": "ts-node src/test-node-versions.ts",
-        "update:exports": "ts-node src/update-all-exports.ts"
+        "test:exports": "tsx src/update-all-exports.ts --check",
+        "test:files": "tsx src/test-test-files.ts",
+        "test:node-versions": "tsx src/test-node-versions.ts",
+        "update:exports": "tsx src/update-all-exports.ts"
     },
     "devDependencies": {
         "@types/node": "17.0.31"

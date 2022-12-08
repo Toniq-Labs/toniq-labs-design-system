@@ -1,4 +1,4 @@
-import {toPosixPath} from 'augment-vir/dist/cjs/node-only';
+import {toPosixPath} from '@augment-vir/node-js';
 import {existsSync} from 'fs';
 import {readdir, stat} from 'fs/promises';
 import {dirname, join, relative} from 'path';

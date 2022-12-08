@@ -1,6 +1,5 @@
-import {randomString} from 'augment-vir';
-import {defineElementNoInputs, PropertyInitMapBase} from 'element-vir';
-import {RenderCallback} from '../../node_modules/element-vir/dist/declarative-element/render-callback';
+import {randomString} from '@augment-vir/browser';
+import {defineElementNoInputs, PropertyInitMapBase, RenderCallback} from 'element-vir';
 
 export function createStateWrapper<StateGeneric extends PropertyInitMapBase>(
     stateInit: StateGeneric,

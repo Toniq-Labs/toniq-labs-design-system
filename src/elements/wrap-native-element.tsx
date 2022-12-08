@@ -1,4 +1,4 @@
-import {getObjectTypedKeys, Overwrite, Writeable} from 'augment-vir';
+import {getObjectTypedKeys, Overwrite, Writeable} from '@augment-vir/common';
 import {
     DeclarativeElement,
     DeclarativeElementDefinition,

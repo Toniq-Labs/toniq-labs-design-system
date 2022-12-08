@@ -1,5 +1,5 @@
+import {collapseWhiteSpace} from '@augment-vir/common';
 import {Copy16Icon} from '@toniq-labs/design-system/dist/cjs/icons/svgs/core-16/copy-16.icon';
-import {collapseWhiteSpace} from 'augment-vir';
 import puppeteer from 'puppeteer';
 
 function cleanUpSvg(code: string): string {

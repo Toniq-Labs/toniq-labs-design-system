@@ -1,5 +1,5 @@
+import {isPromiseLike} from '@augment-vir/common';
 import {fixtureCleanup} from '@open-wc/testing';
-import {isPromiseLike} from 'augment-vir';
 
 /**
  * This ensures that all fixtures created on the document within the callback are cleaned up after

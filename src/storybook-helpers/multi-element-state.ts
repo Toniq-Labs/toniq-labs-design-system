@@ -1,4 +1,4 @@
-import {getObjectTypedKeys} from 'augment-vir';
+import {getObjectTypedKeys} from '@augment-vir/common';
 import {useReducer, useRef} from 'react';
 
 export function createMultiElementState<StateGeneric extends Record<string, any>>(

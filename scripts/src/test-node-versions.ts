@@ -1,5 +1,5 @@
-import {mapObjectValues, safeMatch} from 'augment-vir';
-import {runShellCommand} from 'augment-vir/dist/cjs/node-only';
+import {mapObjectValues, safeMatch} from '@augment-vir/common';
+import {runShellCommand} from '@augment-vir/node-js';
 import {readFile} from 'fs/promises';
 import {cliColors} from './common/cli-colors';
 import {gitHubWorkflowFilePaths, netlifyConfigPath} from './common/file-paths';

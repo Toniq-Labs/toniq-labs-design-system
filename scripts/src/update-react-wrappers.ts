@@ -1,5 +1,5 @@
-import {kebabCaseToCamelCase} from 'augment-vir';
-import {toPosixPath} from 'augment-vir/dist/cjs/node-only';
+import {kebabCaseToCamelCase} from '@augment-vir/common';
+import {toPosixPath} from '@augment-vir/node-js';
 import {basename, join, relative} from 'path';
 import {elementsDir, getElementFilePaths} from './common/file-paths';
 import {

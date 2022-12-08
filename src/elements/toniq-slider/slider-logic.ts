@@ -1,4 +1,4 @@
-import {isObject, truncateNumber} from 'augment-vir';
+import {isObject, truncateNumber} from '@augment-vir/common';
 import {
     clamp,
     createReasonableLogarithmicRange,

@@ -1,4 +1,4 @@
-import {extractErrorMessage} from 'augment-vir';
+import {extractErrorMessage} from '@augment-vir/common';
 import {
     NotUpToDateError,
     parseUpdateExportsArgs,

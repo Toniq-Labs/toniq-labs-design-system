@@ -1,5 +1,5 @@
+import {ArrayElement} from '@augment-vir/common';
 import {ArgTypes, ComponentMeta} from '@storybook/react';
-import {ArrayElement} from 'augment-vir';
 import {css} from 'element-vir';
 import React, {useReducer} from 'react';
 import {ArrowsSort24Icon} from '../../icons';

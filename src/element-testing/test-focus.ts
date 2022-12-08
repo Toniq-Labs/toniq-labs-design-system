@@ -1,6 +1,6 @@
+import {awaitedForEach} from '@augment-vir/common';
 import {assert, fixture} from '@open-wc/testing';
 import {sendKeys} from '@web/test-runner-commands';
-import {awaitedForEach} from 'augment-vir';
 import {html} from 'element-vir';
 import {TemplateResult} from 'lit';
 import {assertInstanceOf} from './assertion-helpers';

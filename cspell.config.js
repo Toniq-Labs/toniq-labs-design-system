@@ -1,0 +1,35 @@
+const {baseConfig} = require('virmator/base-configs/base-cspell.js');
+
+module.exports = {
+    ...baseConfig,
+    ignorePaths: [
+        ...baseConfig.ignorePaths,
+        '.storybook-dist',
+        '*.otf',
+        '/graphics/',
+    ],
+    words: [
+        ...baseConfig.words,
+        'browserlist',
+        'browserslist',
+        'dfinity',
+        'elems',
+        'ERESOLVE',
+        'esbuild',
+        'globby',
+        'iefix',
+        'listbox',
+        'opentype',
+        'postpack',
+        'preinstall',
+        'prismjs',
+        'rollup',
+        'SIGINT',
+        'SIGTERM',
+        'svgr',
+        'svgs',
+        'tiktok',
+        'toniq',
+        'truetype',
+    ],
+};

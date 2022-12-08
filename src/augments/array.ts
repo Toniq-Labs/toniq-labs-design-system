@@ -6,7 +6,8 @@ export const threeDots = '...' as const;
  * This function returns a truncated pagination array. The truncation is based on the current page
  * and the set pages to be shown. When pageCount exceeds pagesShown, the excess will be converted
  * into "...". Instances of "..." are included in the pagesShown count. MINIMUM_PAGE_SHOWN is
- * defaulted to 5 as lesser than 5 will show a [1 ...] or [1 ... ... 10] scenario which makes no sense.
+ * defaulted to 5 as lesser than 5 will show a [1 ...] or [1 ... ... 10] scenario which makes no
+ * sense.
  */
 export function pagination(
     currentPage: number,

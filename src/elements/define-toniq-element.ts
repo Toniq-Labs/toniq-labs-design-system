@@ -1,4 +1,4 @@
-import {Overwrite} from 'augment-vir';
+import {Overwrite} from '@augment-vir/common';
 import {defineElement, EventsInitMap, PropertyInitMapBase} from 'element-vir';
 import {DeclarativeElementInit} from 'element-vir/dist/declarative-element/declarative-element-init';
 

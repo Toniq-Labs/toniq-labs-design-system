@@ -1,5 +1,5 @@
+import {getEnumTypedValues, getObjectTypedKeys} from '@augment-vir/common';
 import {ArgTypes, Meta} from '@storybook/react';
-import {getEnumTypedValues, getObjectTypedKeys} from 'augment-vir';
 import React from 'react';
 import {wrapTypeWithReadonly} from '../augments/type';
 import {createCssVarMap} from '../storybook-helpers/css-var-story-helpers';

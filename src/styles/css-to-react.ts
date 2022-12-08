@@ -1,4 +1,4 @@
-import {collapseWhiteSpace, kebabCaseToCamelCase} from 'augment-vir';
+import {collapseWhiteSpace, kebabCaseToCamelCase} from '@augment-vir/common';
 import {CSSResult} from 'lit';
 
 export function cssToReactStyleObject(input: string | CSSResult): React.CSSProperties {

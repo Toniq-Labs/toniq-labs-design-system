@@ -1,4 +1,4 @@
-import {camelCaseToKebabCase, mapObjectValues} from 'augment-vir';
+import {camelCaseToKebabCase, mapObjectValues} from '@augment-vir/common';
 import {css} from 'element-vir';
 import {CSSResult, unsafeCSS} from 'lit';
 import {wrapTypeWithReadonly} from '../augments/type';
@@ -34,7 +34,10 @@ const mainLightPalette = (() => {
         ...pagePrimary,
         foregroundColor: css`#ACADAD`,
     };
-    /** For tertiary foreground (text) elements, slightly lighter than the secondary foreground color. */
+    /**
+     * For tertiary foreground (text) elements, slightly lighter than the secondary foreground
+     * color.
+     */
     const pageTertiary: DualColorDefinition = {
         ...pagePrimary,
         foregroundColor: css`#D6D6D6`,

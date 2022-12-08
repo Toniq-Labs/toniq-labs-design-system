@@ -7,10 +7,11 @@ fixCli() {
 
 trap fixCli SIGINT SIGTERM TERM ERR;
 
+npx kill-port 3006;
+
 set -e;
 
-npx kill-port 3006;
 BROWSER=none FORCE_COLOR=true PORT=3006 npm start &
-
-npx ts-node puppeteer-src/run-prettier-tests.ts;
+sleep 2;
+npx tsx puppeteer-src/run-prettier-tests.ts;
 npx kill-port 3006;

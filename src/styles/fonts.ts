@@ -1,4 +1,4 @@
-import {camelCaseToKebabCase, getObjectTypedKeys, mapObjectValues} from 'augment-vir';
+import {camelCaseToKebabCase, getObjectTypedKeys, mapObjectValues} from '@augment-vir/common';
 import {css} from 'element-vir';
 import {CSSResult, unsafeCSS} from 'lit';
 import {wrapTypeWithReadonly} from '../augments/type';

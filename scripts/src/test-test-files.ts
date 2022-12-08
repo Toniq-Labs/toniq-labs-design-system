@@ -1,5 +1,5 @@
-import {awaitedForEach, combineErrors, extractErrorMessage} from 'augment-vir';
-import {runShellCommand, toPosixPath} from 'augment-vir/dist/cjs/node-only';
+import {awaitedForEach, combineErrors, extractErrorMessage} from '@augment-vir/common';
+import {runShellCommand, toPosixPath} from '@augment-vir/node-js';
 import {readdir, rename, unlink} from 'fs/promises';
 import {join, relative} from 'path';
 import {repoRootDir, testFilesDir} from './common/file-paths';

@@ -1,7 +1,10 @@
 import {StorybookConfig} from '@storybook/core-common';
-import type {Configuration} from 'webpack';
+import {Configuration} from 'webpack';
 
-/** These configs values are exported as individual variables to appease some storybook build warnings. */
+/**
+ * These configs values are exported as individual variables to appease some storybook build
+ * warnings.
+ */
 
 export const stories: StorybookConfig['stories'] = [
     '../src/**/*.stories.@(ts|tsx)',
