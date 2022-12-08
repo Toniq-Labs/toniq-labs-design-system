@@ -22,6 +22,7 @@
     "ts-node": {
         "compilerOptions": {
             "module": "CommonJS"
-        }
+        },
+        "transpileOnly": true
     }
 }

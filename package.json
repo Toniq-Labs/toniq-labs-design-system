@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "0.1.19",
+    "version": "0.1.20",
     "private": false,
     "description": "Design system elements for Toniq Labs",
     "keywords": [
@@ -37,8 +37,8 @@
         "build": "rm -rf dist && tsc --project tsconfig.json && tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
         "format": "virmator format",
         "preinstall": "npm-force-resolutions",
-        "prepack": "tsx scripts/src/publishing.ts prepack",
-        "postpack": "tsx scripts/src/publishing.ts postpack",
+        "prepack": "ts-node scripts/src/publishing.ts prepack",
+        "postpack": "ts-node scripts/src/publishing.ts postpack",
         "prepublishOnly": "npm run test:all && npm run build",
         "spellcheck": "virmator spellcheck",
         "start": "npm run storybook",
@@ -102,7 +102,6 @@
         "rollup-plugin-terser": "^7.0.2",
         "svgo": "^3.0.2",
         "ts-node": "^10.9.1",
-        "tsx": "^3.12.1",
-        "virmator": "^5.0.3"
+        "virmator": "^5.0.4"
     }
 }
