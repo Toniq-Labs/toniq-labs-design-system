@@ -8,7 +8,7 @@
     },
     "dependencies": {
         "@toniq-labs/design-system": "file:../../../toniq-labs-design-system.tgz",
-        "element-vir": "6.3.3"
+        "element-vir": "6.3.4"
     },
     "devDependencies": {
         "prettier": "^2.8.1",
@@ -19,7 +19,7 @@
         "prettier-plugin-sort-json": "^0.0.3",
         "prettier-plugin-toml": "^0.3.1",
         "typescript": "4.9.4",
-        "virmator": "5.0.3",
-        "vite": "3.2.5"
+        "virmator": "5.2.1",
+        "vite": "4.0.1"
     }
 }

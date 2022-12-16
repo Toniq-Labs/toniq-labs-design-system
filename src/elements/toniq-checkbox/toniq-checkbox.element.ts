@@ -2,7 +2,7 @@ import {assign, css, defineElementEvent, html, listen} from 'element-vir';
 import {classMap} from 'lit/directives/class-map.js';
 import {CheckMark24Icon} from '../../icons/svgs/core-24/check-mark-24.icon';
 import {interactionDuration, noUserSelect} from '../../styles';
-import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
+import {colorValueToVarCall} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
 import {removeNativeFormStyles} from '../../styles/native-styles';
@@ -17,7 +17,16 @@ export const ToniqCheckbox = defineToniqElement<{
     events: {
         checkedChange: defineElementEvent<boolean>(),
     },
-    styles: css`
+    hostClasses: {},
+    cssVars: {
+        uncheckedCheckboxColor: String(colorValueToVarCall('accentSecondary', 'backgroundColor')),
+        uncheckedLabelColor: String(colorValueToVarCall('pagePrimary', 'foregroundColor')),
+
+        checkedCheckboxColor: String(colorValueToVarCall('accentPrimary', 'backgroundColor')),
+        checkedCheckColor: String(colorValueToVarCall('accentPrimary', 'foregroundColor')),
+        checkedLabelColor: String(colorValueToVarCall('pageInteraction', 'foregroundColor')),
+    },
+    styles: ({cssVarValues, cssVarNames}) => css`
         :host {
             ${toniqFontStyles.boldParagraphFont};
             display: inline-flex;
@@ -46,21 +55,23 @@ export const ToniqCheckbox = defineToniqElement<{
             ${noUserSelect};
             transition: inherit;
             text-align: start;
+            color: ${cssVarValues.uncheckedLabelColor};
         }
 
         .checkbox.checked {
-            ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
+            background-color: ${cssVarValues.checkedCheckboxColor};
+            color: ${cssVarValues.checkedCheckColor};
         }
 
         .checkbox.checked ~ *,
         .checkbox.checked ~ slot {
-            color: ${toniqColors.pageInteraction.foregroundColor};
+            color: ${cssVarValues.checkedLabelColor};
         }
 
         .checkbox {
             transition: inherit;
             display: inline-block;
-            background-color: ${toniqColors.accentSecondary.backgroundColor};
+            background-color: ${cssVarValues.uncheckedCheckboxColor};
             height: 24px;
             width: 24px;
             border-radius: 8px;
@@ -70,7 +81,7 @@ export const ToniqCheckbox = defineToniqElement<{
         ${createFocusStyles({mainSelector: '.wrapper:focus', elementBorderSize: 0})}
 
         .check-mark {
-            color: ${toniqColors.accentPrimary.foregroundColor};
+            color: ${cssVarValues.checkedCheckColor};
             transition: inherit;
             opacity: 1;
         }
@@ -90,7 +101,7 @@ export const ToniqCheckbox = defineToniqElement<{
         `;
 
         const textTemplate = html`
-            <slot>
+            <slot class="label">
                 <span class="label">${inputs.text}</span>
             </slot>
         `;

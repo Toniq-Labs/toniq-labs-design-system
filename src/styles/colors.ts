@@ -140,7 +140,7 @@ export const toniqColorCssVarNames: Record<ColorKey, DualColorDefinition> = mapO
     },
 );
 
-function colorValueToVarCallDualDefinition(
+export function colorValueToVarCall(
     colorKey: ColorKey,
     type: keyof DualColorDefinition,
 ): CSSResult {
@@ -161,8 +161,8 @@ export const toniqColors: Record<ColorKey, DualColorDefinition> = mapObjectValue
     toniqColorCssVarNames,
     (colorKey): DualColorDefinition => {
         return {
-            foregroundColor: colorValueToVarCallDualDefinition(colorKey, 'foregroundColor'),
-            backgroundColor: colorValueToVarCallDualDefinition(colorKey, 'backgroundColor'),
+            foregroundColor: colorValueToVarCall(colorKey, 'foregroundColor'),
+            backgroundColor: colorValueToVarCall(colorKey, 'backgroundColor'),
         };
     },
 );
