@@ -5,7 +5,7 @@ export const toniqIconColorCssVarNames = {
 } as const;
 
 function createVarCall(
-    firstVar: typeof toniqIconColorCssVarNames[keyof typeof toniqIconColorCssVarNames],
+    firstVar: (typeof toniqIconColorCssVarNames)[keyof typeof toniqIconColorCssVarNames],
     fallbackValue: string,
 ): string {
     return `var(${firstVar}, var(${toniqIconColorCssVarNames.color}, ${fallbackValue}))`;

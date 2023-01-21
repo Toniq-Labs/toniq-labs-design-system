@@ -75,7 +75,7 @@ export type ToniqSliderInputs = Readonly<
     } & (ToniqSliderSingleValueInputs | ToniqSliderDoubleValueInputs)
 >;
 
-export function maybeFixRecursively(slider: typeof ToniqSlider['instanceType']) {
+export function maybeFixRecursively(slider: (typeof ToniqSlider)['instanceType']) {
     requestAnimationFrame(() => {
         const doubleCheckedValue = getAllVerifiedAndFixedInputs(
             slider.instanceInputs,

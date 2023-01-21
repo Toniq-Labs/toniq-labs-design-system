@@ -72,7 +72,7 @@ export async function runBlockedTextTest(
 
 /** This assumes that the given ToniqInput is the next element in the focus order. */
 export async function typeIntoToniqInput(
-    toniqInput: typeof ToniqInput['instanceType'],
+    toniqInput: (typeof ToniqInput)['instanceType'],
     textToType: string,
     checkAfterwards?: boolean,
 ): Promise<HTMLInputElement> {
@@ -98,7 +98,7 @@ export async function typeIntoToniqInput(
 
 /** This assumes that the given ToniqInput is the next element in the focus order. */
 export async function focusAndTypeIntoToniqInput(
-    toniqInput: typeof ToniqInput['instanceType'],
+    toniqInput: (typeof ToniqInput)['instanceType'],
     textToType: string,
     checkAfterwards?: boolean,
 ): Promise<HTMLInputElement> {

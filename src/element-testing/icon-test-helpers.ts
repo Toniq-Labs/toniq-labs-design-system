@@ -7,7 +7,7 @@ import {assertInstanceOf} from './assertion-helpers';
 import {queryThroughShadow} from './query-through-shadow';
 
 export async function assertIconEquals(
-    toniqIconInstance: typeof ToniqIcon['instanceType'],
+    toniqIconInstance: (typeof ToniqIcon)['instanceType'],
     expectedIcon: ToniqSvg,
 ): Promise<void> {
     assert.equal(toniqIconInstance.instanceInputs.icon, expectedIcon);

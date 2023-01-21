@@ -82,10 +82,10 @@ const toggleButtonStatesInit = {
     custom: false,
 } as const;
 
-type BooleanSubKeys = keyof typeof toggleButtonStatesInit['true'];
+type BooleanSubKeys = keyof (typeof toggleButtonStatesInit)['true'];
 
 type ToggleButtonStoryState = Readonly<{
-    [P in keyof typeof toggleButtonStatesInit]: typeof toggleButtonStatesInit[P] extends object
+    [P in keyof typeof toggleButtonStatesInit]: (typeof toggleButtonStatesInit)[P] extends object
         ? Record<BooleanSubKeys, boolean>
         : boolean;
 }>;
