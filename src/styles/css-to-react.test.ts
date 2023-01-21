@@ -6,7 +6,7 @@ import {toniqFontStyles} from '../styles';
 import {cssToReactStyleObject} from './css-to-react';
 
 describe(cssToReactStyleObject.name, () => {
-    it('should create objects correctly', async () => {
+    it('should create objects correctly', () => {
         const comparisons: {
             css: CSSResult;
             react: CSSProperties;

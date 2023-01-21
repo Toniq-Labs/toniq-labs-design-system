@@ -4,22 +4,23 @@
     "scripts": {
         "format": "virmator format",
         "start": "vite --force --config ./src/vite/vite.config.ts",
-        "test": "tsc --noEmit && web-test-runner --node-resolve"
+        "test": "tsc --noEmit && web-test-runner --node-resolve",
+        "test:types": "tsc --noEmit"
     },
     "dependencies": {
         "@toniq-labs/design-system": "file:../../../toniq-labs-design-system.tgz",
-        "element-vir": "6.3.4"
+        "element-vir": "8.0.1"
     },
     "devDependencies": {
-        "prettier": "^2.8.1",
+        "prettier": "^2.8.3",
         "prettier-plugin-jsdoc": "^0.4.2",
-        "prettier-plugin-multiline-arrays": "^1.1.2",
-        "prettier-plugin-organize-imports": "^3.2.1",
-        "prettier-plugin-packagejson": "^2.3.0",
-        "prettier-plugin-sort-json": "^0.0.3",
+        "prettier-plugin-multiline-arrays": "^1.1.3",
+        "prettier-plugin-organize-imports": "^3.2.2",
+        "prettier-plugin-packagejson": "^2.4.0",
+        "prettier-plugin-sort-json": "^1.0.0",
         "prettier-plugin-toml": "^0.3.1",
         "typescript": "4.9.4",
-        "virmator": "5.2.1",
-        "vite": "4.0.1"
+        "virmator": "5.4.0",
+        "vite": "4.0.4"
     }
 }

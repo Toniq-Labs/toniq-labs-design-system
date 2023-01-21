@@ -1,46 +1,17 @@
-import {Overwrite} from '@augment-vir/common';
-import {defineElement, EventsInitMap, PropertyInitMapBase} from 'element-vir';
-import {DeclarativeElementInit} from 'element-vir/dist/declarative-element/declarative-element-init';
+import {wrapDefineElement} from 'element-vir';
 
-export const tagPrefix = `toniq-`;
-export type ToniqTagName = `${typeof tagPrefix}${string}`;
+export const ToniqTagNamePrefix = `toniq-`;
+export type ToniqTagName = `${typeof ToniqTagNamePrefix}${string}`;
 
-export function defineToniqElement<InputsGeneric extends PropertyInitMapBase>() {
-    function innerDefine<
-        StateInit extends PropertyInitMapBase,
-        EventsInitGeneric extends EventsInitMap = {},
-        HostClassKeys extends string = '',
-        CssVarKeys extends string = '',
-    >(
-        elementInit: Overwrite<
-            DeclarativeElementInit<
-                InputsGeneric,
-                StateInit,
-                EventsInitGeneric,
-                HostClassKeys,
-                CssVarKeys
-            >,
-            {tagName: ToniqTagName}
-        >,
-    ) {
-        if (!elementInit.tagName.startsWith(tagPrefix)) {
+export const {
+    defineElement: defineToniqElement,
+    defineElementNoInputs: defineToniqElementNoInputs,
+} = wrapDefineElement<ToniqTagName>({
+    assertInputs: (inputs) => {
+        if (!inputs.tagName.startsWith(ToniqTagNamePrefix)) {
             throw new Error(
-                `Element tag name must start with "${tagPrefix}" (got "${elementInit.tagName}")`,
+                `Tag name should start with '${ToniqTagNamePrefix}' but got '${inputs.tagName}'`,
             );
         }
-
-        if (elementInit.tagName === tagPrefix) {
-            throw new Error(
-                `A tag name must exist after the prefix for ${defineToniqElement.name}: "${elementInit.tagName}"`,
-            );
-        }
-        return defineElement<InputsGeneric>()<
-            StateInit,
-            EventsInitGeneric,
-            HostClassKeys,
-            CssVarKeys
-        >(elementInit);
-    }
-
-    return innerDefine;
-}
+    },
+});

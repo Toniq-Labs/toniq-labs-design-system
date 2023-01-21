@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "private": false,
     "description": "Design system elements for Toniq Labs",
     "keywords": [
@@ -61,8 +61,8 @@
         "trim": "1.0.1"
     },
     "dependencies": {
-        "@augment-vir/common": "^6.1.5",
-        "element-vir": "^7.0.2",
+        "@augment-vir/common": "^11.0.0",
+        "element-vir": "^8.0.1",
         "lit": "^2.6.1"
     },
     "devDependencies": {
@@ -103,6 +103,8 @@
         "rollup-plugin-terser": "^7.0.2",
         "svgo": "^3.0.2",
         "ts-node": "^10.9.1",
+        "type-fest": "^3.5.3",
+        "typescript": "^4.9.4",
         "virmator": "^5.4.0"
     }
 }

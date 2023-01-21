@@ -4,7 +4,7 @@ import {assign, html, listen} from 'element-vir';
 import {TemplateResult} from 'lit';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
-import {createStateWrapper} from '../../element-testing/state-wrapper';
+import {createStateTester} from '../../element-testing/state-tester';
 import {assertFocused, hitTab} from '../../element-testing/test-focus';
 import {ToniqInput} from './toniq-input.element';
 
@@ -37,7 +37,7 @@ export async function runBlockedTextTest(
 ) {
     const readChanges: string[] = [];
 
-    const inputStateWrapper = createStateWrapper({value: ''}, ({state, updateState}) => {
+    const inputStateWrapper = createStateTester({value: ''}, ({state, updateState}) => {
         return html`
                 <${ToniqInput}
                     ${assign(ToniqInput, {

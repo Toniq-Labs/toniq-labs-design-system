@@ -3,7 +3,7 @@ import {assert} from '@open-wc/testing';
 import {assign, html, listen} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';
-import {createStateWrapper} from '../../element-testing/state-wrapper';
+import {createStateTester} from '../../element-testing/state-tester';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
 import {
     assertFocused,
@@ -48,7 +48,7 @@ describe(ToniqInput.tagName, () => {
             const assignedValue = 'five';
             const readChanges: string[] = [];
 
-            const inputStateWrapper = createStateWrapper(
+            const inputStateWrapper = createStateTester(
                 {value: assignedValue},
                 ({state, updateState}) => {
                     return html`

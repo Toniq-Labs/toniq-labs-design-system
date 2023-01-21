@@ -96,9 +96,6 @@ async function main() {
     } catch (error) {
         throw error;
     } finally {
-        if (tarPath) {
-            await unlink(tarPath);
-        }
         await insertPreInstallScript();
     }
 }

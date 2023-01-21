@@ -15,7 +15,8 @@ export const updateElementExports: UpdateExportsConfig = {
 
         await formatAndWriteOrCheckFromArgs(
             elementsIndexPath,
-            generateExportsFromFilePaths(elementFilePaths, elementsDir),
+            `export * from './define-toniq-element';` +
+                generateExportsFromFilePaths(elementFilePaths, elementsDir),
             inputs,
             __filename,
         );

@@ -4,13 +4,14 @@ import {
     DeclarativeElementDefinition,
     DefinedTypedEventNameDefinition,
     EventsInitMap,
+    HostClassNamesMap,
     PropertyInitMapBase,
 } from 'element-vir';
-import {HostClassNamesMap} from 'element-vir/dist/declarative-element/host-classes';
 import React, {Component, CSSProperties, HTMLAttributes} from 'react';
 
 type DeclarativeElementFromDefinition<DefinitionGeneric extends DeclarativeElementDefinition> =
     DefinitionGeneric extends DeclarativeElementDefinition<
+        infer TagNameGeneric,
         infer InputsGeneric,
         infer PropertyInitGeneric,
         infer EventsInitGeneric,
@@ -18,6 +19,7 @@ type DeclarativeElementFromDefinition<DefinitionGeneric extends DeclarativeEleme
         infer CssVarKeys
     >
         ? DeclarativeElement<
+              TagNameGeneric,
               InputsGeneric,
               PropertyInitGeneric,
               EventsInitGeneric,
@@ -62,7 +64,7 @@ type ReactWrapperProps<
 type ReactWrapperElementInstance<
     InputGeneric extends PropertyInitMapBase,
     EventsGeneric extends EventsInitMap,
-    NativeComponent extends DeclarativeElementDefinition<InputGeneric>,
+    NativeComponent extends DeclarativeElementDefinition<any, InputGeneric>,
 > = DeclarativeElementFromDefinition<NativeComponent> &
     ReactWrapperProps<InputGeneric, EventsGeneric>;
 
@@ -75,10 +77,11 @@ const ignoreTheseProps = new Set<PropertyKey>([
 export function wrapInReactComponent<ElementGeneric extends DeclarativeElementDefinition>(
     elementConstructor: ElementGeneric,
 ) {
-    type InputGeneric = ElementGeneric extends DeclarativeElementDefinition<infer InnerInputs>
+    type InputGeneric = ElementGeneric extends DeclarativeElementDefinition<any, infer InnerInputs>
         ? InnerInputs
         : never;
     type EventsGeneric = ElementGeneric extends DeclarativeElementDefinition<
+        any,
         any,
         any,
         infer InnerEvents
@@ -86,6 +89,7 @@ export function wrapInReactComponent<ElementGeneric extends DeclarativeElementDe
         ? InnerEvents
         : never;
     type HostClassKeysGeneric = ElementGeneric extends DeclarativeElementDefinition<
+        any,
         any,
         any,
         any,

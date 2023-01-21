@@ -1,5 +1,6 @@
 /** This file is automatically updated by update-element-exports.ts */
 
+export * from './define-toniq-element';
 export * from './toniq-button/toniq-button.element';
 export * from './toniq-checkbox/toniq-checkbox.element';
 export * from './toniq-chip/toniq-chip.element';

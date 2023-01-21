@@ -4,7 +4,9 @@
         "jsx": "react",
         "module": "ESNext",
         "outDir": "dist/esm",
-        "rootDir": "src"
+        "rootDir": "src",
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true
     },
     "exclude": [
         ".storybook-dist",
