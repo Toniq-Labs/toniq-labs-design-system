@@ -13,5 +13,5 @@ set -e;
 
 BROWSER=none FORCE_COLOR=true PORT=3006 npm start &
 sleep 2;
-npx ts-node puppeteer-src/run-prettier-tests.ts;
+npx ts-node puppeteer-src/run-puppeteer-tests.ts;
 npx kill-port 3006;
