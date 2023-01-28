@@ -60,9 +60,13 @@ export const toniqFontStylesCssVarNames = mapObjectValues(
             const prop = unsafeCSS(fontPropName);
             return css`--toniq-font-${styleName}-${prop}`;
         });
-        return cssVarNames;
+        return cssVarNames as Record<string, CSSResult>;
     },
-);
+) as {
+    [StyleName in keyof typeof fontStylesFallbacks]: {
+        [cssPropName in keyof (typeof fontStylesFallbacks)[StyleName]]: CSSResult;
+    };
+};
 
 function combineFallbacksAndVars(fontStylesKey: FontStyleKey): CSSResult {
     const vars = toniqFontStylesCssVarNames[fontStylesKey];
