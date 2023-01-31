@@ -164,7 +164,7 @@ export const ToniqInput = defineToniqElement<{
             }
 
             ${createFocusStyles({
-                mainSelector: 'input:focus ~ .focus-border',
+                mainSelector: 'input:focus:focus-visible:not(:active) ~ .focus-border',
                 elementBorderSize: 0,
             })}
 

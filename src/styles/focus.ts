@@ -3,6 +3,12 @@ import {unsafeCSS} from 'lit';
 import {toPixel} from '../augments/number';
 import {toniqColors} from './colors';
 
+/**
+ * Create styles that look like an outline for the given selector.
+ *
+ * It is recommended to use the pseudo selectors ":focus:focus-visible:not(:active)" to preventing
+ * clicking from creating focus styles in Chrome.
+ */
 export function createFocusStyles({
     mainSelector,
     elementBorderSize,

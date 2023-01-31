@@ -122,8 +122,14 @@ export const ToniqMiddleEllipsis = defineToniqElement<
             outline: none;
         }
 
-        ${createFocusStyles({mainSelector: 'button:focus', elementBorderSize: 0})}
-        ${createFocusStyles({mainSelector: 'a:focus', elementBorderSize: 0})}
+        ${createFocusStyles({
+            mainSelector: 'button:focus:focus-visible:not(:active)',
+            elementBorderSize: 0,
+        })}
+        ${createFocusStyles({
+            mainSelector: 'a:focus:focus-visible:not(:active)',
+            elementBorderSize: 0,
+        })}
     `,
     hostClasses: {
         clickable: ({inputs}) => !!inputs.externalLink || !!inputs.copyOnClick,

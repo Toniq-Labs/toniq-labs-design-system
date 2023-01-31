@@ -57,7 +57,10 @@ export const ToniqButton = defineToniqElement<{
                 border-color ${interactionDuration};
         }
 
-        ${createFocusStyles({mainSelector: 'button:focus', elementBorderSize: 2})}
+        ${createFocusStyles({
+            mainSelector: 'button:focus:focus-visible:not(:active)',
+            elementBorderSize: 2,
+        })}
 
         ${hostClassSelectors.secondary} button {
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};

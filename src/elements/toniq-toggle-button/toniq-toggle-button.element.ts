@@ -43,7 +43,10 @@ export const ToniqToggleButton = defineToniqElement<{
             transition: color ${interactionDuration}, background-color ${interactionDuration};
         }
 
-        ${createFocusStyles({mainSelector: 'button:focus', elementBorderSize: 0})}
+        ${createFocusStyles({
+            mainSelector: 'button:focus:focus-visible:not(:active)',
+            elementBorderSize: 0,
+        })}
 
         button.toggled {
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};

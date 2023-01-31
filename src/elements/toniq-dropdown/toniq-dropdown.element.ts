@@ -45,7 +45,10 @@ export const ToniqDropdown = defineToniqElement<{
             outline: none;
         }
 
-        ${createFocusStyles({mainSelector: '.dropdown:focus', elementBorderSize: 0})}
+        ${createFocusStyles({
+            mainSelector: '.dropdown:focus:focus-visible:not(:active)',
+            elementBorderSize: 0,
+        })}
 
         .trigger-icon {
             transform: rotate(0);

@@ -78,7 +78,10 @@ export const ToniqCheckbox = defineToniqElement<{
             margin-right: 16px;
         }
 
-        ${createFocusStyles({mainSelector: '.wrapper:focus', elementBorderSize: 0})}
+        ${createFocusStyles({
+            mainSelector: '.wrapper:focus:focus-visible:not(:active)',
+            elementBorderSize: 0,
+        })}
 
         .check-mark {
             color: ${cssVarValues.checkedCheckColor};
