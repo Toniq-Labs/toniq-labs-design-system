@@ -63,8 +63,7 @@ export const ToniqCheckbox = defineToniqElement<{
             color: ${cssVarValues.checkedCheckColor};
         }
 
-        .checkbox.checked ~ *,
-        .checkbox.checked ~ slot {
+        .label.checked {
             color: ${cssVarValues.checkedLabelColor};
         }
 
@@ -104,8 +103,20 @@ export const ToniqCheckbox = defineToniqElement<{
         `;
 
         const textTemplate = html`
-            <slot class="label">
-                <span class="label">${inputs.text}</span>
+            <slot
+                class=${classMap({
+                    label: true,
+                    checked: inputs.checked,
+                })}
+            >
+                <span
+                    class=${classMap({
+                        label: true,
+                        checked: inputs.checked,
+                    })}
+                >
+                    ${inputs.text}
+                </span>
             </slot>
         `;
 

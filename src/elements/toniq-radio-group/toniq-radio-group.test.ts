@@ -4,10 +4,10 @@ import {createFixtureTest} from '../../element-testing/fixture-test';
 import {getTextContentThroughShadow} from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
 import {createFocusTests} from '../../element-testing/test-focus';
-import {ToniqCheckbox} from './toniq-checkbox.element';
+import {ToniqRadioGroup} from './toniq-radio-group.element';
 
-describe(ToniqCheckbox.tagName, () => {
-    createElementRegistrationTest(ToniqCheckbox);
+describe(ToniqRadioGroup.tagName, () => {
+    createElementRegistrationTest(ToniqRadioGroup);
 
     it(
         'should render assigned text',
@@ -16,17 +16,32 @@ describe(ToniqCheckbox.tagName, () => {
 
             const rendered = await fixture(
                 html`
-                <${ToniqCheckbox}
-                    ${assign(ToniqCheckbox, {
-                        text: textToRender,
-                        checked: false,
+                <${ToniqRadioGroup}
+                    ${assign(ToniqRadioGroup, {
+                        entries: [
+                            {
+                                label: textToRender,
+                                value: 'first',
+                            },
+                        ],
+                        value: 'first',
                     })}
-                ></${ToniqCheckbox}>
+                ></${ToniqRadioGroup}>
             `,
             );
             assert.equal(getTextContentThroughShadow(rendered), textToRender);
         }),
     );
 
-    createFocusTests(html`<${ToniqCheckbox}></${ToniqCheckbox}>`, true);
+    createFocusTests(
+        html`
+            <${ToniqRadioGroup}
+                ${assign(ToniqRadioGroup, {
+                    entries: [],
+                    value: 'anything',
+                })}
+            ></${ToniqRadioGroup}>
+        `,
+        true,
+    );
 });
