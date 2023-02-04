@@ -54,7 +54,7 @@ async function getGitHubActionsNodeVersions(): Promise<string[]> {
                 fileContents = (await readFile(path)).toString();
             } catch (error) {
                 console.error(
-                    `${cliColors.red}Failed to read contents for ${key} GitHub workflow file.${cliColors.reset}`,
+                    `${cliColors.red}Failed to read contents for '${key}' GitHub workflow file.${cliColors.reset}`,
                 );
                 throw error;
             }
@@ -62,7 +62,7 @@ async function getGitHubActionsNodeVersions(): Promise<string[]> {
                 return extractGitHubActionsNodeVersion(fileContents);
             } catch (error) {
                 console.error(
-                    `${cliColors.red}Failed to extract versions from ${key} GitHub workflow file.${cliColors.reset}`,
+                    `${cliColors.red}Failed to extract versions from '${key}' GitHub workflow file.${cliColors.reset}`,
                 );
                 throw error;
             }
