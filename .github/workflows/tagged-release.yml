@@ -8,27 +8,25 @@ on:
 jobs:
     tagged-release:
         name: 'Tagged Release'
+        if: github.event.base_ref == 'refs/heads/main' || github.event.base_ref == 'refs/heads/master'
         runs-on: 'ubuntu-latest'
 
         steps:
-            - uses: actions/checkout@v1
-            - name: Use Node.js version
-              uses: actions/setup-node@v1
+            - uses: actions/checkout@v3
+            - name: Use Node.js
+              uses: actions/setup-node@v3
               with:
-                  node-version: '16.15.0'
+                  node-version: 18.x
             - name: run test
               run: |
                   npm ci
-                  # the full test includes the build
+                  npx playwright install --with-deps
                   npm run test:all
             - name: pack and set vars
               id: vars
               run: |
                   tagName="${GITHUB_REF#refs/*/}"
-                  originalTarName="$(npm pack | tail -1)"
-                  # we can't rely on the npm_package_name env var here because it doesn't remove
-                  # scoped package prefixes, like @toniq-labs/this-package, which then confuses
-                  # the write path.
+                  originalTarName="$(npm pack)"
                   packageNameWithoutFileExtension="${originalTarName%.tgz}"
                   tagNameWithoutV="${tagName##v}"
                   packageName="${packageNameWithoutFileExtension%-$tagNameWithoutV}"
