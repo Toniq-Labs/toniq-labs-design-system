@@ -3,7 +3,7 @@ import {assign, html} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
-import {createFocusTests} from '../../element-testing/test-focus';
+import {runFocusTests} from '../../element-testing/test-focus';
 import {getByTestId} from '../../element-testing/test-id-testing';
 import {toniqSliderTestIds} from './slider-logic';
 import {ToniqSlider} from './toniq-slider.element';
@@ -84,7 +84,7 @@ describe(ToniqSlider.tagName, () => {
         }),
     );
 
-    createFocusTests(
+    runFocusTests(
         html`
             <${ToniqSlider} />
         `,

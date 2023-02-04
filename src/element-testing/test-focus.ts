@@ -41,14 +41,14 @@ export function assertFocused(element: Element, shouldBeActive: boolean, message
     assert.strictEqual(element.matches(':focus'), shouldBeActive, message || defaultMessage);
 }
 
-export function createFocusTests(
+export function runFocusTests(
     singleInstanceTemplate: TemplateResult,
     isFocusable: boolean,
     description = 'focus tests',
 ): void {
     describe(description, () => {
         it(
-            singleInstanceTemplate ? 'should be focusable' : 'should not be focusable',
+            isFocusable ? 'should be focusable' : 'should not be focusable',
             createFixtureTest(async () => {
                 const rendered = await fixture(singleInstanceTemplate);
                 assertInstanceOf(rendered, HTMLElement);
@@ -65,9 +65,7 @@ export function createFocusTests(
         );
 
         it(
-            singleInstanceTemplate
-                ? 'should be navigable with tab'
-                : 'should not be navigable with tab',
+            isFocusable ? 'should be navigable with tab' : 'should not be navigable with tab',
             createFixtureTest(async () => {
                 const instanceCount = 5;
                 const tagName = await getTagName(singleInstanceTemplate);

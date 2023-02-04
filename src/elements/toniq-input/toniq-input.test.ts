@@ -5,12 +5,7 @@ import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {createStateTester} from '../../element-testing/state-tester';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
-import {
-    assertFocused,
-    createFocusTests,
-    hitShiftTab,
-    hitTab,
-} from '../../element-testing/test-focus';
+import {assertFocused, hitShiftTab, hitTab, runFocusTests} from '../../element-testing/test-focus';
 import {
     focusAndTypeIntoToniqInput,
     runBlockedTextTest,
@@ -152,5 +147,5 @@ describe(ToniqInput.tagName, () => {
         );
     });
 
-    createFocusTests(html`<${ToniqInput}></${ToniqInput}>`, true);
+    runFocusTests(html`<${ToniqInput}></${ToniqInput}>`, true);
 });

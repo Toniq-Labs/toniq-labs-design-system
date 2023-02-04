@@ -9,7 +9,7 @@ import {
     queryThroughShadow,
 } from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
-import {createFocusTests} from '../../element-testing/test-focus';
+import {runFocusTests} from '../../element-testing/test-focus';
 import {Copy24Icon, ToniqSvg} from '../../icons';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {ToniqChip} from './toniq-chip.element';
@@ -70,7 +70,7 @@ describe(ToniqChip.tagName, () => {
         }),
     );
 
-    createFocusTests(
+    runFocusTests(
         html`
             <${ToniqChip}>
                 Hello there

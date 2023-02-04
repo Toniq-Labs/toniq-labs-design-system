@@ -3,7 +3,7 @@ import {assign, html} from 'element-vir';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {getTextContentThroughShadow} from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
-import {createFocusTests} from '../../element-testing/test-focus';
+import {runFocusTests} from '../../element-testing/test-focus';
 import {ToniqRadioGroup} from './toniq-radio-group.element';
 
 describe(ToniqRadioGroup.tagName, () => {
@@ -33,11 +33,15 @@ describe(ToniqRadioGroup.tagName, () => {
         }),
     );
 
-    createFocusTests(
+    runFocusTests(
         html`
             <${ToniqRadioGroup}
                 ${assign(ToniqRadioGroup, {
-                    entries: [],
+                    entries: [
+                        {
+                            value: 'test value 1',
+                        },
+                    ],
                     value: 'anything',
                 })}
             ></${ToniqRadioGroup}>

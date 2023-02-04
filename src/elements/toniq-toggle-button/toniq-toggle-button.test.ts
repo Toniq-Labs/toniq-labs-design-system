@@ -3,7 +3,7 @@ import {assign, html} from 'element-vir';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {getTextContentThroughShadow} from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
-import {createFocusTests} from '../../element-testing/test-focus';
+import {runFocusTests} from '../../element-testing/test-focus';
 import {ToniqToggleButton} from './toniq-toggle-button.element';
 
 describe(ToniqToggleButton.tagName, () => {
@@ -28,5 +28,5 @@ describe(ToniqToggleButton.tagName, () => {
         }),
     );
 
-    createFocusTests(html`<${ToniqToggleButton}></${ToniqToggleButton}>`, true);
+    runFocusTests(html`<${ToniqToggleButton}></${ToniqToggleButton}>`, true);
 });

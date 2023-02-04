@@ -4,7 +4,7 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
-import {createFocusTests} from '../../element-testing/test-focus';
+import {runFocusTests} from '../../element-testing/test-focus';
 import {Copy16Icon} from '../../icons';
 import {ToniqIcon} from './toniq-icon.element';
 
@@ -53,7 +53,7 @@ describe(ToniqIcon.tagName, () => {
         }),
     );
 
-    createFocusTests(
+    runFocusTests(
         html`
             <${ToniqIcon}
                 ${assign(ToniqIcon, {

@@ -7,7 +7,7 @@ import {
     queryThroughShadow,
 } from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
-import {createFocusTests} from '../../element-testing/test-focus';
+import {runFocusTests} from '../../element-testing/test-focus';
 import {ToniqButton} from './toniq-button.element';
 
 describe(ToniqButton.tagName, () => {
@@ -43,5 +43,5 @@ describe(ToniqButton.tagName, () => {
         }),
     );
 
-    createFocusTests(html`<${ToniqButton}></${ToniqButton}>`, true);
+    runFocusTests(html`<${ToniqButton}></${ToniqButton}>`, true);
 });
