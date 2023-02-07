@@ -46,7 +46,7 @@ export const ToniqRadioGroup = defineToniqElement<{
             transition: color ${interactionDuration}, background-color ${interactionDuration},
                 opacity ${interactionDuration};
             flex-direction: column;
-            gap: 8px;
+            gap: 24px;
             text-align: left;
         }
 
