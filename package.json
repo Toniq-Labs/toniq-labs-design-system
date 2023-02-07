@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "private": false,
     "description": "Design system elements for Toniq Labs",
     "keywords": [
@@ -86,7 +86,7 @@
         "@web/test-runner-commands": "^0.6.5",
         "@web/test-runner-playwright": "^0.9.0",
         "browserslist": "^4.21.4",
-        "cspell": "^6.19.2",
+        "cspell": "^6.22.0",
         "http-server": "^14.1.1",
         "istanbul-smart-text-reporter": "^1.1.1",
         "npm-force-resolutions": "^0.0.10",
@@ -106,7 +106,7 @@
         "rollup-plugin-terser": "^7.0.2",
         "svgo": "^3.0.2",
         "ts-node": "^10.9.1",
-        "type-fest": "^3.5.4",
+        "type-fest": "^3.5.5",
         "typescript": "^4.9.5",
         "virmator": "^5.4.0",
         "vite": "^4.1.1"
