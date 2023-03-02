@@ -38,9 +38,8 @@ describe(ToniqMiddleEllipsis.tagName, () => {
                         ${assign(ToniqMiddleEllipsis, {
                             externalLink: 'https://entrepot.app',
                         })}
-                    >
-                    </${ToniqMiddleEllipsis}>
-            `,
+                    ></${ToniqMiddleEllipsis}>
+                `,
             );
             assert.equal(getTextContentThroughShadow(rendered), '');
             assert.isUndefined(queryThroughShadow(ToniqIcon.tagName, rendered));
@@ -60,7 +59,7 @@ describe(ToniqMiddleEllipsis.tagName, () => {
                             externalLink: 'https://entrepot.app',
                         })}
                     ></${ToniqMiddleEllipsis}>
-            `,
+                `,
             );
             const toniqIconInstance = queryThroughShadow(ToniqIcon.tagName, renderedWithToniqIcon);
             assertInstanceOf(toniqIconInstance, ToniqIcon);
@@ -145,8 +144,7 @@ describe(ToniqMiddleEllipsis.tagName, () => {
                     text: 'entrepot',
                     externalLink: 'https://entrepot.app',
                 })}
-            >
-            </${ToniqMiddleEllipsis}>
+            ></${ToniqMiddleEllipsis}>
         `,
         true,
         'with link input',
@@ -159,8 +157,7 @@ describe(ToniqMiddleEllipsis.tagName, () => {
                     copyOnClick: true,
                     text: 'copy',
                 })}
-            >
-            </${ToniqMiddleEllipsis}>
+            ></${ToniqMiddleEllipsis}>
         `,
         true,
         'with copyable set to true',
@@ -172,8 +169,7 @@ describe(ToniqMiddleEllipsis.tagName, () => {
                 ${assign(ToniqMiddleEllipsis, {
                     text: 'not tabbable',
                 })}
-            >
-            </${ToniqMiddleEllipsis}>
+            ></${ToniqMiddleEllipsis}>
         `,
         false,
         'with no interaction',

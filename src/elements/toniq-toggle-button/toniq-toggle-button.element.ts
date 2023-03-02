@@ -94,13 +94,13 @@ export const ToniqToggleButton = defineToniqElement<{
     renderCallback: ({inputs}) => {
         const iconTemplate = inputs.icon
             ? html`
-                <${ToniqIcon}
-                class="icon-template"
-                    ${assign(ToniqIcon, {
-                        icon: inputs.icon,
-                    })}
-                ></${ToniqIcon}>
-            `
+                  <${ToniqIcon}
+                      class="icon-template"
+                      ${assign(ToniqIcon, {
+                          icon: inputs.icon,
+                      })}
+                  ></${ToniqIcon}>
+              `
             : '';
         const textTemplate = inputs.text
             ? html`

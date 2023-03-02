@@ -16,17 +16,22 @@ describe(ToniqCheckbox.tagName, () => {
 
             const rendered = await fixture(
                 html`
-                <${ToniqCheckbox}
-                    ${assign(ToniqCheckbox, {
-                        text: textToRender,
-                        checked: false,
-                    })}
-                ></${ToniqCheckbox}>
-            `,
+                    <${ToniqCheckbox}
+                        ${assign(ToniqCheckbox, {
+                            text: textToRender,
+                            checked: false,
+                        })}
+                    ></${ToniqCheckbox}>
+                `,
             );
             assert.equal(getTextContentThroughShadow(rendered), textToRender);
         }),
     );
 
-    runFocusTests(html`<${ToniqCheckbox}></${ToniqCheckbox}>`, true);
+    runFocusTests(
+        html`
+            <${ToniqCheckbox}></${ToniqCheckbox}>
+        `,
+        true,
+    );
 });

@@ -18,8 +18,8 @@ describe(ToniqButton.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                <${ToniqButton}></${ToniqButton}>
-            `,
+                    <${ToniqButton}></${ToniqButton}>
+                `,
             );
 
             const innerButton = queryThroughShadow('button', rendered);
@@ -34,14 +34,17 @@ describe(ToniqButton.tagName, () => {
 
             const rendered = await fixture(
                 html`
-                <${ToniqButton}
-                    ${assign(ToniqButton, {text: textToRender})}
-                ></${ToniqButton}>
-            `,
+                    <${ToniqButton} ${assign(ToniqButton, {text: textToRender})}></${ToniqButton}>
+                `,
             );
             assert.equal(getTextContentThroughShadow(rendered), textToRender);
         }),
     );
 
-    runFocusTests(html`<${ToniqButton}></${ToniqButton}>`, true);
+    runFocusTests(
+        html`
+            <${ToniqButton}></${ToniqButton}>
+        `,
+        true,
+    );
 });

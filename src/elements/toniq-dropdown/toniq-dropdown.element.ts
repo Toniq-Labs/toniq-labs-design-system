@@ -162,12 +162,13 @@ export const ToniqDropdown = defineToniqElement<{
 
         const leadingIconTemplate = inputs.icon
             ? html`
-                <${ToniqIcon}
-                    ${testId('rendered-input-icon')}
-                    ${assign(ToniqIcon, {
-                        icon: inputs.icon,
-                    })}
-                ></${ToniqIcon}>`
+                  <${ToniqIcon}
+                      ${testId('rendered-input-icon')}
+                      ${assign(ToniqIcon, {
+                          icon: inputs.icon,
+                      })}
+                  ></${ToniqIcon}>
+              `
             : '';
 
         const prefixTemplate = inputs.selectedLabelPrefix
@@ -177,16 +178,15 @@ export const ToniqDropdown = defineToniqElement<{
             : '';
 
         return html`
-            <button class="dropdown ${state.dropdownOpen ? 'open' : ''}"
+            <button
+                class="dropdown ${state.dropdownOpen ? 'open' : ''}"
                 @click=${() => onToggleDropdown()}
                 role="listbox"
-                aria-expanded=${state.dropdownOpen}>
+                aria-expanded=${state.dropdownOpen}
+            >
                 <div class="select dropdown-trigger">
                     ${leadingIconTemplate}
-                    <span class="select-selected">
-                        ${prefixTemplate}
-                        ${selectedOption?.label}
-                    </span>
+                    <span class="select-selected">${prefixTemplate} ${selectedOption?.label}</span>
                     <span class="trigger-icon-wrapper">
                         <${ToniqIcon}
                             class="trigger-icon"

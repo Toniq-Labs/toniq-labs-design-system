@@ -6,9 +6,7 @@ export const AppElement = defineElementNoInputs({
     renderCallback: () => {
         return html`
             Hello there
-            <${ToniqIcon}
-                ${assign(ToniqIcon, {icon: Copy16Icon})}
-            ></${ToniqIcon}>
+            <${ToniqIcon} ${assign(ToniqIcon, {icon: Copy16Icon})}></${ToniqIcon}>
         `;
     },
 });

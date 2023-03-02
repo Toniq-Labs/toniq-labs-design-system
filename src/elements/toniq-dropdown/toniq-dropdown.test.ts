@@ -107,16 +107,18 @@ describe(ToniqDropdown.tagName, () => {
     );
 
     runFocusTests(
-        html`<${ToniqDropdown}
-            ${assign(ToniqDropdown, {
-                options: [
-                    {
-                        label: 'test',
-                        value: 'test',
-                    },
-                ],
-            })}
-        ></${ToniqDropdown}>`,
+        html`
+            <${ToniqDropdown}
+                ${assign(ToniqDropdown, {
+                    options: [
+                        {
+                            label: 'test',
+                            value: 'test',
+                        },
+                    ],
+                })}
+            ></${ToniqDropdown}>
+        `,
         true,
     );
 });

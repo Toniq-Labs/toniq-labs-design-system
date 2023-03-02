@@ -11,7 +11,11 @@ describe(AppElement.tagName, () => {
     });
 
     it('should include icon svg', async () => {
-        const renderedApp = await fixture(html`<${AppElement}></${AppElement}>`);
+        const renderedApp = await fixture(
+            html`
+                <${AppElement}></${AppElement}>
+            `,
+        );
         const renderedIcon = await fixture(
             html`
                 ${unsafeHTML(Copy16Icon.svgString)}

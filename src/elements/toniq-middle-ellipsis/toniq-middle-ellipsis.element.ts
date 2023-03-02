@@ -157,10 +157,8 @@ export const ToniqMiddleEllipsis = defineToniqElement<
 
         const iconTemplate = icon
             ? html`
-                <${ToniqIcon}
-                    ${assign(ToniqIcon, {icon})}
-                ></${ToniqIcon}>
-            `
+                  <${ToniqIcon} ${assign(ToniqIcon, {icon})}></${ToniqIcon}>
+              `
             : '';
 
         if (renderText) {

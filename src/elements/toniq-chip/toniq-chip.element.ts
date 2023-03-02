@@ -33,11 +33,13 @@ export const ToniqChip = defineToniqElement<{
     `,
     renderCallback: ({inputs}) => {
         const iconTemplate: TemplateResult | string = inputs.icon
-            ? html`<${ToniqIcon}
-                ${assign(ToniqIcon, {
-                    icon: inputs.icon,
-                })}
-            ></${ToniqIcon}>`
+            ? html`
+                  <${ToniqIcon}
+                      ${assign(ToniqIcon, {
+                          icon: inputs.icon,
+                      })}
+                  ></${ToniqIcon}>
+              `
             : '';
         return html`
             <slot>${iconTemplate}${inputs.text}</slot>

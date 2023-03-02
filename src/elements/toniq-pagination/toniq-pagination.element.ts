@@ -86,54 +86,54 @@ export const ToniqPagination = defineToniqElement<{
             return html``;
         } else {
             return html`
-            <button
-                ${listen('click', () => {
-                    if (inputs.currentPage > 1) {
-                        dispatch(new events.pageChange(inputs.currentPage - 1));
-                    }
-                })}
-                class="control"
-                ?disabled=${inputs.currentPage <= 1}
-            >
-                <${ToniqIcon}
-                    ${assign(ToniqIcon, {icon: ArrowLeft24Icon})}></${ToniqIcon}>
-            </button>
-            ${pagination(inputs.currentPage, inputs.pageCount, inputs.pagesShown).map((entry) => {
-                // this happens when the entry is '...'
-                if (typeof entry === 'string') {
-                    return html`
-                        <div class="page" disabled>${entry}</div>
-                    `;
-                } else {
-                    return html`
-                        <button
-                            class=${classMap({
-                                page: true,
-                                selected: inputs.currentPage === entry,
-                            })}
-                            ?disabled=${inputs.currentPage === entry}
-                            ${listen('click', () => {
-                                dispatch(new events.pageChange(entry));
-                            })}
-                        >
-                            ${entry}
-                        </button>
-                    `;
-                }
-            })}
-            <button
-                ${listen('click', () => {
-                    if (inputs.currentPage < inputs.pageCount) {
-                        dispatch(new events.pageChange(inputs.currentPage + 1));
-                    }
-                })}
-                class="control"
-                ?disabled=${inputs.currentPage >= inputs.pageCount}
-            >
-                <${ToniqIcon}
-                    ${assign(ToniqIcon, {icon: ArrowRight24Icon})}></${ToniqIcon}>
-            </button>
-        `;
+                <button
+                    ${listen('click', () => {
+                        if (inputs.currentPage > 1) {
+                            dispatch(new events.pageChange(inputs.currentPage - 1));
+                        }
+                    })}
+                    class="control"
+                    ?disabled=${inputs.currentPage <= 1}
+                >
+                    <${ToniqIcon} ${assign(ToniqIcon, {icon: ArrowLeft24Icon})}></${ToniqIcon}>
+                </button>
+                ${pagination(inputs.currentPage, inputs.pageCount, inputs.pagesShown).map(
+                    (entry) => {
+                        // this happens when the entry is '...'
+                        if (typeof entry === 'string') {
+                            return html`
+                                <div class="page" disabled>${entry}</div>
+                            `;
+                        } else {
+                            return html`
+                                <button
+                                    class=${classMap({
+                                        page: true,
+                                        selected: inputs.currentPage === entry,
+                                    })}
+                                    ?disabled=${inputs.currentPage === entry}
+                                    ${listen('click', () => {
+                                        dispatch(new events.pageChange(entry));
+                                    })}
+                                >
+                                    ${entry}
+                                </button>
+                            `;
+                        }
+                    },
+                )}
+                <button
+                    ${listen('click', () => {
+                        if (inputs.currentPage < inputs.pageCount) {
+                            dispatch(new events.pageChange(inputs.currentPage + 1));
+                        }
+                    })}
+                    class="control"
+                    ?disabled=${inputs.currentPage >= inputs.pageCount}
+                >
+                    <${ToniqIcon} ${assign(ToniqIcon, {icon: ArrowRight24Icon})}></${ToniqIcon}>
+                </button>
+            `;
         }
     },
 });

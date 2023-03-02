@@ -87,9 +87,14 @@ export const ToniqButton = defineToniqElement<{
     `,
     renderCallback: ({inputs}) => {
         const iconTemplate = inputs.icon
-            ? html`<${ToniqIcon} class="icon-template" ${assign(ToniqIcon, {
-                  icon: inputs.icon,
-              })}></${ToniqIcon}>`
+            ? html`
+                  <${ToniqIcon}
+                      class="icon-template"
+                      ${assign(ToniqIcon, {
+                          icon: inputs.icon,
+                      })}
+                  ></${ToniqIcon}>
+              `
             : '';
         const textTemplate = inputs.text
             ? html`

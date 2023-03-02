@@ -16,8 +16,8 @@ describe(ToniqIcon.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                <${ToniqIcon}></${ToniqIcon}>
-            `,
+                    <${ToniqIcon}></${ToniqIcon}>
+                `,
             );
             assert.isUndefined(queryThroughShadow('svg', rendered));
         }),

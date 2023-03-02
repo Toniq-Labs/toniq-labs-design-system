@@ -39,20 +39,23 @@ export async function runBlockedTextTest(
 
     const inputStateWrapper = createStateTester({value: ''}, ({state, updateState}) => {
         return html`
-                <${ToniqInput}
-                    ${assign(ToniqInput, {
-                        value: state.value,
-                        blockedInputs: blockedInputsInput,
-                    })}
-                    ${listen(ToniqInput.events.valueChange, (event) => {
-                        const newValue = event.detail;
-                        readChanges.push(newValue);
-                        updateState({value: newValue});
-                    })}
-                ></${ToniqInput}>`;
+            <${ToniqInput}
+                ${assign(ToniqInput, {
+                    value: state.value,
+                    blockedInputs: blockedInputsInput,
+                })}
+                ${listen(ToniqInput.events.valueChange, (event) => {
+                    const newValue = event.detail;
+                    readChanges.push(newValue);
+                    updateState({value: newValue});
+                })}
+            ></${ToniqInput}>
+        `;
     });
     const {toniqInputInstance} = await setupToniqInputTest(
-        html`<${inputStateWrapper}></${inputStateWrapper}>`,
+        html`
+            <${inputStateWrapper}></${inputStateWrapper}>
+        `,
     );
 
     const innerInput = await focusAndTypeIntoToniqInput(toniqInputInstance, textToType, false);

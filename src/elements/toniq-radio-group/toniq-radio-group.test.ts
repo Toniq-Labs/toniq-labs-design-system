@@ -16,18 +16,18 @@ describe(ToniqRadioGroup.tagName, () => {
 
             const rendered = await fixture(
                 html`
-                <${ToniqRadioGroup}
-                    ${assign(ToniqRadioGroup, {
-                        entries: [
-                            {
-                                label: textToRender,
-                                value: 'first',
-                            },
-                        ],
-                        value: 'first',
-                    })}
-                ></${ToniqRadioGroup}>
-            `,
+                    <${ToniqRadioGroup}
+                        ${assign(ToniqRadioGroup, {
+                            entries: [
+                                {
+                                    label: textToRender,
+                                    value: 'first',
+                                },
+                            ],
+                            value: 'first',
+                        })}
+                    ></${ToniqRadioGroup}>
+                `,
             );
             assert.equal(getTextContentThroughShadow(rendered), textToRender);
         }),

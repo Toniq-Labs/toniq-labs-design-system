@@ -42,8 +42,7 @@ describe(ToniqChip.tagName, () => {
                             ${assign(ToniqIcon, {
                                 icon: iconToRender,
                             })}
-                        >
-                        </${ToniqIcon}>
+                        ></${ToniqIcon}>
                         ${textToRender}
                     </${ToniqChip}>
                 `,
@@ -72,9 +71,8 @@ describe(ToniqChip.tagName, () => {
 
     runFocusTests(
         html`
-            <${ToniqChip}>
-                Hello there
-            </${ToniqChip}>`,
+            <${ToniqChip}>Hello there</${ToniqChip}>
+        `,
         false,
     );
 });

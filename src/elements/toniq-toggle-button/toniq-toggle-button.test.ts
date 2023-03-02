@@ -16,17 +16,22 @@ describe(ToniqToggleButton.tagName, () => {
 
             const rendered = await fixture(
                 html`
-                <${ToniqToggleButton}
-                    ${assign(ToniqToggleButton, {
-                        text: textToRender,
-                        toggled: false,
-                    })}
-                ></${ToniqToggleButton}>
-            `,
+                    <${ToniqToggleButton}
+                        ${assign(ToniqToggleButton, {
+                            text: textToRender,
+                            toggled: false,
+                        })}
+                    ></${ToniqToggleButton}>
+                `,
             );
             assert.equal(getTextContentThroughShadow(rendered), textToRender);
         }),
     );
 
-    runFocusTests(html`<${ToniqToggleButton}></${ToniqToggleButton}>`, true);
+    runFocusTests(
+        html`
+            <${ToniqToggleButton}></${ToniqToggleButton}>
+        `,
+        true,
+    );
 });

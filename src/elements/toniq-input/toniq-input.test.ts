@@ -56,12 +56,15 @@ describe(ToniqInput.tagName, () => {
                                 readChanges.push(newValue);
                                 updateState({value: newValue});
                             })}
-                        ></${ToniqInput}>`;
+                        ></${ToniqInput}>
+                    `;
                 },
             );
 
             const {toniqInputInstance} = await setupToniqInputTest(
-                html`<${inputStateWrapper}></${inputStateWrapper}>`,
+                html`
+                    <${inputStateWrapper}></${inputStateWrapper}>
+                `,
             );
 
             const textToType = 'a b c d e f g';
@@ -147,5 +150,10 @@ describe(ToniqInput.tagName, () => {
         );
     });
 
-    runFocusTests(html`<${ToniqInput}></${ToniqInput}>`, true);
+    runFocusTests(
+        html`
+            <${ToniqInput}></${ToniqInput}>
+        `,
+        true,
+    );
 });
