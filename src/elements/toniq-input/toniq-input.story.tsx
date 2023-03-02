@@ -59,7 +59,11 @@ const inputsStateInit = {
     short: '',
     withValue: 'with value',
     cannotType: 'cannot type into',
+    noBrowserHelps: '',
     custom: '',
+    noD: '',
+    onlyNumbers: '',
+    blockedNumbers: '',
     withKeyPress: '',
     withPlaceholder: '',
     withIcon: '',
@@ -176,21 +180,21 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                     onInputBlocked={handleEventAsAction}
                     placeholder="letter 'd' is blocked"
                     blockedInputs="d"
-                    {...makeInputs(stateKeys.stretched)}
+                    {...makeInputs(stateKeys.noD)}
                 />
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
                     placeholder="only numbers are allowed"
                     allowedInputs={/\d/}
-                    {...makeInputs(stateKeys.stretched)}
+                    {...makeInputs(stateKeys.onlyNumbers)}
                 />
                 <ToniqInput
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
                     placeholder="numbers are blocked"
                     allowedInputs={/\D/}
-                    {...makeInputs(stateKeys.stretched)}
+                    {...makeInputs(stateKeys.blockedNumbers)}
                 />
             </section>
 
@@ -207,6 +211,23 @@ export const mainStory = (controls: Record<keyof typeof inputStoryControls, stri
                     disabled={true}
                     onValueChange={handleEventAsAction}
                     onInputBlocked={handleEventAsAction}
+                />
+            </section>
+
+            <h3
+                style={{
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
+                }}
+            >
+                No browser helps
+            </h3>
+            <section style={sectionStyles}>
+                <ToniqInput
+                    {...makeInputs(stateKeys.noBrowserHelps)}
+                    onValueChange={handleEventAsAction}
+                    onInputBlocked={handleEventAsAction}
+                    placeholder={'try typing "im" to see if it auto-corrects'}
+                    disableBrowserHelps={true}
                 />
             </section>
 

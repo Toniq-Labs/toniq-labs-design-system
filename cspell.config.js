@@ -10,6 +10,7 @@ module.exports = {
     ],
     words: [
         ...baseConfig.words,
+        'autocorrect',
         'browserlist',
         'browserslist',
         'dfinity',

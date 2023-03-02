@@ -93,6 +93,8 @@ export const ToniqInput = defineToniqElement<{
     allowedInputs?: string | RegExp;
     /** Any letters in the given string or matches to the given RegExp will be blocked. */
     blockedInputs?: string | RegExp;
+    /** Disable all browser helps like spellchecking, autocomplete, etc. */
+    disableBrowserHelps?: boolean;
 }>()({
     tagName: 'toniq-input',
     hostClasses: {
@@ -205,16 +207,18 @@ export const ToniqInput = defineToniqElement<{
 
         const iconTemplate: TemplateResult | string = inputs.icon
             ? html`
-                <${ToniqIcon}
-                    ${assign(ToniqIcon, {icon: inputs.icon})}
-                ></${ToniqIcon}>
-            `
+                  <${ToniqIcon} ${assign(ToniqIcon, {icon: inputs.icon})}></${ToniqIcon}>
+              `
             : '';
 
         return html`
             <label>
                 ${iconTemplate}
                 <input
+                    autocomplete=${inputs.disableBrowserHelps ? 'off' : ''}
+                    autocorrect=${inputs.disableBrowserHelps ? 'off' : ''}
+                    autocapitalize=${inputs.disableBrowserHelps ? 'off' : ''}
+                    spellcheck=${inputs.disableBrowserHelps ? 'false' : ''}
                     ?disabled=${inputs.disabled}
                     .value=${filteredValue}
                     ${listen('input', (event) => {
