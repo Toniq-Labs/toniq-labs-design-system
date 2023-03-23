@@ -5,6 +5,7 @@ import {standardControls} from '../../storybook-helpers/standard-controls';
 import {toniqFontStyles} from '../../styles';
 import {cssToReactStyleObject} from '../../styles/css-to-react';
 import {ToniqMiddleEllipsis} from '../react-components';
+import {ToniqMiddleEllipsis as NativeToniqMiddleEllipsis} from './toniq-middle-ellipsis.element';
 
 const middleEllipsisStoryControls = (<SpecificArgsGeneric extends ArgTypes>(
     input: SpecificArgsGeneric,
@@ -100,6 +101,38 @@ export const mainStory = (controls: Record<keyof typeof middleEllipsisStoryContr
                 text={'herp derp what is this madness'}
                 letterCount={controls.letterCount}
                 copyOnClick={true}
+            />
+            <h3
+                style={{
+                    ...cssToReactStyleObject(toniqFontStyles.h3Font),
+                }}
+            >
+                CSS Vars
+            </h3>
+            <ToniqMiddleEllipsis
+                style={{
+                    [String(NativeToniqMiddleEllipsis.cssVarNames.textColor)]: 'blue',
+                    [String(NativeToniqMiddleEllipsis.cssVarNames.textHoverColor)]: 'green',
+
+                    [String(NativeToniqMiddleEllipsis.cssVarNames.iconColor)]: 'red',
+                    [String(NativeToniqMiddleEllipsis.cssVarNames.iconHoverColor)]: 'purple',
+                }}
+                onCopied={handleEventAsAction}
+                text={'with custom CSS var values!'}
+                letterCount={controls.letterCount}
+                copyOnClick={true}
+            />
+            <br />
+            <ToniqMiddleEllipsis
+                style={{
+                    [String(NativeToniqMiddleEllipsis.cssVarNames.textColor)]: 'blue',
+                    [String(NativeToniqMiddleEllipsis.cssVarNames.textHoverColor)]: 'green',
+
+                    [String(NativeToniqMiddleEllipsis.cssVarNames.iconColor)]: 'red',
+                    [String(NativeToniqMiddleEllipsis.cssVarNames.iconHoverColor)]: 'purple',
+                }}
+                text={longText}
+                letterCount={controls.letterCount}
             />
             <h3
                 style={{

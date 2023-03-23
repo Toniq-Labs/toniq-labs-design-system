@@ -2,7 +2,7 @@ import {assign, css, defineElementEvent, html, listen} from 'element-vir';
 import {copyToClipboard} from '../../clipboard';
 import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
 import {interactionDuration} from '../../styles/animation';
-import {toniqColors} from '../../styles/colors';
+import {toniqColors, colorValueToVarCall} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
 import {removeNativeFormStyles} from '../../styles/native-styles';
@@ -79,11 +79,18 @@ export const ToniqMiddleEllipsis = defineToniqElement<
     events: {
         copied: defineElementEvent<void>(),
     },
-    styles: ({hostClassNames}) => css`
+    cssVars: {
+        textColor: toniqColors.pagePrimary.foregroundColor,
+        iconColor: toniqColors.pagePrimary.foregroundColor,
+        textHoverColor: toniqColors.pageInteraction.foregroundColor,
+        iconHoverColor: toniqColors.pageInteraction.foregroundColor,
+    },
+    styles: ({hostClassNames, cssVarValues}) => css`
         :host {
             /* 5 frames at 60 fps */
             transition: ${interactionDuration};
             ${toniqFontStyles.paragraphFont};
+            color: ${cssVarValues.textColor};
         }
 
         :host,
@@ -93,11 +100,16 @@ export const ToniqMiddleEllipsis = defineToniqElement<
         }
 
         :host(.${hostClassNames.clickable}:hover) {
-            color: ${toniqColors.pageInteraction.foregroundColor};
+            color: ${cssVarValues.textHoverColor};
+        }
+
+        :host(.${hostClassNames.clickable}:hover) ${ToniqIcon} {
+            color: ${cssVarValues.iconHoverColor};
         }
 
         ${ToniqIcon} {
             margin-left: 4px;
+            color: ${cssVarValues.iconColor};
         }
 
         .copyable {
