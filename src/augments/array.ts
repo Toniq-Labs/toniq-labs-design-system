@@ -39,36 +39,35 @@ export function pagination(
         range.start += 1;
         range.end += 1;
     }
-    let pages: (string | number)[] =
-        currentPage > delta
+    const pages: number[] =
+        currentPage > pageCount - boundaryPagesShown && pageCount > pagesShown
+            ? getRange(pageCount - delta, pageCount)
+            : currentPage > delta
             ? getRange(Math.min(range.start, pageCount - delta), Math.min(range.end, pageCount))
             : getRange(1, Math.min(pageCount, delta + 1));
 
-    if (currentPage > pageCount - boundaryPagesShown && pageCount > pagesShown) {
-        pages = getRange(pageCount - delta, pageCount);
+    function withDots(value: number, pair: (string | number)[]) {
+        return pages.length + 1 !== pageCount ? pair : [value];
     }
-
-    const withDots = (value: number, pair: (string | number)[]) =>
-        pages.length + 1 !== pageCount ? pair : [value];
     const lastPage = pages[pages.length - 1];
 
-    if (pages[0] !== 1) {
-        pages = withDots(1, [
+    if (lastPage && lastPage < pageCount) {
+        const dots = withDots(pageCount, [
+            threeDots,
+            pageCount,
+        ]);
+        return [
+            ...pages,
+            ...dots,
+        ];
+    } else if (pages[0] !== 1) {
+        return withDots(1, [
             1,
             threeDots,
         ]).concat(pages);
+    } else {
+        return pages;
     }
-
-    if (lastPage && lastPage < pageCount) {
-        pages = pages.concat(
-            withDots(pageCount, [
-                threeDots,
-                pageCount,
-            ]),
-        );
-    }
-
-    return pages;
 }
 
 /** Creates an array of numbers progressing from start up to end. */

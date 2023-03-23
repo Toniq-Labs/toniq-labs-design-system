@@ -103,7 +103,7 @@ export function calculateLabelMargin({
 
 export function isDoubleRangeValue(
     value: ToniqSliderValueType,
-): value is ToniqSliderDoubleRangeValue {
+): value is Readonly<ToniqSliderDoubleRangeValue> {
     return isObject(value) && value.min !== undefined && value.max !== undefined;
 }
 
