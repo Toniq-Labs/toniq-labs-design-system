@@ -1,6 +1,5 @@
 import {assign, css, html} from 'element-vir';
 import {ToniqSvg} from '../../icons';
-import {interactionDuration} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
@@ -8,6 +7,7 @@ import {removeNativeFormStyles} from '../../styles/native-styles';
 import {noUserSelect} from '../../styles/user-select';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
+import {toniqDurations} from '../../styles/animation';
 
 export const ToniqToggleButton = defineToniqElement<{
     text?: string | undefined;
@@ -40,7 +40,8 @@ export const ToniqToggleButton = defineToniqElement<{
             padding: 4px 12px;
 
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
-            transition: color ${interactionDuration}, background-color ${interactionDuration};
+            transition: color ${toniqDurations.interaction},
+                background-color ${toniqDurations.interaction};
         }
 
         ${createFocusStyles({

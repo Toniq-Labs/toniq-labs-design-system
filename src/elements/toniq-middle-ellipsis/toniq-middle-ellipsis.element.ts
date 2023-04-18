@@ -1,13 +1,14 @@
-import {assign, css, defineElementEvent, html, listen} from 'element-vir';
+import {classMap} from 'lit/directives/class-map.js';
+import {assign, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
 import {copyToClipboard} from '../../clipboard';
 import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
-import {interactionDuration} from '../../styles/animation';
-import {toniqColors, colorValueToVarCall} from '../../styles/colors';
+import {toniqColors} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
 import {removeNativeFormStyles} from '../../styles/native-styles';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
+import {toniqDurations} from '../../styles/animation';
 
 export const ellipsisCharacter = '…' as const;
 
@@ -21,7 +22,7 @@ function isWholeNumber(input: number): boolean {
     return !(input % 1);
 }
 
-function validateLetterCount(inputs: {letterCount?: number}): number {
+function validateLetterCount(inputs: {letterCount?: number | undefined}): number {
     if (inputs.letterCount == undefined) {
         return 4;
     }
@@ -52,14 +53,12 @@ function validateLetterCount(inputs: {letterCount?: number}): number {
  */
 export const ToniqMiddleEllipsis = defineToniqElement<
     | {
-          text?: string;
+          text?: string | undefined;
           /**
            * Determines how many letter render before the truncation ellipsis. The same number of
            * letters are also rendered after the ellipsis.
-           *
-           * This is customizable, but shouldn't need to be changed very often.
            */
-          letterCount?: number;
+          letterCount?: number | undefined;
       } & (
           | {
                 /**
@@ -88,7 +87,7 @@ export const ToniqMiddleEllipsis = defineToniqElement<
     styles: ({hostClassNames, cssVarValues}) => css`
         :host {
             /* 5 frames at 60 fps */
-            transition: ${interactionDuration};
+            transition: ${toniqDurations.interaction};
             ${toniqFontStyles.paragraphFont};
             color: ${cssVarValues.textColor};
         }
@@ -142,11 +141,36 @@ export const ToniqMiddleEllipsis = defineToniqElement<
             mainSelector: 'a:focus:focus-visible:not(:active)',
             elementBorderSize: 0,
         })}
+        
+        .text-content {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .copied-text {
+            box-shadow: 0 0 20px 100px ${toniqColors.pagePrimary.backgroundColor};
+            background-color: ${toniqColors.pagePrimary.backgroundColor};
+            display: flex;
+            position: absolute;
+            height: 100%;
+            right: 0;
+            max-width: 100%;
+            pointer-events: none;
+            transition: opacity ${toniqDurations.interaction};
+            opacity: 0;
+        }
+
+        .show-copied-text {
+            opacity: 1;
+        }
     `,
     hostClasses: {
         clickable: ({inputs}) => !!inputs.externalLink || !!inputs.copyOnClick,
     },
-    renderCallback: ({inputs, dispatch, events}) => {
+    stateInit: {
+        showCopiedTextTimeoutId: undefined as number | undefined,
+    },
+    renderCallback: ({inputs, dispatch, events, state, updateState}) => {
         if (!inputs.text) {
             return html``;
         }
@@ -173,6 +197,25 @@ export const ToniqMiddleEllipsis = defineToniqElement<
               `
             : '';
 
+        const textTemplate = html`
+            <span title=${hoverText} class="text-content">
+                ${renderIf(
+                    !!inputs.copyOnClick,
+                    html`
+                        <span
+                            class=${classMap({
+                                'copied-text': true,
+                                'show-copied-text': state.showCopiedTextTimeoutId != undefined,
+                            })}
+                        >
+                            Copied!
+                        </span>
+                    `,
+                )}
+                ${renderText}
+            </span>
+        `;
+
         if (renderText) {
             if (isLink) {
                 return html`
@@ -183,8 +226,7 @@ export const ToniqMiddleEllipsis = defineToniqElement<
                         href=${inputs.externalLink}
                         title=${hoverText}
                     >
-                        <span>${renderText}</span>
-                        ${iconTemplate}
+                        ${textTemplate} ${iconTemplate}
                     </a>
                 `;
             } else if (shouldCopy) {
@@ -194,15 +236,25 @@ export const ToniqMiddleEllipsis = defineToniqElement<
                         ${listen('click', async () => {
                             await copyToClipboard(fullText);
                             dispatch(new events.copied());
+                            if (state.showCopiedTextTimeoutId != undefined) {
+                                window.clearTimeout(state.showCopiedTextTimeoutId);
+                            }
+
+                            updateState({
+                                showCopiedTextTimeoutId: window.setTimeout(() => {
+                                    updateState({
+                                        showCopiedTextTimeoutId: undefined,
+                                    });
+                                }, 5_000),
+                            });
                         })}
                     >
-                        <span title=${hoverText}>${renderText}</span>
-                        ${iconTemplate}
+                        ${textTemplate} ${iconTemplate}
                     </button>
                 `;
             } else {
                 return html`
-                    <span title=${hoverText}>${renderText}</span>
+                    ${textTemplate}
                 `;
             }
         } else {

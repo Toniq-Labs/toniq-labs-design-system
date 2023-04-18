@@ -1,11 +1,12 @@
 import {randomString} from '@augment-vir/browser';
 import {css, defineElementEvent, html, listen} from 'element-vir';
 import {classMap} from 'lit/directives/class-map.js';
-import {interactionDuration, removeNativeFormStyles} from '../../styles';
+import {removeNativeFormStyles} from '../../styles';
 import {colorValueToVarCall} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
+import {toniqDurations} from '../../styles/animation';
 
 export type ToniqRadioGroupEntry = {
     value: string;
@@ -39,12 +40,13 @@ export const ToniqRadioGroup = defineToniqElement<{
 
         disabledColor: String(colorValueToVarCall('pageSecondary', 'foregroundColor')),
     },
-    styles: ({cssVarValues, cssVarNames}) => css`
+    styles: ({cssVarValues}) => css`
         :host {
             ${toniqFontStyles.boldParagraphFont};
             display: inline-flex;
-            transition: color ${interactionDuration}, background-color ${interactionDuration},
-                opacity ${interactionDuration};
+            transition: color ${toniqDurations.interaction},
+                background-color ${toniqDurations.interaction},
+                opacity ${toniqDurations.interaction};
             flex-direction: column;
             gap: 24px;
             text-align: left;
@@ -90,7 +92,7 @@ export const ToniqRadioGroup = defineToniqElement<{
             margin-right: 8px;
             border: 2px solid ${cssVarValues.uncheckedRadioColor};
             border-radius: 50%;
-            transition: ${interactionDuration};
+            transition: ${toniqDurations.interaction};
             --color-stop: -10%;
             background-image: radial-gradient(
                 ${cssVarValues.checkedRadioColor} var(--color-stop),

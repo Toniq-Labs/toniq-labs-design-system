@@ -1,13 +1,14 @@
 import {assign, css, defineElementEvent, html, listen} from 'element-vir';
 import {classMap} from 'lit/directives/class-map.js';
 import {CheckMark24Icon} from '../../icons/svgs/core-24/check-mark-24.icon';
-import {interactionDuration, noUserSelect} from '../../styles';
+import {noUserSelect} from '../../styles';
 import {colorValueToVarCall} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
 import {removeNativeFormStyles} from '../../styles/native-styles';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
+import {toniqDurations} from '../../styles/animation';
 
 export const ToniqCheckbox = defineToniqElement<{
     text?: string | undefined;
@@ -30,8 +31,9 @@ export const ToniqCheckbox = defineToniqElement<{
         :host {
             ${toniqFontStyles.boldParagraphFont};
             display: inline-flex;
-            transition: color ${interactionDuration}, background-color ${interactionDuration},
-                opacity ${interactionDuration};
+            transition: color ${toniqDurations.interaction},
+                background-color ${toniqDurations.interaction},
+                opacity ${toniqDurations.interaction};
             border-radius: 8px;
         }
 

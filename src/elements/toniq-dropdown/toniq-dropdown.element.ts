@@ -1,13 +1,14 @@
 import {assign, css, defineElementEvent, html} from 'element-vir';
 import {testId} from '../../directives/test-id.directive';
 import {ChevronDown24Icon, ToniqSvg} from '../../icons';
-import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
+import {noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
 import {removeNativeFormStyles} from '../../styles/native-styles';
 import {toniqShadows} from '../../styles/shadows';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
+import {toniqDurations} from '../../styles/animation';
 
 export interface ToniqDropdownOption<ValueType = any> {
     value: ValueType;
@@ -52,7 +53,7 @@ export const ToniqDropdown = defineToniqElement<{
 
         .trigger-icon {
             transform: rotate(0);
-            transition: ${interactionDuration} linear transform;
+            transition: ${toniqDurations.interaction} linear transform;
         }
 
         .trigger-icon {

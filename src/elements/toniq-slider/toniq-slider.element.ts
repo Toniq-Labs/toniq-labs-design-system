@@ -2,7 +2,7 @@ import {css, defineElementEvent, html, listen, onResize} from 'element-vir';
 import {unsafeCSS} from 'lit';
 import {toPercent, toPixel} from '../../augments/number';
 import {testId} from '../../directives/test-id.directive';
-import {interactionDuration, noUserSelect, toniqFontStyles} from '../../styles';
+import {noUserSelect, toniqFontStyles} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
 import {defineToniqElement} from '../define-toniq-element';
@@ -20,6 +20,7 @@ import {
     toniqSliderTestIds,
     ToniqSliderValueType,
 } from './slider-logic';
+import {toniqDurations} from '../../styles/animation';
 
 const thumbSizeNumber = 16;
 const thumbSize = css`
@@ -35,7 +36,7 @@ const thumbStyle = css`
     cursor: pointer;
     pointer-events: all;
     border-radius: 10px;
-    transition: ${interactionDuration};
+    transition: ${toniqDurations.interaction};
     ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
 `;
 
