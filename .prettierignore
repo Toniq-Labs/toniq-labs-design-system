@@ -5,5 +5,3 @@ graphics/
 node_modules/
 package-lock.json
 src/all-files-for-code-coverage.test.ts
-
-.storybook-dist/

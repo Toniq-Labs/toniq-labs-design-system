@@ -1,0 +1,76 @@
+{
+    "name": "@toniq-labs/design-system",
+    "version": "2.0.0",
+    "private": false,
+    "description": "Design system elements for Toniq Labs",
+    "keywords": [
+        "components",
+        "design system",
+        "design",
+        "dfinity",
+        "elements",
+        "ic",
+        "internet computer",
+        "labs",
+        "system",
+        "toniq labs",
+        "toniq"
+    ],
+    "homepage": "https://toniq-labs.github.io/toniq-labs-design-system",
+    "bugs": {
+        "url": "https://github.com/Toniq-Labs/toniq-labs-design-system/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Toniq-Labs/toniq-labs-design-system.git"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Toniq-Labs",
+        "url": "https://github.com/Toniq-Labs"
+    },
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/types/index.d.ts",
+    "scripts": {
+        "build": "virmator frontend build",
+        "compile": "rm -rf dist && tsc --project tsconfig.json && tsc --project tsconfig.cjs.json",
+        "format": "virmator format",
+        "publish": "virmator publish \"npm run test:all\"",
+        "start": "virmator frontend",
+        "test": "virmator test-web",
+        "test:all": "npm run test:types && npm test && npm run test:scripts && npm run test:spelling && npm run test:format && npm run build",
+        "test:debug": "wtr --watch --only-one-browser",
+        "test:exports": "cd scripts && npm run test:exports",
+        "test:format": "virmator format check",
+        "test:node-versions": "cd scripts && npm run test:node-versions",
+        "test:scripts": "cd scripts && npm run test",
+        "test:spelling": "virmator spellcheck",
+        "test:types": "tsc --noEmit",
+        "test:watch": "wtr --watch --only-one-browser",
+        "update:exports": "cd scripts && npm run update:exports"
+    },
+    "dependencies": {
+        "@augment-vir/common": "^12.2.1",
+        "element-vir": "^9.2.0",
+        "lit": "^2.6.1"
+    },
+    "devDependencies": {
+        "@augment-vir/browser": "^12.2.1",
+        "@open-wc/testing": "^3.1.8",
+        "@types/mocha": "^10.0.1",
+        "@web/dev-server-esbuild": "^0.3.6",
+        "@web/test-runner": "^0.15.3",
+        "@web/test-runner-commands": "^0.6.6",
+        "@web/test-runner-playwright": "^0.9.0",
+        "@web/test-runner-visual-regression": "^0.7.1",
+        "istanbul-smart-text-reporter": "^1.1.1",
+        "ts-node": "^10.9.1",
+        "type-fest": "^3.5.5",
+        "typescript": "^4.9.5",
+        "vite": "^4.1.1"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

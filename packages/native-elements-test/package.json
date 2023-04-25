@@ -1,0 +1,16 @@
+{
+    "name": "@toniq-labs/native-elements-test",
+    "private": "true",
+    "scripts": {
+        "compile": "virmator compile",
+        "start": "virmator frontend",
+        "test": "virmator test-web",
+        "test:types": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@toniq-labs/design-system": "*"
+    },
+    "devDependencies": {
+        "typescript": "^5.0.4"
+    }
+}

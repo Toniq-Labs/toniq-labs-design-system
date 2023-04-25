@@ -1,4 +1,5 @@
 import {
+    ArrayElement,
     capitalizeFirstLetter,
     collapseWhiteSpace,
     kebabCaseToCamelCase,
@@ -9,14 +10,19 @@ import {readDirRecursive, runShellCommand} from '@augment-vir/node-js';
 import {existsSync} from 'fs';
 import {readFile, stat, writeFile} from 'fs/promises';
 import {basename, join, relative} from 'path';
-import {optimize, OptimizeOptions, PrefixIdsPlugin} from 'svgo';
+import {Config as SvgoConfig, optimize} from 'svgo';
 import {srcDir} from './common/file-paths';
 
 const scriptName = basename(__filename);
 const svgsDir = join(srcDir, 'icons', 'svgs');
 
+type PrefixIdsPlugin = Extract<
+    ArrayElement<NonNullable<SvgoConfig['plugins']>>,
+    {name: 'prefixIds'}
+>;
+
 const svgoFloatPrecisionParams = {floatPrecision: 2};
-const baseSvgoOptions: RequiredAndNotNullBy<OptimizeOptions, 'plugins'> = {
+const baseSvgoOptions: RequiredAndNotNullBy<SvgoConfig, 'plugins'> = {
     plugins: [
         {
             name: 'removeDoctype',
@@ -49,7 +55,7 @@ const baseSvgoOptions: RequiredAndNotNullBy<OptimizeOptions, 'plugins'> = {
             name: 'convertStyleToAttrs',
         },
         {
-            name: 'cleanupIDs',
+            name: 'cleanupIds',
         },
         {
             name: 'removeUselessDefs',
@@ -139,7 +145,7 @@ const baseSvgoOptions: RequiredAndNotNullBy<OptimizeOptions, 'plugins'> = {
     ],
 };
 
-function createSvgoOptions(iconName: IconFileName): OptimizeOptions {
+function createSvgoOptions(iconName: IconFileName): SvgoConfig {
     // prevent clashing-ids
     const pluginPrefixOptions: PrefixIdsPlugin = {
         name: 'prefixIds',
@@ -247,10 +253,6 @@ async function convertAndInsertIcon(svgPath: string, dryRun: boolean): Promise<v
     const svgoOptions = createSvgoOptions(iconFileName);
 
     const optimizedSvgResults = optimize(svgContents, svgoOptions);
-
-    if (optimizedSvgResults.error || optimizedSvgResults.modernError) {
-        throw optimizedSvgResults.error || optimizedSvgResults.modernError;
-    }
 
     const optimizedSvgContents = optimizedSvgResults.data;
 

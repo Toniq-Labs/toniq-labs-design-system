@@ -1,5 +1,5 @@
 [build]
-base = "."
-publish = ".storybook-dist/"
-command = "npm run storybook:build"
-environment = { NODE_VERSION = "16.15.0" }
+base = "packages/design-system"
+publish = "./dist/"
+command = "npm run build"
+environment = { NODE_VERSION = "18" }

@@ -1,7 +1,7 @@
 import {assert, expect, fixture} from '@open-wc/testing';
 import {Copy16Icon} from '@toniq-labs/design-system';
 import {html} from 'element-vir';
-import {unsafeHTML} from 'lit/directives/unsafe-html.js';
+import {unsafeHTML} from 'lit/directives/unsafe-html';
 import {AppElement} from './app.element';
 
 describe(AppElement.tagName, () => {

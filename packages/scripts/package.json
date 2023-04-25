@@ -1,7 +1,8 @@
 {
-    "name": "scripts",
+    "name": "@toniq-labs/design-system-scripts",
     "private": true,
     "scripts": {
+        "compile": "virmator compile",
         "test": "npm i && npm run test:files && npm run test:exports && npm run test:node-versions",
         "test:exports": "ts-node src/update-all-exports.ts --check",
         "test:files": "ts-node src/test-test-files.ts",
@@ -11,6 +12,7 @@
     "devDependencies": {
         "@types/node": "17.0.31",
         "@types/svgo": "^2.6.4",
-        "svgo": "^3.0.2"
+        "svgo": "^3.0.2",
+        "typescript": "^5.0.4"
     }
 }

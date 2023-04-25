@@ -1,0 +1,16 @@
+{
+    "extends": "virmator/base-configs/base-tsconfig.json",
+    "compilerOptions": {
+        "declarationDir": "dist/types",
+        "outDir": "dist/esm",
+        "rootDir": "src",
+        "module": "ES2020"
+    },
+    "exclude": [
+        "./configs",
+        "./coverage",
+        "./dist",
+        "./node_modules",
+        "./test-files"
+    ]
+}

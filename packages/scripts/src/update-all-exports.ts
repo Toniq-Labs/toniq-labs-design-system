@@ -6,13 +6,11 @@ import {
 } from './common/update-exports';
 import {updateElementExports} from './update-element-exports';
 import {updateIconExports} from './update-icon-exports';
-import {updateReactWrappers} from './update-react-wrappers';
 import {updateStylesExports} from './update-style-exports';
 
 const updateExportsConfigs: UpdateExportsConfig[] = [
     updateIconExports,
     updateElementExports,
-    updateReactWrappers,
     updateStylesExports,
 ];
 
