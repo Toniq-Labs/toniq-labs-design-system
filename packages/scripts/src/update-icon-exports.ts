@@ -8,9 +8,9 @@ import {readDirRecursive, toPosixPath} from '@augment-vir/node-js';
 import {basename, dirname, join, relative} from 'path';
 import {srcDir} from './common/file-paths';
 import {
-    formatAndWriteOrCheckFromArgs,
     UpdateExportsArgs,
     UpdateExportsConfig,
+    formatAndWriteOrCheckFromArgs,
     updateExportsMain,
 } from './common/update-exports';
 

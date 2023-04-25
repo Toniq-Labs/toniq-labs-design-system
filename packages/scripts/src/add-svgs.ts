@@ -10,7 +10,7 @@ import {readDirRecursive, runShellCommand} from '@augment-vir/node-js';
 import {existsSync} from 'fs';
 import {readFile, stat, writeFile} from 'fs/promises';
 import {basename, join, relative} from 'path';
-import {Config as SvgoConfig, optimize} from 'svgo';
+import {optimize, Config as SvgoConfig} from 'svgo';
 import {srcDir} from './common/file-paths';
 
 const scriptName = basename(__filename);

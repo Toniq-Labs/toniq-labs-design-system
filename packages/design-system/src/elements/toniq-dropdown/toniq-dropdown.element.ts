@@ -2,13 +2,13 @@ import {assign, css, defineElementEvent, html} from 'element-vir';
 import {testId} from '../../directives/test-id.directive';
 import {ChevronDown24Icon, ToniqSvg} from '../../icons';
 import {noUserSelect, toniqFontStyles} from '../../styles';
+import {toniqDurations} from '../../styles/animation';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
 import {removeNativeFormStyles} from '../../styles/native-styles';
 import {toniqShadows} from '../../styles/shadows';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
-import {toniqDurations} from '../../styles/animation';
 
 export interface ToniqDropdownOption<ValueType = any> {
     value: ValueType;

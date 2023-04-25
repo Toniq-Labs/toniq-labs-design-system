@@ -2,11 +2,11 @@ import {randomString} from '@augment-vir/browser';
 import {css, defineElementEvent, html, listen} from 'element-vir';
 import {classMap} from 'lit/directives/class-map.js';
 import {removeNativeFormStyles} from '../../styles';
+import {toniqDurations} from '../../styles/animation';
 import {colorValueToVarCall} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
-import {toniqDurations} from '../../styles/animation';
 
 export type ToniqRadioGroupEntry = {
     value: string;

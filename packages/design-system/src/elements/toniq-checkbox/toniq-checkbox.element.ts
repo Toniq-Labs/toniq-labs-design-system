@@ -2,13 +2,13 @@ import {assign, css, defineElementEvent, html, listen} from 'element-vir';
 import {classMap} from 'lit/directives/class-map.js';
 import {CheckMark24Icon} from '../../icons/svgs/core-24/check-mark-24.icon';
 import {noUserSelect} from '../../styles';
+import {toniqDurations} from '../../styles/animation';
 import {colorValueToVarCall} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
 import {removeNativeFormStyles} from '../../styles/native-styles';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
-import {toniqDurations} from '../../styles/animation';
 
 export const ToniqCheckbox = defineToniqElement<{
     text?: string | undefined;

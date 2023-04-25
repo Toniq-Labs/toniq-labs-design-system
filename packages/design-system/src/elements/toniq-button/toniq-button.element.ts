@@ -1,5 +1,6 @@
 import {assign, css, html} from 'element-vir';
 import {ToniqSvg} from '../../icons';
+import {toniqDurations} from '../../styles/animation';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
@@ -7,7 +8,6 @@ import {removeNativeFormStyles} from '../../styles/native-styles';
 import {noUserSelect} from '../../styles/user-select';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
-import {toniqDurations} from '../../styles/animation';
 
 export const buttonBorderRadius = css`8px`;
 

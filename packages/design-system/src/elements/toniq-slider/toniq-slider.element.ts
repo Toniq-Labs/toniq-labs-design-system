@@ -3,10 +3,13 @@ import {unsafeCSS} from 'lit';
 import {toPercent, toPixel} from '../../augments/number';
 import {testId} from '../../directives/test-id.directive';
 import {noUserSelect, toniqFontStyles} from '../../styles';
+import {toniqDurations} from '../../styles/animation';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
 import {defineToniqElement} from '../define-toniq-element';
 import {
+    ToniqSliderDoubleRangeValue,
+    ToniqSliderValueType,
     calculateLabelMargin,
     classNames,
     getAllVerifiedAndFixedInputs,
@@ -16,11 +19,8 @@ import {
     makeLabel,
     maybeFixSliderValues,
     maybeTransformToLogValue,
-    ToniqSliderDoubleRangeValue,
     toniqSliderTestIds,
-    ToniqSliderValueType,
 } from './slider-logic';
-import {toniqDurations} from '../../styles/animation';
 
 const thumbSizeNumber = 16;
 const thumbSize = css`

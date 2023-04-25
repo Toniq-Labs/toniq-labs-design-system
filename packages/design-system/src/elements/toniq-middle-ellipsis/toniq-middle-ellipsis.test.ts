@@ -11,7 +11,7 @@ import {createElementRegistrationTest} from '../../element-testing/test-element-
 import {runFocusTests} from '../../element-testing/test-focus';
 import {ExternalLink24Icon} from '../../icons';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
-import {ellipsisCharacter, ToniqMiddleEllipsis} from './toniq-middle-ellipsis.element';
+import {ToniqMiddleEllipsis, ellipsisCharacter} from './toniq-middle-ellipsis.element';
 
 describe(ToniqMiddleEllipsis.tagName, () => {
     createElementRegistrationTest(ToniqMiddleEllipsis);

@@ -1,9 +1,9 @@
 import {join} from 'path';
 import {elementsDir, generateExportsFromFilePaths, getElementFilePaths} from './common/file-paths';
 import {
-    formatAndWriteOrCheckFromArgs,
     UpdateExportsArgs,
     UpdateExportsConfig,
+    formatAndWriteOrCheckFromArgs,
     updateExportsMain,
 } from './common/update-exports';
 
