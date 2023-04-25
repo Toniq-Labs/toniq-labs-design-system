@@ -51,24 +51,24 @@
         "update:exports": "cd scripts && npm run update:exports"
     },
     "dependencies": {
-        "@augment-vir/common": "^12.2.1",
-        "element-vir": "^9.2.0",
-        "lit": "^2.6.1"
+        "@augment-vir/common": "^13.3.0",
+        "element-vir": "^12.0.2",
+        "lit": "^2.7.2"
     },
     "devDependencies": {
-        "@augment-vir/browser": "^12.2.1",
+        "@augment-vir/browser": "^13.3.0",
         "@open-wc/testing": "^3.1.8",
         "@types/mocha": "^10.0.1",
-        "@web/dev-server-esbuild": "^0.3.6",
-        "@web/test-runner": "^0.15.3",
-        "@web/test-runner-commands": "^0.6.6",
-        "@web/test-runner-playwright": "^0.9.0",
-        "@web/test-runner-visual-regression": "^0.7.1",
+        "@web/dev-server-esbuild": "^0.4.1",
+        "@web/test-runner": "^0.16.1",
+        "@web/test-runner-commands": "^0.7.0",
+        "@web/test-runner-playwright": "^0.10.0",
+        "@web/test-runner-visual-regression": "^0.8.0",
         "istanbul-smart-text-reporter": "^1.1.1",
         "ts-node": "^10.9.1",
-        "type-fest": "^3.5.5",
-        "typescript": "^4.9.5",
-        "vite": "^4.1.1"
+        "type-fest": "^3.8.0",
+        "typescript": "^5.0.4",
+        "vite": "^4.3.1"
     },
     "publishConfig": {
         "access": "public"
