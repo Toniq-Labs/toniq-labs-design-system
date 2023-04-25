@@ -1,21 +1,16 @@
 {
+    "extends": "virmator/base-configs/base-tsconfig.json",
     "compilerOptions": {
         "declarationDir": "dist/types",
-        "jsx": "react",
-        "module": "ESNext",
         "outDir": "dist/esm",
-        "rootDir": "src",
-        "skipLibCheck": true,
-        "skipDefaultLibCheck": true
+        "rootDir": "./src",
+        "module": "ES2020"
     },
     "exclude": [
-        ".storybook-dist",
-        ".virmator",
-        "graphics",
-        "scripts",
-        "storybook",
-        "test-files",
-        "dist"
-    ],
-    "extends": "./tsconfig-base.json"
+        "./configs",
+        "./coverage",
+        "./dist",
+        "./node_modules",
+        "./test-files"
+    ]
 }

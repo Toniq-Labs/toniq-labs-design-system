@@ -1,16 +1,9 @@
 {
     "compilerOptions": {
         "outDir": "dist/cjs",
-        "rootDir": "src"
+        "declaration": false,
+        "declarationDir": null,
+        "module": "CommonJS"
     },
-    "exclude": [
-        ".storybook-dist",
-        ".virmator",
-        "graphics",
-        "scripts",
-        "storybook",
-        "test-files",
-        "dist"
-    ],
-    "extends": "./tsconfig-base.json"
+    "extends": "./tsconfig.json"
 }

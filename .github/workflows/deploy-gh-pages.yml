@@ -1,0 +1,24 @@
+name: build-for-gh-pages
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build-for-gh-pages:
+        runs-on: 'ubuntu-latest'
+
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18.x
+            - name: build
+              run: |
+                  npm ci
+                  npm run build
+            - uses: JamesIves/github-pages-deploy-action@v4
+              with:
+                  branch: 'gh-pages'
+                  folder: 'dist'
