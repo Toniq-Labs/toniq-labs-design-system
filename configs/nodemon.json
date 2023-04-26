@@ -1,0 +1,9 @@
+{
+    "watch": ["./packages/design-system/"],
+    "ignore": [
+        "*.test.ts",
+        "dist/**"
+    ],
+    "ext": "js,json,html,css,ts,tsx,jsx",
+    "exec": "cd packages/design-system && npm run compile:partial"
+}

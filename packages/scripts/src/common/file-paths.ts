@@ -1,22 +1,23 @@
 import {toPosixPath} from '@augment-vir/node-js';
 import {existsSync} from 'fs';
 import {readdir, stat} from 'fs/promises';
-import {dirname, join, relative} from 'path';
+import {join, relative, resolve} from 'path';
 
-export const repoRootDir = dirname(dirname(dirname(__dirname)));
-export const srcDir = join(repoRootDir, 'src');
-export const testFilesDir = join(repoRootDir, 'test-files');
-export const elementsDir = join(srcDir, 'elements');
-export const stylesDir = join(srcDir, 'styles');
+export const monoRepoRootDir = resolve(__dirname, join('..', '..', '..', '..'));
+const packagesDir = join(monoRepoRootDir, 'packages');
+const designSystemPackageDir = join(packagesDir, 'design-system');
+export const designSystemSrcDir = join(designSystemPackageDir, 'src');
+export const elementsDir = join(designSystemSrcDir, 'elements');
+export const stylesDir = join(designSystemSrcDir, 'styles');
 
-const gitHubWorkflowsDir = join(repoRootDir, '.github', 'workflows');
+const gitHubWorkflowsDir = join(monoRepoRootDir, '.github', 'workflows');
 export const gitHubWorkflowFilePaths = {
-    storybookDeploy: join(gitHubWorkflowsDir, 'deploy-storybook-gh-pages.yml'),
+    githubPagesDeploy: join(gitHubWorkflowsDir, 'deploy-gh-pages.yml'),
     taggedRelease: join(gitHubWorkflowsDir, 'tagged-release.yml'),
     tests: join(gitHubWorkflowsDir, 'tests.yml'),
 };
 
-export const netlifyConfigPath = join(repoRootDir, 'netlify.toml');
+export const netlifyConfigPath = join(monoRepoRootDir, 'netlify.toml');
 
 export function generateExportsFromFilePaths(filePaths: string[], relativeDir: string): string {
     const exportLines = filePaths.map((filePath) => {

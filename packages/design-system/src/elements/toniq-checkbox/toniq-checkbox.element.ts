@@ -1,5 +1,4 @@
-import {assign, css, defineElementEvent, html, listen} from 'element-vir';
-import {classMap} from 'lit/directives/class-map.js';
+import {assign, classMap, css, defineElementEvent, html, listen} from 'element-vir';
 import {CheckMark24Icon} from '../../icons/svgs/core-24/check-mark-24.icon';
 import {noUserSelect} from '../../styles';
 import {toniqDurations} from '../../styles/animation';

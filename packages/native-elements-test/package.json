@@ -1,16 +1,24 @@
 {
-    "name": "@toniq-labs/native-elements-test",
-    "private": "true",
+    "name": "@toniq-labs/design-system-native-elements-test",
+    "private": true,
     "scripts": {
         "compile": "virmator compile",
         "start": "virmator frontend",
         "test": "virmator test-web",
-        "test:types": "tsc --noEmit"
+        "test:all": "npm run test"
     },
     "dependencies": {
         "@toniq-labs/design-system": "*"
     },
     "devDependencies": {
+        "@open-wc/testing": "^3.1.8",
+        "@types/mocha": "^10.0.1",
+        "@web/dev-server-esbuild": "^0.4.1",
+        "@web/test-runner": "^0.16.1",
+        "@web/test-runner-commands": "^0.7.0",
+        "@web/test-runner-playwright": "^0.10.0",
+        "@web/test-runner-visual-regression": "^0.8.0",
+        "istanbul-smart-text-reporter": "^1.1.1",
         "typescript": "^5.0.4"
     }
 }

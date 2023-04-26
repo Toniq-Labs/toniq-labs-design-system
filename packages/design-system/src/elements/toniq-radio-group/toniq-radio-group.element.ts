@@ -1,6 +1,5 @@
 import {randomString} from '@augment-vir/browser';
-import {css, defineElementEvent, html, listen} from 'element-vir';
-import {classMap} from 'lit/directives/class-map.js';
+import {classMap, css, defineElementEvent, html, listen} from 'element-vir';
 import {removeNativeFormStyles} from '../../styles';
 import {toniqDurations} from '../../styles/animation';
 import {colorValueToVarCall} from '../../styles/colors';

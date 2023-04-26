@@ -1,5 +1,4 @@
-import {assign, css, defineElementEvent, html, listen} from 'element-vir';
-import {classMap} from 'lit/directives/class-map.js';
+import {assign, classMap, css, defineElementEvent, html, listen} from 'element-vir';
 import {pagination} from '../../augments/array';
 import {ArrowLeft24Icon, ArrowRight24Icon} from '../../icons';
 import {

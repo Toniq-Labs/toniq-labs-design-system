@@ -1,5 +1,4 @@
-import {assign, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
-import {classMap} from 'lit/directives/class-map.js';
+import {assign, classMap, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
 import {copyToClipboard} from '../../clipboard';
 import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
 import {toniqDurations} from '../../styles/animation';
@@ -137,11 +136,7 @@ export const ToniqMiddleEllipsis = defineToniqElement<
             mainSelector: 'button:focus:focus-visible:not(:active)',
             elementBorderSize: 0,
         })}
-        ${createFocusStyles({
-            mainSelector: 'a:focus:focus-visible:not(:active)',
-            elementBorderSize: 0,
-        })}
-        
+
         .text-content {
             position: relative;
             overflow: hidden;
@@ -219,15 +214,39 @@ export const ToniqMiddleEllipsis = defineToniqElement<
         if (renderText) {
             if (isLink) {
                 return html`
-                    <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-wrapper"
-                        href=${inputs.externalLink}
-                        title=${hoverText}
+                    <button
+                        tabindex="0"
+                        role="link"
+                        ${listen('click', (event) => {
+                            const anchorTag = (
+                                event.currentTarget as Partial<Element> | null
+                            )?.querySelector?.('a');
+
+                            if (!anchorTag) {
+                                throw new Error(
+                                    'Failed to find link anchor tag for middle ellipsis element link.',
+                                );
+                            }
+                            anchorTag.click();
+                        })}
+                        class="link-wrapper"
                     >
-                        ${textTemplate} ${iconTemplate}
-                    </a>
+                        <!--
+                            This <a> element has no tabindex because the button above should be
+                            focused in stead. This is a workaround for the fact that Safari does not
+                            support tab-focus for <a> elements.
+                        -->
+                        <a
+                            tabindex="-1"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-wrapper"
+                            href=${inputs.externalLink}
+                            title=${hoverText}
+                        >
+                            ${textTemplate} ${iconTemplate}
+                        </a>
+                    </button>
                 `;
             } else if (shouldCopy) {
                 return html`

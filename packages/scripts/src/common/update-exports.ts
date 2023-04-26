@@ -3,7 +3,7 @@ import {readFile, writeFile} from 'fs/promises';
 import {basename, relative} from 'path';
 import {generateAutomaticallyUpdatedByComment} from './automatically-updated';
 import {cliColors} from './cli-colors';
-import {repoRootDir} from './file-paths';
+import {monoRepoRootDir} from './file-paths';
 import {formatCode} from './format';
 
 export class NotUpToDateError extends Error {
@@ -47,7 +47,7 @@ export async function formatAndWriteOrCheckFromArgs(
         generateAutomaticallyUpdatedByComment(basename(scriptName)) + '\n\n' + codeToWrite;
 
     const formattedCode = formatCode(codeWithComment, fileToWriteTo);
-    const relativeWriteToFile = relative(repoRootDir, fileToWriteTo);
+    const relativeWriteToFile = relative(monoRepoRootDir, fileToWriteTo);
     const currentOutputContents = (await readFile(fileToWriteTo)).toString();
     const qualifier = args.checkOnly ? '' : ' already';
     if (formattedCode === currentOutputContents) {
@@ -65,7 +65,7 @@ export async function formatAndWriteOrCheckFromArgs(
         throw new NotUpToDateError(
             `${cliColors.red}${cliColors.bold}"${relativeWriteToFile}" needs to be updated: run '${
                 cliColors.reset
-            }${cliColors.blue}npx ts-node ${relative(repoRootDir, scriptName)}${cliColors.red}${
+            }${cliColors.blue}npx ts-node ${relative(monoRepoRootDir, scriptName)}${cliColors.red}${
                 cliColors.bold
             }'${cliColors.reset}`,
         );

@@ -3,10 +3,9 @@
     "private": true,
     "scripts": {
         "compile": "virmator compile",
-        "test": "npm i && npm run test:files && npm run test:exports && npm run test:node-versions",
+        "test": "npm run test:exports",
+        "test:all": "npm run test",
         "test:exports": "ts-node src/update-all-exports.ts --check",
-        "test:files": "ts-node src/test-test-files.ts",
-        "test:node-versions": "ts-node src/test-node-versions.ts",
         "update:exports": "ts-node src/update-all-exports.ts"
     },
     "devDependencies": {

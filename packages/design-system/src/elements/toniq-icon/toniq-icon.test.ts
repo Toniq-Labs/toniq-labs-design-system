@@ -1,6 +1,5 @@
 import {assert, fixture} from '@open-wc/testing';
-import {assign, html} from 'element-vir';
-import {unsafeHTML} from 'lit/directives/unsafe-html.js';
+import {assign, html, unsafeHTML} from 'element-vir';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';

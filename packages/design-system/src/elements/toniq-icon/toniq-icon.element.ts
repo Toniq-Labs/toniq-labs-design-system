@@ -1,5 +1,4 @@
-import {css, html} from 'element-vir';
-import {unsafeSVG} from 'lit/directives/unsafe-svg.js';
+import {css, html, unsafeSVG} from 'element-vir';
 import {ToniqSvg} from '../../icons/toniq-svg';
 import {defineToniqElement} from '../define-toniq-element';
 

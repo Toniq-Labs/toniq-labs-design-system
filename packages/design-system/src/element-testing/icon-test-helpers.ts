@@ -1,6 +1,5 @@
 import {assert, fixture} from '@open-wc/testing';
-import {html} from 'element-vir';
-import {unsafeHTML} from 'lit/directives/unsafe-html.js';
+import {html, unsafeHTML} from 'element-vir';
 import {ToniqIcon} from '../elements/toniq-icon/toniq-icon.element';
 import {ToniqSvg} from '../icons';
 import {assertInstanceOf} from './assertion-helpers';

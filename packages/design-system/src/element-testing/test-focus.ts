@@ -1,5 +1,5 @@
-import {awaitedForEach} from '@augment-vir/common';
-import {assert, fixture} from '@open-wc/testing';
+import {awaitedForEach, isTruthy} from '@augment-vir/common';
+import {assert, fixture, waitUntil} from '@open-wc/testing';
 import {sendKeys} from '@web/test-runner-commands';
 import {html} from 'element-vir';
 import {TemplateResult} from 'lit';
@@ -33,12 +33,59 @@ async function getTagName(singleInstanceTemplate: TemplateResult): Promise<strin
     });
 }
 
-export function assertFocused(element: Element, shouldBeActive: boolean, message?: string): void {
+export function logActiveElement() {
+    const activeElement = document.activeElement;
+    const activeElementName = [
+        activeElement?.tagName,
+        Array.from(activeElement?.classList || [])
+            .map((entry) => `.${entry}`)
+            .join(''),
+    ]
+        .filter(isTruthy)
+        .join('');
+
+    console.info({
+        failedActiveElement: activeElementName,
+        failedBodyHtml: document.body.innerHTML,
+    });
+}
+
+export async function assertFocused(
+    element: Element,
+    shouldBeActive: boolean,
+    message?: string,
+): Promise<void> {
     const defaultMessage = shouldBeActive
         ? `${element.tagName} should have been focused but wasn't`
         : `${element.tagName} should NOT have been focused but was`;
-    // accessing document.activeElement often causes web-test-runner to seize up for some reason
-    assert.strictEqual(element.matches(':focus'), shouldBeActive, message || defaultMessage);
+
+    await waitUntil(() => {
+        try {
+            /**
+             * Don't use document.activeElement here to test which element is focused because
+             * web-test-runner seizes up when you do that for some reason.
+             */
+            assert.strictEqual(
+                element.matches(':focus'),
+                shouldBeActive,
+                message || defaultMessage,
+            );
+        } catch (error) {
+            logActiveElement();
+            throw error;
+        }
+        return true;
+    });
+}
+
+export function addSiblingSoFocusTestsWork(context: Element): HTMLElement {
+    const siblingDiv = document.createElement('div');
+    siblingDiv.classList.add('focus-sibling');
+    siblingDiv.setAttribute('tabindex', '0');
+    // append a div so that the test has something to tab to
+    context.parentElement!.appendChild(siblingDiv);
+
+    return siblingDiv;
 }
 
 export function runFocusTests(
@@ -51,15 +98,17 @@ export function runFocusTests(
             isFocusable ? 'should be focusable' : 'should not be focusable',
             createFixtureTest(async () => {
                 const rendered = await fixture(singleInstanceTemplate);
+                const sibling = addSiblingSoFocusTestsWork(rendered);
+                sibling.focus();
                 assertInstanceOf(rendered, HTMLElement);
-                await hitTab();
+                await hitShiftTab();
 
                 if (isFocusable) {
-                    assertFocused(rendered, true);
+                    await assertFocused(rendered, true);
                     await hitTab();
-                    assertFocused(rendered, false);
+                    await assertFocused(rendered, false);
                 } else {
-                    assertFocused(rendered, false);
+                    await assertFocused(rendered, false);
                 }
             }),
         );
@@ -91,14 +140,14 @@ export function runFocusTests(
                     await hitTab();
 
                     if (isFocusable) {
-                        assertFocused(currentInstance, true);
+                        await assertFocused(currentInstance, true);
                         if (index > 0) {
                             const lastInstance = allInstances[index - 1];
                             assertInstanceOf(lastInstance, HTMLElement);
-                            assertFocused(lastInstance, false);
+                            await assertFocused(lastInstance, false);
                         }
                     } else {
-                        assertFocused(currentInstance, false);
+                        await assertFocused(currentInstance, false);
                     }
                 });
             }),

@@ -8,10 +8,10 @@
 */
 import {readFile, writeFile} from 'fs/promises';
 import {join} from 'path';
-import {repoRootDir} from './common/file-paths';
+import {monoRepoRootDir} from './common/file-paths';
 import {formatCode} from './common/format';
 
-const packageJsonPath = join(repoRootDir, 'package.json');
+const packageJsonPath = join(monoRepoRootDir, 'package.json');
 const preInstallScript = 'npm-force-resolutions';
 
 async function getPackageJsonObject() {

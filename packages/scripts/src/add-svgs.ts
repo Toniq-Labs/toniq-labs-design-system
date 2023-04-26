@@ -11,10 +11,10 @@ import {existsSync} from 'fs';
 import {readFile, stat, writeFile} from 'fs/promises';
 import {basename, join, relative} from 'path';
 import {optimize, Config as SvgoConfig} from 'svgo';
-import {srcDir} from './common/file-paths';
+import {designSystemSrcDir} from './common/file-paths';
 
 const scriptName = basename(__filename);
-const svgsDir = join(srcDir, 'icons', 'svgs');
+const svgsDir = join(designSystemSrcDir, 'icons', 'svgs');
 
 type PrefixIdsPlugin = Extract<
     ArrayElement<NonNullable<SvgoConfig['plugins']>>,

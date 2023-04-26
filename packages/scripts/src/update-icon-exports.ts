@@ -6,7 +6,7 @@
 import {getObjectTypedKeys, kebabCaseToCamelCase} from '@augment-vir/common';
 import {readDirRecursive, toPosixPath} from '@augment-vir/node-js';
 import {basename, dirname, join, relative} from 'path';
-import {srcDir} from './common/file-paths';
+import {designSystemSrcDir} from './common/file-paths';
 import {
     UpdateExportsArgs,
     UpdateExportsConfig,
@@ -14,8 +14,8 @@ import {
     updateExportsMain,
 } from './common/update-exports';
 
-const svgsDir = join(srcDir, 'icons', 'svgs');
-const iconIndexPath = join(srcDir, 'icons', 'index.ts');
+const svgsDir = join(designSystemSrcDir, 'icons', 'svgs');
+const iconIndexPath = join(designSystemSrcDir, 'icons', 'index.ts');
 
 function generateIconNameFromFilePath(filePath: string): string {
     return `${kebabCaseToCamelCase(basename(filePath.replace(/\.icon\.ts$/, '')), {

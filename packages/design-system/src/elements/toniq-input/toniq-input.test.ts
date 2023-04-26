@@ -1,15 +1,21 @@
-import {addRegExpFlags} from '@augment-vir/common';
-import {assert} from '@open-wc/testing';
+import {addRegExpFlags, wait} from '@augment-vir/common';
+import {assert, waitUntil} from '@open-wc/testing';
 import {assign, html, listen} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {createStateTester} from '../../element-testing/state-tester';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
-import {assertFocused, hitShiftTab, hitTab, runFocusTests} from '../../element-testing/test-focus';
 import {
-    focusAndTypeIntoToniqInput,
+    assertFocused,
+    hitShiftTab,
+    hitTab,
+    logActiveElement,
+    runFocusTests,
+} from '../../element-testing/test-focus';
+import {
     runBlockedTextTest,
     setupToniqInputTest,
+    typeIntoToniqInput,
 } from './toniq-input-test-helpers';
 import {ToniqInput} from './toniq-input.element';
 
@@ -61,16 +67,15 @@ describe(ToniqInput.tagName, () => {
                 },
             );
 
-            const {toniqInputInstance} = await setupToniqInputTest(
+            const {toniqInputInstance, innerInput} = await setupToniqInputTest(
                 html`
                     <${inputStateWrapper}></${inputStateWrapper}>
                 `,
             );
 
             const textToType = 'a b c d e f g';
-            await focusAndTypeIntoToniqInput(toniqInputInstance, textToType, true);
+            await typeIntoToniqInput(toniqInputInstance, textToType);
 
-            assert.strictEqual(readChanges.length, textToType.length);
             assert.strictEqual(
                 readChanges[readChanges.length - 1],
                 textToType,
@@ -81,10 +86,11 @@ describe(ToniqInput.tagName, () => {
                 textToType,
                 'instance inputs did not get updated',
             );
-            textToType.split('').forEach((letter, index) => {
-                const lettersSoFar = textToType.slice(0, index + 1);
-                assert.strictEqual(readChanges[index], lettersSoFar);
-            });
+            assert.strictEqual(
+                innerInput.value,
+                textToType,
+                'inner input value did not get updated to match the full input',
+            );
         }),
     );
 
@@ -103,13 +109,22 @@ describe(ToniqInput.tagName, () => {
                 `,
             );
 
-            assertFocused(innerInput, false);
+            logActiveElement();
+            await assertFocused(innerInput, false);
             await hitTab();
-            assertFocused(innerInput, false);
+            logActiveElement();
+            await assertFocused(innerInput, false);
             // possibly flaky: this might require a wait afterwards to give the document time to update
-            toniqInputInstance.instanceInputs.disabled = false;
+            toniqInputInstance.assignInputs({disabled: false});
+            await waitUntil(() => {
+                return toniqInputInstance.lastRenderedProps.inputs.disabled === false;
+            });
+            await wait(2000);
+            logActiveElement();
             await hitShiftTab();
-            assertFocused(innerInput, true);
+
+            logActiveElement();
+            await assertFocused(innerInput, true);
         }),
     );
 

@@ -16,3 +16,5 @@ bash-scripts/
 index.html
 test-files/
 tsconfig*.json
+
+**/*/element-testing/

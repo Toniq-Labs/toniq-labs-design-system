@@ -1,11 +1,11 @@
+import {deleteAllTextInInput, typeStringIntoElement} from '@augment-vir/browser-testing';
 import {assert, fixture} from '@open-wc/testing';
-import {sendKeys} from '@web/test-runner-commands';
 import {assign, html, listen} from 'element-vir';
 import {TemplateResult} from 'lit';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
 import {createStateTester} from '../../element-testing/state-tester';
-import {assertFocused, hitTab} from '../../element-testing/test-focus';
+import {addSiblingSoFocusTestsWork} from '../../element-testing/test-focus';
 import {ToniqInput} from './toniq-input.element';
 
 export async function setupToniqInputTest(initialTemplate: TemplateResult) {
@@ -20,14 +20,21 @@ export async function setupToniqInputTest(initialTemplate: TemplateResult) {
     const toniqInputInstance = toniqInputInstances[0];
     assertInstanceOf(toniqInputInstance, ToniqInput);
 
-    const innerInput = queryThroughShadow('input', toniqInputInstance);
-    assertInstanceOf(innerInput, HTMLInputElement);
+    const innerInput = getInnerInput(toniqInputInstance);
+    addSiblingSoFocusTestsWork(rendered);
 
     return {
         rendered,
         toniqInputInstance,
         innerInput,
     };
+}
+
+function getInnerInput(toniqInputInstance: (typeof ToniqInput)['instanceType']) {
+    const innerInput = queryThroughShadow('input', toniqInputInstance);
+    assertInstanceOf(innerInput, HTMLInputElement);
+
+    return innerInput;
 }
 
 export async function runBlockedTextTest(
@@ -52,13 +59,13 @@ export async function runBlockedTextTest(
             ></${ToniqInput}>
         `;
     });
-    const {toniqInputInstance} = await setupToniqInputTest(
+    const {toniqInputInstance, innerInput} = await setupToniqInputTest(
         html`
             <${inputStateWrapper}></${inputStateWrapper}>
         `,
     );
 
-    const innerInput = await focusAndTypeIntoToniqInput(toniqInputInstance, textToType, false);
+    await typeStringIntoElement(textToType, toniqInputInstance as any);
 
     readChanges.forEach((changedLetter) => {
         if (blockedInputsInput instanceof RegExp) {
@@ -73,46 +80,18 @@ export async function runBlockedTextTest(
     await testCallback(innerInput.value);
 }
 
-/** This assumes that the given ToniqInput is the next element in the focus order. */
 export async function typeIntoToniqInput(
-    toniqInput: (typeof ToniqInput)['instanceType'],
+    toniqInputInstance: (typeof ToniqInput)['instanceType'],
     textToType: string,
-    checkAfterwards?: boolean,
-): Promise<HTMLInputElement> {
-    const innerInput = queryThroughShadow('input', toniqInput);
-    assertInstanceOf(innerInput, HTMLInputElement);
+    preservePreviousText?: boolean,
+) {
+    const innerInput = getInnerInput(toniqInputInstance);
 
-    assertFocused(innerInput, true, 'input element needs be focused before typing into it');
-
-    await sendKeys({
-        type: textToType,
-    });
-
-    if (checkAfterwards) {
-        assert.strictEqual(
-            innerInput.value,
-            textToType,
-            "Input element's text does not match the typed text.",
-        );
+    if (!preservePreviousText) {
+        await deleteAllTextInInput(innerInput);
     }
 
-    return innerInput;
-}
+    await typeStringIntoElement(textToType, innerInput);
 
-/** This assumes that the given ToniqInput is the next element in the focus order. */
-export async function focusAndTypeIntoToniqInput(
-    toniqInput: (typeof ToniqInput)['instanceType'],
-    textToType: string,
-    checkAfterwards?: boolean,
-): Promise<HTMLInputElement> {
-    const innerInput = queryThroughShadow('input', toniqInput);
-    assertInstanceOf(innerInput, HTMLInputElement);
-
-    assertFocused(innerInput, false, 'inner input element should not be focused yet');
-
-    await hitTab();
-
-    assertFocused(innerInput, true, 'inner input element should now be focused');
-
-    return await typeIntoToniqInput(toniqInput, textToType, checkAfterwards);
+    assert.strictEqual(innerInput.value, textToType);
 }
