@@ -1,5 +1,6 @@
 {
     "name": "@toniq-labs/design-system-root",
+    "version": "2.0.0",
     "private": true,
     "description": "Root design system mono-repo package.",
     "homepage": "https://github.com/Toniq-Labs/bioniq",
@@ -22,7 +23,7 @@
         "compile": "tsc-mono for-each npm run compile",
         "format": "virmator format",
         "postinstall": "node -e \"__dirname.includes('node_modules') && process.exit(0)\" && npm run compile",
-        "publish": "npm run test:all && npm run publish --workspaces --if-present",
+        "publish": "virmator publish \"npm run test:all\"",
         "start": "concurrently \"cd packages/demo && npm run start\" \"nodemon --config configs/nodemon.json\" ",
         "test": "npm run test --workspaces --if-present",
         "test:all": "concurrently --kill-others-on-fail \"npm run test:types\" \"npm run test:all --workspaces\" \"npm run test:spelling\" \"npm run test:format\" \"npm run test:docs\"",

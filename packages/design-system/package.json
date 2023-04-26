@@ -37,7 +37,6 @@
         "compile": "rm -rf dist && npm run compile:partial",
         "compile:partial": "tsc --project tsconfig.json && tsc --project tsconfig.cjs.json",
         "format": "virmator format",
-        "publish": "virmator publish \"npm run compile\"",
         "start": "virmator frontend",
         "test": "virmator test-web",
         "test:all": "npm test",

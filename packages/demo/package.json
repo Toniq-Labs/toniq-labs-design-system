@@ -1,5 +1,6 @@
 {
     "name": "@toniq-labs/design-system-demo",
+    "version": "2.0.0",
     "private": true,
     "author": {
         "name": "Toniq-Labs",
