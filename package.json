@@ -48,6 +48,6 @@
         "prettier-plugin-toml": "^0.3.1",
         "tsc-mono": "^2.1.2",
         "typescript": "^5.0.4",
-        "virmator": "^6.4.3"
+        "virmator": "^6.4.4"
     }
 }
