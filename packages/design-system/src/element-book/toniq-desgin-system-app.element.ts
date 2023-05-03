@@ -1,6 +1,8 @@
 import {ElementBookApp} from 'element-book';
 import {assign, css, defineElementNoInputs, html} from 'element-vir';
 import {toniqButtonBookEntries} from '../elements/toniq-button/toniq-button.element.book';
+import {toniqCheckboxBookEntries} from '../elements/toniq-checkbox/toniq-checkbox.element.book';
+import {toniqChipBookEntries} from '../elements/toniq-chip/toniq-chip.element.book';
 import {toniqElementsBookChapter} from './book-chapters/toniq-elements.book';
 import {toniqIconsBookChapter} from './book-chapters/toniq-icons.book';
 import {toniqStylesBookChapter} from './book-chapters/toniq-styles.book';
@@ -10,6 +12,8 @@ const elementBookEntries = [
     toniqIconsBookChapter,
     toniqStylesBookChapter,
     ...toniqButtonBookEntries,
+    ...toniqCheckboxBookEntries,
+    ...toniqChipBookEntries,
 ];
 
 export const ToniqDesignSystemApp = defineElementNoInputs({

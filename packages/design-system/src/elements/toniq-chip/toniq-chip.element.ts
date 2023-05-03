@@ -42,7 +42,8 @@ export const ToniqChip = defineToniqElement<{
               `
             : '';
         return html`
-            <slot>${iconTemplate}${inputs.text}</slot>
+            ${iconTemplate}
+            <slot>${inputs.text}</slot>
         `;
     },
 });
