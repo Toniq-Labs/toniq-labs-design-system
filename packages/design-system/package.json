@@ -45,7 +45,7 @@
     },
     "dependencies": {
         "@augment-vir/common": "^13.3.0",
-        "element-vir": "^12.1.1"
+        "element-vir": "^12.3.0"
     },
     "devDependencies": {
         "@augment-vir/browser": "^13.3.0",
@@ -58,11 +58,12 @@
         "@web/test-runner-commands": "^0.7.0",
         "@web/test-runner-playwright": "^0.10.0",
         "@web/test-runner-visual-regression": "^0.8.0",
+        "element-book": "^0.0.7",
         "istanbul-smart-text-reporter": "^1.1.1",
         "ts-node": "^10.9.1",
         "type-fest": "^3.9.0",
         "typescript": "^5.0.4",
-        "vite": "^4.3.2",
+        "vite": "^4.3.4",
         "vite-tsconfig-paths": "^4.2.0"
     },
     "publishConfig": {

@@ -20,11 +20,12 @@
         "./packages/*"
     ],
     "scripts": {
+        "build": "cd packages/design-system && npm run build",
         "compile": "tsc-mono for-each npm run compile",
         "format": "virmator format",
         "postinstall": "node -e \"__dirname.includes('node_modules') && process.exit(0)\" && npm run compile",
         "publish": "virmator publish \"npm run test:all\"",
-        "start": "concurrently \"cd packages/demo && npm run start\" \"nodemon --config configs/nodemon.json\" ",
+        "start": "concurrently \"cd packages/design-system && npm run start\" \"nodemon --config configs/nodemon.json\"",
         "test": "npm run test --workspaces --if-present",
         "test:all": "concurrently --kill-others-on-fail \"npm run test:types\" \"npm run test:all --workspaces\" \"npm run test:spelling\" \"npm run test:format\" \"npm run test:docs\"",
         "test:docs": "virmator code-in-markdown check README.md",
@@ -49,6 +50,6 @@
         "prettier-plugin-toml": "^0.3.1",
         "tsc-mono": "^2.1.2",
         "typescript": "^5.0.4",
-        "virmator": "^6.4.4"
+        "virmator": "^6.5.0"
     }
 }
