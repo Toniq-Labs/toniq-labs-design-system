@@ -74,7 +74,7 @@ function createChipExamples(classList: string) {
             title: 'custom size',
             styles: css`
                 ${ToniqChip} {
-                    width: 100px;
+                    width: 150px;
                     height: 24px;
                 }
             `,
