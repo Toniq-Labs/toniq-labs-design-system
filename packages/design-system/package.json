@@ -58,7 +58,7 @@
         "@web/test-runner-commands": "^0.7.0",
         "@web/test-runner-playwright": "^0.10.0",
         "@web/test-runner-visual-regression": "^0.8.0",
-        "element-book": "^0.0.7",
+        "element-book": "^0.0.10",
         "istanbul-smart-text-reporter": "^1.1.1",
         "ts-node": "^10.9.1",
         "type-fest": "^3.9.0",
