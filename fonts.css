@@ -1,0 +1,62 @@
+@font-face {
+    font-family: 'Rubik';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./fonts/rubik-regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Rubik';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./fonts/rubik-medium.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Rubik';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('./fonts/rubik-semi-bold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Rubik';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./fonts/rubik-bold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Rubik';
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+    src: url('./fonts/rubik-black.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Rubik';
+    font-style: italic;
+    font-display: swap;
+    src: url('./fonts/rubik-italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inconsolata';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('./fonts/inconsolata-black.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inconsolata';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./fonts/inconsolata-medium.woff2') format('woff2');
+}
