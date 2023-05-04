@@ -1,5 +1,5 @@
 export const toniqIconColorCssVarNames = {
-    color: `--icon-stroke-color`,
+    color: `--toniq-icon-color`,
     strokeColor: `--toniq-icon-stroke-color`,
     fillColor: `--toniq-icon-fill-color`,
 } as const;

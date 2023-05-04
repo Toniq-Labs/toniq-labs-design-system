@@ -9,7 +9,7 @@ const toniqCheckboxChapter = defineElementBookChapter({
 });
 
 const toniqCheckboxPage = defineElementBookPage({
-    title: 'toniq-checkbox',
+    title: ToniqCheckbox.tagName,
     parent: toniqCheckboxChapter,
     examples: [
         createExample({

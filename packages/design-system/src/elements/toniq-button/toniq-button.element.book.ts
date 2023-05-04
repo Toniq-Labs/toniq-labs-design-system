@@ -85,7 +85,7 @@ function createButtonExamples(classList: string) {
 
 const toniqButtonBookPages = mapObjectValues(
     ensureType<Record<string, ElementBookPageExample[]>>({
-        'toniq-button': createButtonExamples(''),
+        [ToniqButton.tagName]: createButtonExamples(''),
         [ToniqButton.hostClasses.secondary]: createButtonExamples(
             ToniqButton.hostClasses.secondary,
         ),
