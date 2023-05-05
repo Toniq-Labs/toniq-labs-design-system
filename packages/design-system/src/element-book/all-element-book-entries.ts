@@ -9,6 +9,8 @@ import {toniqRadioGroupBookEntries} from '../elements/toniq-radio-group/toniq-ra
 import {ToniqSliderBookEntries} from '../elements/toniq-slider/toniq-slider.element.book';
 import {toniqToggleButtonBookEntries} from '../elements/toniq-toggle-button/toniq-toggle-button.element.book';
 import {iconPages} from '../icons/icons.book';
+import {toniqColorsBookPage} from '../styles/colors.book';
+import {toniqFontsBookPage} from '../styles/fonts.book';
 import {toniqElementsBookChapter} from './book-chapters/toniq-elements.book';
 import {toniqIconsBookChapter} from './book-chapters/toniq-icons.book';
 import {toniqStylesBookChapter} from './book-chapters/toniq-styles.book';
@@ -28,4 +30,6 @@ export const allElementBookEntries = [
     ...toniqRadioGroupBookEntries,
     ...ToniqSliderBookEntries,
     ...toniqToggleButtonBookEntries,
+    toniqColorsBookPage,
+    toniqFontsBookPage,
 ];
