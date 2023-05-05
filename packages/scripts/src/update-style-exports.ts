@@ -17,6 +17,7 @@ export const updateStylesExports: UpdateExportsConfig = {
                 (styleFile) =>
                     !styleFile.includes('index.ts') &&
                     styleFile.endsWith('.ts') &&
+                    !styleFile.endsWith('.book.ts') &&
                     !styleFile.endsWith('.test.ts'),
             )
             .map((styleFileName) => join(stylesDir, styleFileName));
