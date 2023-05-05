@@ -44,13 +44,13 @@
         "test:watch": "wtr --watch --color --config configs/web-test-runner.config.mjs --only-one-browser"
     },
     "dependencies": {
-        "@augment-vir/common": "^13.3.0",
+        "@augment-vir/common": "^13.4.0",
         "element-vir": "^12.3.0"
     },
     "devDependencies": {
-        "@augment-vir/browser": "^13.3.0",
-        "@augment-vir/browser-testing": "^13.3.0",
-        "@augment-vir/node-js": "^13.3.0",
+        "@augment-vir/browser": "^13.4.0",
+        "@augment-vir/browser-testing": "^13.4.0",
+        "@augment-vir/node-js": "^13.4.0",
         "@open-wc/testing": "^3.1.8",
         "@types/mocha": "^10.0.1",
         "@web/dev-server-esbuild": "^0.4.1",
@@ -58,10 +58,10 @@
         "@web/test-runner-commands": "^0.7.0",
         "@web/test-runner-playwright": "^0.10.0",
         "@web/test-runner-visual-regression": "^0.8.0",
-        "element-book": "^0.0.10",
+        "element-book": "^0.0.11",
         "istanbul-smart-text-reporter": "^1.1.1",
         "ts-node": "^10.9.1",
-        "type-fest": "^3.9.0",
+        "type-fest": "^3.10.0",
         "typescript": "^5.0.4",
         "vite": "^4.3.4",
         "vite-tsconfig-paths": "^4.2.0"

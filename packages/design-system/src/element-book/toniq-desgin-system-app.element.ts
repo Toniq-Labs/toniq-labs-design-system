@@ -20,9 +20,10 @@ export const ToniqDesignSystemApp = defineElementNoInputs({
         return html`
             <${ElementBookApp}
                 ${assign(ElementBookApp, {
-                    baseRoute: 'toniq-labs-design-system',
+                    baseUrl: 'toniq-labs-design-system',
                     entries: allElementBookEntries,
                     themeColor: '#00D093',
+                    everythingTitle: 'Design System',
                 })}
             ></${ElementBookApp}>
         `;
