@@ -3,6 +3,11 @@ import {toniqCheckboxBookEntries} from '../elements/toniq-checkbox/toniq-checkbo
 import {toniqChipBookEntries} from '../elements/toniq-chip/toniq-chip.element.book';
 import {toniqDropdownBookEntries} from '../elements/toniq-dropdown/toniq-dropdown.element.book';
 import {toniqIconBookEntries} from '../elements/toniq-icon/toniq-icon.element.book';
+import {toniqInputBookEntries} from '../elements/toniq-input/toniq-input.element.book';
+import {toniqMiddleEllipsisBookEntries} from '../elements/toniq-middle-ellipsis/toniq-middle-ellipsis.element.book';
+import {toniqRadioGroupBookEntries} from '../elements/toniq-radio-group/toniq-radio-group.element.book';
+import {ToniqSliderBookEntries} from '../elements/toniq-slider/toniq-slider.element.book';
+import {toniqToggleButtonBookEntries} from '../elements/toniq-toggle-button/toniq-toggle-button.element.book';
 import {iconPages} from '../icons/icons.book';
 import {toniqElementsBookChapter} from './book-chapters/toniq-elements.book';
 import {toniqIconsBookChapter} from './book-chapters/toniq-icons.book';
@@ -18,4 +23,9 @@ export const allElementBookEntries = [
     ...toniqDropdownBookEntries,
     ...toniqIconBookEntries,
     ...iconPages,
+    ...toniqInputBookEntries,
+    ...toniqMiddleEllipsisBookEntries,
+    ...toniqRadioGroupBookEntries,
+    ...ToniqSliderBookEntries,
+    ...toniqToggleButtonBookEntries,
 ];
