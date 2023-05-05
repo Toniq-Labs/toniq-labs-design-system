@@ -63,7 +63,7 @@
         "ts-node": "^10.9.1",
         "type-fest": "^3.10.0",
         "typescript": "^5.0.4",
-        "vite": "^4.3.4",
+        "vite": "^4.3.5",
         "vite-tsconfig-paths": "^4.2.0"
     },
     "publishConfig": {
