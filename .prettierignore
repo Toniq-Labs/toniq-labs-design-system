@@ -5,3 +5,5 @@ graphics/
 node_modules/
 package-lock.json
 src/all-files-for-code-coverage.test.ts
+
+.github/PULL_REQUEST_TEMPLATE.md
