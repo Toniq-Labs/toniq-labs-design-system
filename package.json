@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system-root",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "private": true,
     "description": "Root design system mono-repo package.",
     "homepage": "https://github.com/Toniq-Labs/bioniq",
@@ -31,7 +31,8 @@
         "test:docs": "virmator code-in-markdown check README.md",
         "test:format": "virmator format check",
         "test:spelling": "virmator spellcheck",
-        "test:types": "tsc-mono for-each tsc --noEmit"
+        "test:types": "tsc-mono for-each tsc --noEmit",
+        "update:exports": "cd packages/scripts && npm run update:exports"
     },
     "devDependencies": {
         "concurrently": "^8.0.1",
