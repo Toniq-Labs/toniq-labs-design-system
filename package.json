@@ -38,7 +38,7 @@
         "cspell": "^6.31.1",
         "esbuild": "^0.17.18",
         "markdown-code-example-inserter": "^0.3.0",
-        "npm-check-updates": "^16.10.9",
+        "npm-check-updates": "^16.10.10",
         "prettier": "^2.8.8",
         "prettier-plugin-interpolated-html-tags": "^0.0.3",
         "prettier-plugin-jsdoc": "^0.4.2",
@@ -49,6 +49,6 @@
         "prettier-plugin-toml": "^0.3.1",
         "tsc-mono": "^2.1.2",
         "typescript": "^5.0.4",
-        "virmator": "^6.5.0"
+        "virmator": "^6.5.1"
     }
 }
