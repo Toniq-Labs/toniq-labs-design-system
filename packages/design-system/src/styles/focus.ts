@@ -36,6 +36,7 @@ export function createFocusStyles({
             width: calc(100% + calc(${outlineSpacing} * 2));
             height: calc(100% + calc(${outlineSpacing} * 2));
             box-sizing: border-box;
+            pointer-events: none;
             border: ${outlineWidth}px solid ${toniqColors.brandPrimary.foregroundColor};
             border-radius: 12px;
             z-index: 100;
