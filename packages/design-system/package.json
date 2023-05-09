@@ -45,7 +45,7 @@
     },
     "dependencies": {
         "@augment-vir/common": "^13.4.0",
-        "element-vir": "^12.4.2"
+        "element-vir": "^12.4.3"
     },
     "devDependencies": {
         "@augment-vir/browser": "^13.4.0",
