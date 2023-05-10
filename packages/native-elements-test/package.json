@@ -1,15 +1,12 @@
 {
     "name": "@toniq-labs/design-system-native-elements-test",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "private": true,
     "scripts": {
         "compile": "virmator compile",
         "start": "virmator frontend",
         "test": "virmator test-web",
         "test:all": "npm run test"
-    },
-    "dependencies": {
-        "@toniq-labs/design-system": "*"
     },
     "devDependencies": {
         "@open-wc/testing": "^3.1.8",

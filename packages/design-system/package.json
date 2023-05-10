@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "private": false,
     "description": "Design system elements for Toniq Labs",
     "keywords": [
@@ -45,7 +45,10 @@
     },
     "dependencies": {
         "@augment-vir/common": "^13.4.0",
+        "@electrovir/resizable-image-element": "^5.3.2",
         "element-vir": "^12.4.6",
+        "lit-css-vars": "^2.0.2",
+        "object-shape-tester": "^0.2.2",
         "scroll-snap-api": "^1.0.2"
     },
     "devDependencies": {

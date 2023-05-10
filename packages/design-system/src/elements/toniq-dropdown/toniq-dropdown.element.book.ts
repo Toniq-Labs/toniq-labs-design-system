@@ -1,13 +1,13 @@
 import {createExample, defineElementBookChapter, defineElementBookPage} from 'element-book';
 import {assign, css, html, listen} from 'element-vir';
-import {toniqElementsBookChapter} from '../../element-book/book-chapters/toniq-elements.book';
+import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {ArrowsSort24Icon} from '../../icons';
 import {toniqColorCssVarNames} from '../../styles';
 import {ToniqDropdown, ToniqDropdownOption} from './toniq-dropdown.element';
 
 const toniqDropdownChapter = defineElementBookChapter({
-    title: 'Toniq Dropdown',
-    parent: toniqElementsBookChapter,
+    title: 'Dropdown',
+    parent: elementsBookChapter,
 });
 
 const exampleDropdownOptions: ReadonlyArray<ToniqDropdownOption> = [

@@ -7,13 +7,13 @@ import {
     defineElementBookPage,
 } from 'element-book';
 import {assign, html, listen} from 'element-vir';
-import {toniqElementsBookChapter} from '../../element-book/book-chapters/toniq-elements.book';
+import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {Rocket24Icon} from '../../icons';
 import {ToniqToggleButton} from './toniq-toggle-button.element';
 
 const toniqToggleButtonBookChapter = defineElementBookChapter({
-    title: 'Toniq Toggle Button',
-    parent: toniqElementsBookChapter,
+    title: 'Toggle Button',
+    parent: elementsBookChapter,
 });
 
 function createToggleButtonExamples(classList: string) {

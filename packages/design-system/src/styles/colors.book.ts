@@ -1,7 +1,7 @@
 import {getObjectTypedKeys} from '@augment-vir/common';
 import {createExample, defineElementBookPage} from 'element-book';
 import {css, html} from 'element-vir';
-import {toniqStylesBookChapter} from '../element-book/book-chapters/toniq-styles.book';
+import {stylesBookChapter} from '../element-book/book-chapters/styles.book';
 import {extractAllCssVars} from '../element-book/book-helpers/extract-css-vars';
 import {DualColorDefinition, applyBackgroundAndForeground, toniqColors} from './colors';
 import {toniqFontStyles} from './fonts';
@@ -65,8 +65,8 @@ const toniqColorsExamples = getObjectTypedKeys(toniqColors).map((colorKey) => {
 });
 
 export const toniqColorsBookPage = defineElementBookPage({
-    title: 'Toniq Colors',
-    parent: toniqStylesBookChapter,
+    title: 'Colors',
+    parent: stylesBookChapter,
     examples: toniqColorsExamples,
     descriptionParagraphs: ['Accessed via the "toniqColors" export.'],
 });

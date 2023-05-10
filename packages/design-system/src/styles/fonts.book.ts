@@ -2,7 +2,7 @@ import {getObjectTypedKeys} from '@augment-vir/common';
 import {createExample, defineElementBookPage} from 'element-book';
 import {css, html} from 'element-vir';
 import {CSSResult} from 'lit';
-import {toniqStylesBookChapter} from '../element-book/book-chapters/toniq-styles.book';
+import {stylesBookChapter} from '../element-book/book-chapters/styles.book';
 import {extractAllCssVars} from '../element-book/book-helpers/extract-css-vars';
 import {toniqColors} from './colors';
 import {toniqFontStyles} from './fonts';
@@ -87,8 +87,8 @@ const toniqFontExamples = getObjectTypedKeys(toniqFontStyles).map((fontKey) => {
 });
 
 export const toniqFontsBookPage = defineElementBookPage({
-    title: 'Toniq Fonts',
-    parent: toniqStylesBookChapter,
+    title: 'Fonts',
+    parent: stylesBookChapter,
     examples: toniqFontExamples,
     descriptionParagraphs: ['Accessed via the "toniqFontStyles" export.'],
 });

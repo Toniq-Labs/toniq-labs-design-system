@@ -7,13 +7,13 @@ import {
     defineElementBookPage,
 } from 'element-book';
 import {assign, html} from 'element-vir';
-import {toniqElementsBookChapter} from '../../element-book/book-chapters/toniq-elements.book';
+import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {Trash24Icon} from '../../icons';
 import {ToniqButton} from './toniq-button.element';
 
 const toniqButtonBookChapter = defineElementBookChapter({
-    title: 'Toniq Button',
-    parent: toniqElementsBookChapter,
+    title: 'Button',
+    parent: elementsBookChapter,
 });
 
 function createButtonExamples(classList: string) {

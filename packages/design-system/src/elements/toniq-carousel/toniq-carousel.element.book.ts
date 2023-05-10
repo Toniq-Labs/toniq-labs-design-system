@@ -1,22 +1,22 @@
 import {randomInteger} from '@augment-vir/browser';
 import {createExample, defineElementBookChapter, defineElementBookPage} from 'element-book';
 import {assign, css, html} from 'element-vir';
-import {toniqElementsBookChapter} from '../../element-book/book-chapters/toniq-elements.book';
+import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {allIconsByCategory} from '../../icons/index';
 import {toniqColors} from '../../styles';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {ToniqCarousel} from './toniq-carousel.element';
 
 const toniqCarouselBookChapter = defineElementBookChapter({
-    title: 'Toniq Carousel',
-    parent: toniqElementsBookChapter,
+    title: 'Carousel',
+    parent: elementsBookChapter,
 });
 
 const toniqCarouselBookPage = defineElementBookPage({
     title: ToniqCarousel.tagName,
     parent: toniqCarouselBookChapter,
     descriptionParagraphs: [
-        'A carousel that will show multiple elements at once.',
+        'A carousel that can show multiple elements at once.',
         'Automatic scrolling is optional.',
     ],
     examples: [
@@ -30,7 +30,6 @@ const toniqCarouselBookPage = defineElementBookPage({
                 ${ToniqCarousel} {
                     width: 800px;
                     max-width: 100%;
-                    border: 1px solid ${toniqColors.divider.foregroundColor};
                     border-radius: 8px;
                 }
             `,
@@ -69,7 +68,6 @@ const toniqCarouselBookPage = defineElementBookPage({
                 ${ToniqCarousel} {
                     width: 800px;
                     max-width: 100%;
-                    border: 1px solid ${toniqColors.divider.foregroundColor};
                     border-radius: 8px;
                 }
             `,
@@ -107,7 +105,6 @@ const toniqCarouselBookPage = defineElementBookPage({
                 ${ToniqCarousel} {
                     width: 800px;
                     max-width: 100%;
-                    border: 1px solid ${toniqColors.divider.foregroundColor};
                     border-radius: 8px;
                 }
             `,
@@ -137,6 +134,16 @@ const toniqCarouselBookPage = defineElementBookPage({
                 `;
             },
         }),
+    ],
+});
+
+const toniqCarouselBannerBookPage = defineElementBookPage({
+    title: ToniqCarousel.hostClasses['banner-style'],
+    parent: toniqCarouselBookChapter,
+    descriptionParagraphs: [
+        `${ToniqCarousel.tagName} style for a single, full-width element.`,
+    ],
+    examples: [
         createExample({
             title: ToniqCarousel.hostClasses['banner-style'],
             styles: css`
@@ -148,6 +155,7 @@ const toniqCarouselBookPage = defineElementBookPage({
                     max-width: 100%;
                     width: 800px;
                     border-radius: 8px;
+                    ${ToniqCarousel.cssVarNames['arrow-margin']}: 16px;
                 }
             `,
             render() {
@@ -160,6 +168,7 @@ const toniqCarouselBookPage = defineElementBookPage({
                                 const styles = css`
                                     /* make sure this width matches the ToniqCarousel width */
                                     width: 800px;
+                                    max-width: 100%;
                                     padding: 100px 0;
                                     display: flex;
                                     align-items: center;
@@ -187,4 +196,5 @@ const toniqCarouselBookPage = defineElementBookPage({
 export const toniqCarouselBookEntries = [
     toniqCarouselBookChapter,
     toniqCarouselBookPage,
+    toniqCarouselBannerBookPage,
 ];

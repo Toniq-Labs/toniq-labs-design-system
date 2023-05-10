@@ -1,6 +1,6 @@
 import {defineElementBookChapter} from 'element-book';
 
-export const toniqElementsBookChapter = defineElementBookChapter({
+export const elementsBookChapter = defineElementBookChapter({
     title: 'Elements',
     parent: undefined,
 });

@@ -1,12 +1,12 @@
 import {typedMap} from '@augment-vir/common';
 import {createExample, defineElementBookChapter, defineElementBookPage} from 'element-book';
 import {assign, css, html, listen} from 'element-vir';
-import {toniqElementsBookChapter} from '../../element-book/book-chapters/toniq-elements.book';
+import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {ToniqRadioGroup, ToniqRadioGroupEntry} from './toniq-radio-group.element';
 
 const toniqRadioGroupChapter = defineElementBookChapter({
-    title: 'Toniq Radio Group',
-    parent: toniqElementsBookChapter,
+    title: 'Radio Group',
+    parent: elementsBookChapter,
 });
 
 const basicExampleEntries = [

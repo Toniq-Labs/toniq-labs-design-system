@@ -1,11 +1,11 @@
 import {createExample, defineElementBookChapter, defineElementBookPage} from 'element-book';
 import {assign, css, html} from 'element-vir';
-import {toniqElementsBookChapter} from '../../element-book/book-chapters/toniq-elements.book';
+import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {ToniqMiddleEllipsis} from './toniq-middle-ellipsis.element';
 
 const toniqMiddleEllipsisChapter = defineElementBookChapter({
-    title: 'Toniq Middle Ellipsis',
-    parent: toniqElementsBookChapter,
+    title: 'Middle Ellipsis',
+    parent: elementsBookChapter,
 });
 
 const toniqMiddleEllipsisPage = defineElementBookPage({

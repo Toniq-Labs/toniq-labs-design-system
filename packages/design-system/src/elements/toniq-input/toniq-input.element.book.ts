@@ -1,12 +1,12 @@
 import {createExample, defineElementBookChapter, defineElementBookPage} from 'element-book';
 import {assign, css, html, listen} from 'element-vir';
-import {toniqElementsBookChapter} from '../../element-book/book-chapters/toniq-elements.book';
+import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {Search24Icon} from '../../icons';
 import {ToniqInput} from './toniq-input.element';
 
 const toniqInputChapter = defineElementBookChapter({
-    title: 'Toniq Input',
-    parent: toniqElementsBookChapter,
+    title: 'Input',
+    parent: elementsBookChapter,
 });
 
 const toniqInputPage = defineElementBookPage({

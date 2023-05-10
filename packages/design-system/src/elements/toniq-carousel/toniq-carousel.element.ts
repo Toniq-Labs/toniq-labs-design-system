@@ -44,6 +44,7 @@ export const ToniqCarousel = defineToniqElement<{
             display: block;
             position: relative;
             overflow-y: hidden;
+            box-sizing: border-box;
         }
 
         /* hide scrollbars in Chrome/Safari/Webkit */
@@ -68,6 +69,10 @@ export const ToniqCarousel = defineToniqElement<{
 
         .template-wrapper {
             scroll-snap-align: center;
+            /*
+                Sometimes the edges clip just by a couple pixels, so account for that with the calc.
+            */
+            max-width: calc(100% - 2px);
         }
 
         .arrow {

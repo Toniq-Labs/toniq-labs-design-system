@@ -8,7 +8,7 @@ import {
 } from 'element-book';
 import {assign, css, html} from 'element-vir';
 import {unsafeCSS} from 'lit';
-import {toniqElementsBookChapter} from '../../element-book/book-chapters/toniq-elements.book';
+import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {CircleDot24Icon, Trash24Icon} from '../../icons';
 import {InfoCircle16Icon} from '../../icons/svgs/core-16/info-circle-16.icon';
 import {ArrowLoopRight24Icon} from '../../icons/svgs/core-24/arrow-loop-right-24.icon';
@@ -19,8 +19,8 @@ import {toniqIconColorCssVarNames} from '../../styles';
 import {ToniqIcon} from './toniq-icon.element';
 
 const toniqIconBookChapter = defineElementBookChapter({
-    title: 'Toniq Icon',
-    parent: toniqElementsBookChapter,
+    title: 'Icon',
+    parent: elementsBookChapter,
 });
 
 const toniqIconBookPages = mapObjectValues(

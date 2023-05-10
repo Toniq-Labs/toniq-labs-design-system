@@ -7,13 +7,13 @@ import {
     defineElementBookPage,
 } from 'element-book';
 import {assign, css, html} from 'element-vir';
-import {toniqElementsBookChapter} from '../../element-book/book-chapters/toniq-elements.book';
+import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {InfoCircle16Icon} from '../../icons';
 import {ToniqChip} from './toniq-chip.element';
 
 const toniqChipBookChapter = defineElementBookChapter({
-    title: 'Toniq Chip',
-    parent: toniqElementsBookChapter,
+    title: 'Chip',
+    parent: elementsBookChapter,
 });
 
 function createChipExamples(classList: string) {
