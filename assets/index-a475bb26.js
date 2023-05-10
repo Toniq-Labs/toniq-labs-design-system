@@ -514,16 +514,20 @@ var si=Object.freeze,ai=Object.defineProperty;var Ic=(e,t,r)=>t in e?ai(e,t,{enu
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
-`,v=oe()({tagName:"toniq-icon",styles:f`
+`,v=oe()({tagName:"toniq-icon",hostClasses:{"icon-fit":!1},styles:({hostClassSelectors:e})=>f`
         :host {
             display: block;
         }
         svg {
-            /* svg is set to inline by default which gives it space under the image. See: https://stackoverflow.com/a/34952703 */
+            /*
+                svg elements are set to inline by default which gives it space under the image. So 
+                we're changing it to block here.
+                See: https://stackoverflow.com/a/34952703
+            */
             display: block;
         }
 
-        :host(.toniq-icon-fit-icon) svg {
+        ${e["icon-fit"]} svg {
             height: 100%;
             width: 100%;
         }
