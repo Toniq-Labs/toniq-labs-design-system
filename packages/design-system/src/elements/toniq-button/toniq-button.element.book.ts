@@ -90,6 +90,7 @@ const toniqButtonBookPages = mapObjectValues(
             ToniqButton.hostClasses.secondary,
         ),
         [ToniqButton.hostClasses.outline]: createButtonExamples(ToniqButton.hostClasses.outline),
+        [ToniqButton.hostClasses.disabled]: createButtonExamples(ToniqButton.hostClasses.disabled),
     }),
     (key, value) => {
         return defineElementBookPage({title: key, examples: value, parent: toniqButtonBookChapter});

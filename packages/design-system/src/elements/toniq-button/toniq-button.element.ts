@@ -20,6 +20,7 @@ export const ToniqButton = defineToniqElement<{
     hostClasses: {
         secondary: false,
         outline: false,
+        disabled: false,
     },
     styles: ({hostClassSelectors, hostClassNames}) => css`
         :host {
@@ -70,6 +71,11 @@ export const ToniqButton = defineToniqElement<{
         ${hostClassSelectors.outline} button {
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
             border-color: ${toniqColors.accentPrimary.backgroundColor};
+        }
+
+        :host(.${hostClassNames.disabled}) {
+            pointer-events: none;
+            opacity: 0.3;
         }
 
         :host(.${hostClassNames.secondary}:hover) button,
