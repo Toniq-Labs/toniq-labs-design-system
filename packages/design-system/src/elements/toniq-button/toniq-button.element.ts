@@ -2,6 +2,7 @@ import {assign, css, html} from 'element-vir';
 import {ToniqSvg} from '../../icons';
 import {toniqDurations} from '../../styles/animation';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
+import {toniqDisabledStyles} from '../../styles/disabled';
 import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
 import {removeNativeFormStyles} from '../../styles/native-styles';
@@ -20,6 +21,7 @@ export const ToniqButton = defineToniqElement<{
     hostClasses: {
         secondary: false,
         outline: false,
+        disabled: false,
     },
     styles: ({hostClassSelectors, hostClassNames}) => css`
         :host {
@@ -70,6 +72,10 @@ export const ToniqButton = defineToniqElement<{
         ${hostClassSelectors.outline} button {
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
             border-color: ${toniqColors.accentPrimary.backgroundColor};
+        }
+
+        ${hostClassSelectors.disabled} {
+            ${toniqDisabledStyles};
         }
 
         :host(.${hostClassNames.secondary}:hover) button,
