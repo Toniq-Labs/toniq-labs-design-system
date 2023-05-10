@@ -74,7 +74,7 @@ export const ToniqButton = defineToniqElement<{
             border-color: ${toniqColors.accentPrimary.backgroundColor};
         }
 
-        :host(.${hostClassNames.disabled}) {
+        ${hostClassSelectors.disabled} {
             ${toniqDisabledStyles};
         }
 

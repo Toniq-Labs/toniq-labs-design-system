@@ -2,6 +2,7 @@
 
 export * from './animation';
 export * from './colors';
+export * from './disabled';
 export * from './focus';
 export * from './fonts';
 export * from './icon-colors';
