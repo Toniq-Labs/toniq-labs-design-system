@@ -2,6 +2,7 @@
 
 export * from './define-toniq-element';
 export * from './toniq-button/toniq-button.element';
+export * from './toniq-carousel/toniq-carousel.element';
 export * from './toniq-checkbox/toniq-checkbox.element';
 export * from './toniq-chip/toniq-chip.element';
 export * from './toniq-dropdown/toniq-dropdown.element';

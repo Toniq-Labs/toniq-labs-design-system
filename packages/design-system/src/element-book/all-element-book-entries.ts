@@ -1,4 +1,5 @@
 import {toniqButtonBookEntries} from '../elements/toniq-button/toniq-button.element.book';
+import {toniqCarouselBookEntries} from '../elements/toniq-carousel/toniq-carousel.element.book';
 import {toniqCheckboxBookEntries} from '../elements/toniq-checkbox/toniq-checkbox.element.book';
 import {toniqChipBookEntries} from '../elements/toniq-chip/toniq-chip.element.book';
 import {toniqDropdownBookEntries} from '../elements/toniq-dropdown/toniq-dropdown.element.book';
@@ -6,7 +7,7 @@ import {toniqIconBookEntries} from '../elements/toniq-icon/toniq-icon.element.bo
 import {toniqInputBookEntries} from '../elements/toniq-input/toniq-input.element.book';
 import {toniqMiddleEllipsisBookEntries} from '../elements/toniq-middle-ellipsis/toniq-middle-ellipsis.element.book';
 import {toniqRadioGroupBookEntries} from '../elements/toniq-radio-group/toniq-radio-group.element.book';
-import {ToniqSliderBookEntries} from '../elements/toniq-slider/toniq-slider.element.book';
+import {toniqSliderBookEntries} from '../elements/toniq-slider/toniq-slider.element.book';
 import {toniqToggleButtonBookEntries} from '../elements/toniq-toggle-button/toniq-toggle-button.element.book';
 import {iconPages} from '../icons/icons.book';
 import {toniqColorsBookPage} from '../styles/colors.book';
@@ -19,16 +20,17 @@ export const allElementBookEntries = [
     toniqElementsBookChapter,
     toniqIconsBookChapter,
     toniqStylesBookChapter,
+    ...iconPages,
     ...toniqButtonBookEntries,
+    ...toniqCarouselBookEntries,
     ...toniqCheckboxBookEntries,
     ...toniqChipBookEntries,
     ...toniqDropdownBookEntries,
     ...toniqIconBookEntries,
-    ...iconPages,
     ...toniqInputBookEntries,
     ...toniqMiddleEllipsisBookEntries,
     ...toniqRadioGroupBookEntries,
-    ...ToniqSliderBookEntries,
+    ...toniqSliderBookEntries,
     ...toniqToggleButtonBookEntries,
     toniqColorsBookPage,
     toniqFontsBookPage,

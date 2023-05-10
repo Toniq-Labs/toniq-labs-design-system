@@ -274,7 +274,7 @@ const toniqSliderPage = defineElementBookPage({
     ],
 });
 
-export const ToniqSliderBookEntries = [
+export const toniqSliderBookEntries = [
     toniqSliderChapter,
     toniqSliderPage,
 ];

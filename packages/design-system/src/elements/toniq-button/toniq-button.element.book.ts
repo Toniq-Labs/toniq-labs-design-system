@@ -45,6 +45,34 @@ function createButtonExamples(classList: string) {
             },
         }),
         createExample({
+            title: 'Toggling icon',
+            stateInit: {
+                showIcon: true,
+            },
+            render({state, updateState}) {
+                setTimeout(() => {
+                    updateState({showIcon: !state.showIcon});
+                }, 1000);
+
+                return html`
+                    <${ToniqButton}
+                        class=${classList}
+                        ${assign(
+                            ToniqButton,
+                            state.showIcon
+                                ? {
+                                      icon: Trash24Icon,
+                                      text: 'icon',
+                                  }
+                                : {
+                                      text: 'no icon',
+                                  },
+                        )}
+                    ></${ToniqButton}>
+                `;
+            },
+        }),
+        createExample({
             title: 'Text + Icon',
             render() {
                 return html`
@@ -84,7 +112,7 @@ function createButtonExamples(classList: string) {
 }
 
 const toniqButtonBookPages = mapObjectValues(
-    ensureType<Record<string, ElementBookPageExample[]>>({
+    ensureType<Record<string, ElementBookPageExample<any>[]>>({
         [ToniqButton.tagName]: createButtonExamples(''),
         [ToniqButton.hostClasses.secondary]: createButtonExamples(
             ToniqButton.hostClasses.secondary,

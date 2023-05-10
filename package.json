@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system-root",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "private": true,
     "description": "Root design system mono-repo package.",
     "homepage": "https://github.com/Toniq-Labs/bioniq",
@@ -20,7 +20,7 @@
         "./packages/*"
     ],
     "scripts": {
-        "build": "cd packages/design-system && npm run build",
+        "build": "npm run compile && cd packages/design-system && npm run build",
         "compile": "tsc-mono for-each npm run compile",
         "format": "virmator format",
         "postinstall": "node -e \"__dirname.includes('node_modules') && process.exit(0)\" && npm run compile",
@@ -39,7 +39,7 @@
         "cspell": "^6.31.1",
         "esbuild": "^0.17.18",
         "markdown-code-example-inserter": "^0.3.0",
-        "npm-check-updates": "^16.10.10",
+        "npm-check-updates": "^16.10.12",
         "prettier": "^2.8.8",
         "prettier-plugin-interpolated-html-tags": "^0.0.3",
         "prettier-plugin-jsdoc": "^0.4.2",
