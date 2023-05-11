@@ -50,10 +50,19 @@ export async function getElementFilePaths(): Promise<string[]> {
             return child.stats.isDirectory();
         })
         .map((child) => child.childName);
-    const allElementFilePaths = allElementDirectoryNames.map((elementDir) => {
-        const fileName = `${elementDir}.element.ts`;
-        return join(elementsDir, elementDir, fileName);
-    });
+    const allElementFilePaths = (
+        await Promise.all(
+            allElementDirectoryNames.map(async (elementDirName) => {
+                const elementDir = join(elementsDir, elementDirName);
+                const elementDirChildren = await readdir(elementDir);
+
+                const elementFileNames = elementDirChildren.filter((child) =>
+                    child.endsWith('.element.ts'),
+                );
+                return elementFileNames.map((childFileName) => join(elementDir, childFileName));
+            }),
+        )
+    ).flat();
     await verifyElementFilePaths(allElementFilePaths);
     return allElementFilePaths;
 }
