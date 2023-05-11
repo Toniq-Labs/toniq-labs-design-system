@@ -2,6 +2,7 @@ import {createExample, defineElementBookChapter, defineElementBookPage} from 'el
 import {assign, css, html, listen} from 'element-vir';
 import {emptySocialUrls} from '../../data/social-urls';
 import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
+import {createElementBookUrl} from '../../element-book/book-helpers/create-element-book-url';
 import {ToniqFeaturedFlipCard} from './toniq-featured-flip-card.element';
 import {ToniqFlipCard} from './toniq-flip-card.element';
 
@@ -10,7 +11,7 @@ const toniqFlipCardBookChapter = defineElementBookChapter({
     parent: elementsBookChapter,
 });
 
-const imageUrls = Array(30).fill('/toniq-labs-logo.png');
+const imageUrls = Array(30).fill(createElementBookUrl('/toniq-labs-logo.png'));
 const moreInfoParagraphs = [
     'Hello there.',
     'There is stuff here.',
