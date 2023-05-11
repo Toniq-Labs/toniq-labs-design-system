@@ -15,7 +15,7 @@ export const ToniqDesignSystemApp = defineElementNoInputs({
         ${ElementBookApp} {
             height: 100%;
             width: 100%;
-            ${toniqFontStyles.toniqFont};
+            ${toniqFontStyles.paragraphFont};
         }
     `,
     renderCallback() {
