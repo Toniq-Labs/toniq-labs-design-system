@@ -1,5 +1,6 @@
 import {ElementBookApp} from 'element-book';
 import {assign, css, defineElementNoInputs, html} from 'element-vir';
+import {toniqFontStyles} from '../styles';
 import {allElementBookEntries} from './all-element-book-entries';
 
 export const ToniqDesignSystemApp = defineElementNoInputs({
@@ -14,6 +15,7 @@ export const ToniqDesignSystemApp = defineElementNoInputs({
         ${ElementBookApp} {
             height: 100%;
             width: 100%;
+            ${toniqFontStyles.toniqFont};
         }
     `,
     renderCallback() {
