@@ -36,6 +36,14 @@ export const ToniqFlipCard = defineToniqElement<{flipped: boolean}>()({
             transform: rotateY(180deg);
         }
 
+        .flip-wrapper.flipped .card-face.front {
+            pointer-events: none;
+        }
+
+        .flip-wrapper.flipped .card-face.back {
+            pointer-events: auto;
+        }
+
         ${makeDropShadowCardStyles('.card-face', false)}
 
         .card-face {
@@ -52,6 +60,7 @@ export const ToniqFlipCard = defineToniqElement<{flipped: boolean}>()({
         .card-face.back {
             position: absolute;
             transform: rotateY(180deg);
+            pointer-events: none;
         }
     `,
     renderCallback: ({inputs, dispatch, events}) => {
