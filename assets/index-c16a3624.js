@@ -2566,1059 +2566,7 @@ var ai=Object.freeze,li=Object.defineProperty;var Lc=(e,t,r)=>t in e?li(e,t,{enu
                             `)}
                 </div>
             </button>
-        `}}),je=oe()({tagName:"toniq-flip-card",events:{flippedChange:ue()},styles:f`
-        :host {
-            max-width: 100%;
-            display: inline-block;
-            perspective: 1200px;
-            position: relative;
-            border-radius: 16px;
-            box-sizing: border-box;
-        }
-
-        * {
-            border-radius: inherit;
-            box-sizing: border-box;
-        }
-
-        .flip-wrapper {
-            height: 100%;
-            width: 100%;
-            position: relative;
-            transition: transform 600ms;
-            transform-style: preserve-3d;
-            will-change: transform;
-        }
-
-        .flip-wrapper.flipped {
-            transform: rotateY(180deg);
-        }
-
-        ${Nu(".card-face",!1)}
-
-        .card-face {
-            height: 100%;
-            width: 100%;
-            top: 0;
-            left: 0;
-            padding: 0;
-            overflow: hidden;
-            backface-visibility: hidden;
-            background-color: ${S.pagePrimary.backgroundColor};
-        }
-
-        .card-face.back {
-            position: absolute;
-            transform: rotateY(180deg);
-        }
-    `,renderCallback:({inputs:e,dispatch:t,events:r})=>h`
-            <div
-                class="flip-wrapper ${Me({flipped:e.flipped})}"
-                ${A("click",()=>{t(new r.flippedChange(!e.flipped))})}
-            >
-                <div class="card-face front"><slot name="front"></slot></div>
-                <div class="card-face back"><slot name="back"></slot></div>
-            </div>
-        `}),He=oe()({tagName:"toniq-hyperlink",hostClasses:{"with-hover-styles":!1},styles:({hostClassSelectors:e})=>f`
-        :host {
-            display: inline;
-            text-decoration: underline;
-        }
-
-        a,
-        a:visited,
-        a:active,
-        a:link,
-        a:hover {
-            color: inherit;
-            text-decoration: inherit;
-            white-space: inherit;
-        }
-
-        ${e["with-hover-styles"]}:hover a, ${e["with-hover-styles"]} a:hover {
-            color: ${S.pageInteraction.foregroundColor};
-        }
-
-        ${e["with-hover-styles"]}:active a, ${e["with-hover-styles"]} a:active {
-            color: ${S.pageInteractionActive.foregroundColor};
-        }
-    `,renderCallback({inputs:e}){return e.newTab?h`
-                <a href=${e.url} target="_blank" rel="noopener noreferrer"><slot></slot></a>
-            `:h`
-                <a href=${e.url}><slot></slot></a>
-            `}});function ko({input:e,matcher:t}){return!e||!t?!0:e.length>1?!!e.split("").every(r=>ko({input:r,matcher:t})):t instanceof RegExp?!!e.match(t):t.includes(e)}function Dl({value:e,allowed:t,blocked:r}){const n=t?ko({input:e,matcher:t}):!0,o=r?ko({input:e,matcher:r}):!1;return n&&!o}function _s(e){if(!e.value)return{filtered:e.value,blocked:""};const{filtered:t,blocked:r}=e.value.split("").reduce((n,o)=>(Dl({...e,value:o})?n.filtered.push(o):n.blocked.push(o),n),{filtered:[],blocked:[]});return{filtered:t.join(""),blocked:r.join("")}}const T=oe()({tagName:"toniq-input",hostClasses:{outline:!1,hasAValue:({inputs:e})=>!!e.value},events:{valueChange:ue(),inputBlocked:ue()},styles:({hostClassNames:e,hostClassSelectors:t})=>f`
-            :host {
-                position: relative;
-                display: inline-flex;
-                width: 224px;
-                box-sizing: border-box;
-            }
-
-            .focus-border {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                border-radius: ${bo};
-                z-index: 0;
-                pointer-events: none;
-            }
-
-            ${t.outline} label {
-                background-color: ${S.pagePrimary.backgroundColor};
-                border: 1px solid ${S.pageTertiary.foregroundColor};
-            }
-
-            ${t.outline} ${v} {
-                color: ${S.pageSecondary.foregroundColor};
-            }
-
-            :host(.${e.hasAValue}.${e.outline}) ${v} {
-                color: ${S.pagePrimary.foregroundColor};
-            }
-
-            ${t.outline} input::placeholder {
-                color: ${S.pageSecondary.foregroundColor};
-            }
-
-            label {
-                max-width: 100%;
-                flex-grow: 1;
-                cursor: pointer;
-                display: inline-flex;
-                box-sizing: border-box;
-                align-items: center;
-                position: relative;
-                padding: 12px 16px;
-                border-radius: ${bo};
-                background-color: ${S.accentTertiary.backgroundColor};
-                font: ${q.paragraphFont};
-            }
-
-            ${Qe({mainSelector:"input:focus:focus-visible:not(:active) ~ .focus-border",elementBorderSize:0})}
-
-            ${v} {
-                margin-right: 10px;
-            }
-
-            input {
-                ${et};
-                flex-grow: 1;
-                max-width: 100%;
-                /* fix input element not shrinking by default */
-                width: 0;
-                text-overflow: ellipsis;
-                overflow: hidden;
-            }
-
-            input:placeholder-shown {
-                text-overflow: ellipsis;
-                overflow: hidden;
-            }
-
-            input:focus {
-                outline: none;
-            }
-
-            input::placeholder {
-                color: ${S.accentTertiary.foregroundColor};
-            }
-        `,renderCallback:({inputs:e,dispatch:t,events:r})=>{const{filtered:n}=_s({value:e.value??"",allowed:e.allowedInputs,blocked:e.blockedInputs}),o=e.icon?h`
-                  <${v} ${g(v,{icon:e.icon})}></${v}>
-              `:"";return h`
-            <label>
-                ${o}
-                <input
-                    autocomplete=${e.disableBrowserHelps?"off":""}
-                    autocorrect=${e.disableBrowserHelps?"off":""}
-                    autocapitalize=${e.disableBrowserHelps?"off":""}
-                    spellcheck=${e.disableBrowserHelps?"false":""}
-                    ?disabled=${e.disabled}
-                    .value=${n}
-                    ${A("input",i=>{if(!(i instanceof InputEvent))throw new Error(`Input event type mismatch: "${i.constructor.name}"`);const s=i.target;if(!(s instanceof HTMLInputElement))throw new Error("Failed to find input element target from input event.");const a=i.data,l=n;let c=s.value??"";if(a)if(a.length===1)Dl({value:a,allowed:e.allowedInputs,blocked:e.blockedInputs})||(c=l,t(new r.inputBlocked(a)));else{const{filtered:u,blocked:d}=_s({value:a,allowed:e.allowedInputs,blocked:e.blockedInputs});c=u,t(new r.inputBlocked(d))}s.value!==c&&(s.value=c),l!==c&&t(new r.valueChange(c))})}
-                    placeholder=${e.placeholder}
-                />
-                <div class="focus-border"></div>
-            </label>
-        `}});T.hostClasses.outline;async function D2(e){return navigator.clipboard.writeText(e)}const F2="…";function Z2(e,t){const r=e.slice(0,t).trim(),n=e.slice(-1*t).trim();return`${r}${F2}${n}`}function V2(e){return!(e%1)}function W2(e){return e.letterCount==null?4:V2(e.letterCount)?e.letterCount<1?1:e.letterCount:Math.floor(e.letterCount)}const W=oe()({tagName:"toniq-middle-ellipsis",events:{copied:ue()},cssVars:{textColor:S.pagePrimary.foregroundColor,iconColor:S.pagePrimary.foregroundColor,textHoverColor:S.pageInteraction.foregroundColor,iconHoverColor:S.pageInteraction.foregroundColor},styles:({hostClassNames:e,cssVarValues:t})=>f`
-        :host {
-            /* 5 frames at 60 fps */
-            transition: ${Q.interaction};
-            ${q.paragraphFont};
-            color: ${t.textColor};
-        }
-
-        :host,
-        .text-wrapper {
-            display: inline-flex;
-            align-items: center;
-        }
-
-        :host(.${e.clickable}:hover) {
-            color: ${t.textHoverColor};
-        }
-
-        :host(.${e.clickable}:hover) ${v} {
-            color: ${t.iconHoverColor};
-        }
-
-        ${v} {
-            margin-left: 4px;
-            color: ${t.iconColor};
-        }
-
-        .copyable {
-            cursor: pointer;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-            border-radius: 8px;
-            position: relative;
-            outline: none;
-        }
-        a:visited {
-            color: inherit;
-        }
-
-        button {
-            ${et};
-            border-radius: 8px;
-            position: relative;
-            outline: none;
-        }
-
-        ${Qe({mainSelector:"button:focus:focus-visible:not(:active)",elementBorderSize:0})}
-
-        .text-content {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .copied-text {
-            box-shadow: 0 0 20px 100px ${S.pagePrimary.backgroundColor};
-            background-color: ${S.pagePrimary.backgroundColor};
-            display: flex;
-            position: absolute;
-            height: 100%;
-            right: 0;
-            max-width: 100%;
-            pointer-events: none;
-            transition: opacity ${Q.interaction};
-            opacity: 0;
-        }
-
-        .show-copied-text {
-            opacity: 1;
-        }
-    `,hostClasses:{clickable:({inputs:e})=>!!e.externalLink||!!e.copyOnClick},stateInit:{showCopiedTextTimeoutId:void 0},renderCallback:({inputs:e,dispatch:t,events:r,state:n,updateState:o})=>{if(!e.text)return h``;const i=e.text,s=W2(e),a=!!e.externalLink,l=!!e.copyOnClick,c=i.length>s*2+2,u=c?Z2(i,s):i,d=c?i:"",p=a?El:l?Il:void 0,w=p?h`
-                  <${v} ${g(v,{icon:p})}></${v}>
-              `:"",m=h`
-            <span title=${d} class="text-content">
-                ${ht(!!e.copyOnClick,h`
-                        <span
-                            class=${Me({"copied-text":!0,"show-copied-text":n.showCopiedTextTimeoutId!=null})}
-                        >
-                            Copied!
-                        </span>
-                    `)}
-                ${u}
-            </span>
-        `;return u?a?h`
-                    <button
-                        tabindex="0"
-                        role="link"
-                        ${A("click",k=>{var C,M;const b=(M=(C=k.currentTarget)==null?void 0:C.querySelector)==null?void 0:M.call(C,"a");if(!b)throw new Error("Failed to find link anchor tag for middle ellipsis element link.");b.click()})}
-                        class="link-wrapper"
-                    >
-                        <!--
-                            This <a> element has no tabindex because the button above should be
-                            focused in stead. This is a workaround for the fact that Safari does not
-                            support tab-focus for <a> elements.
-                        -->
-                        <a
-                            tabindex="-1"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-wrapper"
-                            href=${e.externalLink}
-                            title=${d}
-                        >
-                            ${m} ${w}
-                        </a>
-                    </button>
-                `:l?h`
-                    <button
-                        class="text-wrapper copyable"
-                        ${A("click",async()=>{await D2(i),t(new r.copied),n.showCopiedTextTimeoutId!=null&&window.clearTimeout(n.showCopiedTextTimeoutId),o({showCopiedTextTimeoutId:window.setTimeout(()=>{o({showCopiedTextTimeoutId:void 0})},5e3)})})}
-                    >
-                        ${m} ${w}
-                    </button>
-                `:h`
-                    ${m}
-                `:h``}}),Rs="...";function q2(e,t,r=7,n=5){let o;e=Gt(e,1,t),r=Gt(r,n,t);const i=r-5,s=r-3;t<=r?o=r:o=e<s||e>t-s?s:i;const a={start:Math.round(e-o/2),end:Math.round(e+o/2)};(a.start-1===1||a.end+1===t)&&(a.start+=1,a.end+=1);const l=e>t-s&&t>r?Nn(t-o,t):e>o?Nn(Math.min(a.start,t-o),Math.min(a.end,t)):Nn(1,Math.min(t,o+1));function c(d,p){return l.length+1!==t?p:[d]}const u=l[l.length-1];if(u&&u<t){const d=c(t,[Rs,t]);return[...l,...d]}else return l[0]!==1?c(1,[1,Rs]).concat(l):l}function Nn(e,t){const r=t-e+1;return Array.from({length:r},(n,o)=>e+o)}oe()({tagName:"toniq-pagination",styles:f`
-        :host {
-            display: flex;
-        }
-
-        button {
-            ${et}
-        }
-
-        button,
-        .page {
-            display: flex;
-            align-items: center;
-            ${pt};
-            justify-content: center;
-        }
-
-        .control {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 8px;
-            padding: 4px;
-            border-radius: 8px;
-            ${O(S.accentSecondary)};
-        }
-
-        .control:hover {
-            ${O(S.accentPrimary)};
-        }
-
-        .control[disabled] {
-            pointer-events: none;
-            ${O(S.accentTertiary)};
-        }
-
-        .page {
-            position: relative;
-            width: 32px;
-            height: 32px;
-            ${q.labelFont}
-            padding: 0;
-        }
-
-        .page:not(.selected):not([disabled]):hover {
-            ${O(S.pageInteraction)};
-        }
-
-        .page.selected {
-            color: white;
-            ${O(S.accentPrimary)};
-            border-radius: 16px;
-        }
-    `,events:{pageChange:ue()},renderCallback:({inputs:e,events:t,dispatch:r})=>e.pageCount<=1?h``:h`
-                <button
-                    ${A("click",()=>{e.currentPage>1&&r(new t.pageChange(e.currentPage-1))})}
-                    class="control"
-                    ?disabled=${e.currentPage<=1}
-                >
-                    <${v} ${g(v,{icon:Jo})}></${v}>
-                </button>
-                ${q2(e.currentPage,e.pageCount,e.pagesShown).map(n=>typeof n=="string"?h`
-                                <div class="page" disabled>${n}</div>
-                            `:h`
-                                <button
-                                    class=${Me({page:!0,selected:e.currentPage===n})}
-                                    ?disabled=${e.currentPage===n}
-                                    ${A("click",()=>{r(new t.pageChange(n))})}
-                                >
-                                    ${n}
-                                </button>
-                            `)}
-                <button
-                    ${A("click",()=>{e.currentPage<e.pageCount&&r(new t.pageChange(e.currentPage+1))})}
-                    class="control"
-                    ?disabled=${e.currentPage>=e.pageCount}
-                >
-                    <${v} ${g(v,{icon:Xo})}></${v}>
-                </button>
-            `});function U2({min:e,max:t}){return e>t?{min:t,max:e}:{min:e,max:t}}const G2=["january","february","march","april","may","june","july","august","september","october","november","december"];G2.map(e=>e.slice(0,3));const Fl=globalThis.crypto;function Y2({min:e,max:t}){const{min:r,max:n}=U2({min:Math.floor(e),max:Math.floor(t)}),o=n-r+1,i=Math.ceil(Math.log2(o)/8),s=Math.floor(256**i/o)*o,a=new Uint8Array(i);let l;do Fl.getRandomValues(a),l=a.reduce((c,u,d)=>c+u*256**d,0);while(l>=s);return r+l%o}function Zl(e=16){const t=Math.ceil(e/2),r=new Uint8Array(t);return Fl.getRandomValues(r),Array.from(r).map(n=>n.toString(16).padStart(2,"0")).join("").substring(0,e)}function Br(e){return String(e).endsWith("px")?String(e):`${e}px`}const j=oe()({tagName:"toniq-radio-group",stateInit:{randomGroupName:""},events:{valueChange:ue()},cssVars:{uncheckedRadioColor:String(ve("pagePrimary","foregroundColor")),uncheckedLabelColor:String(ve("pagePrimary","foregroundColor")),checkedRadioColor:String(ve("accentPrimary","backgroundColor")),checkedLabelColor:String(ve("pageInteraction","foregroundColor")),disabledColor:String(ve("pageSecondary","foregroundColor"))},styles:({cssVarValues:e})=>f`
-        :host {
-            ${q.boldParagraphFont};
-            display: inline-flex;
-            transition: color ${Q.interaction},
-                background-color ${Q.interaction},
-                opacity ${Q.interaction};
-            flex-direction: column;
-            gap: 24px;
-            text-align: left;
-        }
-
-        .wrapper,
-        input {
-            cursor: pointer;
-        }
-
-        .label {
-            text-align: inherit;
-        }
-
-        .wrapper {
-            color: ${e.uncheckedLabelColor};
-            display: flex;
-            align-items: center;
-            position: relative;
-            border-color: ${e.checkedRadioColor};
-            outline: none;
-            text-align: inherit;
-        }
-
-        button {
-            ${et}
-        }
-
-        input {
-            visibility: hidden;
-            position: absolute;
-        }
-
-        .wrapper::before {
-            flex-shrink: 0;
-            display: inline-block;
-            position: relative;
-            content: '';
-            height: 18px;
-            width: 18px;
-            box-sizing: border-box;
-            padding: 3px;
-            margin-right: 8px;
-            border: 2px solid ${e.uncheckedRadioColor};
-            border-radius: 50%;
-            transition: ${Q.interaction};
-            --color-stop: -10%;
-            background-image: radial-gradient(
-                ${e.checkedRadioColor} var(--color-stop),
-                rgba(255, 255, 255, 0) calc(var(--color-stop) + 15%)
-            );
-        }
-
-        .wrapper:not(.disabled):hover::before {
-            border-color: inherit;
-            opacity: 0.5;
-        }
-
-        .wrapper:not(.disabled):active::before {
-            border-color: inherit;
-            opacity: 1;
-        }
-
-        .wrapper:not(.disabled).checked::before {
-            --color-stop: 35%;
-            border-color: inherit;
-        }
-
-        ${Qe({mainSelector:".wrapper:focus:focus-visible:not(:active)",elementBorderSize:0})}
-
-        .wrapper.checked {
-            color: ${e.checkedLabelColor};
-        }
-
-        .wrapper.disabled {
-            color: ${e.disabledColor};
-            cursor: not-allowed;
-        }
-
-        .wrapper.disabled::before {
-            border-color: ${e.disabledColor};
-        }
-    `,initCallback:({updateState:e})=>{e({randomGroupName:Zl()})},renderCallback:({inputs:e,dispatch:t,events:r,state:n})=>J2(e.entries).map(i=>X2(e.groupName||n.randomGroupName,e.value,i,()=>{t(new r.valueChange(i.value))}))});function J2(e){const t=Object.fromEntries(e.map(n=>[n.value,n]));return Object.values(t).length!==e.length&&console.error(`${j.tagName} was given duplicate entry values.`),Object.values(t)}function X2(e,t,r,n){const o=t===r.value,i=h`
-        <slot name=${r.value} class="label">
-            <span class="label">${r.label||r.value}</span>
-        </slot>
-    `;return h`
-        <button
-            ?disabled=${r.disabled}
-            tabindex="0"
-            class=${Me({disabled:!!r.disabled,checked:o&&!r.disabled,wrapper:!0})}
-            ${A("click",()=>{n()})}
-        >
-            <input
-                ${A("input",()=>{n()})}
-                type="radio"
-                name=${e}
-                ?checked=${o}
-            />
-            ${i}
-        </button>
-    `}const R={lowerLabelWrapper:"lower-label-wrapper",upperLabelWrapper:"upper-label-wrapper",labelPercentMarginWrapper:"label-percent-wrapper",labelPixelMarginWrapper:"label-pixel-wrapper",labelOuterWrapper:"label-outer-wrapper",rightAlignedLabelWrapper:"label-right-wrapper",range:"range",lowerSlider:"lower-slider",upperSlider:"upper-slider",slider:"slider"},Ot={label:"label",upperLabel:"upper-label",lowerLabel:"upper-label",slider:"slider"};function K2(e){var n,o;const t=(n=e.shadowRoot)==null?void 0:n.querySelector(`.${R.lowerLabelWrapper} .${R.labelPercentMarginWrapper}`),r=(o=e.shadowRoot)==null?void 0:o.querySelector(`.${R.upperLabelWrapper} .${R.labelPercentMarginWrapper}`);if(r instanceof HTMLElement&&t instanceof HTMLElement){const i=t.getBoundingClientRect(),s=r.getBoundingClientRect();return{lower:i,upper:s}}else return}function Q2(e,t=8){const r=K2(e);if(!r)return 0;const n=r.lower.right-r.upper.left+t;return Math.max(0,n)}function Hn({value:e,limits:t,flip:r}){const o=(t.max-e)/(t.max-t.min)*100;return-(r?100-o:o)}function ar(e){return gu(e)&&e.min!==void 0&&e.max!==void 0}function Co(e){var r;const t=(r=e.shadowRoot)==null?void 0:r.querySelector(`.${R.range}`);return(t==null?void 0:t.clientWidth)??0}function On(e,t,r){return`${r?yu(e):e} ${t}`}function eh({min:e,max:t}){return e>t?{min:t,max:e}:{min:e,max:t}}function th({value:e,double:t,min:r,max:n}){return t?ar(e)?{min:Gt(e.min,r,Math.min(e.max,n)),max:Gt(e.max,Math.max(e.min,r),n)}:{min:r,max:n}:ar(e)?r:Gt(e,r,n)}function rh({actualValue:e,actualLimits:t,logScale:r,logRange:n}){return r?{elementValue:ar(e)?{min:zn(n,e.min),max:zn(n,e.max)}:zn(n,e),elementLimits:{min:0,max:n.length-1}}:{elementValue:e,elementLimits:t}}function Dn(e,t,r){return r?t[e]||0:e}function nh(e){return{actualLimits:eh(e),actualValue:th(e)}}function oh(e,t){var n,o,i;let r=!1;if(ar(e)){const s=(n=t.shadowRoot)==null?void 0:n.querySelector(`.${R.lowerSlider}`),a=(o=t.shadowRoot)==null?void 0:o.querySelector(`.${R.upperSlider}`);s instanceof HTMLInputElement&&a instanceof HTMLInputElement&&(Number(s.value)!==e.min&&(s.value=String(e.min),r=!0),Number(a.value)!==e.max&&(a.value=String(e.max),r=!0))}else{const s=(i=t.shadowRoot)==null?void 0:i.querySelector(`.${R.slider}`);s instanceof HTMLInputElement&&Number(s.value)!==e&&(s.value=String(e),r=!0)}return r}function Vl(e,t){const{actualValue:r,actualLimits:n}=nh({...e}),o=Cu(n.min,n.max),i=e.logScale??!1,s=e.suffix??"",{elementValue:a,elementLimits:l}=rh({actualValue:r,actualLimits:n,logScale:i,logRange:o}),c=Co(t);return{actualValue:r,elementLimits:l,elementValue:a,isLogScale:i,logRange:o,rangeWidth:c,suffix:s}}const it=16,zs=f`
-    ${it}px
-`,js=f`
-    -webkit-appearance: none;
-    position: relative;
-    border: none;
-    height: ${zs};
-    width: ${zs};
-    z-index: 10;
-    cursor: pointer;
-    pointer-events: all;
-    border-radius: 10px;
-    transition: ${Q.interaction};
-    ${O(S.accentPrimary)};
-`,Ns=f`
-    transform: scale(1.2);
-`;function Zt(e){requestAnimationFrame(()=>{const t=Vl(e.instanceInputs,e).elementValue;oh(t,e)&&(e.setAttribute("disabled","true"),Zt(e))})}const L=oe()({tagName:"toniq-slider",stateInit:{rangeWidth:0,labelOverlap:0,internalValue:-1},events:{valueChange:ue()},styles:f`
-        :host {
-            display: block;
-        }
-
-        .${B(R.range)} {
-            display: flex;
-            height: 8px;
-            width: 100%;
-            border-radius: 4px;
-            margin: 0;
-            margin-bottom: 48px;
-            position: relative;
-            ${O(S.accentSecondary)};
-        }
-
-        .progress {
-            position: absolute;
-            height: 8px;
-            z-index: 1;
-            pointer-events: none;
-            border-radius: 4px;
-            ${O(S.accentPrimary)};
-        }
-
-        .${B(R.labelOuterWrapper)} {
-            position: absolute;
-            z-index: 1;
-            margin-top: 16px;
-            display: flex;
-            width: max-content;
-            ${q.boldParagraphFont};
-            ${pt};
-        }
-
-        .${B(R.labelPixelMarginWrapper)},
-            .${B(R.labelPercentMarginWrapper)} {
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        .${B(R.rightAlignedLabelWrapper)} {
-            justify-content: flex-end;
-        }
-
-        .${B(R.slider)} {
-            -webkit-appearance: none;
-            height: 8px;
-            width: 100%;
-            background-color: transparent;
-            margin: 0;
-            position: relative;
-            outline: none;
-        }
-
-        /* this does not work in firefox */
-        ${Qe({mainSelector:".slider:focus:focus-visible:not(:active)",elementBorderSize:0,outlineGap:6})}
-
-        .${B(R.lowerSlider)},
-        .${B(R.upperSlider)} {
-            position: absolute;
-            left: 0;
-            pointer-events: none;
-        }
-
-        .slider-wrapper {
-            position: relative;
-            width: 100%;
-        }
-
-        /* these selectors fail if combined with a comma */
-        .${B(R.slider)}::-moz-range-thumb {
-            ${js}
-        }
-
-        /* these selectors fail if combined with a comma */
-        .${B(R.slider)}::-webkit-slider-thumb {
-            ${js}
-        }
-
-        /* these selectors fail if combined with a comma */
-        .${B(R.slider)}::-webkit-slider-thumb:hover {
-            ${Ns}
-        }
-
-        /* these selectors fail if combined with a comma */
-        .${B(R.slider)}::-moz-range-thumb:hover {
-            ${Ns}
-        }
-    `,initCallback:({host:e})=>{e.addEventListener("mousemove",()=>{Zt(e)}),e.addEventListener("keydown",()=>{Zt(e)}),e.addEventListener("keyup",()=>{Zt(e)})},renderCallback:({inputs:e,host:t,events:r,dispatch:n,state:o,updateState:i})=>{const{actualValue:s,logRange:a,isLogScale:l,suffix:c,elementValue:u,elementLimits:d,rangeWidth:p}=Vl({...e},t);if(Zt(t),ar(u))return w(s,u,d);return k(s,u,d);function w(b,C,M){const _={left:St((p-it)*(C.min-M.min)/(M.max-M.min)+it/2),right:St((p-it)*(M.max-C.max)/(M.max-M.min)+it/2)},X=On(b.min,c,l),he=On(b.max,c,l);requestAnimationFrame(()=>{const pe=Q2(t);pe!==o.labelOverlap&&i({labelOverlap:pe})});const Le=(M.max-C.max)/(M.max-M.min)>.5,Fe=Hn({value:C.min,limits:{min:M.min,max:C.max},flip:!0}),ie=Hn({value:C.max,limits:{min:C.min,max:M.max},flip:!1}),tt=o.labelOverlap&&Le?o.labelOverlap:0,br=o.labelOverlap&&!Le?o.labelOverlap:0;return h`
-                <div
-                    class="range"
-                    ${to(()=>{i({rangeWidth:Co(t)})})}
-                >
-                    <div
-                        class="progress"
-                        style="left: ${_.left}; right:${_.right}"
-                    ></div>
-                    <span
-                        class="${R.labelOuterWrapper} ${R.lowerLabelWrapper}"
-                        style="left: ${_.left}"
-                    >
-                        <span
-                            class="${R.labelPercentMarginWrapper}"
-                            style="margin-left: ${Rn(Fe)}"
-                        >
-                            <span
-                                class="${R.labelPixelMarginWrapper}"
-                                style="margin-right: ${St(br)}"
-                                ${At(Ot.lowerLabel)}
-                            >
-                                ${X}
-                            </span>
-                        </span>
-                    </span>
-                    <span
-                        class="${R.labelOuterWrapper} ${R.upperLabelWrapper} ${R.rightAlignedLabelWrapper}"
-                        style="right: ${_.right}"
-                    >
-                        <span
-                            class="${R.labelPercentMarginWrapper}"
-                            style="margin-right: ${Rn(ie)}"
-                        >
-                            <span
-                                class="${R.labelPixelMarginWrapper}"
-                                style="margin-left: ${St(tt)}"
-                                ${At(Ot.upperLabel)}
-                            >
-                                ${he}
-                            </span>
-                        </span>
-                    </span>
-                    <div class="slider-wrapper">
-                        <input
-                            ?disabled=${e.disabled??!1}
-                            type="range"
-                            step=${e.step}
-                            class="${R.lowerSlider} ${R.slider}"
-                            .min=${M.min}
-                            .max=${M.max}
-                            .value=${C.min}
-                            ${A("input",pe=>{const mt=pe.target,Rt={...b,min:Dn(Number(mt.value),a,l)};m(Rt)})}
-                        />
-                        <input
-                            ?disabled=${e.disabled??!1}
-                            type="range"
-                            class="${R.upperSlider} ${R.slider}"
-                            step=${e.step}
-                            .min=${M.min}
-                            .max=${M.max}
-                            .value=${C.max}
-                            ${At(Ot.slider)}
-                            ${A("input",pe=>{const mt=pe.target,Rt={...b,max:Dn(Number(mt.value),a,l)};m(Rt)})}
-                        />
-                    </div>
-                </div>
-            `}function m(b){i({internalValue:b}),e.disabled||n(new r.valueChange(b))}function k(b,C,M){const _=St((p-it)*(M.max-C)/(M.max-M.min)+it/2),X=On(b,c,l),he=Hn({value:C,limits:M,flip:!1});return h`
-                <div
-                    class="range"
-                    ${to(()=>{i({rangeWidth:Co(t)})})}
-                >
-                    <div class="progress" style="left: 0px; right: ${_}"></div>
-                    <span
-                        class="${R.labelOuterWrapper} ${R.rightAlignedLabelWrapper}"
-                        style="right: ${_}"
-                    >
-                        <span
-                            class="${R.labelPercentMarginWrapper}"
-                            style="margin-right: ${Rn(he)}"
-                            ${At(Ot.label)}
-                        >
-                            ${X}
-                        </span>
-                    </span>
-                    <input
-                        ?disabled=${e.disabled??!1}
-                        type="range"
-                        class="${R.slider}"
-                        step=${e.step}
-                        .min=${M.min}
-                        .max=${M.max}
-                        .value=${C}
-                        ${At(Ot.slider)}
-                        ${A("input",Le=>{const Fe=Le.target,ie=Dn(Number(Fe.value),a,l);m(ie)})}
-                    />
-                </div>
-            `}}}),ge=oe()({tagName:"toniq-toggle-button",hostClasses:{textOnly:!1},styles:({hostClassNames:e,hostClassSelectors:t})=>f`
-        :host {
-            ${q.boldParagraphFont};
-            ${pt};
-            display: inline-flex;
-            vertical-align: middle;
-        }
-
-        button {
-            ${et};
-            border: 0;
-            display: inline-flex;
-            cursor: pointer;
-            align-items: center;
-            position: relative;
-            outline: none;
-
-            -webkit-tap-highlight-color: transparent;
-            border-radius: 8px;
-            padding: 4px 12px;
-
-            ${O(S.accentSecondary)};
-            transition: color ${Q.interaction},
-                background-color ${Q.interaction};
-        }
-
-        ${Qe({mainSelector:"button:focus:focus-visible:not(:active)",elementBorderSize:0})}
-
-        button.toggled {
-            ${O(S.accentPrimary)};
-        }
-
-        :host(:hover) button {
-            ${O(S.accentPrimary)};
-        }
-
-        :host(:hover) button.toggled {
-            ${O(S.accentPrimaryHover)};
-        }
-
-        :host(:active) button.toggled {
-            ${O(S.accentPrimaryActive)};
-        }
-
-        ${t.textOnly} button {
-            ${O(S.pagePrimary)};
-            border: 1px solid transparent;
-            background: none;
-        }
-        ${t.textOnly} button.toggled {
-            ${O(S.pageInteraction)};
-            border-color: ${S.pageInteraction.foregroundColor};
-            background: none;
-        }
-        :host(.${e.textOnly}:hover) button.toggled {
-            ${O(S.pageInteractionHover)};
-        }
-        :host(.${e.textOnly}:hover) button {
-            color: ${S.pageInteraction.foregroundColor};
-        }
-        :host(.${e.textOnly}:active) button.toggled {
-            ${O(S.pageInteractionActive)};
-        }
-        ${t.textOnly} button {
-            padding: 0 8px;
-        }
-
-        .icon-template + .text-template {
-            margin-left: 8px;
-        }
-    `,renderCallback:({inputs:e})=>{const t=e.icon?h`
-                  <${v}
-                      class="icon-template"
-                      ${g(v,{icon:e.icon})}
-                  ></${v}>
-              `:"",r=e.text?h`
-                  <span class="text-template">${e.text}</span>
-              `:"";return h`
-            <button
-                class="${e.toggled?"toggled":""}"
-                role="checkbox"
-                aria-checked=${e.toggled}
-            >
-                ${t} ${r}
-            </button>
-        `}});function ih(e,t){return e.includes(t)}const sh=["january","february","march","april","may","june","july","august","september","october","november","december"];sh.map(e=>e.slice(0,3));function Wl(e){return!!e&&typeof e=="object"}const ah=[(e,t)=>t in e,(e,t)=>t in e.constructor.prototype];function Hr(e,t){return e?ah.some(r=>{try{return r(e,t)}catch{return!1}}):!1}function Hs(e){let t;try{t=Reflect.ownKeys(e)}catch{}return t??[...Object.keys(e),...Object.getOwnPropertySymbols(e)]}function lh(e){return Array.isArray(e)?"array":typeof e}function ql(e,t){return lh(e)===t}function ch(e,t){let r=!1;const n=Hs(e).reduce((o,i)=>{const s=t(i,e[i],e);return s instanceof Promise&&(r=!0),{...o,[i]:s}},{});return r?new Promise(async(o,i)=>{try{await Promise.all(Hs(n).map(async s=>{const a=await n[s];n[s]=a})),o(n)}catch(s){i(s)}}):n}const Ul=Symbol("and"),Gl=Symbol("or"),Yl=Symbol("exact"),Jl=Symbol("enum"),Xl=Symbol("unknown"),Kl="__vir__shape__definition__key__do__not__use__in__actual__objects";function dh(e){return Hr(e,Kl)}const uh="__vir__shape__specifier__key__do__not__use__in__actual__objects",hh=[Ul,Gl,Yl,Jl,Xl];function ph(e){return wr(e,Gl)}function fh(e){return wr(e,Ul)}function gh(e){return wr(e,Yl)}function mh(e){return wr(e,Jl)}function vh(e){return wr(e,Xl)}function wr(e,t){const r=Ql(e);return!!r&&r.specifierType===t}function Ql(e){if(Wl(e)&&Hr(e,uh)){if(!Hr(e,"parts")||!ql(e.parts,"array"))throw new Error("Found a shape specifier but its parts are not valid.");if(!Hr(e,"specifierType")||!ih(hh,e.specifierType))throw new Error("Found a shape specifier but its specifier type is not valid.");return e}}function So(e){return Mo(e)}function Mo(e){const t=Ql(e);if(t){if(ph(t)||gh(t))return Mo(t.parts[0]);if(fh(t))return t.parts.reduce((r,n)=>Object.assign(r,Mo(n)),{});if(mh(t))return Object.values(t.parts[0])[0];if(vh(t))return"unknown";throw new Error(`found specifier but it matches no expected specifiers: ${String(t.specifierType)}`)}return dh(e)?So(e.shape):e instanceof RegExp||ql(e,"array")?e:Wl(e)?ch(e,(r,n)=>So(n)):e}function wh(e){return{shape:e,get runTimeType(){throw new Error("runTimeType cannot be used as a value, it is only for types.")},defaultValue:So(e),[Kl]:!0}}const bh=wh({Discord:"",Instagram:"",Telegram:"",TikTok:"",Twitch:"",Twitter:"",website:""}),$h=bh.defaultValue,ec={Discord:Rl,Instagram:zl,Telegram:jl,TikTok:Nl,Twitch:Hl,Twitter:Ol,website:Al},yh=J({title:"Social Urls",parent:fl,examples:[{title:"Icons",styles:f`
-                :host {
-                    display: flex;
-                    gap: 32px;
-                }
-
-                .social-icon-wrapper {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 8px;
-                }
-
-                .social-name {
-                    ${O(S.pageSecondary)};
-                }
-            `,render(){return Object.entries(ec).map(([e,t])=>h`
-                            <div class="social-icon-wrapper">
-                                <span class="social-name">${e}</span>
-                                <${v} ${g(v,{icon:t})}></${v}>
-                            </div>
-                        `)}}]}),le=ee({title:"Elements",parent:void 0}),tc=ee({title:"Button",parent:le});function _r(e){return[{title:"Text",render(){return h`
-                    <${H}
-                        class=${e}
-                        ${g(H,{text:"Button"})}
-                    ></${H}>
-                `}},{title:"Icon",render(){return h`
-                    <${H}
-                        class=${e}
-                        ${g(H,{icon:Jt})}
-                    ></${H}>
-                `}},{title:"Toggling icon",stateInit:{showIcon:!0},render({state:t,updateState:r}){return setTimeout(()=>{r({showIcon:!t.showIcon})},1e3),h`
-                    <${H}
-                        class=${e}
-                        ${g(H,t.showIcon?{icon:Jt,text:"icon"}:{text:"no icon"})}
-                    ></${H}>
-                `}},{title:"Text + Icon",render(){return h`
-                    <${H}
-                        class=${e}
-                        ${g(H,{text:"Button",icon:Jt})}
-                    ></${H}>
-                `}},{title:"HTML child",render(){return h`
-                    <${H} class=${e} ${g(H,{})}>
-                        <span>HTML Child</span>
-                    </${H}>
-                `}},{title:"Sizable",render(){return h`
-                    <${H}
-                        class=${e}
-                        style="height: 100px; width: 200px;"
-                        ${g(H,{text:"bigger"})}
-                    ></${H}>
-                `}}]}const xh=Pe({[H.tagName]:_r(""),[H.hostClasses.secondary]:_r(H.hostClasses.secondary),[H.hostClasses.outline]:_r(H.hostClasses.outline),[H.hostClasses.disabled]:_r(H.hostClasses.disabled)},(e,t)=>J({title:e,examples:t,parent:tc})),kh=[tc,...Object.values(xh)],Ko=ee({title:"Carousel",parent:le}),Ch=J({title:V.tagName,parent:Ko,descriptionParagraphs:["A carousel that can show multiple elements at once.","Automatic scrolling is optional."],examples:[{title:"short and fast",styles:f`
-                :host {
-                    max-width: 100%;
-                }
-
-                ${V} {
-                    width: 800px;
-                    max-width: 100%;
-                    border-radius: 8px;
-                }
-            `,render(){return h`
-                    <${V}
-                        ${g(V,{enableAutomaticCycling:!0,cycleIntervalMs:1e3,templates:Xt["core-24"].map(e=>{const t=f`
-                                    padding: 24px;
-                                    border: 1px solid ${S.pageInteraction.foregroundColor};
-                                    border-radius: 12px;
-                                `;return h`
-                                    <${v}
-                                        style=${t}
-                                        ${g(v,{icon:e})}
-                                    ></${v}>
-                                `})})}
-                    ></${V}>
-                `}},{title:"tall",styles:f`
-                :host {
-                    max-width: 100%;
-                }
-
-                ${V} {
-                    width: 800px;
-                    max-width: 100%;
-                    border-radius: 8px;
-                }
-            `,render(){return h`
-                    <${V}
-                        ${g(V,{enableAutomaticCycling:!0,templates:Xt["core-24"].map(e=>{const t=f`
-                                    padding: 100px 24px;
-                                    border: 1px solid ${S.pageInteraction.foregroundColor};
-                                    border-radius: 12px;
-                                `;return h`
-                                    <${v}
-                                        style=${t}
-                                        ${g(v,{icon:e})}
-                                    ></${v}>
-                                `})})}
-                    ></${V}>
-                `}},{title:"random sizes",styles:f`
-                :host {
-                    max-width: 100%;
-                }
-
-                ${V} {
-                    width: 800px;
-                    max-width: 100%;
-                    border-radius: 8px;
-                }
-            `,render(){return h`
-                    <${V}
-                        ${g(V,{enableAutomaticCycling:!0,cycleIntervalMs:1e3,templates:Xt["core-24"].map(e=>{const t=Y2({min:0,max:150}),r=f`
-                                    padding: 100px ${t}px;
-                                    border: 1px solid ${S.pageInteraction.foregroundColor};
-                                    border-radius: 12px;
-                                `;return h`
-                                    <${v}
-                                        style=${r}
-                                        ${g(v,{icon:e})}
-                                    ></${v}>
-                                `})})}
-                    ></${V}>
-                `}}]}),Sh=J({title:V.hostClasses["banner-style"],parent:Ko,descriptionParagraphs:[`${V.tagName} style for a single, full-width element.`],examples:[{title:V.hostClasses["banner-style"],styles:f`
-                :host {
-                    max-width: 100%;
-                }
-
-                ${V} {
-                    max-width: 100%;
-                    width: 800px;
-                    border-radius: 8px;
-                    ${V.cssVarNames["arrow-margin"]}: 16px;
-                }
-            `,render(){return h`
-                    <${V}
-                        class=${V.hostClasses["banner-style"]}
-                        ${g(V,{enableAutomaticCycling:!0,templates:Xt["core-24"].map(e=>{const t=f`
-                                    /* make sure this width matches the ToniqCarousel width */
-                                    width: 800px;
-                                    max-width: 100%;
-                                    padding: 100px 0;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    box-sizing: border-box;
-                                    border: 1px solid ${S.pageInteraction.foregroundColor};
-                                    border-radius: 12px;
-                                `;return h`
-                                    <${v}
-                                        style=${t}
-                                        ${g(v,{icon:e})}
-                                    ></${v}>
-                                `})})}
-                    ></${V}>
-                `}}]}),Mh=[Ko,Ch,Sh],rc=ee({title:"Checkbox",parent:le}),Ah=J({title:z.tagName,parent:rc,examples:[{title:"Unchecked",stateInit:{checked:!1},render({state:e,updateState:t}){return h`
-                    <${z}
-                        ${g(z,{checked:e.checked,text:"My Checkbox"})}
-                        ${A(z.events.checkedChange,r=>{t({checked:r.detail})})}
-                    ></${z}>
-                `}},{title:"Checked",stateInit:{checked:!0},render({state:e,updateState:t}){return h`
-                    <${z}
-                        ${g(z,{checked:e.checked,text:"My Checkbox"})}
-                        ${A(z.events.checkedChange,r=>{t({checked:r.detail})})}
-                    ></${z}>
-                `}},{title:"HTML Child",stateInit:{checked:!1},render({state:e,updateState:t}){return h`
-                    <${z}
-                        ${g(z,{checked:e.checked})}
-                        ${A(z.events.checkedChange,r=>{t({checked:r.detail})})}
-                    >
-                        With HTML Child
-                    </${z}>
-                `}},{title:"Custom CSS Vars",stateInit:{checked:!1},styles:f`
-                :host {
-                    ${z.cssVarNames.uncheckedCheckboxColor}: red;
-                    ${z.cssVarNames.uncheckedLabelColor}: orange;
-                    ${z.cssVarNames.checkedCheckboxColor}: green;
-                    ${z.cssVarNames.checkedCheckColor}: blue;
-                    ${z.cssVarNames.checkedLabelColor}: purple;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 16px;
-                }
-            `,render({state:e,updateState:t}){return h`
-                    <${z}
-                        ${g(z,{checked:e.checked,text:"wild colors"})}
-                        ${A(z.events.checkedChange,r=>{t({checked:r.detail})})}
-                    ></${z}>
-                    <${z}
-                        ${g(z,{checked:!e.checked,text:`wild colors (${e.checked?"unchecked":"checked"})`})}
-                        ${A(z.events.checkedChange,r=>{t({checked:!r.detail})})}
-                    ></${z}>
-                `}},{title:"Multiple",stateInit:{checkedShort:!1,checkedLong:!1},styles:f`
-                :host {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 16px;
-                    max-width: 250px;
-                }
-            `,render({state:e,updateState:t}){return h`
-                    <${z}
-                        ${g(z,{checked:e.checkedShort,text:"Short"})}
-                        ${A(z.events.checkedChange,r=>{t({checkedShort:r.detail})})}
-                    ></${z}>
-                    <${z}
-                        ${g(z,{checked:e.checkedLong,text:"With much longer checkbox label string"})}
-                        ${A(z.events.checkedChange,r=>{t({checkedLong:r.detail})})}
-                    ></${z}>
-                `}}]}),Ih=[rc,Ah],nc=ee({title:"Chip",parent:le});function Os(e){return[{title:"Text",render(){return h`
-                    <${Y}
-                        class=${e}
-                        ${g(Y,{text:"Toniq Chip Text"})}
-                    ></${Y}>
-                `}},{title:"Text + Icon",render(){return h`
-                    <${Y}
-                        class=${e}
-                        ${g(Y,{text:"Toniq Chip Text",icon:Yt})}
-                    ></${Y}>
-                `}},{title:"HTML Child",render(){return h`
-                    <${Y} class=${e} ${g(Y,{})}>
-                        Slot in Use
-                    </${Y}>
-                `}},{title:"HTML + Icon",render(){return h`
-                    <${Y}
-                        class=${e}
-                        ${g(Y,{icon:Yt})}
-                    >
-                        Slot in Use
-                    </${Y}>
-                `}},{title:"custom size",styles:f`
-                ${Y} {
-                    width: 150px;
-                    height: 24px;
-                }
-            `,render(){return h`
-                    <${Y}
-                        class=${e}
-                        ${g(Y,{icon:Yt})}
-                    >
-                        Slot in Use
-                    </${Y}>
-                `}}]}const Eh=Pe({[Y.tagName]:Os(""),[Y.hostClasses.secondary]:Os(Y.hostClasses.secondary)},(e,t)=>J({title:e,examples:t,parent:nc})),Th=[nc,...Object.values(Eh)],oc=ee({title:"Dropdown",parent:le}),Ze=[{label:"Option 1",value:1},{label:"Option 2",value:2},{label:"Option 3",value:3},{label:"Really really super duper long option",value:4}],Ph=J({title:N.tagName,parent:oc,examples:[{title:"Default",stateInit:{selected:void 0},render({state:e,updateState:t}){return h`
-                    <${N}
-                        ${g(N,{options:Ze,selected:e.selected})}
-                        ${A(N.events.selectChange,r=>{t({selected:r.detail})})}
-                    ></${N}>
-                `}},{title:"With Icon",stateInit:{selected:void 0},render({state:e,updateState:t}){return h`
-                    <${N}
-                        ${g(N,{options:Ze,selected:e.selected,icon:$o})}
-                        ${A(N.events.selectChange,r=>{t({selected:r.detail})})}
-                    ></${N}>
-                `}},{title:"With Icon + Prefix",stateInit:{selected:void 0},render({state:e,updateState:t}){return h`
-                    <${N}
-                        ${g(N,{options:Ze,selected:e.selected,icon:$o,selectedLabelPrefix:"Sort By:"})}
-                        ${A(N.events.selectChange,r=>{t({selected:r.detail})})}
-                    ></${N}>
-                `}},{title:"Defaulted to an option",stateInit:{selected:Ze[3]},render({state:e,updateState:t}){return h`
-                    <${N}
-                        ${g(N,{options:Ze,selected:e.selected})}
-                        ${A(N.events.selectChange,r=>{t({selected:r.detail})})}
-                    ></${N}>
-                `}},{title:"Custom size",stateInit:{selected:void 0},styles:f`
-                ${N} {
-                    width: 500px;
-                    height: 100px;
-                }
-            `,render({state:e,updateState:t}){return h`
-                    <${N}
-                        ${g(N,{options:Ze,selected:e.selected})}
-                        ${A(N.events.selectChange,r=>{t({selected:r.detail})})}
-                    ></${N}>
-                `}},{title:"Squished",stateInit:{selected:void 0},styles:f`
-                ${N} {
-                    max-height: 20px;
-                    min-height: 20px;
-                }
-            `,render({state:e,updateState:t}){return h`
-                    <${N}
-                        ${g(N,{options:Ze,selected:e.selected})}
-                        ${A(N.events.selectChange,r=>{t({selected:r.detail})})}
-                    ></${N}>
-                `}},{title:"No background",stateInit:{selected:void 0},styles:f`
-                ${N} {
-                    ${Go.accentSecondary.backgroundColor}: transparent;
-                }
-            `,render({state:e,updateState:t}){return h`
-                    <${N}
-                        ${g(N,{options:Ze,selected:e.selected})}
-                        ${A(N.events.selectChange,r=>{t({selected:r.detail})})}
-                    ></${N}>
-                `}}]}),Lh=[oc,Ph],Ds="/toniq-labs-design-system";function Bh(...e){const r=[globalThis.location.pathname.startsWith(Ds)?Ds:"",...e].filter(vl);return mu(...r)}function ic(e){return e.replace(/\n/g," ").trim().replace(/\s{2,}/g," ")}function _h({value:e,min:t,max:r}){return Math.max(Math.min(e,r),t)}const Rh=["january","february","march","april","may","june","july","august","september","october","november","december"];Rh.map(e=>e.slice(0,3));function sc(e){return e?e instanceof Error?e.message:String(e):""}function Fn(e){return e instanceof Error?e:new Error(sc(e))}function zh(e){return!!e}function jh(e){return!!e&&typeof e=="object"}const Nh=[(e,t)=>t in e,(e,t)=>t in e.constructor.prototype];function Ao(e,t){return e?Nh.some(r=>{try{return r(e,t)}catch{return!1}}):!1}function Bt(e){let t;try{t=Reflect.ownKeys(e)}catch{}return t??[...Object.keys(e),...Object.getOwnPropertySymbols(e)]}function Hh(e){return Bt(e).map(t=>e[t])}function ac(e,t,r=!1,n={}){const o=Bt(e),i=new Set(Bt(t));if(!r){const s=o.filter(a=>!i.has(a));if(s.length)throw new Error(`Test object has extra keys: ${s.join(", ")}`)}i.forEach(s=>{if(!Ao(e,s))throw new Error(`test object does not have key "${String(s)}" from expected shape.`);function a(u){throw new Error(`test object value at key "${String(s)}" did not match expected shape: ${u}`)}const l=e[s],c=t[s];n[s]||lc(l,c,a,r,n[s]??{})})}function lc(e,t,r,n,o){var a;const i=typeof e,s=typeof t;i!==s&&r(`type "${i}" did not match expected type "${s}"`);try{Ao(t,"constructor")&&(!Ao(e,"constructor")||e.constructor!==t.constructor)&&r(`constructor "${(a=e==null?void 0:e.constructor)==null?void 0:a.name}" did not match expected constructor "${t.constructor}"`)}catch(l){if(l instanceof r)throw l}Array.isArray(t)?(Array.isArray(e)||r("expected an array"),e.forEach((l,c)=>{if(t.map(d=>{try{lc(l,d,r,n,o);return}catch(p){return new Error(`entry at index "${c}" did not match expected shape: ${sc(p)}`)}}).filter(zh).length===t.length)throw new Error(`entry at index "${c}" did not match any of the possible types from "${t.join(", ")}"`)})):jh(t)&&ac(e,t,n,o)}function Qo(e){return Array.isArray(e)?"array":typeof e}function Kr(e,t){return Qo(e)===t}function Oh(e,t,r){if(!Kr(e,t))throw new TypeError(`'${r}' is of type '${Qo(e)}' but type '${t}' was expected.`)}function Fs({jsonString:e,errorHandler:t,shapeMatcher:r}){try{const n=JSON.parse(e);return r!=null&&(Kr(r,"object")?ac(n,r):Oh(n,Qo(r),"parsedJson")),n}catch(n){if(t)return t(n);throw n}}function Dh(e,t){return Bt(e).filter(n=>{const o=e[n];return t(n,o,e)}).reduce((n,o)=>(n[o]=e[o],n),{})}function Fh(e,t){return Dh(e,r=>!t.includes(r))}function cc(e,t){let r=!1;const n=Bt(e).reduce((o,i)=>{const s=t(i,e[i],e);return s instanceof Promise&&(r=!0),{...o,[i]:s}},{});return r?new Promise(async(o,i)=>{try{await Promise.all(Bt(n).map(async s=>{const a=await n[s];n[s]=a})),o(n)}catch(s){i(s)}}):n}function Zs(e){const t=ei();return e!==1/0&&setTimeout(()=>{t.resolve()},e<=0?0:e),t.promise}class Zh extends Error{constructor(t,r=`Promised timed out after ${t} ms.`){super(r),this.durationMs=t,this.message=r,this.name="PromiseTimeoutError"}}function Vh(e,t){return new Promise(async(r,n)=>{const o=e===1/0?void 0:setTimeout(()=>{n(new Zh(e))},e);try{const i=await t;r(i)}catch(i){n(i)}finally{clearTimeout(o)}})}function ei(){let e,t,r=!1;const n=new Promise((o,i)=>{e=s=>(r=!0,o(s)),t=s=>{r=!0,i(s)}});if(!e||!t)throw new Error(`Reject and resolve callbacks were not set by the promise constructor for ${ei.name}.`);return{promise:n,resolve:e,reject:t,isSettled(){return r}}}function Wh(e,t){return e<t}function qh(e,t){return e>t}const Vs={width:250,height:250};function Uh({constraint:e,box:t,constraintType:r="max"}){return(r==="max"?qh:Wh)(t.width/t.height,e.width/e.height)?"width":"height"}function Zn({box:e,constraint:t,constraintType:r}){const n=Uh({box:e,constraint:t,constraintType:r});return t[n]/e[n]}function dc({box:e,ratio:t}){return cc(e,(r,n)=>n*t)}function Io({box:e,min:t,max:r}){return cc(e,(n,o)=>_h({value:o,min:(t==null?void 0:t[n])??0,max:(r==null?void 0:r[n])??1/0}))}function uc({min:e,max:t,box:r}){const n=hc({min:e,max:t,box:r}),o=dc({box:r,ratio:n});return{height:Math.floor(o.height||(e==null?void 0:e.height)||Vs.height),width:Math.floor(o.width||(e==null?void 0:e.width)||Vs.width)}}function hc({min:e,max:t,box:r}){if(!e&&!t)return 1;const n=e?Zn({box:r,constraint:e,constraintType:"min"}):1,o=t?Zn({box:r,constraint:t,constraintType:"max"}):1,i=n>1?n:o<1?o:1,s=dc({ratio:i,box:r});return(e?Zn({box:s,constraint:e,constraintType:"min"}):1)>1?n:i}function Gh(e){return e.replace(/\n/g," ").trim().replace(/\s{2,}/g," ")}const Yh=["january","february","march","april","may","june","july","august","september","october","november","december"];Yh.map(e=>e.slice(0,3));function lt(e){if("templateString"in e)return e.templateString;const{strings:t,values:r}=e;if((!t||!(t!=null&&t.length))&&(!r||!r.length))return"";const n=[...r||[],""],i=(t??[""]).map((s,a)=>{const l=Jh(s,n[a]);return`${s}${l}`});return Gh(i.join(""))}function Jh(e,t){return t._$litType$!=null||t._$litDirective$!=null?lt(t):Array.isArray(t)?t.map(n=>lt(n)).join(""):e.endsWith("=")?`"${t}"`:t}function Xh(e){const t=Kh(e);return Kr(t,"object")||Kr(t,"array")}function Kh(e){const t=Fs({jsonString:e,errorHandler:()=>{}});if(t)return t;const r=Qh(e);return Fs({jsonString:r,errorHandler:()=>{}})}function Qh(e){return ic(e).replace(/,\s*([}\]])/,"$1")}var E;(function(e){e.Html="html",e.Text="text",e.Json="json",e.Svg="svg",e.Image="image",e.Video="video",e.Audio="audio",e.Pdf="pdf"})(E||(E={}));const ep=[E.Text,E.Json];function Ws(e){return ep.includes(e)}async function tp(e,t){return e.includes("video")?E.Video:e.includes("svg")||t.includes("<svg")?E.Svg:e.includes("html")||t.includes("<html")?E.Html:Xh(t)?E.Json:e.includes("json")||e.includes("yaml")||e.includes("yml")||e.includes("pgp-signature")||e.includes("text")||e.includes("txt")?E.Text:e.includes("audio")?E.Audio:e.includes("pdf")?E.Pdf:E.Image}function rp({imageType:e,imageText:t,imageUrl:r,blockAutoPlay:n}){return e===E.Image?lt(h`
+        `}});function Dl(e){return e.replace(/\n/g," ").trim().replace(/\s{2,}/g," ")}function D2({value:e,min:t,max:r}){return Math.max(Math.min(e,r),t)}const F2=["january","february","march","april","may","june","july","august","september","october","november","december"];F2.map(e=>e.slice(0,3));function Fl(e){return e?e instanceof Error?e.message:String(e):""}function Nn(e){return e instanceof Error?e:new Error(Fl(e))}function Z2(e){return!!e}function V2(e){return!!e&&typeof e=="object"}const W2=[(e,t)=>t in e,(e,t)=>t in e.constructor.prototype];function ko(e,t){return e?W2.some(r=>{try{return r(e,t)}catch{return!1}}):!1}function Bt(e){let t;try{t=Reflect.ownKeys(e)}catch{}return t??[...Object.keys(e),...Object.getOwnPropertySymbols(e)]}function q2(e){return Bt(e).map(t=>e[t])}function Zl(e,t,r=!1,n={}){const o=Bt(e),i=new Set(Bt(t));if(!r){const s=o.filter(a=>!i.has(a));if(s.length)throw new Error(`Test object has extra keys: ${s.join(", ")}`)}i.forEach(s=>{if(!ko(e,s))throw new Error(`test object does not have key "${String(s)}" from expected shape.`);function a(u){throw new Error(`test object value at key "${String(s)}" did not match expected shape: ${u}`)}const l=e[s],c=t[s];n[s]||Vl(l,c,a,r,n[s]??{})})}function Vl(e,t,r,n,o){var a;const i=typeof e,s=typeof t;i!==s&&r(`type "${i}" did not match expected type "${s}"`);try{ko(t,"constructor")&&(!ko(e,"constructor")||e.constructor!==t.constructor)&&r(`constructor "${(a=e==null?void 0:e.constructor)==null?void 0:a.name}" did not match expected constructor "${t.constructor}"`)}catch(l){if(l instanceof r)throw l}Array.isArray(t)?(Array.isArray(e)||r("expected an array"),e.forEach((l,c)=>{if(t.map(d=>{try{Vl(l,d,r,n,o);return}catch(p){return new Error(`entry at index "${c}" did not match expected shape: ${Fl(p)}`)}}).filter(Z2).length===t.length)throw new Error(`entry at index "${c}" did not match any of the possible types from "${t.join(", ")}"`)})):V2(t)&&Zl(e,t,n,o)}function Ko(e){return Array.isArray(e)?"array":typeof e}function Kr(e,t){return Ko(e)===t}function U2(e,t,r){if(!Kr(e,t))throw new TypeError(`'${r}' is of type '${Ko(e)}' but type '${t}' was expected.`)}function _s({jsonString:e,errorHandler:t,shapeMatcher:r}){try{const n=JSON.parse(e);return r!=null&&(Kr(r,"object")?Zl(n,r):U2(n,Ko(r),"parsedJson")),n}catch(n){if(t)return t(n);throw n}}function G2(e,t){return Bt(e).filter(n=>{const o=e[n];return t(n,o,e)}).reduce((n,o)=>(n[o]=e[o],n),{})}function Y2(e,t){return G2(e,r=>!t.includes(r))}function Wl(e,t){let r=!1;const n=Bt(e).reduce((o,i)=>{const s=t(i,e[i],e);return s instanceof Promise&&(r=!0),{...o,[i]:s}},{});return r?new Promise(async(o,i)=>{try{await Promise.all(Bt(n).map(async s=>{const a=await n[s];n[s]=a})),o(n)}catch(s){i(s)}}):n}function Rs(e){const t=Qo();return e!==1/0&&setTimeout(()=>{t.resolve()},e<=0?0:e),t.promise}class J2 extends Error{constructor(t,r=`Promised timed out after ${t} ms.`){super(r),this.durationMs=t,this.message=r,this.name="PromiseTimeoutError"}}function X2(e,t){return new Promise(async(r,n)=>{const o=e===1/0?void 0:setTimeout(()=>{n(new J2(e))},e);try{const i=await t;r(i)}catch(i){n(i)}finally{clearTimeout(o)}})}function Qo(){let e,t,r=!1;const n=new Promise((o,i)=>{e=s=>(r=!0,o(s)),t=s=>{r=!0,i(s)}});if(!e||!t)throw new Error(`Reject and resolve callbacks were not set by the promise constructor for ${Qo.name}.`);return{promise:n,resolve:e,reject:t,isSettled(){return r}}}function K2(e,t){return e<t}function Q2(e,t){return e>t}const zs={width:250,height:250};function eh({constraint:e,box:t,constraintType:r="max"}){return(r==="max"?Q2:K2)(t.width/t.height,e.width/e.height)?"width":"height"}function Hn({box:e,constraint:t,constraintType:r}){const n=eh({box:e,constraint:t,constraintType:r});return t[n]/e[n]}function ql({box:e,ratio:t}){return Wl(e,(r,n)=>n*t)}function Co({box:e,min:t,max:r}){return Wl(e,(n,o)=>D2({value:o,min:(t==null?void 0:t[n])??0,max:(r==null?void 0:r[n])??1/0}))}function Ul({min:e,max:t,box:r}){const n=Gl({min:e,max:t,box:r}),o=ql({box:r,ratio:n});return{height:Math.floor(o.height||(e==null?void 0:e.height)||zs.height),width:Math.floor(o.width||(e==null?void 0:e.width)||zs.width)}}function Gl({min:e,max:t,box:r}){if(!e&&!t)return 1;const n=e?Hn({box:r,constraint:e,constraintType:"min"}):1,o=t?Hn({box:r,constraint:t,constraintType:"max"}):1,i=n>1?n:o<1?o:1,s=ql({ratio:i,box:r});return(e?Hn({box:s,constraint:e,constraintType:"min"}):1)>1?n:i}function th(e){return e.replace(/\n/g," ").trim().replace(/\s{2,}/g," ")}const rh=["january","february","march","april","may","june","july","august","september","october","november","december"];rh.map(e=>e.slice(0,3));function lt(e){if("templateString"in e)return e.templateString;const{strings:t,values:r}=e;if((!t||!(t!=null&&t.length))&&(!r||!r.length))return"";const n=[...r||[],""],i=(t??[""]).map((s,a)=>{const l=nh(s,n[a]);return`${s}${l}`});return th(i.join(""))}function nh(e,t){return t._$litType$!=null||t._$litDirective$!=null?lt(t):Array.isArray(t)?t.map(n=>lt(n)).join(""):e.endsWith("=")?`"${t}"`:t}function oh(e){const t=ih(e);return Kr(t,"object")||Kr(t,"array")}function ih(e){const t=_s({jsonString:e,errorHandler:()=>{}});if(t)return t;const r=sh(e);return _s({jsonString:r,errorHandler:()=>{}})}function sh(e){return Dl(e).replace(/,\s*([}\]])/,"$1")}var E;(function(e){e.Html="html",e.Text="text",e.Json="json",e.Svg="svg",e.Image="image",e.Video="video",e.Audio="audio",e.Pdf="pdf"})(E||(E={}));const ah=[E.Text,E.Json];function js(e){return ah.includes(e)}async function lh(e,t){return e.includes("video")?E.Video:e.includes("svg")||t.includes("<svg")?E.Svg:e.includes("html")||t.includes("<html")?E.Html:oh(t)?E.Json:e.includes("json")||e.includes("yaml")||e.includes("yml")||e.includes("pgp-signature")||e.includes("text")||e.includes("txt")?E.Text:e.includes("audio")?E.Audio:e.includes("pdf")?E.Pdf:E.Image}function ch({imageType:e,imageText:t,imageUrl:r,blockAutoPlay:n}){return e===E.Image?lt(h`
             <img src=${r} />
         `):e===E.Video?lt(h`
             <video
@@ -3637,7 +2585,7 @@ var ai=Object.freeze,li=Object.defineProperty;var Lc=(e,t,r)=>t in e?li(e,t,{enu
                 </div>
             `):e===E.Audio?lt(h`
                 <audio controls src=${r}></audio>
-            `):t}function np(e,t){if(t===E.Json)try{return JSON.stringify(JSON.parse(e),null,4)}catch{}else if(t===E.Html)return e.replaceAll(/console\.\w+/g,"doNothing");return e}async function qs({imageUrl:e,blockAutoPlay:t,textTransformer:r=n=>n}){var c;const n=await fetch(e);if(!n.ok)throw new Error(`Failed to fetch '${e}'`);const o=((c=n==null?void 0:n.headers.get("Content-Type"))==null?void 0:c.toLowerCase())??"",i=await(n==null?void 0:n.text())??"",s=n?await tp(o,i):E.Image,a=r(np(i??"",s));return{templateString:rp({imageText:a,imageType:s,imageUrl:e,blockAutoPlay:t}),imageUrl:e,imageType:s}}class Eo extends Error{constructor(){super("Iframe is no longer attached to the DOM."),this.name="IframeDisconnectedError"}}let op=!1;function ip(){return op}var ft;(function(e){e.FromParent="from-parent",e.FromChild="from-child"})(ft||(ft={}));const st=Symbol("any-origin");function pc(e,t){try{return sp(e,t),!0}catch{return!1}}function sp(e,t){if(e===st)return;if(!e.filter(n=>t.origin===n).length)throw new Error(`Received message from invalid origin: ${t.origin}. Expected '[${e.join(", ")}]'`)}const ap=Symbol("dangerDisableSecurityWarningsSymbol"),lp=["january","february","march","april","may","june","july","august","september","october","november","december"];lp.map(e=>e.slice(0,3));function cp(e){return e?e instanceof Error?e.message:String(e):""}function dp(e){return e instanceof Error?e:new Error(cp(e))}function up(e){const t=fc();return e!==1/0&&setTimeout(()=>{t.resolve()},e<=0?0:e),t.promise}function fc(){let e,t,r=!1;const n=new Promise((o,i)=>{e=s=>(r=!0,o(s)),t=s=>{r=!0,i(s)}});if(!e||!t)throw new Error(`Reject and resolve callbacks were not set by the promise constructor for ${fc.name}.`);return{promise:n,resolve:e,reject:t,isSettled(){return r}}}function hp(e,t,r){return r.type===e&&r.direction===t}function pp(e){return e<2?10:e<5?100:e<10?1e3:5e3}async function fp({message:e,verifyChildData:t,iframeElement:r},n,o,i){if(!r)throw new Error("No iframe element was provided.");let s=0,a=!1,l,c,u,d=!1;const p={...e,direction:ft.FromParent,messageId:Zl(32)},w=e.type,m=n===st?["*"]:n;function k(C){try{if(!pc(n,C))return;const M=C.data;if(M.type==="error")throw new Error(`Child threw an error: ${M.data}`);if(ip(),M&&d&&hp(w,ft.FromChild,M)&&M.messageId===p.messageId){let _=!1;try{_=t?t(M.data):!0}catch{}if(!_)return;a=!0,c=C,l=M}}catch(M){u=dp(M)}}globalThis.addEventListener("message",k);const b=Date.now();for(;!a&&Date.now()-b<o&&!u;){if(!r.isConnected)throw new Eo;const C=r.contentWindow;C&&(d=!0,m.forEach(M=>{try{C.postMessage(p,{targetOrigin:M})}catch{}})),await up(i||pp(s)),s++}if(globalThis.removeEventListener("message",k),u)throw u;if(!a)throw new Error(`Failed to receive response from the iframe for message '${e.type}' after '${Math.ceil(o/1e3)}' seconds).`);if(!c)throw new Error("Never got message event from child but received a valid response");return{data:l==null?void 0:l.data,event:c}}function gc({allowedOrigins:e,timeoutMs:t=1e4,...r}){if(e!==st&&e.includes("*")&&(e=st),e===st&&!r[ap]&&console.warn("Creating iframe messenger with any origin allowed ('*'). This is insecure, please provide an actual list of allowed origins."),e!==st&&!e.length)throw new Error(`No allowed origins were provide to ${gc.name}. At least one must be provided.`);const n=e===st?["*"]:e;return{async sendMessageToChild(o){if(o.message.type==="error")throw new Error("Cannot send message to child with type 'error'. 'error' is reserved for internal error messaging.");return await fp(o,e,o.timeoutMs||t,o.intervalMs)},listenForParentMessages(o){globalThis.addEventListener("message",async i=>{if(!pc(e,i))return;const s=i.data,a=await o({...s,originalEvent:i}),l={type:s.type,direction:ft.FromChild,data:a,messageId:s.messageId};n.forEach(c=>{try{globalThis.parent.postMessage(l,{targetOrigin:c})}catch{}})})}}}var ce;(function(e){e.VerticallyCenter="vertically-center",e.HideLoading="hide-loading"})(ce||(ce={}));var K;(function(e){e.Ready="ready",e.SendSize="send-size",e.SendScale="set-scale",e.SendScalingMethod="set-scaling-method",e.ForceSize="force-size",e.SizeDetermined="size-determined"})(K||(K={}));const Ne=gc({allowedOrigins:[window.location.origin]});async function gp(e,t){const r=ei();e.onload=()=>{r.resolve()};try{await Ne.sendMessageToChild({message:{type:K.Ready},iframeElement:e,timeoutMs:t})}catch{await r.promise,await Ne.sendMessageToChild({message:{type:K.Ready},iframeElement:e,timeoutMs:t})}}async function mp({min:e,max:t,host:r,iframeElement:n,imageData:o,forcedFinalImageSize:i,forcedOriginalImageSize:s,timeoutMs:a}){var c;await gp(n,a),i&&await Ne.sendMessageToChild({message:{type:K.ForceSize,data:i},iframeElement:n,timeoutMs:a});const l=s??(await Ne.sendMessageToChild({message:{type:K.SendSize},iframeElement:n,timeoutMs:a,verifyChildData(u){return!isNaN(u.width)&&!isNaN(u.height)&&!!u.width&&!!u.height}})).data;return await mc({min:e,max:t,imageDimensions:l,host:r,iframeElement:n,imageData:o,forcedFinalImageSize:i,sendSizeMessage:!0,timeoutMs:a}),((c=n.contentWindow)==null?void 0:c.document.documentElement.outerHTML)??""}async function mc({min:e,max:t,imageDimensions:r,host:n,iframeElement:o,imageData:i,forcedFinalImageSize:s,sendSizeMessage:a,timeoutMs:l}){const c=n.shadowRoot.querySelector(".frame-constraint");if(!(c instanceof HTMLElement))throw new Error("Could not find frame constraint div.");const u={min:e,max:t,box:s??r},d=Ws(i.imageType)?Io(u):uc(u);c.style.width=Br(Math.floor(d.width)),c.style.height=Br(Math.floor(d.height));const p=Io({min:e,max:t,box:d});d.height<p.height?n.classList.add(ce.VerticallyCenter):n.classList.remove(ce.VerticallyCenter),n.style.width=Br(p.width),n.style.height=Br(p.height);const w=hc({min:e,max:t,box:s??r});if(a){if(w>3?await Ne.sendMessageToChild({message:{type:K.SendScalingMethod,data:"pixelated"},iframeElement:o,timeoutMs:l}):await Ne.sendMessageToChild({message:{type:K.SendScalingMethod,data:"default"},iframeElement:o,timeoutMs:l}),await Ne.sendMessageToChild({message:{type:K.SizeDetermined,data:d},iframeElement:o,timeoutMs:l}),i.imageType===E.Html){const m=s?{width:s.width/r.width,height:s.height/r.height}:{width:1,height:1},k={width:w*m.width,height:w*m.height};await Ne.sendMessageToChild({message:{type:K.SendScale,data:k},iframeElement:o,timeoutMs:l})}else if(Ws(i.imageType)){const m=s??r;if(m.height<d.height){const k=d.width/m.width,b=d.height/m.height,C=Math.min(k,b);await Ne.sendMessageToChild({message:{type:K.SendScale,data:{height:C,width:C}},iframeElement:o,timeoutMs:l})}}}}const Rr={x:16,y:8};var Js,Xs;function vp(e,t,r){const n=Math.random(),o=h(Js||(Js=un([`
+            `):t}function dh(e,t){if(t===E.Json)try{return JSON.stringify(JSON.parse(e),null,4)}catch{}else if(t===E.Html)return e.replaceAll(/console\.\w+/g,"doNothing");return e}async function Ns({imageUrl:e,blockAutoPlay:t,textTransformer:r=n=>n}){var c;const n=await fetch(e);if(!n.ok)throw new Error(`Failed to fetch '${e}'`);const o=((c=n==null?void 0:n.headers.get("Content-Type"))==null?void 0:c.toLowerCase())??"",i=await(n==null?void 0:n.text())??"",s=n?await lh(o,i):E.Image,a=r(dh(i??"",s));return{templateString:ch({imageText:a,imageType:s,imageUrl:e,blockAutoPlay:t}),imageUrl:e,imageType:s}}class So extends Error{constructor(){super("Iframe is no longer attached to the DOM."),this.name="IframeDisconnectedError"}}let uh=!1;function hh(){return uh}var ft;(function(e){e.FromParent="from-parent",e.FromChild="from-child"})(ft||(ft={}));const st=Symbol("any-origin");function Yl(e,t){try{return ph(e,t),!0}catch{return!1}}function ph(e,t){if(e===st)return;if(!e.filter(n=>t.origin===n).length)throw new Error(`Received message from invalid origin: ${t.origin}. Expected '[${e.join(", ")}]'`)}const fh=Symbol("dangerDisableSecurityWarningsSymbol");function gh({min:e,max:t}){return e>t?{min:t,max:e}:{min:e,max:t}}const mh=["january","february","march","april","may","june","july","august","september","october","november","december"];mh.map(e=>e.slice(0,3));const Jl=globalThis.crypto;function vh({min:e,max:t}){const{min:r,max:n}=gh({min:Math.floor(e),max:Math.floor(t)}),o=n-r+1,i=Math.ceil(Math.log2(o)/8),s=Math.floor(256**i/o)*o,a=new Uint8Array(i);let l;do Jl.getRandomValues(a),l=a.reduce((c,u,d)=>c+u*256**d,0);while(l>=s);return r+l%o}function Xl(e=16){const t=Math.ceil(e/2),r=new Uint8Array(t);return Jl.getRandomValues(r),Array.from(r).map(n=>n.toString(16).padStart(2,"0")).join("").substring(0,e)}function Br(e){return String(e).endsWith("px")?String(e):`${e}px`}const wh=["january","february","march","april","may","june","july","august","september","october","november","december"];wh.map(e=>e.slice(0,3));function bh(e){return e?e instanceof Error?e.message:String(e):""}function $h(e){return e instanceof Error?e:new Error(bh(e))}function yh(e){const t=Kl();return e!==1/0&&setTimeout(()=>{t.resolve()},e<=0?0:e),t.promise}function Kl(){let e,t,r=!1;const n=new Promise((o,i)=>{e=s=>(r=!0,o(s)),t=s=>{r=!0,i(s)}});if(!e||!t)throw new Error(`Reject and resolve callbacks were not set by the promise constructor for ${Kl.name}.`);return{promise:n,resolve:e,reject:t,isSettled(){return r}}}function xh(e,t,r){return r.type===e&&r.direction===t}function kh(e){return e<2?10:e<5?100:e<10?1e3:5e3}async function Ch({message:e,verifyChildData:t,iframeElement:r},n,o,i){if(!r)throw new Error("No iframe element was provided.");let s=0,a=!1,l,c,u,d=!1;const p={...e,direction:ft.FromParent,messageId:Xl(32)},w=e.type,m=n===st?["*"]:n;function k(C){try{if(!Yl(n,C))return;const M=C.data;if(M.type==="error")throw new Error(`Child threw an error: ${M.data}`);if(hh(),M&&d&&xh(w,ft.FromChild,M)&&M.messageId===p.messageId){let _=!1;try{_=t?t(M.data):!0}catch{}if(!_)return;a=!0,c=C,l=M}}catch(M){u=$h(M)}}globalThis.addEventListener("message",k);const b=Date.now();for(;!a&&Date.now()-b<o&&!u;){if(!r.isConnected)throw new So;const C=r.contentWindow;C&&(d=!0,m.forEach(M=>{try{C.postMessage(p,{targetOrigin:M})}catch{}})),await yh(i||kh(s)),s++}if(globalThis.removeEventListener("message",k),u)throw u;if(!a)throw new Error(`Failed to receive response from the iframe for message '${e.type}' after '${Math.ceil(o/1e3)}' seconds).`);if(!c)throw new Error("Never got message event from child but received a valid response");return{data:l==null?void 0:l.data,event:c}}function Ql({allowedOrigins:e,timeoutMs:t=1e4,...r}){if(e!==st&&e.includes("*")&&(e=st),e===st&&!r[fh]&&console.warn("Creating iframe messenger with any origin allowed ('*'). This is insecure, please provide an actual list of allowed origins."),e!==st&&!e.length)throw new Error(`No allowed origins were provide to ${Ql.name}. At least one must be provided.`);const n=e===st?["*"]:e;return{async sendMessageToChild(o){if(o.message.type==="error")throw new Error("Cannot send message to child with type 'error'. 'error' is reserved for internal error messaging.");return await Ch(o,e,o.timeoutMs||t,o.intervalMs)},listenForParentMessages(o){globalThis.addEventListener("message",async i=>{if(!Yl(e,i))return;const s=i.data,a=await o({...s,originalEvent:i}),l={type:s.type,direction:ft.FromChild,data:a,messageId:s.messageId};n.forEach(c=>{try{globalThis.parent.postMessage(l,{targetOrigin:c})}catch{}})})}}}var ce;(function(e){e.VerticallyCenter="vertically-center",e.HideLoading="hide-loading"})(ce||(ce={}));var K;(function(e){e.Ready="ready",e.SendSize="send-size",e.SendScale="set-scale",e.SendScalingMethod="set-scaling-method",e.ForceSize="force-size",e.SizeDetermined="size-determined"})(K||(K={}));const je=Ql({allowedOrigins:[window.location.origin]});async function Sh(e,t){const r=Qo();e.onload=()=>{r.resolve()};try{await je.sendMessageToChild({message:{type:K.Ready},iframeElement:e,timeoutMs:t})}catch{await r.promise,await je.sendMessageToChild({message:{type:K.Ready},iframeElement:e,timeoutMs:t})}}async function Mh({min:e,max:t,host:r,iframeElement:n,imageData:o,forcedFinalImageSize:i,forcedOriginalImageSize:s,timeoutMs:a}){var c;await Sh(n,a),i&&await je.sendMessageToChild({message:{type:K.ForceSize,data:i},iframeElement:n,timeoutMs:a});const l=s??(await je.sendMessageToChild({message:{type:K.SendSize},iframeElement:n,timeoutMs:a,verifyChildData(u){return!isNaN(u.width)&&!isNaN(u.height)&&!!u.width&&!!u.height}})).data;return await ec({min:e,max:t,imageDimensions:l,host:r,iframeElement:n,imageData:o,forcedFinalImageSize:i,sendSizeMessage:!0,timeoutMs:a}),((c=n.contentWindow)==null?void 0:c.document.documentElement.outerHTML)??""}async function ec({min:e,max:t,imageDimensions:r,host:n,iframeElement:o,imageData:i,forcedFinalImageSize:s,sendSizeMessage:a,timeoutMs:l}){const c=n.shadowRoot.querySelector(".frame-constraint");if(!(c instanceof HTMLElement))throw new Error("Could not find frame constraint div.");const u={min:e,max:t,box:s??r},d=js(i.imageType)?Co(u):Ul(u);c.style.width=Br(Math.floor(d.width)),c.style.height=Br(Math.floor(d.height));const p=Co({min:e,max:t,box:d});d.height<p.height?n.classList.add(ce.VerticallyCenter):n.classList.remove(ce.VerticallyCenter),n.style.width=Br(p.width),n.style.height=Br(p.height);const w=Gl({min:e,max:t,box:s??r});if(a){if(w>3?await je.sendMessageToChild({message:{type:K.SendScalingMethod,data:"pixelated"},iframeElement:o,timeoutMs:l}):await je.sendMessageToChild({message:{type:K.SendScalingMethod,data:"default"},iframeElement:o,timeoutMs:l}),await je.sendMessageToChild({message:{type:K.SizeDetermined,data:d},iframeElement:o,timeoutMs:l}),i.imageType===E.Html){const m=s?{width:s.width/r.width,height:s.height/r.height}:{width:1,height:1},k={width:w*m.width,height:w*m.height};await je.sendMessageToChild({message:{type:K.SendScale,data:k},iframeElement:o,timeoutMs:l})}else if(js(i.imageType)){const m=s??r;if(m.height<d.height){const k=d.width/m.width,b=d.height/m.height,C=Math.min(k,b);await je.sendMessageToChild({message:{type:K.SendScale,data:{height:C,width:C}},iframeElement:o,timeoutMs:l})}}}}const _r={x:16,y:8};var Js,Xs;function Ah(e,t,r){const n=Math.random(),o=h(Js||(Js=un([`
         <script>
             function doNothing() {}
             const imageType = '`,`';
@@ -4279,7 +3227,7 @@ var ai=Object.freeze,li=Object.defineProperty;var Lc=(e,t,r)=>t in e?li(e,t,{enu
                 }
             }
         <\/script>
-    `])),e.imageType,r??"",E.Svg,E.Html,E.Image,E.Video,E.Text,E.Json,E.Audio,ft.FromChild,ft.FromChild,K.Ready,K.SendScale,K.SendScalingMethod,K.SendSize,K.ForceSize,K.SizeDetermined,E.Json,E.Text,Rr.y,E.Audio),i=h(Xs||(Xs=un([`
+    `])),e.imageType,r??"",E.Svg,E.Html,E.Image,E.Video,E.Text,E.Json,E.Audio,ft.FromChild,ft.FromChild,K.Ready,K.SendScale,K.SendScalingMethod,K.SendSize,K.ForceSize,K.SizeDetermined,E.Json,E.Text,_r.y,E.Audio),i=h(Xs||(Xs=un([`
         <!DOCTYPE html>
         <html class="image-type-`,`">
             <head>
@@ -4369,9 +3317,9 @@ var ai=Object.freeze,li=Object.defineProperty;var Lc=(e,t,r)=>t in e?li(e,t,{enu
                 `," "," ",`
             </body>
         </html>
-    `])),e.imageType,E.Image,E.Svg,E.Video,E.Text,E.Json,E.Text,E.Json,E.Text,E.Json,E.Text,E.Json,Rr.y,Rr.x,E.Text,E.Json,Rr.y,n,t??"",o);return ic(lt(i)).replace(String(n),`
+    `])),e.imageType,E.Image,E.Svg,E.Video,E.Text,E.Json,E.Text,E.Json,E.Text,E.Json,E.Text,E.Json,_r.y,_r.x,E.Text,E.Json,_r.y,n,t??"",o);return Dl(lt(i)).replace(String(n),`
 ${e.templateString}
-`)}const wp=1e4,bp={textTransformer:"textTransformer",extraHtml:"extraHtml"},$p=Hh(bp),yp={imageData:W0(),error:void 0},yt=tn()({tagName:"vir-resizable-image",stateInit:yp,events:{settled:ue(),imageDataCalculated:ue(),errored:ue()},styles:f`
+`)}const Ih=1e4,Eh={textTransformer:"textTransformer",extraHtml:"extraHtml"},Th=q2(Eh),Ph={imageData:W0(),error:void 0},yt=tn()({tagName:"vir-resizable-image",stateInit:Ph,events:{settled:ue(),imageDataCalculated:ue(),errored:ue()},styles:f`
         :host {
             position: relative;
             box-sizing: content-box;
@@ -4463,21 +3411,21 @@ ${e.templateString}
             display: flex;
             justify-content: center;
         }
-    `,cleanupCallback({host:e}){const t=e.shadowRoot.querySelector("iframe"),r=e[Vn];t&&r&&(t.srcdoc=r)},renderCallback({state:e,inputs:t,updateState:r,host:n,dispatch:o,events:i}){const s=t.timeoutMs??wp,a=e.imageData instanceof Error?e.imageData:e.error;r({imageData:{createPromise:async()=>{if(e.error&&r({error:void 0}),n.classList.remove(ce.HideLoading),o(new i.settled(!1)),n.classList.remove(ce.VerticallyCenter),!t.imageUrl)return new Promise(async(M,_)=>{await Zs(s),_(new Error("An imageUrl was never provided to vir-resizable-image."))});const b={imageUrl:t.imageUrl,blockAutoPlay:!!t.blockAutoPlay,textTransformer:t.textTransformer};let C;try{C=await Vh(s,qs(b))}catch{await Zs(1e3);try{C=await qs(b)}catch(_){throw _}}if(C)return C;throw new Error("no image data result")},trigger:{...Fh(t,$p)}}});const l=t.min&&t.max?Io({box:t.min,max:t.max}):t.min,c=t.max,u=t.forcedOriginalImageSize?uc({min:l,max:c,box:t.forcedOriginalImageSize}):void 0,d=Ri(e.imageData,"",b=>(o(new i.imageDataCalculated(b)),b.imageType===E.Pdf?h`
+    `,cleanupCallback({host:e}){const t=e.shadowRoot.querySelector("iframe"),r=e[On];t&&r&&(t.srcdoc=r)},renderCallback({state:e,inputs:t,updateState:r,host:n,dispatch:o,events:i}){const s=t.timeoutMs??Ih,a=e.imageData instanceof Error?e.imageData:e.error;r({imageData:{createPromise:async()=>{if(e.error&&r({error:void 0}),n.classList.remove(ce.HideLoading),o(new i.settled(!1)),n.classList.remove(ce.VerticallyCenter),!t.imageUrl)return new Promise(async(M,_)=>{await Rs(s),_(new Error("An imageUrl was never provided to vir-resizable-image."))});const b={imageUrl:t.imageUrl,blockAutoPlay:!!t.blockAutoPlay,textTransformer:t.textTransformer};let C;try{C=await X2(s,Ns(b))}catch{await Rs(1e3);try{C=await Ns(b)}catch(_){throw _}}if(C)return C;throw new Error("no image data result")},trigger:{...Y2(t,Th)}}});const l=t.min&&t.max?Co({box:t.min,max:t.max}):t.min,c=t.max,u=t.forcedOriginalImageSize?Ul({min:l,max:c,box:t.forcedOriginalImageSize}):void 0,d=Ri(e.imageData,"",b=>(o(new i.imageDataCalculated(b)),b.imageType===E.Pdf?h`
                         <iframe
                             src=${b.imageUrl}
-                            ${_i(async C=>{try{await mc({forcedFinalImageSize:t.forcedFinalImageSize,host:n,iframeElement:C,imageData:b,imageDimensions:c??{width:500,height:500},max:c,min:l,sendSizeMessage:!1,timeoutMs:s}),n[Vn]="",o(new i.settled(!0)),n.classList.add(ce.HideLoading)}catch(M){const _=Fn(M);if(_ instanceof Eo)return;console.error(_),r({error:_}),o(new i.errored(_))}})}
+                            ${_i(async C=>{try{await ec({forcedFinalImageSize:t.forcedFinalImageSize,host:n,iframeElement:C,imageData:b,imageDimensions:c??{width:500,height:500},max:c,min:l,sendSizeMessage:!1,timeoutMs:s}),n[On]="",o(new i.settled(!0)),n.classList.add(ce.HideLoading)}catch(M){const _=Nn(M);if(_ instanceof So)return;console.error(_),r({error:_}),o(new i.errored(_))}})}
                         ></iframe>
                     `:h`
                         <iframe
                             loading=${t.eagerLoading?"eager":"lazy"}
                             referrerpolicy="no-referrer"
                             scrolling="no"
-                            srcdoc=${vp(b,t.extraHtml,t.htmlSizeQuerySelector)}
-                            ${_i(async C=>{try{const M=await mp({min:l,max:c,host:n,iframeElement:C,imageData:b,forcedFinalImageSize:t.forcedFinalImageSize,forcedOriginalImageSize:u,timeoutMs:s});n[Vn]=M,o(new i.settled(!0)),n.classList.add(ce.HideLoading)}catch(M){const _=Fn(M);if(_ instanceof Eo)return;console.error(_),r({error:_}),o(new i.errored(_))}})}
+                            srcdoc=${Ah(b,t.extraHtml,t.htmlSizeQuerySelector)}
+                            ${_i(async C=>{try{const M=await Mh({min:l,max:c,host:n,iframeElement:C,imageData:b,forcedFinalImageSize:t.forcedFinalImageSize,forcedOriginalImageSize:u,timeoutMs:s});n[On]=M,o(new i.settled(!0)),n.classList.add(ce.HideLoading)}catch(M){const _=Nn(M);if(_ instanceof So)return;console.error(_),r({error:_}),o(new i.errored(_))}})}
                         ></iframe>
                         <slot name="loaded"></slot>
-                    `),b=>{r({error:b}),o(new i.errored(Fn(b)))}),p=Ri(e.imageData,Us,b=>!t.blockInteraction&&[E.Html,E.Video,E.Audio,E.Pdf].includes(b.imageType)?"":Us,()=>""),w=a?f`
+                    `),b=>{r({error:b}),o(new i.errored(Nn(b)))}),p=Ri(e.imageData,Hs,b=>!t.blockInteraction&&[E.Html,E.Video,E.Audio,E.Pdf].includes(b.imageType)?"":Hs,()=>""),w=a?f`
                   max-width: 100%;
                   max-height: 100%;
               `:u?f`
@@ -4502,9 +3450,89 @@ ${e.templateString}
                     `,k)}
             </div>
             ${p}
-        `}}),Us=h`
+        `}}),Hs=h`
     <div class="click-cover"></div>
-`,Vn="latest-frame-srcdoc",To=360,vc=8;function wc(e){return(e-vc)/2}const xt=fr({"main-image-size":To,"secondary-image-size":wc(To)}),ke=oe()({tagName:"toniq-featured-flip-card",stateInit:{flipped:!1},events:{viewButtonClicked:ue()},styles:f`
+`,On="latest-frame-srcdoc";function Lh(e,t){return e.includes(t)}const Bh=["january","february","march","april","may","june","july","august","september","october","november","december"];Bh.map(e=>e.slice(0,3));function tc(e){return!!e&&typeof e=="object"}const _h=[(e,t)=>t in e,(e,t)=>t in e.constructor.prototype];function Hr(e,t){return e?_h.some(r=>{try{return r(e,t)}catch{return!1}}):!1}function Os(e){let t;try{t=Reflect.ownKeys(e)}catch{}return t??[...Object.keys(e),...Object.getOwnPropertySymbols(e)]}function Rh(e){return Array.isArray(e)?"array":typeof e}function rc(e,t){return Rh(e)===t}function zh(e,t){let r=!1;const n=Os(e).reduce((o,i)=>{const s=t(i,e[i],e);return s instanceof Promise&&(r=!0),{...o,[i]:s}},{});return r?new Promise(async(o,i)=>{try{await Promise.all(Os(n).map(async s=>{const a=await n[s];n[s]=a})),o(n)}catch(s){i(s)}}):n}const nc=Symbol("and"),oc=Symbol("or"),ic=Symbol("exact"),sc=Symbol("enum"),ac=Symbol("unknown"),lc="__vir__shape__definition__key__do__not__use__in__actual__objects";function jh(e){return Hr(e,lc)}const Nh="__vir__shape__specifier__key__do__not__use__in__actual__objects",Hh=[nc,oc,ic,sc,ac];function Oh(e){return wr(e,oc)}function Dh(e){return wr(e,nc)}function Fh(e){return wr(e,ic)}function Zh(e){return wr(e,sc)}function Vh(e){return wr(e,ac)}function wr(e,t){const r=cc(e);return!!r&&r.specifierType===t}function cc(e){if(tc(e)&&Hr(e,Nh)){if(!Hr(e,"parts")||!rc(e.parts,"array"))throw new Error("Found a shape specifier but its parts are not valid.");if(!Hr(e,"specifierType")||!Lh(Hh,e.specifierType))throw new Error("Found a shape specifier but its specifier type is not valid.");return e}}function Mo(e){return Ao(e)}function Ao(e){const t=cc(e);if(t){if(Oh(t)||Fh(t))return Ao(t.parts[0]);if(Dh(t))return t.parts.reduce((r,n)=>Object.assign(r,Ao(n)),{});if(Zh(t))return Object.values(t.parts[0])[0];if(Vh(t))return"unknown";throw new Error(`found specifier but it matches no expected specifiers: ${String(t.specifierType)}`)}return jh(e)?Mo(e.shape):e instanceof RegExp||rc(e,"array")?e:tc(e)?zh(e,(r,n)=>Mo(n)):e}function Wh(e){return{shape:e,get runTimeType(){throw new Error("runTimeType cannot be used as a value, it is only for types.")},defaultValue:Mo(e),[lc]:!0}}const qh=Wh({Discord:"",Instagram:"",Telegram:"",TikTok:"",Twitch:"",Twitter:"",website:""}),Uh=qh.defaultValue,dc={Discord:Rl,Instagram:zl,Telegram:jl,TikTok:Nl,Twitch:Hl,Twitter:Ol,website:Al},He=oe()({tagName:"toniq-hyperlink",hostClasses:{"with-hover-styles":!1},styles:({hostClassSelectors:e})=>f`
+        :host {
+            display: inline;
+            text-decoration: underline;
+        }
+
+        a,
+        a:visited,
+        a:active,
+        a:link,
+        a:hover {
+            color: inherit;
+            text-decoration: inherit;
+            white-space: inherit;
+        }
+
+        ${e["with-hover-styles"]}:hover a, ${e["with-hover-styles"]} a:hover {
+            color: ${S.pageInteraction.foregroundColor};
+        }
+
+        ${e["with-hover-styles"]}:active a, ${e["with-hover-styles"]} a:active {
+            color: ${S.pageInteractionActive.foregroundColor};
+        }
+    `,renderCallback({inputs:e}){return e.newTab?h`
+                <a href=${e.url} target="_blank" rel="noopener noreferrer"><slot></slot></a>
+            `:h`
+                <a href=${e.url}><slot></slot></a>
+            `}}),Ne=oe()({tagName:"toniq-flip-card",events:{flippedChange:ue()},styles:f`
+        :host {
+            max-width: 100%;
+            display: inline-block;
+            perspective: 1200px;
+            position: relative;
+            border-radius: 16px;
+            box-sizing: border-box;
+        }
+
+        * {
+            border-radius: inherit;
+            box-sizing: border-box;
+        }
+
+        .flip-wrapper {
+            height: 100%;
+            width: 100%;
+            position: relative;
+            transition: transform 600ms;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .flip-wrapper.flipped {
+            transform: rotateY(180deg);
+        }
+
+        ${Nu(".card-face",!1)}
+
+        .card-face {
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            padding: 0;
+            overflow: hidden;
+            backface-visibility: hidden;
+            background-color: ${S.pagePrimary.backgroundColor};
+        }
+
+        .card-face.back {
+            position: absolute;
+            transform: rotateY(180deg);
+        }
+    `,renderCallback:({inputs:e,dispatch:t,events:r})=>h`
+            <div
+                class="flip-wrapper ${Me({flipped:e.flipped})}"
+                ${A("click",()=>{t(new r.flippedChange(!e.flipped))})}
+            >
+                <div class="card-face front"><slot name="front"></slot></div>
+                <div class="card-face back"><slot name="back"></slot></div>
+            </div>
+        `}),Io=360,uc=8;function hc(e){return(e-uc)/2}const xt=fr({"main-image-size":Io,"secondary-image-size":hc(Io)}),ke=oe()({tagName:"toniq-featured-flip-card",stateInit:{flipped:!1},events:{viewButtonClicked:ue()},styles:f`
         :host {
             max-width: 100%;
             display: inline-flex;
@@ -4543,7 +3571,7 @@ ${e.templateString}
         .secondary-images {
             flex-basis: ${xt["secondary-image-size"].value};
             justify-content: space-evenly;
-            row-gap: ${vc}px;
+            row-gap: ${uc}px;
             column-gap: 2px;
             flex-grow: 1;
             max-height: 100%;
@@ -4551,7 +3579,7 @@ ${e.templateString}
             flex-wrap: wrap;
         }
 
-        ${je} {
+        ${Ne} {
             width: 100%;
         }
 
@@ -4631,7 +3659,7 @@ ${e.templateString}
             margin: 0;
             padding: 0;
         }
-    `,renderCallback:({inputs:e,state:t,updateState:r,dispatch:n,events:o,host:i})=>{var b;const s=e.mainImageSize||To,a=wc(s);io({onElement:i,forCssVar:xt["main-image-size"],toValue:`${s}px`}),io({onElement:i,forCssVar:xt["secondary-image-size"],toValue:`${a}px`});const l=e.socialUrls,c=l?Xe(l).filter(C=>!!l[C]).map(C=>{const M=l[C],_=ec[C];return h`
+    `,renderCallback:({inputs:e,state:t,updateState:r,dispatch:n,events:o,host:i})=>{var b;const s=e.mainImageSize||Io,a=hc(s);io({onElement:i,forCssVar:xt["main-image-size"],toValue:`${s}px`}),io({onElement:i,forCssVar:xt["secondary-image-size"],toValue:`${a}px`});const l=e.socialUrls,c=l?Xe(l).filter(C=>!!l[C]).map(C=>{const M=l[C],_=dc[C];return h`
                           <${He}
                               ${g(He,{newTab:!0,url:M})}
                           >
@@ -4671,7 +3699,7 @@ ${e.templateString}
                       </${yt}>
                   </div>
               `:"";return h`
-            <${je} ${g(je,{flipped:t.flipped})}>
+            <${Ne} ${g(Ne,{flipped:t.flipped})}>
                 <div class="card-face" slot="front">
                     ${p}
                     <div class="all-images">
@@ -4699,15 +3727,987 @@ ${e.templateString}
                     </div>
                     ${d}
                 </div>
-            </${je}>
-        `}}),ti=ee({title:"Flip Card",parent:le}),Wn=Array(30).fill(Bh("/toniq-labs-logo.png")),Po=["Hello there.","There is stuff here."],xp=Po.concat(Array(30).fill(Po)),kp=J({title:ke.tagName,parent:ti,examples:[{title:"basic",styles:f`
+            </${Ne}>
+        `}});function Eo({input:e,matcher:t}){return!e||!t?!0:e.length>1?!!e.split("").every(r=>Eo({input:r,matcher:t})):t instanceof RegExp?!!e.match(t):t.includes(e)}function pc({value:e,allowed:t,blocked:r}){const n=t?Eo({input:e,matcher:t}):!0,o=r?Eo({input:e,matcher:r}):!1;return n&&!o}function Ds(e){if(!e.value)return{filtered:e.value,blocked:""};const{filtered:t,blocked:r}=e.value.split("").reduce((n,o)=>(pc({...e,value:o})?n.filtered.push(o):n.blocked.push(o),n),{filtered:[],blocked:[]});return{filtered:t.join(""),blocked:r.join("")}}const T=oe()({tagName:"toniq-input",hostClasses:{outline:!1,hasAValue:({inputs:e})=>!!e.value},events:{valueChange:ue(),inputBlocked:ue()},styles:({hostClassNames:e,hostClassSelectors:t})=>f`
+            :host {
+                position: relative;
+                display: inline-flex;
+                width: 224px;
+                box-sizing: border-box;
+            }
+
+            .focus-border {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: ${bo};
+                z-index: 0;
+                pointer-events: none;
+            }
+
+            ${t.outline} label {
+                background-color: ${S.pagePrimary.backgroundColor};
+                border: 1px solid ${S.pageTertiary.foregroundColor};
+            }
+
+            ${t.outline} ${v} {
+                color: ${S.pageSecondary.foregroundColor};
+            }
+
+            :host(.${e.hasAValue}.${e.outline}) ${v} {
+                color: ${S.pagePrimary.foregroundColor};
+            }
+
+            ${t.outline} input::placeholder {
+                color: ${S.pageSecondary.foregroundColor};
+            }
+
+            label {
+                max-width: 100%;
+                flex-grow: 1;
+                cursor: pointer;
+                display: inline-flex;
+                box-sizing: border-box;
+                align-items: center;
+                position: relative;
+                padding: 12px 16px;
+                border-radius: ${bo};
+                background-color: ${S.accentTertiary.backgroundColor};
+                font: ${q.paragraphFont};
+            }
+
+            ${Qe({mainSelector:"input:focus:focus-visible:not(:active) ~ .focus-border",elementBorderSize:0})}
+
+            ${v} {
+                margin-right: 10px;
+            }
+
+            input {
+                ${et};
+                flex-grow: 1;
+                max-width: 100%;
+                /* fix input element not shrinking by default */
+                width: 0;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            input:placeholder-shown {
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            input:focus {
+                outline: none;
+            }
+
+            input::placeholder {
+                color: ${S.accentTertiary.foregroundColor};
+            }
+        `,renderCallback:({inputs:e,dispatch:t,events:r})=>{const{filtered:n}=Ds({value:e.value??"",allowed:e.allowedInputs,blocked:e.blockedInputs}),o=e.icon?h`
+                  <${v} ${g(v,{icon:e.icon})}></${v}>
+              `:"";return h`
+            <label>
+                ${o}
+                <input
+                    autocomplete=${e.disableBrowserHelps?"off":""}
+                    autocorrect=${e.disableBrowserHelps?"off":""}
+                    autocapitalize=${e.disableBrowserHelps?"off":""}
+                    spellcheck=${e.disableBrowserHelps?"false":""}
+                    ?disabled=${e.disabled}
+                    .value=${n}
+                    ${A("input",i=>{if(!(i instanceof InputEvent))throw new Error(`Input event type mismatch: "${i.constructor.name}"`);const s=i.target;if(!(s instanceof HTMLInputElement))throw new Error("Failed to find input element target from input event.");const a=i.data,l=n;let c=s.value??"";if(a)if(a.length===1)pc({value:a,allowed:e.allowedInputs,blocked:e.blockedInputs})||(c=l,t(new r.inputBlocked(a)));else{const{filtered:u,blocked:d}=Ds({value:a,allowed:e.allowedInputs,blocked:e.blockedInputs});c=u,t(new r.inputBlocked(d))}s.value!==c&&(s.value=c),l!==c&&t(new r.valueChange(c))})}
+                    placeholder=${e.placeholder}
+                />
+                <div class="focus-border"></div>
+            </label>
+        `}});T.hostClasses.outline;async function Gh(e){return navigator.clipboard.writeText(e)}const Yh="…";function Jh(e,t){const r=e.slice(0,t).trim(),n=e.slice(-1*t).trim();return`${r}${Yh}${n}`}function Xh(e){return!(e%1)}function Kh(e){return e.letterCount==null?4:Xh(e.letterCount)?e.letterCount<1?1:e.letterCount:Math.floor(e.letterCount)}const W=oe()({tagName:"toniq-middle-ellipsis",events:{copied:ue()},cssVars:{textColor:S.pagePrimary.foregroundColor,iconColor:S.pagePrimary.foregroundColor,textHoverColor:S.pageInteraction.foregroundColor,iconHoverColor:S.pageInteraction.foregroundColor},styles:({hostClassNames:e,cssVarValues:t})=>f`
+        :host {
+            /* 5 frames at 60 fps */
+            transition: ${Q.interaction};
+            ${q.paragraphFont};
+            color: ${t.textColor};
+        }
+
+        :host,
+        .text-wrapper {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        :host(.${e.clickable}:hover) {
+            color: ${t.textHoverColor};
+        }
+
+        :host(.${e.clickable}:hover) ${v} {
+            color: ${t.iconHoverColor};
+        }
+
+        ${v} {
+            margin-left: 4px;
+            color: ${t.iconColor};
+        }
+
+        .copyable {
+            cursor: pointer;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            border-radius: 8px;
+            position: relative;
+            outline: none;
+        }
+        a:visited {
+            color: inherit;
+        }
+
+        button {
+            ${et};
+            border-radius: 8px;
+            position: relative;
+            outline: none;
+        }
+
+        ${Qe({mainSelector:"button:focus:focus-visible:not(:active)",elementBorderSize:0})}
+
+        .text-content {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .copied-text {
+            box-shadow: 0 0 20px 100px ${S.pagePrimary.backgroundColor};
+            background-color: ${S.pagePrimary.backgroundColor};
+            display: flex;
+            position: absolute;
+            height: 100%;
+            right: 0;
+            max-width: 100%;
+            pointer-events: none;
+            transition: opacity ${Q.interaction};
+            opacity: 0;
+        }
+
+        .show-copied-text {
+            opacity: 1;
+        }
+    `,hostClasses:{clickable:({inputs:e})=>!!e.externalLink||!!e.copyOnClick},stateInit:{showCopiedTextTimeoutId:void 0},renderCallback:({inputs:e,dispatch:t,events:r,state:n,updateState:o})=>{if(!e.text)return h``;const i=e.text,s=Kh(e),a=!!e.externalLink,l=!!e.copyOnClick,c=i.length>s*2+2,u=c?Jh(i,s):i,d=c?i:"",p=a?El:l?Il:void 0,w=p?h`
+                  <${v} ${g(v,{icon:p})}></${v}>
+              `:"",m=h`
+            <span title=${d} class="text-content">
+                ${ht(!!e.copyOnClick,h`
+                        <span
+                            class=${Me({"copied-text":!0,"show-copied-text":n.showCopiedTextTimeoutId!=null})}
+                        >
+                            Copied!
+                        </span>
+                    `)}
+                ${u}
+            </span>
+        `;return u?a?h`
+                    <button
+                        tabindex="0"
+                        role="link"
+                        ${A("click",k=>{var C,M;const b=(M=(C=k.currentTarget)==null?void 0:C.querySelector)==null?void 0:M.call(C,"a");if(!b)throw new Error("Failed to find link anchor tag for middle ellipsis element link.");b.click()})}
+                        class="link-wrapper"
+                    >
+                        <!--
+                            This <a> element has no tabindex because the button above should be
+                            focused in stead. This is a workaround for the fact that Safari does not
+                            support tab-focus for <a> elements.
+                        -->
+                        <a
+                            tabindex="-1"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-wrapper"
+                            href=${e.externalLink}
+                            title=${d}
+                        >
+                            ${m} ${w}
+                        </a>
+                    </button>
+                `:l?h`
+                    <button
+                        class="text-wrapper copyable"
+                        ${A("click",async()=>{await Gh(i),t(new r.copied),n.showCopiedTextTimeoutId!=null&&window.clearTimeout(n.showCopiedTextTimeoutId),o({showCopiedTextTimeoutId:window.setTimeout(()=>{o({showCopiedTextTimeoutId:void 0})},5e3)})})}
+                    >
+                        ${m} ${w}
+                    </button>
+                `:h`
+                    ${m}
+                `:h``}}),Fs="...";function Qh(e,t,r=7,n=5){let o;e=Gt(e,1,t),r=Gt(r,n,t);const i=r-5,s=r-3;t<=r?o=r:o=e<s||e>t-s?s:i;const a={start:Math.round(e-o/2),end:Math.round(e+o/2)};(a.start-1===1||a.end+1===t)&&(a.start+=1,a.end+=1);const l=e>t-s&&t>r?Dn(t-o,t):e>o?Dn(Math.min(a.start,t-o),Math.min(a.end,t)):Dn(1,Math.min(t,o+1));function c(d,p){return l.length+1!==t?p:[d]}const u=l[l.length-1];if(u&&u<t){const d=c(t,[Fs,t]);return[...l,...d]}else return l[0]!==1?c(1,[1,Fs]).concat(l):l}function Dn(e,t){const r=t-e+1;return Array.from({length:r},(n,o)=>e+o)}oe()({tagName:"toniq-pagination",styles:f`
+        :host {
+            display: flex;
+        }
+
+        button {
+            ${et}
+        }
+
+        button,
+        .page {
+            display: flex;
+            align-items: center;
+            ${pt};
+            justify-content: center;
+        }
+
+        .control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 8px;
+            padding: 4px;
+            border-radius: 8px;
+            ${O(S.accentSecondary)};
+        }
+
+        .control:hover {
+            ${O(S.accentPrimary)};
+        }
+
+        .control[disabled] {
+            pointer-events: none;
+            ${O(S.accentTertiary)};
+        }
+
+        .page {
+            position: relative;
+            width: 32px;
+            height: 32px;
+            ${q.labelFont}
+            padding: 0;
+        }
+
+        .page:not(.selected):not([disabled]):hover {
+            ${O(S.pageInteraction)};
+        }
+
+        .page.selected {
+            color: white;
+            ${O(S.accentPrimary)};
+            border-radius: 16px;
+        }
+    `,events:{pageChange:ue()},renderCallback:({inputs:e,events:t,dispatch:r})=>e.pageCount<=1?h``:h`
+                <button
+                    ${A("click",()=>{e.currentPage>1&&r(new t.pageChange(e.currentPage-1))})}
+                    class="control"
+                    ?disabled=${e.currentPage<=1}
+                >
+                    <${v} ${g(v,{icon:Jo})}></${v}>
+                </button>
+                ${Qh(e.currentPage,e.pageCount,e.pagesShown).map(n=>typeof n=="string"?h`
+                                <div class="page" disabled>${n}</div>
+                            `:h`
+                                <button
+                                    class=${Me({page:!0,selected:e.currentPage===n})}
+                                    ?disabled=${e.currentPage===n}
+                                    ${A("click",()=>{r(new t.pageChange(n))})}
+                                >
+                                    ${n}
+                                </button>
+                            `)}
+                <button
+                    ${A("click",()=>{e.currentPage<e.pageCount&&r(new t.pageChange(e.currentPage+1))})}
+                    class="control"
+                    ?disabled=${e.currentPage>=e.pageCount}
+                >
+                    <${v} ${g(v,{icon:Xo})}></${v}>
+                </button>
+            `});const j=oe()({tagName:"toniq-radio-group",stateInit:{randomGroupName:""},events:{valueChange:ue()},cssVars:{uncheckedRadioColor:String(ve("pagePrimary","foregroundColor")),uncheckedLabelColor:String(ve("pagePrimary","foregroundColor")),checkedRadioColor:String(ve("accentPrimary","backgroundColor")),checkedLabelColor:String(ve("pageInteraction","foregroundColor")),disabledColor:String(ve("pageSecondary","foregroundColor"))},styles:({cssVarValues:e})=>f`
+        :host {
+            ${q.boldParagraphFont};
+            display: inline-flex;
+            transition: color ${Q.interaction},
+                background-color ${Q.interaction},
+                opacity ${Q.interaction};
+            flex-direction: column;
+            gap: 24px;
+            text-align: left;
+        }
+
+        .wrapper,
+        input {
+            cursor: pointer;
+        }
+
+        .label {
+            text-align: inherit;
+        }
+
+        .wrapper {
+            color: ${e.uncheckedLabelColor};
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-color: ${e.checkedRadioColor};
+            outline: none;
+            text-align: inherit;
+        }
+
+        button {
+            ${et}
+        }
+
+        input {
+            visibility: hidden;
+            position: absolute;
+        }
+
+        .wrapper::before {
+            flex-shrink: 0;
+            display: inline-block;
+            position: relative;
+            content: '';
+            height: 18px;
+            width: 18px;
+            box-sizing: border-box;
+            padding: 3px;
+            margin-right: 8px;
+            border: 2px solid ${e.uncheckedRadioColor};
+            border-radius: 50%;
+            transition: ${Q.interaction};
+            --color-stop: -10%;
+            background-image: radial-gradient(
+                ${e.checkedRadioColor} var(--color-stop),
+                rgba(255, 255, 255, 0) calc(var(--color-stop) + 15%)
+            );
+        }
+
+        .wrapper:not(.disabled):hover::before {
+            border-color: inherit;
+            opacity: 0.5;
+        }
+
+        .wrapper:not(.disabled):active::before {
+            border-color: inherit;
+            opacity: 1;
+        }
+
+        .wrapper:not(.disabled).checked::before {
+            --color-stop: 35%;
+            border-color: inherit;
+        }
+
+        ${Qe({mainSelector:".wrapper:focus:focus-visible:not(:active)",elementBorderSize:0})}
+
+        .wrapper.checked {
+            color: ${e.checkedLabelColor};
+        }
+
+        .wrapper.disabled {
+            color: ${e.disabledColor};
+            cursor: not-allowed;
+        }
+
+        .wrapper.disabled::before {
+            border-color: ${e.disabledColor};
+        }
+    `,initCallback:({updateState:e})=>{e({randomGroupName:Xl()})},renderCallback:({inputs:e,dispatch:t,events:r,state:n})=>ep(e.entries).map(i=>tp(e.groupName||n.randomGroupName,e.value,i,()=>{t(new r.valueChange(i.value))}))});function ep(e){const t=Object.fromEntries(e.map(n=>[n.value,n]));return Object.values(t).length!==e.length&&console.error(`${j.tagName} was given duplicate entry values.`),Object.values(t)}function tp(e,t,r,n){const o=t===r.value,i=h`
+        <slot name=${r.value} class="label">
+            <span class="label">${r.label||r.value}</span>
+        </slot>
+    `;return h`
+        <button
+            ?disabled=${r.disabled}
+            tabindex="0"
+            class=${Me({disabled:!!r.disabled,checked:o&&!r.disabled,wrapper:!0})}
+            ${A("click",()=>{n()})}
+        >
+            <input
+                ${A("input",()=>{n()})}
+                type="radio"
+                name=${e}
+                ?checked=${o}
+            />
+            ${i}
+        </button>
+    `}const R={lowerLabelWrapper:"lower-label-wrapper",upperLabelWrapper:"upper-label-wrapper",labelPercentMarginWrapper:"label-percent-wrapper",labelPixelMarginWrapper:"label-pixel-wrapper",labelOuterWrapper:"label-outer-wrapper",rightAlignedLabelWrapper:"label-right-wrapper",range:"range",lowerSlider:"lower-slider",upperSlider:"upper-slider",slider:"slider"},Ot={label:"label",upperLabel:"upper-label",lowerLabel:"upper-label",slider:"slider"};function rp(e){var n,o;const t=(n=e.shadowRoot)==null?void 0:n.querySelector(`.${R.lowerLabelWrapper} .${R.labelPercentMarginWrapper}`),r=(o=e.shadowRoot)==null?void 0:o.querySelector(`.${R.upperLabelWrapper} .${R.labelPercentMarginWrapper}`);if(r instanceof HTMLElement&&t instanceof HTMLElement){const i=t.getBoundingClientRect(),s=r.getBoundingClientRect();return{lower:i,upper:s}}else return}function np(e,t=8){const r=rp(e);if(!r)return 0;const n=r.lower.right-r.upper.left+t;return Math.max(0,n)}function Fn({value:e,limits:t,flip:r}){const o=(t.max-e)/(t.max-t.min)*100;return-(r?100-o:o)}function ar(e){return gu(e)&&e.min!==void 0&&e.max!==void 0}function To(e){var r;const t=(r=e.shadowRoot)==null?void 0:r.querySelector(`.${R.range}`);return(t==null?void 0:t.clientWidth)??0}function Zn(e,t,r){return`${r?yu(e):e} ${t}`}function op({min:e,max:t}){return e>t?{min:t,max:e}:{min:e,max:t}}function ip({value:e,double:t,min:r,max:n}){return t?ar(e)?{min:Gt(e.min,r,Math.min(e.max,n)),max:Gt(e.max,Math.max(e.min,r),n)}:{min:r,max:n}:ar(e)?r:Gt(e,r,n)}function sp({actualValue:e,actualLimits:t,logScale:r,logRange:n}){return r?{elementValue:ar(e)?{min:zn(n,e.min),max:zn(n,e.max)}:zn(n,e),elementLimits:{min:0,max:n.length-1}}:{elementValue:e,elementLimits:t}}function Vn(e,t,r){return r?t[e]||0:e}function ap(e){return{actualLimits:op(e),actualValue:ip(e)}}function lp(e,t){var n,o,i;let r=!1;if(ar(e)){const s=(n=t.shadowRoot)==null?void 0:n.querySelector(`.${R.lowerSlider}`),a=(o=t.shadowRoot)==null?void 0:o.querySelector(`.${R.upperSlider}`);s instanceof HTMLInputElement&&a instanceof HTMLInputElement&&(Number(s.value)!==e.min&&(s.value=String(e.min),r=!0),Number(a.value)!==e.max&&(a.value=String(e.max),r=!0))}else{const s=(i=t.shadowRoot)==null?void 0:i.querySelector(`.${R.slider}`);s instanceof HTMLInputElement&&Number(s.value)!==e&&(s.value=String(e),r=!0)}return r}function fc(e,t){const{actualValue:r,actualLimits:n}=ap({...e}),o=Cu(n.min,n.max),i=e.logScale??!1,s=e.suffix??"",{elementValue:a,elementLimits:l}=sp({actualValue:r,actualLimits:n,logScale:i,logRange:o}),c=To(t);return{actualValue:r,elementLimits:l,elementValue:a,isLogScale:i,logRange:o,rangeWidth:c,suffix:s}}const it=16,Zs=f`
+    ${it}px
+`,Vs=f`
+    -webkit-appearance: none;
+    position: relative;
+    border: none;
+    height: ${Zs};
+    width: ${Zs};
+    z-index: 10;
+    cursor: pointer;
+    pointer-events: all;
+    border-radius: 10px;
+    transition: ${Q.interaction};
+    ${O(S.accentPrimary)};
+`,Ws=f`
+    transform: scale(1.2);
+`;function Zt(e){requestAnimationFrame(()=>{const t=fc(e.instanceInputs,e).elementValue;lp(t,e)&&(e.setAttribute("disabled","true"),Zt(e))})}const L=oe()({tagName:"toniq-slider",stateInit:{rangeWidth:0,labelOverlap:0,internalValue:-1},events:{valueChange:ue()},styles:f`
+        :host {
+            display: block;
+        }
+
+        .${B(R.range)} {
+            display: flex;
+            height: 8px;
+            width: 100%;
+            border-radius: 4px;
+            margin: 0;
+            margin-bottom: 48px;
+            position: relative;
+            ${O(S.accentSecondary)};
+        }
+
+        .progress {
+            position: absolute;
+            height: 8px;
+            z-index: 1;
+            pointer-events: none;
+            border-radius: 4px;
+            ${O(S.accentPrimary)};
+        }
+
+        .${B(R.labelOuterWrapper)} {
+            position: absolute;
+            z-index: 1;
+            margin-top: 16px;
+            display: flex;
+            width: max-content;
+            ${q.boldParagraphFont};
+            ${pt};
+        }
+
+        .${B(R.labelPixelMarginWrapper)},
+            .${B(R.labelPercentMarginWrapper)} {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .${B(R.rightAlignedLabelWrapper)} {
+            justify-content: flex-end;
+        }
+
+        .${B(R.slider)} {
+            -webkit-appearance: none;
+            height: 8px;
+            width: 100%;
+            background-color: transparent;
+            margin: 0;
+            position: relative;
+            outline: none;
+        }
+
+        /* this does not work in firefox */
+        ${Qe({mainSelector:".slider:focus:focus-visible:not(:active)",elementBorderSize:0,outlineGap:6})}
+
+        .${B(R.lowerSlider)},
+        .${B(R.upperSlider)} {
+            position: absolute;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        /* these selectors fail if combined with a comma */
+        .${B(R.slider)}::-moz-range-thumb {
+            ${Vs}
+        }
+
+        /* these selectors fail if combined with a comma */
+        .${B(R.slider)}::-webkit-slider-thumb {
+            ${Vs}
+        }
+
+        /* these selectors fail if combined with a comma */
+        .${B(R.slider)}::-webkit-slider-thumb:hover {
+            ${Ws}
+        }
+
+        /* these selectors fail if combined with a comma */
+        .${B(R.slider)}::-moz-range-thumb:hover {
+            ${Ws}
+        }
+    `,initCallback:({host:e})=>{e.addEventListener("mousemove",()=>{Zt(e)}),e.addEventListener("keydown",()=>{Zt(e)}),e.addEventListener("keyup",()=>{Zt(e)})},renderCallback:({inputs:e,host:t,events:r,dispatch:n,state:o,updateState:i})=>{const{actualValue:s,logRange:a,isLogScale:l,suffix:c,elementValue:u,elementLimits:d,rangeWidth:p}=fc({...e},t);if(Zt(t),ar(u))return w(s,u,d);return k(s,u,d);function w(b,C,M){const _={left:St((p-it)*(C.min-M.min)/(M.max-M.min)+it/2),right:St((p-it)*(M.max-C.max)/(M.max-M.min)+it/2)},X=Zn(b.min,c,l),he=Zn(b.max,c,l);requestAnimationFrame(()=>{const pe=np(t);pe!==o.labelOverlap&&i({labelOverlap:pe})});const Le=(M.max-C.max)/(M.max-M.min)>.5,Fe=Fn({value:C.min,limits:{min:M.min,max:C.max},flip:!0}),ie=Fn({value:C.max,limits:{min:C.min,max:M.max},flip:!1}),tt=o.labelOverlap&&Le?o.labelOverlap:0,br=o.labelOverlap&&!Le?o.labelOverlap:0;return h`
+                <div
+                    class="range"
+                    ${to(()=>{i({rangeWidth:To(t)})})}
+                >
+                    <div
+                        class="progress"
+                        style="left: ${_.left}; right:${_.right}"
+                    ></div>
+                    <span
+                        class="${R.labelOuterWrapper} ${R.lowerLabelWrapper}"
+                        style="left: ${_.left}"
+                    >
+                        <span
+                            class="${R.labelPercentMarginWrapper}"
+                            style="margin-left: ${Rn(Fe)}"
+                        >
+                            <span
+                                class="${R.labelPixelMarginWrapper}"
+                                style="margin-right: ${St(br)}"
+                                ${At(Ot.lowerLabel)}
+                            >
+                                ${X}
+                            </span>
+                        </span>
+                    </span>
+                    <span
+                        class="${R.labelOuterWrapper} ${R.upperLabelWrapper} ${R.rightAlignedLabelWrapper}"
+                        style="right: ${_.right}"
+                    >
+                        <span
+                            class="${R.labelPercentMarginWrapper}"
+                            style="margin-right: ${Rn(ie)}"
+                        >
+                            <span
+                                class="${R.labelPixelMarginWrapper}"
+                                style="margin-left: ${St(tt)}"
+                                ${At(Ot.upperLabel)}
+                            >
+                                ${he}
+                            </span>
+                        </span>
+                    </span>
+                    <div class="slider-wrapper">
+                        <input
+                            ?disabled=${e.disabled??!1}
+                            type="range"
+                            step=${e.step}
+                            class="${R.lowerSlider} ${R.slider}"
+                            .min=${M.min}
+                            .max=${M.max}
+                            .value=${C.min}
+                            ${A("input",pe=>{const mt=pe.target,Rt={...b,min:Vn(Number(mt.value),a,l)};m(Rt)})}
+                        />
+                        <input
+                            ?disabled=${e.disabled??!1}
+                            type="range"
+                            class="${R.upperSlider} ${R.slider}"
+                            step=${e.step}
+                            .min=${M.min}
+                            .max=${M.max}
+                            .value=${C.max}
+                            ${At(Ot.slider)}
+                            ${A("input",pe=>{const mt=pe.target,Rt={...b,max:Vn(Number(mt.value),a,l)};m(Rt)})}
+                        />
+                    </div>
+                </div>
+            `}function m(b){i({internalValue:b}),e.disabled||n(new r.valueChange(b))}function k(b,C,M){const _=St((p-it)*(M.max-C)/(M.max-M.min)+it/2),X=Zn(b,c,l),he=Fn({value:C,limits:M,flip:!1});return h`
+                <div
+                    class="range"
+                    ${to(()=>{i({rangeWidth:To(t)})})}
+                >
+                    <div class="progress" style="left: 0px; right: ${_}"></div>
+                    <span
+                        class="${R.labelOuterWrapper} ${R.rightAlignedLabelWrapper}"
+                        style="right: ${_}"
+                    >
+                        <span
+                            class="${R.labelPercentMarginWrapper}"
+                            style="margin-right: ${Rn(he)}"
+                            ${At(Ot.label)}
+                        >
+                            ${X}
+                        </span>
+                    </span>
+                    <input
+                        ?disabled=${e.disabled??!1}
+                        type="range"
+                        class="${R.slider}"
+                        step=${e.step}
+                        .min=${M.min}
+                        .max=${M.max}
+                        .value=${C}
+                        ${At(Ot.slider)}
+                        ${A("input",Le=>{const Fe=Le.target,ie=Vn(Number(Fe.value),a,l);m(ie)})}
+                    />
+                </div>
+            `}}}),ge=oe()({tagName:"toniq-toggle-button",hostClasses:{textOnly:!1},styles:({hostClassNames:e,hostClassSelectors:t})=>f`
+        :host {
+            ${q.boldParagraphFont};
+            ${pt};
+            display: inline-flex;
+            vertical-align: middle;
+        }
+
+        button {
+            ${et};
+            border: 0;
+            display: inline-flex;
+            cursor: pointer;
+            align-items: center;
+            position: relative;
+            outline: none;
+
+            -webkit-tap-highlight-color: transparent;
+            border-radius: 8px;
+            padding: 4px 12px;
+
+            ${O(S.accentSecondary)};
+            transition: color ${Q.interaction},
+                background-color ${Q.interaction};
+        }
+
+        ${Qe({mainSelector:"button:focus:focus-visible:not(:active)",elementBorderSize:0})}
+
+        button.toggled {
+            ${O(S.accentPrimary)};
+        }
+
+        :host(:hover) button {
+            ${O(S.accentPrimary)};
+        }
+
+        :host(:hover) button.toggled {
+            ${O(S.accentPrimaryHover)};
+        }
+
+        :host(:active) button.toggled {
+            ${O(S.accentPrimaryActive)};
+        }
+
+        ${t.textOnly} button {
+            ${O(S.pagePrimary)};
+            border: 1px solid transparent;
+            background: none;
+        }
+        ${t.textOnly} button.toggled {
+            ${O(S.pageInteraction)};
+            border-color: ${S.pageInteraction.foregroundColor};
+            background: none;
+        }
+        :host(.${e.textOnly}:hover) button.toggled {
+            ${O(S.pageInteractionHover)};
+        }
+        :host(.${e.textOnly}:hover) button {
+            color: ${S.pageInteraction.foregroundColor};
+        }
+        :host(.${e.textOnly}:active) button.toggled {
+            ${O(S.pageInteractionActive)};
+        }
+        ${t.textOnly} button {
+            padding: 0 8px;
+        }
+
+        .icon-template + .text-template {
+            margin-left: 8px;
+        }
+    `,renderCallback:({inputs:e})=>{const t=e.icon?h`
+                  <${v}
+                      class="icon-template"
+                      ${g(v,{icon:e.icon})}
+                  ></${v}>
+              `:"",r=e.text?h`
+                  <span class="text-template">${e.text}</span>
+              `:"";return h`
+            <button
+                class="${e.toggled?"toggled":""}"
+                role="checkbox"
+                aria-checked=${e.toggled}
+            >
+                ${t} ${r}
+            </button>
+        `}}),cp=J({title:"Social Urls",parent:fl,examples:[{title:"Icons",styles:f`
+                :host {
+                    display: flex;
+                    gap: 32px;
+                }
+
+                .social-icon-wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                }
+
+                .social-name {
+                    ${O(S.pageSecondary)};
+                }
+            `,render(){return Object.entries(dc).map(([e,t])=>h`
+                            <div class="social-icon-wrapper">
+                                <span class="social-name">${e}</span>
+                                <${v} ${g(v,{icon:t})}></${v}>
+                            </div>
+                        `)}}]}),le=ee({title:"Elements",parent:void 0}),gc=ee({title:"Button",parent:le});function Rr(e){return[{title:"Text",render(){return h`
+                    <${H}
+                        class=${e}
+                        ${g(H,{text:"Button"})}
+                    ></${H}>
+                `}},{title:"Icon",render(){return h`
+                    <${H}
+                        class=${e}
+                        ${g(H,{icon:Jt})}
+                    ></${H}>
+                `}},{title:"Toggling icon",stateInit:{showIcon:!0},render({state:t,updateState:r}){return setTimeout(()=>{r({showIcon:!t.showIcon})},1e3),h`
+                    <${H}
+                        class=${e}
+                        ${g(H,t.showIcon?{icon:Jt,text:"icon"}:{text:"no icon"})}
+                    ></${H}>
+                `}},{title:"Text + Icon",render(){return h`
+                    <${H}
+                        class=${e}
+                        ${g(H,{text:"Button",icon:Jt})}
+                    ></${H}>
+                `}},{title:"HTML child",render(){return h`
+                    <${H} class=${e} ${g(H,{})}>
+                        <span>HTML Child</span>
+                    </${H}>
+                `}},{title:"Sizable",render(){return h`
+                    <${H}
+                        class=${e}
+                        style="height: 100px; width: 200px;"
+                        ${g(H,{text:"bigger"})}
+                    ></${H}>
+                `}}]}const dp=Pe({[H.tagName]:Rr(""),[H.hostClasses.secondary]:Rr(H.hostClasses.secondary),[H.hostClasses.outline]:Rr(H.hostClasses.outline),[H.hostClasses.disabled]:Rr(H.hostClasses.disabled)},(e,t)=>J({title:e,examples:t,parent:gc})),up=[gc,...Object.values(dp)],ei=ee({title:"Carousel",parent:le}),hp=J({title:V.tagName,parent:ei,descriptionParagraphs:["A carousel that can show multiple elements at once.","Automatic scrolling is optional."],examples:[{title:"short and fast",styles:f`
+                :host {
+                    max-width: 100%;
+                }
+
+                ${V} {
+                    width: 800px;
+                    max-width: 100%;
+                    border-radius: 8px;
+                }
+            `,render(){return h`
+                    <${V}
+                        ${g(V,{enableAutomaticCycling:!0,cycleIntervalMs:1e3,templates:Xt["core-24"].map(e=>{const t=f`
+                                    padding: 24px;
+                                    border: 1px solid ${S.pageInteraction.foregroundColor};
+                                    border-radius: 12px;
+                                `;return h`
+                                    <${v}
+                                        style=${t}
+                                        ${g(v,{icon:e})}
+                                    ></${v}>
+                                `})})}
+                    ></${V}>
+                `}},{title:"tall",styles:f`
+                :host {
+                    max-width: 100%;
+                }
+
+                ${V} {
+                    width: 800px;
+                    max-width: 100%;
+                    border-radius: 8px;
+                }
+            `,render(){return h`
+                    <${V}
+                        ${g(V,{enableAutomaticCycling:!0,templates:Xt["core-24"].map(e=>{const t=f`
+                                    padding: 100px 24px;
+                                    border: 1px solid ${S.pageInteraction.foregroundColor};
+                                    border-radius: 12px;
+                                `;return h`
+                                    <${v}
+                                        style=${t}
+                                        ${g(v,{icon:e})}
+                                    ></${v}>
+                                `})})}
+                    ></${V}>
+                `}},{title:"random sizes",styles:f`
+                :host {
+                    max-width: 100%;
+                }
+
+                ${V} {
+                    width: 800px;
+                    max-width: 100%;
+                    border-radius: 8px;
+                }
+            `,render(){return h`
+                    <${V}
+                        ${g(V,{enableAutomaticCycling:!0,cycleIntervalMs:1e3,templates:Xt["core-24"].map(e=>{const t=vh({min:0,max:150}),r=f`
+                                    padding: 100px ${t}px;
+                                    border: 1px solid ${S.pageInteraction.foregroundColor};
+                                    border-radius: 12px;
+                                `;return h`
+                                    <${v}
+                                        style=${r}
+                                        ${g(v,{icon:e})}
+                                    ></${v}>
+                                `})})}
+                    ></${V}>
+                `}}]}),pp=J({title:V.hostClasses["banner-style"],parent:ei,descriptionParagraphs:[`${V.tagName} style for a single, full-width element.`],examples:[{title:V.hostClasses["banner-style"],styles:f`
+                :host {
+                    max-width: 100%;
+                }
+
+                ${V} {
+                    max-width: 100%;
+                    width: 800px;
+                    border-radius: 8px;
+                    ${V.cssVarNames["arrow-margin"]}: 16px;
+                }
+            `,render(){return h`
+                    <${V}
+                        class=${V.hostClasses["banner-style"]}
+                        ${g(V,{enableAutomaticCycling:!0,templates:Xt["core-24"].map(e=>{const t=f`
+                                    /* make sure this width matches the ToniqCarousel width */
+                                    width: 800px;
+                                    max-width: 100%;
+                                    padding: 100px 0;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    box-sizing: border-box;
+                                    border: 1px solid ${S.pageInteraction.foregroundColor};
+                                    border-radius: 12px;
+                                `;return h`
+                                    <${v}
+                                        style=${t}
+                                        ${g(v,{icon:e})}
+                                    ></${v}>
+                                `})})}
+                    ></${V}>
+                `}}]}),fp=[ei,hp,pp],mc=ee({title:"Checkbox",parent:le}),gp=J({title:z.tagName,parent:mc,examples:[{title:"Unchecked",stateInit:{checked:!1},render({state:e,updateState:t}){return h`
+                    <${z}
+                        ${g(z,{checked:e.checked,text:"My Checkbox"})}
+                        ${A(z.events.checkedChange,r=>{t({checked:r.detail})})}
+                    ></${z}>
+                `}},{title:"Checked",stateInit:{checked:!0},render({state:e,updateState:t}){return h`
+                    <${z}
+                        ${g(z,{checked:e.checked,text:"My Checkbox"})}
+                        ${A(z.events.checkedChange,r=>{t({checked:r.detail})})}
+                    ></${z}>
+                `}},{title:"HTML Child",stateInit:{checked:!1},render({state:e,updateState:t}){return h`
+                    <${z}
+                        ${g(z,{checked:e.checked})}
+                        ${A(z.events.checkedChange,r=>{t({checked:r.detail})})}
+                    >
+                        With HTML Child
+                    </${z}>
+                `}},{title:"Custom CSS Vars",stateInit:{checked:!1},styles:f`
+                :host {
+                    ${z.cssVarNames.uncheckedCheckboxColor}: red;
+                    ${z.cssVarNames.uncheckedLabelColor}: orange;
+                    ${z.cssVarNames.checkedCheckboxColor}: green;
+                    ${z.cssVarNames.checkedCheckColor}: blue;
+                    ${z.cssVarNames.checkedLabelColor}: purple;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                }
+            `,render({state:e,updateState:t}){return h`
+                    <${z}
+                        ${g(z,{checked:e.checked,text:"wild colors"})}
+                        ${A(z.events.checkedChange,r=>{t({checked:r.detail})})}
+                    ></${z}>
+                    <${z}
+                        ${g(z,{checked:!e.checked,text:`wild colors (${e.checked?"unchecked":"checked"})`})}
+                        ${A(z.events.checkedChange,r=>{t({checked:!r.detail})})}
+                    ></${z}>
+                `}},{title:"Multiple",stateInit:{checkedShort:!1,checkedLong:!1},styles:f`
+                :host {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                    max-width: 250px;
+                }
+            `,render({state:e,updateState:t}){return h`
+                    <${z}
+                        ${g(z,{checked:e.checkedShort,text:"Short"})}
+                        ${A(z.events.checkedChange,r=>{t({checkedShort:r.detail})})}
+                    ></${z}>
+                    <${z}
+                        ${g(z,{checked:e.checkedLong,text:"With much longer checkbox label string"})}
+                        ${A(z.events.checkedChange,r=>{t({checkedLong:r.detail})})}
+                    ></${z}>
+                `}}]}),mp=[mc,gp],vc=ee({title:"Chip",parent:le});function qs(e){return[{title:"Text",render(){return h`
+                    <${Y}
+                        class=${e}
+                        ${g(Y,{text:"Toniq Chip Text"})}
+                    ></${Y}>
+                `}},{title:"Text + Icon",render(){return h`
+                    <${Y}
+                        class=${e}
+                        ${g(Y,{text:"Toniq Chip Text",icon:Yt})}
+                    ></${Y}>
+                `}},{title:"HTML Child",render(){return h`
+                    <${Y} class=${e} ${g(Y,{})}>
+                        Slot in Use
+                    </${Y}>
+                `}},{title:"HTML + Icon",render(){return h`
+                    <${Y}
+                        class=${e}
+                        ${g(Y,{icon:Yt})}
+                    >
+                        Slot in Use
+                    </${Y}>
+                `}},{title:"custom size",styles:f`
+                ${Y} {
+                    width: 150px;
+                    height: 24px;
+                }
+            `,render(){return h`
+                    <${Y}
+                        class=${e}
+                        ${g(Y,{icon:Yt})}
+                    >
+                        Slot in Use
+                    </${Y}>
+                `}}]}const vp=Pe({[Y.tagName]:qs(""),[Y.hostClasses.secondary]:qs(Y.hostClasses.secondary)},(e,t)=>J({title:e,examples:t,parent:vc})),wp=[vc,...Object.values(vp)],wc=ee({title:"Dropdown",parent:le}),Ze=[{label:"Option 1",value:1},{label:"Option 2",value:2},{label:"Option 3",value:3},{label:"Really really super duper long option",value:4}],bp=J({title:N.tagName,parent:wc,examples:[{title:"Default",stateInit:{selected:void 0},render({state:e,updateState:t}){return h`
+                    <${N}
+                        ${g(N,{options:Ze,selected:e.selected})}
+                        ${A(N.events.selectChange,r=>{t({selected:r.detail})})}
+                    ></${N}>
+                `}},{title:"With Icon",stateInit:{selected:void 0},render({state:e,updateState:t}){return h`
+                    <${N}
+                        ${g(N,{options:Ze,selected:e.selected,icon:$o})}
+                        ${A(N.events.selectChange,r=>{t({selected:r.detail})})}
+                    ></${N}>
+                `}},{title:"With Icon + Prefix",stateInit:{selected:void 0},render({state:e,updateState:t}){return h`
+                    <${N}
+                        ${g(N,{options:Ze,selected:e.selected,icon:$o,selectedLabelPrefix:"Sort By:"})}
+                        ${A(N.events.selectChange,r=>{t({selected:r.detail})})}
+                    ></${N}>
+                `}},{title:"Defaulted to an option",stateInit:{selected:Ze[3]},render({state:e,updateState:t}){return h`
+                    <${N}
+                        ${g(N,{options:Ze,selected:e.selected})}
+                        ${A(N.events.selectChange,r=>{t({selected:r.detail})})}
+                    ></${N}>
+                `}},{title:"Custom size",stateInit:{selected:void 0},styles:f`
+                ${N} {
+                    width: 500px;
+                    height: 100px;
+                }
+            `,render({state:e,updateState:t}){return h`
+                    <${N}
+                        ${g(N,{options:Ze,selected:e.selected})}
+                        ${A(N.events.selectChange,r=>{t({selected:r.detail})})}
+                    ></${N}>
+                `}},{title:"Squished",stateInit:{selected:void 0},styles:f`
+                ${N} {
+                    max-height: 20px;
+                    min-height: 20px;
+                }
+            `,render({state:e,updateState:t}){return h`
+                    <${N}
+                        ${g(N,{options:Ze,selected:e.selected})}
+                        ${A(N.events.selectChange,r=>{t({selected:r.detail})})}
+                    ></${N}>
+                `}},{title:"No background",stateInit:{selected:void 0},styles:f`
+                ${N} {
+                    ${Go.accentSecondary.backgroundColor}: transparent;
+                }
+            `,render({state:e,updateState:t}){return h`
+                    <${N}
+                        ${g(N,{options:Ze,selected:e.selected})}
+                        ${A(N.events.selectChange,r=>{t({selected:r.detail})})}
+                    ></${N}>
+                `}}]}),$p=[wc,bp],Us="/toniq-labs-design-system";function yp(...e){const r=[globalThis.location.pathname.startsWith(Us)?Us:"",...e].filter(vl);return mu(...r)}const ti=ee({title:"Flip Card",parent:le}),Wn=Array(30).fill(yp("/toniq-labs-logo.png")),Po=["Hello there.","There is stuff here."],xp=Po.concat(Array(30).fill(Po)),kp=J({title:ke.tagName,parent:ti,examples:[{title:"basic",styles:f`
                 .front,
                 .back {
                     padding: 32px;
                 }
             `,stateInit:{flipped:!1},render(){return h`
                     <${ke}
-                        ${g(ke,{moreInfoParagraphs:xp,imageUrls:Wn,socialUrls:$h,title:"Featured Stuff",viewName:"Stuff"})}
+                        ${g(ke,{moreInfoParagraphs:xp,imageUrls:Wn,socialUrls:Uh,title:"Featured Stuff",viewName:"Stuff"})}
                     ></${ke}>
                 `}},{title:"with missing inputs",styles:f`
                 .front,
@@ -4731,19 +4731,19 @@ ${e.templateString}
                     <${ke}
                         ${g(ke,{imageUrls:Wn,moreInfoParagraphs:Po,title:"Featured Stuff"})}
                     ></${ke}>
-                `}}]}),Cp=J({title:je.tagName,parent:ti,examples:[{title:"basic",styles:f`
+                `}}]}),Cp=J({title:Ne.tagName,parent:ti,examples:[{title:"basic",styles:f`
                 .front,
                 .back {
                     padding: 32px;
                 }
             `,stateInit:{flipped:!1},render({state:e,updateState:t}){return h`
-                    <${je}
-                        ${g(je,{flipped:e.flipped})}
-                        ${A(je.events.flippedChange,r=>{t({flipped:r.detail})})}
+                    <${Ne}
+                        ${g(Ne,{flipped:e.flipped})}
+                        ${A(Ne.events.flippedChange,r=>{t({flipped:r.detail})})}
                     >
                         <div class="front" slot="front">Hello there!</div>
                         <div class="back" slot="back">Bye there!</div>
-                    </${je}>
+                    </${Ne}>
                 `}}]}),Sp=[ti,Cp,kp],bc=ee({title:"Hyperlink",parent:le});function Gs(e){return[{title:"text hyperlink",render(){return h`
                     <${He}
                         class=${e}
@@ -5136,7 +5136,7 @@ ${e.templateString}
                             </div>
                         `})}
                 </div>
-            `}}}const Gp=Xe(q).map(e=>{const t=q[e];return Up(e,t)}),Yp=J({title:"Fonts",parent:ri,examples:Gp,descriptionParagraphs:['Accessed via the "toniqFontStyles" export.']}),Jp=[le,Mc,ri,...Op,...kh,...Mh,...Ih,...Th,...Lh,...Sp,...Ap,...Ep,...Pp,...Bp,...Rp,...jp,...Hp,Wp,Yp,fl,yh];en({tagName:"toniq-design-system-app",styles:f`
+            `}}}const Gp=Xe(q).map(e=>{const t=q[e];return Up(e,t)}),Yp=J({title:"Fonts",parent:ri,examples:Gp,descriptionParagraphs:['Accessed via the "toniqFontStyles" export.']}),Jp=[le,Mc,ri,...Op,...up,...fp,...mp,...wp,...$p,...Sp,...Ap,...Ep,...Pp,...Bp,...Rp,...jp,...Hp,Wp,Yp,fl,cp];en({tagName:"toniq-design-system-app",styles:f`
         :host {
             display: block;
             height: 100%;
