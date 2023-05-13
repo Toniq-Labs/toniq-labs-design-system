@@ -95,6 +95,8 @@ export const ToniqInput = defineToniqElement<{
     blockedInputs?: string | RegExp;
     /** Disable all browser helps like spellchecking, autocomplete, etc. */
     disableBrowserHelps?: boolean;
+    /** Any letters in the given string or matches to the given RegExp will be added as suffix */
+    suffix?: string | RegExp;
 }>()({
     tagName: 'toniq-input',
     hostClasses: {
@@ -163,6 +165,7 @@ export const ToniqInput = defineToniqElement<{
                 border-radius: ${buttonBorderRadius};
                 background-color: ${toniqColors.accentTertiary.backgroundColor};
                 font: ${toniqFontStyles.paragraphFont};
+                gap: 4px;
             }
 
             ${createFocusStyles({
@@ -195,6 +198,10 @@ export const ToniqInput = defineToniqElement<{
 
             input::placeholder {
                 color: ${toniqColors.accentTertiary.foregroundColor};
+            }
+
+            .suffix {
+                font-weight: 500;
             }
         `;
     },
@@ -288,6 +295,7 @@ export const ToniqInput = defineToniqElement<{
                     })}
                     placeholder=${inputs.placeholder}
                 />
+                <div class="suffix">${inputs.suffix}</div>
                 <div class="focus-border"></div>
             </label>
         `;
