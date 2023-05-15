@@ -29,6 +29,7 @@ import {CircleWavyCheck24Icon} from './svgs/core-24/circle-wavy-check-24.icon';
 import {Clock24Icon} from './svgs/core-24/clock-24.icon';
 import {Code24Icon} from './svgs/core-24/code-24.icon';
 import {Copy24Icon} from './svgs/core-24/copy-24.icon';
+import {CreateFile24Icon} from './svgs/core-24/create-file-24.icon';
 import {DotsVertical24Icon} from './svgs/core-24/dots-vertical-24.icon';
 import {Download24Icon} from './svgs/core-24/download-24.icon';
 import {Edit24Icon} from './svgs/core-24/edit-24.icon';
@@ -111,6 +112,7 @@ export * from './svgs/core-24/circle-wavy-check-24.icon';
 export * from './svgs/core-24/clock-24.icon';
 export * from './svgs/core-24/code-24.icon';
 export * from './svgs/core-24/copy-24.icon';
+export * from './svgs/core-24/create-file-24.icon';
 export * from './svgs/core-24/dots-vertical-24.icon';
 export * from './svgs/core-24/download-24.icon';
 export * from './svgs/core-24/edit-24.icon';
@@ -199,6 +201,7 @@ export const allIconsByCategory = {
         Clock24Icon,
         Code24Icon,
         Copy24Icon,
+        CreateFile24Icon,
         DotsVertical24Icon,
         Download24Icon,
         Edit24Icon,
