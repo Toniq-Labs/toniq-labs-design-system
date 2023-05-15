@@ -1,4 +1,4 @@
-import {assign, css, defineElementEvent, html, listen} from 'element-vir';
+import {assign, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
 import {TemplateResult} from 'lit';
 import {ToniqSvg} from '../../icons';
 import {toniqColors, toniqFontStyles} from '../../styles';
@@ -95,8 +95,8 @@ export const ToniqInput = defineToniqElement<{
     blockedInputs?: string | RegExp;
     /** Disable all browser helps like spellchecking, autocomplete, etc. */
     disableBrowserHelps?: boolean;
-    /** Any letters in the given string or matches to the given RegExp will be added as suffix */
-    suffix?: string | RegExp;
+    /** A suffix that, if provided, is shown following the user input field. */
+    suffix?: string;
 }>()({
     tagName: 'toniq-input',
     hostClasses: {
@@ -201,7 +201,7 @@ export const ToniqInput = defineToniqElement<{
             }
 
             .suffix {
-                font-weight: 500;
+                ${toniqFontStyles.boldFont};
             }
         `;
     },
@@ -295,7 +295,12 @@ export const ToniqInput = defineToniqElement<{
                     })}
                     placeholder=${inputs.placeholder}
                 />
-                <div class="suffix">${inputs.suffix}</div>
+                ${renderIf(
+                    !!inputs.suffix,
+                    html`
+                        <div class="suffix">${inputs.suffix}</div>
+                    `,
+                )}
                 <div class="focus-border"></div>
             </label>
         `;
