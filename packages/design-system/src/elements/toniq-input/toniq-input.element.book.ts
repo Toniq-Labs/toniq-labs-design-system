@@ -161,6 +161,26 @@ const toniqInputPage = defineElementBookPage({
             },
         }),
         createExample({
+            title: 'With suffix',
+            stateInit: {
+                value: '',
+            },
+            render({state, updateState}) {
+                return html`
+                    <${ToniqInput}
+                        ${assign(ToniqInput, {
+                            value: state.value,
+                            placeholder: 'my placeholder',
+                            suffix: 'ckBTC',
+                        })}
+                        ${listen(ToniqInput.events.valueChange, (event) => {
+                            updateState({value: event.detail});
+                        })}
+                    ></${ToniqInput}>
+                `;
+            },
+        }),
+        createExample({
             title: 'only numbers allowed',
             stateInit: {
                 value: '',

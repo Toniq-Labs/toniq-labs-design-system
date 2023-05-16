@@ -1,4 +1,4 @@
-import {assign, css, defineElementEvent, html, listen} from 'element-vir';
+import {assign, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
 import {TemplateResult} from 'lit';
 import {ToniqSvg} from '../../icons';
 import {toniqColors, toniqFontStyles} from '../../styles';
@@ -95,6 +95,8 @@ export const ToniqInput = defineToniqElement<{
     blockedInputs?: string | RegExp;
     /** Disable all browser helps like spellchecking, autocomplete, etc. */
     disableBrowserHelps?: boolean;
+    /** A suffix that, if provided, is shown following the user input field. */
+    suffix?: string;
 }>()({
     tagName: 'toniq-input',
     hostClasses: {
@@ -163,6 +165,7 @@ export const ToniqInput = defineToniqElement<{
                 border-radius: ${buttonBorderRadius};
                 background-color: ${toniqColors.accentTertiary.backgroundColor};
                 font: ${toniqFontStyles.paragraphFont};
+                gap: 4px;
             }
 
             ${createFocusStyles({
@@ -195,6 +198,10 @@ export const ToniqInput = defineToniqElement<{
 
             input::placeholder {
                 color: ${toniqColors.accentTertiary.foregroundColor};
+            }
+
+            .suffix {
+                ${toniqFontStyles.boldFont};
             }
         `;
     },
@@ -288,6 +295,12 @@ export const ToniqInput = defineToniqElement<{
                     })}
                     placeholder=${inputs.placeholder}
                 />
+                ${renderIf(
+                    !!inputs.suffix,
+                    html`
+                        <div class="suffix">${inputs.suffix}</div>
+                    `,
+                )}
                 <div class="focus-border"></div>
             </label>
         `;
