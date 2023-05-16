@@ -21,7 +21,7 @@
     ],
     "scripts": {
         "build": "npm run compile && cd packages/design-system && npm run build",
-        "compile": "tsc-mono for-each npm run compile",
+        "compile": "mono-vir for-each npm run compile",
         "format": "virmator format",
         "postinstall": "node -e \"__dirname.includes('node_modules') && process.exit(0)\" && npm run compile",
         "publish": "virmator publish \"npm run test:all\"",
@@ -31,7 +31,7 @@
         "test:docs": "virmator code-in-markdown check README.md",
         "test:format": "virmator format check",
         "test:spelling": "virmator spellcheck",
-        "test:types": "tsc-mono for-each tsc --noEmit",
+        "test:types": "mono-vir for-each-async tsc --noEmit",
         "update:exports": "cd packages/scripts && npm run update:exports"
     },
     "devDependencies": {
@@ -39,6 +39,7 @@
         "cspell": "^6.31.1",
         "esbuild": "^0.17.18",
         "markdown-code-example-inserter": "^0.3.0",
+        "mono-vir": "^0.0.1",
         "npm-check-updates": "^16.10.12",
         "prettier": "^2.8.8",
         "prettier-plugin-interpolated-html-tags": "^0.0.3",
@@ -48,7 +49,6 @@
         "prettier-plugin-packagejson": "^2.4.3",
         "prettier-plugin-sort-json": "^1.0.0",
         "prettier-plugin-toml": "^0.3.1",
-        "tsc-mono": "^2.1.2",
         "typescript": "^5.0.4",
         "virmator": "^6.5.1"
     }
