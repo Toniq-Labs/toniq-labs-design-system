@@ -1,4 +1,4 @@
-import {createExample, defineElementBookChapter, defineElementBookPage} from 'element-book';
+import {defineElementBookChapter, defineElementBookPage} from 'element-book';
 import {assign, css, html} from 'element-vir';
 import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {ToniqMiddleEllipsis} from './toniq-middle-ellipsis.element';
@@ -11,10 +11,10 @@ const toniqMiddleEllipsisChapter = defineElementBookChapter({
 const toniqMiddleEllipsisPage = defineElementBookPage({
     title: ToniqMiddleEllipsis.tagName,
     parent: toniqMiddleEllipsisChapter,
-    examples: [
-        createExample({
+    defineExamplesCallback({defineExample}) {
+        defineExample({
             title: 'Long text',
-            render() {
+            renderCallback() {
                 return html`
                     <${ToniqMiddleEllipsis}
                         ${assign(ToniqMiddleEllipsis, {
@@ -23,10 +23,10 @@ const toniqMiddleEllipsisPage = defineElementBookPage({
                     ></${ToniqMiddleEllipsis}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Short text',
-            render() {
+            renderCallback() {
                 return html`
                     <${ToniqMiddleEllipsis}
                         ${assign(ToniqMiddleEllipsis, {
@@ -35,10 +35,10 @@ const toniqMiddleEllipsisPage = defineElementBookPage({
                     ></${ToniqMiddleEllipsis}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'External Link',
-            render() {
+            renderCallback() {
                 return html`
                     <${ToniqMiddleEllipsis}
                         ${assign(ToniqMiddleEllipsis, {
@@ -48,10 +48,10 @@ const toniqMiddleEllipsisPage = defineElementBookPage({
                     ></${ToniqMiddleEllipsis}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Copyable',
-            render() {
+            renderCallback() {
                 return html`
                     <${ToniqMiddleEllipsis}
                         ${assign(ToniqMiddleEllipsis, {
@@ -61,8 +61,8 @@ const toniqMiddleEllipsisPage = defineElementBookPage({
                     ></${ToniqMiddleEllipsis}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Custom CSS vars',
             styles: css`
                 ${ToniqMiddleEllipsis} {
@@ -72,7 +72,7 @@ const toniqMiddleEllipsisPage = defineElementBookPage({
                     ${ToniqMiddleEllipsis.cssVarNames.textHoverColor}: purple;
                 }
             `,
-            render() {
+            renderCallback() {
                 return html`
                     <${ToniqMiddleEllipsis}
                         ${assign(ToniqMiddleEllipsis, {
@@ -82,8 +82,8 @@ const toniqMiddleEllipsisPage = defineElementBookPage({
                     ></${ToniqMiddleEllipsis}>
                 `;
             },
-        }),
-    ],
+        });
+    },
 });
 
 export const toniqMiddleEllipsisBookEntries = [

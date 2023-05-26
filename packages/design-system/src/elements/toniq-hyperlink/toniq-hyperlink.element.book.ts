@@ -1,8 +1,7 @@
 import {ensureType, mapObjectValues} from '@augment-vir/common';
 import {
+    DefineExampleCallback,
     ElementBookPage,
-    ElementBookPageExample,
-    createExample,
     defineElementBookChapter,
     defineElementBookPage,
 } from 'element-book';
@@ -15,11 +14,11 @@ const toniqHyperlinkBookChapter = defineElementBookChapter({
     parent: elementsBookChapter,
 });
 
-function createHyperlinkExamples(classList: string) {
+function createHyperlinkExamples(defineExample: DefineExampleCallback<{}>, classList: string) {
     return [
-        createExample({
+        defineExample({
             title: 'text hyperlink',
-            render() {
+            renderCallback() {
                 return html`
                     <${ToniqHyperlink}
                         class=${classList}
@@ -37,16 +36,17 @@ function createHyperlinkExamples(classList: string) {
 }
 
 const toniqHyperlinkBookPages = mapObjectValues(
-    ensureType<Record<string, ElementBookPageExample<any>[]>>({
-        [ToniqHyperlink.tagName]: createHyperlinkExamples(''),
-        [ToniqHyperlink.hostClasses['with-hover-styles']]: createHyperlinkExamples(
+    ensureType<Record<string, string>>({
+        [ToniqHyperlink.tagName]: '',
+        [ToniqHyperlink.hostClasses['with-hover-styles']]:
             ToniqHyperlink.hostClasses['with-hover-styles'],
-        ),
     }),
-    (key, value) => {
+    (pageTitle, className) => {
         return defineElementBookPage({
-            title: key,
-            examples: value,
+            title: pageTitle,
+            defineExamplesCallback({defineExample}) {
+                createHyperlinkExamples(defineExample, className);
+            },
             parent: toniqHyperlinkBookChapter,
         });
     },

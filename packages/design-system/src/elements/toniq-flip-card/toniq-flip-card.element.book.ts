@@ -1,4 +1,4 @@
-import {createExample, defineElementBookChapter, defineElementBookPage} from 'element-book';
+import {defineElementBookChapter, defineElementBookPage} from 'element-book';
 import {assign, css, html, listen} from 'element-vir';
 import {emptySocialUrls} from '../../data/social-urls';
 import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
@@ -21,8 +21,8 @@ const longMoreInfoParagraphs = moreInfoParagraphs.concat(Array(30).fill(moreInfo
 const toniqFeaturedFlipCardBookPage = defineElementBookPage({
     title: ToniqFeaturedFlipCard.tagName,
     parent: toniqFlipCardBookChapter,
-    examples: [
-        createExample({
+    defineExamplesCallback({defineExample}) {
+        defineExample({
             title: 'basic',
             styles: css`
                 .front,
@@ -33,7 +33,7 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
             stateInit: {
                 flipped: false,
             },
-            render() {
+            renderCallback() {
                 return html`
                     <${ToniqFeaturedFlipCard}
                         ${assign(ToniqFeaturedFlipCard, {
@@ -46,8 +46,8 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
                     ></${ToniqFeaturedFlipCard}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'with missing inputs',
             styles: css`
                 .front,
@@ -58,7 +58,7 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
             stateInit: {
                 flipped: false,
             },
-            render() {
+            renderCallback() {
                 return html`
                     <${ToniqFeaturedFlipCard}
                         ${assign(ToniqFeaturedFlipCard, {
@@ -68,8 +68,8 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
                     ></${ToniqFeaturedFlipCard}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'smaller',
             styles: css`
                 .front,
@@ -84,7 +84,7 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
             stateInit: {
                 flipped: false,
             },
-            render() {
+            renderCallback() {
                 return html`
                     <${ToniqFeaturedFlipCard}
                         ${assign(ToniqFeaturedFlipCard, {
@@ -95,15 +95,15 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
                     ></${ToniqFeaturedFlipCard}>
                 `;
             },
-        }),
-    ],
+        });
+    },
 });
 
 const toniqFlipCardBookPage = defineElementBookPage({
     title: ToniqFlipCard.tagName,
     parent: toniqFlipCardBookChapter,
-    examples: [
-        createExample({
+    defineExamplesCallback({defineExample}) {
+        defineExample({
             title: 'basic',
             styles: css`
                 .front,
@@ -114,7 +114,7 @@ const toniqFlipCardBookPage = defineElementBookPage({
             stateInit: {
                 flipped: false,
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqFlipCard}
                         ${assign(ToniqFlipCard, {
@@ -129,8 +129,8 @@ const toniqFlipCardBookPage = defineElementBookPage({
                     </${ToniqFlipCard}>
                 `;
             },
-        }),
-    ],
+        });
+    },
 });
 
 export const toniqFlipCardBookEntries = [

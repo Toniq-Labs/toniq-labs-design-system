@@ -1,8 +1,7 @@
 import {ensureType, mapObjectValues} from '@augment-vir/common';
 import {
+    DefineExampleCallback,
     ElementBookPage,
-    ElementBookPageExample,
-    createExample,
     defineElementBookChapter,
     defineElementBookPage,
 } from 'element-book';
@@ -16,112 +15,114 @@ const toniqButtonBookChapter = defineElementBookChapter({
     parent: elementsBookChapter,
 });
 
-function createButtonExamples(classList: string) {
-    return [
-        createExample({
-            title: 'Text',
-            render() {
-                return html`
-                    <${ToniqButton}
-                        class=${classList}
-                        ${assign(ToniqButton, {
-                            text: 'Button',
-                        })}
-                    ></${ToniqButton}>
-                `;
-            },
-        }),
-        createExample({
-            title: 'Icon',
-            render() {
-                return html`
-                    <${ToniqButton}
-                        class=${classList}
-                        ${assign(ToniqButton, {
-                            icon: Trash24Icon,
-                        })}
-                    ></${ToniqButton}>
-                `;
-            },
-        }),
-        createExample({
-            title: 'Toggling icon',
-            stateInit: {
-                showIcon: true,
-            },
-            render({state, updateState}) {
-                setTimeout(() => {
-                    updateState({showIcon: !state.showIcon});
-                }, 1000);
+function createButtonExamples(defineExample: DefineExampleCallback<{}>, classList: string) {
+    defineExample({
+        title: 'Text',
+        renderCallback() {
+            return html`
+                <${ToniqButton}
+                    class=${classList}
+                    ${assign(ToniqButton, {
+                        text: 'Button',
+                    })}
+                ></${ToniqButton}>
+            `;
+        },
+    });
+    defineExample({
+        title: 'Icon',
+        renderCallback() {
+            return html`
+                <${ToniqButton}
+                    class=${classList}
+                    ${assign(ToniqButton, {
+                        icon: Trash24Icon,
+                    })}
+                ></${ToniqButton}>
+            `;
+        },
+    });
+    defineExample({
+        title: 'Toggling icon',
+        stateInit: {
+            showIcon: true,
+        },
+        renderCallback({state, updateState}) {
+            setTimeout(() => {
+                updateState({showIcon: !state.showIcon});
+            }, 1000);
 
-                return html`
-                    <${ToniqButton}
-                        class=${classList}
-                        ${assign(
-                            ToniqButton,
-                            state.showIcon
-                                ? {
-                                      icon: Trash24Icon,
-                                      text: 'icon',
-                                  }
-                                : {
-                                      text: 'no icon',
-                                  },
-                        )}
-                    ></${ToniqButton}>
-                `;
-            },
-        }),
-        createExample({
-            title: 'Text + Icon',
-            render() {
-                return html`
-                    <${ToniqButton}
-                        class=${classList}
-                        ${assign(ToniqButton, {
-                            text: 'Button',
-                            icon: Trash24Icon,
-                        })}
-                    ></${ToniqButton}>
-                `;
-            },
-        }),
-        createExample({
-            title: 'HTML child',
-            render() {
-                return html`
-                    <${ToniqButton} class=${classList} ${assign(ToniqButton, {})}>
-                        <span>HTML Child</span>
-                    </${ToniqButton}>
-                `;
-            },
-        }),
-        createExample({
-            title: 'Sizable',
-            render() {
-                return html`
-                    <${ToniqButton}
-                        class=${classList}
-                        style="height: 100px; width: 200px;"
-                        ${assign(ToniqButton, {text: 'bigger'})}
-                    ></${ToniqButton}>
-                `;
-            },
-        }),
-    ];
+            return html`
+                <${ToniqButton}
+                    class=${classList}
+                    ${assign(
+                        ToniqButton,
+                        state.showIcon
+                            ? {
+                                  icon: Trash24Icon,
+                                  text: 'icon',
+                              }
+                            : {
+                                  text: 'no icon',
+                              },
+                    )}
+                ></${ToniqButton}>
+            `;
+        },
+    });
+    defineExample({
+        title: 'Text + Icon',
+        renderCallback() {
+            return html`
+                <${ToniqButton}
+                    class=${classList}
+                    ${assign(ToniqButton, {
+                        text: 'Button',
+                        icon: Trash24Icon,
+                    })}
+                ></${ToniqButton}>
+            `;
+        },
+    });
+    defineExample({
+        title: 'HTML child',
+        renderCallback() {
+            return html`
+                <${ToniqButton} class=${classList} ${assign(ToniqButton, {})}>
+                    <span>HTML Child</span>
+                </${ToniqButton}>
+            `;
+        },
+    });
+    defineExample({
+        title: 'Sizable',
+        renderCallback() {
+            return html`
+                <${ToniqButton}
+                    class=${classList}
+                    style="height: 100px; width: 200px;"
+                    ${assign(ToniqButton, {text: 'bigger'})}
+                ></${ToniqButton}>
+            `;
+        },
+    });
 }
 
 const toniqButtonBookPages = mapObjectValues(
-    ensureType<Record<string, ElementBookPageExample<any>[]>>({
-        [ToniqButton.tagName]: createButtonExamples(''),
-        [ToniqButton.hostClasses.secondary]: createButtonExamples(
-            ToniqButton.hostClasses.secondary,
-        ),
-        [ToniqButton.hostClasses.outline]: createButtonExamples(ToniqButton.hostClasses.outline),
-        [ToniqButton.hostClasses.disabled]: createButtonExamples(ToniqButton.hostClasses.disabled),
+    ensureType<Record<string, string>>({
+        [ToniqButton.tagName]: '',
+        [ToniqButton.hostClasses.secondary]: ToniqButton.hostClasses.secondary,
+        [ToniqButton.hostClasses.outline]: ToniqButton.hostClasses.outline,
+        [ToniqButton.hostClasses.disabled]: ToniqButton.hostClasses.disabled,
     }),
-    (key, value) => {
-        return defineElementBookPage({title: key, examples: value, parent: toniqButtonBookChapter});
+    (pageTitle, hostClass) => {
+        return defineElementBookPage({
+            title: pageTitle,
+            defineExamplesCallback({defineExample}) {
+                createButtonExamples(defineExample, hostClass);
+            },
+            parent: toniqButtonBookChapter,
+        });
     },
 ) satisfies Record<string, ElementBookPage>;
 

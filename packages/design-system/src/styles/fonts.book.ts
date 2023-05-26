@@ -1,5 +1,5 @@
 import {getObjectTypedKeys} from '@augment-vir/common';
-import {createExample, defineElementBookPage} from 'element-book';
+import {DefineExampleCallback, defineElementBookPage} from 'element-book';
 import {css, html} from 'element-vir';
 import {CSSResult} from 'lit';
 import {stylesBookChapter} from '../element-book/book-chapters/styles.book';
@@ -48,13 +48,17 @@ const fontExampleStyles = css`
     }
 `;
 
-function createFontExample(fontStyleName: string, fontStyles: CSSResult) {
+function createFontExample(
+    defineExample: DefineExampleCallback<{}>,
+    fontStyleName: string,
+    fontStyles: CSSResult,
+) {
     const extracted = extractAllCssVars(fontStyles);
 
-    return createExample({
+    return defineExample({
         title: fontStyleName,
         styles: fontExampleStyles,
-        render() {
+        renderCallback() {
             return html`
                 <div class="font-example" style=${fontStyles}>
                     <p>
@@ -80,15 +84,15 @@ function createFontExample(fontStyleName: string, fontStyles: CSSResult) {
     });
 }
 
-const toniqFontExamples = getObjectTypedKeys(toniqFontStyles).map((fontKey) => {
-    const fontDefinition = toniqFontStyles[fontKey];
-
-    return createFontExample(fontKey, fontDefinition);
-});
-
 export const toniqFontsBookPage = defineElementBookPage({
     title: 'Fonts',
     parent: stylesBookChapter,
-    examples: toniqFontExamples,
+    defineExamplesCallback({defineExample}) {
+        getObjectTypedKeys(toniqFontStyles).map((fontKey) => {
+            const fontDefinition = toniqFontStyles[fontKey];
+
+            return createFontExample(defineExample, fontKey, fontDefinition);
+        });
+    },
     descriptionParagraphs: ['Accessed via the "toniqFontStyles" export.'],
 });

@@ -1,5 +1,5 @@
 import {typedMap} from '@augment-vir/common';
-import {createExample, defineElementBookChapter, defineElementBookPage} from 'element-book';
+import {defineElementBookChapter, defineElementBookPage} from 'element-book';
 import {assign, css, html, listen} from 'element-vir';
 import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {ToniqRadioGroup, ToniqRadioGroupEntry} from './toniq-radio-group.element';
@@ -51,13 +51,13 @@ const exampleRadioGroupEntries = {
 const toniqRadioGroupPage = defineElementBookPage({
     title: ToniqRadioGroup.tagName,
     parent: toniqRadioGroupChapter,
-    examples: [
-        createExample({
+    defineExamplesCallback({defineExample}) {
+        defineExample({
             title: 'Default',
             stateInit: {
                 selectedValue: exampleRadioGroupEntries.basic[0].value as string,
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqRadioGroup}
                         ${assign(ToniqRadioGroup, {
@@ -70,8 +70,8 @@ const toniqRadioGroupPage = defineElementBookPage({
                     ></${ToniqRadioGroup}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Inline',
             stateInit: {
                 selectedValue: exampleRadioGroupEntries.basic[0].value as string,
@@ -81,7 +81,7 @@ const toniqRadioGroupPage = defineElementBookPage({
                     flex-direction: row;
                 }
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqRadioGroup}
                         ${assign(ToniqRadioGroup, {
@@ -94,8 +94,8 @@ const toniqRadioGroupPage = defineElementBookPage({
                     ></${ToniqRadioGroup}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Restricted width',
             stateInit: {
                 selectedValue: exampleRadioGroupEntries.longText[0].value as string,
@@ -105,7 +105,7 @@ const toniqRadioGroupPage = defineElementBookPage({
                     max-width: 200px;
                 }
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqRadioGroup}
                         ${assign(ToniqRadioGroup, {
@@ -118,13 +118,13 @@ const toniqRadioGroupPage = defineElementBookPage({
                     ></${ToniqRadioGroup}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'No labels',
             stateInit: {
                 selectedValue: exampleRadioGroupEntries.noLabels[0].value as string,
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqRadioGroup}
                         ${assign(ToniqRadioGroup, {
@@ -137,13 +137,13 @@ const toniqRadioGroupPage = defineElementBookPage({
                     ></${ToniqRadioGroup}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Entry 1 disabled',
             stateInit: {
                 selectedValue: exampleRadioGroupEntries.disabled[1]!.value as string,
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqRadioGroup}
                         ${assign(ToniqRadioGroup, {
@@ -156,8 +156,8 @@ const toniqRadioGroupPage = defineElementBookPage({
                     ></${ToniqRadioGroup}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Custom CSS vars',
             stateInit: {
                 selectedValue: exampleRadioGroupEntries.basic[0].value as string,
@@ -170,7 +170,7 @@ const toniqRadioGroupPage = defineElementBookPage({
                     ${ToniqRadioGroup.cssVarNames.uncheckedRadioColor}: pink;
                 }
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqRadioGroup}
                         ${assign(ToniqRadioGroup, {
@@ -183,8 +183,8 @@ const toniqRadioGroupPage = defineElementBookPage({
                     ></${ToniqRadioGroup}>
                 `;
             },
-        }),
-    ],
+        });
+    },
 });
 
 export const toniqRadioGroupBookEntries = [

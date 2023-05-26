@@ -1,5 +1,5 @@
 import {randomInteger} from '@augment-vir/browser';
-import {createExample, defineElementBookChapter, defineElementBookPage} from 'element-book';
+import {defineElementBookChapter, defineElementBookPage} from 'element-book';
 import {assign, css, html} from 'element-vir';
 import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {allIconsByCategory} from '../../icons/index';
@@ -19,8 +19,8 @@ const toniqCarouselBookPage = defineElementBookPage({
         'A carousel that can show multiple elements at once.',
         'Automatic scrolling is optional.',
     ],
-    examples: [
-        createExample({
+    defineExamplesCallback({defineExample}) {
+        defineExample({
             title: 'short and fast',
             styles: css`
                 :host {
@@ -33,7 +33,7 @@ const toniqCarouselBookPage = defineElementBookPage({
                     border-radius: 8px;
                 }
             `,
-            render() {
+            renderCallback() {
                 return html`
                     <${ToniqCarousel}
                         ${assign(ToniqCarousel, {
@@ -57,8 +57,8 @@ const toniqCarouselBookPage = defineElementBookPage({
                     ></${ToniqCarousel}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'tall',
             styles: css`
                 :host {
@@ -71,7 +71,7 @@ const toniqCarouselBookPage = defineElementBookPage({
                     border-radius: 8px;
                 }
             `,
-            render() {
+            renderCallback() {
                 return html`
                     <${ToniqCarousel}
                         ${assign(ToniqCarousel, {
@@ -94,8 +94,8 @@ const toniqCarouselBookPage = defineElementBookPage({
                     ></${ToniqCarousel}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'random sizes',
             styles: css`
                 :host {
@@ -108,7 +108,7 @@ const toniqCarouselBookPage = defineElementBookPage({
                     border-radius: 8px;
                 }
             `,
-            render() {
+            renderCallback() {
                 return html`
                     <${ToniqCarousel}
                         ${assign(ToniqCarousel, {
@@ -133,8 +133,8 @@ const toniqCarouselBookPage = defineElementBookPage({
                     ></${ToniqCarousel}>
                 `;
             },
-        }),
-    ],
+        });
+    },
 });
 
 const toniqCarouselBannerBookPage = defineElementBookPage({
@@ -143,8 +143,8 @@ const toniqCarouselBannerBookPage = defineElementBookPage({
     descriptionParagraphs: [
         `${ToniqCarousel.tagName} style for a single, full-width element.`,
     ],
-    examples: [
-        createExample({
+    defineExamplesCallback({defineExample}) {
+        defineExample({
             title: ToniqCarousel.hostClasses['banner-style'],
             styles: css`
                 :host {
@@ -158,7 +158,7 @@ const toniqCarouselBannerBookPage = defineElementBookPage({
                     ${ToniqCarousel.cssVarNames['arrow-margin']}: 16px;
                 }
             `,
-            render() {
+            renderCallback() {
                 return html`
                     <${ToniqCarousel}
                         class=${ToniqCarousel.hostClasses['banner-style']}
@@ -189,8 +189,8 @@ const toniqCarouselBannerBookPage = defineElementBookPage({
                     ></${ToniqCarousel}>
                 `;
             },
-        }),
-    ],
+        });
+    },
 });
 
 export const toniqCarouselBookEntries = [

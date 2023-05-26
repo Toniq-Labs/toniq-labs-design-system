@@ -1,8 +1,7 @@
 import {ensureType, mapObjectValues} from '@augment-vir/common';
 import {
+    DefineExampleCallback,
     ElementBookPage,
-    ElementBookPageExample,
-    createExample,
     defineElementBookChapter,
     defineElementBookPage,
 } from 'element-book';
@@ -16,14 +15,14 @@ const toniqToggleButtonBookChapter = defineElementBookChapter({
     parent: elementsBookChapter,
 });
 
-function createToggleButtonExamples(classList: string) {
+function createToggleButtonExamples(defineExample: DefineExampleCallback<{}>, classList: string) {
     return [
-        createExample({
+        defineExample({
             title: 'Default',
             stateInit: {
                 toggled: false,
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqToggleButton}
                         class=${classList}
@@ -38,12 +37,12 @@ function createToggleButtonExamples(classList: string) {
                 `;
             },
         }),
-        createExample({
+        defineExample({
             title: 'Icon + text',
             stateInit: {
                 toggled: false,
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqToggleButton}
                         class=${classList}
@@ -59,12 +58,12 @@ function createToggleButtonExamples(classList: string) {
                 `;
             },
         }),
-        createExample({
+        defineExample({
             title: 'Icon only',
             stateInit: {
                 toggled: false,
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqToggleButton}
                         class=${classList}
@@ -83,16 +82,16 @@ function createToggleButtonExamples(classList: string) {
 }
 
 const toniqToggleButtonBookPages = mapObjectValues(
-    ensureType<Record<string, ReadonlyArray<ElementBookPageExample<any>>>>({
-        [ToniqToggleButton.tagName]: createToggleButtonExamples(''),
-        [ToniqToggleButton.hostClasses.textOnly]: createToggleButtonExamples(
-            ToniqToggleButton.hostClasses.textOnly,
-        ),
+    ensureType<Record<string, string>>({
+        [ToniqToggleButton.tagName]: '',
+        [ToniqToggleButton.hostClasses.textOnly]: ToniqToggleButton.hostClasses.textOnly,
     }),
-    (key, value) => {
+    (pageTitle, className) => {
         return defineElementBookPage({
-            title: key,
-            examples: value,
+            title: pageTitle,
+            defineExamplesCallback({defineExample}) {
+                createToggleButtonExamples(defineExample, className);
+            },
             parent: toniqToggleButtonBookChapter,
         });
     },

@@ -1,8 +1,7 @@
 import {ensureType, mapObjectValues} from '@augment-vir/common';
 import {
+    DefineExampleCallback,
     ElementBookPage,
-    ElementBookPageExample,
-    createExample,
     defineElementBookChapter,
     defineElementBookPage,
 } from 'element-book';
@@ -24,11 +23,11 @@ const toniqIconBookChapter = defineElementBookChapter({
 });
 
 const toniqIconBookPages = mapObjectValues(
-    ensureType<Record<string, ElementBookPageExample[]>>({
-        [ToniqIcon.tagName]: [
-            createExample({
+    ensureType<Record<string, (defineExample: DefineExampleCallback<{}>) => void>>({
+        [ToniqIcon.tagName]: (defineExample) => {
+            defineExample({
                 title: 'With Icon',
-                render() {
+                renderCallback() {
                     return html`
                         <${ToniqIcon}
                             ${assign(ToniqIcon, {
@@ -37,10 +36,10 @@ const toniqIconBookPages = mapObjectValues(
                         ></${ToniqIcon}>
                     `;
                 },
-            }),
-            createExample({
+            });
+            defineExample({
                 title: 'Without Icon',
-                render() {
+                renderCallback() {
                     return html`
                         <${ToniqIcon}
                             ${assign(ToniqIcon, {
@@ -49,10 +48,10 @@ const toniqIconBookPages = mapObjectValues(
                         ></${ToniqIcon}>
                     `;
                 },
-            }),
-            createExample({
+            });
+            defineExample({
                 title: '64px icon',
-                render() {
+                renderCallback() {
                     return html`
                         <${ToniqIcon}
                             ${assign(ToniqIcon, {
@@ -61,10 +60,10 @@ const toniqIconBookPages = mapObjectValues(
                         ></${ToniqIcon}>
                     `;
                 },
-            }),
-            createExample({
+            });
+            defineExample({
                 title: '48px icon',
-                render() {
+                renderCallback() {
                     return html`
                         <${ToniqIcon}
                             ${assign(ToniqIcon, {
@@ -73,10 +72,10 @@ const toniqIconBookPages = mapObjectValues(
                         ></${ToniqIcon}>
                     `;
                 },
-            }),
-            createExample({
+            });
+            defineExample({
                 title: '32px icon',
-                render() {
+                renderCallback() {
                     return html`
                         <${ToniqIcon}
                             ${assign(ToniqIcon, {
@@ -85,10 +84,10 @@ const toniqIconBookPages = mapObjectValues(
                         ></${ToniqIcon}>
                     `;
                 },
-            }),
-            createExample({
+            });
+            defineExample({
                 title: '24px icon',
-                render() {
+                renderCallback() {
                     return html`
                         <${ToniqIcon}
                             ${assign(ToniqIcon, {
@@ -97,10 +96,10 @@ const toniqIconBookPages = mapObjectValues(
                         ></${ToniqIcon}>
                     `;
                 },
-            }),
-            createExample({
+            });
+            defineExample({
                 title: '16px icon',
-                render() {
+                renderCallback() {
                     return html`
                         <${ToniqIcon}
                             ${assign(ToniqIcon, {
@@ -109,12 +108,12 @@ const toniqIconBookPages = mapObjectValues(
                         ></${ToniqIcon}>
                     `;
                 },
-            }),
-        ],
-        [`${ToniqIcon.tagName} colors`]: [
-            createExample({
+            });
+        },
+        [`${ToniqIcon.tagName} colors`]: (defineExample: DefineExampleCallback<{}>) => {
+            defineExample({
                 title: 'Inherited',
-                render() {
+                renderCallback() {
                     return html`
                         <${ToniqIcon}
                             ${assign(ToniqIcon, {
@@ -123,15 +122,15 @@ const toniqIconBookPages = mapObjectValues(
                         ></${ToniqIcon}>
                     `;
                 },
-            }),
-            createExample({
+            });
+            defineExample({
                 title: 'Using "color"',
                 styles: css`
                     :host {
                         color: red;
                     }
                 `,
-                render() {
+                renderCallback() {
                     return html`
                         <${ToniqIcon}
                             ${assign(ToniqIcon, {
@@ -140,15 +139,15 @@ const toniqIconBookPages = mapObjectValues(
                         ></${ToniqIcon}>
                     `;
                 },
-            }),
-            createExample({
+            });
+            defineExample({
                 title: toniqIconColorCssVarNames.color,
                 styles: css`
                     :host {
                         ${unsafeCSS(toniqIconColorCssVarNames.color)}: red;
                     }
                 `,
-                render() {
+                renderCallback() {
                     return html`
                         <${ToniqIcon}
                             ${assign(ToniqIcon, {
@@ -157,15 +156,15 @@ const toniqIconBookPages = mapObjectValues(
                         ></${ToniqIcon}>
                     `;
                 },
-            }),
-            createExample({
+            });
+            defineExample({
                 title: toniqIconColorCssVarNames.strokeColor,
                 styles: css`
                     :host {
                         ${unsafeCSS(toniqIconColorCssVarNames.strokeColor)}: red;
                     }
                 `,
-                render() {
+                renderCallback() {
                     return html`
                         <${ToniqIcon}
                             ${assign(ToniqIcon, {
@@ -174,15 +173,15 @@ const toniqIconBookPages = mapObjectValues(
                         ></${ToniqIcon}>
                     `;
                 },
-            }),
-            createExample({
+            });
+            defineExample({
                 title: toniqIconColorCssVarNames.fillColor,
                 styles: css`
                     :host {
                         ${unsafeCSS(toniqIconColorCssVarNames.fillColor)}: red;
                     }
                 `,
-                render() {
+                renderCallback() {
                     return html`
                         <${ToniqIcon}
                             ${assign(ToniqIcon, {
@@ -191,11 +190,17 @@ const toniqIconBookPages = mapObjectValues(
                         ></${ToniqIcon}>
                     `;
                 },
-            }),
-        ],
+            });
+        },
     }),
-    (key, value) => {
-        return defineElementBookPage({title: key, examples: value, parent: toniqIconBookChapter});
+    (pageTitle, createExamples) => {
+        return defineElementBookPage({
+            title: pageTitle,
+            defineExamplesCallback({defineExample}) {
+                createExamples(defineExample);
+            },
+            parent: toniqIconBookChapter,
+        });
     },
 ) satisfies Record<string, ElementBookPage>;
 

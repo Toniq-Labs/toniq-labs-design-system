@@ -1,4 +1,4 @@
-import {createExample, defineElementBookPage} from 'element-book';
+import {defineElementBookPage} from 'element-book';
 import {assign, css, html} from 'element-vir';
 import {dataBookChapter} from '../element-book/book-chapters/data.book';
 import {ToniqIcon} from '../elements';
@@ -8,8 +8,8 @@ import {socialUrlIcons} from './social-urls';
 export const socialUrlsBookPage = defineElementBookPage({
     title: 'Social Urls',
     parent: dataBookChapter,
-    examples: [
-        createExample({
+    defineExamplesCallback({defineExample}) {
+        defineExample({
             title: 'Icons',
             styles: css`
                 :host {
@@ -27,7 +27,7 @@ export const socialUrlsBookPage = defineElementBookPage({
                     ${applyBackgroundAndForeground(toniqColors.pageSecondary)};
                 }
             `,
-            render() {
+            renderCallback() {
                 return Object.entries(socialUrlIcons).map(
                     ([
                         socialName,
@@ -42,6 +42,6 @@ export const socialUrlsBookPage = defineElementBookPage({
                     },
                 );
             },
-        }),
-    ],
+        });
+    },
 });

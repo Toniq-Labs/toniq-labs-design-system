@@ -1,4 +1,4 @@
-import {createExample, defineElementBookChapter, defineElementBookPage} from 'element-book';
+import {defineElementBookChapter, defineElementBookPage} from 'element-book';
 import {assign, css, html, listen} from 'element-vir';
 import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {ArrowsSort24Icon} from '../../icons';
@@ -32,13 +32,13 @@ const exampleDropdownOptions: ReadonlyArray<ToniqDropdownOption> = [
 const toniqDropdownPage = defineElementBookPage({
     title: ToniqDropdown.tagName,
     parent: toniqDropdownChapter,
-    examples: [
-        createExample({
+    defineExamplesCallback({defineExample}) {
+        defineExample({
             title: 'Default',
             stateInit: {
                 selected: undefined as ToniqDropdownOption | undefined,
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqDropdown}
                         ${assign(ToniqDropdown, {
@@ -51,13 +51,13 @@ const toniqDropdownPage = defineElementBookPage({
                     ></${ToniqDropdown}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'With Icon',
             stateInit: {
                 selected: undefined as ToniqDropdownOption | undefined,
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqDropdown}
                         ${assign(ToniqDropdown, {
@@ -71,13 +71,13 @@ const toniqDropdownPage = defineElementBookPage({
                     ></${ToniqDropdown}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'With Icon + Prefix',
             stateInit: {
                 selected: undefined as ToniqDropdownOption | undefined,
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqDropdown}
                         ${assign(ToniqDropdown, {
@@ -92,13 +92,13 @@ const toniqDropdownPage = defineElementBookPage({
                     ></${ToniqDropdown}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Defaulted to an option',
             stateInit: {
                 selected: exampleDropdownOptions[3],
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqDropdown}
                         ${assign(ToniqDropdown, {
@@ -111,8 +111,8 @@ const toniqDropdownPage = defineElementBookPage({
                     ></${ToniqDropdown}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Custom size',
             stateInit: {
                 selected: undefined as ToniqDropdownOption | undefined,
@@ -123,7 +123,7 @@ const toniqDropdownPage = defineElementBookPage({
                     height: 100px;
                 }
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqDropdown}
                         ${assign(ToniqDropdown, {
@@ -136,8 +136,8 @@ const toniqDropdownPage = defineElementBookPage({
                     ></${ToniqDropdown}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Squished',
             stateInit: {
                 selected: undefined as ToniqDropdownOption | undefined,
@@ -148,7 +148,7 @@ const toniqDropdownPage = defineElementBookPage({
                     min-height: 20px;
                 }
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqDropdown}
                         ${assign(ToniqDropdown, {
@@ -161,8 +161,8 @@ const toniqDropdownPage = defineElementBookPage({
                     ></${ToniqDropdown}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'No background',
             stateInit: {
                 selected: undefined as ToniqDropdownOption | undefined,
@@ -172,7 +172,7 @@ const toniqDropdownPage = defineElementBookPage({
                     ${toniqColorCssVarNames.accentSecondary.backgroundColor}: transparent;
                 }
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqDropdown}
                         ${assign(ToniqDropdown, {
@@ -185,8 +185,8 @@ const toniqDropdownPage = defineElementBookPage({
                     ></${ToniqDropdown}>
                 `;
             },
-        }),
-    ],
+        });
+    },
 });
 
 export const toniqDropdownBookEntries = [

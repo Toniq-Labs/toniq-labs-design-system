@@ -1,4 +1,4 @@
-import {createExample, defineElementBookChapter, defineElementBookPage} from 'element-book';
+import {defineElementBookChapter, defineElementBookPage} from 'element-book';
 import {assign, css, html, listen} from 'element-vir';
 import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {ToniqSlider, ToniqSliderInputs} from './toniq-slider.element';
@@ -22,8 +22,8 @@ const defaultMinMax = {
 const toniqSliderPage = defineElementBookPage({
     title: ToniqSlider.tagName,
     parent: toniqSliderChapter,
-    examples: [
-        createExample({
+    defineExamplesCallback({defineExample}) {
+        defineExample({
             title: 'Default',
             stateInit: {
                 value: 20,
@@ -31,7 +31,7 @@ const toniqSliderPage = defineElementBookPage({
             styles: css`
                 ${defaultExampleWidth}
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqSlider}
                         ${assign(ToniqSlider, {
@@ -47,8 +47,8 @@ const toniqSliderPage = defineElementBookPage({
                     ></${ToniqSlider}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Double range',
             stateInit: {
                 value: {min: 10, max: 72},
@@ -56,7 +56,7 @@ const toniqSliderPage = defineElementBookPage({
             styles: css`
                 ${defaultExampleWidth}
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqSlider}
                         ${assign(ToniqSlider, {
@@ -74,8 +74,8 @@ const toniqSliderPage = defineElementBookPage({
                     ></${ToniqSlider}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Suffix',
             stateInit: {
                 value: 20,
@@ -83,7 +83,7 @@ const toniqSliderPage = defineElementBookPage({
             styles: css`
                 ${defaultExampleWidth}
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqSlider}
                         ${assign(ToniqSlider, {
@@ -100,8 +100,8 @@ const toniqSliderPage = defineElementBookPage({
                     ></${ToniqSlider}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Log Scale',
             stateInit: {
                 value: 20,
@@ -109,7 +109,7 @@ const toniqSliderPage = defineElementBookPage({
             styles: css`
                 ${defaultExampleWidth}
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqSlider}
                         ${assign(ToniqSlider, {
@@ -128,8 +128,8 @@ const toniqSliderPage = defineElementBookPage({
                     ></${ToniqSlider}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Log Scale Double',
             stateInit: {
                 value: {min: 10, max: 1000},
@@ -137,7 +137,7 @@ const toniqSliderPage = defineElementBookPage({
             styles: css`
                 ${defaultExampleWidth}
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqSlider}
                         ${assign(ToniqSlider, {
@@ -156,8 +156,8 @@ const toniqSliderPage = defineElementBookPage({
                     ></${ToniqSlider}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Decimals',
             stateInit: {
                 value: {min: 1.95, max: 50},
@@ -165,7 +165,7 @@ const toniqSliderPage = defineElementBookPage({
             styles: css`
                 ${defaultExampleWidth}
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqSlider}
                         ${assign(ToniqSlider, {
@@ -184,8 +184,8 @@ const toniqSliderPage = defineElementBookPage({
                     ></${ToniqSlider}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Negative min',
             stateInit: {
                 value: 20,
@@ -193,7 +193,7 @@ const toniqSliderPage = defineElementBookPage({
             styles: css`
                 ${defaultExampleWidth}
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqSlider}
                         ${assign(ToniqSlider, {
@@ -210,8 +210,8 @@ const toniqSliderPage = defineElementBookPage({
                     ></${ToniqSlider}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Padding',
             stateInit: {
                 value: 20,
@@ -223,7 +223,7 @@ const toniqSliderPage = defineElementBookPage({
                     padding: 32px;
                 }
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqSlider}
                         ${assign(ToniqSlider, {
@@ -239,8 +239,8 @@ const toniqSliderPage = defineElementBookPage({
                     ></${ToniqSlider}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Padding Double',
             stateInit: {
                 value: {min: 10, max: 72},
@@ -252,7 +252,7 @@ const toniqSliderPage = defineElementBookPage({
                     padding: 32px;
                 }
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqSlider}
                         ${assign(ToniqSlider, {
@@ -270,8 +270,8 @@ const toniqSliderPage = defineElementBookPage({
                     ></${ToniqSlider}>
                 `;
             },
-        }),
-    ],
+        });
+    },
 });
 
 export const toniqSliderBookEntries = [

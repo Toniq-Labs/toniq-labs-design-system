@@ -1,4 +1,4 @@
-import {createExample, defineElementBookChapter, defineElementBookPage} from 'element-book';
+import {defineElementBookChapter, defineElementBookPage} from 'element-book';
 import {assign, css, html, listen} from 'element-vir';
 import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {ToniqCheckbox} from './toniq-checkbox.element';
@@ -11,13 +11,13 @@ const toniqCheckboxChapter = defineElementBookChapter({
 const toniqCheckboxPage = defineElementBookPage({
     title: ToniqCheckbox.tagName,
     parent: toniqCheckboxChapter,
-    examples: [
-        createExample({
+    defineExamplesCallback({defineExample}) {
+        defineExample({
             title: 'Unchecked',
             stateInit: {
                 checked: false,
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqCheckbox}
                         ${assign(ToniqCheckbox, {
@@ -30,13 +30,13 @@ const toniqCheckboxPage = defineElementBookPage({
                     ></${ToniqCheckbox}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Checked',
             stateInit: {
                 checked: true,
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqCheckbox}
                         ${assign(ToniqCheckbox, {
@@ -49,13 +49,13 @@ const toniqCheckboxPage = defineElementBookPage({
                     ></${ToniqCheckbox}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'HTML Child',
             stateInit: {
                 checked: false,
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqCheckbox}
                         ${assign(ToniqCheckbox, {
@@ -69,8 +69,8 @@ const toniqCheckboxPage = defineElementBookPage({
                     </${ToniqCheckbox}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Custom CSS Vars',
             stateInit: {
                 checked: false,
@@ -87,7 +87,7 @@ const toniqCheckboxPage = defineElementBookPage({
                     gap: 16px;
                 }
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqCheckbox}
                         ${assign(ToniqCheckbox, {
@@ -109,8 +109,8 @@ const toniqCheckboxPage = defineElementBookPage({
                     ></${ToniqCheckbox}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Multiple',
             stateInit: {
                 checkedShort: false,
@@ -124,7 +124,7 @@ const toniqCheckboxPage = defineElementBookPage({
                     max-width: 250px;
                 }
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqCheckbox}
                         ${assign(ToniqCheckbox, {
@@ -146,8 +146,8 @@ const toniqCheckboxPage = defineElementBookPage({
                     ></${ToniqCheckbox}>
                 `;
             },
-        }),
-    ],
+        });
+    },
 });
 
 export const toniqCheckboxBookEntries = [

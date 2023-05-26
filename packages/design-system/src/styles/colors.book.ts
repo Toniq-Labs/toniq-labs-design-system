@@ -1,5 +1,5 @@
 import {getObjectTypedKeys} from '@augment-vir/common';
-import {createExample, defineElementBookPage} from 'element-book';
+import {DefineExampleCallback, defineElementBookPage} from 'element-book';
 import {css, html} from 'element-vir';
 import {stylesBookChapter} from '../element-book/book-chapters/styles.book';
 import {extractAllCssVars} from '../element-book/book-helpers/extract-css-vars';
@@ -35,13 +35,17 @@ const colorExampleStyles = css`
     }
 `;
 
-function createColorExample(colorName: string, colorDefinition: DualColorDefinition) {
+function createColorExample(
+    defineExample: DefineExampleCallback<{}>,
+    colorName: string,
+    colorDefinition: DualColorDefinition,
+) {
     const extracted = extractAllCssVars(applyBackgroundAndForeground(colorDefinition));
 
-    return createExample({
+    return defineExample({
         title: colorName,
         styles: colorExampleStyles,
-        render() {
+        renderCallback() {
             return html`
                 <div class="color-example" style=${applyBackgroundAndForeground(colorDefinition)}>
                     <span>Aa</span>
@@ -60,13 +64,13 @@ function createColorExample(colorName: string, colorDefinition: DualColorDefinit
     });
 }
 
-const toniqColorsExamples = getObjectTypedKeys(toniqColors).map((colorKey) => {
-    return createColorExample(colorKey, toniqColors[colorKey]);
-});
-
 export const toniqColorsBookPage = defineElementBookPage({
     title: 'Colors',
     parent: stylesBookChapter,
-    examples: toniqColorsExamples,
+    defineExamplesCallback({defineExample}) {
+        getObjectTypedKeys(toniqColors).map((colorKey) => {
+            return createColorExample(defineExample, colorKey, toniqColors[colorKey]);
+        });
+    },
     descriptionParagraphs: ['Accessed via the "toniqColors" export.'],
 });

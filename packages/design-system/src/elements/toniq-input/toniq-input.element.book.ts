@@ -1,4 +1,4 @@
-import {createExample, defineElementBookChapter, defineElementBookPage} from 'element-book';
+import {defineElementBookChapter, defineElementBookPage} from 'element-book';
 import {assign, css, html, listen} from 'element-vir';
 import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {Search24Icon} from '../../icons';
@@ -12,13 +12,13 @@ const toniqInputChapter = defineElementBookChapter({
 const toniqInputPage = defineElementBookPage({
     title: ToniqInput.tagName,
     parent: toniqInputChapter,
-    examples: [
-        createExample({
+    defineExamplesCallback({defineExample}) {
+        defineExample({
             title: 'Assigned value',
             stateInit: {
                 value: 'init value',
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqInput}
                         ${assign(ToniqInput, {
@@ -30,13 +30,13 @@ const toniqInputPage = defineElementBookPage({
                     ></${ToniqInput}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Placeholder',
             stateInit: {
                 value: '',
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqInput}
                         ${assign(ToniqInput, {
@@ -49,13 +49,13 @@ const toniqInputPage = defineElementBookPage({
                     ></${ToniqInput}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Icon',
             stateInit: {
                 value: '',
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqInput}
                         ${assign(ToniqInput, {
@@ -69,8 +69,8 @@ const toniqInputPage = defineElementBookPage({
                     ></${ToniqInput}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Custom size (big)',
             stateInit: {
                 value: '',
@@ -81,7 +81,7 @@ const toniqInputPage = defineElementBookPage({
                     width: 300px;
                 }
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqInput}
                         ${assign(ToniqInput, {
@@ -94,8 +94,8 @@ const toniqInputPage = defineElementBookPage({
                     ></${ToniqInput}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Custom size (small)',
             stateInit: {
                 value: '',
@@ -106,7 +106,7 @@ const toniqInputPage = defineElementBookPage({
                     width: 140px;
                 }
             `,
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqInput}
                         ${assign(ToniqInput, {
@@ -119,13 +119,13 @@ const toniqInputPage = defineElementBookPage({
                     ></${ToniqInput}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Outline style',
             stateInit: {
                 value: '',
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqInput}
                         class=${ToniqInput.hostClasses.outline}
@@ -139,13 +139,13 @@ const toniqInputPage = defineElementBookPage({
                     ></${ToniqInput}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'Letter "a" blocked',
             stateInit: {
                 value: '',
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqInput}
                         ${assign(ToniqInput, {
@@ -159,13 +159,13 @@ const toniqInputPage = defineElementBookPage({
                     ></${ToniqInput}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'With suffix',
             stateInit: {
                 value: '',
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqInput}
                         ${assign(ToniqInput, {
@@ -179,13 +179,13 @@ const toniqInputPage = defineElementBookPage({
                     ></${ToniqInput}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'only numbers allowed',
             stateInit: {
                 value: '',
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqInput}
                         ${assign(ToniqInput, {
@@ -198,13 +198,13 @@ const toniqInputPage = defineElementBookPage({
                     ></${ToniqInput}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'disabled',
             stateInit: {
                 value: '',
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqInput}
                         ${assign(ToniqInput, {
@@ -218,13 +218,13 @@ const toniqInputPage = defineElementBookPage({
                     ></${ToniqInput}>
                 `;
             },
-        }),
-        createExample({
+        });
+        defineExample({
             title: 'no browser auto-helps',
             stateInit: {
                 value: '',
             },
-            render({state, updateState}) {
+            renderCallback({state, updateState}) {
                 return html`
                     <${ToniqInput}
                         ${assign(ToniqInput, {
@@ -238,8 +238,8 @@ const toniqInputPage = defineElementBookPage({
                     ></${ToniqInput}>
                 `;
             },
-        }),
-    ],
+        });
+    },
 });
 
 export const toniqInputBookEntries = [
