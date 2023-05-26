@@ -9,6 +9,13 @@ export const toniqShadows = {
         */
         will-change: filter;
     `,
+    menuShadow: css`
+        filter: drop-shadow(0px 12px 8px ${toniqColors.divider.foregroundColor});
+        /*
+            This helps force the drop shadow to re-render when the element moves or the page changes.
+        */
+        will-change: filter;
+    `,
 } as const satisfies Record<string, CSSResult>;
 
 export function makeDropShadowCardStyles(selector: string, allowHover = true) {
