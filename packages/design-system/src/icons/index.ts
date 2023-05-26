@@ -2,7 +2,6 @@
 
 import {Copy16Icon} from './svgs/core-16/copy-16.icon';
 import {ExternalLink16Icon} from './svgs/core-16/external-link-16.icon';
-import {Icp16Icon} from './svgs/core-16/icp-16.icon';
 import {InfoCircle16Icon} from './svgs/core-16/info-circle-16.icon';
 import {ArrowBarUp24Icon} from './svgs/core-24/arrow-bar-up-24.icon';
 import {ArrowForwardUp24Icon} from './svgs/core-24/arrow-forward-up-24.icon';
@@ -39,8 +38,8 @@ import {Geometry24Icon} from './svgs/core-24/geometry-24.icon';
 import {GridDots24Icon} from './svgs/core-24/grid-dots-24.icon';
 import {HeartFill24Icon} from './svgs/core-24/heart-fill-24.icon';
 import {HeartOutline24Icon} from './svgs/core-24/heart-outline-24.icon';
-import {Icp24Icon} from './svgs/core-24/icp-24.icon';
 import {Infinity24Icon} from './svgs/core-24/infinity-24.icon';
+import {Info24Icon} from './svgs/core-24/info-24.icon';
 import {LayersLinked24Icon} from './svgs/core-24/layers-linked-24.icon';
 import {LayoutGrid24Icon} from './svgs/core-24/layout-grid-24.icon';
 import {Lifebuoy24Icon} from './svgs/core-24/lifebuoy-24.icon';
@@ -52,6 +51,7 @@ import {Lock24Icon} from './svgs/core-24/lock-24.icon';
 import {LockOpen24Icon} from './svgs/core-24/lock-open-24.icon';
 import {Menu24Icon} from './svgs/core-24/menu-24.icon';
 import {Paper24Icon} from './svgs/core-24/paper-24.icon';
+import {Person24Icon} from './svgs/core-24/person-24.icon';
 import {Photo24Icon} from './svgs/core-24/photo-24.icon';
 import {Refresh24Icon} from './svgs/core-24/refresh-24.icon';
 import {Rocket24Icon} from './svgs/core-24/rocket-24.icon';
@@ -73,8 +73,14 @@ import {FolderOff48Icon} from './svgs/core-48/folder-off-48.icon';
 import {Api64Icon} from './svgs/core-64/api-64.icon';
 import {CircleDashes64Icon} from './svgs/core-64/circle-dashes-64.icon';
 import {Rocket64Icon} from './svgs/core-64/rocket-64.icon';
+import {CryptoBtc24Icon} from './svgs/cryptocurrencies/crypto-btc-24.icon';
+import {CryptoCkBtc24Icon} from './svgs/cryptocurrencies/crypto-ck-btc-24.icon';
+import {CryptoIcp16Icon} from './svgs/cryptocurrencies/crypto-icp-16.icon';
+import {CryptoIcp24Icon} from './svgs/cryptocurrencies/crypto-icp-24.icon';
 import {EntrepotLogo144Icon} from './svgs/logos/entrepot-logo-144.icon';
 import {BrandDiscord24Icon} from './svgs/third-party-brands/brand-discord-24.icon';
+import {BrandFacebookLogo24Icon} from './svgs/third-party-brands/brand-facebook-logo-24.icon';
+import {BrandGoogleLogo24Icon} from './svgs/third-party-brands/brand-google-logo-24.icon';
 import {BrandIcScan24Icon} from './svgs/third-party-brands/brand-ic-scan-24.icon';
 import {BrandInstagram24Icon} from './svgs/third-party-brands/brand-instagram-24.icon';
 import {BrandInstagramFlat24Icon} from './svgs/third-party-brands/brand-instagram-flat-24.icon';
@@ -85,7 +91,6 @@ import {BrandTwitch24Icon} from './svgs/third-party-brands/brand-twitch-24.icon'
 import {BrandTwitter24Icon} from './svgs/third-party-brands/brand-twitter-24.icon';
 export * from './svgs/core-16/copy-16.icon';
 export * from './svgs/core-16/external-link-16.icon';
-export * from './svgs/core-16/icp-16.icon';
 export * from './svgs/core-16/info-circle-16.icon';
 export * from './svgs/core-24/arrow-bar-up-24.icon';
 export * from './svgs/core-24/arrow-forward-up-24.icon';
@@ -122,8 +127,8 @@ export * from './svgs/core-24/geometry-24.icon';
 export * from './svgs/core-24/grid-dots-24.icon';
 export * from './svgs/core-24/heart-fill-24.icon';
 export * from './svgs/core-24/heart-outline-24.icon';
-export * from './svgs/core-24/icp-24.icon';
 export * from './svgs/core-24/infinity-24.icon';
+export * from './svgs/core-24/info-24.icon';
 export * from './svgs/core-24/layers-linked-24.icon';
 export * from './svgs/core-24/layout-grid-24.icon';
 export * from './svgs/core-24/lifebuoy-24.icon';
@@ -135,6 +140,7 @@ export * from './svgs/core-24/lock-24.icon';
 export * from './svgs/core-24/lock-open-24.icon';
 export * from './svgs/core-24/menu-24.icon';
 export * from './svgs/core-24/paper-24.icon';
+export * from './svgs/core-24/person-24.icon';
 export * from './svgs/core-24/photo-24.icon';
 export * from './svgs/core-24/refresh-24.icon';
 export * from './svgs/core-24/rocket-24.icon';
@@ -156,8 +162,14 @@ export * from './svgs/core-48/folder-off-48.icon';
 export * from './svgs/core-64/api-64.icon';
 export * from './svgs/core-64/circle-dashes-64.icon';
 export * from './svgs/core-64/rocket-64.icon';
+export * from './svgs/cryptocurrencies/crypto-btc-24.icon';
+export * from './svgs/cryptocurrencies/crypto-ck-btc-24.icon';
+export * from './svgs/cryptocurrencies/crypto-icp-16.icon';
+export * from './svgs/cryptocurrencies/crypto-icp-24.icon';
 export * from './svgs/logos/entrepot-logo-144.icon';
 export * from './svgs/third-party-brands/brand-discord-24.icon';
+export * from './svgs/third-party-brands/brand-facebook-logo-24.icon';
+export * from './svgs/third-party-brands/brand-google-logo-24.icon';
 export * from './svgs/third-party-brands/brand-ic-scan-24.icon';
 export * from './svgs/third-party-brands/brand-instagram-24.icon';
 export * from './svgs/third-party-brands/brand-instagram-flat-24.icon';
@@ -172,7 +184,6 @@ export const allIconsByCategory = {
     'core-16': [
         Copy16Icon,
         ExternalLink16Icon,
-        Icp16Icon,
         InfoCircle16Icon,
     ],
     'core-24': [
@@ -211,8 +222,8 @@ export const allIconsByCategory = {
         GridDots24Icon,
         HeartFill24Icon,
         HeartOutline24Icon,
-        Icp24Icon,
         Infinity24Icon,
+        Info24Icon,
         LayersLinked24Icon,
         LayoutGrid24Icon,
         Lifebuoy24Icon,
@@ -224,6 +235,7 @@ export const allIconsByCategory = {
         LockOpen24Icon,
         Menu24Icon,
         Paper24Icon,
+        Person24Icon,
         Photo24Icon,
         Refresh24Icon,
         Rocket24Icon,
@@ -248,9 +260,17 @@ export const allIconsByCategory = {
         CircleDashes64Icon,
         Rocket64Icon,
     ],
+    cryptocurrencies: [
+        CryptoBtc24Icon,
+        CryptoCkBtc24Icon,
+        CryptoIcp16Icon,
+        CryptoIcp24Icon,
+    ],
     logos: [EntrepotLogo144Icon],
     'third-party-brands': [
         BrandDiscord24Icon,
+        BrandFacebookLogo24Icon,
+        BrandGoogleLogo24Icon,
         BrandIcScan24Icon,
         BrandInstagram24Icon,
         BrandInstagramFlat24Icon,

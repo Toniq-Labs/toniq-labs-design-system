@@ -1,8 +1,8 @@
 import {html, ToniqSvg} from '../../toniq-svg';
 import {icpSvgImage, icpSvgImageViewBox} from '../icp-svg-image';
 
-export const Icp24Icon = new ToniqSvg(
-    'Icp24Icon',
+export const CryptoIcp24Icon = new ToniqSvg(
+    'CryptoIcp24Icon',
     html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
