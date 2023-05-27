@@ -16,3 +16,5 @@ export * from './toniq-pagination/toniq-pagination.element';
 export * from './toniq-radio-group/toniq-radio-group.element';
 export * from './toniq-slider/toniq-slider.element';
 export * from './toniq-toggle-button/toniq-toggle-button.element';
+export * from './toniq-tooltip/toniq-tooltip.element';
+export * from './toniq-tooltip/toniq-with-tooltip.element';

@@ -12,6 +12,7 @@ import {toniqMiddleEllipsisBookEntries} from '../elements/toniq-middle-ellipsis/
 import {toniqRadioGroupBookEntries} from '../elements/toniq-radio-group/toniq-radio-group.element.book';
 import {toniqSliderBookEntries} from '../elements/toniq-slider/toniq-slider.element.book';
 import {toniqToggleButtonBookEntries} from '../elements/toniq-toggle-button/toniq-toggle-button.element.book';
+import {toniqTooltipElementBookEntries} from '../elements/toniq-tooltip/toniq-tooltip.element.book';
 import {iconPages} from '../icons/icons.book';
 import {toniqColorsBookPage} from '../styles/colors.book';
 import {toniqFontsBookPage} from '../styles/fonts.book';
@@ -38,8 +39,9 @@ export const allElementBookEntries = [
     ...toniqRadioGroupBookEntries,
     ...toniqSliderBookEntries,
     ...toniqToggleButtonBookEntries,
-    toniqColorsBookPage,
-    toniqFontsBookPage,
+    ...toniqTooltipElementBookEntries,
     dataBookChapter,
     socialUrlsBookPage,
+    toniqColorsBookPage,
+    toniqFontsBookPage,
 ];
