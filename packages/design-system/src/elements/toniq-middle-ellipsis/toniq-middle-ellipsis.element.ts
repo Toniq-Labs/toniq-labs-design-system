@@ -78,17 +78,17 @@ export const ToniqMiddleEllipsis = defineToniqElement<
         copied: defineElementEvent<void>(),
     },
     cssVars: {
-        textColor: toniqColors.pagePrimary.foregroundColor,
-        iconColor: toniqColors.pagePrimary.foregroundColor,
-        textHoverColor: toniqColors.pageInteraction.foregroundColor,
-        iconHoverColor: toniqColors.pageInteraction.foregroundColor,
+        'toniq-middle-ellipsis-text-color': toniqColors.pagePrimary.foregroundColor,
+        'toniq-middle-ellipsis-icon-color': toniqColors.pagePrimary.foregroundColor,
+        'toniq-middle-ellipsis-text-hover-color': toniqColors.pageInteraction.foregroundColor,
+        'toniq-middle-ellipsis-icon-hover-color': toniqColors.pageInteraction.foregroundColor,
     },
-    styles: ({hostClassNames, cssVarValues}) => css`
+    styles: ({hostClasses, cssVars}) => css`
         :host {
             /* 5 frames at 60 fps */
             transition: ${toniqDurations.interaction};
             ${toniqFontStyles.paragraphFont};
-            color: ${cssVarValues.textColor};
+            color: ${cssVars['toniq-middle-ellipsis-text-color'].value};
         }
 
         :host,
@@ -97,17 +97,17 @@ export const ToniqMiddleEllipsis = defineToniqElement<
             align-items: center;
         }
 
-        :host(.${hostClassNames.clickable}:hover) {
-            color: ${cssVarValues.textHoverColor};
+        :host(.${hostClasses['toniq-middle-ellipsis-clickable'].name}:hover) {
+            color: ${cssVars['toniq-middle-ellipsis-text-hover-color'].value};
         }
 
-        :host(.${hostClassNames.clickable}:hover) ${ToniqIcon} {
-            color: ${cssVarValues.iconHoverColor};
+        :host(.${hostClasses['toniq-middle-ellipsis-clickable'].name}:hover) ${ToniqIcon} {
+            color: ${cssVars['toniq-middle-ellipsis-icon-hover-color'].value};
         }
 
         ${ToniqIcon} {
             margin-left: 4px;
-            color: ${cssVarValues.iconColor};
+            color: ${cssVars['toniq-middle-ellipsis-icon-color'].value};
         }
 
         .copyable {
@@ -160,9 +160,10 @@ export const ToniqMiddleEllipsis = defineToniqElement<
         }
     `,
     hostClasses: {
-        clickable: ({inputs}) => !!inputs.externalLink || !!inputs.copyOnClick,
+        'toniq-middle-ellipsis-clickable': ({inputs}) =>
+            !!inputs.externalLink || !!inputs.copyOnClick,
     },
-    stateInit: {
+    stateInitStatic: {
         showCopiedTextTimeoutId: undefined as number | undefined,
     },
     renderCallback: ({inputs, dispatch, events, state, updateState}) => {

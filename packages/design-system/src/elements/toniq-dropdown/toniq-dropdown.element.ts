@@ -22,7 +22,7 @@ export const ToniqDropdown = defineToniqElement<{
     selectedLabelPrefix?: string | undefined;
 }>()({
     tagName: 'toniq-dropdown',
-    stateInit: {
+    stateInitStatic: {
         dropdownOpen: false,
     },
     events: {

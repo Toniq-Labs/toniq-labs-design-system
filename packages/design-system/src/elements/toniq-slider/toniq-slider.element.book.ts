@@ -25,7 +25,7 @@ const toniqSliderPage = defineElementBookPage({
     defineExamplesCallback({defineExample}) {
         defineExample({
             title: 'Default',
-            stateInit: {
+            stateInitStatic: {
                 value: 20,
             },
             styles: css`
@@ -50,7 +50,7 @@ const toniqSliderPage = defineElementBookPage({
         });
         defineExample({
             title: 'Double range',
-            stateInit: {
+            stateInitStatic: {
                 value: {min: 10, max: 72},
             },
             styles: css`
@@ -77,7 +77,7 @@ const toniqSliderPage = defineElementBookPage({
         });
         defineExample({
             title: 'Suffix',
-            stateInit: {
+            stateInitStatic: {
                 value: 20,
             },
             styles: css`
@@ -103,7 +103,7 @@ const toniqSliderPage = defineElementBookPage({
         });
         defineExample({
             title: 'Log Scale',
-            stateInit: {
+            stateInitStatic: {
                 value: 20,
             },
             styles: css`
@@ -131,7 +131,7 @@ const toniqSliderPage = defineElementBookPage({
         });
         defineExample({
             title: 'Log Scale Double',
-            stateInit: {
+            stateInitStatic: {
                 value: {min: 10, max: 1000},
             },
             styles: css`
@@ -159,7 +159,7 @@ const toniqSliderPage = defineElementBookPage({
         });
         defineExample({
             title: 'Decimals',
-            stateInit: {
+            stateInitStatic: {
                 value: {min: 1.95, max: 50},
             },
             styles: css`
@@ -187,7 +187,7 @@ const toniqSliderPage = defineElementBookPage({
         });
         defineExample({
             title: 'Negative min',
-            stateInit: {
+            stateInitStatic: {
                 value: 20,
             },
             styles: css`
@@ -213,7 +213,7 @@ const toniqSliderPage = defineElementBookPage({
         });
         defineExample({
             title: 'Padding',
-            stateInit: {
+            stateInitStatic: {
                 value: 20,
             },
             styles: css`
@@ -242,7 +242,7 @@ const toniqSliderPage = defineElementBookPage({
         });
         defineExample({
             title: 'Padding Double',
-            stateInit: {
+            stateInitStatic: {
                 value: {min: 10, max: 72},
             },
             styles: css`

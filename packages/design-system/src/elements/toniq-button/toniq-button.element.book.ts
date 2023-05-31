@@ -8,22 +8,25 @@ import {
 import {assign, html} from 'element-vir';
 import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {Trash24Icon} from '../../icons';
-import {ToniqButton} from './toniq-button.element';
+import {ToniqButton, ToniqButtonStyleEnum} from './toniq-button.element';
 
 const toniqButtonBookChapter = defineElementBookChapter({
     title: 'Button',
     parent: elementsBookChapter,
 });
 
-function createButtonExamples(defineExample: DefineExampleCallback<{}>, classList: string) {
+function createButtonExamples(
+    defineExample: DefineExampleCallback<{}>,
+    inputOverrides: (typeof ToniqButton)['inputsType'],
+) {
     defineExample({
         title: 'Text',
         renderCallback() {
             return html`
                 <${ToniqButton}
-                    class=${classList}
                     ${assign(ToniqButton, {
                         text: 'Button',
+                        ...inputOverrides,
                     })}
                 ></${ToniqButton}>
             `;
@@ -34,9 +37,9 @@ function createButtonExamples(defineExample: DefineExampleCallback<{}>, classLis
         renderCallback() {
             return html`
                 <${ToniqButton}
-                    class=${classList}
                     ${assign(ToniqButton, {
                         icon: Trash24Icon,
+                        ...inputOverrides,
                     })}
                 ></${ToniqButton}>
             `;
@@ -44,7 +47,7 @@ function createButtonExamples(defineExample: DefineExampleCallback<{}>, classLis
     });
     defineExample({
         title: 'Toggling icon',
-        stateInit: {
+        stateInitStatic: {
             showIcon: true,
         },
         renderCallback({state, updateState}) {
@@ -54,16 +57,17 @@ function createButtonExamples(defineExample: DefineExampleCallback<{}>, classLis
 
             return html`
                 <${ToniqButton}
-                    class=${classList}
                     ${assign(
                         ToniqButton,
                         state.showIcon
                             ? {
                                   icon: Trash24Icon,
                                   text: 'icon',
+                                  ...inputOverrides,
                               }
                             : {
                                   text: 'no icon',
+                                  ...inputOverrides,
                               },
                     )}
                 ></${ToniqButton}>
@@ -75,10 +79,10 @@ function createButtonExamples(defineExample: DefineExampleCallback<{}>, classLis
         renderCallback() {
             return html`
                 <${ToniqButton}
-                    class=${classList}
                     ${assign(ToniqButton, {
                         text: 'Button',
                         icon: Trash24Icon,
+                        ...inputOverrides,
                     })}
                 ></${ToniqButton}>
             `;
@@ -88,7 +92,11 @@ function createButtonExamples(defineExample: DefineExampleCallback<{}>, classLis
         title: 'HTML child',
         renderCallback() {
             return html`
-                <${ToniqButton} class=${classList} ${assign(ToniqButton, {})}>
+                <${ToniqButton}
+                    ${assign(ToniqButton, {
+                        ...inputOverrides,
+                    })}
+                >
                     <span>HTML Child</span>
                 </${ToniqButton}>
             `;
@@ -99,9 +107,8 @@ function createButtonExamples(defineExample: DefineExampleCallback<{}>, classLis
         renderCallback() {
             return html`
                 <${ToniqButton}
-                    class=${classList}
                     style="height: 100px; width: 200px;"
-                    ${assign(ToniqButton, {text: 'bigger'})}
+                    ${assign(ToniqButton, {text: 'bigger', ...inputOverrides})}
                 ></${ToniqButton}>
             `;
         },
@@ -109,17 +116,21 @@ function createButtonExamples(defineExample: DefineExampleCallback<{}>, classLis
 }
 
 const toniqButtonBookPages = mapObjectValues(
-    ensureType<Record<string, string>>({
-        [ToniqButton.tagName]: '',
-        [ToniqButton.hostClasses.secondary]: ToniqButton.hostClasses.secondary,
-        [ToniqButton.hostClasses.outline]: ToniqButton.hostClasses.outline,
-        [ToniqButton.hostClasses.disabled]: ToniqButton.hostClasses.disabled,
+    ensureType<Record<string, (typeof ToniqButton)['inputsType']>>({
+        [ToniqButton.tagName]: {},
+        [`${ToniqButton.tagName} Secondary`]: {
+            buttonStyle: ToniqButtonStyleEnum.Secondary,
+        },
+        [`${ToniqButton.tagName} Outline`]: {
+            buttonStyle: ToniqButtonStyleEnum.Outline,
+        },
+        [`${ToniqButton.tagName} Disabled`]: {disabled: true},
     }),
-    (pageTitle, hostClass) => {
+    (pageTitle, inputOverrides) => {
         return defineElementBookPage({
             title: pageTitle,
             defineExamplesCallback({defineExample}) {
-                createButtonExamples(defineExample, hostClass);
+                createButtonExamples(defineExample, inputOverrides);
             },
             parent: toniqButtonBookChapter,
         });

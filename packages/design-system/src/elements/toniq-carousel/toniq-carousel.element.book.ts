@@ -138,14 +138,14 @@ const toniqCarouselBookPage = defineElementBookPage({
 });
 
 const toniqCarouselBannerBookPage = defineElementBookPage({
-    title: ToniqCarousel.hostClasses['banner-style'],
+    title: ToniqCarousel.hostClasses['toniq-carousel-banner-style'],
     parent: toniqCarouselBookChapter,
     descriptionParagraphs: [
         `${ToniqCarousel.tagName} style for a single, full-width element.`,
     ],
     defineExamplesCallback({defineExample}) {
         defineExample({
-            title: ToniqCarousel.hostClasses['banner-style'],
+            title: ToniqCarousel.hostClasses['toniq-carousel-banner-style'],
             styles: css`
                 :host {
                     max-width: 100%;
@@ -155,13 +155,13 @@ const toniqCarouselBannerBookPage = defineElementBookPage({
                     max-width: 100%;
                     width: 800px;
                     border-radius: 8px;
-                    ${ToniqCarousel.cssVarNames['arrow-margin']}: 16px;
+                    ${ToniqCarousel.cssVars['toniq-carousel-arrow-margin'].name}: 16px;
                 }
             `,
             renderCallback() {
                 return html`
                     <${ToniqCarousel}
-                        class=${ToniqCarousel.hostClasses['banner-style']}
+                        class=${ToniqCarousel.hostClasses['toniq-carousel-banner-style']}
                         ${assign(ToniqCarousel, {
                             enableAutomaticCycling: true,
                             templates: allIconsByCategory['core-24'].map((icon) => {

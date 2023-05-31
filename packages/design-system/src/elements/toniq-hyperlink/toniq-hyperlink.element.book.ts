@@ -38,8 +38,8 @@ function createHyperlinkExamples(defineExample: DefineExampleCallback<{}>, class
 const toniqHyperlinkBookPages = mapObjectValues(
     ensureType<Record<string, string>>({
         [ToniqHyperlink.tagName]: '',
-        [ToniqHyperlink.hostClasses['with-hover-styles']]:
-            ToniqHyperlink.hostClasses['with-hover-styles'],
+        [ToniqHyperlink.hostClasses['toniq-hyperlink-with-hover-styles']]:
+            ToniqHyperlink.hostClasses['toniq-hyperlink-with-hover-styles'],
     }),
     (pageTitle, className) => {
         return defineElementBookPage({

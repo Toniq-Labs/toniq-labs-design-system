@@ -96,7 +96,7 @@ export function maybeFixRecursively(slider: (typeof ToniqSlider)['instanceType']
 
 export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
     tagName: 'toniq-slider',
-    stateInit: {
+    stateInitStatic: {
         rangeWidth: 0,
         labelOverlap: 0,
         /**

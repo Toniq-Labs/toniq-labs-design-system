@@ -100,8 +100,8 @@ export const ToniqInput = defineToniqElement<{
 }>()({
     tagName: 'toniq-input',
     hostClasses: {
-        outline: false,
-        hasAValue: ({inputs}) => !!inputs.value,
+        'toniq-input-outline': false,
+        'toniq-input-has-a-value': ({inputs}) => !!inputs.value,
     },
     events: {
         /**
@@ -116,7 +116,7 @@ export const ToniqInput = defineToniqElement<{
          */
         inputBlocked: defineElementEvent<string>(),
     },
-    styles: ({hostClassNames, hostClassSelectors}) => {
+    styles: ({hostClasses}) => {
         return css`
             :host {
                 position: relative;
@@ -136,20 +136,25 @@ export const ToniqInput = defineToniqElement<{
                 pointer-events: none;
             }
 
-            ${hostClassSelectors.outline} label {
+            ${hostClasses['toniq-input-outline'].selector} label {
                 background-color: ${toniqColors.pagePrimary.backgroundColor};
                 border: 1px solid ${toniqColors.pageTertiary.foregroundColor};
             }
 
-            ${hostClassSelectors.outline} ${ToniqIcon} {
+            ${hostClasses['toniq-input-outline'].selector} ${ToniqIcon} {
                 color: ${toniqColors.pageSecondary.foregroundColor};
             }
 
-            :host(.${hostClassNames.hasAValue}.${hostClassNames.outline}) ${ToniqIcon} {
+            :host(
+                    .${hostClasses['toniq-input-has-a-value'].name}.${hostClasses[
+                            'toniq-input-outline'
+                        ].name}
+                )
+                ${ToniqIcon} {
                 color: ${toniqColors.pagePrimary.foregroundColor};
             }
 
-            ${hostClassSelectors.outline} input::placeholder {
+            ${hostClasses['toniq-input-outline'].selector} input::placeholder {
                 color: ${toniqColors.pageSecondary.foregroundColor};
             }
 
@@ -306,5 +311,3 @@ export const ToniqInput = defineToniqElement<{
         `;
     },
 });
-
-ToniqInput.hostClasses.outline;

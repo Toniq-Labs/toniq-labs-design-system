@@ -16,9 +16,9 @@ export const ToniqToggleButton = defineToniqElement<{
 }>()({
     tagName: 'toniq-toggle-button',
     hostClasses: {
-        textOnly: false,
+        'toniq-toggle-button-text-only': false,
     },
-    styles: ({hostClassNames, hostClassSelectors}) => css`
+    styles: ({hostClasses}) => css`
         :host {
             ${toniqFontStyles.boldParagraphFont};
             ${noUserSelect};
@@ -65,26 +65,26 @@ export const ToniqToggleButton = defineToniqElement<{
             ${applyBackgroundAndForeground(toniqColors.accentPrimaryActive)};
         }
 
-        ${hostClassSelectors.textOnly} button {
+        ${hostClasses['toniq-toggle-button-text-only'].selector} button {
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
             border: 1px solid transparent;
             background: none;
         }
-        ${hostClassSelectors.textOnly} button.toggled {
+        ${hostClasses['toniq-toggle-button-text-only'].selector} button.toggled {
             ${applyBackgroundAndForeground(toniqColors.pageInteraction)};
             border-color: ${toniqColors.pageInteraction.foregroundColor};
             background: none;
         }
-        :host(.${hostClassNames.textOnly}:hover) button.toggled {
+        :host(.${hostClasses['toniq-toggle-button-text-only'].name}:hover) button.toggled {
             ${applyBackgroundAndForeground(toniqColors.pageInteractionHover)};
         }
-        :host(.${hostClassNames.textOnly}:hover) button {
+        :host(.${hostClasses['toniq-toggle-button-text-only'].name}:hover) button {
             color: ${toniqColors.pageInteraction.foregroundColor};
         }
-        :host(.${hostClassNames.textOnly}:active) button.toggled {
+        :host(.${hostClasses['toniq-toggle-button-text-only'].name}:active) button.toggled {
             ${applyBackgroundAndForeground(toniqColors.pageInteractionActive)};
         }
-        ${hostClassSelectors.textOnly} button {
+        ${hostClasses['toniq-toggle-button-text-only'].selector} button {
             padding: 0 8px;
         }
 

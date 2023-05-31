@@ -30,7 +30,7 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
                     padding: 32px;
                 }
             `,
-            stateInit: {
+            stateInitStatic: {
                 flipped: false,
             },
             renderCallback() {
@@ -55,7 +55,7 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
                     padding: 32px;
                 }
             `,
-            stateInit: {
+            stateInitStatic: {
                 flipped: false,
             },
             renderCallback() {
@@ -81,7 +81,7 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
                     width: 1000px;
                 }
             `,
-            stateInit: {
+            stateInitStatic: {
                 flipped: false,
             },
             renderCallback() {
@@ -111,7 +111,7 @@ const toniqFlipCardBookPage = defineElementBookPage({
                     padding: 32px;
                 }
             `,
-            stateInit: {
+            stateInitStatic: {
                 flipped: false,
             },
             renderCallback({state, updateState}) {

@@ -12,18 +12,27 @@ import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 export const buttonBorderRadius = css`8px`;
 
+export enum ToniqButtonStyleEnum {
+    Default = 'default',
+    Outline = 'outline',
+    Secondary = 'secondary',
+}
+
 export const ToniqButton = defineToniqElement<{
     // if text is not given, provide a child element
     text?: string;
     icon?: undefined | ToniqSvg;
+    buttonStyle?: ToniqButtonStyleEnum | undefined;
+    disabled?: boolean | undefined;
 }>()({
     tagName: 'toniq-button',
     hostClasses: {
-        secondary: false,
-        outline: false,
-        disabled: false,
+        'toniq-button-secondary': ({inputs}) =>
+            inputs.buttonStyle === ToniqButtonStyleEnum.Secondary,
+        'toniq-button-outline': ({inputs}) => inputs.buttonStyle === ToniqButtonStyleEnum.Outline,
+        'toniq-button-disabled': ({inputs}) => !!inputs.disabled,
     },
-    styles: ({hostClassSelectors, hostClassNames}) => css`
+    styles: ({hostClasses}) => css`
         :host {
             ${toniqFontStyles.boldParagraphFont};
             display: inline-flex;
@@ -65,26 +74,26 @@ export const ToniqButton = defineToniqElement<{
             elementBorderSize: 2,
         })}
 
-        ${hostClassSelectors.secondary} button {
+        ${hostClasses['toniq-button-secondary'].selector} button {
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
         }
 
-        ${hostClassSelectors.outline} button {
+        ${hostClasses['toniq-button-outline'].selector} button {
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
             border-color: ${toniqColors.accentPrimary.backgroundColor};
         }
 
-        ${hostClassSelectors.disabled} {
+        ${hostClasses['toniq-button-disabled'].selector} {
             ${toniqDisabledStyles};
         }
 
-        :host(.${hostClassNames.secondary}:hover) button,
-        :host(.${hostClassNames.outline}:hover) button {
+        :host(.${hostClasses['toniq-button-secondary'].name}:hover) button,
+        :host(.${hostClasses['toniq-button-outline'].name}:hover) button {
             border-color: ${toniqColors.accentPrimaryHover.backgroundColor};
         }
 
-        :host(.${hostClassNames.secondary}:active) button,
-        :host(.${hostClassNames.outline}:active) button {
+        :host(.${hostClasses['toniq-button-secondary'].name}:active) button,
+        :host(.${hostClasses['toniq-button-outline'].name}:active) button {
             border-color: ${toniqColors.accentPrimaryActive.backgroundColor};
         }
 
@@ -110,7 +119,7 @@ export const ToniqButton = defineToniqElement<{
             : '';
 
         return html`
-            <button>
+            <button ?disabled=${inputs.disabled}>
                 <slot>${iconTemplate} ${textTemplate}</slot>
             </button>
         `;

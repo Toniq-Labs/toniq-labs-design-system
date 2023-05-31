@@ -19,7 +19,7 @@ function createToggleButtonExamples(defineExample: DefineExampleCallback<{}>, cl
     return [
         defineExample({
             title: 'Default',
-            stateInit: {
+            stateInitStatic: {
                 toggled: false,
             },
             renderCallback({state, updateState}) {
@@ -39,7 +39,7 @@ function createToggleButtonExamples(defineExample: DefineExampleCallback<{}>, cl
         }),
         defineExample({
             title: 'Icon + text',
-            stateInit: {
+            stateInitStatic: {
                 toggled: false,
             },
             renderCallback({state, updateState}) {
@@ -60,7 +60,7 @@ function createToggleButtonExamples(defineExample: DefineExampleCallback<{}>, cl
         }),
         defineExample({
             title: 'Icon only',
-            stateInit: {
+            stateInitStatic: {
                 toggled: false,
             },
             renderCallback({state, updateState}) {
@@ -84,7 +84,8 @@ function createToggleButtonExamples(defineExample: DefineExampleCallback<{}>, cl
 const toniqToggleButtonBookPages = mapObjectValues(
     ensureType<Record<string, string>>({
         [ToniqToggleButton.tagName]: '',
-        [ToniqToggleButton.hostClasses.textOnly]: ToniqToggleButton.hostClasses.textOnly,
+        [ToniqToggleButton.hostClasses['toniq-toggle-button-text-only']]:
+            ToniqToggleButton.hostClasses['toniq-toggle-button-text-only'],
     }),
     (pageTitle, className) => {
         return defineElementBookPage({

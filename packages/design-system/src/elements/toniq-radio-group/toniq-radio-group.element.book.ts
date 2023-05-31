@@ -54,7 +54,7 @@ const toniqRadioGroupPage = defineElementBookPage({
     defineExamplesCallback({defineExample}) {
         defineExample({
             title: 'Default',
-            stateInit: {
+            stateInitStatic: {
                 selectedValue: exampleRadioGroupEntries.basic[0].value as string,
             },
             renderCallback({state, updateState}) {
@@ -73,7 +73,7 @@ const toniqRadioGroupPage = defineElementBookPage({
         });
         defineExample({
             title: 'Inline',
-            stateInit: {
+            stateInitStatic: {
                 selectedValue: exampleRadioGroupEntries.basic[0].value as string,
             },
             styles: css`
@@ -97,7 +97,7 @@ const toniqRadioGroupPage = defineElementBookPage({
         });
         defineExample({
             title: 'Restricted width',
-            stateInit: {
+            stateInitStatic: {
                 selectedValue: exampleRadioGroupEntries.longText[0].value as string,
             },
             styles: css`
@@ -121,7 +121,7 @@ const toniqRadioGroupPage = defineElementBookPage({
         });
         defineExample({
             title: 'No labels',
-            stateInit: {
+            stateInitStatic: {
                 selectedValue: exampleRadioGroupEntries.noLabels[0].value as string,
             },
             renderCallback({state, updateState}) {
@@ -140,7 +140,7 @@ const toniqRadioGroupPage = defineElementBookPage({
         });
         defineExample({
             title: 'Entry 1 disabled',
-            stateInit: {
+            stateInitStatic: {
                 selectedValue: exampleRadioGroupEntries.disabled[1]!.value as string,
             },
             renderCallback({state, updateState}) {
@@ -159,15 +159,17 @@ const toniqRadioGroupPage = defineElementBookPage({
         });
         defineExample({
             title: 'Custom CSS vars',
-            stateInit: {
+            stateInitStatic: {
                 selectedValue: exampleRadioGroupEntries.basic[0].value as string,
             },
             styles: css`
                 ${ToniqRadioGroup} {
-                    ${ToniqRadioGroup.cssVarNames.checkedLabelColor}: red;
-                    ${ToniqRadioGroup.cssVarNames.checkedRadioColor}: blue;
-                    ${ToniqRadioGroup.cssVarNames.uncheckedLabelColor}: green;
-                    ${ToniqRadioGroup.cssVarNames.uncheckedRadioColor}: pink;
+                    ${ToniqRadioGroup.cssVars['toniq-radio-group-checked-label-color'].name}: red;
+                    ${ToniqRadioGroup.cssVars['toniq-radio-group-checked-radio-color'].name}: blue;
+                    ${ToniqRadioGroup.cssVars['toniq-radio-group-unchecked-label-color']
+                        .name}: green;
+                    ${ToniqRadioGroup.cssVars['toniq-radio-group-unchecked-radio-color']
+                        .name}: pink;
                 }
             `,
             renderCallback({state, updateState}) {

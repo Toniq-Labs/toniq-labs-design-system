@@ -39,7 +39,7 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
     mainImageSize?: number;
 }>()({
     tagName: 'toniq-featured-flip-card',
-    stateInit: {
+    stateInitStatic: {
         flipped: false,
     },
     events: {

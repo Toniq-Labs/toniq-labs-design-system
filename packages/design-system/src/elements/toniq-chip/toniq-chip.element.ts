@@ -13,9 +13,9 @@ export const ToniqChip = defineToniqElement<{
 }>()({
     tagName: 'toniq-chip',
     hostClasses: {
-        secondary: false,
+        'toniq-chip-secondary': false,
     },
-    styles: ({hostClassSelectors}) => css`
+    styles: ({hostClasses}) => css`
         :host {
             display: inline-flex;
             align-items: center;
@@ -27,7 +27,7 @@ export const ToniqChip = defineToniqElement<{
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
         }
 
-        ${hostClassSelectors.secondary} {
+        ${hostClasses['toniq-chip-secondary'].selector} {
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
         }
     `,

@@ -8,9 +8,9 @@ export const ToniqHyperlink = defineToniqElement<{
 }>()({
     tagName: 'toniq-hyperlink',
     hostClasses: {
-        'with-hover-styles': false,
+        'toniq-hyperlink-with-hover-styles': false,
     },
-    styles: ({hostClassSelectors}) => css`
+    styles: ({hostClasses}) => css`
         :host {
             display: inline;
             text-decoration: underline;
@@ -26,15 +26,15 @@ export const ToniqHyperlink = defineToniqElement<{
             white-space: inherit;
         }
 
-        ${hostClassSelectors['with-hover-styles']}:hover a, ${hostClassSelectors[
-            'with-hover-styles'
-        ]} a:hover {
+        ${hostClasses['toniq-hyperlink-with-hover-styles'].selector}:hover a, ${hostClasses[
+            'toniq-hyperlink-with-hover-styles'
+        ].selector} a:hover {
             color: ${toniqColors.pageInteraction.foregroundColor};
         }
 
-        ${hostClassSelectors['with-hover-styles']}:active a, ${hostClassSelectors[
-            'with-hover-styles'
-        ]} a:active {
+        ${hostClasses['toniq-hyperlink-with-hover-styles'].selector}:active a, ${hostClasses[
+            'toniq-hyperlink-with-hover-styles'
+        ].selector} a:active {
             color: ${toniqColors.pageInteractionActive.foregroundColor};
         }
     `,

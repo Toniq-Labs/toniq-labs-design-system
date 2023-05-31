@@ -35,7 +35,7 @@ const toniqDropdownPage = defineElementBookPage({
     defineExamplesCallback({defineExample}) {
         defineExample({
             title: 'Default',
-            stateInit: {
+            stateInitStatic: {
                 selected: undefined as ToniqDropdownOption | undefined,
             },
             renderCallback({state, updateState}) {
@@ -54,7 +54,7 @@ const toniqDropdownPage = defineElementBookPage({
         });
         defineExample({
             title: 'With Icon',
-            stateInit: {
+            stateInitStatic: {
                 selected: undefined as ToniqDropdownOption | undefined,
             },
             renderCallback({state, updateState}) {
@@ -74,7 +74,7 @@ const toniqDropdownPage = defineElementBookPage({
         });
         defineExample({
             title: 'With Icon + Prefix',
-            stateInit: {
+            stateInitStatic: {
                 selected: undefined as ToniqDropdownOption | undefined,
             },
             renderCallback({state, updateState}) {
@@ -95,7 +95,7 @@ const toniqDropdownPage = defineElementBookPage({
         });
         defineExample({
             title: 'Defaulted to an option',
-            stateInit: {
+            stateInitStatic: {
                 selected: exampleDropdownOptions[3],
             },
             renderCallback({state, updateState}) {
@@ -114,7 +114,7 @@ const toniqDropdownPage = defineElementBookPage({
         });
         defineExample({
             title: 'Custom size',
-            stateInit: {
+            stateInitStatic: {
                 selected: undefined as ToniqDropdownOption | undefined,
             },
             styles: css`
@@ -139,7 +139,7 @@ const toniqDropdownPage = defineElementBookPage({
         });
         defineExample({
             title: 'Squished',
-            stateInit: {
+            stateInitStatic: {
                 selected: undefined as ToniqDropdownOption | undefined,
             },
             styles: css`
@@ -164,7 +164,7 @@ const toniqDropdownPage = defineElementBookPage({
         });
         defineExample({
             title: 'No background',
-            stateInit: {
+            stateInitStatic: {
                 selected: undefined as ToniqDropdownOption | undefined,
             },
             styles: css`

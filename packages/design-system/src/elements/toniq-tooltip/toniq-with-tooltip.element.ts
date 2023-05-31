@@ -9,16 +9,17 @@ export const ToniqWithTooltip = defineToniqElement<{
 }>()({
     tagName: 'toniq-with-tooltip',
     hostClasses: {
-        forceOn: ({inputs, state}) => !!inputs.forceShow || state.clickToggled,
+        'toniq-with-tooltip-force-tooltip': ({inputs, state}) =>
+            !!inputs.forceShow || state.clickToggled,
     },
-    styles: ({hostClassSelectors}) => css`
+    styles: ({hostClasses}) => css`
         :host {
             display: inline-block;
             position: relative;
         }
 
         :host(:hover) .tooltip-wrapper,
-        ${hostClassSelectors.forceOn} .tooltip-wrapper {
+        ${hostClasses['toniq-with-tooltip-force-tooltip'].selector} .tooltip-wrapper {
             opacity: 1;
             pointer-events: auto;
             visibility: visible;
@@ -41,7 +42,7 @@ export const ToniqWithTooltip = defineToniqElement<{
             left: -8px;
         }
     `,
-    stateInit: {
+    stateInitStatic: {
         clickToggled: false,
     },
     renderCallback({inputs, state, updateState}) {

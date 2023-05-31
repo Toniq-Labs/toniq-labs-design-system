@@ -14,7 +14,7 @@ const toniqCheckboxPage = defineElementBookPage({
     defineExamplesCallback({defineExample}) {
         defineExample({
             title: 'Unchecked',
-            stateInit: {
+            stateInitStatic: {
                 checked: false,
             },
             renderCallback({state, updateState}) {
@@ -33,7 +33,7 @@ const toniqCheckboxPage = defineElementBookPage({
         });
         defineExample({
             title: 'Checked',
-            stateInit: {
+            stateInitStatic: {
                 checked: true,
             },
             renderCallback({state, updateState}) {
@@ -52,7 +52,7 @@ const toniqCheckboxPage = defineElementBookPage({
         });
         defineExample({
             title: 'HTML Child',
-            stateInit: {
+            stateInitStatic: {
                 checked: false,
             },
             renderCallback({state, updateState}) {
@@ -72,16 +72,16 @@ const toniqCheckboxPage = defineElementBookPage({
         });
         defineExample({
             title: 'Custom CSS Vars',
-            stateInit: {
+            stateInitStatic: {
                 checked: false,
             },
             styles: css`
                 :host {
-                    ${ToniqCheckbox.cssVarNames.uncheckedCheckboxColor}: red;
-                    ${ToniqCheckbox.cssVarNames.uncheckedLabelColor}: orange;
-                    ${ToniqCheckbox.cssVarNames.checkedCheckboxColor}: green;
-                    ${ToniqCheckbox.cssVarNames.checkedCheckColor}: blue;
-                    ${ToniqCheckbox.cssVarNames.checkedLabelColor}: purple;
+                    ${ToniqCheckbox.cssVars['toniq-checkbox-unchecked-checkbox-color'].name}: red;
+                    ${ToniqCheckbox.cssVars['toniq-checkbox-unchecked-label-color'].name}: orange;
+                    ${ToniqCheckbox.cssVars['toniq-checkbox-checked-checkbox-color'].name}: green;
+                    ${ToniqCheckbox.cssVars['toniq-checkbox-checked-check-color'].name}: blue;
+                    ${ToniqCheckbox.cssVars['toniq-checkbox-checked-label-color'].name}: purple;
                     display: flex;
                     flex-direction: column;
                     gap: 16px;
@@ -112,7 +112,7 @@ const toniqCheckboxPage = defineElementBookPage({
         });
         defineExample({
             title: 'Multiple',
-            stateInit: {
+            stateInitStatic: {
                 checkedShort: false,
                 checkedLong: false,
             },

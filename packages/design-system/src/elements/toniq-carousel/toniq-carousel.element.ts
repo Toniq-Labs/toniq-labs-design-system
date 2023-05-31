@@ -23,12 +23,12 @@ export const ToniqCarousel = defineToniqElement<{
 }>()({
     tagName: 'toniq-carousel',
     cssVars: {
-        'arrow-margin': '40px',
+        'toniq-carousel-arrow-margin': '40px',
     },
     hostClasses: {
-        'banner-style': false,
+        'toniq-carousel-banner-style': false,
     },
-    stateInit: {
+    stateInitStatic: {
         currentScrollPosition: {
             left: 0,
             right: Infinity,
@@ -39,7 +39,7 @@ export const ToniqCarousel = defineToniqElement<{
         rotationIntervalId: undefined as undefined | number,
         enableRotation: true,
     },
-    styles: ({cssVarValues, hostClassSelectors}) => css`
+    styles: ({cssVars, hostClasses}) => css`
         :host {
             display: block;
             position: relative;
@@ -94,7 +94,7 @@ export const ToniqCarousel = defineToniqElement<{
             );
         }
 
-        ${hostClassSelectors['banner-style']} .arrow {
+        ${hostClasses['toniq-carousel-banner-style'].selector} .arrow {
             background: none;
         }
 
@@ -115,7 +115,7 @@ export const ToniqCarousel = defineToniqElement<{
             cursor: pointer;
             position: relative;
             z-index: 11;
-            margin: 0 ${cssVarValues['arrow-margin']};
+            margin: 0 ${cssVars['toniq-carousel-arrow-margin'].value};
             box-shadow: 0px 2px 28px rgba(0, 0, 0, 0.12);
             display: inline-flex;
             padding: 8px;

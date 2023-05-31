@@ -66,10 +66,12 @@ const toniqMiddleEllipsisPage = defineElementBookPage({
             title: 'Custom CSS vars',
             styles: css`
                 ${ToniqMiddleEllipsis} {
-                    ${ToniqMiddleEllipsis.cssVarNames.iconColor}: red;
-                    ${ToniqMiddleEllipsis.cssVarNames.iconHoverColor}: blue;
-                    ${ToniqMiddleEllipsis.cssVarNames.textColor}: green;
-                    ${ToniqMiddleEllipsis.cssVarNames.textHoverColor}: purple;
+                    ${ToniqMiddleEllipsis.cssVars['toniq-middle-ellipsis-icon-color'].name}: red;
+                    ${ToniqMiddleEllipsis.cssVars['toniq-middle-ellipsis-icon-hover-color']
+                        .name}: blue;
+                    ${ToniqMiddleEllipsis.cssVars['toniq-middle-ellipsis-text-color'].name}: green;
+                    ${ToniqMiddleEllipsis.cssVars['toniq-middle-ellipsis-text-hover-color']
+                        .name}: purple;
                 }
             `,
             renderCallback() {

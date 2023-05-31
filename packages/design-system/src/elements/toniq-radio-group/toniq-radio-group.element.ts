@@ -3,6 +3,7 @@ import {classMap, css, defineElementEvent, html, listen} from 'element-vir';
 import {removeNativeFormStyles} from '../../styles';
 import {toniqDurations} from '../../styles/animation';
 import {colorValueToVarCall} from '../../styles/colors';
+import {toniqDisabledStyles} from '../../styles/disabled';
 import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
@@ -23,23 +24,29 @@ export const ToniqRadioGroup = defineToniqElement<{
     groupName?: string | undefined;
 }>()({
     tagName: 'toniq-radio-group',
-    stateInit: {
-        /** This will be fill in in the init callback. */
+    stateInitStatic: {
+        /** This will be assigned the init callback. */
         randomGroupName: '',
     },
     events: {
         valueChange: defineElementEvent<string>(),
     },
     cssVars: {
-        uncheckedRadioColor: String(colorValueToVarCall('pagePrimary', 'foregroundColor')),
-        uncheckedLabelColor: String(colorValueToVarCall('pagePrimary', 'foregroundColor')),
+        'toniq-radio-group-unchecked-radio-color': String(
+            colorValueToVarCall('pagePrimary', 'foregroundColor'),
+        ),
+        'toniq-radio-group-unchecked-label-color': String(
+            colorValueToVarCall('pagePrimary', 'foregroundColor'),
+        ),
 
-        checkedRadioColor: String(colorValueToVarCall('accentPrimary', 'backgroundColor')),
-        checkedLabelColor: String(colorValueToVarCall('pageInteraction', 'foregroundColor')),
-
-        disabledColor: String(colorValueToVarCall('pageSecondary', 'foregroundColor')),
+        'toniq-radio-group-checked-radio-color': String(
+            colorValueToVarCall('accentPrimary', 'backgroundColor'),
+        ),
+        'toniq-radio-group-checked-label-color': String(
+            colorValueToVarCall('pageInteraction', 'foregroundColor'),
+        ),
     },
-    styles: ({cssVarValues}) => css`
+    styles: ({cssVars}) => css`
         :host {
             ${toniqFontStyles.boldParagraphFont};
             display: inline-flex;
@@ -61,11 +68,11 @@ export const ToniqRadioGroup = defineToniqElement<{
         }
 
         .wrapper {
-            color: ${cssVarValues.uncheckedLabelColor};
+            color: ${cssVars['toniq-radio-group-unchecked-label-color'].value};
             display: flex;
             align-items: center;
             position: relative;
-            border-color: ${cssVarValues.checkedRadioColor};
+            border-color: ${cssVars['toniq-radio-group-checked-radio-color'].value};
             outline: none;
             text-align: inherit;
         }
@@ -89,12 +96,12 @@ export const ToniqRadioGroup = defineToniqElement<{
             box-sizing: border-box;
             padding: 3px;
             margin-right: 8px;
-            border: 2px solid ${cssVarValues.uncheckedRadioColor};
+            border: 2px solid ${cssVars['toniq-radio-group-unchecked-radio-color'].value};
             border-radius: 50%;
             transition: ${toniqDurations.interaction};
             --color-stop: -10%;
             background-image: radial-gradient(
-                ${cssVarValues.checkedRadioColor} var(--color-stop),
+                ${cssVars['toniq-radio-group-checked-radio-color'].value} var(--color-stop),
                 rgba(255, 255, 255, 0) calc(var(--color-stop) + 15%)
             );
         }
@@ -120,16 +127,15 @@ export const ToniqRadioGroup = defineToniqElement<{
         })}
 
         .wrapper.checked {
-            color: ${cssVarValues.checkedLabelColor};
+            color: ${cssVars['toniq-radio-group-checked-label-color'].value};
         }
 
         .wrapper.disabled {
-            color: ${cssVarValues.disabledColor};
-            cursor: not-allowed;
+            ${toniqDisabledStyles};
         }
 
         .wrapper.disabled::before {
-            border-color: ${cssVarValues.disabledColor};
+            ${toniqDisabledStyles}
         }
     `,
     initCallback: ({updateState}) => {

@@ -92,7 +92,8 @@ function createChipExamples(defineExample: DefineExampleCallback<{}>, classList:
 const toniqChipBookPages = mapObjectValues(
     ensureType<Record<string, string>>({
         [ToniqChip.tagName]: '',
-        [ToniqChip.hostClasses.secondary]: ToniqChip.hostClasses.secondary,
+        [ToniqChip.hostClasses['toniq-chip-secondary']]:
+            ToniqChip.hostClasses['toniq-chip-secondary'],
     }),
     (key, className) => {
         return defineElementBookPage({

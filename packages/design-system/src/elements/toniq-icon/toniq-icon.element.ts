@@ -5,9 +5,9 @@ import {defineToniqElement} from '../define-toniq-element';
 export const ToniqIcon = defineToniqElement<{icon?: ToniqSvg | undefined}>()({
     tagName: 'toniq-icon',
     hostClasses: {
-        'icon-fit': false,
+        'toniq-icon-fit-icon': false,
     },
-    styles: ({hostClassSelectors}) => css`
+    styles: ({hostClasses}) => css`
         :host {
             display: block;
         }
@@ -20,7 +20,7 @@ export const ToniqIcon = defineToniqElement<{icon?: ToniqSvg | undefined}>()({
             display: block;
         }
 
-        ${hostClassSelectors['icon-fit']} svg {
+        ${hostClasses['toniq-icon-fit-icon'].selector} svg {
             height: 100%;
             width: 100%;
         }

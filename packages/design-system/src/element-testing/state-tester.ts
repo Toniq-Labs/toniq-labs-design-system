@@ -7,12 +7,12 @@ import {
 } from 'element-vir';
 
 export function createStateTester<StateGeneric extends PropertyInitMapBase>(
-    stateInit: StateGeneric,
-    callback: RenderCallback<CustomElementTagName, {}, StateGeneric, {}, '', ''>,
+    stateInitStatic: StateGeneric,
+    callback: RenderCallback<CustomElementTagName, {}, StateGeneric, {}, any, any>,
 ) {
     return defineElementNoInputs({
         tagName: `toniq-test-state-helper-${randomString(8)}`,
-        stateInit,
+        stateInitStatic,
         renderCallback: callback,
     });
 }
