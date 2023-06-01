@@ -3,7 +3,7 @@ import {assign, defineElementNoInputs, html} from 'element-vir';
 
 export const AppElement = defineElementNoInputs({
     tagName: 'toniq-native-elements-app',
-    renderCallback: () => {
+    renderCallback() {
         return html`
             Hello there
             <${ToniqIcon} ${assign(ToniqIcon, {icon: Copy16Icon})}></${ToniqIcon}>

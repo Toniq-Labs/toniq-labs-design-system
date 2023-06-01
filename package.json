@@ -27,7 +27,7 @@
         "publish": "virmator publish \"npm run test:all\"",
         "start": "cd packages/design-system && npm start",
         "test": "npm run test --workspaces --if-present",
-        "test:all": "concurrently --kill-others-on-fail -c auto --names types,tests,spelling,format,docs \"npm run test:types\" \"npm run compile && npm run test:all --workspaces\" \"npm run test:spelling\" \"npm run test:format\" \"npm run test:docs\"",
+        "test:all": "npm run compile && concurrently --kill-others-on-fail -c auto --names types,tests,spelling,format,docs \"npm run test:types\" \"npm run test:all --workspaces\" \"npm run test:spelling\" \"npm run test:format\" \"npm run test:docs\"",
         "test:docs": "virmator code-in-markdown check README.md",
         "test:format": "virmator format check",
         "test:spelling": "virmator spellcheck",
