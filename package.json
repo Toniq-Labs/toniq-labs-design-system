@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system-root",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "private": true,
     "description": "Root design system mono-repo package.",
     "homepage": "https://github.com/Toniq-Labs/bioniq",
@@ -35,7 +35,7 @@
         "update:exports": "cd packages/scripts && npm run update:exports"
     },
     "devDependencies": {
-        "concurrently": "^8.0.1",
+        "concurrently": "^8.1.0",
         "cspell": "^6.31.1",
         "esbuild": "^0.17.19",
         "markdown-code-example-inserter": "^0.3.1",

@@ -2,7 +2,7 @@ import {getObjectTypedKeys, isTruthy} from '@augment-vir/common';
 import {VirResizableImage} from '@electrovir/resizable-image-element';
 import {assign, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
 import {defineCssVars, setCssVarValue} from 'lit-css-vars';
-import {ToniqButton, ToniqIcon, defineToniqElement} from '..';
+import {ToniqButton, ToniqButtonStyleEnum, ToniqIcon, defineToniqElement} from '..';
 import {SocialUrls, socialUrlIcons} from '../../data';
 import {LoaderAnimated24Icon} from '../../icons';
 import {toniqFontStyles} from '../../styles';
@@ -224,9 +224,9 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
             <div class="card-footer">
                 <div class="buttons">
                     <${ToniqButton}
-                        class="toniq-button-outline"
                         ${assign(ToniqButton, {
                             text: viewButtonText,
+                            buttonStyle: ToniqButtonStyleEnum.Outline,
                         })}
                         ${listen('click', () => {
                             dispatch(new events.viewButtonClicked());
