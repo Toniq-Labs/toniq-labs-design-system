@@ -1,4 +1,4 @@
-import {assign, css, defineElementEvent, html} from 'element-vir';
+import {assign, classMap, css, defineElementEvent, html} from 'element-vir';
 import {testId} from '../../directives/test-id.directive';
 import {ChevronDown24Icon, ToniqSvg} from '../../icons';
 import {noUserSelect, toniqFontStyles} from '../../styles';
@@ -15,11 +15,23 @@ export interface ToniqDropdownOption<ValueType = any> {
     label: string;
 }
 
+export enum ToniqDropdownDirectionEnum {
+    Up = 'up',
+    Down = 'down',
+}
+
 export const ToniqDropdown = defineToniqElement<{
     options: Readonly<ToniqDropdownOption[]>;
     selected?: undefined | Readonly<ToniqDropdownOption>;
     icon?: ToniqSvg | undefined;
     selectedLabelPrefix?: string | undefined;
+    /** Choose which direction the dropdown will "drop" in. The default is down. */
+    direction?: ToniqDropdownDirectionEnum;
+    /**
+     * Use this to force the open state of the dropdown. This is generally undesirable, and is
+     * really only here for internal testing purposes.
+     */
+    forceOpenState?: boolean | undefined;
 }>()({
     tagName: 'toniq-dropdown',
     stateInitStatic: {
@@ -27,6 +39,7 @@ export const ToniqDropdown = defineToniqElement<{
     },
     events: {
         selectChange: defineElementEvent<ToniqDropdownOption>(),
+        openChange: defineElementEvent<boolean>(),
     },
     styles: css`
         :host {
@@ -67,13 +80,16 @@ export const ToniqDropdown = defineToniqElement<{
         .dropdown.open .select-options {
             display: flex;
             flex-direction: column;
-            will-change: filter;
         }
 
-        .dropdown.open,
-        .dropdown.open .select {
-            border-bottom-left-radius: 0px;
-            border-bottom-right-radius: 0px;
+        .dropdown.open:not(.reverse-direction),
+        .dropdown.open:not(.reverse-direction) .select {
+            border-radius: 8px 8px 0 0;
+        }
+
+        .dropdown.open.reverse-direction,
+        .dropdown.open.reverse-direction .select {
+            border-radius: 0 0 8px 8px;
         }
 
         .dropdown-trigger.dropdown-trigger {
@@ -102,9 +118,15 @@ export const ToniqDropdown = defineToniqElement<{
             left: 0;
             right: 0;
             z-index: 99;
-            border-radius: 8px;
+            border-radius: 0 0 8px 8px;
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)}
             ${toniqShadows.popupShadow};
+        }
+
+        .reverse-direction .select-options {
+            top: unset;
+            bottom: 100%;
+            border-radius: 8px 8px 0 0;
         }
 
         .selected-label-prefix {
@@ -126,8 +148,12 @@ export const ToniqDropdown = defineToniqElement<{
             background-color: ${toniqColors.accentTertiary.backgroundColor};
         }
 
-        .select-options .option:last-child {
-            border-radius: 0px 0px 8px 8px;
+        .dropdown:not(.reverse-direction) .select-options .option:last-of-type {
+            border-radius: 0 0 8px 8px;
+        }
+
+        .dropdown.reverse-direction .select-options .option:first-of-type {
+            border-radius: 8px 8px 0 0;
         }
 
         .trigger-icon-wrapper {
@@ -150,14 +176,17 @@ export const ToniqDropdown = defineToniqElement<{
         window.addEventListener('click', clickOutside);
     },
     renderCallback({dispatch, events, state, inputs, updateState}) {
-        const selectedOption = inputs.selected ? inputs.selected : inputs.options[0];
-
-        function onToggleDropdown() {
-            updateState({dropdownOpen: !state.dropdownOpen});
+        if (inputs.forceOpenState != undefined) {
+            updateState({
+                dropdownOpen: inputs.forceOpenState,
+            });
         }
+
+        const selectedOption = inputs.selected ? inputs.selected : inputs.options[0];
 
         function onSelectOption(item: ToniqDropdownOption) {
             updateState({dropdownOpen: false});
+            dispatch(new events.openChange(false));
             dispatch(new events.selectChange(item));
         }
 
@@ -180,8 +209,16 @@ export const ToniqDropdown = defineToniqElement<{
 
         return html`
             <button
-                class="dropdown ${state.dropdownOpen ? 'open' : ''}"
-                @click=${() => onToggleDropdown()}
+                class=${classMap({
+                    dropdown: true,
+                    open: state.dropdownOpen,
+                    'reverse-direction': inputs.direction === ToniqDropdownDirectionEnum.Up,
+                })}
+                @click=${() => {
+                    const newOpenState = !state.dropdownOpen;
+                    dispatch(new events.openChange(newOpenState));
+                    updateState({dropdownOpen: newOpenState});
+                }}
                 role="listbox"
                 aria-expanded=${state.dropdownOpen}
             >

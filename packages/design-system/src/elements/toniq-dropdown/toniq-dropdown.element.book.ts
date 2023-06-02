@@ -3,7 +3,11 @@ import {assign, css, html, listen} from 'element-vir';
 import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
 import {ArrowsSort24Icon} from '../../icons';
 import {toniqColorCssVarNames} from '../../styles';
-import {ToniqDropdown, ToniqDropdownOption} from './toniq-dropdown.element';
+import {
+    ToniqDropdown,
+    ToniqDropdownDirectionEnum,
+    ToniqDropdownOption,
+} from './toniq-dropdown.element';
 
 const toniqDropdownChapter = defineElementBookChapter({
     title: 'Dropdown',
@@ -181,6 +185,56 @@ const toniqDropdownPage = defineElementBookPage({
                         })}
                         ${listen(ToniqDropdown.events.selectChange, (event) => {
                             updateState({selected: event.detail});
+                        })}
+                    ></${ToniqDropdown}>
+                `;
+            },
+        });
+        defineExample({
+            title: 'Drop down',
+            stateInitStatic: {
+                selected: undefined as ToniqDropdownOption | undefined,
+                forceOpen: true,
+            },
+            renderCallback({state, updateState}) {
+                return html`
+                    <${ToniqDropdown}
+                        ${assign(ToniqDropdown, {
+                            options: exampleDropdownOptions,
+                            selected: state.selected,
+                            direction: ToniqDropdownDirectionEnum.Down,
+                            forceOpenState: state.forceOpen,
+                        })}
+                        ${listen(ToniqDropdown.events.selectChange, (event) => {
+                            updateState({selected: event.detail});
+                        })}
+                        ${listen(ToniqDropdown.events.openChange, (event) => {
+                            updateState({forceOpen: event.detail});
+                        })}
+                    ></${ToniqDropdown}>
+                `;
+            },
+        });
+        defineExample({
+            title: 'Drop up',
+            stateInitStatic: {
+                selected: undefined as ToniqDropdownOption | undefined,
+                forceOpen: true,
+            },
+            renderCallback({state, updateState}) {
+                return html`
+                    <${ToniqDropdown}
+                        ${assign(ToniqDropdown, {
+                            options: exampleDropdownOptions,
+                            selected: state.selected,
+                            direction: ToniqDropdownDirectionEnum.Up,
+                            forceOpenState: state.forceOpen,
+                        })}
+                        ${listen(ToniqDropdown.events.selectChange, (event) => {
+                            updateState({selected: event.detail});
+                        })}
+                        ${listen(ToniqDropdown.events.openChange, (event) => {
+                            updateState({forceOpen: event.detail});
                         })}
                     ></${ToniqDropdown}>
                 `;

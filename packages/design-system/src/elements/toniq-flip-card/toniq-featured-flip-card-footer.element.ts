@@ -91,7 +91,6 @@ export const ToniqFeaturedFlipCardFooter = defineToniqElement<{
                   })
             : '';
 
-        const viewMoreButtonTemplate = html``;
         /**
          * The .buttons and .social-urls children are reversed in order so that when it wraps, the
          * social url icons get wrapped first, not the buttons.
