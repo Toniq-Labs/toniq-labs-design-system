@@ -41,7 +41,7 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
                             imageUrls,
                             socialUrls: emptySocialUrls,
                             title: 'Featured Stuff',
-                            viewName: 'Stuff',
+                            viewMoreName: 'Stuff',
                         })}
                     ></${ToniqFeaturedFlipCard}>
                 `;
@@ -64,6 +64,7 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
                         ${assign(ToniqFeaturedFlipCard, {
                             imageUrls,
                             title: 'Featured Stuff',
+                            moreInfoParagraphs: undefined,
                         })}
                     ></${ToniqFeaturedFlipCard}>
                 `;

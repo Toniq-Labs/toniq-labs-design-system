@@ -1,6 +1,6 @@
 import {getObjectTypedKeys, isTruthy} from '@augment-vir/common';
 import {VirResizableImage} from '@electrovir/resizable-image-element';
-import {assign, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
+import {assign, css, defineElementEvent, html, listen} from 'element-vir';
 import {defineCssVars, setCssVarValue} from 'lit-css-vars';
 import {ToniqButton, ToniqButtonStyleEnum, ToniqIcon, defineToniqElement} from '..';
 import {SocialUrls, socialUrlIcons} from '../../data';
@@ -25,18 +25,18 @@ const internalFeaturedFlipCarCssVars = defineCssVars({
 export const ToniqFeaturedFlipCard = defineToniqElement<{
     title: string;
     imageUrls: ReadonlyArray<string>;
-    socialUrls?: Readonly<SocialUrls>;
+    socialUrls?: Readonly<SocialUrls> | undefined;
     /**
      * Text for the backside of the card, viewed by clicking the "More Info" button. If this is
      * empty, the "More Info" button will be hidden.
      */
-    moreInfoParagraphs?: ReadonlyArray<string>;
+    moreInfoParagraphs?: ReadonlyArray<string> | undefined;
     /**
      * The name for the "View X" button. Example: 'Collection'. If left blank, the button will
      * simply say "View".
      */
-    viewName?: string;
-    mainImageSize?: number;
+    viewMoreName?: string | undefined;
+    mainImageSize?: number | undefined;
 }>()({
     tagName: 'toniq-featured-flip-card',
     stateInitStatic: {
@@ -109,48 +109,6 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
             position: relative;
         }
 
-        .card-footer {
-            display: inline-flex;
-            flex-direction: row-reverse;
-            flex-wrap: wrap;
-            align-items: center;
-            flex-shrink: 0;
-            max-height: 48px;
-            overflow: hidden;
-            justify-content: space-between;
-            margin-top: 24px;
-            gap: 16px;
-        }
-
-        .social-urls {
-            display: flex;
-            flex-wrap: wrap;
-            flex-basis: 24px;
-            align-items: center;
-            max-height: 24px;
-            overflow: hidden;
-            gap: 16px;
-            flex-grow: 1;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 8px;
-            flex-grow: 1;
-            justify-content: flex-end;
-        }
-
-        ${ToniqButton} {
-            flex-grow: 2;
-            white-space: nowrap;
-            max-width: calc(${internalFeaturedFlipCarCssVars['secondary-image-size'].value} * 2);
-        }
-
-        .more-info-button {
-            flex-grow: 1;
-            max-width: ${internalFeaturedFlipCarCssVars['secondary-image-size'].value};
-        }
-
         .card-face.back {
             width: 100%;
             height: 100%;
@@ -173,7 +131,7 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
             padding: 0;
         }
     `,
-    renderCallback: ({inputs, state, updateState, dispatch, events, host}) => {
+    renderCallback({inputs, state, updateState, dispatch, events, host}) {
         const mainImageSize = inputs.mainImageSize || defaultMainImageSize;
         const secondaryImageSize = calculateSecondaryImageSize(mainImageSize);
 
@@ -188,68 +146,12 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
             toValue: `${secondaryImageSize}px`,
         });
 
-        /** Saved into a separate variable for type checking purposes. */
-        const socialUrls = inputs.socialUrls;
-
-        const socialIcons = socialUrls
-            ? getObjectTypedKeys(socialUrls)
-                  .filter((socialUrlType) => !!socialUrls[socialUrlType])
-                  .map((socialUrlType) => {
-                      const socialUrl = socialUrls[socialUrlType];
-                      const socialIcon = socialUrlIcons[socialUrlType];
-                      return html`
-                          <${ToniqHyperlink}
-                              ${assign(ToniqHyperlink, {
-                                  newTab: true,
-                                  url: socialUrl,
-                              })}
-                          >
-                              <${ToniqIcon} ${assign(ToniqIcon, {icon: socialIcon})}></${ToniqIcon}>
-                          </${ToniqHyperlink}>
-                      `;
-                  })
-            : '';
-
-        const viewButtonText = [
+        const viewMoreButtonText = [
             'View',
-            inputs.viewName,
+            inputs.viewMoreName,
         ]
             .filter(isTruthy)
             .join(' ');
-        /**
-         * The card-footer children (.buttons and .social-urls) are reversed in order so that when
-         * it wraps, the social url icons get wrapped, not the buttons. *
-         */
-        const cardFooterTemplate = html`
-            <div class="card-footer">
-                <div class="buttons">
-                    <${ToniqButton}
-                        ${assign(ToniqButton, {
-                            text: viewButtonText,
-                            buttonStyle: ToniqButtonStyleEnum.Outline,
-                        })}
-                        ${listen('click', () => {
-                            dispatch(new events.viewButtonClicked());
-                        })}
-                    ></${ToniqButton}>
-                    ${renderIf(
-                        !!inputs.moreInfoParagraphs && !!inputs.moreInfoParagraphs.length,
-                        html`
-                            <${ToniqButton}
-                                class="more-info-button"
-                                ${assign(ToniqButton, {
-                                    text: !state.flipped ? 'More Info' : 'Back',
-                                })}
-                                ${listen('click', () => {
-                                    updateState({flipped: !state.flipped});
-                                })}
-                            ></${ToniqButton}>
-                        `,
-                    )}
-                </div>
-                <div class="social-urls">${socialIcons}</div>
-            </div>
-        `;
 
         const cardHeaderTemplate = html`
             <h3>${inputs.title}</h3>
@@ -312,7 +214,20 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                             })}
                         </div>
                     </div>
-                    ${cardFooterTemplate}
+                    <${ToniqFeaturedFlipCardFooter}
+                        ${assign(ToniqFeaturedFlipCardFooter, {
+                            viewMoreButtonText: viewMoreButtonText,
+                            flipCardButtonText: inputs.moreInfoParagraphs?.length
+                                ? 'More Info'
+                                : undefined,
+                            socialUrls: inputs.socialUrls,
+                        })}
+                        ${listen(ToniqFeaturedFlipCardFooter.events.flipCardButtonClick, () => {
+                            updateState({
+                                flipped: !state.flipped,
+                            });
+                        })}
+                    ></${ToniqFeaturedFlipCardFooter}>
                 </div>
                 <div class="card-face back" slot="back">
                     ${cardHeaderTemplate}
@@ -324,9 +239,131 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                                 `,
                         )}
                     </div>
-                    ${cardFooterTemplate}
+                    <${ToniqFeaturedFlipCardFooter}
+                        ${assign(ToniqFeaturedFlipCardFooter, {
+                            viewMoreButtonText: viewMoreButtonText,
+                            flipCardButtonText: inputs.moreInfoParagraphs?.length
+                                ? 'Back'
+                                : undefined,
+                            socialUrls: inputs.socialUrls,
+                        })}
+                        ${listen(ToniqFeaturedFlipCardFooter.events.flipCardButtonClick, () => {
+                            updateState({
+                                flipped: !state.flipped,
+                            });
+                        })}
+                    ></${ToniqFeaturedFlipCardFooter}>
                 </div>
             </${ToniqFlipCard}>
+        `;
+    },
+});
+
+const ToniqFeaturedFlipCardFooter = defineToniqElement<{
+    viewMoreButtonText: string;
+    flipCardButtonText?: string | undefined;
+    socialUrls?: Readonly<SocialUrls> | undefined;
+}>()({
+    tagName: 'toniq-featured-flip-card-footer',
+    styles: css`
+        :host {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            flex-wrap: wrap;
+            align-items: center;
+            flex-shrink: 0;
+            max-height: 48px;
+            overflow: hidden;
+            justify-content: space-between;
+            margin-top: 24px;
+            gap: 16px;
+        }
+
+        .social-urls {
+            display: flex;
+            flex-wrap: wrap;
+            flex-basis: 24px;
+            align-items: center;
+            max-height: 24px;
+            overflow: hidden;
+            gap: 16px;
+            flex-grow: 1;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 8px;
+            flex-grow: 1;
+            justify-content: flex-end;
+        }
+
+        ${ToniqButton} {
+            flex-grow: 2;
+            white-space: nowrap;
+            max-width: calc(${internalFeaturedFlipCarCssVars['secondary-image-size'].value} * 2);
+        }
+
+        .more-info-button {
+            flex-grow: 1;
+            max-width: ${internalFeaturedFlipCarCssVars['secondary-image-size'].value};
+        }
+    `,
+    events: {
+        viewMoreButtonClick: defineElementEvent<void>(),
+        flipCardButtonClick: defineElementEvent<void>(),
+    },
+    renderCallback({inputs, dispatch, events}) {
+        /** Saved into a separate variable for type checking purposes. */
+        const socialUrls = inputs.socialUrls;
+
+        const socialIconTemplates = socialUrls
+            ? getObjectTypedKeys(socialUrls)
+                  .filter((socialUrlType) => !!socialUrls[socialUrlType])
+                  .map((socialUrlType) => {
+                      const socialUrl = socialUrls[socialUrlType];
+                      const socialIcon = socialUrlIcons[socialUrlType];
+                      return html`
+                          <${ToniqHyperlink}
+                              ${assign(ToniqHyperlink, {
+                                  newTab: true,
+                                  url: socialUrl,
+                              })}
+                          >
+                              <${ToniqIcon} ${assign(ToniqIcon, {icon: socialIcon})}></${ToniqIcon}>
+                          </${ToniqHyperlink}>
+                      `;
+                  })
+            : '';
+        /**
+         * The .buttons and .social-urls children are reversed in order so that when it wraps, the
+         * social url icons get wrapped first, not the buttons.
+         */
+        return html`
+            <div class="buttons">
+                <${ToniqButton}
+                    ${assign(ToniqButton, {
+                        text: inputs.viewMoreButtonText,
+                        buttonStyle: ToniqButtonStyleEnum.Outline,
+                    })}
+                    ${listen('click', () => {
+                        dispatch(new events.viewMoreButtonClick());
+                    })}
+                ></${ToniqButton}>
+                ${!!inputs.flipCardButtonText
+                    ? html`
+                          <${ToniqButton}
+                              class="more-info-button"
+                              ${assign(ToniqButton, {
+                                  text: inputs.flipCardButtonText,
+                              })}
+                              ${listen('click', () => {
+                                  dispatch(new events.flipCardButtonClick());
+                              })}
+                          ></${ToniqButton}>
+                      `
+                    : ''}
+            </div>
+            <div class="social-urls">${socialIconTemplates}</div>
         `;
     },
 });
