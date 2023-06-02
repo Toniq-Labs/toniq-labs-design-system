@@ -26,7 +26,7 @@ export const ToniqDropdown = defineToniqElement<{
     icon?: ToniqSvg | undefined;
     selectedLabelPrefix?: string | undefined;
     /** Choose which direction the dropdown will "drop" in. The default is down. */
-    direction?: ToniqDropdownDirectionEnum;
+    direction?: ToniqDropdownDirectionEnum | undefined;
     /**
      * Use this to force the open state of the dropdown. This is generally undesirable, and is
      * really only here for internal testing purposes.
@@ -127,6 +127,7 @@ export const ToniqDropdown = defineToniqElement<{
             top: unset;
             bottom: 100%;
             border-radius: 8px 8px 0 0;
+            ${toniqShadows.popupShadowReversed};
         }
 
         .selected-label-prefix {
