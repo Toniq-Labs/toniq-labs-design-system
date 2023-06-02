@@ -43,7 +43,7 @@ const toniqMiddleEllipsisPage = defineElementBookPage({
                     <${ToniqMiddleEllipsis}
                         ${assign(ToniqMiddleEllipsis, {
                             text: 'Long text with link',
-                            externalLink: 'https://bioniq.io',
+                            externalLink: 'https://toniqlabs.com',
                         })}
                     ></${ToniqMiddleEllipsis}>
                 `;

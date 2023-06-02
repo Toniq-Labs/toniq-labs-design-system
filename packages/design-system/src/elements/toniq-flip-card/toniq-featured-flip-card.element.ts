@@ -24,20 +24,21 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
      * Text for the backside of the card, viewed by clicking the "More Info" button. If this is
      * empty, the "More Info" button will be hidden.
      */
-    moreInfoParagraphs?: ReadonlyArray<string> | undefined;
+    infoParagraphs?: ReadonlyArray<string> | undefined;
     /**
      * The name for the "View X" button. Example: 'Collection'. If left blank, the button will
      * simply say "View".
      */
     viewMoreName?: string | undefined;
     mainImageSize?: number | undefined;
+    viewMoreUrl?: string | undefined;
 }>()({
     tagName: 'toniq-featured-flip-card',
     stateInitStatic: {
         flipped: false,
     },
     events: {
-        viewButtonClicked: defineElementEvent<void>(),
+        viewMoreButtonClick: defineElementEvent<void>(),
     },
     styles: css`
         :host {
@@ -145,7 +146,7 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
             padding: 0;
         }
     `,
-    renderCallback({inputs, state, updateState, host}) {
+    renderCallback({inputs, state, updateState, host, dispatch, events}) {
         const mainImageSize = inputs.mainImageSize || defaultFeaturedFlipCardMainImageSize;
         const secondaryImageSize = calculateFeaturedFlipCardSecondaryImageSize(mainImageSize);
 
@@ -198,7 +199,12 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
             : '';
 
         return html`
-            <${ToniqFlipCard} ${assign(ToniqFlipCard, {flipped: state.flipped})}>
+            <${ToniqFlipCard}
+                ${assign(ToniqFlipCard, {flipped: state.flipped})}
+                ${listen(ToniqFeaturedFlipCardFooter.events.footerViewMoreButtonClick, () => {
+                    dispatch(new events.viewMoreButtonClick());
+                })}
+            >
                 <div class="card-face front" slot="front">
                     ${cardHeaderTemplate}
                     <div class="all-images">
@@ -230,23 +236,25 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                     </div>
                     <${ToniqFeaturedFlipCardFooter}
                         ${assign(ToniqFeaturedFlipCardFooter, {
-                            viewMoreButtonText: viewMoreButtonText,
-                            flipCardButtonText: inputs.moreInfoParagraphs?.length
-                                ? 'More Info'
-                                : undefined,
+                            viewMoreButtonText,
+                            flipCardButtonText: inputs.infoParagraphs?.length ? 'More Info' : '',
+                            viewMoreButtonUrl: inputs.viewMoreUrl || '',
                             socialUrls: inputs.socialUrls,
                         })}
-                        ${listen(ToniqFeaturedFlipCardFooter.events.flipCardButtonClick, () => {
-                            updateState({
-                                flipped: !state.flipped,
-                            });
-                        })}
+                        ${listen(
+                            ToniqFeaturedFlipCardFooter.events.footerFlipCardButtonClick,
+                            () => {
+                                updateState({
+                                    flipped: !state.flipped,
+                                });
+                            },
+                        )}
                     ></${ToniqFeaturedFlipCardFooter}>
                 </div>
                 <div class="card-face back" slot="back">
                     ${cardHeaderTemplate}
                     <div class="paragraphs">
-                        ${inputs.moreInfoParagraphs?.map(
+                        ${inputs.infoParagraphs?.map(
                             (paragraph) =>
                                 html`
                                     <p>${paragraph}</p>
@@ -255,17 +263,19 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                     </div>
                     <${ToniqFeaturedFlipCardFooter}
                         ${assign(ToniqFeaturedFlipCardFooter, {
-                            viewMoreButtonText: viewMoreButtonText,
-                            flipCardButtonText: inputs.moreInfoParagraphs?.length
-                                ? 'Back'
-                                : undefined,
+                            viewMoreButtonText,
+                            flipCardButtonText: inputs.infoParagraphs?.length ? 'Back' : '',
+                            viewMoreButtonUrl: inputs.viewMoreUrl || '',
                             socialUrls: inputs.socialUrls,
                         })}
-                        ${listen(ToniqFeaturedFlipCardFooter.events.flipCardButtonClick, () => {
-                            updateState({
-                                flipped: !state.flipped,
-                            });
-                        })}
+                        ${listen(
+                            ToniqFeaturedFlipCardFooter.events.footerFlipCardButtonClick,
+                            () => {
+                                updateState({
+                                    flipped: !state.flipped,
+                                });
+                            },
+                        )}
                     ></${ToniqFeaturedFlipCardFooter}>
                 </div>
             </${ToniqFlipCard}>

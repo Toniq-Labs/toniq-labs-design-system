@@ -14,17 +14,20 @@ const toniqHyperlinkBookChapter = defineElementBookChapter({
     parent: elementsBookChapter,
 });
 
-function createHyperlinkExamples(defineExample: DefineExampleCallback<{}>, classList: string) {
+function createHyperlinkExamples(
+    defineExample: DefineExampleCallback<{}>,
+    overrideInputs: Partial<(typeof ToniqHyperlink)['inputsType']>,
+) {
     return [
         defineExample({
             title: 'text hyperlink',
             renderCallback() {
                 return html`
                     <${ToniqHyperlink}
-                        class=${classList}
                         ${assign(ToniqHyperlink, {
                             newTab: true,
                             url: 'https://toniqlabs.com',
+                            ...overrideInputs,
                         })}
                     >
                         Toniq Labs Link
@@ -36,10 +39,14 @@ function createHyperlinkExamples(defineExample: DefineExampleCallback<{}>, class
 }
 
 const toniqHyperlinkBookPages = mapObjectValues(
-    ensureType<Record<string, string>>({
-        [ToniqHyperlink.tagName]: '',
-        [ToniqHyperlink.hostClasses['toniq-hyperlink-with-hover-styles']]:
-            ToniqHyperlink.hostClasses['toniq-hyperlink-with-hover-styles'],
+    ensureType<Record<string, Partial<(typeof ToniqHyperlink)['inputsType']>>>({
+        [ToniqHyperlink.tagName]: {},
+        'with hover styles': {
+            withHoverStyles: true,
+        },
+        'as a route link': {
+            treatAsRouteChange: true,
+        },
     }),
     (pageTitle, className) => {
         return defineElementBookPage({

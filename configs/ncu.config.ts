@@ -6,8 +6,7 @@ export const ncuConfig: RunOptions = {
     root: true,
     // exclude these
     reject: [
-        // node is now on v20 and we want to keep the v18 types
-        '@types/node',
+        'typescript',
     ],
     // include only these
     filter: [],

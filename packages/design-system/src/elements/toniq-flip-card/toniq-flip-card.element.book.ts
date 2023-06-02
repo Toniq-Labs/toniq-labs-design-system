@@ -12,11 +12,11 @@ const toniqFlipCardBookChapter = defineElementBookChapter({
 });
 
 const imageUrls = Array(30).fill(createElementBookUrl('/toniq-labs-logo.png'));
-const moreInfoParagraphs = [
+const infoParagraphs = [
     'Hello there.',
     'There is stuff here.',
 ];
-const longMoreInfoParagraphs = moreInfoParagraphs.concat(Array(30).fill(moreInfoParagraphs));
+const longInfoParagraphs = infoParagraphs.concat(Array(30).fill(infoParagraphs));
 
 const toniqFeaturedFlipCardBookPage = defineElementBookPage({
     title: ToniqFeaturedFlipCard.tagName,
@@ -31,7 +31,7 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
                 return html`
                     <${ToniqFeaturedFlipCard}
                         ${assign(ToniqFeaturedFlipCard, {
-                            moreInfoParagraphs: longMoreInfoParagraphs,
+                            infoParagraphs: longInfoParagraphs,
                             imageUrls,
                             socialUrls: emptySocialUrls,
                             title: 'Featured Stuff',
@@ -52,7 +52,28 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
                         ${assign(ToniqFeaturedFlipCard, {
                             imageUrls,
                             title: 'Featured Stuff',
-                            moreInfoParagraphs: undefined,
+                            infoParagraphs: undefined,
+                        })}
+                    ></${ToniqFeaturedFlipCard}>
+                `;
+            },
+        });
+        defineExample({
+            title: 'hyperlink view button',
+            stateInitStatic: {
+                flipped: false,
+            },
+            renderCallback() {
+                return html`
+                    <${ToniqFeaturedFlipCard}
+                        ${assign(ToniqFeaturedFlipCard, {
+                            imageUrls: [],
+                            title: 'Featured Stuff',
+                            infoParagraphs: longInfoParagraphs,
+                            viewMoreUrl: 'https://toniqlabs.com',
+                        })}
+                        ${listen(ToniqFeaturedFlipCard.events.viewMoreButtonClick, () => {
+                            console.info('view more clicked');
                         })}
                     ></${ToniqFeaturedFlipCard}>
                 `;
@@ -69,7 +90,7 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
                         ${assign(ToniqFeaturedFlipCard, {
                             imageUrls: [],
                             title: 'Featured Stuff',
-                            moreInfoParagraphs: longMoreInfoParagraphs,
+                            infoParagraphs: longInfoParagraphs,
                         })}
                     ></${ToniqFeaturedFlipCard}>
                 `;
@@ -91,7 +112,7 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
                         ${assign(ToniqFeaturedFlipCard, {
                             imageUrls: [],
                             title: 'Featured Stuff',
-                            moreInfoParagraphs: longMoreInfoParagraphs,
+                            infoParagraphs: longInfoParagraphs,
                         })}
                     ></${ToniqFeaturedFlipCard}>
                 `;
@@ -112,7 +133,7 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
                     <${ToniqFeaturedFlipCard}
                         ${assign(ToniqFeaturedFlipCard, {
                             imageUrls,
-                            moreInfoParagraphs,
+                            infoParagraphs,
                             title: 'Featured Stuff',
                         })}
                     ></${ToniqFeaturedFlipCard}>
