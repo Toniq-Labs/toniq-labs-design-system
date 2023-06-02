@@ -11,11 +11,12 @@ export const ToniqFlipCard = defineToniqElement<{flipped: boolean}>()({
     styles: css`
         :host {
             max-width: 100%;
-            display: inline-block;
+            display: inline-flex;
             perspective: 1200px;
             position: relative;
             border-radius: 16px;
             box-sizing: border-box;
+            min-height: 200px;
         }
 
         * {
@@ -24,8 +25,8 @@ export const ToniqFlipCard = defineToniqElement<{flipped: boolean}>()({
         }
 
         .flip-wrapper {
-            height: 100%;
             width: 100%;
+            flex-grow: 1;
             position: relative;
             transition: transform 600ms;
             transform-style: preserve-3d;

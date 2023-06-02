@@ -24,12 +24,6 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
     defineExamplesCallback({defineExample}) {
         defineExample({
             title: 'basic',
-            styles: css`
-                .front,
-                .back {
-                    padding: 32px;
-                }
-            `,
             stateInitStatic: {
                 flipped: false,
             },
@@ -49,12 +43,6 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
         });
         defineExample({
             title: 'with missing inputs',
-            styles: css`
-                .front,
-                .back {
-                    padding: 32px;
-                }
-            `,
             stateInitStatic: {
                 flipped: false,
             },
@@ -71,13 +59,47 @@ const toniqFeaturedFlipCardBookPage = defineElementBookPage({
             },
         });
         defineExample({
+            title: 'min height',
+            stateInitStatic: {
+                flipped: false,
+            },
+            renderCallback() {
+                return html`
+                    <${ToniqFeaturedFlipCard}
+                        ${assign(ToniqFeaturedFlipCard, {
+                            imageUrls: [],
+                            title: 'Featured Stuff',
+                            moreInfoParagraphs: longMoreInfoParagraphs,
+                        })}
+                    ></${ToniqFeaturedFlipCard}>
+                `;
+            },
+        });
+        defineExample({
+            title: 'with custom height',
+            styles: css`
+                ${ToniqFeaturedFlipCard} {
+                    height: 300px;
+                }
+            `,
+            stateInitStatic: {
+                flipped: false,
+            },
+            renderCallback() {
+                return html`
+                    <${ToniqFeaturedFlipCard}
+                        ${assign(ToniqFeaturedFlipCard, {
+                            imageUrls: [],
+                            title: 'Featured Stuff',
+                            moreInfoParagraphs: longMoreInfoParagraphs,
+                        })}
+                    ></${ToniqFeaturedFlipCard}>
+                `;
+            },
+        });
+        defineExample({
             title: 'smaller',
             styles: css`
-                .front,
-                .back {
-                    padding: 32px;
-                }
-
                 ${ToniqFeaturedFlipCard} {
                     width: 1000px;
                 }

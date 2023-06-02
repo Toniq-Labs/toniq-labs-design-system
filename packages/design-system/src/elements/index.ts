@@ -6,6 +6,7 @@ export * from './toniq-carousel/toniq-carousel.element';
 export * from './toniq-checkbox/toniq-checkbox.element';
 export * from './toniq-chip/toniq-chip.element';
 export * from './toniq-dropdown/toniq-dropdown.element';
+export * from './toniq-flip-card/toniq-featured-flip-card-footer.element';
 export * from './toniq-flip-card/toniq-featured-flip-card.element';
 export * from './toniq-flip-card/toniq-flip-card.element';
 export * from './toniq-hyperlink/toniq-hyperlink.element';

@@ -1,25 +1,19 @@
-import {getObjectTypedKeys, isTruthy} from '@augment-vir/common';
+import {isTruthy} from '@augment-vir/common';
 import {VirResizableImage} from '@electrovir/resizable-image-element';
 import {assign, css, defineElementEvent, html, listen} from 'element-vir';
-import {defineCssVars, setCssVarValue} from 'lit-css-vars';
-import {ToniqButton, ToniqButtonStyleEnum, ToniqIcon, defineToniqElement} from '..';
-import {SocialUrls, socialUrlIcons} from '../../data';
+import {setCssVarValue} from 'lit-css-vars';
+import {ToniqIcon, defineToniqElement} from '..';
+import {SocialUrls} from '../../data';
 import {LoaderAnimated24Icon} from '../../icons';
 import {toniqFontStyles} from '../../styles';
-import {ToniqHyperlink} from '../toniq-hyperlink/toniq-hyperlink.element';
+import {
+    calculateFeaturedFlipCardSecondaryImageSize,
+    defaultFeaturedFlipCardMainImageSize,
+    featuredFlipCardImageGap,
+    internalFeaturedFlipCarCssVars,
+} from './featured-flip-card-css-vars';
+import {ToniqFeaturedFlipCardFooter} from './toniq-featured-flip-card-footer.element';
 import {ToniqFlipCard} from './toniq-flip-card.element';
-
-const defaultMainImageSize = 360;
-const imageGap = 8;
-
-function calculateSecondaryImageSize(mainImageSize: number): number {
-    return (mainImageSize - imageGap) / 2;
-}
-
-const internalFeaturedFlipCarCssVars = defineCssVars({
-    'main-image-size': defaultMainImageSize,
-    'secondary-image-size': calculateSecondaryImageSize(defaultMainImageSize),
-});
 
 /** A specific version of toniq-flip-card that Toniq Labs frequently re-uses. */
 export const ToniqFeaturedFlipCard = defineToniqElement<{
@@ -62,17 +56,19 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
             ${toniqFontStyles.h3Font};
             ${toniqFontStyles.extraBoldFont};
             margin: 0;
-            margin-bottom: 20px;
         }
 
         .card-face {
             display: flex;
             flex-direction: column;
             padding: 32px;
+            height: 100%;
+            box-sizing: border-box;
         }
 
         .all-images {
             display: flex;
+            flex-grow: 1;
             flex-wrap: wrap;
             align-items: flex-start;
             overflow: hidden;
@@ -84,7 +80,7 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
         .secondary-images {
             flex-basis: ${internalFeaturedFlipCarCssVars['secondary-image-size'].value};
             justify-content: space-evenly;
-            row-gap: ${imageGap}px;
+            row-gap: ${featuredFlipCardImageGap}px;
             column-gap: 2px;
             flex-grow: 1;
             max-height: 100%;
@@ -94,6 +90,7 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
 
         ${ToniqFlipCard} {
             width: 100%;
+            height: 100%;
         }
 
         .big-image-wrapper {
@@ -109,6 +106,22 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
             position: relative;
         }
 
+        .card-face.front ${ToniqFeaturedFlipCardFooter} {
+            margin-top: 24px;
+        }
+
+        .card-face.back ${ToniqFeaturedFlipCardFooter} {
+            margin-top: 4px;
+        }
+
+        .card-face.front h3 {
+            margin-bottom: 20px;
+        }
+
+        .card-face.back h3 {
+            margin-bottom: 4px;
+        }
+
         .card-face.back {
             width: 100%;
             height: 100%;
@@ -118,6 +131,7 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
         }
 
         .paragraphs {
+            padding: 4px 0;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -131,9 +145,9 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
             padding: 0;
         }
     `,
-    renderCallback({inputs, state, updateState, dispatch, events, host}) {
-        const mainImageSize = inputs.mainImageSize || defaultMainImageSize;
-        const secondaryImageSize = calculateSecondaryImageSize(mainImageSize);
+    renderCallback({inputs, state, updateState, host}) {
+        const mainImageSize = inputs.mainImageSize || defaultFeaturedFlipCardMainImageSize;
+        const secondaryImageSize = calculateFeaturedFlipCardSecondaryImageSize(mainImageSize);
 
         setCssVarValue({
             onElement: host,
@@ -185,7 +199,7 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
 
         return html`
             <${ToniqFlipCard} ${assign(ToniqFlipCard, {flipped: state.flipped})}>
-                <div class="card-face" slot="front">
+                <div class="card-face front" slot="front">
                     ${cardHeaderTemplate}
                     <div class="all-images">
                         ${firstImageTemplate}
@@ -255,115 +269,6 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                     ></${ToniqFeaturedFlipCardFooter}>
                 </div>
             </${ToniqFlipCard}>
-        `;
-    },
-});
-
-const ToniqFeaturedFlipCardFooter = defineToniqElement<{
-    viewMoreButtonText: string;
-    flipCardButtonText?: string | undefined;
-    socialUrls?: Readonly<SocialUrls> | undefined;
-}>()({
-    tagName: 'toniq-featured-flip-card-footer',
-    styles: css`
-        :host {
-            display: inline-flex;
-            flex-direction: row-reverse;
-            flex-wrap: wrap;
-            align-items: center;
-            flex-shrink: 0;
-            max-height: 48px;
-            overflow: hidden;
-            justify-content: space-between;
-            margin-top: 24px;
-            gap: 16px;
-        }
-
-        .social-urls {
-            display: flex;
-            flex-wrap: wrap;
-            flex-basis: 24px;
-            align-items: center;
-            max-height: 24px;
-            overflow: hidden;
-            gap: 16px;
-            flex-grow: 1;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 8px;
-            flex-grow: 1;
-            justify-content: flex-end;
-        }
-
-        ${ToniqButton} {
-            flex-grow: 2;
-            white-space: nowrap;
-            max-width: calc(${internalFeaturedFlipCarCssVars['secondary-image-size'].value} * 2);
-        }
-
-        .more-info-button {
-            flex-grow: 1;
-            max-width: ${internalFeaturedFlipCarCssVars['secondary-image-size'].value};
-        }
-    `,
-    events: {
-        viewMoreButtonClick: defineElementEvent<void>(),
-        flipCardButtonClick: defineElementEvent<void>(),
-    },
-    renderCallback({inputs, dispatch, events}) {
-        /** Saved into a separate variable for type checking purposes. */
-        const socialUrls = inputs.socialUrls;
-
-        const socialIconTemplates = socialUrls
-            ? getObjectTypedKeys(socialUrls)
-                  .filter((socialUrlType) => !!socialUrls[socialUrlType])
-                  .map((socialUrlType) => {
-                      const socialUrl = socialUrls[socialUrlType];
-                      const socialIcon = socialUrlIcons[socialUrlType];
-                      return html`
-                          <${ToniqHyperlink}
-                              ${assign(ToniqHyperlink, {
-                                  newTab: true,
-                                  url: socialUrl,
-                              })}
-                          >
-                              <${ToniqIcon} ${assign(ToniqIcon, {icon: socialIcon})}></${ToniqIcon}>
-                          </${ToniqHyperlink}>
-                      `;
-                  })
-            : '';
-        /**
-         * The .buttons and .social-urls children are reversed in order so that when it wraps, the
-         * social url icons get wrapped first, not the buttons.
-         */
-        return html`
-            <div class="buttons">
-                <${ToniqButton}
-                    ${assign(ToniqButton, {
-                        text: inputs.viewMoreButtonText,
-                        buttonStyle: ToniqButtonStyleEnum.Outline,
-                    })}
-                    ${listen('click', () => {
-                        dispatch(new events.viewMoreButtonClick());
-                    })}
-                ></${ToniqButton}>
-                ${!!inputs.flipCardButtonText
-                    ? html`
-                          <${ToniqButton}
-                              class="more-info-button"
-                              ${assign(ToniqButton, {
-                                  text: inputs.flipCardButtonText,
-                              })}
-                              ${listen('click', () => {
-                                  dispatch(new events.flipCardButtonClick());
-                              })}
-                          ></${ToniqButton}>
-                      `
-                    : ''}
-            </div>
-            <div class="social-urls">${socialIconTemplates}</div>
         `;
     },
 });
