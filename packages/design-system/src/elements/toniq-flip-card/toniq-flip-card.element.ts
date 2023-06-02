@@ -63,7 +63,7 @@ export const ToniqFlipCard = defineToniqElement<{flipped: boolean}>()({
             pointer-events: none;
         }
     `,
-    renderCallback: ({inputs, dispatch, events}) => {
+    renderCallback({inputs, dispatch, events}) {
         return html`
             <div
                 class="flip-wrapper ${classMap({flipped: inputs.flipped})}"

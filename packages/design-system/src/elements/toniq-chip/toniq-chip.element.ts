@@ -31,7 +31,7 @@ export const ToniqChip = defineToniqElement<{
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
         }
     `,
-    renderCallback: ({inputs}) => {
+    renderCallback({inputs}) {
         const iconTemplate: TemplateResult | string = inputs.icon
             ? html`
                   <${ToniqIcon}

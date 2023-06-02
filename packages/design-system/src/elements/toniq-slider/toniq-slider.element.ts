@@ -214,7 +214,7 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
             maybeFixRecursively(host);
         });
     },
-    renderCallback: ({inputs, host, events, dispatch, state, updateState}) => {
+    renderCallback({inputs, host, events, dispatch, state, updateState}) {
         const {actualValue, logRange, isLogScale, suffix, elementValue, elementLimits, rangeWidth} =
             getAllVerifiedAndFixedInputs({...inputs}, host);
 

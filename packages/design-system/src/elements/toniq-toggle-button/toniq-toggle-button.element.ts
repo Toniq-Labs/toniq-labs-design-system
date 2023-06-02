@@ -92,7 +92,7 @@ export const ToniqToggleButton = defineToniqElement<{
             margin-left: 8px;
         }
     `,
-    renderCallback: ({inputs}) => {
+    renderCallback({inputs}) {
         const iconTemplate = inputs.icon
             ? html`
                   <${ToniqIcon}

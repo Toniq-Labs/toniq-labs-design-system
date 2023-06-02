@@ -25,7 +25,7 @@ export const ToniqIcon = defineToniqElement<{icon?: ToniqSvg | undefined}>()({
             width: 100%;
         }
     `,
-    renderCallback: ({inputs}) => {
+    renderCallback({inputs}) {
         return html`
             ${inputs.icon ? unsafeSVG(inputs.icon.svgString) : ''}
         `;

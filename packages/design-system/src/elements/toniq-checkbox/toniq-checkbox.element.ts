@@ -103,7 +103,7 @@ export const ToniqCheckbox = defineToniqElement<{
             opacity: 0;
         }
     `,
-    renderCallback: ({inputs, dispatch, events}) => {
+    renderCallback({inputs, dispatch, events}) {
         const iconTemplate = html`
             <span class="checkbox ${inputs.checked ? 'checked' : ''}">
                 <${ToniqIcon}

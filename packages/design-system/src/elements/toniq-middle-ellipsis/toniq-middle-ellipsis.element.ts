@@ -166,7 +166,7 @@ export const ToniqMiddleEllipsis = defineToniqElement<
     stateInitStatic: {
         showCopiedTextTimeoutId: undefined as number | undefined,
     },
-    renderCallback: ({inputs, dispatch, events, state, updateState}) => {
+    renderCallback({inputs, dispatch, events, state, updateState}) {
         if (!inputs.text) {
             return html``;
         }

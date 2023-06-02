@@ -143,7 +143,7 @@ export const ToniqRadioGroup = defineToniqElement<{
             randomGroupName: randomString(),
         });
     },
-    renderCallback: ({inputs, dispatch, events, state}) => {
+    renderCallback({inputs, dispatch, events, state}) {
         const filteredEntries = filterEntries(inputs.entries);
 
         return filteredEntries.map((entry) => {

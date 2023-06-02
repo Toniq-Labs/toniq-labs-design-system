@@ -132,7 +132,7 @@ export const ToniqCarousel = defineToniqElement<{
     cleanupCallback: ({state}) => {
         window.clearInterval(state.rotationIntervalId);
     },
-    renderCallback: ({inputs, state, updateState, host}) => {
+    renderCallback({inputs, state, updateState, host}) {
         if (inputs.enableAutomaticCycling && state.rotationIntervalId == undefined) {
             updateState({
                 rotationIntervalId: window.setInterval(() => {

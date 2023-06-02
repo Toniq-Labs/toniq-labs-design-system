@@ -80,7 +80,7 @@ export const ToniqPagination = defineToniqElement<{
     events: {
         pageChange: defineElementEvent<number>(),
     },
-    renderCallback: ({inputs, events, dispatch}) => {
+    renderCallback({inputs, events, dispatch}) {
         if (inputs.pageCount <= 1) {
             return html``;
         } else {

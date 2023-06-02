@@ -210,7 +210,7 @@ export const ToniqInput = defineToniqElement<{
             }
         `;
     },
-    renderCallback: ({inputs, dispatch, events}) => {
+    renderCallback({inputs, dispatch, events}) {
         const {filtered: filteredValue} = filterToAllowedCharactersOnly({
             value: inputs.value ?? '',
             allowed: inputs.allowedInputs,

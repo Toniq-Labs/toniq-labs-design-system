@@ -149,7 +149,7 @@ export const ToniqDropdown = defineToniqElement<{
 
         window.addEventListener('click', clickOutside);
     },
-    renderCallback: ({dispatch, events, state, inputs, updateState}) => {
+    renderCallback({dispatch, events, state, inputs, updateState}) {
         const selectedOption = inputs.selected ? inputs.selected : inputs.options[0];
 
         function onToggleDropdown() {
