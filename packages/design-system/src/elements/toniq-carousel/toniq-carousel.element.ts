@@ -2,7 +2,7 @@ import {DeclarativeElementHost, assign, css, html, listen, onResize, unsafeCSS} 
 import {classMap} from 'lit/directives/class-map.js';
 import {getScrollSnapPositions, scrollSnapToNext} from 'scroll-snap-api';
 import {ArrowLeft24Icon, ArrowRight24Icon} from '../../icons';
-import {applyBackgroundAndForeground, toniqColors, toniqDurations} from '../../styles';
+import {applyBackgroundAndForeground, toniqColors} from '../../styles';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
@@ -13,8 +13,10 @@ export type ScrollDirection = 'left' | 'right';
 
 export const ToniqCarousel = defineToniqElement<{
     /**
-     * Templates for each item in the carousel. Can be anything, strings, numbers,
+     * Templates for each item in the carousel. Can be anything: strings, numbers,
      * HTMLTemplateResult (recommended), or anything that has .toString().
+     *
+     * This is used instead of <slot> because this element needs to wrap each individual template.
      */
     templates: ReadonlyArray<unknown>;
     enableAutomaticCycling?: boolean;
@@ -92,6 +94,7 @@ export const ToniqCarousel = defineToniqElement<{
                 rgba(255, 255, 255, 0.6) 30%,
                 rgba(255, 255, 255, 0) 100%
             );
+            will-change: visibility;
         }
 
         ${hostClasses['toniq-carousel-banner-style'].selector} .arrow {
@@ -105,13 +108,7 @@ export const ToniqCarousel = defineToniqElement<{
             right: 0;
         }
 
-        .arrow.right::after {
-            left: unset;
-            right: 0;
-        }
-
         .arrow ${ToniqIcon} {
-            transition: ${toniqDurations.pretty};
             cursor: pointer;
             position: relative;
             z-index: 11;
@@ -125,7 +122,7 @@ export const ToniqCarousel = defineToniqElement<{
 
         .hidden {
             /*
-                Don't set opacity: 0 here, it causes super wacky bugs where the scrolling gets reset
+                Don't use "opacity: 0" here, it causes super wacky bugs where the scrolling gets reset
                 but only SOMETIMES. Refreshing repeatedly seems to eventually get it stuck.
             */
             visibility: hidden;
@@ -185,7 +182,10 @@ export const ToniqCarousel = defineToniqElement<{
                 <div class="arrow left">
                     <${ToniqIcon}
                         class=${classMap({
-                            hidden: state.currentScrollPosition.left <= (leftArrowHideZone ?? 100),
+                            hidden:
+                                leftArrowHideZone == undefined
+                                    ? true
+                                    : state.currentScrollPosition.left <= leftArrowHideZone,
                         })}
                         ${assign(ToniqIcon, {
                             icon: ArrowLeft24Icon,
@@ -210,7 +210,7 @@ export const ToniqCarousel = defineToniqElement<{
                         class=${classMap({
                             hidden:
                                 rightArrowHideZone == undefined
-                                    ? state.currentScrollPosition.right <= 100
+                                    ? true
                                     : state.currentScrollPosition.left >= rightArrowHideZone,
                         })}
                         ${assign(ToniqIcon, {
