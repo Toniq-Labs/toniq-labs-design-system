@@ -1,65 +1,49 @@
-import {ensureType, mapObjectValues} from '@augment-vir/common';
-import {
-    DefineExampleCallback,
-    ElementBookPage,
-    defineElementBookChapter,
-    defineElementBookPage,
-} from 'element-book';
+import {defineBookPage} from 'element-book';
 import {assign, html} from 'element-vir';
-import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
+import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {ToniqHyperlink} from './toniq-hyperlink.element';
 
-const toniqHyperlinkBookChapter = defineElementBookChapter({
-    title: 'Hyperlink',
-    parent: elementsBookChapter,
-});
-
-function createHyperlinkExamples(
-    defineExample: DefineExampleCallback<{}>,
-    overrideInputs: Partial<(typeof ToniqHyperlink)['inputsType']>,
-) {
-    return [
-        defineExample({
-            title: 'text hyperlink',
-            renderCallback() {
-                return html`
-                    <${ToniqHyperlink}
-                        ${assign(ToniqHyperlink, {
-                            newTab: true,
-                            url: 'https://toniqlabs.com',
-                            ...overrideInputs,
-                        })}
-                    >
-                        Toniq Labs Link
-                    </${ToniqHyperlink}>
-                `;
+export const toniqHyperlinkPage = defineBookPage({
+    parent: elementsBookPage,
+    title: ToniqHyperlink.tagName,
+    elementExamplesCallback({defineExample}) {
+        const exampleConfigs: ReadonlyArray<{
+            title: string;
+            inputs: Partial<typeof ToniqHyperlink.inputsType>;
+            descriptions?: string[] | undefined;
+        }> = [
+            {
+                title: 'default',
+                inputs: {},
             },
-        }),
-    ];
-}
-
-const toniqHyperlinkBookPages = mapObjectValues(
-    ensureType<Record<string, Partial<(typeof ToniqHyperlink)['inputsType']>>>({
-        [ToniqHyperlink.tagName]: {},
-        'with hover styles': {
-            withHoverStyles: true,
-        },
-        'as a route link': {
-            treatAsRouteChange: true,
-        },
-    }),
-    (pageTitle, className) => {
-        return defineElementBookPage({
-            title: pageTitle,
-            defineExamplesCallback({defineExample}) {
-                createHyperlinkExamples(defineExample, className);
+            {
+                title: 'hover styles',
+                inputs: {withHoverStyles: true},
             },
-            parent: toniqHyperlinkBookChapter,
+            {
+                title: 'route link',
+                inputs: {treatAsRouteChange: true},
+            },
+        ];
+
+        exampleConfigs.forEach((exampleConfig) => {
+            defineExample({
+                title: exampleConfig.title,
+                descriptionParagraphs: exampleConfig.descriptions,
+                renderCallback() {
+                    return html`
+                        <${ToniqHyperlink}
+                            ${assign(ToniqHyperlink, {
+                                newTab: true,
+                                url: 'https://toniqlabs.com',
+                                ...exampleConfig.inputs,
+                            })}
+                        >
+                            Toniq Labs Link
+                        </${ToniqHyperlink}>
+                    `;
+                },
+            });
         });
     },
-) satisfies Record<string, ElementBookPage>;
-
-export const toniqHyperlinkBookEntries = [
-    toniqHyperlinkBookChapter,
-    ...Object.values(toniqHyperlinkBookPages),
-];
+});

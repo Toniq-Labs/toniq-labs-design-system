@@ -1,7 +1,9 @@
-import {defineElementBookChapter, defineElementBookPage} from 'element-book';
-import {assign, css, html, listen} from 'element-vir';
-import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
+import {getEnumTypedKeys} from '@augment-vir/common';
+import {BookPageControlTypeEnum, defineBookPage, definePageControl} from 'element-book';
+import {CSSResult, assign, css, html, listen} from 'element-vir';
+import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {ArrowsSort24Icon} from '../../icons';
+import {allIconNames, allIconsByName} from '../../icons/icon.book-helper';
 import {toniqColorCssVarNames} from '../../styles';
 import {
     ToniqDropdown,
@@ -9,12 +11,7 @@ import {
     ToniqDropdownOption,
 } from './toniq-dropdown.element';
 
-const toniqDropdownChapter = defineElementBookChapter({
-    title: 'Dropdown',
-    parent: elementsBookChapter,
-});
-
-const exampleDropdownOptions: ReadonlyArray<ToniqDropdownOption> = [
+const exampleDropdownOptions = [
     {
         label: 'Option 1',
         value: 1,
@@ -31,219 +28,131 @@ const exampleDropdownOptions: ReadonlyArray<ToniqDropdownOption> = [
         label: 'Really really super duper long option',
         value: 4,
     },
+] as const satisfies ReadonlyArray<ToniqDropdownOption>;
+
+const exampleVariations: ReadonlyArray<{
+    title: string;
+    inputs?: Partial<typeof ToniqDropdown.inputsType>;
+    customStyle?: CSSResult;
+}> = [
+    {
+        title: 'default',
+    },
+    {
+        title: 'transparent background',
+        customStyle: css`
+            ${toniqColorCssVarNames.accentSecondary.backgroundColor}: transparent;
+        `,
+    },
+    {
+        title: 'disabled',
+        inputs: {
+            disabled: true,
+        },
+    },
 ];
 
-const toniqDropdownPage = defineElementBookPage({
+const innerVariations: ReadonlyArray<{
+    customStyle?: CSSResult;
+    inputs?: Partial<typeof ToniqDropdown.inputsType>;
+}> = [
+    {},
+    {
+        customStyle: css`
+            width: 500px;
+            height: 100px;
+        `,
+    },
+    {
+        customStyle: css`
+            max-height: 30px;
+            min-height: 30px;
+        `,
+    },
+];
+
+export const toniqDropdownPage = defineBookPage({
     title: ToniqDropdown.tagName,
-    parent: toniqDropdownChapter,
-    defineExamplesCallback({defineExample}) {
-        defineExample({
-            title: 'Default',
-            stateInitStatic: {
-                selected: undefined as ToniqDropdownOption | undefined,
-            },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqDropdown}
-                        ${assign(ToniqDropdown, {
-                            options: exampleDropdownOptions,
-                            selected: state.selected,
-                        })}
-                        ${listen(ToniqDropdown.events.selectChange, (event) => {
-                            updateState({selected: event.detail});
-                        })}
-                    ></${ToniqDropdown}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'With Icon',
-            stateInitStatic: {
-                selected: undefined as ToniqDropdownOption | undefined,
-            },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqDropdown}
-                        ${assign(ToniqDropdown, {
-                            options: exampleDropdownOptions,
-                            selected: state.selected,
-                            icon: ArrowsSort24Icon,
-                        })}
-                        ${listen(ToniqDropdown.events.selectChange, (event) => {
-                            updateState({selected: event.detail});
-                        })}
-                    ></${ToniqDropdown}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'With Icon + Prefix',
-            stateInitStatic: {
-                selected: undefined as ToniqDropdownOption | undefined,
-            },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqDropdown}
-                        ${assign(ToniqDropdown, {
-                            options: exampleDropdownOptions,
-                            selected: state.selected,
-                            icon: ArrowsSort24Icon,
-                            selectedLabelPrefix: 'Sort By:',
-                        })}
-                        ${listen(ToniqDropdown.events.selectChange, (event) => {
-                            updateState({selected: event.detail});
-                        })}
-                    ></${ToniqDropdown}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'Defaulted to an option',
-            stateInitStatic: {
-                selected: exampleDropdownOptions[3],
-            },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqDropdown}
-                        ${assign(ToniqDropdown, {
-                            options: exampleDropdownOptions,
-                            selected: state.selected,
-                        })}
-                        ${listen(ToniqDropdown.events.selectChange, (event) => {
-                            updateState({selected: event.detail});
-                        })}
-                    ></${ToniqDropdown}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'Custom size',
-            stateInitStatic: {
-                selected: undefined as ToniqDropdownOption | undefined,
-            },
-            styles: css`
-                ${ToniqDropdown} {
-                    width: 500px;
-                    height: 100px;
-                }
-            `,
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqDropdown}
-                        ${assign(ToniqDropdown, {
-                            options: exampleDropdownOptions,
-                            selected: state.selected,
-                        })}
-                        ${listen(ToniqDropdown.events.selectChange, (event) => {
-                            updateState({selected: event.detail});
-                        })}
-                    ></${ToniqDropdown}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'Squished',
-            stateInitStatic: {
-                selected: undefined as ToniqDropdownOption | undefined,
-            },
-            styles: css`
-                ${ToniqDropdown} {
-                    max-height: 20px;
-                    min-height: 20px;
-                }
-            `,
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqDropdown}
-                        ${assign(ToniqDropdown, {
-                            options: exampleDropdownOptions,
-                            selected: state.selected,
-                        })}
-                        ${listen(ToniqDropdown.events.selectChange, (event) => {
-                            updateState({selected: event.detail});
-                        })}
-                    ></${ToniqDropdown}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'No background',
-            stateInitStatic: {
-                selected: undefined as ToniqDropdownOption | undefined,
-            },
-            styles: css`
-                ${ToniqDropdown} {
-                    ${toniqColorCssVarNames.accentSecondary.backgroundColor}: transparent;
-                }
-            `,
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqDropdown}
-                        ${assign(ToniqDropdown, {
-                            options: exampleDropdownOptions,
-                            selected: state.selected,
-                        })}
-                        ${listen(ToniqDropdown.events.selectChange, (event) => {
-                            updateState({selected: event.detail});
-                        })}
-                    ></${ToniqDropdown}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'Drop down',
-            stateInitStatic: {
-                selected: undefined as ToniqDropdownOption | undefined,
-                forceOpen: true,
-            },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqDropdown}
-                        ${assign(ToniqDropdown, {
-                            options: exampleDropdownOptions,
-                            selected: state.selected,
-                            direction: ToniqDropdownDirectionEnum.Down,
-                            forceOpenState: state.forceOpen,
-                        })}
-                        ${listen(ToniqDropdown.events.selectChange, (event) => {
-                            updateState({selected: event.detail});
-                        })}
-                        ${listen(ToniqDropdown.events.openChange, (event) => {
-                            updateState({forceOpen: event.detail});
-                        })}
-                    ></${ToniqDropdown}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'Drop up',
-            stateInitStatic: {
-                selected: undefined as ToniqDropdownOption | undefined,
-                forceOpen: true,
-            },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqDropdown}
-                        ${assign(ToniqDropdown, {
-                            options: exampleDropdownOptions,
-                            selected: state.selected,
-                            direction: ToniqDropdownDirectionEnum.Up,
-                            forceOpenState: state.forceOpen,
-                        })}
-                        ${listen(ToniqDropdown.events.selectChange, (event) => {
-                            updateState({selected: event.detail});
-                        })}
-                        ${listen(ToniqDropdown.events.openChange, (event) => {
-                            updateState({forceOpen: event.detail});
-                        })}
-                    ></${ToniqDropdown}>
-                `;
-            },
+    parent: elementsBookPage,
+    controls: {
+        Selected: definePageControl({
+            controlType: BookPageControlTypeEnum.Dropdown,
+            initValue: exampleDropdownOptions[0].label,
+            options: exampleDropdownOptions.map((option) => option.label),
+        }),
+        Direction: definePageControl({
+            controlType: BookPageControlTypeEnum.Dropdown,
+            initValue: 'Down',
+            options: getEnumTypedKeys(ToniqDropdownDirectionEnum),
+        }),
+        Icon: definePageControl({
+            controlType: BookPageControlTypeEnum.Dropdown,
+            initValue: ArrowsSort24Icon.iconName,
+            options: [
+                'None',
+                ...allIconNames,
+            ],
+        }),
+        Prefix: definePageControl({
+            controlType: BookPageControlTypeEnum.Text,
+            initValue: 'Sort by: ',
+        }),
+        'Force open': definePageControl({
+            controlType: BookPageControlTypeEnum.Checkbox,
+            initValue: false,
+        }),
+    },
+    elementExamplesCallback({defineExample}) {
+        exampleVariations.forEach((exampleVariation) => {
+            defineExample({
+                title: exampleVariation.title,
+                stateInitStatic: {
+                    selected: innerVariations.map((innerVariation) => innerVariation.inputs?.value),
+                },
+                styles: css`
+                    :host {
+                        display: flex;
+                        gap: 16px;
+                        flex-wrap: wrap;
+                        align-items: center;
+                    }
+                `,
+                renderCallback({state, updateState, controls}) {
+                    return innerVariations.map((innerVariation, variationIndex) => {
+                        const styles = css`
+                            ${exampleVariation.customStyle ?? css``};
+                            ${innerVariation.customStyle ?? css``};
+                        `;
+                        return html`
+                            <${ToniqDropdown}
+                                style=${styles}
+                                ${assign(ToniqDropdown, {
+                                    ...exampleVariation.inputs,
+                                    ...innerVariation.inputs,
+                                    options: exampleDropdownOptions,
+                                    value:
+                                        state.selected[variationIndex] ??
+                                        exampleDropdownOptions.find(
+                                            (option) => option.label === controls.Selected,
+                                        ),
+                                    icon: allIconsByName[controls.Icon],
+                                    selectedLabelPrefix: controls.Prefix,
+                                    direction:
+                                        ToniqDropdownDirectionEnum[
+                                            controls.Direction as keyof typeof ToniqDropdownDirectionEnum
+                                        ],
+                                    _forceOpenState: controls['Force open'] || undefined,
+                                })}
+                                ${listen(ToniqDropdown.events.selectChange, (event) => {
+                                    const newSelected = [...state.selected];
+                                    newSelected[variationIndex] = event.detail;
+                                    updateState({selected: newSelected});
+                                })}
+                            ></${ToniqDropdown}>
+                        `;
+                    });
+                },
+            });
         });
     },
 });
-
-export const toniqDropdownBookEntries = [
-    toniqDropdownChapter,
-    toniqDropdownPage,
-];

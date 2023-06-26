@@ -11,6 +11,11 @@ const defaultCarouselCycleDelayMs = 4000;
 
 export type ScrollDirection = 'left' | 'right';
 
+export enum ToniqCarouselStyleEnum {
+    Default = 'default',
+    BannerStyle = 'banner-style',
+}
+
 export const ToniqCarousel = defineToniqElement<{
     /**
      * Templates for each item in the carousel. Can be anything: strings, numbers,
@@ -22,13 +27,15 @@ export const ToniqCarousel = defineToniqElement<{
     enableAutomaticCycling?: boolean;
     /** Number of milliseconds between each automatic cycling. Defaults to 4000. */
     cycleIntervalMs?: number;
+    style?: ToniqCarouselStyleEnum | undefined;
 }>()({
     tagName: 'toniq-carousel',
     cssVars: {
         'toniq-carousel-arrow-margin': '40px',
     },
     hostClasses: {
-        'toniq-carousel-banner-style': false,
+        'toniq-carousel-banner-style': ({inputs}) =>
+            inputs.style === ToniqCarouselStyleEnum.BannerStyle,
     },
     stateInitStatic: {
         currentScrollPosition: {

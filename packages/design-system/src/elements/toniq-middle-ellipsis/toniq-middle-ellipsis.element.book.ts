@@ -1,17 +1,12 @@
-import {defineElementBookChapter, defineElementBookPage} from 'element-book';
+import {defineBookPage} from 'element-book';
 import {assign, css, html} from 'element-vir';
-import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
+import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {ToniqMiddleEllipsis} from './toniq-middle-ellipsis.element';
 
-const toniqMiddleEllipsisChapter = defineElementBookChapter({
-    title: 'Middle Ellipsis',
-    parent: elementsBookChapter,
-});
-
-const toniqMiddleEllipsisPage = defineElementBookPage({
+export const toniqMiddleEllipsisPage = defineBookPage({
     title: ToniqMiddleEllipsis.tagName,
-    parent: toniqMiddleEllipsisChapter,
-    defineExamplesCallback({defineExample}) {
+    parent: elementsBookPage,
+    elementExamplesCallback({defineExample}) {
         defineExample({
             title: 'Long text',
             renderCallback() {
@@ -87,8 +82,3 @@ const toniqMiddleEllipsisPage = defineElementBookPage({
         });
     },
 });
-
-export const toniqMiddleEllipsisBookEntries = [
-    toniqMiddleEllipsisChapter,
-    toniqMiddleEllipsisPage,
-];

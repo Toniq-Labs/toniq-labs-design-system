@@ -1,7 +1,7 @@
 import {assign, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
 import {TemplateResult} from 'lit';
 import {ToniqSvg} from '../../icons';
-import {toniqColors, toniqFontStyles} from '../../styles';
+import {toniqColors, toniqDisabledStyles, toniqFontStyles} from '../../styles';
 import {createFocusStyles} from '../../styles/focus';
 import {removeNativeFormStyles} from '../../styles/native-styles';
 import {defineToniqElement} from '../define-toniq-element';
@@ -76,13 +76,18 @@ function filterToAllowedCharactersOnly(inputs: IsAllowedInputs): {
     };
 }
 
+export enum ToniqInputStyleEnum {
+    Default = 'default',
+    Outline = 'outline',
+}
+
 export const ToniqInput = defineToniqElement<{
-    icon?: undefined | ToniqSvg;
+    icon?: ToniqSvg | undefined;
     value: string;
     /** Shown when no other text is present. Input restrictions do not apply to this property. */
-    placeholder?: string;
+    placeholder?: string | undefined;
     /** Set to true to trigger disabled styles and to block all user input. */
-    disabled?: boolean;
+    disabled?: boolean | undefined;
     /**
      * Only letters in the given string or matches to the given RegExp will be allowed.
      * blockedInputs takes precedence over this input.
@@ -90,18 +95,20 @@ export const ToniqInput = defineToniqElement<{
      * For example: if allowedInputs is set to "abcd" and blockedInputs is set to "d", only "a",
      * "b", or "c" letters will be allowed.
      */
-    allowedInputs?: string | RegExp;
+    allowedInputs?: string | RegExp | undefined;
     /** Any letters in the given string or matches to the given RegExp will be blocked. */
-    blockedInputs?: string | RegExp;
+    blockedInputs?: string | RegExp | undefined;
     /** Disable all browser helps like spellchecking, autocomplete, etc. */
-    disableBrowserHelps?: boolean;
+    disableBrowserHelps?: boolean | undefined;
     /** A suffix that, if provided, is shown following the user input field. */
-    suffix?: string;
+    suffix?: string | undefined;
+    style?: ToniqInputStyleEnum | undefined;
 }>()({
     tagName: 'toniq-input',
     hostClasses: {
-        'toniq-input-outline': false,
+        'toniq-input-outline': ({inputs}) => inputs.style === ToniqInputStyleEnum.Outline,
         'toniq-input-has-a-value': ({inputs}) => !!inputs.value,
+        'toniq-input-disabled': ({inputs}) => !!inputs.disabled,
     },
     events: {
         /**
@@ -138,7 +145,7 @@ export const ToniqInput = defineToniqElement<{
 
             ${hostClasses['toniq-input-outline'].selector} label {
                 background-color: ${toniqColors.pagePrimary.backgroundColor};
-                border: 1px solid ${toniqColors.pageTertiary.foregroundColor};
+                border-color: ${toniqColors.pageTertiary.foregroundColor};
             }
 
             ${hostClasses['toniq-input-outline'].selector} ${ToniqIcon} {
@@ -164,9 +171,10 @@ export const ToniqInput = defineToniqElement<{
                 cursor: pointer;
                 display: inline-flex;
                 box-sizing: border-box;
+                border: 1px solid transparent;
                 align-items: center;
                 position: relative;
-                padding: 12px 16px;
+                padding: 11px 16px;
                 border-radius: ${buttonBorderRadius};
                 background-color: ${toniqColors.accentTertiary.backgroundColor};
                 font: ${toniqFontStyles.paragraphFont};
@@ -207,6 +215,10 @@ export const ToniqInput = defineToniqElement<{
 
             .suffix {
                 ${toniqFontStyles.boldFont};
+            }
+
+            ${hostClasses['toniq-input-disabled'].selector} {
+                ${toniqDisabledStyles};
             }
         `;
     },

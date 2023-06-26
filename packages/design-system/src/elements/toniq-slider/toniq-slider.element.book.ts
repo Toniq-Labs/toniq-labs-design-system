@@ -1,12 +1,7 @@
-import {defineElementBookChapter, defineElementBookPage} from 'element-book';
+import {defineBookPage} from 'element-book';
 import {assign, css, html, listen} from 'element-vir';
-import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
+import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {ToniqSlider, ToniqSliderInputs} from './toniq-slider.element';
-
-const toniqSliderChapter = defineElementBookChapter({
-    title: 'Slider',
-    parent: elementsBookChapter,
-});
 
 const defaultExampleWidth = css`
     ${ToniqSlider} {
@@ -19,10 +14,10 @@ const defaultMinMax = {
     max: 50,
 } as const satisfies Pick<ToniqSliderInputs, 'min' | 'max'>;
 
-const toniqSliderPage = defineElementBookPage({
+export const toniqSliderPage = defineBookPage({
     title: ToniqSlider.tagName,
-    parent: toniqSliderChapter,
-    defineExamplesCallback({defineExample}) {
+    parent: elementsBookPage,
+    elementExamplesCallback({defineExample}) {
         defineExample({
             title: 'Default',
             stateInitStatic: {
@@ -273,8 +268,3 @@ const toniqSliderPage = defineElementBookPage({
         });
     },
 });
-
-export const toniqSliderBookEntries = [
-    toniqSliderChapter,
-    toniqSliderPage,
-];

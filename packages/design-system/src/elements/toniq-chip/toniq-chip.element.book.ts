@@ -1,112 +1,89 @@
-import {ensureType, mapObjectValues} from '@augment-vir/common';
-import {
-    DefineExampleCallback,
-    ElementBookPage,
-    defineElementBookChapter,
-    defineElementBookPage,
-} from 'element-book';
-import {assign, css, html} from 'element-vir';
-import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
+import {defineBookPage} from 'element-book';
+import {CSSResult, HTMLTemplateResult, assign, css, html, renderIf} from 'element-vir';
+import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {InfoCircle16Icon} from '../../icons';
-import {ToniqChip} from './toniq-chip.element';
+import {ToniqChip, ToniqChipStyleEnum} from './toniq-chip.element';
 
-const toniqChipBookChapter = defineElementBookChapter({
-    title: 'Chip',
-    parent: elementsBookChapter,
-});
-
-function createChipExamples(defineExample: DefineExampleCallback<{}>, classList: string) {
-    defineExample({
-        title: 'Text',
-        renderCallback() {
-            return html`
-                <${ToniqChip}
-                    class=${classList}
-                    ${assign(ToniqChip, {
-                        text: 'Toniq Chip Text',
-                    })}
-                ></${ToniqChip}>
-            `;
-        },
-    });
-    defineExample({
-        title: 'Text + Icon',
-        renderCallback() {
-            return html`
-                <${ToniqChip}
-                    class=${classList}
-                    ${assign(ToniqChip, {
-                        text: 'Toniq Chip Text',
-                        icon: InfoCircle16Icon,
-                    })}
-                ></${ToniqChip}>
-            `;
-        },
-    });
-    defineExample({
-        title: 'HTML Child',
-        renderCallback() {
-            return html`
-                <${ToniqChip} class=${classList} ${assign(ToniqChip, {})}>Slot in Use</${ToniqChip}>
-            `;
-        },
-    });
-    defineExample({
-        title: 'HTML + Icon',
-        renderCallback() {
-            return html`
-                <${ToniqChip}
-                    class=${classList}
-                    ${assign(ToniqChip, {
-                        icon: InfoCircle16Icon,
-                    })}
-                >
-                    Slot in Use
-                </${ToniqChip}>
-            `;
-        },
-    });
-    defineExample({
-        title: 'custom size',
-        styles: css`
-            ${ToniqChip} {
-                width: 150px;
-                height: 24px;
-            }
-        `,
-        renderCallback() {
-            return html`
-                <${ToniqChip}
-                    class=${classList}
-                    ${assign(ToniqChip, {
-                        icon: InfoCircle16Icon,
-                    })}
-                >
-                    Slot in Use
-                </${ToniqChip}>
-            `;
-        },
-    });
-}
-
-const toniqChipBookPages = mapObjectValues(
-    ensureType<Record<string, string>>({
-        [ToniqChip.tagName]: '',
-        [ToniqChip.hostClasses['toniq-chip-secondary']]:
-            ToniqChip.hostClasses['toniq-chip-secondary'],
-    }),
-    (key, className) => {
-        return defineElementBookPage({
-            title: key,
-            defineExamplesCallback({defineExample}) {
-                createChipExamples(defineExample, className);
+export const toniqChipBookPage = defineBookPage({
+    parent: elementsBookPage,
+    title: ToniqChip.tagName,
+    elementExamplesCallback({defineExample}) {
+        const subExampleConfigs: ReadonlyArray<{
+            inputs: typeof ToniqChip.inputsType;
+            template?: HTMLTemplateResult | undefined;
+            customStyle?: CSSResult | undefined;
+        }> = [
+            {
+                inputs: {
+                    text: 'text',
+                },
             },
-            parent: toniqChipBookChapter,
+            {
+                inputs: {
+                    text: 'text + icon',
+                    icon: InfoCircle16Icon,
+                },
+            },
+            {
+                inputs: {
+                    icon: InfoCircle16Icon,
+                },
+            },
+            {
+                inputs: {},
+                template: html`
+                    HTML child
+                `,
+            },
+            {
+                inputs: {
+                    icon: InfoCircle16Icon,
+                },
+                template: html`
+                    HTML child
+                `,
+            },
+            {
+                customStyle: css`
+                    width: 150px;
+                    height: 24px;
+                `,
+                inputs: {
+                    text: 'custom size',
+                },
+            },
+        ];
+
+        const styleVariations: ReadonlyArray<{title: string; inputs: typeof ToniqChip.inputsType}> =
+            [
+                {
+                    title: 'default',
+                    inputs: {style: ToniqChipStyleEnum.Default},
+                },
+                {
+                    title: 'secondary style',
+                    inputs: {style: ToniqChipStyleEnum.Secondary},
+                },
+            ];
+
+        styleVariations.forEach((styleVariation) => {
+            defineExample({
+                title: styleVariation.title,
+                renderCallback() {
+                    return subExampleConfigs.map((subExample) => {
+                        // if this wraps incorrectly then the white space is considered the slot
+                        // prettier-ignore
+                        return html`
+                        <${ToniqChip}
+                            style=${subExample.customStyle}
+                            ${assign(ToniqChip, {...styleVariation.inputs, ...subExample.inputs})}
+                        >${
+                            renderIf(!!subExample.template, subExample.template)
+                        }</${ToniqChip}>
+                    `;
+                    });
+                },
+            });
         });
     },
-) satisfies Record<string, ElementBookPage>;
-
-export const toniqChipBookEntries = [
-    toniqChipBookChapter,
-    ...Object.values(toniqChipBookPages),
-];
+});

@@ -1,7 +1,7 @@
 import {assign, classMap, css, defineElementEvent, html} from 'element-vir';
 import {testId} from '../../directives/test-id.directive';
 import {ChevronDown24Icon, ToniqSvg} from '../../icons';
-import {noUserSelect, toniqFontStyles} from '../../styles';
+import {noUserSelect, toniqDisabledStyles, toniqFontStyles} from '../../styles';
 import {toniqDurations} from '../../styles/animation';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
@@ -22,16 +22,19 @@ export enum ToniqDropdownDirectionEnum {
 
 export const ToniqDropdown = defineToniqElement<{
     options: Readonly<ToniqDropdownOption[]>;
-    selected?: undefined | Readonly<ToniqDropdownOption>;
+    value?: Pick<ToniqDropdownOption, 'value'> | undefined;
     icon?: ToniqSvg | undefined;
     selectedLabelPrefix?: string | undefined;
     /** Choose which direction the dropdown will "drop" in. The default is down. */
     direction?: ToniqDropdownDirectionEnum | undefined;
     /**
-     * Use this to force the open state of the dropdown. This is generally undesirable, and is
-     * really only here for internal testing purposes.
+     * Use this to force the open state of the dropdown. This should almost never be used, and is
+     * really only here for testing purposes.
+     *
+     * @deprecated
      */
-    forceOpenState?: boolean | undefined;
+    _forceOpenState?: boolean | undefined;
+    disabled?: boolean | undefined;
 }>()({
     tagName: 'toniq-dropdown',
     stateInitStatic: {
@@ -41,7 +44,10 @@ export const ToniqDropdown = defineToniqElement<{
         selectChange: defineElementEvent<ToniqDropdownOption>(),
         openChange: defineElementEvent<boolean>(),
     },
-    styles: css`
+    hostClasses: {
+        'toniq-dropdown-disabled': ({inputs}) => !!inputs.disabled,
+    },
+    styles: ({hostClasses}) => css`
         :host {
             display: inline-flex;
             vertical-align: middle;
@@ -162,6 +168,10 @@ export const ToniqDropdown = defineToniqElement<{
             display: flex;
             justify-content: flex-end;
         }
+
+        ${hostClasses['toniq-dropdown-disabled'].selector} {
+            ${toniqDisabledStyles};
+        }
     `,
     initCallback: ({state, host, updateState}) => {
         function clickOutside(event: Event) {
@@ -177,19 +187,21 @@ export const ToniqDropdown = defineToniqElement<{
         window.addEventListener('click', clickOutside);
     },
     renderCallback({dispatch, events, state, inputs, updateState}) {
-        if (inputs.forceOpenState != undefined) {
+        if (inputs._forceOpenState != undefined) {
             updateState({
-                dropdownOpen: inputs.forceOpenState,
+                dropdownOpen: inputs._forceOpenState,
+            });
+        }
+        if (inputs.disabled) {
+            updateState({
+                dropdownOpen: false,
             });
         }
 
-        const selectedOption = inputs.selected ? inputs.selected : inputs.options[0];
-
-        function onSelectOption(item: ToniqDropdownOption) {
-            updateState({dropdownOpen: false});
-            dispatch(new events.openChange(false));
-            dispatch(new events.selectChange(item));
-        }
+        const selectedOption = inputs.value
+            ? inputs.options.find((option) => option.value === inputs.value?.value) ??
+              inputs.options[0]
+            : inputs.options[0];
 
         const leadingIconTemplate = inputs.icon
             ? html`
@@ -210,6 +222,7 @@ export const ToniqDropdown = defineToniqElement<{
 
         return html`
             <button
+                ?disabled=${!!inputs.disabled}
                 class=${classMap({
                     dropdown: true,
                     open: state.dropdownOpen,
@@ -244,7 +257,9 @@ export const ToniqDropdown = defineToniqElement<{
                                     @click=${(event: Event) => {
                                         event.preventDefault();
                                         event.stopPropagation();
-                                        onSelectOption(item);
+                                        updateState({dropdownOpen: false});
+                                        dispatch(new events.openChange(false));
+                                        dispatch(new events.selectChange(item));
                                     }}
                                     role="option"
                                 >

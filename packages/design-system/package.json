@@ -44,17 +44,17 @@
         "test:watch": "wtr --watch --color --config configs/web-test-runner.config.mjs --only-one-browser"
     },
     "dependencies": {
-        "@augment-vir/common": "^15.1.0",
-        "@electrovir/resizable-image-element": "^6.2.0",
-        "element-vir": "^13.0.4",
+        "@augment-vir/common": "^15.3.0",
+        "@electrovir/resizable-image-element": "^7.0.1",
+        "element-vir": "^14.0.3",
         "lit-css-vars": "^2.0.3",
         "object-shape-tester": "^0.3.0",
         "scroll-snap-api": "^1.0.2"
     },
     "devDependencies": {
-        "@augment-vir/browser": "^15.1.0",
-        "@augment-vir/browser-testing": "^15.1.0",
-        "@augment-vir/node-js": "^15.1.0",
+        "@augment-vir/browser": "^15.3.0",
+        "@augment-vir/browser-testing": "^15.3.0",
+        "@augment-vir/node-js": "^15.3.0",
         "@open-wc/testing": "^3.2.0",
         "@types/chai": "^4.3.5",
         "@types/mocha": "^10.0.1",
@@ -63,7 +63,8 @@
         "@web/test-runner-commands": "^0.7.0",
         "@web/test-runner-playwright": "^0.10.1",
         "@web/test-runner-visual-regression": "^0.8.0",
-        "element-book": "^6.0.3",
+        "element-book": "^7.0.7",
+        "esbuild": "^0.18.7",
         "istanbul-smart-text-reporter": "^1.1.2",
         "ts-node": "^10.9.1",
         "type-fest": "^3.12.0",

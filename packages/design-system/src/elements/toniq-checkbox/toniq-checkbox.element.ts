@@ -1,6 +1,6 @@
 import {assign, classMap, css, defineElementEvent, html, listen} from 'element-vir';
 import {CheckMark24Icon} from '../../icons/svgs/core-24/check-mark-24.icon';
-import {noUserSelect} from '../../styles';
+import {noUserSelect, toniqDisabledStyles} from '../../styles';
 import {toniqDurations} from '../../styles/animation';
 import {colorValueToVarCall} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
@@ -11,13 +11,16 @@ import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 export const ToniqCheckbox = defineToniqElement<{
     text?: string | undefined;
+    disabled?: boolean | undefined;
     checked: boolean;
 }>()({
     tagName: 'toniq-checkbox',
     events: {
         checkedChange: defineElementEvent<boolean>(),
     },
-    hostClasses: {},
+    hostClasses: {
+        'toniq-checkbox-disabled': ({inputs}) => !!inputs.disabled,
+    },
     cssVars: {
         'toniq-checkbox-unchecked-checkbox-color': String(
             colorValueToVarCall('accentSecondary', 'backgroundColor'),
@@ -36,7 +39,7 @@ export const ToniqCheckbox = defineToniqElement<{
             colorValueToVarCall('pageInteraction', 'foregroundColor'),
         ),
     },
-    styles: ({cssVars}) => css`
+    styles: ({cssVars, hostClasses}) => css`
         :host {
             ${toniqFontStyles.boldParagraphFont};
             display: inline-flex;
@@ -102,6 +105,10 @@ export const ToniqCheckbox = defineToniqElement<{
         .check-mark.hidden {
             opacity: 0;
         }
+
+        ${hostClasses['toniq-checkbox-disabled'].selector} {
+            ${toniqDisabledStyles};
+        }
     `,
     renderCallback({inputs, dispatch, events}) {
         const iconTemplate = html`
@@ -133,6 +140,7 @@ export const ToniqCheckbox = defineToniqElement<{
 
         return html`
             <button
+                ?disabled=${inputs.disabled}
                 class="wrapper ${inputs.checked ? 'checked' : ''}"
                 ${listen('click', () => {
                     const checked = !inputs.checked;

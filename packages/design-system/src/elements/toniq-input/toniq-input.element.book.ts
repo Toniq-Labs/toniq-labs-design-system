@@ -1,248 +1,136 @@
-import {defineElementBookChapter, defineElementBookPage} from 'element-book';
-import {assign, css, html, listen} from 'element-vir';
-import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
+import {BookPageControlTypeEnum, defineBookPage, definePageControl} from 'element-book';
+import {CSSResult, assign, css, html, listen} from 'element-vir';
+import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {Search24Icon} from '../../icons';
-import {ToniqInput} from './toniq-input.element';
+import {allIconNames, allIconsByName} from '../../icons/icon.book-helper';
+import {ToniqInput, ToniqInputStyleEnum} from './toniq-input.element';
 
-const toniqInputChapter = defineElementBookChapter({
-    title: 'Input',
-    parent: elementsBookChapter,
-});
-
-const toniqInputPage = defineElementBookPage({
+export const toniqInputPage = defineBookPage({
     title: ToniqInput.tagName,
-    parent: toniqInputChapter,
-    defineExamplesCallback({defineExample}) {
-        defineExample({
-            title: 'Assigned value',
-            stateInitStatic: {
-                value: 'init value',
-            },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqInput}
-                        ${assign(ToniqInput, {
-                            value: state.value,
-                        })}
-                        ${listen(ToniqInput.events.valueChange, (event) => {
-                            updateState({value: event.detail});
-                        })}
-                    ></${ToniqInput}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'Placeholder',
-            stateInitStatic: {
-                value: '',
-            },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqInput}
-                        ${assign(ToniqInput, {
-                            value: state.value,
-                            placeholder: 'my placeholder',
-                        })}
-                        ${listen(ToniqInput.events.valueChange, (event) => {
-                            updateState({value: event.detail});
-                        })}
-                    ></${ToniqInput}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'Icon',
-            stateInitStatic: {
-                value: '',
-            },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqInput}
-                        ${assign(ToniqInput, {
-                            value: state.value,
-                            placeholder: 'with icon',
-                            icon: Search24Icon,
-                        })}
-                        ${listen(ToniqInput.events.valueChange, (event) => {
-                            updateState({value: event.detail});
-                        })}
-                    ></${ToniqInput}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'Custom size (big)',
-            stateInitStatic: {
-                value: '',
-            },
-            styles: css`
-                ${ToniqInput} {
+    parent: elementsBookPage,
+    controls: {
+        'External value': {
+            controlType: BookPageControlTypeEnum.Text,
+            initValue: '',
+        },
+        Placeholder: {
+            controlType: BookPageControlTypeEnum.Text,
+            initValue: 'placeholder',
+        },
+        Icon: definePageControl({
+            controlType: BookPageControlTypeEnum.Dropdown,
+            initValue: Search24Icon.iconName,
+            options: [
+                'None',
+                ...allIconNames,
+            ],
+        }),
+        Suffix: definePageControl({
+            controlType: BookPageControlTypeEnum.Text,
+            initValue: 'ICP',
+        }),
+        'No browser helps': definePageControl({
+            controlType: BookPageControlTypeEnum.Checkbox,
+            initValue: false,
+        }),
+        'Blocked characters': definePageControl({
+            controlType: BookPageControlTypeEnum.Text,
+            initValue: '',
+        }),
+        'Exclusive characters': definePageControl({
+            controlType: BookPageControlTypeEnum.Text,
+            initValue: '',
+        }),
+    },
+    elementExamplesCallback({defineExample}) {
+        const sizeConfigs: ReadonlyArray<{
+            customStyles?: CSSResult | undefined;
+        }> = [
+            {},
+            {
+                customStyles: css`
                     height: 75px;
                     width: 300px;
-                }
-            `,
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqInput}
-                        ${assign(ToniqInput, {
-                            value: state.value,
-                            placeholder: 'stretched',
-                        })}
-                        ${listen(ToniqInput.events.valueChange, (event) => {
-                            updateState({value: event.detail});
-                        })}
-                    ></${ToniqInput}>
-                `;
+                `,
             },
-        });
-        defineExample({
-            title: 'Custom size (small)',
-            stateInitStatic: {
-                value: '',
-            },
-            styles: css`
-                ${ToniqInput} {
+            {
+                customStyles: css`
                     height: 40px;
                     width: 140px;
-                }
-            `,
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqInput}
-                        ${assign(ToniqInput, {
-                            value: state.value,
-                            placeholder: 'squished',
-                        })}
-                        ${listen(ToniqInput.events.valueChange, (event) => {
-                            updateState({value: event.detail});
-                        })}
-                    ></${ToniqInput}>
-                `;
+                `,
             },
-        });
-        defineExample({
-            title: 'Outline style',
-            stateInitStatic: {
-                value: '',
+        ];
+
+        const styleVariations: ReadonlyArray<{
+            title: string;
+            inputs: Partial<typeof ToniqInput.inputsType>;
+        }> = [
+            {
+                title: 'default',
+                inputs: {
+                    style: ToniqInputStyleEnum.Default,
+                },
             },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqInput}
-                        class=${ToniqInput.hostClasses['toniq-input-outline']}
-                        ${assign(ToniqInput, {
-                            value: state.value,
-                            placeholder: 'outline',
-                        })}
-                        ${listen(ToniqInput.events.valueChange, (event) => {
-                            updateState({value: event.detail});
-                        })}
-                    ></${ToniqInput}>
-                `;
+            {
+                title: 'outline',
+                inputs: {
+                    style: ToniqInputStyleEnum.Outline,
+                },
             },
-        });
-        defineExample({
-            title: 'Letter "a" blocked',
-            stateInitStatic: {
-                value: '',
+            {
+                title: 'disabled',
+                inputs: {
+                    disabled: true,
+                },
             },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqInput}
-                        ${assign(ToniqInput, {
-                            value: state.value,
-                            blockedInputs: 'a',
-                            placeholder: 'try typing a',
-                        })}
-                        ${listen(ToniqInput.events.valueChange, (event) => {
-                            updateState({value: event.detail});
-                        })}
-                    ></${ToniqInput}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'With suffix',
-            stateInitStatic: {
-                value: '',
-            },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqInput}
-                        ${assign(ToniqInput, {
-                            value: state.value,
-                            placeholder: 'my placeholder',
-                            suffix: 'ckBTC',
-                        })}
-                        ${listen(ToniqInput.events.valueChange, (event) => {
-                            updateState({value: event.detail});
-                        })}
-                    ></${ToniqInput}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'only numbers allowed',
-            stateInitStatic: {
-                value: '',
-            },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqInput}
-                        ${assign(ToniqInput, {
-                            value: state.value,
-                            allowedInputs: /\d/,
-                        })}
-                        ${listen(ToniqInput.events.valueChange, (event) => {
-                            updateState({value: event.detail});
-                        })}
-                    ></${ToniqInput}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'disabled',
-            stateInitStatic: {
-                value: '',
-            },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqInput}
-                        ${assign(ToniqInput, {
-                            value: state.value,
-                            disabled: true,
-                            placeholder: 'cannot select',
-                        })}
-                        ${listen(ToniqInput.events.valueChange, (event) => {
-                            updateState({value: event.detail});
-                        })}
-                    ></${ToniqInput}>
-                `;
-            },
-        });
-        defineExample({
-            title: 'no browser auto-helps',
-            stateInitStatic: {
-                value: '',
-            },
-            renderCallback({state, updateState}) {
-                return html`
-                    <${ToniqInput}
-                        ${assign(ToniqInput, {
-                            value: state.value,
-                            placeholder: 'try typing "im"',
-                            disableBrowserHelps: true,
-                        })}
-                        ${listen(ToniqInput.events.valueChange, (event) => {
-                            updateState({value: event.detail});
-                        })}
-                    ></${ToniqInput}>
-                `;
-            },
+        ];
+
+        styleVariations.forEach((styleVariation) => {
+            defineExample({
+                title: styleVariation.title,
+                stateInitStatic: {
+                    value: '',
+                },
+                styles: css`
+                    :host {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 16px;
+                        align-items: center;
+                    }
+                `,
+                renderCallback({controls, state, updateState}) {
+                    return sizeConfigs.map((exampleConfig) => {
+                        if (
+                            controls['External value'] &&
+                            controls['External value'] !== state.value
+                        ) {
+                            updateState({
+                                value: controls['External value'],
+                            });
+                        }
+
+                        return html`
+                            <${ToniqInput}
+                                style=${exampleConfig.customStyles}
+                                ${assign(ToniqInput, {
+                                    ...styleVariation.inputs,
+                                    value: controls['External value'] || state.value,
+                                    icon: allIconsByName[controls.Icon],
+                                    placeholder: controls.Placeholder,
+                                    suffix: controls.Suffix,
+                                    disableBrowserHelps: controls['No browser helps'],
+                                    allowedInputs: controls['Exclusive characters'],
+                                    blockedInputs: controls['Blocked characters'],
+                                })}
+                                ${listen(ToniqInput.events.valueChange, (event) => {
+                                    updateState({value: event.detail});
+                                })}
+                            ></${ToniqInput}>
+                        `;
+                    });
+                },
+            });
         });
     },
 });
-
-export const toniqInputBookEntries = [
-    toniqInputChapter,
-    toniqInputPage,
-];

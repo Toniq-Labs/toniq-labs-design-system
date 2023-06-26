@@ -6,6 +6,7 @@ import {ToniqIcon, defineToniqElement} from '..';
 import {SocialUrls} from '../../data';
 import {LoaderAnimated24Icon} from '../../icons';
 import {toniqFontStyles} from '../../styles';
+import {ToniqFlipCard} from '../toniq-flip-card/toniq-flip-card.element';
 import {
     calculateFeaturedFlipCardSecondaryImageSize,
     defaultFeaturedFlipCardMainImageSize,
@@ -13,7 +14,6 @@ import {
     internalFeaturedFlipCarCssVars,
 } from './featured-flip-card-css-vars';
 import {ToniqFeaturedFlipCardFooter} from './toniq-featured-flip-card-footer.element';
-import {ToniqFlipCard} from './toniq-flip-card.element';
 
 /** A specific version of toniq-flip-card that Toniq Labs frequently re-uses. */
 export const ToniqFeaturedFlipCard = defineToniqElement<{
@@ -26,10 +26,15 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
      */
     infoParagraphs?: ReadonlyArray<string> | undefined;
     /**
-     * The name for the "View X" button. Example: 'Collection'. If left blank, the button will
-     * simply say "View".
+     * The title for the "View X" button. Example: passing 'Collection' here will make the button
+     * say "View Collection". If left blank, the button will simply say "View".
      */
-    viewMoreName?: string | undefined;
+    viewButtonTitle?: string | undefined;
+    /**
+     * Title of the button that flips the card. This button will only show up if there are info
+     * paragraphs for the card to flip to. Defaults to "More Info".
+     */
+    flipCardButtonTitle?: string | undefined;
     mainImageSize?: number | undefined;
     viewMoreUrl?: string | undefined;
 }>()({
@@ -163,7 +168,7 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
 
         const viewMoreButtonText = [
             'View',
-            inputs.viewMoreName,
+            inputs.viewButtonTitle,
         ]
             .filter(isTruthy)
             .join(' ');
@@ -237,7 +242,9 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                     <${ToniqFeaturedFlipCardFooter}
                         ${assign(ToniqFeaturedFlipCardFooter, {
                             viewMoreButtonText,
-                            flipCardButtonText: inputs.infoParagraphs?.length ? 'More Info' : '',
+                            flipCardButtonText: inputs.infoParagraphs?.length
+                                ? inputs.flipCardButtonTitle || 'More Info'
+                                : '',
                             viewMoreButtonUrl: inputs.viewMoreUrl || '',
                             socialUrls: inputs.socialUrls,
                         })}

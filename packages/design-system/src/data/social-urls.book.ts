@@ -1,47 +1,34 @@
-import {defineElementBookPage} from 'element-book';
-import {assign, css, html} from 'element-vir';
-import {dataBookChapter} from '../element-book/book-chapters/data.book';
-import {ToniqIcon} from '../elements';
-import {applyBackgroundAndForeground, toniqColors} from '../styles';
+import {defineBookPage} from 'element-book';
+import {assign, html} from 'element-vir';
+import {dataBookPage} from '../element-book/book-pages/data.book';
+import {ToniqSvg} from '../icons';
+import {ToniqIconBookHelper} from '../icons/icon.book-helper';
 import {socialUrlIcons} from './social-urls';
 
-export const socialUrlsBookPage = defineElementBookPage({
+export const socialUrlsBookPage = defineBookPage({
     title: 'Social Urls',
-    parent: dataBookChapter,
-    defineExamplesCallback({defineExample}) {
-        defineExample({
-            title: 'Icons',
-            styles: css`
-                :host {
-                    display: flex;
-                    gap: 32px;
-                }
+    parent: dataBookPage,
+    elementExamplesCallback({defineExample}) {
+        function defineSocialIconExample({socialName, icon}: {socialName: string; icon: ToniqSvg}) {
+            defineExample({
+                title: socialName,
+                renderCallback() {
+                    return html`
+                        <${ToniqIconBookHelper}
+                            ${assign(ToniqIconBookHelper, {icon})}
+                        ></${ToniqIconBookHelper}>
+                    `;
+                },
+            });
+        }
 
-                .social-icon-wrapper {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 8px;
-                }
-
-                .social-name {
-                    ${applyBackgroundAndForeground(toniqColors.pageSecondary)};
-                }
-            `,
-            renderCallback() {
-                return Object.entries(socialUrlIcons).map(
-                    ([
-                        socialName,
-                        icon,
-                    ]) => {
-                        return html`
-                            <div class="social-icon-wrapper">
-                                <span class="social-name">${socialName}</span>
-                                <${ToniqIcon} ${assign(ToniqIcon, {icon})}></${ToniqIcon}>
-                            </div>
-                        `;
-                    },
-                );
+        Object.entries(socialUrlIcons).forEach(
+            ([
+                socialName,
+                icon,
+            ]) => {
+                defineSocialIconExample({socialName, icon});
             },
-        });
+        );
     },
 });

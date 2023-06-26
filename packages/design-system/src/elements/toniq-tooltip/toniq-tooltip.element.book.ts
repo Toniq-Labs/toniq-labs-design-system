@@ -1,19 +1,19 @@
-import {defineElementBookChapter, defineElementBookPage} from 'element-book';
+import {defineBookPage} from 'element-book';
 import {TemplateResult, assign, css, html} from 'element-vir';
-import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
+import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {toniqColors} from '../../styles';
 import {ToniqTooltip} from './toniq-tooltip.element';
 import {ToniqWithTooltip} from './toniq-with-tooltip.element';
 
-const toniqTooltipElementBookChapter = defineElementBookChapter({
+const toniqTooltipElementBookChapter = defineBookPage({
     title: 'Tooltip',
-    parent: elementsBookChapter,
+    parent: elementsBookPage,
 });
 
-const toniqWithTooltipElementBookPage = defineElementBookPage({
+const toniqWithTooltipBookPage = defineBookPage({
     parent: toniqTooltipElementBookChapter,
     title: ToniqWithTooltip.tagName,
-    defineExamplesCallback({defineExample}) {
+    elementExamplesCallback({defineExample}) {
         function defineTooltipExample({
             title,
             tooltipContent,
@@ -77,13 +77,13 @@ const toniqWithTooltipElementBookPage = defineElementBookPage({
     },
 });
 
-const toniqTooltipElementBookPage = defineElementBookPage({
+const toniqTooltipBookPage = defineBookPage({
     parent: toniqTooltipElementBookChapter,
     title: ToniqTooltip.tagName,
     descriptionParagraphs: [
         `This element should almost never be used alone. You should instead use <${ToniqWithTooltip.tagName}>, which in turn uses this element.`,
     ],
-    defineExamplesCallback({defineExample}) {
+    elementExamplesCallback({defineExample}) {
         defineExample({
             title: 'standalone tooltip',
             renderCallback() {
@@ -97,6 +97,6 @@ const toniqTooltipElementBookPage = defineElementBookPage({
 
 export const toniqTooltipElementBookEntries = [
     toniqTooltipElementBookChapter,
-    toniqWithTooltipElementBookPage,
-    toniqTooltipElementBookPage,
+    toniqWithTooltipBookPage,
+    toniqTooltipBookPage,
 ];

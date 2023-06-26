@@ -1,5 +1,6 @@
 import {assign, css, html} from 'element-vir';
 import {ToniqSvg} from '../../icons';
+import {toniqDisabledStyles} from '../../styles';
 import {toniqDurations} from '../../styles/animation';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
@@ -9,14 +10,23 @@ import {noUserSelect} from '../../styles/user-select';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
+export enum ToniqToggleButtonStyleEnum {
+    Default = 'default',
+    TextOnly = 'text-only',
+}
+
 export const ToniqToggleButton = defineToniqElement<{
     text?: string | undefined;
     toggled: boolean;
     icon?: ToniqSvg | undefined;
+    disabled?: boolean | undefined;
+    style?: ToniqToggleButtonStyleEnum;
 }>()({
     tagName: 'toniq-toggle-button',
     hostClasses: {
-        'toniq-toggle-button-text-only': false,
+        'toniq-toggle-button-text-only': ({inputs}) =>
+            inputs.style === ToniqToggleButtonStyleEnum.TextOnly,
+        'toniq-toggle-button-disabled': ({inputs}) => !!inputs.disabled,
     },
     styles: ({hostClasses}) => css`
         :host {
@@ -88,6 +98,10 @@ export const ToniqToggleButton = defineToniqElement<{
             padding: 0 8px;
         }
 
+        ${hostClasses['toniq-toggle-button-disabled'].selector} {
+            ${toniqDisabledStyles};
+        }
+
         .icon-template + .text-template {
             margin-left: 8px;
         }
@@ -113,6 +127,7 @@ export const ToniqToggleButton = defineToniqElement<{
             <button
                 class="${inputs.toggled ? 'toggled' : ''}"
                 role="checkbox"
+                ?disabled=${inputs.disabled}
                 aria-checked=${inputs.toggled}
             >
                 ${iconTemplate} ${textTemplate}

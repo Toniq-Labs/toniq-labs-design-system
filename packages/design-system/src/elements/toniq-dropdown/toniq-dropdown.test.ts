@@ -76,7 +76,7 @@ describe(ToniqDropdown.tagName, () => {
                     <${ToniqDropdown}
                         ${assign(ToniqDropdown, {
                             options,
-                            selected: options[2],
+                            value: options[2],
                         })}
                     />
                 `,

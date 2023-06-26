@@ -1,9 +1,9 @@
 import {getObjectTypedKeys} from '@augment-vir/common';
-import {DefineExampleCallback, defineElementBookPage} from 'element-book';
+import {DefineExampleCallback, defineBookPage} from 'element-book';
 import {css, html} from 'element-vir';
 import {CSSResult} from 'lit';
-import {stylesBookChapter} from '../element-book/book-chapters/styles.book';
 import {extractAllCssVars} from '../element-book/book-helpers/extract-css-vars';
+import {stylesBookPage} from '../element-book/book-pages/styles.book';
 import {toniqColors} from './colors';
 import {toniqFontStyles} from './fonts';
 
@@ -84,10 +84,10 @@ function createFontExample(
     });
 }
 
-export const toniqFontsBookPage = defineElementBookPage({
+export const toniqFontsBookPage = defineBookPage({
     title: 'Fonts',
-    parent: stylesBookChapter,
-    defineExamplesCallback({defineExample}) {
+    parent: stylesBookPage,
+    elementExamplesCallback({defineExample}) {
         getObjectTypedKeys(toniqFontStyles).map((fontKey) => {
             const fontDefinition = toniqFontStyles[fontKey];
 

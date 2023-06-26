@@ -1,13 +1,8 @@
 import {typedMap} from '@augment-vir/common';
-import {defineElementBookChapter, defineElementBookPage} from 'element-book';
+import {defineBookPage} from 'element-book';
 import {assign, css, html, listen} from 'element-vir';
-import {elementsBookChapter} from '../../element-book/book-chapters/elements.book';
+import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {ToniqRadioGroup, ToniqRadioGroupEntry} from './toniq-radio-group.element';
-
-const toniqRadioGroupChapter = defineElementBookChapter({
-    title: 'Radio Group',
-    parent: elementsBookChapter,
-});
 
 const basicExampleEntries = [
     {
@@ -48,10 +43,10 @@ const exampleRadioGroupEntries = {
     }),
 } as const satisfies Record<string, ReadonlyArray<ToniqRadioGroupEntry>>;
 
-const toniqRadioGroupPage = defineElementBookPage({
+export const toniqRadioGroupPage = defineBookPage({
     title: ToniqRadioGroup.tagName,
-    parent: toniqRadioGroupChapter,
-    defineExamplesCallback({defineExample}) {
+    parent: elementsBookPage,
+    elementExamplesCallback({defineExample}) {
         defineExample({
             title: 'Default',
             stateInitStatic: {
@@ -188,8 +183,3 @@ const toniqRadioGroupPage = defineElementBookPage({
         });
     },
 });
-
-export const toniqRadioGroupBookEntries = [
-    toniqRadioGroupChapter,
-    toniqRadioGroupPage,
-];

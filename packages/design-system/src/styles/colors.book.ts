@@ -1,8 +1,8 @@
 import {getObjectTypedKeys} from '@augment-vir/common';
-import {DefineExampleCallback, defineElementBookPage} from 'element-book';
+import {DefineExampleCallback, defineBookPage} from 'element-book';
 import {css, html} from 'element-vir';
-import {stylesBookChapter} from '../element-book/book-chapters/styles.book';
 import {extractAllCssVars} from '../element-book/book-helpers/extract-css-vars';
+import {stylesBookPage} from '../element-book/book-pages/styles.book';
 import {DualColorDefinition, applyBackgroundAndForeground, toniqColors} from './colors';
 import {toniqFontStyles} from './fonts';
 
@@ -64,10 +64,10 @@ function createColorExample(
     });
 }
 
-export const toniqColorsBookPage = defineElementBookPage({
+export const toniqColorsBookPage = defineBookPage({
     title: 'Colors',
-    parent: stylesBookChapter,
-    defineExamplesCallback({defineExample}) {
+    parent: stylesBookPage,
+    elementExamplesCallback({defineExample}) {
         getObjectTypedKeys(toniqColors).map((colorKey) => {
             return createColorExample(defineExample, colorKey, toniqColors[colorKey]);
         });
