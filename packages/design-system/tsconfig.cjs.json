@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
-        "outDir": "dist/cjs",
         "declaration": false,
         "declarationDir": null,
-        "module": "CommonJS"
+        "module": "CommonJS",
+        "outDir": "dist/cjs"
     },
     "extends": "./tsconfig.json"
 }

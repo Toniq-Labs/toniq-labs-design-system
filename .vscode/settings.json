@@ -17,10 +17,19 @@
     "[jsonc]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "[less]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "[markdown]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "[ruby]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[toml]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[typescript]": {
@@ -34,19 +43,10 @@
     },
     "editor.formatOnSave": true,
     "editor.rulers": [100],
+    "editor.wordWrapColumn": 100,
     "files.associations": {
         "*.svg": "html",
         "*.xml": "html"
     },
-    "typescript.tsdk": "node_modules/typescript/lib",
-    "[less]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[ruby]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[toml]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "editor.wordWrapColumn": 100
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

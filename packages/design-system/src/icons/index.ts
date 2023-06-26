@@ -253,8 +253,12 @@ export const allIconsByCategory = {
         WorldUpload24Icon,
         X24Icon,
     ],
-    'core-32': [Kyc32Icon],
-    'core-48': [FolderOff48Icon],
+    'core-32': [
+        Kyc32Icon,
+    ],
+    'core-48': [
+        FolderOff48Icon,
+    ],
     'core-64': [
         Api64Icon,
         CircleDashes64Icon,
@@ -266,7 +270,9 @@ export const allIconsByCategory = {
         CryptoIcp16Icon,
         CryptoIcp24Icon,
     ],
-    logos: [EntrepotLogo144Icon],
+    logos: [
+        EntrepotLogo144Icon,
+    ],
     'third-party-brands': [
         BrandDiscord24Icon,
         BrandFacebookLogo24Icon,
