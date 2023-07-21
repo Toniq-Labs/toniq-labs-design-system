@@ -1,5 +1,5 @@
 import {defineBookPage} from 'element-book';
-import {assign, css, html} from 'element-vir';
+import {css, html} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {Trash24Icon} from '../../icons';
 import {ToniqButton, ToniqButtonStyleEnum} from './toniq-button.element';
@@ -69,51 +69,43 @@ export const toniqButtonPage = defineBookPage({
                     }
 
                     return html`
-                        <${ToniqButton}
-                            ${assign(ToniqButton, {
-                                text: 'Button',
-                                ...exampleSetup.inputs,
-                            })}
-                        ></${ToniqButton}>
-                        <${ToniqButton}
-                            ${assign(ToniqButton, {
-                                icon: Trash24Icon,
-                                ...exampleSetup.inputs,
-                            })}
-                        ></${ToniqButton}>
-                        <${ToniqButton}
+                        <${ToniqButton.assign({
+                            text: 'Button',
+                            ...exampleSetup.inputs,
+                        })}></${ToniqButton}>
+                        <${ToniqButton.assign({
+                            icon: Trash24Icon,
+                            ...exampleSetup.inputs,
+                        })}></${ToniqButton}>
+                        <${ToniqButton.assign(
+                            state.showIcon
+                                ? {
+                                      icon: Trash24Icon,
+                                      text: 'icon',
+                                      ...exampleSetup.inputs,
+                                  }
+                                : {
+                                      text: 'no icon',
+                                      ...exampleSetup.inputs,
+                                  },
+                        )}
                             class="icon-toggle"
-                            ${assign(
-                                ToniqButton,
-                                state.showIcon
-                                    ? {
-                                          icon: Trash24Icon,
-                                          text: 'icon',
-                                          ...exampleSetup.inputs,
-                                      }
-                                    : {
-                                          text: 'no icon',
-                                          ...exampleSetup.inputs,
-                                      },
-                            )}
                         ></${ToniqButton}>
-                        <${ToniqButton}
-                            ${assign(ToniqButton, {
-                                text: 'Button',
-                                icon: Trash24Icon,
-                                ...exampleSetup.inputs,
-                            })}
-                        ></${ToniqButton}>
-                        <${ToniqButton}
-                            ${assign(ToniqButton, {
-                                ...exampleSetup.inputs,
-                            })}
-                        >
+                        <${ToniqButton.assign({
+                            text: 'Button',
+                            icon: Trash24Icon,
+                            ...exampleSetup.inputs,
+                        })}></${ToniqButton}>
+                        <${ToniqButton.assign({
+                            ...exampleSetup.inputs,
+                        })}>
                             <span>HTML Child</span>
                         </${ToniqButton}>
-                        <${ToniqButton}
+                        <${ToniqButton.assign({
+                            text: 'bigger',
+                            ...exampleSetup.inputs,
+                        })}
                             style="height: 100px; width: 200px;"
-                            ${assign(ToniqButton, {text: 'bigger', ...exampleSetup.inputs})}
                         ></${ToniqButton}>
                     `;
                 },

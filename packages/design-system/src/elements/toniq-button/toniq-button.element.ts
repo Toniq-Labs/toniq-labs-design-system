@@ -1,4 +1,4 @@
-import {assign, css, html} from 'element-vir';
+import {css, html} from 'element-vir';
 import {ToniqSvg} from '../../icons';
 import {toniqDurations} from '../../styles/animation';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
@@ -104,11 +104,10 @@ export const ToniqButton = defineToniqElement<{
     renderCallback({inputs}) {
         const iconTemplate = inputs.icon
             ? html`
-                  <${ToniqIcon}
+                  <${ToniqIcon.assign({
+                      icon: inputs.icon,
+                  })}
                       class="icon-template"
-                      ${assign(ToniqIcon, {
-                          icon: inputs.icon,
-                      })}
                   ></${ToniqIcon}>
               `
             : '';

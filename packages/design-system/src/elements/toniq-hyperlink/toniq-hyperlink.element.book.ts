@@ -1,5 +1,5 @@
 import {defineBookPage} from 'element-book';
-import {assign, html} from 'element-vir';
+import {html} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {ToniqHyperlink} from './toniq-hyperlink.element';
 
@@ -32,13 +32,11 @@ export const toniqHyperlinkPage = defineBookPage({
                 descriptionParagraphs: exampleConfig.descriptions,
                 renderCallback() {
                     return html`
-                        <${ToniqHyperlink}
-                            ${assign(ToniqHyperlink, {
-                                newTab: true,
-                                url: 'https://toniqlabs.com',
-                                ...exampleConfig.inputs,
-                            })}
-                        >
+                        <${ToniqHyperlink.assign({
+                            newTab: true,
+                            url: 'https://toniqlabs.com',
+                            ...exampleConfig.inputs,
+                        })}>
                             Toniq Labs Link
                         </${ToniqHyperlink}>
                     `;

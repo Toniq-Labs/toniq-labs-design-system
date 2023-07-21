@@ -1,5 +1,5 @@
 import {getObjectTypedKeys} from '@augment-vir/common';
-import {assign, css, defineElementEvent, html, listen} from 'element-vir';
+import {css, defineElementEvent, html, listen} from 'element-vir';
 import {SocialUrls, socialUrlIcons} from '../../data';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqButton, ToniqButtonStyleEnum} from '../toniq-button/toniq-button.element';
@@ -79,13 +79,11 @@ export const ToniqFeaturedFlipCardFooter = defineToniqElement<{
                       const socialUrl = socialUrls[socialUrlType];
                       const socialIcon = socialUrlIcons[socialUrlType];
                       return html`
-                          <${ToniqHyperlink}
-                              ${assign(ToniqHyperlink, {
-                                  newTab: true,
-                                  url: socialUrl,
-                              })}
-                          >
-                              <${ToniqIcon} ${assign(ToniqIcon, {icon: socialIcon})}></${ToniqIcon}>
+                          <${ToniqHyperlink.assign({
+                              newTab: true,
+                              url: socialUrl,
+                          })}>
+                              <${ToniqIcon.assign({icon: socialIcon})}></${ToniqIcon}>
                           </${ToniqHyperlink}>
                       `;
                   })
@@ -99,31 +97,27 @@ export const ToniqFeaturedFlipCardFooter = defineToniqElement<{
             <div class="buttons">
                 ${inputs.viewMoreButtonUrl
                     ? html`
-                          <${ToniqHyperlink}
-                              ${assign(ToniqHyperlink, {
-                                  newTab: false,
-                                  url: inputs.viewMoreButtonUrl,
-                                  scrollToTop: true,
-                                  treatAsRouteChange: true,
-                              })}
+                          <${ToniqHyperlink.assign({
+                              newTab: false,
+                              url: inputs.viewMoreButtonUrl,
+                              scrollToTop: true,
+                              treatAsRouteChange: true,
+                          })}
                               ${listen(ToniqHyperlink.events.routeChangeTriggered, () => {
                                   dispatch(new events.footerViewMoreButtonClick());
                               })}
                           >
-                              <${ToniqButton}
-                                  ${assign(ToniqButton, {
-                                      text: inputs.viewMoreButtonText,
-                                      buttonStyle: ToniqButtonStyleEnum.Outline,
-                                  })}
-                              ></${ToniqButton}>
+                              <${ToniqButton.assign({
+                                  text: inputs.viewMoreButtonText,
+                                  buttonStyle: ToniqButtonStyleEnum.Outline,
+                              })}></${ToniqButton}>
                           </${ToniqHyperlink}>
                       `
                     : html`
-                          <${ToniqButton}
-                              ${assign(ToniqButton, {
-                                  text: inputs.viewMoreButtonText,
-                                  buttonStyle: ToniqButtonStyleEnum.Outline,
-                              })}
+                          <${ToniqButton.assign({
+                              text: inputs.viewMoreButtonText,
+                              buttonStyle: ToniqButtonStyleEnum.Outline,
+                          })}
                               ${listen('click', () => {
                                   dispatch(new events.footerViewMoreButtonClick());
                               })}
@@ -131,11 +125,10 @@ export const ToniqFeaturedFlipCardFooter = defineToniqElement<{
                       `}
                 ${!!inputs.flipCardButtonText
                     ? html`
-                          <${ToniqButton}
+                          <${ToniqButton.assign({
+                              text: inputs.flipCardButtonText,
+                          })}
                               class="more-info-button"
-                              ${assign(ToniqButton, {
-                                  text: inputs.flipCardButtonText,
-                              })}
                               ${listen('click', () => {
                                   dispatch(new events.footerFlipCardButtonClick());
                               })}

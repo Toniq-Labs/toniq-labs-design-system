@@ -1,6 +1,6 @@
 import {deleteAllTextInInput, typeStringIntoElement} from '@augment-vir/browser-testing';
 import {assert, fixture} from '@open-wc/testing';
-import {assign, html, listen} from 'element-vir';
+import {html, listen} from 'element-vir';
 import {TemplateResult} from 'lit';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
@@ -46,11 +46,10 @@ export async function runBlockedTextTest(
 
     const inputStateWrapper = createStateTester({value: ''}, ({state, updateState}) => {
         return html`
-            <${ToniqInput}
-                ${assign(ToniqInput, {
-                    value: state.value,
-                    blockedInputs: blockedInputsInput,
-                })}
+            <${ToniqInput.assign({
+                value: state.value,
+                blockedInputs: blockedInputsInput,
+            })}
                 ${listen(ToniqInput.events.valueChange, (event) => {
                     const newValue = event.detail;
                     readChanges.push(newValue);

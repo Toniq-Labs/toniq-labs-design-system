@@ -1,6 +1,6 @@
 import {typedMap} from '@augment-vir/common';
 import {defineBookPage} from 'element-book';
-import {assign, css, html, listen} from 'element-vir';
+import {css, html, listen} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {ToniqRadioGroup, ToniqRadioGroupEntry} from './toniq-radio-group.element';
 
@@ -54,11 +54,10 @@ export const toniqRadioGroupPage = defineBookPage({
             },
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqRadioGroup}
-                        ${assign(ToniqRadioGroup, {
-                            entries: exampleRadioGroupEntries.basic,
-                            value: state.selectedValue,
-                        })}
+                    <${ToniqRadioGroup.assign({
+                        entries: exampleRadioGroupEntries.basic,
+                        value: state.selectedValue,
+                    })}
                         ${listen(ToniqRadioGroup.events.valueChange, (event) => {
                             updateState({selectedValue: event.detail});
                         })}
@@ -78,11 +77,10 @@ export const toniqRadioGroupPage = defineBookPage({
             `,
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqRadioGroup}
-                        ${assign(ToniqRadioGroup, {
-                            entries: exampleRadioGroupEntries.basic,
-                            value: state.selectedValue,
-                        })}
+                    <${ToniqRadioGroup.assign({
+                        entries: exampleRadioGroupEntries.basic,
+                        value: state.selectedValue,
+                    })}
                         ${listen(ToniqRadioGroup.events.valueChange, (event) => {
                             updateState({selectedValue: event.detail});
                         })}
@@ -102,11 +100,10 @@ export const toniqRadioGroupPage = defineBookPage({
             `,
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqRadioGroup}
-                        ${assign(ToniqRadioGroup, {
-                            entries: exampleRadioGroupEntries.longText,
-                            value: state.selectedValue,
-                        })}
+                    <${ToniqRadioGroup.assign({
+                        entries: exampleRadioGroupEntries.longText,
+                        value: state.selectedValue,
+                    })}
                         ${listen(ToniqRadioGroup.events.valueChange, (event) => {
                             updateState({selectedValue: event.detail});
                         })}
@@ -121,11 +118,10 @@ export const toniqRadioGroupPage = defineBookPage({
             },
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqRadioGroup}
-                        ${assign(ToniqRadioGroup, {
-                            entries: exampleRadioGroupEntries.noLabels,
-                            value: state.selectedValue,
-                        })}
+                    <${ToniqRadioGroup.assign({
+                        entries: exampleRadioGroupEntries.noLabels,
+                        value: state.selectedValue,
+                    })}
                         ${listen(ToniqRadioGroup.events.valueChange, (event) => {
                             updateState({selectedValue: event.detail});
                         })}
@@ -140,11 +136,10 @@ export const toniqRadioGroupPage = defineBookPage({
             },
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqRadioGroup}
-                        ${assign(ToniqRadioGroup, {
-                            entries: exampleRadioGroupEntries.disabled,
-                            value: state.selectedValue,
-                        })}
+                    <${ToniqRadioGroup.assign({
+                        entries: exampleRadioGroupEntries.disabled,
+                        value: state.selectedValue,
+                    })}
                         ${listen(ToniqRadioGroup.events.valueChange, (event) => {
                             updateState({selectedValue: event.detail});
                         })}
@@ -169,11 +164,10 @@ export const toniqRadioGroupPage = defineBookPage({
             `,
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqRadioGroup}
-                        ${assign(ToniqRadioGroup, {
-                            entries: exampleRadioGroupEntries.basic,
-                            value: state.selectedValue,
-                        })}
+                    <${ToniqRadioGroup.assign({
+                        entries: exampleRadioGroupEntries.basic,
+                        value: state.selectedValue,
+                    })}
                         ${listen(ToniqRadioGroup.events.valueChange, (event) => {
                             updateState({selectedValue: event.detail});
                         })}

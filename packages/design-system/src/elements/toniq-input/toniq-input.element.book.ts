@@ -1,5 +1,5 @@
 import {BookPageControlTypeEnum, defineBookPage, definePageControl} from 'element-book';
-import {CSSResult, assign, css, html, listen} from 'element-vir';
+import {CSSResult, css, html, listen} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {Search24Icon} from '../../icons';
 import {allIconNames, allIconsByName} from '../../icons/icon.book-helper';
@@ -111,18 +111,17 @@ export const toniqInputPage = defineBookPage({
                         }
 
                         return html`
-                            <${ToniqInput}
+                            <${ToniqInput.assign({
+                                ...styleVariation.inputs,
+                                value: controls['External value'] || state.value,
+                                icon: allIconsByName[controls.Icon],
+                                placeholder: controls.Placeholder,
+                                suffix: controls.Suffix,
+                                disableBrowserHelps: controls['No browser helps'],
+                                allowedInputs: controls['Exclusive characters'],
+                                blockedInputs: controls['Blocked characters'],
+                            })}
                                 style=${exampleConfig.customStyles}
-                                ${assign(ToniqInput, {
-                                    ...styleVariation.inputs,
-                                    value: controls['External value'] || state.value,
-                                    icon: allIconsByName[controls.Icon],
-                                    placeholder: controls.Placeholder,
-                                    suffix: controls.Suffix,
-                                    disableBrowserHelps: controls['No browser helps'],
-                                    allowedInputs: controls['Exclusive characters'],
-                                    blockedInputs: controls['Blocked characters'],
-                                })}
                                 ${listen(ToniqInput.events.valueChange, (event) => {
                                     updateState({value: event.detail});
                                 })}

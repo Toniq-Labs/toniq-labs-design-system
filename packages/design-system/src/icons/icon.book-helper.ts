@@ -1,4 +1,4 @@
-import {assign, css, html} from 'element-vir';
+import {css, html} from 'element-vir';
 import {ToniqIcon, defineToniqElement} from '../elements';
 import {toniqColors} from '../styles';
 import {allIconsByCategory} from './index';
@@ -19,7 +19,7 @@ export const ToniqIconBookHelper = defineToniqElement<{icon: ToniqSvg}>()({
     `,
     renderCallback({inputs}) {
         return html`
-            <${ToniqIcon} ${assign(ToniqIcon, {icon: inputs.icon})}></${ToniqIcon}>
+            <${ToniqIcon.assign({icon: inputs.icon})}></${ToniqIcon}>
         `;
     },
 });

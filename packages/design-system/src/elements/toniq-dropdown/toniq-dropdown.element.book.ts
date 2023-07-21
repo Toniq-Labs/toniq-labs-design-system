@@ -1,6 +1,6 @@
 import {getEnumTypedKeys} from '@augment-vir/common';
 import {BookPageControlTypeEnum, defineBookPage, definePageControl} from 'element-book';
-import {CSSResult, assign, css, html, listen} from 'element-vir';
+import {CSSResult, css, html, listen} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {ArrowsSort24Icon} from '../../icons';
 import {allIconNames, allIconsByName} from '../../icons/icon.book-helper';
@@ -124,25 +124,24 @@ export const toniqDropdownPage = defineBookPage({
                             ${innerVariation.customStyle ?? css``};
                         `;
                         return html`
-                            <${ToniqDropdown}
+                            <${ToniqDropdown.assign({
+                                ...exampleVariation.inputs,
+                                ...innerVariation.inputs,
+                                options: exampleDropdownOptions,
+                                value:
+                                    state.selected[variationIndex] ??
+                                    exampleDropdownOptions.find(
+                                        (option) => option.label === controls.Selected,
+                                    ),
+                                icon: allIconsByName[controls.Icon],
+                                selectedLabelPrefix: controls.Prefix,
+                                direction:
+                                    ToniqDropdownDirectionEnum[
+                                        controls.Direction as keyof typeof ToniqDropdownDirectionEnum
+                                    ],
+                                _forceOpenState: controls['Force open'] || undefined,
+                            })}
                                 style=${styles}
-                                ${assign(ToniqDropdown, {
-                                    ...exampleVariation.inputs,
-                                    ...innerVariation.inputs,
-                                    options: exampleDropdownOptions,
-                                    value:
-                                        state.selected[variationIndex] ??
-                                        exampleDropdownOptions.find(
-                                            (option) => option.label === controls.Selected,
-                                        ),
-                                    icon: allIconsByName[controls.Icon],
-                                    selectedLabelPrefix: controls.Prefix,
-                                    direction:
-                                        ToniqDropdownDirectionEnum[
-                                            controls.Direction as keyof typeof ToniqDropdownDirectionEnum
-                                        ],
-                                    _forceOpenState: controls['Force open'] || undefined,
-                                })}
                                 ${listen(ToniqDropdown.events.selectChange, (event) => {
                                     const newSelected = [...state.selected];
                                     newSelected[variationIndex] = event.detail;

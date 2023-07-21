@@ -1,4 +1,4 @@
-import {assign, classMap, css, defineElementEvent, html, listen} from 'element-vir';
+import {classMap, css, defineElementEvent, html, listen} from 'element-vir';
 import {CheckMark24Icon} from '../../icons/svgs/core-24/check-mark-24.icon';
 import {noUserSelect, toniqDisabledStyles} from '../../styles';
 import {toniqDurations} from '../../styles/animation';
@@ -113,9 +113,8 @@ export const ToniqCheckbox = defineToniqElement<{
     renderCallback({inputs, dispatch, events}) {
         const iconTemplate = html`
             <span class="checkbox ${inputs.checked ? 'checked' : ''}">
-                <${ToniqIcon}
+                <${ToniqIcon.assign({icon: CheckMark24Icon})}
                     class="check-mark ${classMap({hidden: !inputs.checked})}"
-                    ${assign(ToniqIcon, {icon: CheckMark24Icon})}
                 ></${ToniqIcon}>
             </span>
         `;

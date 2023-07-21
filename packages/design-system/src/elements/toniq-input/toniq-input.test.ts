@@ -1,6 +1,6 @@
 import {addRegExpFlags, wait} from '@augment-vir/common';
 import {assert, waitUntil} from '@open-wc/testing';
-import {assign, html, listen} from 'element-vir';
+import {html, listen} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {createStateTester} from '../../element-testing/state-tester';
@@ -28,11 +28,9 @@ describe(ToniqInput.tagName, () => {
             const assignedValue = 'five';
             const {toniqInputInstance, innerInput} = await setupToniqInputTest(
                 html`
-                    <${ToniqInput}
-                        ${assign(ToniqInput, {
-                            value: assignedValue,
-                        })}
-                    ></${ToniqInput}>
+                    <${ToniqInput.assign({
+                        value: assignedValue,
+                    })}></${ToniqInput}>
                 `,
             );
 
@@ -53,10 +51,9 @@ describe(ToniqInput.tagName, () => {
                 {value: assignedValue},
                 ({state, updateState}) => {
                     return html`
-                        <${ToniqInput}
-                            ${assign(ToniqInput, {
-                                value: state.value,
-                            })}
+                        <${ToniqInput.assign({
+                            value: state.value,
+                        })}
                             ${listen(ToniqInput.events.valueChange, (event) => {
                                 const newValue = event.detail;
                                 readChanges.push(newValue);
@@ -100,12 +97,10 @@ describe(ToniqInput.tagName, () => {
             const originalValue = 'should not change';
             const {innerInput, toniqInputInstance} = await setupToniqInputTest(
                 html`
-                    <${ToniqInput}
-                        ${assign(ToniqInput, {
-                            value: originalValue,
-                            disabled: true,
-                        })}
-                    ></${ToniqInput}>
+                    <${ToniqInput.assign({
+                        value: originalValue,
+                        disabled: true,
+                    })}></${ToniqInput}>
                 `,
             );
 

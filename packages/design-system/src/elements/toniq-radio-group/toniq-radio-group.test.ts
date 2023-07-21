@@ -1,5 +1,5 @@
 import {assert, fixture} from '@open-wc/testing';
-import {assign, html} from 'element-vir';
+import {html} from 'element-vir';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {getTextContentThroughShadow} from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
@@ -16,17 +16,15 @@ describe(ToniqRadioGroup.tagName, () => {
 
             const rendered = await fixture(
                 html`
-                    <${ToniqRadioGroup}
-                        ${assign(ToniqRadioGroup, {
-                            entries: [
-                                {
-                                    label: textToRender,
-                                    value: 'first',
-                                },
-                            ],
-                            value: 'first',
-                        })}
-                    ></${ToniqRadioGroup}>
+                    <${ToniqRadioGroup.assign({
+                        entries: [
+                            {
+                                label: textToRender,
+                                value: 'first',
+                            },
+                        ],
+                        value: 'first',
+                    })}></${ToniqRadioGroup}>
                 `,
             );
             assert.equal(getTextContentThroughShadow(rendered), textToRender);
@@ -35,16 +33,14 @@ describe(ToniqRadioGroup.tagName, () => {
 
     runFocusTests(
         html`
-            <${ToniqRadioGroup}
-                ${assign(ToniqRadioGroup, {
-                    entries: [
-                        {
-                            value: 'test value 1',
-                        },
-                    ],
-                    value: 'anything',
-                })}
-            ></${ToniqRadioGroup}>
+            <${ToniqRadioGroup.assign({
+                entries: [
+                    {
+                        value: 'test value 1',
+                    },
+                ],
+                value: 'anything',
+            })}></${ToniqRadioGroup}>
         `,
         true,
     );

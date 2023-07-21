@@ -1,5 +1,5 @@
 import {BookPage, defineBookPage} from 'element-book';
-import {assign, html} from 'element-vir';
+import {html} from 'element-vir';
 import {allIconsByCategory} from '..';
 import {iconsBookPage} from '../element-book/book-pages/icons.book';
 import {ToniqIconBookHelper} from './icon.book-helper';
@@ -18,9 +18,9 @@ export const iconPages: BookPage[] = Object.entries(allIconsByCategory).map(
                         title: icon.iconName,
                         renderCallback() {
                             return html`
-                                <${ToniqIconBookHelper}
-                                    ${assign(ToniqIconBookHelper, {icon})}
-                                ></${ToniqIconBookHelper}>
+                                <${ToniqIconBookHelper.assign({
+                                    icon,
+                                })}></${ToniqIconBookHelper}>
                             `;
                         },
                     });

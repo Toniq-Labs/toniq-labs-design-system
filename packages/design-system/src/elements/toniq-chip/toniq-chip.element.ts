@@ -1,4 +1,4 @@
-import {assign, css, html} from 'element-vir';
+import {css, html} from 'element-vir';
 import {TemplateResult} from 'lit';
 import {ToniqSvg} from '../../icons';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles';
@@ -42,11 +42,9 @@ export const ToniqChip = defineToniqElement<{
     renderCallback({inputs}) {
         const iconTemplate: TemplateResult | string = inputs.icon
             ? html`
-                  <${ToniqIcon}
-                      ${assign(ToniqIcon, {
-                          icon: inputs.icon,
-                      })}
-                  ></${ToniqIcon}>
+                  <${ToniqIcon.assign({
+                      icon: inputs.icon,
+                  })}></${ToniqIcon}>
               `
             : '';
         return html`

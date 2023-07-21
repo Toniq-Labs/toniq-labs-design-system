@@ -1,5 +1,5 @@
 import {assert, fixture} from '@open-wc/testing';
-import {assign, html} from 'element-vir';
+import {html} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {
@@ -34,7 +34,7 @@ describe(ToniqButton.tagName, () => {
 
             const rendered = await fixture(
                 html`
-                    <${ToniqButton} ${assign(ToniqButton, {text: textToRender})}></${ToniqButton}>
+                    <${ToniqButton.assign({text: textToRender})}></${ToniqButton}>
                 `,
             );
             assert.equal(getTextContentThroughShadow(rendered), textToRender);

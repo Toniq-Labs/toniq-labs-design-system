@@ -1,5 +1,5 @@
 import {defineBookPage} from 'element-book';
-import {assign, css, html, listen} from 'element-vir';
+import {css, html, listen} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {ToniqSlider, ToniqSliderInputs} from './toniq-slider.element';
 
@@ -28,11 +28,10 @@ export const toniqSliderPage = defineBookPage({
             `,
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqSlider}
-                        ${assign(ToniqSlider, {
-                            value: state.value,
-                            ...defaultMinMax,
-                        })}
+                    <${ToniqSlider.assign({
+                        value: state.value,
+                        ...defaultMinMax,
+                    })}
                         ${listen(ToniqSlider.events.valueChange, (event) => {
                             if (typeof event.detail !== 'number') {
                                 throw new Error('was expecting a single numeric slider value');
@@ -53,13 +52,12 @@ export const toniqSliderPage = defineBookPage({
             `,
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqSlider}
-                        ${assign(ToniqSlider, {
-                            double: true,
-                            value: state.value,
-                            min: 0,
-                            max: 100,
-                        })}
+                    <${ToniqSlider.assign({
+                        double: true,
+                        value: state.value,
+                        min: 0,
+                        max: 100,
+                    })}
                         ${listen(ToniqSlider.events.valueChange, (event) => {
                             if (typeof event.detail === 'number') {
                                 throw new Error('was expecting a double slider value');
@@ -80,12 +78,11 @@ export const toniqSliderPage = defineBookPage({
             `,
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqSlider}
-                        ${assign(ToniqSlider, {
-                            value: state.value,
-                            ...defaultMinMax,
-                            suffix: 'ICP',
-                        })}
+                    <${ToniqSlider.assign({
+                        value: state.value,
+                        ...defaultMinMax,
+                        suffix: 'ICP',
+                    })}
                         ${listen(ToniqSlider.events.valueChange, (event) => {
                             if (typeof event.detail !== 'number') {
                                 throw new Error('was expecting a single numeric slider value');
@@ -106,14 +103,13 @@ export const toniqSliderPage = defineBookPage({
             `,
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqSlider}
-                        ${assign(ToniqSlider, {
-                            value: state.value,
-                            min: 0,
-                            max: 1_000_000,
-                            suffix: 'ICP',
-                            logScale: true,
-                        })}
+                    <${ToniqSlider.assign({
+                        value: state.value,
+                        min: 0,
+                        max: 1_000_000,
+                        suffix: 'ICP',
+                        logScale: true,
+                    })}
                         ${listen(ToniqSlider.events.valueChange, (event) => {
                             if (typeof event.detail !== 'number') {
                                 throw new Error('was expecting a single numeric slider value');
@@ -134,14 +130,13 @@ export const toniqSliderPage = defineBookPage({
             `,
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqSlider}
-                        ${assign(ToniqSlider, {
-                            value: state.value,
-                            double: true,
-                            min: 0,
-                            max: 1_000_000,
-                            logScale: true,
-                        })}
+                    <${ToniqSlider.assign({
+                        value: state.value,
+                        double: true,
+                        min: 0,
+                        max: 1_000_000,
+                        logScale: true,
+                    })}
                         ${listen(ToniqSlider.events.valueChange, (event) => {
                             if (typeof event.detail === 'number') {
                                 throw new Error('was expecting a double slider value');
@@ -162,14 +157,13 @@ export const toniqSliderPage = defineBookPage({
             `,
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqSlider}
-                        ${assign(ToniqSlider, {
-                            value: state.value,
-                            double: true,
-                            min: 1.95,
-                            max: 100.5,
-                            logScale: true,
-                        })}
+                    <${ToniqSlider.assign({
+                        value: state.value,
+                        double: true,
+                        min: 1.95,
+                        max: 100.5,
+                        logScale: true,
+                    })}
                         ${listen(ToniqSlider.events.valueChange, (event) => {
                             if (typeof event.detail === 'number') {
                                 throw new Error('was expecting a double slider value');
@@ -190,12 +184,11 @@ export const toniqSliderPage = defineBookPage({
             `,
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqSlider}
-                        ${assign(ToniqSlider, {
-                            value: state.value,
-                            min: -100,
-                            max: 100,
-                        })}
+                    <${ToniqSlider.assign({
+                        value: state.value,
+                        min: -100,
+                        max: 100,
+                    })}
                         ${listen(ToniqSlider.events.valueChange, (event) => {
                             if (typeof event.detail !== 'number') {
                                 throw new Error('was expecting a single numeric slider value');
@@ -220,11 +213,10 @@ export const toniqSliderPage = defineBookPage({
             `,
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqSlider}
-                        ${assign(ToniqSlider, {
-                            value: state.value,
-                            ...defaultMinMax,
-                        })}
+                    <${ToniqSlider.assign({
+                        value: state.value,
+                        ...defaultMinMax,
+                    })}
                         ${listen(ToniqSlider.events.valueChange, (event) => {
                             if (typeof event.detail !== 'number') {
                                 throw new Error('was expecting a single numeric slider value');
@@ -249,13 +241,12 @@ export const toniqSliderPage = defineBookPage({
             `,
             renderCallback({state, updateState}) {
                 return html`
-                    <${ToniqSlider}
-                        ${assign(ToniqSlider, {
-                            double: true,
-                            value: state.value,
-                            min: 0,
-                            max: 100,
-                        })}
+                    <${ToniqSlider.assign({
+                        double: true,
+                        value: state.value,
+                        min: 0,
+                        max: 100,
+                    })}
                         ${listen(ToniqSlider.events.valueChange, (event) => {
                             if (typeof event.detail === 'number') {
                                 throw new Error('was expecting a double slider value');

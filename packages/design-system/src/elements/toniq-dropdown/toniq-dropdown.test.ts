@@ -1,5 +1,5 @@
 import {assert, fixture} from '@open-wc/testing';
-import {assign, html} from 'element-vir';
+import {html} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {assertIconEquals} from '../../element-testing/icon-test-helpers';
@@ -34,11 +34,9 @@ describe(ToniqDropdown.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                    <${ToniqDropdown}
-                        ${assign(ToniqDropdown, {
-                            options,
-                        })}
-                    />
+                    <${ToniqDropdown.assign({
+                        options,
+                    })} />
                 `,
             );
 
@@ -53,12 +51,10 @@ describe(ToniqDropdown.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                    <${ToniqDropdown}
-                        ${assign(ToniqDropdown, {
-                            options,
-                            icon: ArrowsSort24Icon,
-                        })}
-                    />
+                    <${ToniqDropdown.assign({
+                        options,
+                        icon: ArrowsSort24Icon,
+                    })} />
                 `,
             );
 
@@ -73,12 +69,10 @@ describe(ToniqDropdown.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                    <${ToniqDropdown}
-                        ${assign(ToniqDropdown, {
-                            options,
-                            value: options[2],
-                        })}
-                    />
+                    <${ToniqDropdown.assign({
+                        options,
+                        value: options[2],
+                    })} />
                 `,
             );
 
@@ -93,11 +87,9 @@ describe(ToniqDropdown.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                    <${ToniqDropdown}
-                        ${assign(ToniqDropdown, {
-                            options,
-                        })}
-                    />
+                    <${ToniqDropdown.assign({
+                        options,
+                    })} />
                 `,
             );
 
@@ -108,16 +100,14 @@ describe(ToniqDropdown.tagName, () => {
 
     runFocusTests(
         html`
-            <${ToniqDropdown}
-                ${assign(ToniqDropdown, {
-                    options: [
-                        {
-                            label: 'test',
-                            value: 'test',
-                        },
-                    ],
-                })}
-            ></${ToniqDropdown}>
+            <${ToniqDropdown.assign({
+                options: [
+                    {
+                        label: 'test',
+                        value: 'test',
+                    },
+                ],
+            })}></${ToniqDropdown}>
         `,
         true,
     );

@@ -1,4 +1,4 @@
-import {assign, classMap, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
+import {classMap, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
 import {copyToClipboard} from '../../clipboard';
 import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
 import {toniqDurations} from '../../styles/animation';
@@ -189,7 +189,7 @@ export const ToniqMiddleEllipsis = defineToniqElement<
 
         const iconTemplate = icon
             ? html`
-                  <${ToniqIcon} ${assign(ToniqIcon, {icon})}></${ToniqIcon}>
+                  <${ToniqIcon.assign({icon})}></${ToniqIcon}>
               `
             : '';
 

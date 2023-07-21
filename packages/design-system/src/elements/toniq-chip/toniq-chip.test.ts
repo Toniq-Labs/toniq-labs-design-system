@@ -1,5 +1,5 @@
 import {assert, fixture} from '@open-wc/testing';
-import {assign, html} from 'element-vir';
+import {html} from 'element-vir';
 import {TemplateResult} from 'lit';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';
@@ -38,11 +38,9 @@ describe(ToniqChip.tagName, () => {
             await checkRendering(
                 html`
                     <${ToniqChip}>
-                        <${ToniqIcon}
-                            ${assign(ToniqIcon, {
-                                icon: iconToRender,
-                            })}
-                        ></${ToniqIcon}>
+                        <${ToniqIcon.assign({
+                            icon: iconToRender,
+                        })}></${ToniqIcon}>
                         ${textToRender}
                     </${ToniqChip}>
                 `,
@@ -59,9 +57,10 @@ describe(ToniqChip.tagName, () => {
 
             await checkRendering(
                 html`
-                    <${ToniqChip}
-                        ${assign(ToniqChip, {icon: iconToRender, text: textToRender})}
-                    ></${ToniqChip}>
+                    <${ToniqChip.assign({
+                        icon: iconToRender,
+                        text: textToRender,
+                    })}></${ToniqChip}>
                 `,
                 textToRender,
                 iconToRender,

@@ -1,5 +1,5 @@
 import {assert, fixture} from '@open-wc/testing';
-import {assign, html, unsafeHTML} from 'element-vir';
+import {html, unsafeHTML} from 'element-vir';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
@@ -29,11 +29,9 @@ describe(ToniqIcon.tagName, () => {
 
             const renderedToniqIcon = await fixture(
                 html`
-                    <${ToniqIcon}
-                        ${assign(ToniqIcon, {
-                            icon: iconToRender,
-                        })}
-                    ></${ToniqIcon}>
+                    <${ToniqIcon.assign({
+                        icon: iconToRender,
+                    })}></${ToniqIcon}>
                 `,
             );
             const toniqIconSvg = queryThroughShadow('svg', renderedToniqIcon)?.outerHTML.trim();
@@ -54,11 +52,9 @@ describe(ToniqIcon.tagName, () => {
 
     runFocusTests(
         html`
-            <${ToniqIcon}
-                ${assign(ToniqIcon, {
-                    icon: Copy16Icon,
-                })}
-            ></${ToniqIcon}>
+            <${ToniqIcon.assign({
+                icon: Copy16Icon,
+            })}></${ToniqIcon}>
         `,
         false,
     );

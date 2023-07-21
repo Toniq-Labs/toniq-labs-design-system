@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "3.1.6",
+    "version": "4.0.0",
     "private": false,
     "description": "Design system elements for Toniq Labs",
     "keywords": [
@@ -44,32 +44,32 @@
         "test:watch": "wtr --watch --color --config configs/web-test-runner.config.mjs --only-one-browser"
     },
     "dependencies": {
-        "@augment-vir/common": "^15.3.0",
-        "@electrovir/resizable-image-element": "^7.0.2",
-        "element-vir": "^14.0.3",
+        "@augment-vir/common": "^15.4.1",
+        "@electrovir/resizable-image-element": "^7.1.3",
+        "element-vir": "^14.2.1",
         "lit-css-vars": "^2.0.3",
         "object-shape-tester": "^0.3.0",
         "scroll-snap-api": "^1.0.2"
     },
     "devDependencies": {
-        "@augment-vir/browser": "^15.3.0",
-        "@augment-vir/browser-testing": "^15.3.0",
-        "@augment-vir/node-js": "^15.3.0",
+        "@augment-vir/browser": "^15.4.1",
+        "@augment-vir/browser-testing": "^15.4.1",
+        "@augment-vir/node-js": "^15.4.1",
         "@open-wc/testing": "^3.2.0",
         "@types/chai": "^4.3.5",
         "@types/mocha": "^10.0.1",
         "@web/dev-server-esbuild": "^0.4.1",
-        "@web/test-runner": "^0.16.1",
-        "@web/test-runner-commands": "^0.7.0",
+        "@web/test-runner": "^0.17.0",
+        "@web/test-runner-commands": "^0.8.0",
         "@web/test-runner-playwright": "^0.10.1",
-        "@web/test-runner-visual-regression": "^0.8.0",
-        "element-book": "^8.0.0",
-        "esbuild": "^0.18.11",
+        "@web/test-runner-visual-regression": "^0.8.2",
+        "element-book": "^9.0.0",
+        "esbuild": "^0.18.15",
         "istanbul-smart-text-reporter": "^1.1.2",
         "ts-node": "^10.9.1",
-        "type-fest": "^3.12.0",
+        "type-fest": "^4.0.0",
         "typescript": "^5.1.6",
-        "vite": "^4.4.2",
+        "vite": "^4.4.5",
         "vite-tsconfig-paths": "^4.2.0"
     },
     "publishConfig": {

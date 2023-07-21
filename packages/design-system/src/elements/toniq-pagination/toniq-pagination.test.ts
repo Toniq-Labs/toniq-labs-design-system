@@ -1,5 +1,5 @@
 import {assert, fixture} from '@open-wc/testing';
-import {assign, html} from 'element-vir';
+import {html} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {
@@ -18,12 +18,10 @@ describe(ToniqPagination.tagName, () => {
             const currentPage = 4;
             const rendered = await fixture(
                 html`
-                    <${ToniqPagination}
-                        ${assign(ToniqPagination, {
-                            currentPage,
-                            pageCount: 10,
-                        })}
-                    />
+                    <${ToniqPagination.assign({
+                        currentPage,
+                        pageCount: 10,
+                    })} />
                 `,
             );
 
@@ -39,12 +37,10 @@ describe(ToniqPagination.tagName, () => {
             const pageCount = 10;
             const rendered = await fixture(
                 html`
-                    <${ToniqPagination}
-                        ${assign(ToniqPagination, {
-                            pageCount,
-                            currentPage: 1,
-                        })}
-                    />
+                    <${ToniqPagination.assign({
+                        pageCount,
+                        currentPage: 1,
+                    })} />
                 `,
             );
 
@@ -61,13 +57,11 @@ describe(ToniqPagination.tagName, () => {
             const pagesShown = 7;
             const rendered = await fixture(
                 html`
-                    <${ToniqPagination}
-                        ${assign(ToniqPagination, {
-                            currentPage: 1,
-                            pageCount: 10,
-                            pagesShown,
-                        })}
-                    />
+                    <${ToniqPagination.assign({
+                        currentPage: 1,
+                        pageCount: 10,
+                        pagesShown,
+                    })} />
                 `,
             );
 

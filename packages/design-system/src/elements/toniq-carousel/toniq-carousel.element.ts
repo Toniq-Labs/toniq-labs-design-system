@@ -1,4 +1,4 @@
-import {DeclarativeElementHost, assign, css, html, listen, onResize, unsafeCSS} from 'element-vir';
+import {DeclarativeElementHost, css, html, listen, onResize, unsafeCSS} from 'element-vir';
 import {classMap} from 'lit/directives/class-map.js';
 import {getScrollSnapPositions, scrollSnapToNext} from 'scroll-snap-api';
 import {ArrowLeft24Icon, ArrowRight24Icon} from '../../icons';
@@ -187,15 +187,14 @@ export const ToniqCarousel = defineToniqElement<{
                 })}
             >
                 <div class="arrow left">
-                    <${ToniqIcon}
+                    <${ToniqIcon.assign({
+                        icon: ArrowLeft24Icon,
+                    })}
                         class=${classMap({
                             hidden:
                                 leftArrowHideZone == undefined
                                     ? true
                                     : state.currentScrollPosition.left <= leftArrowHideZone,
-                        })}
-                        ${assign(ToniqIcon, {
-                            icon: ArrowLeft24Icon,
                         })}
                         ${listen('click', () => {
                             rotateCarousel({
@@ -213,15 +212,14 @@ export const ToniqCarousel = defineToniqElement<{
                     `;
                 })}
                 <div class="arrow right">
-                    <${ToniqIcon}
+                    <${ToniqIcon.assign({
+                        icon: ArrowRight24Icon,
+                    })}
                         class=${classMap({
                             hidden:
                                 rightArrowHideZone == undefined
                                     ? true
                                     : state.currentScrollPosition.left >= rightArrowHideZone,
-                        })}
-                        ${assign(ToniqIcon, {
-                            icon: ArrowRight24Icon,
                         })}
                         ${listen('click', () => {
                             rotateCarousel({

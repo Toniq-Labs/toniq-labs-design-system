@@ -1,6 +1,6 @@
 import {isTruthy} from '@augment-vir/common';
 import {VirResizableImage} from '@electrovir/resizable-image-element';
-import {assign, css, defineElementEvent, html, listen} from 'element-vir';
+import {css, defineElementEvent, html, listen} from 'element-vir';
 import {setCssVarValue} from 'lit-css-vars';
 import {ToniqIcon, defineToniqElement} from '..';
 import {SocialUrls} from '../../data';
@@ -180,23 +180,18 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
         const firstImage = inputs.imageUrls[0];
 
         const loadingImageTemplate = html`
-            <${ToniqIcon}
-                slot="loading"
-                ${assign(ToniqIcon, {icon: LoaderAnimated24Icon})}
-            ></${ToniqIcon}>
+            <${ToniqIcon.assign({icon: LoaderAnimated24Icon})} slot="loading"></${ToniqIcon}>
         `;
 
         const firstImageTemplate = firstImage
             ? html`
                   <div class="big-image-wrapper">
-                      <${VirResizableImage}
-                          ${assign(VirResizableImage, {
-                              imageUrl: inputs.imageUrls[0] ?? '',
-                              eagerLoading: true,
-                              min: {width: mainImageSize, height: mainImageSize},
-                              max: {width: mainImageSize, height: mainImageSize},
-                          })}
-                      >
+                      <${VirResizableImage.assign({
+                          imageUrl: inputs.imageUrls[0] ?? '',
+                          eagerLoading: true,
+                          min: {width: mainImageSize, height: mainImageSize},
+                          max: {width: mainImageSize, height: mainImageSize},
+                      })}>
                           ${loadingImageTemplate}
                       </${VirResizableImage}>
                   </div>
@@ -204,8 +199,7 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
             : '';
 
         return html`
-            <${ToniqFlipCard}
-                ${assign(ToniqFlipCard, {flipped: state.flipped})}
+            <${ToniqFlipCard.assign({flipped: state.flipped})}
                 ${listen(ToniqFeaturedFlipCardFooter.events.footerViewMoreButtonClick, () => {
                     dispatch(new events.viewMoreButtonClick());
                 })}
@@ -218,20 +212,18 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                             ${inputs.imageUrls.slice(1).map((imageUrl) => {
                                 return html`
                                     <div class="pic-wrapper">
-                                        <${VirResizableImage}
-                                            ${assign(VirResizableImage, {
-                                                imageUrl: imageUrl,
-                                                eagerLoading: true,
-                                                min: {
-                                                    width: secondaryImageSize,
-                                                    height: secondaryImageSize,
-                                                },
-                                                max: {
-                                                    width: secondaryImageSize,
-                                                    height: secondaryImageSize,
-                                                },
-                                            })}
-                                        >
+                                        <${VirResizableImage.assign({
+                                            imageUrl: imageUrl,
+                                            eagerLoading: true,
+                                            min: {
+                                                width: secondaryImageSize,
+                                                height: secondaryImageSize,
+                                            },
+                                            max: {
+                                                width: secondaryImageSize,
+                                                height: secondaryImageSize,
+                                            },
+                                        })}>
                                             ${loadingImageTemplate}
                                         </${VirResizableImage}>
                                     </div>
@@ -239,15 +231,14 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                             })}
                         </div>
                     </div>
-                    <${ToniqFeaturedFlipCardFooter}
-                        ${assign(ToniqFeaturedFlipCardFooter, {
-                            viewMoreButtonText,
-                            flipCardButtonText: inputs.infoParagraphs?.length
-                                ? inputs.flipCardButtonTitle || 'More Info'
-                                : '',
-                            viewMoreButtonUrl: inputs.viewMoreUrl || '',
-                            socialUrls: inputs.socialUrls,
-                        })}
+                    <${ToniqFeaturedFlipCardFooter.assign({
+                        viewMoreButtonText,
+                        flipCardButtonText: inputs.infoParagraphs?.length
+                            ? inputs.flipCardButtonTitle || 'More Info'
+                            : '',
+                        viewMoreButtonUrl: inputs.viewMoreUrl || '',
+                        socialUrls: inputs.socialUrls,
+                    })}
                         ${listen(
                             ToniqFeaturedFlipCardFooter.events.footerFlipCardButtonClick,
                             () => {
@@ -268,13 +259,12 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                                 `,
                         )}
                     </div>
-                    <${ToniqFeaturedFlipCardFooter}
-                        ${assign(ToniqFeaturedFlipCardFooter, {
-                            viewMoreButtonText,
-                            flipCardButtonText: inputs.infoParagraphs?.length ? 'Back' : '',
-                            viewMoreButtonUrl: inputs.viewMoreUrl || '',
-                            socialUrls: inputs.socialUrls,
-                        })}
+                    <${ToniqFeaturedFlipCardFooter.assign({
+                        viewMoreButtonText,
+                        flipCardButtonText: inputs.infoParagraphs?.length ? 'Back' : '',
+                        viewMoreButtonUrl: inputs.viewMoreUrl || '',
+                        socialUrls: inputs.socialUrls,
+                    })}
                         ${listen(
                             ToniqFeaturedFlipCardFooter.events.footerFlipCardButtonClick,
                             () => {

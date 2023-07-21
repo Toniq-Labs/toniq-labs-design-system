@@ -1,4 +1,4 @@
-import {assign, classMap, css, defineElementEvent, html} from 'element-vir';
+import {classMap, css, defineElementEvent, html} from 'element-vir';
 import {testId} from '../../directives/test-id.directive';
 import {ChevronDown24Icon, ToniqSvg} from '../../icons';
 import {noUserSelect, toniqDisabledStyles, toniqFontStyles} from '../../styles';
@@ -205,11 +205,10 @@ export const ToniqDropdown = defineToniqElement<{
 
         const leadingIconTemplate = inputs.icon
             ? html`
-                  <${ToniqIcon}
+                  <${ToniqIcon.assign({
+                      icon: inputs.icon,
+                  })}
                       ${testId('rendered-input-icon')}
-                      ${assign(ToniqIcon, {
-                          icon: inputs.icon,
-                      })}
                   ></${ToniqIcon}>
               `
             : '';
@@ -240,9 +239,8 @@ export const ToniqDropdown = defineToniqElement<{
                     ${leadingIconTemplate}
                     <span class="select-selected">${prefixTemplate} ${selectedOption?.label}</span>
                     <span class="trigger-icon-wrapper">
-                        <${ToniqIcon}
+                        <${ToniqIcon.assign({icon: ChevronDown24Icon})}
                             class="trigger-icon"
-                            ${assign(ToniqIcon, {icon: ChevronDown24Icon})}
                         ></${ToniqIcon}>
                     </span>
                 </div>

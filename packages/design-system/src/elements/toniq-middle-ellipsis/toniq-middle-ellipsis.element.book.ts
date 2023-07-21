@@ -1,5 +1,5 @@
 import {defineBookPage} from 'element-book';
-import {assign, css, html} from 'element-vir';
+import {css, html} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {ToniqMiddleEllipsis} from './toniq-middle-ellipsis.element';
 
@@ -11,11 +11,9 @@ export const toniqMiddleEllipsisPage = defineBookPage({
             title: 'Long text',
             renderCallback() {
                 return html`
-                    <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis, {
-                            text: 'Long string instead of text',
-                        })}
-                    ></${ToniqMiddleEllipsis}>
+                    <${ToniqMiddleEllipsis.assign({
+                        text: 'Long string instead of text',
+                    })}></${ToniqMiddleEllipsis}>
                 `;
             },
         });
@@ -23,11 +21,9 @@ export const toniqMiddleEllipsisPage = defineBookPage({
             title: 'Short text',
             renderCallback() {
                 return html`
-                    <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis, {
-                            text: 'Short text',
-                        })}
-                    ></${ToniqMiddleEllipsis}>
+                    <${ToniqMiddleEllipsis.assign({
+                        text: 'Short text',
+                    })}></${ToniqMiddleEllipsis}>
                 `;
             },
         });
@@ -35,12 +31,10 @@ export const toniqMiddleEllipsisPage = defineBookPage({
             title: 'External Link',
             renderCallback() {
                 return html`
-                    <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis, {
-                            text: 'Long text with link',
-                            externalLink: 'https://toniqlabs.com',
-                        })}
-                    ></${ToniqMiddleEllipsis}>
+                    <${ToniqMiddleEllipsis.assign({
+                        text: 'Long text with link',
+                        externalLink: 'https://toniqlabs.com',
+                    })}></${ToniqMiddleEllipsis}>
                 `;
             },
         });
@@ -48,12 +42,10 @@ export const toniqMiddleEllipsisPage = defineBookPage({
             title: 'Copyable',
             renderCallback() {
                 return html`
-                    <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis, {
-                            text: 'Long text that you can copy',
-                            copyOnClick: true,
-                        })}
-                    ></${ToniqMiddleEllipsis}>
+                    <${ToniqMiddleEllipsis.assign({
+                        text: 'Long text that you can copy',
+                        copyOnClick: true,
+                    })}></${ToniqMiddleEllipsis}>
                 `;
             },
         });
@@ -71,12 +63,10 @@ export const toniqMiddleEllipsisPage = defineBookPage({
             `,
             renderCallback() {
                 return html`
-                    <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis, {
-                            text: 'long text with custom colors',
-                            copyOnClick: true,
-                        })}
-                    ></${ToniqMiddleEllipsis}>
+                    <${ToniqMiddleEllipsis.assign({
+                        text: 'long text with custom colors',
+                        copyOnClick: true,
+                    })}></${ToniqMiddleEllipsis}>
                 `;
             },
         });

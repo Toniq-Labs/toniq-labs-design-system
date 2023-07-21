@@ -1,5 +1,5 @@
 import {defineBookPage} from 'element-book';
-import {assign, html} from 'element-vir';
+import {html} from 'element-vir';
 import {dataBookPage} from '../element-book/book-pages/data.book';
 import {ToniqSvg} from '../icons';
 import {ToniqIconBookHelper} from '../icons/icon.book-helper';
@@ -14,9 +14,7 @@ export const socialUrlsBookPage = defineBookPage({
                 title: socialName,
                 renderCallback() {
                     return html`
-                        <${ToniqIconBookHelper}
-                            ${assign(ToniqIconBookHelper, {icon})}
-                        ></${ToniqIconBookHelper}>
+                        <${ToniqIconBookHelper.assign({icon})}></${ToniqIconBookHelper}>
                     `;
                 },
             });

@@ -1,6 +1,6 @@
 import {omitObjectKeys} from '@augment-vir/common';
 import {BookPageControlTypeEnum, defineBookPage, definePageControl} from 'element-book';
-import {assign, css, html, listen} from 'element-vir';
+import {css, html, listen} from 'element-vir';
 import {
     cssVarControlValuesToStyles,
     cssVarsToPageControls,
@@ -87,18 +87,17 @@ export const toniqCheckboxPage = defineBookPage({
                         const extraEntries = (innerExampleVariation.extraEntries ?? []).map(
                             (extraEntry, extraEntryIndex) => {
                                 return html`
-                                    <${ToniqCheckbox}
-                                        ${assign(ToniqCheckbox, {
-                                            ...exampleVariation.inputs,
-                                            ...omitObjectKeys(innerExampleVariation.inputs, [
-                                                'checked',
-                                            ]),
-                                            checked:
-                                                !!state.extraEntryStatuses[exampleIndex]?.[
-                                                    extraEntryIndex
-                                                ],
-                                            text: extraEntry,
-                                        })}
+                                    <${ToniqCheckbox.assign({
+                                        ...exampleVariation.inputs,
+                                        ...omitObjectKeys(innerExampleVariation.inputs, [
+                                            'checked',
+                                        ]),
+                                        checked:
+                                            !!state.extraEntryStatuses[exampleIndex]?.[
+                                                extraEntryIndex
+                                            ],
+                                        text: extraEntry,
+                                    })}
                                         ${listen(ToniqCheckbox.events.checkedChange, () => {
                                             const newStates = [...state.extraEntryStatuses];
                                             newStates[exampleIndex]![extraEntryIndex] =
@@ -114,15 +113,14 @@ export const toniqCheckboxPage = defineBookPage({
 
                         return html`
                             <div class="checkbox-group" style=${customCssVarStyles}>
-                                <${ToniqCheckbox}
-                                    ${assign(ToniqCheckbox, {
-                                        ...exampleVariation.inputs,
-                                        ...omitObjectKeys(innerExampleVariation.inputs, [
-                                            'checked',
-                                        ]),
-                                        checked: state.checkedStatuses[exampleIndex]!,
-                                        text: controls.Text,
-                                    })}
+                                <${ToniqCheckbox.assign({
+                                    ...exampleVariation.inputs,
+                                    ...omitObjectKeys(innerExampleVariation.inputs, [
+                                        'checked',
+                                    ]),
+                                    checked: state.checkedStatuses[exampleIndex]!,
+                                    text: controls.Text,
+                                })}
                                     ${listen(ToniqCheckbox.events.checkedChange, () => {
                                         const newStates = [...state.checkedStatuses];
                                         newStates[exampleIndex] = !newStates[exampleIndex];

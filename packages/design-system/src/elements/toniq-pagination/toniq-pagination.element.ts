@@ -1,4 +1,4 @@
-import {assign, classMap, css, defineElementEvent, html, listen} from 'element-vir';
+import {classMap, css, defineElementEvent, html, listen} from 'element-vir';
 import {pagination} from '../../augments/array';
 import {ArrowLeft24Icon, ArrowRight24Icon} from '../../icons';
 import {
@@ -94,7 +94,7 @@ export const ToniqPagination = defineToniqElement<{
                     class="control"
                     ?disabled=${inputs.currentPage <= 1}
                 >
-                    <${ToniqIcon} ${assign(ToniqIcon, {icon: ArrowLeft24Icon})}></${ToniqIcon}>
+                    <${ToniqIcon.assign({icon: ArrowLeft24Icon})}></${ToniqIcon}>
                 </button>
                 ${pagination(inputs.currentPage, inputs.pageCount, inputs.pagesShown).map(
                     (entry) => {
@@ -130,7 +130,7 @@ export const ToniqPagination = defineToniqElement<{
                     class="control"
                     ?disabled=${inputs.currentPage >= inputs.pageCount}
                 >
-                    <${ToniqIcon} ${assign(ToniqIcon, {icon: ArrowRight24Icon})}></${ToniqIcon}>
+                    <${ToniqIcon.assign({icon: ArrowRight24Icon})}></${ToniqIcon}>
                 </button>
             `;
         }

@@ -1,5 +1,5 @@
 import {defineBookPage} from 'element-book';
-import {CSSResult, HTMLTemplateResult, assign, css, html, renderIf} from 'element-vir';
+import {CSSResult, HTMLTemplateResult, css, html, renderIf} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {InfoCircle16Icon} from '../../icons';
 import {ToniqChip, ToniqChipStyleEnum} from './toniq-chip.element';
@@ -74,9 +74,8 @@ export const toniqChipBookPage = defineBookPage({
                         // if this wraps incorrectly then the white space is considered the slot
                         // prettier-ignore
                         return html`
-                        <${ToniqChip}
+                        <${ToniqChip.assign({...styleVariation.inputs, ...subExample.inputs})}
                             style=${subExample.customStyle}
-                            ${assign(ToniqChip, {...styleVariation.inputs, ...subExample.inputs})}
                         >${
                             renderIf(!!subExample.template, subExample.template)
                         }</${ToniqChip}>

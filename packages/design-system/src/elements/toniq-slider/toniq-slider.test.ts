@@ -1,5 +1,5 @@
 import {assert, fixture} from '@open-wc/testing';
-import {assign, html} from 'element-vir';
+import {html} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
@@ -21,7 +21,7 @@ describe(ToniqSlider.tagName, () => {
             };
             const rendered = await fixture(
                 html`
-                    <${ToniqSlider} ${assign(ToniqSlider, initialValues)} />
+                    <${ToniqSlider.assign(initialValues)} />
                 `,
             );
 
@@ -44,14 +44,12 @@ describe(ToniqSlider.tagName, () => {
             const suffix = 'ICP';
             const rendered = await fixture(
                 html`
-                    <${ToniqSlider}
-                        ${assign(ToniqSlider, {
-                            min: 0,
-                            max: 100,
-                            value,
-                            suffix,
-                        })}
-                    />
+                    <${ToniqSlider.assign({
+                        min: 0,
+                        max: 100,
+                        value,
+                        suffix,
+                    })} />
                 `,
             );
 
@@ -67,14 +65,12 @@ describe(ToniqSlider.tagName, () => {
             const suffix = 'ICP';
             const rendered = await fixture(
                 html`
-                    <${ToniqSlider}
-                        ${assign(ToniqSlider, {
-                            max: 100,
-                            min: 0,
-                            value: 0,
-                            suffix,
-                        })}
-                    />
+                    <${ToniqSlider.assign({
+                        max: 100,
+                        min: 0,
+                        value: 0,
+                        suffix,
+                    })} />
                 `,
             );
 

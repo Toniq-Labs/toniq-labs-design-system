@@ -1,4 +1,4 @@
-import {assign, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
+import {css, defineElementEvent, html, listen, renderIf} from 'element-vir';
 import {TemplateResult} from 'lit';
 import {ToniqSvg} from '../../icons';
 import {toniqColors, toniqDisabledStyles, toniqFontStyles} from '../../styles';
@@ -231,7 +231,7 @@ export const ToniqInput = defineToniqElement<{
 
         const iconTemplate: TemplateResult | string = inputs.icon
             ? html`
-                  <${ToniqIcon} ${assign(ToniqIcon, {icon: inputs.icon})}></${ToniqIcon}>
+                  <${ToniqIcon.assign({icon: inputs.icon})}></${ToniqIcon}>
               `
             : '';
 

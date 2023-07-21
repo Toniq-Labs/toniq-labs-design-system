@@ -1,5 +1,5 @@
 import {ElementBookApp} from 'element-book';
-import {assign, css, defineElementNoInputs, html} from 'element-vir';
+import {css, defineElementNoInputs, html} from 'element-vir';
 import {toniqFontStyles} from '..';
 import {allElementBookEntries} from './all-element-book-entries';
 
@@ -20,17 +20,15 @@ export const ToniqDesignSystemApp = defineElementNoInputs({
     `,
     renderCallback() {
         return html`
-            <${ElementBookApp}
-                ${assign(ElementBookApp, {
-                    internalRouterConfig: {
-                        basePath: 'toniq-labs-design-system',
-                        useInternalRouter: true,
-                    },
-                    entries: allElementBookEntries,
-                    themeColor: '#00D093',
-                    everythingTitle: 'Design System',
-                })}
-            ></${ElementBookApp}>
+            <${ElementBookApp.assign({
+                internalRouterConfig: {
+                    basePath: 'toniq-labs-design-system',
+                    useInternalRouter: true,
+                },
+                entries: allElementBookEntries,
+                themeColor: '#00D093',
+                everythingTitle: 'Design System',
+            })}></${ElementBookApp}>
         `;
     },
 });

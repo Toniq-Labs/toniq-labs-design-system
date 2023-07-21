@@ -1,5 +1,5 @@
 import {BookPageControlTypeEnum, defineBookPage} from 'element-book';
-import {assign, css, html} from 'element-vir';
+import {css, html} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {CircleDot24Icon, ToniqSvg} from '../../icons';
 import {InfoCircle16Icon} from '../../icons/svgs/core-16/info-circle-16.icon';
@@ -84,11 +84,10 @@ export const toniqIconBookPage = defineBookPage({
 
                 return exampleConfigs.map((exampleConfig) => {
                     return html`
-                        <${ToniqIcon}
+                        <${ToniqIcon.assign({
+                            icon: exampleConfig.icon,
+                        })}
                             style=${styles}
-                            ${assign(ToniqIcon, {
-                                icon: exampleConfig.icon,
-                            })}
                         ></${ToniqIcon}>
                     `;
                 });

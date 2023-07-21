@@ -1,5 +1,5 @@
 import {defineBookPage} from 'element-book';
-import {assign, css, html, listen} from 'element-vir';
+import {css, html, listen} from 'element-vir';
 import {emptySocialUrls} from '../../data/social-urls';
 import {createElementBookUrl} from '../../element-book/book-helpers/create-element-book-url';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
@@ -23,15 +23,13 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
             },
             renderCallback() {
                 return html`
-                    <${ToniqFeaturedFlipCard}
-                        ${assign(ToniqFeaturedFlipCard, {
-                            infoParagraphs: longInfoParagraphs,
-                            imageUrls,
-                            socialUrls: emptySocialUrls,
-                            title: 'Featured Stuff',
-                            viewButtonTitle: 'Stuff',
-                        })}
-                    ></${ToniqFeaturedFlipCard}>
+                    <${ToniqFeaturedFlipCard.assign({
+                        infoParagraphs: longInfoParagraphs,
+                        imageUrls,
+                        socialUrls: emptySocialUrls,
+                        title: 'Featured Stuff',
+                        viewButtonTitle: 'Stuff',
+                    })}></${ToniqFeaturedFlipCard}>
                 `;
             },
         });
@@ -42,13 +40,11 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
             },
             renderCallback() {
                 return html`
-                    <${ToniqFeaturedFlipCard}
-                        ${assign(ToniqFeaturedFlipCard, {
-                            imageUrls,
-                            title: 'Featured Stuff',
-                            infoParagraphs: undefined,
-                        })}
-                    ></${ToniqFeaturedFlipCard}>
+                    <${ToniqFeaturedFlipCard.assign({
+                        imageUrls,
+                        title: 'Featured Stuff',
+                        infoParagraphs: undefined,
+                    })}></${ToniqFeaturedFlipCard}>
                 `;
             },
         });
@@ -59,13 +55,12 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
             },
             renderCallback() {
                 return html`
-                    <${ToniqFeaturedFlipCard}
-                        ${assign(ToniqFeaturedFlipCard, {
-                            imageUrls: [],
-                            title: 'Featured Stuff',
-                            infoParagraphs: longInfoParagraphs,
-                            viewMoreUrl: 'https://toniqlabs.com',
-                        })}
+                    <${ToniqFeaturedFlipCard.assign({
+                        imageUrls: [],
+                        title: 'Featured Stuff',
+                        infoParagraphs: longInfoParagraphs,
+                        viewMoreUrl: 'https://toniqlabs.com',
+                    })}
                         ${listen(ToniqFeaturedFlipCard.events.viewMoreButtonClick, () => {
                             console.info('view more clicked');
                         })}
@@ -80,13 +75,11 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
             },
             renderCallback() {
                 return html`
-                    <${ToniqFeaturedFlipCard}
-                        ${assign(ToniqFeaturedFlipCard, {
-                            imageUrls: [],
-                            title: 'Featured Stuff',
-                            infoParagraphs: longInfoParagraphs,
-                        })}
-                    ></${ToniqFeaturedFlipCard}>
+                    <${ToniqFeaturedFlipCard.assign({
+                        imageUrls: [],
+                        title: 'Featured Stuff',
+                        infoParagraphs: longInfoParagraphs,
+                    })}></${ToniqFeaturedFlipCard}>
                 `;
             },
         });
@@ -102,13 +95,11 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
             },
             renderCallback() {
                 return html`
-                    <${ToniqFeaturedFlipCard}
-                        ${assign(ToniqFeaturedFlipCard, {
-                            imageUrls: [],
-                            title: 'Featured Stuff',
-                            infoParagraphs: longInfoParagraphs,
-                        })}
-                    ></${ToniqFeaturedFlipCard}>
+                    <${ToniqFeaturedFlipCard.assign({
+                        imageUrls: [],
+                        title: 'Featured Stuff',
+                        infoParagraphs: longInfoParagraphs,
+                    })}></${ToniqFeaturedFlipCard}>
                 `;
             },
         });
@@ -124,13 +115,11 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
             },
             renderCallback() {
                 return html`
-                    <${ToniqFeaturedFlipCard}
-                        ${assign(ToniqFeaturedFlipCard, {
-                            imageUrls,
-                            infoParagraphs,
-                            title: 'Featured Stuff',
-                        })}
-                    ></${ToniqFeaturedFlipCard}>
+                    <${ToniqFeaturedFlipCard.assign({
+                        imageUrls,
+                        infoParagraphs,
+                        title: 'Featured Stuff',
+                    })}></${ToniqFeaturedFlipCard}>
                 `;
             },
         });

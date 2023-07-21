@@ -1,5 +1,5 @@
 import {defineBookPage} from 'element-book';
-import {TemplateResult, assign, css, html} from 'element-vir';
+import {TemplateResult, css, html} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {toniqColors} from '../../styles';
 import {ToniqTooltip} from './toniq-tooltip.element';
@@ -41,9 +41,7 @@ const toniqWithTooltipBookPage = defineBookPage({
                 `,
                 renderCallback() {
                     return html`
-                        <${ToniqWithTooltip}
-                            ${assign(ToniqWithTooltip, {tooltipContent, forceShow})}
-                        >
+                        <${ToniqWithTooltip.assign({tooltipContent, forceShow})}>
                             <div>Hover me!</div>
                         </${ToniqWithTooltip}>
                     `;

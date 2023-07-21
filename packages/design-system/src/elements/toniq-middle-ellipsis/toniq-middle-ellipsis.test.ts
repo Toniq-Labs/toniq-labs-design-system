@@ -1,5 +1,5 @@
 import {assert, fixture} from '@open-wc/testing';
-import {assign, html} from 'element-vir';
+import {html} from 'element-vir';
 import {assertInstanceOf} from '../../element-testing/assertion-helpers';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {assertIconEquals} from '../../element-testing/icon-test-helpers';
@@ -34,11 +34,9 @@ describe(ToniqMiddleEllipsis.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                    <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis, {
-                            externalLink: 'https://entrepot.app',
-                        })}
-                    ></${ToniqMiddleEllipsis}>
+                    <${ToniqMiddleEllipsis.assign({
+                        externalLink: 'https://entrepot.app',
+                    })}></${ToniqMiddleEllipsis}>
                 `,
             );
             assert.equal(getTextContentThroughShadow(rendered), '');
@@ -53,12 +51,10 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
             const renderedWithToniqIcon = await fixture(
                 html`
-                    <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis, {
-                            text: 'link',
-                            externalLink: 'https://entrepot.app',
-                        })}
-                    ></${ToniqMiddleEllipsis}>
+                    <${ToniqMiddleEllipsis.assign({
+                        text: 'link',
+                        externalLink: 'https://entrepot.app',
+                    })}></${ToniqMiddleEllipsis}>
                 `,
             );
             const toniqIconInstance = queryThroughShadow(ToniqIcon.tagName, renderedWithToniqIcon);
@@ -74,11 +70,9 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
             const rendered = await fixture(
                 html`
-                    <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis, {
-                            text: shortText,
-                        })}
-                    ></${ToniqMiddleEllipsis}>
+                    <${ToniqMiddleEllipsis.assign({
+                        text: shortText,
+                    })}></${ToniqMiddleEllipsis}>
                 `,
             );
             assert.equal(getTextContentThroughShadow(rendered), shortText);
@@ -90,11 +84,9 @@ describe(ToniqMiddleEllipsis.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                    <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis, {
-                            text: 'this-is-some-long-text',
-                        })}
-                    ></${ToniqMiddleEllipsis}>
+                    <${ToniqMiddleEllipsis.assign({
+                        text: 'this-is-some-long-text',
+                    })}></${ToniqMiddleEllipsis}>
                 `,
             );
             assert.equal(getTextContentThroughShadow(rendered), `this${ellipsisCharacter}text`);
@@ -108,12 +100,10 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
             const rendered = await fixture(
                 html`
-                    <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis, {
-                            text: longText,
-                            letterCount: 500,
-                        })}
-                    ></${ToniqMiddleEllipsis}>
+                    <${ToniqMiddleEllipsis.assign({
+                        text: longText,
+                        letterCount: 500,
+                    })}></${ToniqMiddleEllipsis}>
                 `,
             );
             assert.equal(getTextContentThroughShadow(rendered), longText);
@@ -125,12 +115,10 @@ describe(ToniqMiddleEllipsis.tagName, () => {
         createFixtureTest(async () => {
             const rendered = await fixture(
                 html`
-                    <${ToniqMiddleEllipsis}
-                        ${assign(ToniqMiddleEllipsis, {
-                            text: 'abcde',
-                            letterCount: 1,
-                        })}
-                    ></${ToniqMiddleEllipsis}>
+                    <${ToniqMiddleEllipsis.assign({
+                        text: 'abcde',
+                        letterCount: 1,
+                    })}></${ToniqMiddleEllipsis}>
                 `,
             );
             assert.equal(getTextContentThroughShadow(rendered), `a${ellipsisCharacter}e`);
@@ -139,12 +127,10 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
     runFocusTests(
         html`
-            <${ToniqMiddleEllipsis}
-                ${assign(ToniqMiddleEllipsis, {
-                    text: 'entrepot',
-                    externalLink: 'https://entrepot.app',
-                })}
-            ></${ToniqMiddleEllipsis}>
+            <${ToniqMiddleEllipsis.assign({
+                text: 'entrepot',
+                externalLink: 'https://entrepot.app',
+            })}></${ToniqMiddleEllipsis}>
         `,
         true,
         'with link input',
@@ -152,12 +138,10 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
     runFocusTests(
         html`
-            <${ToniqMiddleEllipsis}
-                ${assign(ToniqMiddleEllipsis, {
-                    copyOnClick: true,
-                    text: 'copy',
-                })}
-            ></${ToniqMiddleEllipsis}>
+            <${ToniqMiddleEllipsis.assign({
+                copyOnClick: true,
+                text: 'copy',
+            })}></${ToniqMiddleEllipsis}>
         `,
         true,
         'with copyable set to true',
@@ -165,11 +149,9 @@ describe(ToniqMiddleEllipsis.tagName, () => {
 
     runFocusTests(
         html`
-            <${ToniqMiddleEllipsis}
-                ${assign(ToniqMiddleEllipsis, {
-                    text: 'not tabbable',
-                })}
-            ></${ToniqMiddleEllipsis}>
+            <${ToniqMiddleEllipsis.assign({
+                text: 'not tabbable',
+            })}></${ToniqMiddleEllipsis}>
         `,
         false,
         'with no interaction',

@@ -1,6 +1,6 @@
 import {omitObjectKeys} from '@augment-vir/common';
 import {BookPageControlTypeEnum, defineBookPage, definePageControl} from 'element-book';
-import {assign, css, html, listen} from 'element-vir';
+import {css, html, listen} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {Rocket24Icon} from '../../icons';
 import {allIconNames, allIconsByName} from '../../icons/icon.book-helper';
@@ -92,14 +92,13 @@ export const toniqToggleButtonBookPage = defineBookPage({
                 renderCallback({state, updateState, controls}) {
                     return innerExampleVariations.map((innerExampleVariation, index) => {
                         return html`
-                            <${ToniqToggleButton}
-                                ${assign(ToniqToggleButton, {
-                                    ...styleVariation.inputs,
-                                    toggled: state.buttonStates[index]!,
-                                    icon: allIconsByName[controls.Icon],
-                                    text: controls.Text,
-                                    ...omitObjectKeys(innerExampleVariation.inputs, ['toggled']),
-                                })}
+                            <${ToniqToggleButton.assign({
+                                ...styleVariation.inputs,
+                                toggled: state.buttonStates[index]!,
+                                icon: allIconsByName[controls.Icon],
+                                text: controls.Text,
+                                ...omitObjectKeys(innerExampleVariation.inputs, ['toggled']),
+                            })}
                                 ${listen('click', () => {
                                     const newStates = [...state.buttonStates];
                                     newStates[index] = !newStates[index];
