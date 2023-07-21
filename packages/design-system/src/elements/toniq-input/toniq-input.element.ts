@@ -4,6 +4,7 @@ import {ToniqSvg} from '../../icons';
 import {toniqColors, toniqDisabledStyles, toniqFontStyles} from '../../styles';
 import {createFocusStyles} from '../../styles/focus';
 import {removeNativeFormStyles} from '../../styles/native-styles';
+import {noUserSelect} from '../../styles/user-select';
 import {defineToniqElement} from '../define-toniq-element';
 import {buttonBorderRadius} from '../toniq-button/toniq-button.element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
@@ -219,6 +220,9 @@ export const ToniqInput = defineToniqElement<{
 
             ${hostClasses['toniq-input-disabled'].selector} {
                 ${toniqDisabledStyles};
+            }
+            ${hostClasses['toniq-input-disabled'].selector} * {
+                ${noUserSelect};
             }
         `;
     },
