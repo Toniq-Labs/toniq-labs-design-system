@@ -26,7 +26,7 @@ export const toniqCarouselBookPage = defineBookPage({
     parent: elementsBookPage,
     title: ToniqCarousel.tagName,
     descriptionParagraphs: [
-        'Carousel that uses native browser API.',
+        'Carousel that uses native scroll APIs.',
         'Supports differently sized elements, optional automatic scrolling, manual mouse or touch scrolling, click scrolling with buttons, etc.',
     ],
     elementExamplesCallback({defineExample}) {

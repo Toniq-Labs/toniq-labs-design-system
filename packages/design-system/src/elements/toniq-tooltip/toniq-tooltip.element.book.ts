@@ -5,13 +5,8 @@ import {toniqColors} from '../../styles';
 import {ToniqTooltip} from './toniq-tooltip.element';
 import {ToniqWithTooltip} from './toniq-with-tooltip.element';
 
-const toniqTooltipElementBookChapter = defineBookPage({
-    title: 'Tooltip',
-    parent: elementsBookPage,
-});
-
 const toniqWithTooltipBookPage = defineBookPage({
-    parent: toniqTooltipElementBookChapter,
+    parent: elementsBookPage,
     title: ToniqWithTooltip.tagName,
     elementExamplesCallback({defineExample}) {
         function defineTooltipExample({
@@ -76,7 +71,7 @@ const toniqWithTooltipBookPage = defineBookPage({
 });
 
 const toniqTooltipBookPage = defineBookPage({
-    parent: toniqTooltipElementBookChapter,
+    parent: elementsBookPage,
     title: ToniqTooltip.tagName,
     descriptionParagraphs: [
         `This element should almost never be used alone. You should instead use <${ToniqWithTooltip.tagName}>, which in turn uses this element.`,
@@ -94,7 +89,6 @@ const toniqTooltipBookPage = defineBookPage({
 });
 
 export const toniqTooltipElementBookEntries = [
-    toniqTooltipElementBookChapter,
     toniqWithTooltipBookPage,
     toniqTooltipBookPage,
 ];
