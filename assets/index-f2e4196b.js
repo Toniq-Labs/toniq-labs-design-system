@@ -5460,7 +5460,7 @@ ${e.templateString}
             <div class="tooltip-wrapper">
                 <${er}>${e.tooltipContent}</${er}>
             </div>
-        `}}),Wt=J()({tagName:"toniq-top-tabs",events:{selectedTabChange:q()},cssVars:{"toniq-top-tabs-selected-border-width":"4px","toniq-top-tabs-tab-vertical-padding":"8px"},styles:({cssVars:e})=>g`
+        `}}),Wt=J()({tagName:"toniq-top-tabs",events:{valueChange:q()},cssVars:{"toniq-top-tabs-selected-border-width":"4px","toniq-top-tabs-tab-vertical-padding":"8px"},styles:({cssVars:e})=>g`
         :host {
             display: block;
         }
@@ -5516,7 +5516,7 @@ ${e.templateString}
         }
     `,renderCallback({inputs:e,dispatch:t,events:r}){return h`
             <ul role="tablist">
-                ${e.tabs.map(n=>{const o=n===e.selectedTab;return h`
+                ${e.tabs.map(n=>{const o=n.value===e.value;return h`
                         <li
                             ${Wu("tab")}
                             role="presentation"
@@ -5526,9 +5526,9 @@ ${e.templateString}
                                 role="tab"
                                 title=${n}
                                 aria-selected=${o?"true":"false"}
-                                ${C("click",()=>{e.selectedTab!==n&&t(new r.selectedTabChange(n))})}
+                                ${C("click",()=>{e.value!==n.value&&t(new r.valueChange(n.value))})}
                             >
-                                <${ut.assign({text:n})}></${ut}>
+                                <${ut.assign({text:n.label})}></${ut}>
                             </button>
                         </li>
                     `})}
@@ -5942,7 +5942,7 @@ ${e.templateString}
                 <p>another one</p>
             `,forceShow:!0}),t({title:"long tooltip",tooltipContent:"This tooltip is really really long! You probably shouldn't ever have a tooltip this long.",forceShow:!0})}}),Ym=Z({parent:X,title:er.tagName,descriptionParagraphs:[`This element should almost never be used alone. You should instead use <${Kr.tagName}>, which in turn uses this element.`],elementExamplesCallback({defineExample:e}){e({title:"standalone tooltip",renderCallback(){return h`
                     <${er}>This is a tooltip.</${er}>
-                `}})}}),Jm=[Gm,Ym],Xm=[{title:"basic",inputs:{selectedTab:"hi",tabs:["hi","bye","hello","so long"]}},{title:"wide parent",extraStyles:g`
+                `}})}}),Jm=[Gm,Ym],Xm=[{title:"basic",inputs:{value:"hi",tabs:["hi","bye","hello","so long"]}},{title:"wide parent",extraStyles:g`
             :host {
                 width: 500px;
             }
@@ -5950,11 +5950,11 @@ ${e.templateString}
             ${Wt} {
                 width: 100%;
             }
-        `,inputs:{selectedTab:"hi",tabs:["hi","bye","hello","so long"]}},{title:"really long tab",extraStyles:g``,inputs:{selectedTab:"hi",tabs:["hi","bye","hello","So long, farewell, auf Wiedersehen, adieu. Adieu, adieu, to you and you and you"]}}],Km=Z({title:Wt.tagName,parent:X,elementExamplesCallback({defineExample:e}){Xm.forEach(t=>{e({title:t.title,stateInitStatic:{selectedTab:t.inputs.selectedTab},styles:g`
+        `,inputs:{value:"hi",tabs:["hi","bye","hello","so long"]}},{title:"really long tab",extraStyles:g``,inputs:{value:"hi",tabs:["hi","bye","hello","So long, farewell, auf Wiedersehen, adieu. Adieu, adieu, to you and you and you"]}}],Km=Z({title:Wt.tagName,parent:X,elementExamplesCallback({defineExample:e}){Xm.forEach(t=>{e({title:t.title,stateInitStatic:{selectedTab:t.inputs.value},styles:g`
                     ${t.extraStyles??g``}
                 `,renderCallback({state:r,updateState:n}){return h`
-                        <${Wt.assign({...t.inputs,selectedTab:r.selectedTab})}
-                            ${C(Wt.events.selectedTabChange,o=>{console.log(o),n({selectedTab:o.detail})})}
+                        <${Wt.assign({tabs:t.inputs.tabs.map(o=>({label:o,value:o})),value:r.selectedTab})}
+                            ${C(Wt.events.valueChange,o=>{console.log(o),n({selectedTab:o.detail})})}
                         ></${Wt}>
                     `}})})}}),l0=Z({title:"Icons",parent:void 0}),Qm=Object.entries(at).map(([e,t])=>Z({title:e,parent:l0,elementExamplesCallback({defineExample:r}){t.map(n=>r({title:n.iconName,renderCallback(){return h`
                                 <${Sn.assign({icon:n})}></${Sn}>
