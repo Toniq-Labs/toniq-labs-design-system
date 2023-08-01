@@ -1,16 +1,22 @@
 import {classMap, css, defineElementEvent, html, listen, testId} from 'element-vir';
+import {Primitive} from 'type-fest';
 import {removeNativeFormStyles, toniqColors, toniqDurations, toniqFontStyles} from '../../styles';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqBoldSpace} from '../toniq-bold-space/toniq-bold-space.element';
 
+export type ToniqTopTab = {
+    label: string;
+    value: Primitive;
+};
+
 export const ToniqTopTabs = defineToniqElement<{
     // if text is not given, provide a child element
-    tabs: ReadonlyArray<string>;
-    selectedTab: string;
+    tabs: ReadonlyArray<ToniqTopTab>;
+    value: Primitive;
 }>()({
     tagName: 'toniq-top-tabs',
     events: {
-        selectedTabChange: defineElementEvent<string>(),
+        valueChange: defineElementEvent<Primitive>(),
     },
     cssVars: {
         'toniq-top-tabs-selected-border-width': '4px',
@@ -75,7 +81,7 @@ export const ToniqTopTabs = defineToniqElement<{
         return html`
             <ul role="tablist">
                 ${inputs.tabs.map((tab) => {
-                    const isSelected = tab === inputs.selectedTab;
+                    const isSelected = tab.value === inputs.value;
 
                     return html`
                         <li
@@ -90,12 +96,12 @@ export const ToniqTopTabs = defineToniqElement<{
                                 title=${tab}
                                 aria-selected=${isSelected ? 'true' : 'false'}
                                 ${listen('click', () => {
-                                    if (inputs.selectedTab !== tab) {
-                                        dispatch(new events.selectedTabChange(tab));
+                                    if (inputs.value !== tab.value) {
+                                        dispatch(new events.valueChange(tab.value));
                                     }
                                 })}
                             >
-                                <${ToniqBoldSpace.assign({text: tab})}></${ToniqBoldSpace}>
+                                <${ToniqBoldSpace.assign({text: tab.label})}></${ToniqBoldSpace}>
                             </button>
                         </li>
                     `;

@@ -1,3 +1,4 @@
+import {Overwrite} from '@augment-vir/common';
 import {defineBookPage} from 'element-book';
 import {CSSResult, css, html, listen} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
@@ -5,13 +6,13 @@ import {ToniqTopTabs} from './toniq-top-tabs.element';
 
 const examples: {
     title: string;
-    inputs: typeof ToniqTopTabs.inputsType;
+    inputs: Overwrite<typeof ToniqTopTabs.inputsType, {tabs: ReadonlyArray<string>}>;
     extraStyles?: CSSResult | undefined;
 }[] = [
     {
         title: 'basic',
         inputs: {
-            selectedTab: 'hi',
+            value: 'hi',
             tabs: [
                 'hi',
                 'bye',
@@ -32,7 +33,7 @@ const examples: {
             }
         `,
         inputs: {
-            selectedTab: 'hi',
+            value: 'hi',
             tabs: [
                 'hi',
                 'bye',
@@ -45,7 +46,7 @@ const examples: {
         title: 'really long tab',
         extraStyles: css``,
         inputs: {
-            selectedTab: 'hi',
+            value: 'hi',
             tabs: [
                 'hi',
                 'bye',
@@ -64,7 +65,7 @@ export const toniqTopTabsPage = defineBookPage({
             defineExample({
                 title: example.title,
                 stateInitStatic: {
-                    selectedTab: example.inputs.selectedTab,
+                    selectedTab: example.inputs.value,
                 },
                 styles: css`
                     ${example.extraStyles ?? css``}
@@ -72,10 +73,12 @@ export const toniqTopTabsPage = defineBookPage({
                 renderCallback({state, updateState}) {
                     return html`
                         <${ToniqTopTabs.assign({
-                            ...example.inputs,
-                            selectedTab: state.selectedTab,
+                            tabs: example.inputs.tabs.map((tab) => {
+                                return {label: tab, value: tab};
+                            }),
+                            value: state.selectedTab,
                         })}
-                            ${listen(ToniqTopTabs.events.selectedTabChange, (event) => {
+                            ${listen(ToniqTopTabs.events.valueChange, (event) => {
                                 console.log(event);
                                 updateState({selectedTab: event.detail});
                             })}

@@ -15,17 +15,20 @@ describe(ToniqTopTabs.tagName, () => {
         const outputs: TypedEvent<any, any>[] = [];
         const tabs = Array(5)
             .fill(0)
-            .map(() => randomString());
+            .map(() => {
+                const value = randomString();
+                return {label: value, value};
+            });
 
         assert.isAbove(tabs.length, 0);
 
         const fixture = await renderFixture(
             html`
                 <${ToniqTopTabs.assign({
-                    selectedTab: selectedTabIndex == undefined ? '' : tabs[selectedTabIndex] || '',
+                    value: selectedTabIndex == undefined ? '' : tabs[selectedTabIndex]?.value || '',
                     tabs,
                 })}
-                    ${listen(ToniqTopTabs.events.selectedTabChange, (event) => {
+                    ${listen(ToniqTopTabs.events.valueChange, (event) => {
                         outputs.push(event);
                     })}
                 ></${ToniqTopTabs}>
@@ -59,7 +62,7 @@ describe(ToniqTopTabs.tagName, () => {
             );
             const latestEvent = outputs.slice(-1)[0];
             typedAssertNotNullish(latestEvent);
-            assert.strictEqual(latestEvent.detail, tabs[index]);
+            assert.strictEqual(latestEvent.detail, tabs[index]?.value);
         });
     });
 
