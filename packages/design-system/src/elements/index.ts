@@ -1,6 +1,7 @@
 /** This file is automatically updated by update-element-exports.ts */
 
 export * from './define-toniq-element';
+export * from './toniq-bold-space/toniq-bold-space.element';
 export * from './toniq-button/toniq-button.element';
 export * from './toniq-carousel/toniq-carousel.element';
 export * from './toniq-checkbox/toniq-checkbox.element';
@@ -19,3 +20,4 @@ export * from './toniq-slider/toniq-slider.element';
 export * from './toniq-toggle-button/toniq-toggle-button.element';
 export * from './toniq-tooltip/toniq-tooltip.element';
 export * from './toniq-tooltip/toniq-with-tooltip.element';
+export * from './toniq-top-tabs/toniq-top-tabs.element';

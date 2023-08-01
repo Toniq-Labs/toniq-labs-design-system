@@ -14,6 +14,7 @@ module.exports = {
         // for svgo plugin names
         'elems',
         'listbox',
+        'tablist',
         'toniq',
     ],
 };

@@ -7,7 +7,6 @@ export const removeNativeFormStyles = css`
     border: none;
     font: inherit;
     color: inherit;
-    cursor: pointer;
     text-transform: inherit;
     text-decoration: inherit;
     -webkit-tap-highlight-color: transparent;
