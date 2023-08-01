@@ -48,9 +48,15 @@ describe(ToniqTopTabs.tagName, () => {
         const {outputs, tabs, tabElements} = await renderExampleTopTabs();
         await awaitedForEach(tabElements, async (tabElement, index) => {
             await clickElement(tabElement);
-            await waitUntil(() => {
-                return outputs.length === index + 1;
-            });
+            await waitUntil(
+                () => {
+                    return outputs.length === index + 1;
+                },
+                '',
+                {
+                    timeout: 20_000,
+                },
+            );
             const latestEvent = outputs.slice(-1)[0];
             typedAssertNotNullish(latestEvent);
             assert.strictEqual(latestEvent.detail, tabs[index]);

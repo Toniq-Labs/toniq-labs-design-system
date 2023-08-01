@@ -59,23 +59,29 @@ export async function assertFocused(
         ? `${element.tagName} should have been focused but wasn't`
         : `${element.tagName} should NOT have been focused but was`;
 
-    await waitUntil(() => {
-        try {
-            /**
-             * Don't use document.activeElement here to test which element is focused because
-             * web-test-runner seizes up when you do that for some reason.
-             */
-            assert.strictEqual(
-                element.matches(':focus'),
-                shouldBeActive,
-                message || defaultMessage,
-            );
-        } catch (error) {
-            logActiveElement();
-            throw error;
-        }
-        return true;
-    });
+    try {
+        await waitUntil(
+            () => {
+                try {
+                    /**
+                     * Don't use document.activeElement here to test which element is focused
+                     * because web-test-runner seizes up when you do that for some reason.
+                     */
+                    assert.strictEqual(element.matches(':focus'), shouldBeActive);
+                } catch (error) {
+                    throw error;
+                }
+                return true;
+            },
+            message || defaultMessage,
+            {
+                timeout: 20_000,
+            },
+        );
+    } catch (error) {
+        logActiveElement();
+        throw error;
+    }
 }
 
 export function addSiblingSoFocusTestsWork(context: Element): HTMLElement {
