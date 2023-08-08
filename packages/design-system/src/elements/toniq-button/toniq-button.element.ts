@@ -1,12 +1,11 @@
 import {css, html} from 'element-vir';
+import {noUserSelect, removeNativeFormStyles} from 'vira';
 import {ToniqSvg} from '../../icons';
 import {toniqDurations} from '../../styles/animation';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {toniqDisabledStyles} from '../../styles/disabled';
 import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
-import {removeNativeFormStyles} from '../../styles/native-styles';
-import {noUserSelect} from '../../styles/user-select';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
@@ -52,6 +51,7 @@ export const ToniqButton = defineToniqElement<{
 
         button {
             ${removeNativeFormStyles};
+            cursor: pointer;
             position: relative;
             width: 100%;
             height: 100%;

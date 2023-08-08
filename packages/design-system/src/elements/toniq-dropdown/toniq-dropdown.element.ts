@@ -1,11 +1,12 @@
 import {classMap, css, defineElementEvent, html} from 'element-vir';
+import {noUserSelect, removeNativeFormStyles} from 'vira';
 import {testId} from '../../directives/test-id.directive';
 import {ChevronDown24Icon, ToniqSvg} from '../../icons';
-import {noUserSelect, toniqDisabledStyles, toniqFontStyles} from '../../styles';
 import {toniqDurations} from '../../styles/animation';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
+import {toniqDisabledStyles} from '../../styles/disabled';
 import {createFocusStyles} from '../../styles/focus';
-import {removeNativeFormStyles} from '../../styles/native-styles';
+import {toniqFontStyles} from '../../styles/fonts';
 import {toniqShadows} from '../../styles/shadows';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
@@ -60,7 +61,8 @@ export const ToniqDropdown = defineToniqElement<{
             align-self: stretch;
             flex-grow: 1;
             position: relative;
-            ${removeNativeFormStyles}
+            ${removeNativeFormStyles};
+            cursor: pointer;
             border-radius: 8px;
             outline: none;
         }

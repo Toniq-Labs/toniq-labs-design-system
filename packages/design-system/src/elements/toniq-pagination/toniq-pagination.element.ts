@@ -1,13 +1,9 @@
 import {classMap, css, defineElementEvent, html, listen} from 'element-vir';
+import {noUserSelect, removeNativeFormStyles} from 'vira';
 import {pagination} from '../../augments/array';
 import {ArrowLeft24Icon, ArrowRight24Icon} from '../../icons';
-import {
-    applyBackgroundAndForeground,
-    noUserSelect,
-    removeNativeFormStyles,
-    toniqColors,
-    toniqFontStyles,
-} from '../../styles';
+import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
+import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
@@ -29,7 +25,8 @@ export const ToniqPagination = defineToniqElement<{
         }
 
         button {
-            ${removeNativeFormStyles}
+            ${removeNativeFormStyles};
+            cursor: pointer;
         }
 
         button,

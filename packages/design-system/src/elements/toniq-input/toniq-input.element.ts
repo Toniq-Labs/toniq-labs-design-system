@@ -1,10 +1,11 @@
 import {css, defineElementEvent, html, listen, renderIf} from 'element-vir';
 import {TemplateResult} from 'lit';
+import {noUserSelect, removeNativeFormStyles} from 'vira';
 import {ToniqSvg} from '../../icons';
-import {toniqColors, toniqDisabledStyles, toniqFontStyles} from '../../styles';
+import {toniqColors} from '../../styles/colors';
+import {toniqDisabledStyles} from '../../styles/disabled';
 import {createFocusStyles} from '../../styles/focus';
-import {removeNativeFormStyles} from '../../styles/native-styles';
-import {noUserSelect} from '../../styles/user-select';
+import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
 import {buttonBorderRadius} from '../toniq-button/toniq-button.element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';

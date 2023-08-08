@@ -1,11 +1,12 @@
 import {css, defineElementEvent, html, listen, onResize} from 'element-vir';
 import {unsafeCSS} from 'lit';
+import {noUserSelect} from 'vira';
 import {toPercent, toPixel} from '../../augments/number';
 import {testId} from '../../directives/test-id.directive';
-import {noUserSelect, toniqFontStyles} from '../../styles';
 import {toniqDurations} from '../../styles/animation';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {createFocusStyles} from '../../styles/focus';
+import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
 import {
     ToniqSliderDoubleRangeValue,

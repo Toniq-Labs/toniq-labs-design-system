@@ -1,6 +1,9 @@
 import {classMap, css, defineElementEvent, html, listen, testId} from 'element-vir';
 import {Primitive} from 'type-fest';
-import {removeNativeFormStyles, toniqColors, toniqDurations, toniqFontStyles} from '../../styles';
+import {removeNativeFormStyles} from 'vira';
+import {toniqDurations} from '../../styles/animation';
+import {toniqColors} from '../../styles/colors';
+import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqBoldSpace} from '../toniq-bold-space/toniq-bold-space.element';
 

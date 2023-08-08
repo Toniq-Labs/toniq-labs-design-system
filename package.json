@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system-root",
-    "version": "5.0.0",
+    "version": "5.0.1",
     "private": true,
     "description": "Root design system mono-repo package.",
     "homepage": "https://github.com/Toniq-Labs/bioniq",
@@ -36,7 +36,8 @@
         "update:exports": "cd packages/scripts && npm run update:exports"
     },
     "dependencies": {
-        "spa-router-vir": "^2.1.1"
+        "spa-router-vir": "^2.1.1",
+        "vira": "^0.7.2"
     },
     "devDependencies": {
         "concurrently": "^8.2.0",
