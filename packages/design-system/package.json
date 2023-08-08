@@ -46,9 +46,9 @@
     "dependencies": {
         "@augment-vir/common": "^16.2.0",
         "@electrovir/resizable-image-element": "^7.1.5",
-        "element-vir": "^16.3.0",
+        "element-vir": "^16.3.1",
         "lit-css-vars": "^3.0.0",
-        "object-shape-tester": "^0.4.0",
+        "object-shape-tester": "^0.4.2",
         "scroll-snap-api": "^1.0.2"
     },
     "devDependencies": {
@@ -64,12 +64,12 @@
         "@web/test-runner-playwright": "^0.10.1",
         "@web/test-runner-visual-regression": "^0.8.2",
         "element-book": "^10.0.2",
-        "esbuild": "^0.18.17",
+        "esbuild": "^0.18.19",
         "istanbul-smart-text-reporter": "^1.1.2",
         "ts-node": "^10.9.1",
         "type-fest": "^4.1.0",
         "typescript": "^5.1.6",
-        "vite": "^4.4.7",
+        "vite": "^4.4.9",
         "vite-tsconfig-paths": "^4.2.0"
     },
     "publishConfig": {

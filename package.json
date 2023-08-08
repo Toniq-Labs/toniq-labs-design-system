@@ -41,10 +41,10 @@
     "devDependencies": {
         "concurrently": "^8.2.0",
         "cspell": "^6.31.2",
-        "esbuild": "^0.18.17",
+        "esbuild": "^0.18.19",
         "markdown-code-example-inserter": "^0.3.1",
         "mono-vir": "^0.1.4",
-        "npm-check-updates": "^16.10.17",
+        "npm-check-updates": "^16.10.18",
         "prettier": "^2.8.8",
         "prettier-plugin-interpolated-html-tags": "^0.0.4",
         "prettier-plugin-jsdoc": "^0.4.2",
@@ -54,7 +54,7 @@
         "prettier-plugin-sort-json": "^1.0.0",
         "prettier-plugin-toml": "^0.3.1",
         "typescript": "5.1.6",
-        "virmator": "^7.3.0"
+        "virmator": "^7.3.1"
     },
     "overrides": {
         "semver": "^7.5.2"
