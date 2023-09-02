@@ -1,1 +1,1 @@
-export {noUserSelect, removeNativeFormStyles} from 'vira';
+export {hideScrollbars, noNativeFormStyles, noUserSelect} from 'vira';

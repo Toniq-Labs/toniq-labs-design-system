@@ -1,6 +1,6 @@
 import {randomString} from '@augment-vir/browser';
 import {classMap, css, defineElementEvent, html, listen} from 'element-vir';
-import {removeNativeFormStyles} from 'vira';
+import {noNativeFormStyles} from 'vira';
 import {toniqDurations} from '../../styles/animation';
 import {colorValueToVarCall} from '../../styles/colors';
 import {toniqDisabledStyles} from '../../styles/disabled';
@@ -78,7 +78,7 @@ export const ToniqRadioGroup = defineToniqElement<{
         }
 
         button {
-            ${removeNativeFormStyles};
+            ${noNativeFormStyles};
             cursor: pointer;
         }
 

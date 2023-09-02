@@ -1,6 +1,7 @@
 import {DeclarativeElementHost, css, html, listen, onResize, unsafeCSS} from 'element-vir';
 import {classMap} from 'lit/directives/class-map.js';
 import {getScrollSnapPositions, scrollSnapToNext} from 'scroll-snap-api';
+import {hideScrollbars} from 'vira';
 import {ArrowLeft24Icon, ArrowRight24Icon} from '../../icons';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles';
 import {defineToniqElement} from '../define-toniq-element';
@@ -42,8 +43,6 @@ export const ToniqCarousel = defineToniqElement<{
             left: 0,
             right: Infinity,
         },
-        /** This is used to calculate how to hide the scrollbar. */
-        templatesWrapperHeight: 0,
         scrollSnapPositions: [] as number[],
         rotationIntervalId: undefined as undefined | number,
         enableRotation: true,
@@ -56,12 +55,7 @@ export const ToniqCarousel = defineToniqElement<{
             box-sizing: border-box;
         }
 
-        /* hide scrollbars in Chrome/Safari/Webkit */
-        .${unsafeCSS(templatesContainerClassName)}::-webkit-scrollbar {
-            background: transparent;
-            width: 0;
-            height: 0;
-        }
+        ${hideScrollbars(`.${templatesContainerClassName}`)}
 
         .${unsafeCSS(templatesContainerClassName)} {
             position: relative;
@@ -71,9 +65,6 @@ export const ToniqCarousel = defineToniqElement<{
             scroll-snap-type: x mandatory;
             z-index: 9;
             overflow-y: hidden;
-
-            scrollbar-width: none; /* hide scrollbars in Firefox */
-            -ms-overflow-style: none; /* hide scrollbars in IE 10+ */
         }
 
         .template-wrapper {

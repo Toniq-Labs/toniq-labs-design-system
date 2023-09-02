@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system-native-elements-test",
-    "version": "5.0.1",
+    "version": "6.0.0",
     "private": true,
     "scripts": {
         "compile": "virmator compile",
@@ -16,11 +16,11 @@
         "@types/chai": "^4.3.5",
         "@types/mocha": "^10.0.1",
         "@web/dev-server-esbuild": "^0.4.1",
-        "@web/test-runner": "^0.17.0",
+        "@web/test-runner": "^0.17.1",
         "@web/test-runner-commands": "^0.8.0",
         "@web/test-runner-playwright": "^0.10.1",
         "@web/test-runner-visual-regression": "^0.8.2",
         "istanbul-smart-text-reporter": "^1.1.2",
-        "typescript": "^5.1.6"
+        "typescript": "^5.2.2"
     }
 }

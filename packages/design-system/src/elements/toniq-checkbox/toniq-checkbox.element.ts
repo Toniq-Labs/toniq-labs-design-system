@@ -1,5 +1,5 @@
 import {classMap, css, defineElementEvent, html, listen} from 'element-vir';
-import {noUserSelect, removeNativeFormStyles} from 'vira';
+import {noNativeFormStyles, noUserSelect} from 'vira';
 import {CheckMark24Icon} from '../../icons/svgs/core-24/check-mark-24.icon';
 import {toniqDurations} from '../../styles/animation';
 import {colorValueToVarCall} from '../../styles/colors';
@@ -50,7 +50,7 @@ export const ToniqCheckbox = defineToniqElement<{
         }
 
         button {
-            ${removeNativeFormStyles};
+            ${noNativeFormStyles};
             cursor: pointer;
             border-radius: 8px;
         }

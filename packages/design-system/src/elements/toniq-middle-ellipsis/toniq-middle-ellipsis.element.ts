@@ -1,5 +1,5 @@
 import {classMap, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
-import {removeNativeFormStyles} from 'vira';
+import {noNativeFormStyles} from 'vira';
 import {copyToClipboard} from '../../clipboard';
 import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
 import {toniqDurations} from '../../styles/animation';
@@ -126,7 +126,7 @@ export const ToniqMiddleEllipsis = defineToniqElement<
         }
 
         button {
-            ${removeNativeFormStyles};
+            ${noNativeFormStyles};
             cursor: pointer;
             border-radius: 8px;
             position: relative;

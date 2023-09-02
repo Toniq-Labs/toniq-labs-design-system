@@ -1,5 +1,5 @@
 import {classMap, css, defineElementEvent, html} from 'element-vir';
-import {noUserSelect, removeNativeFormStyles} from 'vira';
+import {noNativeFormStyles, noUserSelect} from 'vira';
 import {testId} from '../../directives/test-id.directive';
 import {ChevronDown24Icon, ToniqSvg} from '../../icons';
 import {toniqDurations} from '../../styles/animation';
@@ -61,7 +61,7 @@ export const ToniqDropdown = defineToniqElement<{
             align-self: stretch;
             flex-grow: 1;
             position: relative;
-            ${removeNativeFormStyles};
+            ${noNativeFormStyles};
             cursor: pointer;
             border-radius: 8px;
             outline: none;

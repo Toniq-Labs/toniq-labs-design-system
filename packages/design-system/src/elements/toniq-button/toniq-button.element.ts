@@ -1,5 +1,5 @@
 import {css, html} from 'element-vir';
-import {noUserSelect, removeNativeFormStyles} from 'vira';
+import {noNativeFormStyles, noUserSelect} from 'vira';
 import {ToniqSvg} from '../../icons';
 import {toniqDurations} from '../../styles/animation';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
@@ -50,7 +50,7 @@ export const ToniqButton = defineToniqElement<{
         }
 
         button {
-            ${removeNativeFormStyles};
+            ${noNativeFormStyles};
             cursor: pointer;
             position: relative;
             width: 100%;

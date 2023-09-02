@@ -1,6 +1,6 @@
 import {classMap, css, defineElementEvent, html, listen, testId} from 'element-vir';
 import {Primitive} from 'type-fest';
-import {removeNativeFormStyles} from 'vira';
+import {noNativeFormStyles} from 'vira';
 import {toniqDurations} from '../../styles/animation';
 import {toniqColors} from '../../styles/colors';
 import {toniqFontStyles} from '../../styles/fonts';
@@ -31,7 +31,7 @@ export const ToniqTopTabs = defineToniqElement<{
         }
 
         ul {
-            ${removeNativeFormStyles};
+            ${noNativeFormStyles};
             display: flex;
             width: 100%;
         }
@@ -45,7 +45,7 @@ export const ToniqTopTabs = defineToniqElement<{
         }
 
         button {
-            ${removeNativeFormStyles};
+            ${noNativeFormStyles};
             cursor: pointer;
             ${toniqFontStyles.paragraphFont};
             padding: ${cssVars['toniq-top-tabs-tab-vertical-padding'].value} 8px;

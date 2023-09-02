@@ -1,6 +1,6 @@
 import {css, defineElementEvent, html, listen, renderIf} from 'element-vir';
 import {TemplateResult} from 'lit';
-import {noUserSelect, removeNativeFormStyles} from 'vira';
+import {noNativeFormStyles, noUserSelect} from 'vira';
 import {ToniqSvg} from '../../icons';
 import {toniqColors} from '../../styles/colors';
 import {toniqDisabledStyles} from '../../styles/disabled';
@@ -193,7 +193,7 @@ export const ToniqInput = defineToniqElement<{
             }
 
             input {
-                ${removeNativeFormStyles};
+                ${noNativeFormStyles};
                 flex-grow: 1;
                 max-width: 100%;
                 /* fix input element not shrinking by default */
