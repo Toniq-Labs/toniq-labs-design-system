@@ -1,8 +1,9 @@
 import {css} from 'element-vir';
+import {ReadonlyDeep} from 'type-fest';
 import {ToniqSvg} from '../../icons/toniq-svg';
 import {defineToniqElement} from '../define-toniq-element';
 
-export const ToniqIcon = defineToniqElement<{icon?: ToniqSvg | undefined}>()({
+export const ToniqIcon = defineToniqElement<{icon?: ReadonlyDeep<ToniqSvg> | undefined}>()({
     tagName: 'toniq-icon',
     hostClasses: {
         'toniq-icon-fit-icon': false,
