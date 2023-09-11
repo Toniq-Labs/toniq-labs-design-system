@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles/icon-colors';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const Copy16Icon = new ToniqSvg(
-    'Copy16Icon',
-    html`
+export const Copy16Icon = defineIcon({
+    name: 'Copy16Icon',
+    svgTemplate: html`
         <svg
             fill="none"
             stroke="${toniqIconColors.stroke()}"
@@ -27,4 +28,4 @@ export const Copy16Icon = new ToniqSvg(
             ></path>
         </svg>
     `,
-);
+});

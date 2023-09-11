@@ -15,7 +15,7 @@ export const iconPages: BookPage[] = Object.entries(allIconsByCategory).map(
             elementExamplesCallback({defineExample}) {
                 icons.map((icon) => {
                     return defineExample({
-                        title: icon.iconName,
+                        title: icon.name,
                         renderCallback() {
                             return html`
                                 <${ToniqIconBookHelper.assign({

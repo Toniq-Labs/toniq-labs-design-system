@@ -1,8 +1,9 @@
-import {html, ToniqSvg} from '../../toniq-svg';
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 
-export const BrandInstagram24Icon = new ToniqSvg(
-    'BrandInstagram24Icon',
-    html`
+export const BrandInstagram24Icon = defineIcon({
+    name: 'BrandInstagram24Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -57,4 +58,4 @@ export const BrandInstagram24Icon = new ToniqSvg(
             </defs>
         </svg>
     `,
-);
+});

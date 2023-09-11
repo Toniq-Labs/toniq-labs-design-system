@@ -2,7 +2,7 @@ import {BookPageControlTypeEnum, defineBookPage, definePageControl} from 'elemen
 import {CSSResult, css, html, listen} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {Search24Icon} from '../../icons';
-import {allIconNames, allIconsByName} from '../../icons/icon.book-helper';
+import {allIconsByName, createIconPicker} from '../../icons/icon.book-helper';
 import {ToniqInput, ToniqInputStyleEnum} from './toniq-input.element';
 
 export const toniqInputPage = defineBookPage({
@@ -17,14 +17,7 @@ export const toniqInputPage = defineBookPage({
             controlType: BookPageControlTypeEnum.Text,
             initValue: 'placeholder',
         },
-        Icon: definePageControl({
-            controlType: BookPageControlTypeEnum.Dropdown,
-            initValue: Search24Icon.iconName,
-            options: [
-                'None',
-                ...allIconNames,
-            ],
-        }),
+        Icon: createIconPicker(Search24Icon.name),
         Suffix: definePageControl({
             controlType: BookPageControlTypeEnum.Text,
             initValue: 'ICP',

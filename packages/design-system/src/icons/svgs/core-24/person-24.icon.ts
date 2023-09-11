@@ -1,8 +1,9 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles/icon-colors';
-import {html, ToniqSvg} from '../../toniq-svg';
-export const Person24Icon = new ToniqSvg(
-    'Person24Icon',
-    html`
+export const Person24Icon = defineIcon({
+    name: 'Person24Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -19,4 +20,4 @@ export const Person24Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

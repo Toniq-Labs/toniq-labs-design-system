@@ -1,8 +1,9 @@
-import {html, ToniqSvg} from '../../toniq-svg';
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 
-export const CryptoBtc24Icon = new ToniqSvg(
-    'CryptoBtc24Icon',
-    html`
+export const CryptoBtc24Icon = defineIcon({
+    name: 'CryptoBtc24Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -22,4 +23,4 @@ export const CryptoBtc24Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

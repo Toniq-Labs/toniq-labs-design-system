@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system-scripts",
-    "version": "6.0.2",
+    "version": "7.0.0",
     "private": true,
     "scripts": {
         "compile": "virmator compile",

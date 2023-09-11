@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles/icon-colors';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const ChevronDown24Icon = new ToniqSvg(
-    'ChevronDown24Icon',
-    html`
+export const ChevronDown24Icon = defineIcon({
+    name: 'ChevronDown24Icon',
+    svgTemplate: html`
         <svg
             fill="none"
             stroke="${toniqIconColors.stroke()}"
@@ -21,4 +22,4 @@ export const ChevronDown24Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

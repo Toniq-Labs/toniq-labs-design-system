@@ -1,6 +1,6 @@
 import {assert, expect, fixture} from '@open-wc/testing';
 import {Copy16Icon} from '@toniq-labs/design-system';
-import {html, unsafeHTML} from 'element-vir';
+import {convertTemplateToString, html} from 'element-vir';
 import {AppElement} from './app.element';
 
 describe(AppElement.tagName, () => {
@@ -15,15 +15,11 @@ describe(AppElement.tagName, () => {
                 <${AppElement}></${AppElement}>
             `,
         );
-        const renderedIcon = await fixture(
-            html`
-                ${unsafeHTML(Copy16Icon.svgString)}
-            `,
-        );
+        const renderedIcon = await fixture(Copy16Icon.svgTemplate);
         const renderedIconHtml = renderedIcon.outerHTML.trim();
         // sanity check that the icon got rendered
         expect(renderedIconHtml).to.include('</svg>');
-        expect(Copy16Icon.svgString).to.include('</svg>');
+        expect(convertTemplateToString(Copy16Icon.svgTemplate)).to.include('</svg>');
 
         const toniqIcon = renderedApp.shadowRoot?.querySelector('toniq-icon');
         const preparedHtml = toniqIcon?.shadowRoot?.innerHTML;

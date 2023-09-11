@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles/icon-colors';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const ArrowBarUp24Icon = new ToniqSvg(
-    'ArrowBarUp24Icon',
-    html`
+export const ArrowBarUp24Icon = defineIcon({
+    name: 'ArrowBarUp24Icon',
+    svgTemplate: html`
         <svg
             fill="none"
             stroke="${toniqIconColors.stroke()}"
@@ -22,4 +23,4 @@ export const ArrowBarUp24Icon = new ToniqSvg(
             <path stroke-miterlimit="4" stroke-width="2" d="M4 20h16" />
         </svg>
     `,
-);
+});

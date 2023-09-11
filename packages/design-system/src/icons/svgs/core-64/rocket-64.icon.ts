@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const Rocket64Icon = new ToniqSvg(
-    'Rocket64Icon',
-    html`
+export const Rocket64Icon = defineIcon({
+    name: 'Rocket64Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -23,4 +24,4 @@ export const Rocket64Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

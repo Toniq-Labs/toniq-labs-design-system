@@ -1,8 +1,9 @@
-import {html, ToniqSvg} from '../../toniq-svg';
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 
-export const BrandGoogleLogo24Icon = new ToniqSvg(
-    'BrandGoogleLogo24Icon',
-    html`
+export const BrandGoogleLogo24Icon = defineIcon({
+    name: 'BrandGoogleLogo24Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -32,4 +33,4 @@ export const BrandGoogleLogo24Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

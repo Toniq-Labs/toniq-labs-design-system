@@ -3,7 +3,7 @@ import {BookPageControlTypeEnum, defineBookPage, definePageControl} from 'elemen
 import {CSSResult, css, html, listen} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {ArrowsSort24Icon} from '../../icons';
-import {allIconNames, allIconsByName} from '../../icons/icon.book-helper';
+import {allIconsByName, createIconPicker} from '../../icons/icon.book-helper';
 import {toniqColorCssVarNames} from '../../styles';
 import {
     ToniqDropdown,
@@ -85,14 +85,7 @@ export const toniqDropdownPage = defineBookPage({
             initValue: 'Down',
             options: getEnumTypedKeys(ToniqDropdownDirectionEnum),
         }),
-        Icon: definePageControl({
-            controlType: BookPageControlTypeEnum.Dropdown,
-            initValue: ArrowsSort24Icon.iconName,
-            options: [
-                'None',
-                ...allIconNames,
-            ],
-        }),
+        Icon: createIconPicker(ArrowsSort24Icon.name),
         Prefix: definePageControl({
             controlType: BookPageControlTypeEnum.Text,
             initValue: 'Sort by: ',

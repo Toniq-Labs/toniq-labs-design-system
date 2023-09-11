@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const Chain24Icon = new ToniqSvg(
-    'Chain24Icon',
-    html`
+export const Chain24Icon = defineIcon({
+    name: 'Chain24Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -22,4 +23,4 @@ export const Chain24Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

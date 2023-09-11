@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles/icon-colors';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const Menu24Icon = new ToniqSvg(
-    'Menu24Icon',
-    html`
+export const Menu24Icon = defineIcon({
+    name: 'Menu24Icon',
+    svgTemplate: html`
         <svg
             fill="none"
             stroke="${toniqIconColors.stroke()}"
@@ -20,4 +21,4 @@ export const Menu24Icon = new ToniqSvg(
             <path stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
     `,
-);
+});

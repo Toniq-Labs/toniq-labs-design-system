@@ -1,6 +1,8 @@
+import {typedAssertInstanceOf} from '@augment-vir/browser-testing';
 import {assert, fixture} from '@open-wc/testing';
-import {html, unsafeHTML} from 'element-vir';
+import {html} from 'element-vir';
 import {createFixtureTest} from '../../element-testing/fixture-test';
+import {assertIconEquals} from '../../element-testing/icon-test-helpers';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
 import {runFocusTests} from '../../element-testing/test-focus';
@@ -34,19 +36,9 @@ describe(ToniqIcon.tagName, () => {
                     })}></${ToniqIcon}>
                 `,
             );
-            const toniqIconSvg = queryThroughShadow('svg', renderedToniqIcon)?.outerHTML.trim();
 
-            const iconSvg = (
-                await fixture(
-                    html`
-                        ${unsafeHTML(iconToRender.svgString)}
-                    `,
-                )
-            ).outerHTML.trim();
-
-            assert.isNotEmpty(iconSvg);
-
-            assert.equal(toniqIconSvg, iconSvg);
+            typedAssertInstanceOf(renderedToniqIcon, ToniqIcon);
+            await assertIconEquals(renderedToniqIcon, iconToRender);
         }),
     );
 

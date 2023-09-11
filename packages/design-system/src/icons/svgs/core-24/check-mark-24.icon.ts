@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const CheckMark24Icon = new ToniqSvg(
-    'CheckMark24Icon',
-    html`
+export const CheckMark24Icon = defineIcon({
+    name: 'CheckMark24Icon',
+    svgTemplate: html`
         <svg
             fill="none"
             stroke="${toniqIconColors.stroke()}"
@@ -20,4 +21,4 @@ export const CheckMark24Icon = new ToniqSvg(
             <path stroke-width="2" d="m19 6-9 12-5-5" />
         </svg>
     `,
-);
+});

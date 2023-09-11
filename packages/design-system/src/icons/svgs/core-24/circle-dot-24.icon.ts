@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles/icon-colors';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const CircleDot24Icon = new ToniqSvg(
-    'CircleDot24Icon',
-    html`
+export const CircleDot24Icon = defineIcon({
+    name: 'CircleDot24Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -33,4 +34,4 @@ export const CircleDot24Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

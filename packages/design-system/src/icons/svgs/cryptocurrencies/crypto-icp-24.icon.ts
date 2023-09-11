@@ -1,9 +1,10 @@
-import {html, ToniqSvg} from '../../toniq-svg';
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {icpSvgImage, icpSvgImageViewBox} from '../icp-svg-image';
 
-export const CryptoIcp24Icon = new ToniqSvg(
-    'CryptoIcp24Icon',
-    html`
+export const CryptoIcp24Icon = defineIcon({
+    name: 'CryptoIcp24Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -16,4 +17,4 @@ export const CryptoIcp24Icon = new ToniqSvg(
         </svg>
         </svg>
     `,
-);
+});

@@ -1,4 +1,4 @@
-import {css, html, unsafeSVG} from 'element-vir';
+import {css} from 'element-vir';
 import {ToniqSvg} from '../../icons/toniq-svg';
 import {defineToniqElement} from '../define-toniq-element';
 
@@ -26,8 +26,6 @@ export const ToniqIcon = defineToniqElement<{icon?: ToniqSvg | undefined}>()({
         }
     `,
     renderCallback({inputs}) {
-        return html`
-            ${inputs.icon ? unsafeSVG(inputs.icon.svgString) : ''}
-        `;
+        return inputs.icon ? inputs.icon.svgTemplate : '';
     },
 });

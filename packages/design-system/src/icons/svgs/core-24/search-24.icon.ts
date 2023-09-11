@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles/icon-colors';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const Search24Icon = new ToniqSvg(
-    'Search24Icon',
-    html`
+export const Search24Icon = defineIcon({
+    name: 'Search24Icon',
+    svgTemplate: html`
         <svg
             fill="none"
             stroke="${toniqIconColors.stroke()}"
@@ -20,4 +21,4 @@ export const Search24Icon = new ToniqSvg(
             <path stroke-width="2" d="M10 3a7 7 0 1 1 0 14 7 7 0 0 1 0-14Zm11 18-6-6" />
         </svg>
     `,
-);
+});

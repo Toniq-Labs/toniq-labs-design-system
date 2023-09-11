@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const BrandTelegram24Icon = new ToniqSvg(
-    'BrandTelegram24Icon',
-    html`
+export const BrandTelegram24Icon = defineIcon({
+    name: 'BrandTelegram24Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -21,4 +22,4 @@ export const BrandTelegram24Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

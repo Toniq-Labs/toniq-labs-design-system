@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const BrandTwitch24Icon = new ToniqSvg(
-    'BrandTwitch24Icon',
-    html`
+export const BrandTwitch24Icon = defineIcon({
+    name: 'BrandTwitch24Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -22,4 +23,4 @@ export const BrandTwitch24Icon = new ToniqSvg(
             <path d="M15.459 5.324h1.586v4.717h-1.586V5.324Zm-4.357 0h1.586v4.717h-1.586V5.324Z" />
         </svg>
     `,
-);
+});

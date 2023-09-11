@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles/icon-colors';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const Refresh24Icon = new ToniqSvg(
-    'Refresh24Icon',
-    html`
+export const Refresh24Icon = defineIcon({
+    name: 'Refresh24Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -16,4 +17,4 @@ export const Refresh24Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

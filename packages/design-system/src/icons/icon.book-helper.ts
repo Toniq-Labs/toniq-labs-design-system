@@ -1,3 +1,4 @@
+import {BookPageControlTypeEnum, definePageControl} from 'element-book';
 import {css, html} from 'element-vir';
 import {ToniqIcon, defineToniqElement} from '../elements';
 import {toniqColors} from '../styles';
@@ -26,14 +27,25 @@ export const ToniqIconBookHelper = defineToniqElement<{icon: ToniqSvg}>()({
 
 export const allIconsByName = Object.values(allIconsByCategory).reduce((accum, icons) => {
     icons.forEach((icon) => {
-        if (icon.iconName in accum) {
-            throw new Error(`Icon name duplicate: '${icon.iconName}'`);
+        if (icon.name in accum) {
+            throw new Error(`Icon name duplicate: '${icon.name}'`);
         }
 
-        accum[icon.iconName] = icon;
+        accum[icon.name] = icon;
     });
 
     return accum;
 }, {} as Record<string, ToniqSvg>);
 
 export const allIconNames = Object.keys(allIconsByName).sort();
+
+export function createIconPicker(defaultIconName: string) {
+    return definePageControl({
+        controlType: BookPageControlTypeEnum.Dropdown,
+        initValue: defaultIconName,
+        options: [
+            'None',
+            ...allIconNames,
+        ],
+    });
+}

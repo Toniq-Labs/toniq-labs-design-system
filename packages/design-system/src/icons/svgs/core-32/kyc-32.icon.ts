@@ -1,8 +1,9 @@
-import {html, ToniqSvg} from '../../toniq-svg';
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 
-export const Kyc32Icon = new ToniqSvg(
-    'Kyc32Icon',
-    html`
+export const Kyc32Icon = defineIcon({
+    name: 'Kyc32Icon',
+    svgTemplate: html`
         <svg
             viewBox="0 0 32 32"
             height="32"
@@ -51,4 +52,4 @@ export const Kyc32Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles/icon-colors';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const InfoCircle16Icon = new ToniqSvg(
-    'InfoCircle16Icon',
-    html`
+export const InfoCircle16Icon = defineIcon({
+    name: 'InfoCircle16Icon',
+    svgTemplate: html`
         <svg
             fill="none"
             stroke="${toniqIconColors.stroke()}"
@@ -20,4 +21,4 @@ export const InfoCircle16Icon = new ToniqSvg(
             <path stroke-width="2" d="M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2Zm0 3h0M7 8h1v3h1" />
         </svg>
     `,
-);
+});

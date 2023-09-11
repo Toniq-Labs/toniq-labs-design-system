@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles/icon-colors';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const LoaderAnimated24Icon = new ToniqSvg(
-    'LoaderAnimated24Icon',
-    html`
+export const LoaderAnimated24Icon = defineIcon({
+    name: 'LoaderAnimated24Icon',
+    svgTemplate: html`
         <style>
             @keyframes spin {
                 0% {
@@ -42,4 +43,4 @@ export const LoaderAnimated24Icon = new ToniqSvg(
             <path d="M7.75 7.75 5.6 5.6" />
         </svg>
     `,
-);
+});

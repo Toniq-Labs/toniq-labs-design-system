@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const CircleDashes64Icon = new ToniqSvg(
-    'CircleDashes64Icon',
-    html`
+export const CircleDashes64Icon = defineIcon({
+    name: 'CircleDashes64Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -21,4 +22,4 @@ export const CircleDashes64Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const Api64Icon = new ToniqSvg(
-    'Api64Icon',
-    html`
+export const Api64Icon = defineIcon({
+    name: 'Api64Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -22,4 +23,4 @@ export const Api64Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

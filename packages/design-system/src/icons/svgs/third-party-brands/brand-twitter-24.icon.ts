@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const BrandTwitter24Icon = new ToniqSvg(
-    'BrandTwitter24Icon',
-    html`
+export const BrandTwitter24Icon = defineIcon({
+    name: 'BrandTwitter24Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -21,4 +22,4 @@ export const BrandTwitter24Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

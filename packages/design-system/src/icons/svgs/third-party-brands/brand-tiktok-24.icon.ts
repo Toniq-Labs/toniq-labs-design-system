@@ -1,8 +1,9 @@
-import {html, ToniqSvg} from '../../toniq-svg';
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 
-export const BrandTiktok24Icon = new ToniqSvg(
-    'BrandTiktok24Icon',
-    html`
+export const BrandTiktok24Icon = defineIcon({
+    name: 'BrandTiktok24Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -30,4 +31,4 @@ export const BrandTiktok24Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

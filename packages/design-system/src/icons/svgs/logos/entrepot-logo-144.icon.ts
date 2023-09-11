@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const EntrepotLogo144Icon = new ToniqSvg(
-    'EntrepotLogo144Icon',
-    html`
+export const EntrepotLogo144Icon = defineIcon({
+    name: 'EntrepotLogo144Icon',
+    svgTemplate: html`
         <svg
             height="134"
             width="144"
@@ -21,4 +22,4 @@ export const EntrepotLogo144Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles/icon-colors';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const Infinity24Icon = new ToniqSvg(
-    'Infinity24Icon',
-    html`
+export const Infinity24Icon = defineIcon({
+    name: 'Infinity24Icon',
+    svgTemplate: html`
         <svg
             fill="none"
             stroke="${toniqIconColors.stroke()}"
@@ -23,4 +24,4 @@ export const Infinity24Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

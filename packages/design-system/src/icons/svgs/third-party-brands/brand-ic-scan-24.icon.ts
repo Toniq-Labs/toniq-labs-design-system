@@ -1,8 +1,9 @@
-import {html, ToniqSvg} from '../../toniq-svg';
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 
-export const BrandIcScan24Icon = new ToniqSvg(
-    'BrandIcScan24Icon',
-    html`
+export const BrandIcScan24Icon = defineIcon({
+    name: 'BrandIcScan24Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -26,4 +27,4 @@ export const BrandIcScan24Icon = new ToniqSvg(
             <path fill="#33307c" d="m12 3 11 5V6L12 1v2Z" />
         </svg>
     `,
-);
+});

@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const ArrowsSortAscending24Icon = new ToniqSvg(
-    'ArrowsSortAscending24Icon',
-    html`
+export const ArrowsSortAscending24Icon = defineIcon({
+    name: 'ArrowsSortAscending24Icon',
+    svgTemplate: html`
         <svg
             fill="none"
             stroke="${toniqIconColors.stroke()}"
@@ -21,4 +22,4 @@ export const ArrowsSortAscending24Icon = new ToniqSvg(
             <path stroke-width="2" d="M5 19 19 5m0 6V5h-6" />
         </svg>
     `,
-);
+});

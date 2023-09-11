@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles/icon-colors';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const X24Icon = new ToniqSvg(
-    'X24Icon',
-    html`
+export const X24Icon = defineIcon({
+    name: 'X24Icon',
+    svgTemplate: html`
         <svg
             fill="none"
             stroke="${toniqIconColors.stroke()}"
@@ -20,4 +21,4 @@ export const X24Icon = new ToniqSvg(
             <path stroke-width="2" d="M18 6 6 18M6 6l12 12" />
         </svg>
     `,
-);
+});

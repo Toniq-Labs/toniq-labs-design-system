@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles/icon-colors';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const ExternalLink16Icon = new ToniqSvg(
-    'ExternalLink16Icon',
-    html`
+export const ExternalLink16Icon = defineIcon({
+    name: 'ExternalLink16Icon',
+    svgTemplate: html`
         <svg
             fill="none"
             stroke="${toniqIconColors.stroke()}"
@@ -23,4 +24,4 @@ export const ExternalLink16Icon = new ToniqSvg(
             />
         </svg>
     `,
-);
+});

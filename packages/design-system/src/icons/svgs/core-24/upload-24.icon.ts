@@ -1,9 +1,10 @@
+import {html} from 'element-vir';
+import {defineIcon} from 'vira';
 import {toniqIconColors} from '../../../styles';
-import {html, ToniqSvg} from '../../toniq-svg';
 
-export const Upload24Icon = new ToniqSvg(
-    'Upload24Icon',
-    html`
+export const Upload24Icon = defineIcon({
+    name: 'Upload24Icon',
+    svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
@@ -22,4 +23,4 @@ export const Upload24Icon = new ToniqSvg(
             <path stroke-width="2" d="M4 14v6h16v-6m-8 1V4L8 8m8 0-4-4" />
         </svg>
     `,
-);
+});
