@@ -1,1 +1,1 @@
-export type {ViraIconSvg as ToniqSvg} from 'vira';
+export type {ViraIconSvg as ToniqSvg, defineIcon} from 'vira';
