@@ -13,10 +13,12 @@ export const ToniqHyperlink = defineToniqElement<{
      */
     treatAsRouteChange?: boolean | undefined;
     scrollToTop?: boolean | undefined;
+    linkDisabled?: boolean | undefined;
 }>()({
     tagName: 'toniq-hyperlink',
     hostClasses: {
         'toniq-hyperlink-with-hover-styles': ({inputs}) => !!inputs.withHoverStyles,
+        'toniq-hyperlink-link-disabled': ({inputs}) => !!inputs.linkDisabled,
     },
     events: {
         routeChangeTriggered: defineElementEvent<void>(),
@@ -48,9 +50,18 @@ export const ToniqHyperlink = defineToniqElement<{
         ].selector} a:active {
             color: ${toniqColors.pageInteractionActive.foregroundColor};
         }
+
+        ${hostClasses['toniq-hyperlink-link-disabled'].selector} a {
+            cursor: default;
+        }
     `,
     renderCallback({inputs, dispatch, events}) {
         function clickCallback(clickEvent: MouseEvent) {
+            if (inputs.linkDisabled) {
+                clickEvent.preventDefault();
+                return;
+            }
+
             if (!inputs.treatAsRouteChange) {
                 return;
             }

@@ -24,6 +24,10 @@ export const toniqHyperlinkPage = defineBookPage({
                 title: 'route link',
                 inputs: {treatAsRouteChange: true},
             },
+            {
+                title: 'link disabled',
+                inputs: {linkDisabled: true},
+            },
         ];
 
         exampleConfigs.forEach((exampleConfig) => {
