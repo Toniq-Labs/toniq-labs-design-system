@@ -36,13 +36,13 @@
         "update:exports": "cd packages/scripts && npm run update:exports"
     },
     "dependencies": {
-        "spa-router-vir": "^3.0.1",
-        "vira": "^2.2.2"
+        "spa-router-vir": "^3.0.2",
+        "vira": "^2.3.0"
     },
     "devDependencies": {
         "concurrently": "^8.2.1",
-        "cspell": "^7.3.2",
-        "esbuild": "^0.19.2",
+        "cspell": "^7.3.6",
+        "esbuild": "^0.19.3",
         "markdown-code-example-inserter": "^0.3.1",
         "mono-vir": "^0.1.4",
         "npm-check-updates": "~16.12.3",
