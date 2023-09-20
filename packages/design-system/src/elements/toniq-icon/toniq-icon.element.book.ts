@@ -73,5 +73,27 @@ export const toniqIconBookPage = defineBookPage({
                 });
             },
         });
+
+        defineExample({
+            title: 'fit container',
+            styles: css`
+                :host {
+                    width: 64px;
+                    height: 64px;
+                }
+
+                ${ToniqIcon} {
+                    width: inherit;
+                    height: inherit;
+                }
+            `,
+            renderCallback({controls}) {
+                return html`
+                    <${ToniqIcon.assign({icon: InfoCircle16Icon, fitContainer: true})}
+                        style=${iconCssVarsToStyles(controls)}
+                    ></${ToniqIcon}>
+                `;
+            },
+        });
     },
 });

@@ -18,6 +18,11 @@ export const ToniqIcon = defineToniqElement<typeof ViraIcon.inputsType>()({
                 'toniq-icon-stroke-width'
             ].value}
         }
+
+        ${ViraIcon} {
+            height: 100%;
+            width: 100%;
+        }
     `,
     renderCallback({inputs}) {
         return html`
