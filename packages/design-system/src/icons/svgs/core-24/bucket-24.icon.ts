@@ -1,26 +1,28 @@
 import {html} from 'element-vir';
 import {defineIcon} from 'vira';
-import {toniqIconColors} from '../../../styles/icon-colors';
+import {toniqIconCssVars} from '../../../styles/icon-css-vars';
 
 export const Bucket24Icon = defineIcon({
     name: 'Bucket24Icon',
     svgTemplate: html`
         <svg
-            fill="none"
-            stroke="${toniqIconColors.stroke()}"
             xmlns="http://www.w3.org/2000/svg"
-            xml:space="preserve"
-            width="24"
-            height="24"
-            fill-rule="evenodd"
+            stroke=${toniqIconCssVars['toniq-icon-stroke-color'].value}
+            fill=${toniqIconCssVars['toniq-icon-fill-color'].value}
             stroke-linecap="round"
             stroke-linejoin="round"
-            clip-rule="evenodd"
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
         >
             <path
-                stroke-width="2"
-                d="m19 9-2 9c-.2 1.18-1.03 2.02-2 2H9c-.97.02-1.8-.82-2-2L5 9h14ZM7 9a5 5 0 0 1 10 0"
+                stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+                d="M7 9a5 5 0 0 1 5-5 5 5 0 0 1 5 5"
+                fill="none"
+            />
+            <path
+                stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+                d="m19 9-2 9c-.2 1.2-1 2-2 2H9c-1 0-1.8-.8-2-2L5 9h14Z"
             />
         </svg>
     `,

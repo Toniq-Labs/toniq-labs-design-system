@@ -1,6 +1,11 @@
-import {assert, expect, fixture} from '@open-wc/testing';
-import {Copy16Icon} from '@toniq-labs/design-system';
+import {assert, fixture} from '@open-wc/testing';
+import {Copy16Icon, ToniqIcon} from '@toniq-labs/design-system';
+import {
+    assertIconEquals,
+    getRenderedIconSvg,
+} from '@toniq-labs/design-system/src/element-testing/icon-testing';
 import {convertTemplateToString, html} from 'element-vir';
+import {assertInstanceOf} from 'run-time-assertions';
 import {AppElement} from './app.element';
 
 describe(AppElement.tagName, () => {
@@ -15,14 +20,14 @@ describe(AppElement.tagName, () => {
                 <${AppElement}></${AppElement}>
             `,
         );
-        const renderedIcon = await fixture(Copy16Icon.svgTemplate);
-        const renderedIconHtml = renderedIcon.outerHTML.trim();
+        const renderedCopyIcon = await getRenderedIconSvg(Copy16Icon);
+        const renderedIconHtml = renderedCopyIcon.iconHtml.trim();
         // sanity check that the icon got rendered
-        expect(renderedIconHtml).to.include('</svg>');
-        expect(convertTemplateToString(Copy16Icon.svgTemplate)).to.include('</svg>');
+        assert.include(renderedIconHtml, '</svg>');
+        assert.include(convertTemplateToString(Copy16Icon.svgTemplate), '</svg>');
+        const toniqIcon = renderedApp.shadowRoot?.querySelector(ToniqIcon.tagName);
+        assertInstanceOf(toniqIcon, ToniqIcon);
 
-        const toniqIcon = renderedApp.shadowRoot?.querySelector('toniq-icon');
-        const preparedHtml = toniqIcon?.shadowRoot?.innerHTML;
-        expect(preparedHtml).to.include(renderedIconHtml);
+        assertIconEquals(toniqIcon, Copy16Icon);
     });
 });

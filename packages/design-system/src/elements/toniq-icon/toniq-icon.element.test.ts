@@ -1,8 +1,8 @@
-import {typedAssertInstanceOf} from '@augment-vir/browser-testing';
 import {assert, fixture} from '@open-wc/testing';
 import {html} from 'element-vir';
+import {assertInstanceOf} from 'run-time-assertions';
 import {createFixtureTest} from '../../element-testing/fixture-test';
-import {assertIconEquals} from '../../element-testing/icon-test-helpers';
+import {assertIconEquals} from '../../element-testing/icon-testing';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';
 import {runFocusTests} from '../../element-testing/test-focus';
@@ -37,7 +37,7 @@ describe(ToniqIcon.tagName, () => {
                 `,
             );
 
-            typedAssertInstanceOf(renderedToniqIcon, ToniqIcon);
+            assertInstanceOf(renderedToniqIcon, ToniqIcon, 'is not a rendered ToniqIcon');
             await assertIconEquals(renderedToniqIcon, iconToRender);
         }),
     );

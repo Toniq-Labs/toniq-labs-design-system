@@ -1,8 +1,13 @@
 import {BookPage, defineBookPage} from 'element-book';
 import {html} from 'element-vir';
 import {allIconsByCategory} from '..';
-import {iconsBookPage} from '../element-book/book-pages/icons.book';
-import {ToniqIconBookHelper} from './icon.book-helper';
+import {ToniqIconBookHelper, iconControls, iconCssVarsToStyles} from './icon.book-helper';
+
+export const iconsBookPage = defineBookPage({
+    title: 'Icons',
+    parent: undefined,
+    controls: iconControls,
+});
 
 export const iconPages: BookPage[] = Object.entries(allIconsByCategory).map(
     ([
@@ -16,11 +21,13 @@ export const iconPages: BookPage[] = Object.entries(allIconsByCategory).map(
                 icons.map((icon) => {
                     return defineExample({
                         title: icon.name,
-                        renderCallback() {
+                        renderCallback({controls}) {
                             return html`
                                 <${ToniqIconBookHelper.assign({
                                     icon,
-                                })}></${ToniqIconBookHelper}>
+                                })}
+                                    style=${iconCssVarsToStyles(controls)}
+                                ></${ToniqIconBookHelper}>
                             `;
                         },
                     });

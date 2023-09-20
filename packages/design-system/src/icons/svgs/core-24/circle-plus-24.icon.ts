@@ -2,8 +2,8 @@ import {html} from 'element-vir';
 import {defineIcon} from 'vira';
 import {toniqIconCssVars} from '../../../styles/icon-css-vars';
 
-export const Square24Icon = defineIcon({
-    name: 'Square24Icon',
+export const CirclePlus24Icon = defineIcon({
+    name: 'CirclePlus24Icon',
     svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -15,13 +15,9 @@ export const Square24Icon = defineIcon({
             height="24"
             viewBox="0 0 24 24"
         >
-            <rect
+            <path
                 stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
-                width="18"
-                height="18"
-                x="3"
-                y="3"
-                rx="2"
+                d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18Zm-3 9h6m-3-3v6"
             />
         </svg>
     `,

@@ -1,35 +1,18 @@
-import {BookPageControlTypeEnum, defineBookPage} from 'element-book';
+import {defineBookPage} from 'element-book';
 import {css, html} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
-import {CircleDot24Icon, ToniqSvg} from '../../icons';
+import {CircleDot24Icon, ToniqSvg, allIconsByCategory} from '../../icons';
+import {iconControls, iconCssVarsToStyles} from '../../icons/icon.book-helper';
 import {InfoCircle16Icon} from '../../icons/svgs/core-16/info-circle-16.icon';
-import {Kyc32Icon} from '../../icons/svgs/core-32/kyc-32.icon';
 import {FolderOff48Icon} from '../../icons/svgs/core-48/folder-off-48.icon';
 import {Api64Icon} from '../../icons/svgs/core-64/api-64.icon';
-import {toniqIconColorCssVarNames} from '../../styles';
+import {toniqIconCssVars} from '../../styles';
 import {ToniqIcon} from './toniq-icon.element';
 
 export const toniqIconBookPage = defineBookPage({
     title: ToniqIcon.tagName,
     parent: elementsBookPage,
-    controls: {
-        'CSS color': {
-            controlType: BookPageControlTypeEnum.Color,
-            initValue: '',
-        },
-        [toniqIconColorCssVarNames.color]: {
-            controlType: BookPageControlTypeEnum.Color,
-            initValue: '',
-        },
-        [toniqIconColorCssVarNames.strokeColor]: {
-            controlType: BookPageControlTypeEnum.Color,
-            initValue: '',
-        },
-        [toniqIconColorCssVarNames.fillColor]: {
-            controlType: BookPageControlTypeEnum.Color,
-            initValue: '',
-        },
-    },
+    controls: iconControls,
     elementExamplesCallback({defineExample}) {
         const exampleConfigs: ReadonlyArray<{icon: ToniqSvg | undefined}> = [
             {
@@ -37,9 +20,6 @@ export const toniqIconBookPage = defineBookPage({
             },
             {
                 icon: FolderOff48Icon,
-            },
-            {
-                icon: Kyc32Icon,
             },
             {
                 icon: CircleDot24Icon,
@@ -62,32 +42,32 @@ export const toniqIconBookPage = defineBookPage({
                 }
             `,
             renderCallback({controls}) {
-                const styles = Object.entries(controls)
-                    .filter(
-                        ([
-                            ,
-                            value,
-                        ]) => !!value,
-                    )
-                    .map(
-                        ([
-                            cssVarName,
-                            value,
-                        ]) => {
-                            if (cssVarName.toLowerCase().includes('css')) {
-                                cssVarName = 'color';
-                            }
-                            return `${cssVarName}: ${value};`;
-                        },
-                    )
-                    .join('\n');
-
                 return exampleConfigs.map((exampleConfig) => {
                     return html`
                         <${ToniqIcon.assign({
                             icon: exampleConfig.icon,
                         })}
-                            style=${styles}
+                            style=${iconCssVarsToStyles(controls)}
+                        ></${ToniqIcon}>
+                    `;
+                });
+            },
+        });
+
+        defineExample({
+            title: 'brand icons',
+            renderCallback({controls}) {
+                const forcedColorOverride = css`
+                    ${toniqIconCssVars['toniq-icon-fill-color'].name}: orange;
+                `;
+
+                return allIconsByCategory['third-party-brands'].map((brandIcon) => {
+                    return html`
+                        <${ToniqIcon.assign({icon: brandIcon})}
+                            style=${iconCssVarsToStyles(controls)}
+                        ></${ToniqIcon}>
+                        <${ToniqIcon.assign({icon: brandIcon})}
+                            style=${forcedColorOverride}
                         ></${ToniqIcon}>
                     `;
                 });

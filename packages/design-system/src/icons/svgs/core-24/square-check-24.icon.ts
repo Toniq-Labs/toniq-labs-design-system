@@ -1,26 +1,32 @@
 import {html} from 'element-vir';
 import {defineIcon} from 'vira';
-import {toniqIconColors} from '../../../styles/icon-colors';
+import {toniqIconCssVars} from '../../../styles';
 
 export const SquareCheck24Icon = defineIcon({
     name: 'SquareCheck24Icon',
     svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            xml:space="preserve"
+            stroke=${toniqIconCssVars['toniq-icon-stroke-color'].value}
+            fill=${toniqIconCssVars['toniq-icon-fill-color'].value}
+            stroke-linecap="round"
+            stroke-linejoin="round"
             width="24"
             height="24"
-            fill-rule="evenodd"
-            stroke-linejoin="round"
-            stroke-miterlimit="2"
-            clip-rule="evenodd"
             viewBox="0 0 24 24"
         >
-            <path fill="none" d="M6 6h12v12H6z" />
+            <rect
+                stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+                width="18"
+                height="18"
+                x="3"
+                y="3"
+                rx="2"
+            />
             <path
-                fill="${toniqIconColors.fill()}"
-                stroke="none"
-                d="M21 6a3 3 0 0 0-3-3H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V6ZM8.3 12.7l2 2a1 1 0 0 0 1.4 0l4-4a1 1 0 0 0-1.4-1.4L11 12.58l-1.3-1.3a1 1 0 0 0-1.4 1.42Z"
+                stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+                fill="none"
+                d="m17 8-6.5 8L7 12.5"
             />
         </svg>
     `,

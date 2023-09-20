@@ -1,22 +1,35 @@
 import {html} from 'element-vir';
 import {defineIcon} from 'vira';
-import {toniqIconColors} from '../../../styles/icon-colors';
+import {toniqIconCssVars} from '../../../styles/icon-css-vars';
+
 export const Person24Icon = defineIcon({
     name: 'Person24Icon',
     svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            xml:space="preserve"
+            stroke=${toniqIconCssVars['toniq-icon-stroke-color'].value}
+            fill=${toniqIconCssVars['toniq-icon-fill-color'].value}
+            stroke-linecap="round"
+            stroke-linejoin="round"
             width="24"
             height="24"
-            fill="${toniqIconColors.stroke()}"
             viewBox="0 0 24 24"
         >
-            <path
-                d="M12 2c-2.651.003-5.193 1.057-7.068 2.932S2.003 9.349 2 12c.004 2.651 1.059 5.192 2.934 7.066C6.808 20.941 9.349 21.996 12 22c2.652 0 5.196-1.054 7.071-2.929C20.946 17.196 22 14.652 22 12s-1.054-5.196-2.929-7.071C17.196 3.054 14.652 2 12 2Zm6.082 15.77c-.561-1.132-1.428-2.086-2.503-2.752-1.074-.666-2.314-1.019-3.578-1.018-1.265.001-2.504.355-3.577 1.022-1.074.667-1.94 1.621-2.501 2.755C4.428 16.226 3.595 14.154 3.6 12c0-2.228.885-4.364 2.46-5.94C7.636 4.485 9.772 3.6 12 3.6s4.364.885 5.94 2.46C19.515 7.636 20.4 9.772 20.4 12c.005 2.151-.826 4.22-2.318 5.77Z"
+            <circle
+                stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+                cx="12"
+                cy="12"
+                r="9"
             />
             <path
-                d="M12 5.5c-.692 0-1.369.205-1.945.59-.575.384-1.024.931-1.289 1.571-.264.639-.334 1.343-.199 2.022.135.679.469 1.302.958 1.792.49.489 1.113.823 1.792.958s1.383.065 2.022-.199c.64-.265 1.187-.714 1.571-1.29.385-.575.59-1.252.59-1.944 0-.46-.091-.915-.266-1.339a3.50094 3.50094 0 0 0-1.895-1.895C12.915 5.591 12.46 5.5 12 5.5Z"
+                stroke="none"
+                fill=${toniqIconCssVars['toniq-icon-stroke-color'].value}
+                d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"
+            />
+            <path
+                stroke="none"
+                fill=${toniqIconCssVars['toniq-icon-stroke-color'].value}
+                d="M5.6 18.3A7.2 7.2 0 0 1 12 14c2.8 0 5.2 1.8 6.4 4.3a9 9 0 0 1-12.8 0Z"
             />
         </svg>
     `,

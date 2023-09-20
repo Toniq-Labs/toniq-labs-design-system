@@ -1,12 +1,12 @@
 import {html} from 'element-vir';
 import {defineIcon} from 'vira';
-import {toniqIconColors} from '../../../styles';
+import {toniqIconCssVarWithFallback} from '../../../styles/icon-css-vars';
 
 export const BrandDiscord24Icon = defineIcon({
     name: 'BrandDiscord24Icon',
     svgTemplate: html`
         <svg
-            fill="${toniqIconColors.fill('#5865f2')}"
+            fill=${toniqIconCssVarWithFallback['toniq-icon-fill-color']('#5865f2')}
             xmlns="http://www.w3.org/2000/svg"
             xml:space="preserve"
             fill-rule="evenodd"

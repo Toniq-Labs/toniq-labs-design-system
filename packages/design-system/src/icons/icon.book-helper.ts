@@ -1,7 +1,8 @@
+import {addSuffix, isRuntimeTypeOf} from '@augment-vir/common';
 import {BookPageControlTypeEnum, definePageControl} from 'element-book';
 import {css, html} from 'element-vir';
 import {ToniqIcon, defineToniqElement} from '../elements';
-import {toniqColors} from '../styles';
+import {toniqColors, toniqIconCssVars} from '../styles';
 import {allIconsByCategory} from './index';
 import {ToniqSvg} from './toniq-svg';
 
@@ -48,4 +49,54 @@ export function createIconPicker(defaultIconName: string) {
             ...allIconNames,
         ],
     });
+}
+
+export const iconControls = {
+    'CSS color': definePageControl({
+        controlType: BookPageControlTypeEnum.Color,
+        initValue: '',
+    }),
+    [String(toniqIconCssVars['toniq-icon-stroke-color'].name)]: definePageControl({
+        controlType: BookPageControlTypeEnum.Color,
+        initValue: '',
+    }),
+    [String(toniqIconCssVars['toniq-icon-fill-color'].name)]: definePageControl({
+        controlType: BookPageControlTypeEnum.Color,
+        initValue: '',
+    }),
+    [String(toniqIconCssVars['toniq-icon-stroke-width'].name)]: definePageControl({
+        controlType: BookPageControlTypeEnum.Color,
+        initValue: '',
+    }),
+    [String(toniqIconCssVars['toniq-icon-stroke-width'].name)]: definePageControl({
+        controlType: BookPageControlTypeEnum.Number,
+        initValue: 2,
+    }),
+};
+
+export function iconCssVarsToStyles(controls: Record<string, string | number>) {
+    const styles = Object.entries(controls)
+        .filter(
+            ([
+                ,
+                value,
+            ]) => value !== '' && value != undefined,
+        )
+        .map(
+            ([
+                cssVarName,
+                value,
+            ]) => {
+                if (cssVarName.toLowerCase() === 'css color') {
+                    cssVarName = 'color';
+                }
+                if (isRuntimeTypeOf(value, 'number')) {
+                    value = addSuffix({value, suffix: 'px'});
+                }
+                return `${cssVarName}: ${value};`;
+            },
+        )
+        .join('\n');
+
+    return styles;
 }

@@ -1,9 +1,9 @@
 import {assert, fixture} from '@open-wc/testing';
 import {html} from 'element-vir';
 import {TemplateResult} from 'lit';
-import {assertInstanceOf} from '../../element-testing/assertion-helpers';
+import {assertInstanceOf} from 'run-time-assertions';
 import {createFixtureTest} from '../../element-testing/fixture-test';
-import {assertIconEquals} from '../../element-testing/icon-test-helpers';
+import {assertIconEquals} from '../../element-testing/icon-testing';
 import {
     getTextContentThroughShadow,
     queryThroughShadow,

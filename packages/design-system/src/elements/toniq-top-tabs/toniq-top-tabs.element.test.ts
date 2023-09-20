@@ -1,13 +1,9 @@
 import {randomString} from '@augment-vir/browser';
-import {
-    assertThrows,
-    clickElement,
-    typedAssertInstanceOf,
-    typedAssertNotNullish,
-} from '@augment-vir/browser-testing';
+import {assertThrows, clickElement} from '@augment-vir/browser-testing';
 import {assertLengthAtLeast, awaitedForEach} from '@augment-vir/common';
 import {assert, fixture as renderFixture, waitUntil} from '@open-wc/testing';
 import {TypedEvent, html, listen, testIdBy} from 'element-vir';
+import {assertDefined, assertInstanceOf} from 'run-time-assertions';
 import {ToniqTopTabs} from './toniq-top-tabs.element';
 
 describe(ToniqTopTabs.tagName, () => {
@@ -35,7 +31,7 @@ describe(ToniqTopTabs.tagName, () => {
             `,
         );
 
-        typedAssertInstanceOf(fixture, ToniqTopTabs);
+        assertInstanceOf(fixture, ToniqTopTabs);
         const tabElements = Array.from(fixture.shadowRoot.querySelectorAll(testIdBy('tab')));
         assert.lengthOf(tabElements, tabs.length);
 
@@ -62,7 +58,7 @@ describe(ToniqTopTabs.tagName, () => {
                 },
             );
             const latestEvent = outputs.slice(-1)[0];
-            typedAssertNotNullish(latestEvent);
+            assertDefined(latestEvent);
             assert.strictEqual(latestEvent.detail, tabs[index]?.value);
         });
     });

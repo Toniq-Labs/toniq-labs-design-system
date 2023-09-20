@@ -1,6 +1,6 @@
-import {typedAssertInstanceOf} from '@augment-vir/browser-testing';
 import {fixture as renderFixture} from '@open-wc/testing';
 import {html} from 'element-vir';
+import {assertInstanceOf} from 'run-time-assertions';
 import {ToniqCarousel} from './toniq-carousel.element';
 
 describe(ToniqCarousel.tagName, () => {
@@ -13,6 +13,6 @@ describe(ToniqCarousel.tagName, () => {
             `,
         );
 
-        typedAssertInstanceOf(fixture, ToniqCarousel);
+        assertInstanceOf(fixture, ToniqCarousel);
     });
 });

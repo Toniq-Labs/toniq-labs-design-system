@@ -1,25 +1,27 @@
 import {html} from 'element-vir';
 import {defineIcon} from 'vira';
-import {toniqIconColors} from '../../../styles';
+import {toniqIconCssVars} from '../../../styles/icon-css-vars';
 
 export const Chain24Icon = defineIcon({
     name: 'Chain24Icon',
     svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            xml:space="preserve"
-            fill-rule="evenodd"
+            stroke=${toniqIconCssVars['toniq-icon-stroke-color'].value}
+            fill="none"
+            stroke-linecap="round"
             stroke-linejoin="round"
-            stroke-miterlimit="2"
-            clip-rule="evenodd"
             viewBox="0 0 24 24"
             width="24"
             height="24"
-            fill="${toniqIconColors.stroke()}"
         >
             <path
-                fill-rule="nonzero"
-                d="m11.736 16.792.206-.245a.64.64 0 0 1 .902-.079l.491.412a.64.64 0 0 1 .079.902l-2.059 2.451a3.206 3.206 0 0 1-2.451 1.142 3.206 3.206 0 0 1-2.058-.749l-2.452-2.058a3.208 3.208 0 0 1-1.142-2.454c0-.752.266-1.479.752-2.055l3.703-4.41v-.003a3.204 3.204 0 0 1 4.509-.39l1.456 1.223c.27.227.305.632.078.903l-.409.488a.641.641 0 0 1-.902.079l-1.459-1.224a1.283 1.283 0 0 0-1.801.157l-3.706 4.413c-.192.23-.301.521-.301.822 0 .378.17.736.458.979l2.451 2.058a1.274 1.274 0 0 0 1.802-.157l1.853-2.205Zm.528-9.584-.207.245a.64.64 0 0 1-.901.079l-.492-.412a.64.64 0 0 1-.078-.902l2.059-2.451a3.206 3.206 0 0 1 2.451-1.142c.752 0 1.482.266 2.058.749l2.451 2.058a3.208 3.208 0 0 1 1.142 2.454 3.18 3.18 0 0 1-.752 2.055l-3.702 4.41v.003a3.204 3.204 0 0 1-4.509.39l-1.457-1.223a.642.642 0 0 1-.078-.903l.41-.488a.64.64 0 0 1 .901-.079l1.459 1.224a1.286 1.286 0 0 0 1.802-.157l3.706-4.413c.192-.23.3-.521.3-.822 0-.378-.169-.736-.457-.979l-2.452-2.058a1.274 1.274 0 0 0-1.801.157l-1.853 2.205Z"
+                stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+                d="m11.181 12.944 1.356 1.138c.74.621 1.845.525 2.466-.215l4.178-4.98a1.75 1.75 0 0 0-.216-2.465l-2.681-2.25a1.751 1.751 0 0 0-2.466.216l-2.089 2.49"
+            />
+            <path
+                stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+                d="m12.819 11.056-1.356-1.138a1.751 1.751 0 0 0-2.466.215l-4.178 4.98a1.75 1.75 0 0 0 .216 2.465l2.681 2.25c.74.621 1.845.524 2.466-.216l2.089-2.49"
             />
         </svg>
     `,

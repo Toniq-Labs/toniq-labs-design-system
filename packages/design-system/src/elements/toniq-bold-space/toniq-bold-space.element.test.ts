@@ -1,8 +1,8 @@
 import {randomString} from '@augment-vir/browser';
-import {typedAssertInstanceOf} from '@augment-vir/browser-testing';
 import {collapseWhiteSpace} from '@augment-vir/common';
 import {assert, fixture as renderFixture} from '@open-wc/testing';
 import {html} from 'element-vir';
+import {assertInstanceOf} from 'run-time-assertions';
 import {ToniqBoldSpace} from './toniq-bold-space.element';
 
 describe(ToniqBoldSpace.tagName, () => {
@@ -14,7 +14,7 @@ describe(ToniqBoldSpace.tagName, () => {
             `,
         );
 
-        typedAssertInstanceOf(fixture, ToniqBoldSpace);
+        assertInstanceOf(fixture, ToniqBoldSpace);
 
         assert.strictEqual(
             collapseWhiteSpace(fixture.shadowRoot.textContent || ''),

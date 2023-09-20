@@ -1,8 +1,7 @@
 {
     "compilerOptions": {
         "module": "ES2020",
-        "noEmit": true,
-        "rootDir": "src"
+        "noEmit": true
     },
     "exclude": [
         "./configs",

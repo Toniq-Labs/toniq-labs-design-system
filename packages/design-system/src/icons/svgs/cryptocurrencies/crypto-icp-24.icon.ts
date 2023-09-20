@@ -8,13 +8,13 @@ export const CryptoIcp24Icon = defineIcon({
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
+            stroke="none"
+            fill="none"
             width="24"
             height="24"
-            fill="none"
             viewBox="${icpSvgImageViewBox}"
         >
             ${icpSvgImage}
-        </svg>
         </svg>
     `,
 });

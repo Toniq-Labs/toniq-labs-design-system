@@ -3,7 +3,7 @@ import {assert, fixture, waitUntil} from '@open-wc/testing';
 import {sendKeys} from '@web/test-runner-commands';
 import {html} from 'element-vir';
 import {TemplateResult} from 'lit';
-import {assertInstanceOf} from './assertion-helpers';
+import {assertInstanceOf} from 'run-time-assertions';
 import {createFixtureTest, withFixtureCleanup} from './fixture-test';
 
 export async function hitTab(): Promise<void> {

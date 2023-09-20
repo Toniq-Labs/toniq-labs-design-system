@@ -22,8 +22,7 @@ import {ChevronDown24Icon} from './svgs/core-24/chevron-down-24.icon';
 import {ChevronUp24Icon} from './svgs/core-24/chevron-up-24.icon';
 import {Circle24Icon} from './svgs/core-24/circle-24.icon';
 import {CircleDot24Icon} from './svgs/core-24/circle-dot-24.icon';
-import {CirclePlusFill24Icon} from './svgs/core-24/circle-plus-fill-24.icon';
-import {CirclePlusOutline24Icon} from './svgs/core-24/circle-plus-outline-24.icon';
+import {CirclePlus24Icon} from './svgs/core-24/circle-plus-24.icon';
 import {CircleWavyCheck24Icon} from './svgs/core-24/circle-wavy-check-24.icon';
 import {Clock24Icon} from './svgs/core-24/clock-24.icon';
 import {Code24Icon} from './svgs/core-24/code-24.icon';
@@ -36,8 +35,7 @@ import {ExternalLink24Icon} from './svgs/core-24/external-link-24.icon';
 import {Filter24Icon} from './svgs/core-24/filter-24.icon';
 import {Geometry24Icon} from './svgs/core-24/geometry-24.icon';
 import {GridDots24Icon} from './svgs/core-24/grid-dots-24.icon';
-import {HeartFill24Icon} from './svgs/core-24/heart-fill-24.icon';
-import {HeartOutline24Icon} from './svgs/core-24/heart-outline-24.icon';
+import {Heart24Icon} from './svgs/core-24/heart-24.icon';
 import {Infinity24Icon} from './svgs/core-24/infinity-24.icon';
 import {Info24Icon} from './svgs/core-24/info-24.icon';
 import {LayersLinked24Icon} from './svgs/core-24/layers-linked-24.icon';
@@ -51,6 +49,7 @@ import {Lock24Icon} from './svgs/core-24/lock-24.icon';
 import {LockOpen24Icon} from './svgs/core-24/lock-open-24.icon';
 import {Menu24Icon} from './svgs/core-24/menu-24.icon';
 import {Paper24Icon} from './svgs/core-24/paper-24.icon';
+import {People24Icon} from './svgs/core-24/people-24.icon';
 import {Person24Icon} from './svgs/core-24/person-24.icon';
 import {Photo24Icon} from './svgs/core-24/photo-24.icon';
 import {Refresh24Icon} from './svgs/core-24/refresh-24.icon';
@@ -63,13 +62,12 @@ import {Square24Icon} from './svgs/core-24/square-24.icon';
 import {SquareCheck24Icon} from './svgs/core-24/square-check-24.icon';
 import {Trash24Icon} from './svgs/core-24/trash-24.icon';
 import {Upload24Icon} from './svgs/core-24/upload-24.icon';
-import {User24Icon} from './svgs/core-24/user-24.icon';
-import {Users24Icon} from './svgs/core-24/users-24.icon';
 import {Wallet24Icon} from './svgs/core-24/wallet-24.icon';
 import {WorldUpload24Icon} from './svgs/core-24/world-upload-24.icon';
 import {X24Icon} from './svgs/core-24/x-24.icon';
-import {Kyc32Icon} from './svgs/core-32/kyc-32.icon';
+import {Folder48Icon} from './svgs/core-48/folder-48.icon';
 import {FolderOff48Icon} from './svgs/core-48/folder-off-48.icon';
+import {Kyc48Icon} from './svgs/core-48/kyc-48.icon';
 import {Api64Icon} from './svgs/core-64/api-64.icon';
 import {CircleDashes64Icon} from './svgs/core-64/circle-dashes-64.icon';
 import {Rocket64Icon} from './svgs/core-64/rocket-64.icon';
@@ -111,8 +109,7 @@ export * from './svgs/core-24/chevron-down-24.icon';
 export * from './svgs/core-24/chevron-up-24.icon';
 export * from './svgs/core-24/circle-24.icon';
 export * from './svgs/core-24/circle-dot-24.icon';
-export * from './svgs/core-24/circle-plus-fill-24.icon';
-export * from './svgs/core-24/circle-plus-outline-24.icon';
+export * from './svgs/core-24/circle-plus-24.icon';
 export * from './svgs/core-24/circle-wavy-check-24.icon';
 export * from './svgs/core-24/clock-24.icon';
 export * from './svgs/core-24/code-24.icon';
@@ -125,8 +122,7 @@ export * from './svgs/core-24/external-link-24.icon';
 export * from './svgs/core-24/filter-24.icon';
 export * from './svgs/core-24/geometry-24.icon';
 export * from './svgs/core-24/grid-dots-24.icon';
-export * from './svgs/core-24/heart-fill-24.icon';
-export * from './svgs/core-24/heart-outline-24.icon';
+export * from './svgs/core-24/heart-24.icon';
 export * from './svgs/core-24/infinity-24.icon';
 export * from './svgs/core-24/info-24.icon';
 export * from './svgs/core-24/layers-linked-24.icon';
@@ -140,6 +136,7 @@ export * from './svgs/core-24/lock-24.icon';
 export * from './svgs/core-24/lock-open-24.icon';
 export * from './svgs/core-24/menu-24.icon';
 export * from './svgs/core-24/paper-24.icon';
+export * from './svgs/core-24/people-24.icon';
 export * from './svgs/core-24/person-24.icon';
 export * from './svgs/core-24/photo-24.icon';
 export * from './svgs/core-24/refresh-24.icon';
@@ -152,13 +149,12 @@ export * from './svgs/core-24/square-24.icon';
 export * from './svgs/core-24/square-check-24.icon';
 export * from './svgs/core-24/trash-24.icon';
 export * from './svgs/core-24/upload-24.icon';
-export * from './svgs/core-24/user-24.icon';
-export * from './svgs/core-24/users-24.icon';
 export * from './svgs/core-24/wallet-24.icon';
 export * from './svgs/core-24/world-upload-24.icon';
 export * from './svgs/core-24/x-24.icon';
-export * from './svgs/core-32/kyc-32.icon';
+export * from './svgs/core-48/folder-48.icon';
 export * from './svgs/core-48/folder-off-48.icon';
+export * from './svgs/core-48/kyc-48.icon';
 export * from './svgs/core-64/api-64.icon';
 export * from './svgs/core-64/circle-dashes-64.icon';
 export * from './svgs/core-64/rocket-64.icon';
@@ -206,8 +202,7 @@ export const allIconsByCategory = {
         ChevronUp24Icon,
         Circle24Icon,
         CircleDot24Icon,
-        CirclePlusFill24Icon,
-        CirclePlusOutline24Icon,
+        CirclePlus24Icon,
         CircleWavyCheck24Icon,
         Clock24Icon,
         Code24Icon,
@@ -220,8 +215,7 @@ export const allIconsByCategory = {
         Filter24Icon,
         Geometry24Icon,
         GridDots24Icon,
-        HeartFill24Icon,
-        HeartOutline24Icon,
+        Heart24Icon,
         Infinity24Icon,
         Info24Icon,
         LayersLinked24Icon,
@@ -235,6 +229,7 @@ export const allIconsByCategory = {
         LockOpen24Icon,
         Menu24Icon,
         Paper24Icon,
+        People24Icon,
         Person24Icon,
         Photo24Icon,
         Refresh24Icon,
@@ -247,17 +242,14 @@ export const allIconsByCategory = {
         SquareCheck24Icon,
         Trash24Icon,
         Upload24Icon,
-        User24Icon,
-        Users24Icon,
         Wallet24Icon,
         WorldUpload24Icon,
         X24Icon,
     ],
-    'core-32': [
-        Kyc32Icon,
-    ],
     'core-48': [
+        Folder48Icon,
         FolderOff48Icon,
+        Kyc48Icon,
     ],
     'core-64': [
         Api64Icon,

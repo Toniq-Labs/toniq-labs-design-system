@@ -1,32 +1,27 @@
-import {css} from 'element-vir';
-import {ReadonlyDeep} from 'type-fest';
-import {ToniqSvg} from '../../icons/toniq-svg';
+import {css, html} from 'element-vir';
+import {ViraIcon, viraIconCssVars} from 'vira';
+import {toniqIconCssVars} from '../../styles';
 import {defineToniqElement} from '../define-toniq-element';
 
-export const ToniqIcon = defineToniqElement<{icon?: ReadonlyDeep<ToniqSvg> | undefined}>()({
+export const ToniqIcon = defineToniqElement<typeof ViraIcon.inputsType>()({
     tagName: 'toniq-icon',
-    hostClasses: {
-        'toniq-icon-fit-icon': false,
-    },
-    styles: ({hostClasses}) => css`
+    styles: css`
         :host {
-            display: block;
-        }
-        svg {
-            /*
-                svg elements are set to inline by default which gives it space under the image. So 
-                we're changing it to block here.
-                See: https://stackoverflow.com/a/34952703
-            */
-            display: block;
-        }
-
-        ${hostClasses['toniq-icon-fit-icon'].selector} svg {
-            height: 100%;
-            width: 100%;
+            display: inline-flex;
+            ${viraIconCssVars['vira-icon-fill-color'].name}: ${toniqIconCssVars[
+                'toniq-icon-fill-color'
+            ].value}
+            ${viraIconCssVars['vira-icon-stroke-color'].name}: ${toniqIconCssVars[
+                'toniq-icon-stroke-color'
+            ].value}
+            ${viraIconCssVars['vira-icon-stroke-width'].name}: ${toniqIconCssVars[
+                'toniq-icon-stroke-width'
+            ].value}
         }
     `,
     renderCallback({inputs}) {
-        return inputs.icon ? inputs.icon.svgTemplate : '';
+        return html`
+            <${ViraIcon.assign(inputs)}></${ViraIcon}>
+        `;
     },
 });

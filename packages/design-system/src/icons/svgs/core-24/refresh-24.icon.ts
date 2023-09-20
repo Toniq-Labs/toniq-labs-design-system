@@ -1,19 +1,27 @@
 import {html} from 'element-vir';
 import {defineIcon} from 'vira';
-import {toniqIconColors} from '../../../styles/icon-colors';
+import {toniqIconCssVars} from '../../../styles/icon-css-vars';
 
 export const Refresh24Icon = defineIcon({
     name: 'Refresh24Icon',
     svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
+            stroke=${toniqIconCssVars['toniq-icon-stroke-color'].value}
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
             width="24"
             height="24"
-            fill="${toniqIconColors.stroke()}"
+            viewBox="0 0 24 24"
         >
             <path
-                d="M17 9a6 6 0 1 0 0 6 1 1 0 0 1 2 0 8 8 0 1 1-1-8V5a1 1 0 0 1 2 0v5l-1 1h-5a1 1 0 0 1 0-2h3Z"
+                stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+                d="M18.3 15a7 7 0 1 1 .4-5"
+            />
+            <path
+                stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+                d="M19 5v5h-5"
             />
         </svg>
     `,

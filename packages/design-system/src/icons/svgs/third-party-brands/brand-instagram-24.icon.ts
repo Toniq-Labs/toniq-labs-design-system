@@ -1,27 +1,28 @@
 import {html} from 'element-vir';
 import {defineIcon} from 'vira';
+import {toniqIconCssVarWithFallback} from '../../../styles/icon-css-vars';
 
 export const BrandInstagram24Icon = defineIcon({
     name: 'BrandInstagram24Icon',
     svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            xml:space="preserve"
             fill-rule="evenodd"
-            stroke-linejoin="round"
-            stroke-miterlimit="2"
-            clip-rule="evenodd"
             width="24"
             height="24"
             viewBox="0 0 24 24"
         >
             <path
-                fill="url(#brand_instagram_32_icon_a)"
+                fill=${toniqIconCssVarWithFallback['toniq-icon-fill-color'](
+                    'url(#brand_instagram_32_icon_a)',
+                )}
                 fill-rule="nonzero"
                 d="M12 1.002c-4.592 0-5.933 0-6.188.027a5.448 5.448 0 0 0-2.172.55 4.727 4.727 0 0 0-2.544 3.603C1.027 5.69 1.007 5.8 1 8.42v3.582c0 4.592 0 5.933.027 6.194.076.921.22 1.499.523 2.131a4.638 4.638 0 0 0 3.004 2.448c.454.117.956.185 1.602.213.275.014 3.046.02 5.823.02 2.778 0 5.555 0 5.824-.013.742-.042 1.175-.097 1.649-.22a4.61 4.61 0 0 0 3.012-2.462c.295-.618.447-1.21.515-2.083.014-.185.021-3.21.021-6.228 0-3.025-.007-6.037-.021-6.222a5.352 5.352 0 0 0-.529-2.111 4.746 4.746 0 0 0-3.623-2.571c-.509-.069-.619-.09-3.245-.096H12Z"
             />
             <path
-                fill="url(#brand_instagram_32_icon_b)"
+                fill=${toniqIconCssVarWithFallback['toniq-icon-fill-color'](
+                    'url(#brand_instagram_32_icon_b)',
+                )}
                 fill-rule="nonzero"
                 d="M12 1.002c-4.592 0-5.933 0-6.188.027a5.448 5.448 0 0 0-2.172.55 4.727 4.727 0 0 0-2.544 3.603C1.027 5.69 1.007 5.8 1 8.42v3.582c0 4.592 0 5.933.027 6.194.076.921.22 1.499.523 2.131a4.638 4.638 0 0 0 3.004 2.448c.454.117.956.185 1.602.213.275.014 3.046.02 5.823.02 2.778 0 5.555 0 5.824-.013.742-.042 1.175-.097 1.649-.22a4.61 4.61 0 0 0 3.012-2.462c.295-.618.447-1.21.515-2.083.014-.185.021-3.21.021-6.228 0-3.025-.007-6.037-.021-6.222a5.352 5.352 0 0 0-.529-2.111 4.746 4.746 0 0 0-3.623-2.571c-.509-.069-.619-.09-3.245-.096H12Z"
             />

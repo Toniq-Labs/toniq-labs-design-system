@@ -1,6 +1,6 @@
 import {assert, fixture} from '@open-wc/testing';
 import {html} from 'element-vir';
-import {assertInstanceOf} from '../../element-testing/assertion-helpers';
+import {assertInstanceOf} from 'run-time-assertions';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {
     getTextContentThroughShadow,

@@ -16,12 +16,11 @@ import {toniqSliderPage} from '../elements/toniq-slider/toniq-slider.element.boo
 import {toniqToggleButtonBookPage} from '../elements/toniq-toggle-button/toniq-toggle-button.element.book';
 import {toniqTooltipElementBookEntries} from '../elements/toniq-tooltip/toniq-tooltip.element.book';
 import {toniqTopTabsPage} from '../elements/toniq-top-tabs/toniq-top-tabs.element.book';
-import {iconPages} from '../icons/icons.book';
+import {iconPages, iconsBookPage} from '../icons/icons.book';
 import {toniqColorsBookPage} from '../styles/colors.book';
 import {toniqFontsBookPage} from '../styles/fonts.book';
 import {dataBookPage} from './book-pages/data.book';
 import {elementsBookPage} from './book-pages/elements.book';
-import {iconsBookPage} from './book-pages/icons.book';
 import {stylesBookPage} from './book-pages/styles.book';
 
 const topLevelPages = [

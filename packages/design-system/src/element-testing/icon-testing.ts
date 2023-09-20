@@ -1,7 +1,8 @@
 import {assert, fixture} from '@open-wc/testing';
+import {assertInstanceOf} from 'run-time-assertions';
+import {ViraIcon} from 'vira';
 import {ToniqIcon} from '../elements/toniq-icon/toniq-icon.element';
 import {ToniqSvg} from '../icons';
-import {assertInstanceOf} from './assertion-helpers';
 import {queryThroughShadow} from './query-through-shadow';
 
 export async function assertIconEquals(
@@ -10,8 +11,14 @@ export async function assertIconEquals(
 ): Promise<void> {
     assert.strictEqual(toniqIconInstance.instanceInputs.icon, expectedIcon);
 
-    const renderedInnerSvg = queryThroughShadow('svg', toniqIconInstance);
-    assertInstanceOf(renderedInnerSvg, SVGSVGElement);
+    const renderedInnerSvg = queryThroughShadow(
+        [
+            ViraIcon.tagName,
+            'svg',
+        ],
+        toniqIconInstance,
+    );
+    assertInstanceOf(renderedInnerSvg, SVGSVGElement, 'is not an svg element');
     const actualSvg = renderedInnerSvg.outerHTML.trim();
 
     const {iconHtml} = await getRenderedIconSvg(expectedIcon);

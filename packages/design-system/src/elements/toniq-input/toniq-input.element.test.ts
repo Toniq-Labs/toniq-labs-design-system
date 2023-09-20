@@ -1,7 +1,7 @@
 import {addRegExpFlags, wait} from '@augment-vir/common';
 import {assert, waitUntil} from '@open-wc/testing';
 import {html, listen} from 'element-vir';
-import {assertInstanceOf} from '../../element-testing/assertion-helpers';
+import {assertInstanceOf} from 'run-time-assertions';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {createStateTester} from '../../element-testing/state-tester';
 import {createElementRegistrationTest} from '../../element-testing/test-element-creation';

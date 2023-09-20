@@ -1,24 +1,24 @@
 import {html} from 'element-vir';
 import {defineIcon} from 'vira';
-import {toniqIconColors} from '../../../styles/icon-colors';
+import {toniqIconCssVars} from '../../../styles/icon-css-vars';
 
 export const ArrowLoopRight24Icon = defineIcon({
     name: 'ArrowLoopRight24Icon',
     svgTemplate: html`
         <svg
-            fill="none"
-            stroke="${toniqIconColors.stroke()}"
             xmlns="http://www.w3.org/2000/svg"
-            xml:space="preserve"
-            width="24"
-            height="24"
-            fill-rule="evenodd"
+            stroke=${toniqIconCssVars['toniq-icon-stroke-color'].value}
+            fill="none"
             stroke-linecap="round"
             stroke-linejoin="round"
-            clip-rule="evenodd"
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
         >
-            <path stroke-width="2" d="M12 21V8a4 4 0 1 0-4 4h13m-3 3 3-3-3-3" />
+            <path
+                stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+                d="M12 21V8a4 4 0 1 0-4 4h13m-3 3 3-3-3-3"
+            />
         </svg>
     `,
 });

@@ -1,30 +1,27 @@
 import {html} from 'element-vir';
 import {defineIcon} from 'vira';
-import {toniqIconColors} from '../../../styles/icon-colors';
+import {toniqIconCssVars} from '../../../styles/icon-css-vars';
 
 export const Copy16Icon = defineIcon({
     name: 'Copy16Icon',
     svgTemplate: html`
         <svg
-            fill="none"
-            stroke="${toniqIconColors.stroke()}"
             xmlns="http://www.w3.org/2000/svg"
-            xml:space="preserve"
-            width="16"
-            height="16"
-            fill-rule="evenodd"
+            fill=${toniqIconCssVars['toniq-icon-fill-color'].value}
+            stroke=${toniqIconCssVars['toniq-icon-stroke-color'].value}
             stroke-linecap="round"
             stroke-linejoin="round"
-            clip-rule="evenodd"
+            width="16"
+            height="16"
             viewBox="0 0 16 16"
         >
             <path
-                stroke-width="2"
-                d="M14 7.33C14 6.6 13.4 6 12.67 6H7.33C6.6 6 6 6.6 6 7.33v5.34C6 13.4 6.6 14 7.33 14h5.34c.73 0 1.33-.6 1.33-1.33V7.33Z"
+                stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+                d="M11 6V4.3c0-.7-.6-1.3-1.3-1.3H4.3C3.6 3 3 3.6 3 4.3v5.4c0 .7.6 1.3 1.3 1.3H6"
             ></path>
             <path
-                stroke-width="2"
-                d="M11 5.67V4.33C11 3.6 10.4 3 9.67 3H4.33C3.6 3 3 3.6 3 4.33v5.34C3 10.4 3.6 11 4.33 11h1.34"
+                stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+                d="M14 7.3c0-.7-.6-1.3-1.3-1.3H7.3C6.6 6 6 6.6 6 7.3v5.4c0 .7.6 1.3 1.3 1.3h5.4c.7 0 1.3-.6 1.3-1.3V7.3Z"
             ></path>
         </svg>
     `,

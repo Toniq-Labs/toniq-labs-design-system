@@ -1,26 +1,25 @@
 import {html} from 'element-vir';
 import {defineIcon} from 'vira';
-import {toniqIconColors} from '../../../styles/icon-colors';
+import {toniqIconCssVars} from '../../../styles/icon-css-vars';
 
 export const ArrowBarUp24Icon = defineIcon({
     name: 'ArrowBarUp24Icon',
     svgTemplate: html`
         <svg
-            fill="none"
-            stroke="${toniqIconColors.stroke()}"
             xmlns="http://www.w3.org/2000/svg"
-            xml:space="preserve"
-            width="24"
-            height="24"
-            fill-rule="evenodd"
+            stroke=${toniqIconCssVars['toniq-icon-stroke-color'].value}
+            fill="none"
             stroke-linecap="round"
             stroke-linejoin="round"
-            stroke-miterlimit="1.5"
-            clip-rule="evenodd"
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
         >
-            <path stroke-width="2" d="M12 14V4L8 8m4-4 4 4" />
-            <path stroke-miterlimit="4" stroke-width="2" d="M4 20h16" />
+            <path
+                stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+                d="M12 14V4L8 8m4-4 4 4"
+            />
+            <path stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value} d="M4 20h16" />
         </svg>
     `,
 });
