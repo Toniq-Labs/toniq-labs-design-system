@@ -44,18 +44,19 @@
         "test:watch": "wtr --watch --color --config configs/web-test-runner.config.mjs --only-one-browser"
     },
     "dependencies": {
-        "@augment-vir/common": "^19.0.0",
+        "@augment-vir/common": "^19.0.2",
         "@electrovir/resizable-image-element": "^7.1.5",
-        "element-vir": "^16.3.2",
+        "date-vir": "^2.0.0",
+        "element-vir": "^16.4.0",
         "lit-css-vars": "^3.0.1",
         "object-shape-tester": "^0.4.3",
         "run-time-assertions": "^0.0.2",
         "scroll-snap-api": "^1.0.2"
     },
     "devDependencies": {
-        "@augment-vir/browser": "^19.0.0",
-        "@augment-vir/browser-testing": "^19.0.0",
-        "@augment-vir/node-js": "^19.0.0",
+        "@augment-vir/browser": "^19.0.2",
+        "@augment-vir/browser-testing": "^19.0.2",
+        "@augment-vir/node-js": "^19.0.2",
         "@open-wc/testing": "^3.2.0",
         "@types/chai": "^4.3.6",
         "@types/mocha": "^10.0.1",
@@ -69,7 +70,7 @@
         "istanbul-smart-text-reporter": "^1.1.2",
         "npm-check-updates": "~16.12.3",
         "ts-node": "^10.9.1",
-        "type-fest": "^4.3.1",
+        "type-fest": "^4.3.2",
         "typescript": "^5.2.2",
         "vite": "^4.4.9",
         "vite-tsconfig-paths": "^4.2.1"

@@ -4,6 +4,7 @@ import {toniqButtonPage} from '../elements/toniq-button/toniq-button.element.boo
 import {toniqCarouselBookPage} from '../elements/toniq-carousel/toniq-carousel.element.book';
 import {toniqCheckboxPage} from '../elements/toniq-checkbox/toniq-checkbox.element.book';
 import {toniqChipBookPage} from '../elements/toniq-chip/toniq-chip.element.book';
+import {toniqDateTimeBookPage} from '../elements/toniq-date-time/toniq-date-time.element.book';
 import {toniqDropdownPage} from '../elements/toniq-dropdown/toniq-dropdown.element.book';
 import {toniqFeaturedFlipCardBookPage} from '../elements/toniq-featured-flip-card/toniq-featured-flip-card.element.book';
 import {toniqFlipCardBookPage} from '../elements/toniq-flip-card/toniq-flip-card.element.book';
@@ -32,13 +33,20 @@ const topLevelPages = [
 
 const childPages = [
     ...iconPages,
+    ...toniqTooltipElementBookEntries,
+
+    socialUrlsBookPage,
+    toniqBoldSpacePage,
     toniqButtonPage,
     toniqCarouselBookPage,
     toniqCheckboxPage,
     toniqChipBookPage,
+    toniqColorsBookPage,
+    toniqDateTimeBookPage,
     toniqDropdownPage,
     toniqFeaturedFlipCardBookPage,
     toniqFlipCardBookPage,
+    toniqFontsBookPage,
     toniqHyperlinkPage,
     toniqIconBookPage,
     toniqInputPage,
@@ -46,12 +54,7 @@ const childPages = [
     toniqRadioGroupPage,
     toniqSliderPage,
     toniqToggleButtonBookPage,
-    ...toniqTooltipElementBookEntries,
-    socialUrlsBookPage,
-    toniqColorsBookPage,
-    toniqFontsBookPage,
     toniqTopTabsPage,
-    toniqBoldSpacePage,
 ].sort((a, b) => a.title.localeCompare(b.title));
 
 export const allElementBookEntries = [

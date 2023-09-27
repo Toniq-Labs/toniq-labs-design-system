@@ -13,7 +13,7 @@
         "run-time-assertions": "^0.0.2"
     },
     "devDependencies": {
-        "@augment-vir/browser-testing": "^19.0.0",
+        "@augment-vir/browser-testing": "^19.0.2",
         "@open-wc/testing": "^3.2.0",
         "@types/chai": "^4.3.6",
         "@types/mocha": "^10.0.1",
