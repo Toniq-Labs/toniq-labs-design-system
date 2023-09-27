@@ -21,7 +21,7 @@ describe(AppElement.tagName, () => {
             `,
         );
         const renderedCopyIcon = await getRenderedIconSvg(Copy16Icon);
-        const renderedIconHtml = renderedCopyIcon.iconHtml.trim();
+        const renderedIconHtml = renderedCopyIcon.trim();
         // sanity check that the icon got rendered
         assert.include(renderedIconHtml, '</svg>');
         assert.include(convertTemplateToString(Copy16Icon.svgTemplate), '</svg>');

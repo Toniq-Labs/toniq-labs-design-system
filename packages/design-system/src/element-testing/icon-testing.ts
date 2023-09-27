@@ -1,9 +1,10 @@
 import {assert, fixture} from '@open-wc/testing';
+import {html} from 'element-vir';
 import {assertInstanceOf} from 'run-time-assertions';
 import {ViraIcon} from 'vira';
+import {removeChildComments} from '../augments/html';
 import {ToniqIcon} from '../elements/toniq-icon/toniq-icon.element';
 import {ToniqSvg} from '../icons';
-import {queryThroughShadow} from './query-through-shadow';
 
 export async function assertIconEquals(
     toniqIconInstance: (typeof ToniqIcon)['instanceType'],
@@ -11,29 +12,26 @@ export async function assertIconEquals(
 ): Promise<void> {
     assert.strictEqual(toniqIconInstance.instanceInputs.icon, expectedIcon);
 
-    const renderedInnerSvg = queryThroughShadow(
-        [
-            ViraIcon.tagName,
-            'svg',
-        ],
-        toniqIconInstance,
-    );
-    assertInstanceOf(renderedInnerSvg, SVGSVGElement, 'is not an svg element');
-    const actualSvg = renderedInnerSvg.outerHTML.trim();
+    const innerViraIcon = toniqIconInstance.shadowRoot.querySelector(ViraIcon.tagName);
 
-    const {iconHtml} = await getRenderedIconSvg(expectedIcon);
+    assertInstanceOf(innerViraIcon, ViraIcon);
+    removeChildComments(innerViraIcon.shadowRoot);
 
-    assert.isNotEmpty(actualSvg);
-    assert.strictEqual(actualSvg, iconHtml);
+    const actualIconHtml = innerViraIcon.shadowRoot.innerHTML.trim();
+    assert.isNotEmpty(actualIconHtml);
+
+    const expectedIconHtml = await getRenderedIconSvg(expectedIcon);
+    assert.isNotEmpty(expectedIconHtml);
+
+    assert.strictEqual(actualIconHtml, expectedIconHtml);
 }
 
-export async function getRenderedIconSvg(icon: ToniqSvg): Promise<{
-    iconHtml: string;
-    iconElement: Element;
-}> {
-    const rendered = await fixture(icon.svgTemplate);
-    return {
-        iconElement: rendered,
-        iconHtml: rendered.outerHTML.trim(),
-    };
+export async function getRenderedIconSvg(icon: ToniqSvg): Promise<string> {
+    const rendered = await fixture(
+        html`
+            <div class="wrapper-div">${icon.svgTemplate}</div>
+        `,
+    );
+    removeChildComments(rendered);
+    return rendered.innerHTML.trim();
 }

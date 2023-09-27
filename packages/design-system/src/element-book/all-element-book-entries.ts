@@ -11,6 +11,7 @@ import {toniqFlipCardBookPage} from '../elements/toniq-flip-card/toniq-flip-card
 import {toniqHyperlinkPage} from '../elements/toniq-hyperlink/toniq-hyperlink.element.book';
 import {toniqIconBookPage} from '../elements/toniq-icon/toniq-icon.element.book';
 import {toniqInputPage} from '../elements/toniq-input/toniq-input.element.book';
+import {toniqLoadingBookPage} from '../elements/toniq-loading/toniq-loading.element.book';
 import {toniqMiddleEllipsisPage} from '../elements/toniq-middle-ellipsis/toniq-middle-ellipsis.element.book';
 import {toniqRadioGroupPage} from '../elements/toniq-radio-group/toniq-radio-group.element.book';
 import {toniqSliderPage} from '../elements/toniq-slider/toniq-slider.element.book';
@@ -34,7 +35,6 @@ const topLevelPages = [
 const childPages = [
     ...iconPages,
     ...toniqTooltipElementBookEntries,
-
     socialUrlsBookPage,
     toniqBoldSpacePage,
     toniqButtonPage,
@@ -50,6 +50,7 @@ const childPages = [
     toniqHyperlinkPage,
     toniqIconBookPage,
     toniqInputPage,
+    toniqLoadingBookPage,
     toniqMiddleEllipsisPage,
     toniqRadioGroupPage,
     toniqSliderPage,

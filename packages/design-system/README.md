@@ -7,10 +7,8 @@ For the outdated version of this package that has React wrappers for each elemen
 -   Package on NPM: https://www.npmjs.com/package/@toniq-labs/design-system
 -   Examples on GitHub Pages: https://toniq-labs.github.io/toniq-labs-design-system
 
-## Usage
+# Installation
 
 ```bash
 npm i @toniq-labs/design-system
 ```
-
-See the TypeScript
