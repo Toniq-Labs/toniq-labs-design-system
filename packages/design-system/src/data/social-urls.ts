@@ -1,4 +1,4 @@
-import {defineShape, isValidShape} from 'object-shape-tester';
+import {defineShape, isValidShape, or} from 'object-shape-tester';
 import {
     BrandDiscord24Icon,
     BrandInstagram24Icon,
@@ -10,26 +10,26 @@ import {
     ToniqSvg,
 } from '../icons';
 
-export const socialUrlsShapeDefinition = defineShape({
-    Discord: '',
-    Instagram: '',
-    Telegram: '',
-    TikTok: '',
-    Twitch: '',
-    Twitter: '',
-    website: '',
+export const socialUrlsShape = defineShape({
+    Discord: or(undefined, ''),
+    Instagram: or(undefined, ''),
+    Telegram: or(undefined, ''),
+    TikTok: or(undefined, ''),
+    Twitch: or(undefined, ''),
+    Twitter: or(undefined, ''),
+    website: or(undefined, ''),
 });
 
-export const emptySocialUrls = socialUrlsShapeDefinition.defaultValue;
+export const emptySocialUrls = socialUrlsShape.defaultValue;
 
 /**
  * A record of URLs for each supported social platform. Set entries to an empty string if they have
  * no URL.
  */
-export type SocialUrls = (typeof socialUrlsShapeDefinition)['runTimeType'];
+export type SocialUrls = Partial<(typeof socialUrlsShape)['runTimeType']>;
 
 export function isSocialUrlsObject(input: unknown): input is SocialUrls {
-    return isValidShape(input, socialUrlsShapeDefinition);
+    return isValidShape(input, socialUrlsShape);
 }
 
 export const socialUrlIcons = {

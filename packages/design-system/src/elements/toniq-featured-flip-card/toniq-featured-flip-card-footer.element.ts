@@ -1,4 +1,4 @@
-import {getObjectTypedKeys} from '@augment-vir/common';
+import {getObjectTypedKeys, isTruthy} from '@augment-vir/common';
 import {css, defineElementEvent, html, listen} from 'element-vir';
 import {SocialUrls, socialUrlIcons} from '../../data';
 import {defineToniqElement} from '../define-toniq-element';
@@ -74,9 +74,12 @@ export const ToniqFeaturedFlipCardFooter = defineToniqElement<{
 
         const socialIconTemplates = socialUrls
             ? getObjectTypedKeys(socialUrls)
-                  .filter((socialUrlType) => !!socialUrls[socialUrlType])
                   .map((socialUrlType) => {
                       const socialUrl = socialUrls[socialUrlType];
+                      if (!socialUrl) {
+                          return undefined;
+                      }
+
                       const socialIcon = socialUrlIcons[socialUrlType];
                       return html`
                           <${ToniqHyperlink.assign({
@@ -87,6 +90,7 @@ export const ToniqFeaturedFlipCardFooter = defineToniqElement<{
                           </${ToniqHyperlink}>
                       `;
                   })
+                  .filter(isTruthy)
             : '';
 
         /**
