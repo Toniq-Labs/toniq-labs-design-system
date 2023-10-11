@@ -4,12 +4,7 @@ import {
     createReasonableLogarithmicRange,
     findClosestRangeIndex,
 } from '../../augments/number';
-import {ToniqSliderInputs} from './toniq-slider.element';
-
-export interface ToniqSliderDoubleRangeValue {
-    min: number;
-    max: number;
-}
+import {ToniqSliderDoubleRangeValue, ToniqSliderInputs} from './toniq-slider-inputs';
 
 export interface ToniqSliderReferenceElements {
     progress: HTMLElement | null | undefined;

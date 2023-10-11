@@ -1,6 +1,5 @@
 import {assert, fixture} from '@open-wc/testing';
-import {html} from 'element-vir';
-import {TemplateResult} from 'lit';
+import {TemplateResult, html} from 'element-vir';
 import {assertInstanceOf} from 'run-time-assertions';
 import {createFixtureTest} from '../../element-testing/fixture-test';
 import {assertIconEquals} from '../../element-testing/icon-testing';

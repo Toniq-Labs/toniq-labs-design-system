@@ -1,5 +1,4 @@
-import {css, defineElementEvent, html, listen, renderIf} from 'element-vir';
-import {TemplateResult} from 'lit';
+import {TemplateResult, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
 import {noNativeFormStyles, noUserSelect} from 'vira';
 import {ToniqSvg} from '../../icons';
 import {toniqColors} from '../../styles/colors';

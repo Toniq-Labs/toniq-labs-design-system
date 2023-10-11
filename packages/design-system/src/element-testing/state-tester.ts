@@ -1,4 +1,4 @@
-import {randomString} from '@augment-vir/browser';
+import {randomString} from '@augment-vir/common';
 import {
     CustomElementTagName,
     defineElementNoInputs,

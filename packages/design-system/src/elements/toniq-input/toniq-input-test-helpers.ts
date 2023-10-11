@@ -1,7 +1,6 @@
 import {deleteAllTextInInput, typeStringIntoElement} from '@augment-vir/browser-testing';
 import {assert, fixture} from '@open-wc/testing';
-import {html, listen} from 'element-vir';
-import {TemplateResult} from 'lit';
+import {TemplateResult, html, listen} from 'element-vir';
 import {assertInstanceOf} from 'run-time-assertions';
 import {queryThroughShadow} from '../../element-testing/query-through-shadow';
 import {createStateTester} from '../../element-testing/state-tester';

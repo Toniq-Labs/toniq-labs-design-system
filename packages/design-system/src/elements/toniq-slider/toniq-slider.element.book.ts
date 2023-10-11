@@ -1,7 +1,8 @@
 import {defineBookPage} from 'element-book';
 import {css, html, listen} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
-import {ToniqSlider, ToniqSliderInputs} from './toniq-slider.element';
+import {ToniqSliderInputs} from './toniq-slider-inputs';
+import {ToniqSlider} from './toniq-slider.element';
 
 const defaultExampleWidth = css`
     ${ToniqSlider} {

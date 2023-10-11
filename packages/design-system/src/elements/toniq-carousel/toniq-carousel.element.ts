@@ -1,5 +1,12 @@
-import {DeclarativeElementHost, css, html, listen, onResize, unsafeCSS} from 'element-vir';
-import {classMap} from 'lit/directives/class-map.js';
+import {
+    DeclarativeElementHost,
+    classMap,
+    css,
+    html,
+    listen,
+    onResize,
+    unsafeCSS,
+} from 'element-vir';
 import {getScrollSnapPositions, scrollSnapToNext} from 'scroll-snap-api';
 import {hideScrollbars} from 'vira';
 import {ArrowLeft24Icon, ArrowRight24Icon} from '../../icons';

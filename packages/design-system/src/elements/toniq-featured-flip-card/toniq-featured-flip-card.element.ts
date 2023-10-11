@@ -2,11 +2,12 @@ import {isTruthy} from '@augment-vir/common';
 import {VirResizableImage} from '@electrovir/resizable-image-element';
 import {css, defineElementEvent, html, listen} from 'element-vir';
 import {setCssVarValue} from 'lit-css-vars';
-import {ToniqIcon, defineToniqElement} from '..';
 import {SocialUrls} from '../../data';
 import {LoaderAnimated24Icon} from '../../icons';
 import {toniqFontStyles} from '../../styles';
+import {defineToniqElement} from '../define-toniq-element';
 import {ToniqFlipCard} from '../toniq-flip-card/toniq-flip-card.element';
+import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {
     calculateFeaturedFlipCardSecondaryImageSize,
     defaultFeaturedFlipCardMainImageSize,

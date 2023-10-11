@@ -1,5 +1,5 @@
 import {collapseWhiteSpace, getObjectTypedKeys, mapObjectValues} from '@augment-vir/common';
-import {CSSResult} from 'lit';
+import {CSSResult} from 'element-vir';
 
 export function extractAllCssVars(
     fontStyle: CSSResult,

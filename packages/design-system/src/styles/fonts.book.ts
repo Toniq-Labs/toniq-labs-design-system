@@ -1,7 +1,6 @@
 import {getObjectTypedKeys} from '@augment-vir/common';
 import {DefineExampleCallback, defineBookPage} from 'element-book';
-import {css, html} from 'element-vir';
-import {CSSResult} from 'lit';
+import {CSSResult, css, html} from 'element-vir';
 import {extractAllCssVars} from '../element-book/book-helpers/extract-css-vars';
 import {stylesBookPage} from '../element-book/book-pages/styles.book';
 import {toniqColors} from './colors';

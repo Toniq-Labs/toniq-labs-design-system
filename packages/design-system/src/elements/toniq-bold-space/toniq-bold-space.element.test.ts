@@ -1,5 +1,4 @@
-import {randomString} from '@augment-vir/browser';
-import {collapseWhiteSpace} from '@augment-vir/common';
+import {collapseWhiteSpace, randomString} from '@augment-vir/common';
 import {assert, fixture as renderFixture} from '@open-wc/testing';
 import {html} from 'element-vir';
 import {assertInstanceOf} from 'run-time-assertions';

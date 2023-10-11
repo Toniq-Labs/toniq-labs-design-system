@@ -1,4 +1,4 @@
-import {randomInteger} from '@augment-vir/browser';
+import {randomInteger} from '@augment-vir/common';
 import {defineBookPage} from 'element-book';
 import {css, html} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';

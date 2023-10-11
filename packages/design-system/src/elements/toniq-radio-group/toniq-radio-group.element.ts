@@ -1,4 +1,4 @@
-import {randomString} from '@augment-vir/browser';
+import {randomString} from '@augment-vir/common';
 import {classMap, css, defineElementEvent, html, listen} from 'element-vir';
 import {noNativeFormStyles} from 'vira';
 import {toniqDurations} from '../../styles/animation';

@@ -1,6 +1,5 @@
-import {randomString} from '@augment-vir/browser';
 import {assertThrows, clickElement} from '@augment-vir/browser-testing';
-import {assertLengthAtLeast, awaitedForEach} from '@augment-vir/common';
+import {assertLengthAtLeast, awaitedForEach, randomString} from '@augment-vir/common';
 import {assert, fixture as renderFixture, waitUntil} from '@open-wc/testing';
 import {TypedEvent, html, listen, testIdBy} from 'element-vir';
 import {assertDefined, assertInstanceOf} from 'run-time-assertions';

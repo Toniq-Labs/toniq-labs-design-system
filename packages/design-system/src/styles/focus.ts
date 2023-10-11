@@ -1,5 +1,4 @@
-import {css} from 'element-vir';
-import {unsafeCSS} from 'lit';
+import {css, unsafeCSS} from 'element-vir';
 import {toPixel} from '../augments/number';
 import {toniqColors} from './colors';
 

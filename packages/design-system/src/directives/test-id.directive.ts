@@ -1,5 +1,4 @@
-import {noChange} from 'lit';
-import {directive, Directive, ElementPartInfo, PartInfo, PartType} from 'lit/directive.js';
+import {directive, Directive, ElementPartInfo, noChange, PartInfo, PartType} from 'element-vir';
 
 export const testIdAttribute = 'data-test-id';
 

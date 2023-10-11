@@ -1,5 +1,4 @@
-import {css, html} from 'element-vir';
-import {TemplateResult} from 'lit';
+import {TemplateResult, css, html} from 'element-vir';
 import {ToniqSvg} from '../../icons';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles';
 import {toniqFontStyles} from '../../styles/fonts';

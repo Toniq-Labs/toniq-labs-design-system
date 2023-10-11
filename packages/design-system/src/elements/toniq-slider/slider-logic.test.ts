@@ -1,10 +1,7 @@
 import {assert} from '@open-wc/testing';
 import {createReasonableLogarithmicRange} from '../../augments/number';
-import {
-    getPossiblyLogarithmicValuesForElement,
-    ToniqSliderDoubleRangeValue,
-    ToniqSliderValueType,
-} from './slider-logic';
+import {getPossiblyLogarithmicValuesForElement, ToniqSliderValueType} from './slider-logic';
+import {ToniqSliderDoubleRangeValue} from './toniq-slider-inputs';
 
 describe(getPossiblyLogarithmicValuesForElement.name, () => {
     it('should get the right index given a range of numbers', () => {

@@ -1,8 +1,7 @@
 import {awaitedForEach, isTruthy} from '@augment-vir/common';
 import {assert, fixture, waitUntil} from '@open-wc/testing';
 import {sendKeys} from '@web/test-runner-commands';
-import {html} from 'element-vir';
-import {TemplateResult} from 'lit';
+import {TemplateResult, html} from 'element-vir';
 import {assertInstanceOf} from 'run-time-assertions';
 import {createFixtureTest, withFixtureCleanup} from './fixture-test';
 

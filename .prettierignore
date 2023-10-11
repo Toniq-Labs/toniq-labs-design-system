@@ -2,6 +2,7 @@
 coverage/
 dist/
 docs-dist/
+generated-config-*
 graphics/
 node_modules/
 package-lock.json

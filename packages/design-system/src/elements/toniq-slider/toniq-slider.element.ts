@@ -1,5 +1,4 @@
-import {css, defineElementEvent, html, listen, onResize} from 'element-vir';
-import {unsafeCSS} from 'lit';
+import {css, defineElementEvent, html, listen, onResize, unsafeCSS} from 'element-vir';
 import {noUserSelect} from 'vira';
 import {toPercent, toPixel} from '../../augments/number';
 import {testId} from '../../directives/test-id.directive';
@@ -9,7 +8,6 @@ import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
 import {
-    ToniqSliderDoubleRangeValue,
     ToniqSliderValueType,
     calculateLabelMargin,
     classNames,
@@ -22,6 +20,7 @@ import {
     maybeTransformToLogValue,
     toniqSliderTestIds,
 } from './slider-logic';
+import {ToniqSliderDoubleRangeValue, ToniqSliderInputs} from './toniq-slider-inputs';
 
 const thumbSizeNumber = 16;
 const thumbSize = css`
@@ -44,38 +43,6 @@ const thumbStyle = css`
 const thumbHoverStyle = css`
     transform: scale(1.2);
 `;
-
-type ToniqSliderSingleValueInputs = {
-    value: number;
-    /** Set to true to enable double range slider. */
-    double?: false | undefined;
-};
-
-type ToniqSliderDoubleValueInputs = {
-    value: Readonly<ToniqSliderDoubleRangeValue>;
-    /** Set to true to enable double range slider. */
-    double: true;
-};
-
-export type ToniqSliderInputs = Readonly<
-    {
-        /**
-         * Use to set the min value. If the value is less than this min then the value will
-         * automatically be clipped up to this min.
-         */
-        min: number;
-        /**
-         * Use to set the max value. If the input is greater than the max then the value will
-         * clipped down to this max.
-         */
-        max: number;
-        logScale?: boolean;
-        step?: number;
-        /** Appends the given string to the slider's value for label text. */
-        suffix?: string;
-        disabled?: boolean;
-    } & (ToniqSliderSingleValueInputs | ToniqSliderDoubleValueInputs)
->;
 
 export function maybeFixRecursively(slider: (typeof ToniqSlider)['instanceType']) {
     requestAnimationFrame(() => {

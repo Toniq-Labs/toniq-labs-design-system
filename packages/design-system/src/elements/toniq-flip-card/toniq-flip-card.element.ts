@@ -1,5 +1,4 @@
-import {css, defineElementEvent, html, listen} from 'element-vir';
-import {classMap} from 'lit/directives/class-map.js';
+import {classMap, css, defineElementEvent, html, listen} from 'element-vir';
 import {makeDropShadowCardStyles, toniqColors} from '../../styles';
 import {defineToniqElement} from '../define-toniq-element';
 

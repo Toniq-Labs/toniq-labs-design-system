@@ -1,6 +1,5 @@
 import {camelCaseToKebabCase, mapObjectValues} from '@augment-vir/common';
-import {css} from 'element-vir';
-import {CSSResult, unsafeCSS} from 'lit';
+import {CSSResult, css, unsafeCSS} from 'element-vir';
 import {wrapTypeWithReadonly} from '../augments/type';
 
 export type ColorKey = keyof typeof fallbackColors;
