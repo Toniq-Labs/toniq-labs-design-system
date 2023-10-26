@@ -26,13 +26,11 @@ describe(ToniqInput.tagName, () => {
         'should set value programmatically',
         createFixtureTest(async () => {
             const assignedValue = 'five';
-            const {toniqInputInstance, innerInput} = await setupToniqInputTest(
-                html`
-                    <${ToniqInput.assign({
-                        value: assignedValue,
-                    })}></${ToniqInput}>
-                `,
-            );
+            const {toniqInputInstance, innerInput} = await setupToniqInputTest(html`
+                <${ToniqInput.assign({
+                    value: assignedValue,
+                })}></${ToniqInput}>
+            `);
 
             assertInstanceOf(innerInput, HTMLInputElement);
 
@@ -64,11 +62,9 @@ describe(ToniqInput.tagName, () => {
                 },
             );
 
-            const {toniqInputInstance, innerInput} = await setupToniqInputTest(
-                html`
-                    <${inputStateWrapper}></${inputStateWrapper}>
-                `,
-            );
+            const {toniqInputInstance, innerInput} = await setupToniqInputTest(html`
+                <${inputStateWrapper}></${inputStateWrapper}>
+            `);
 
             const textToType = 'a b c d e f g';
             await typeIntoToniqInput(toniqInputInstance, textToType);
@@ -95,14 +91,12 @@ describe(ToniqInput.tagName, () => {
         'should not be focusable when disabled',
         createFixtureTest(async () => {
             const originalValue = 'should not change';
-            const {innerInput, toniqInputInstance} = await setupToniqInputTest(
-                html`
-                    <${ToniqInput.assign({
-                        value: originalValue,
-                        disabled: true,
-                    })}></${ToniqInput}>
-                `,
-            );
+            const {innerInput, toniqInputInstance} = await setupToniqInputTest(html`
+                <${ToniqInput.assign({
+                    value: originalValue,
+                    disabled: true,
+                })}></${ToniqInput}>
+            `);
 
             logActiveElement();
             await assertFocused(innerInput, false);

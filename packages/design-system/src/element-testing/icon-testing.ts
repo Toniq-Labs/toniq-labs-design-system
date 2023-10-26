@@ -27,11 +27,9 @@ export async function assertIconEquals(
 }
 
 export async function getRenderedIconSvg(icon: ToniqSvg): Promise<string> {
-    const rendered = await fixture(
-        html`
-            <div class="wrapper-div">${icon.svgTemplate}</div>
-        `,
-    );
+    const rendered = await fixture(html`
+        <div class="wrapper-div">${icon.svgTemplate}</div>
+    `);
     removeChildComments(rendered);
     return rendered.innerHTML.trim();
 }

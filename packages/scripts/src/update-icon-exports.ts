@@ -45,15 +45,18 @@ function generateIconImportsAndExports(iconPaths: string[]): string {
         };
     });
 
-    const organizedIcons = iconInfos.reduce((accum, currentInfo) => {
-        let currentCategory = accum[currentInfo.category];
-        if (!currentCategory) {
-            currentCategory = [];
-            accum[currentInfo.category] = currentCategory;
-        }
-        currentCategory.push(currentInfo);
-        return accum;
-    }, {} as Record<string, IconInfo[]>);
+    const organizedIcons = iconInfos.reduce(
+        (accum, currentInfo) => {
+            let currentCategory = accum[currentInfo.category];
+            if (!currentCategory) {
+                currentCategory = [];
+                accum[currentInfo.category] = currentCategory;
+            }
+            currentCategory.push(currentInfo);
+            return accum;
+        },
+        {} as Record<string, IconInfo[]>,
+    );
 
     const {imports, categories} = [...getObjectTypedKeys(organizedIcons)].sort().reduce(
         (accum, categoryName) => {

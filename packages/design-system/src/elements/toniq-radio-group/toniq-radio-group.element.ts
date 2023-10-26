@@ -50,7 +50,8 @@ export const ToniqRadioGroup = defineToniqElement<{
         :host {
             ${toniqFontStyles.boldParagraphFont};
             display: inline-flex;
-            transition: color ${toniqDurations.interaction},
+            transition:
+                color ${toniqDurations.interaction},
                 background-color ${toniqDurations.interaction},
                 opacity ${toniqDurations.interaction};
             flex-direction: column;

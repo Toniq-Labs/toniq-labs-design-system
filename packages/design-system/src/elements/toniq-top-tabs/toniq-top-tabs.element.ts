@@ -40,7 +40,8 @@ export const ToniqTopTabs = defineToniqElement<{
             list-style: none;
             position: relative;
             border-bottom: 1px solid ${toniqColors.pageTertiary.foregroundColor};
-            transition: border-bottom-width ${toniqDurations.interaction},
+            transition:
+                border-bottom-width ${toniqDurations.interaction},
                 border-color ${toniqDurations.interaction};
         }
 

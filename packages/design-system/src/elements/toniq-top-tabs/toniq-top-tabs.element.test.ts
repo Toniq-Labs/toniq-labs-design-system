@@ -1,8 +1,8 @@
-import {assertThrows, clickElement} from '@augment-vir/browser-testing';
+import {clickElement} from '@augment-vir/browser-testing';
 import {assertLengthAtLeast, awaitedForEach, randomString} from '@augment-vir/common';
 import {assert, fixture as renderFixture, waitUntil} from '@open-wc/testing';
 import {TypedEvent, html, listen, testIdBy} from 'element-vir';
-import {assertDefined, assertInstanceOf} from 'run-time-assertions';
+import {assertDefined, assertInstanceOf, assertThrows} from 'run-time-assertions';
 import {ToniqTopTabs} from './toniq-top-tabs.element';
 
 describe(ToniqTopTabs.tagName, () => {
@@ -17,18 +17,16 @@ describe(ToniqTopTabs.tagName, () => {
 
         assert.isAbove(tabs.length, 0);
 
-        const fixture = await renderFixture(
-            html`
-                <${ToniqTopTabs.assign({
-                    value: selectedTabIndex == undefined ? '' : tabs[selectedTabIndex]?.value || '',
-                    tabs,
+        const fixture = await renderFixture(html`
+            <${ToniqTopTabs.assign({
+                value: selectedTabIndex == undefined ? '' : tabs[selectedTabIndex]?.value || '',
+                tabs,
+            })}
+                ${listen(ToniqTopTabs.events.valueChange, (event) => {
+                    outputs.push(event);
                 })}
-                    ${listen(ToniqTopTabs.events.valueChange, (event) => {
-                        outputs.push(event);
-                    })}
-                ></${ToniqTopTabs}>
-            `,
-        );
+            ></${ToniqTopTabs}>
+        `);
 
         assertInstanceOf(fixture, ToniqTopTabs);
         const tabElements = Array.from(fixture.shadowRoot.querySelectorAll(testIdBy('tab')));

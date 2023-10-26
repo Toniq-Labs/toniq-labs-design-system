@@ -16,14 +16,12 @@ describe(ToniqPagination.tagName, () => {
         'should correctly set current page',
         createFixtureTest(async () => {
             const currentPage = 4;
-            const rendered = await fixture(
-                html`
-                    <${ToniqPagination.assign({
-                        currentPage,
-                        pageCount: 10,
-                    })} />
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqPagination.assign({
+                    currentPage,
+                    pageCount: 10,
+                })} />
+            `);
 
             const page = queryThroughShadow('button.page.selected', rendered);
             assertInstanceOf(page, HTMLButtonElement);
@@ -35,14 +33,12 @@ describe(ToniqPagination.tagName, () => {
         'should correctly set page count',
         createFixtureTest(async () => {
             const pageCount = 10;
-            const rendered = await fixture(
-                html`
-                    <${ToniqPagination.assign({
-                        pageCount,
-                        currentPage: 1,
-                    })} />
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqPagination.assign({
+                    pageCount,
+                    currentPage: 1,
+                })} />
+            `);
 
             const page = queryThroughShadow('button.page', rendered, true);
             const lastPage = page[page.length - 1];
@@ -55,15 +51,13 @@ describe(ToniqPagination.tagName, () => {
         'should correctly set page size',
         createFixtureTest(async () => {
             const pagesShown = 7;
-            const rendered = await fixture(
-                html`
-                    <${ToniqPagination.assign({
-                        currentPage: 1,
-                        pageCount: 10,
-                        pagesShown,
-                    })} />
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqPagination.assign({
+                    currentPage: 1,
+                    pageCount: 10,
+                    pagesShown,
+                })} />
+            `);
 
             const page = queryThroughShadow('.page', rendered, true);
             assert.strictEqual(page.length, pagesShown);

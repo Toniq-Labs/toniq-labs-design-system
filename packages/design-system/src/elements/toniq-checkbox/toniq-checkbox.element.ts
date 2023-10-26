@@ -43,7 +43,8 @@ export const ToniqCheckbox = defineToniqElement<{
         :host {
             ${toniqFontStyles.boldParagraphFont};
             display: inline-flex;
-            transition: color ${toniqDurations.interaction},
+            transition:
+                color ${toniqDurations.interaction},
                 background-color ${toniqDurations.interaction},
                 opacity ${toniqDurations.interaction};
             border-radius: 8px;

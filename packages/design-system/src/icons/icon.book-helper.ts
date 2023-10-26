@@ -26,17 +26,20 @@ export const ToniqIconBookHelper = defineToniqElement<{icon: ToniqSvg}>()({
     },
 });
 
-export const allIconsByName = Object.values(allIconsByCategory).reduce((accum, icons) => {
-    icons.forEach((icon) => {
-        if (icon.name in accum) {
-            throw new Error(`Icon name duplicate: '${icon.name}'`);
-        }
+export const allIconsByName = Object.values(allIconsByCategory).reduce(
+    (accum, icons) => {
+        icons.forEach((icon) => {
+            if (icon.name in accum) {
+                throw new Error(`Icon name duplicate: '${icon.name}'`);
+            }
 
-        accum[icon.name] = icon;
-    });
+            accum[icon.name] = icon;
+        });
 
-    return accum;
-}, {} as Record<string, ToniqSvg>);
+        return accum;
+    },
+    {} as Record<string, ToniqSvg>,
+);
 
 export const allIconNames = Object.keys(allIconsByName).sort();
 

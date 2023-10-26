@@ -15,11 +15,9 @@ describe(ToniqIcon.tagName, () => {
     it(
         'should render nothing when no icon is assigned',
         createFixtureTest(async () => {
-            const rendered = await fixture(
-                html`
-                    <${ToniqIcon}></${ToniqIcon}>
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqIcon}></${ToniqIcon}>
+            `);
             assert.isUndefined(queryThroughShadow('svg', rendered));
         }),
     );
@@ -29,13 +27,11 @@ describe(ToniqIcon.tagName, () => {
         createFixtureTest(async () => {
             const iconToRender = Copy16Icon;
 
-            const renderedToniqIcon = await fixture(
-                html`
-                    <${ToniqIcon.assign({
-                        icon: iconToRender,
-                    })}></${ToniqIcon}>
-                `,
-            );
+            const renderedToniqIcon = await fixture(html`
+                <${ToniqIcon.assign({
+                    icon: iconToRender,
+                })}></${ToniqIcon}>
+            `);
 
             assertInstanceOf(renderedToniqIcon, ToniqIcon, 'is not a rendered ToniqIcon');
             await assertIconEquals(renderedToniqIcon, iconToRender);

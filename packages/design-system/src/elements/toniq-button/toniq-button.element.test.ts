@@ -16,11 +16,9 @@ describe(ToniqButton.tagName, () => {
     it(
         'renders with default values',
         createFixtureTest(async () => {
-            const rendered = await fixture(
-                html`
-                    <${ToniqButton}></${ToniqButton}>
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqButton}></${ToniqButton}>
+            `);
 
             const innerButton = queryThroughShadow('button', rendered);
             assertInstanceOf(innerButton, HTMLButtonElement);
@@ -32,11 +30,9 @@ describe(ToniqButton.tagName, () => {
         createFixtureTest(async () => {
             const textToRender = 'Buy Now';
 
-            const rendered = await fixture(
-                html`
-                    <${ToniqButton.assign({text: textToRender})}></${ToniqButton}>
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqButton.assign({text: textToRender})}></${ToniqButton}>
+            `);
             assert.equal(getTextContentThroughShadow(rendered), textToRender);
         }),
     );

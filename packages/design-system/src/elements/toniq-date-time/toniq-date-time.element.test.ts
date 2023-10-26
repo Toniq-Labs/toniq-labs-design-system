@@ -9,11 +9,9 @@ async function testDateTimeContents(inputs: typeof ToniqDateTime.inputsType): Pr
     content: string;
     title: string;
 }> {
-    const fixture = await renderFixture(
-        html`
-            <${ToniqDateTime.assign(inputs)}></${ToniqDateTime}>
-        `,
-    );
+    const fixture = await renderFixture(html`
+        <${ToniqDateTime.assign(inputs)}></${ToniqDateTime}>
+    `);
 
     assertInstanceOf(fixture, ToniqDateTime);
 

@@ -125,15 +125,13 @@ export function runFocusTests(
                 const instanceCount = 5;
                 const tagName = await getTagName(singleInstanceTemplate);
 
-                const rendered = await fixture(
-                    html`
-                        <div>
-                            ${Array(instanceCount)
-                                .fill(0)
-                                .map(() => singleInstanceTemplate)}
-                        </div>
-                    `,
-                );
+                const rendered = await fixture(html`
+                    <div>
+                        ${Array(instanceCount)
+                            .fill(0)
+                            .map(() => singleInstanceTemplate)}
+                    </div>
+                `);
                 assertInstanceOf(rendered, HTMLDivElement);
                 const allInstances: Element[] = Array.from(document.querySelectorAll(tagName));
                 assert.strictEqual(

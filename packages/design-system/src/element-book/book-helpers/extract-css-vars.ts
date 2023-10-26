@@ -10,16 +10,19 @@ export function extractAllCssVars(
         return match;
     });
 
-    const onlyKeysWithCssVars = getObjectTypedKeys(cssVars).reduce((accum, propertyName) => {
-        const value = cssVars[propertyName];
-        if (value && value[1] && value[2]) {
-            accum[propertyName] = {
-                cssVarName: value[1],
-                defaultValue: value[2],
-            };
-        }
-        return accum;
-    }, {} as Record<string, {cssVarName: string; defaultValue: string}>);
+    const onlyKeysWithCssVars = getObjectTypedKeys(cssVars).reduce(
+        (accum, propertyName) => {
+            const value = cssVars[propertyName];
+            if (value && value[1] && value[2]) {
+                accum[propertyName] = {
+                    cssVarName: value[1],
+                    defaultValue: value[2],
+                };
+            }
+            return accum;
+        },
+        {} as Record<string, {cssVarName: string; defaultValue: string}>,
+    );
 
     return onlyKeysWithCssVars;
 }
@@ -41,10 +44,13 @@ export function cssToStylesObject(input: string | CSSResult): Record<string, unk
     try {
         const cssObject = JSON.parse(cssJson);
 
-        const reactStyles = Object.keys(cssObject).reduce((accum, key) => {
-            accum[key] = cssObject[key];
-            return accum;
-        }, {} as Record<string, unknown>);
+        const reactStyles = Object.keys(cssObject).reduce(
+            (accum, key) => {
+                accum[key] = cssObject[key];
+                return accum;
+            },
+            {} as Record<string, unknown>,
+        );
 
         return reactStyles;
     } catch (error) {

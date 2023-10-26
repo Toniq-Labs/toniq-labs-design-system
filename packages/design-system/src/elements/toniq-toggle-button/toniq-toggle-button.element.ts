@@ -49,7 +49,8 @@ export const ToniqToggleButton = defineToniqElement<{
             padding: 4px 12px;
 
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
-            transition: color ${toniqDurations.interaction},
+            transition:
+                color ${toniqDurations.interaction},
                 background-color ${toniqDurations.interaction};
         }
 

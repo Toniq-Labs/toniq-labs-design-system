@@ -46,7 +46,7 @@ export async function formatAndWriteOrCheckFromArgs(
     const codeWithComment =
         generateAutomaticallyUpdatedByComment(basename(scriptName)) + '\n\n' + codeToWrite;
 
-    const formattedCode = formatCode(codeWithComment, fileToWriteTo);
+    const formattedCode = await formatCode(codeWithComment, fileToWriteTo);
     const relativeWriteToFile = relative(monoRepoRootDir, fileToWriteTo);
     const currentOutputContents = (await readFile(fileToWriteTo)).toString();
     const qualifier = args.checkOnly ? '' : ' already';

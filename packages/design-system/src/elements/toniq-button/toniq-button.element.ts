@@ -64,7 +64,8 @@ export const ToniqButton = defineToniqElement<{
             border-radius: ${buttonBorderRadius};
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
             padding: 10px;
-            transition: color ${toniqDurations.interaction},
+            transition:
+                color ${toniqDurations.interaction},
                 background-color ${toniqDurations.interaction},
                 border-color ${toniqDurations.interaction};
         }

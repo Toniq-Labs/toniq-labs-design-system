@@ -14,14 +14,12 @@ describe(ToniqCheckbox.tagName, () => {
         createFixtureTest(async () => {
             const textToRender = 'Orange';
 
-            const rendered = await fixture(
-                html`
-                    <${ToniqCheckbox.assign({
-                        text: textToRender,
-                        checked: false,
-                    })}></${ToniqCheckbox}>
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqCheckbox.assign({
+                    text: textToRender,
+                    checked: false,
+                })}></${ToniqCheckbox}>
+            `);
             assert.equal(getTextContentThroughShadow(rendered), textToRender);
         }),
     );

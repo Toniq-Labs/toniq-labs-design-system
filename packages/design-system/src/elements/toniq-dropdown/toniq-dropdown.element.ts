@@ -248,24 +248,23 @@ export const ToniqDropdown = defineToniqElement<{
                 </div>
                 <div class="select-options">
                     ${inputs.options.map(
-                        (item) =>
-                            html`
-                                <span
-                                    class="option ${item.value === selectedOption?.value
-                                        ? 'selected'
-                                        : ''}"
-                                    @click=${(event: Event) => {
-                                        event.preventDefault();
-                                        event.stopPropagation();
-                                        updateState({dropdownOpen: false});
-                                        dispatch(new events.openChange(false));
-                                        dispatch(new events.selectChange(item));
-                                    }}
-                                    role="option"
-                                >
-                                    ${item.label}
-                                </span>
-                            `,
+                        (item) => html`
+                            <span
+                                class="option ${item.value === selectedOption?.value
+                                    ? 'selected'
+                                    : ''}"
+                                @click=${(event: Event) => {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                    updateState({dropdownOpen: false});
+                                    dispatch(new events.openChange(false));
+                                    dispatch(new events.selectChange(item));
+                                }}
+                                role="option"
+                            >
+                                ${item.label}
+                            </span>
+                        `,
                     )}
                 </div>
             </button>

@@ -19,11 +19,9 @@ describe(ToniqMiddleEllipsis.tagName, () => {
     it(
         'should not render text when none is input',
         createFixtureTest(async () => {
-            const rendered = await fixture(
-                html`
-                    <${ToniqMiddleEllipsis}></${ToniqMiddleEllipsis}>
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqMiddleEllipsis}></${ToniqMiddleEllipsis}>
+            `);
             assert.equal(getTextContentThroughShadow(rendered), '');
             assert.isUndefined(queryThroughShadow(ToniqIcon.tagName, rendered));
         }),
@@ -32,13 +30,11 @@ describe(ToniqMiddleEllipsis.tagName, () => {
     it(
         'should not even render icons when no text is assigned',
         createFixtureTest(async () => {
-            const rendered = await fixture(
-                html`
-                    <${ToniqMiddleEllipsis.assign({
-                        externalLink: 'https://entrepot.app',
-                    })}></${ToniqMiddleEllipsis}>
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqMiddleEllipsis.assign({
+                    externalLink: 'https://entrepot.app',
+                })}></${ToniqMiddleEllipsis}>
+            `);
             assert.equal(getTextContentThroughShadow(rendered), '');
             assert.isUndefined(queryThroughShadow(ToniqIcon.tagName, rendered));
         }),
@@ -49,14 +45,12 @@ describe(ToniqMiddleEllipsis.tagName, () => {
         createFixtureTest(async () => {
             const iconToRender = ExternalLink24Icon;
 
-            const renderedWithToniqIcon = await fixture(
-                html`
-                    <${ToniqMiddleEllipsis.assign({
-                        text: 'link',
-                        externalLink: 'https://entrepot.app',
-                    })}></${ToniqMiddleEllipsis}>
-                `,
-            );
+            const renderedWithToniqIcon = await fixture(html`
+                <${ToniqMiddleEllipsis.assign({
+                    text: 'link',
+                    externalLink: 'https://entrepot.app',
+                })}></${ToniqMiddleEllipsis}>
+            `);
             const toniqIconInstance = queryThroughShadow(ToniqIcon.tagName, renderedWithToniqIcon);
             assertInstanceOf(toniqIconInstance, ToniqIcon);
             await assertIconEquals(toniqIconInstance, iconToRender);
@@ -68,13 +62,11 @@ describe(ToniqMiddleEllipsis.tagName, () => {
         createFixtureTest(async () => {
             const shortText = 'short';
 
-            const rendered = await fixture(
-                html`
-                    <${ToniqMiddleEllipsis.assign({
-                        text: shortText,
-                    })}></${ToniqMiddleEllipsis}>
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqMiddleEllipsis.assign({
+                    text: shortText,
+                })}></${ToniqMiddleEllipsis}>
+            `);
             assert.equal(getTextContentThroughShadow(rendered), shortText);
         }),
     );
@@ -82,13 +74,11 @@ describe(ToniqMiddleEllipsis.tagName, () => {
     it(
         'should truncate long text by default',
         createFixtureTest(async () => {
-            const rendered = await fixture(
-                html`
-                    <${ToniqMiddleEllipsis.assign({
-                        text: 'this-is-some-long-text',
-                    })}></${ToniqMiddleEllipsis}>
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqMiddleEllipsis.assign({
+                    text: 'this-is-some-long-text',
+                })}></${ToniqMiddleEllipsis}>
+            `);
             assert.equal(getTextContentThroughShadow(rendered), `this${ellipsisCharacter}text`);
         }),
     );
@@ -98,14 +88,12 @@ describe(ToniqMiddleEllipsis.tagName, () => {
         createFixtureTest(async () => {
             const longText = 'this-is-some-long-text';
 
-            const rendered = await fixture(
-                html`
-                    <${ToniqMiddleEllipsis.assign({
-                        text: longText,
-                        letterCount: 500,
-                    })}></${ToniqMiddleEllipsis}>
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqMiddleEllipsis.assign({
+                    text: longText,
+                    letterCount: 500,
+                })}></${ToniqMiddleEllipsis}>
+            `);
             assert.equal(getTextContentThroughShadow(rendered), longText);
         }),
     );
@@ -113,14 +101,12 @@ describe(ToniqMiddleEllipsis.tagName, () => {
     it(
         'should truncate short text when count is very low',
         createFixtureTest(async () => {
-            const rendered = await fixture(
-                html`
-                    <${ToniqMiddleEllipsis.assign({
-                        text: 'abcde',
-                        letterCount: 1,
-                    })}></${ToniqMiddleEllipsis}>
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqMiddleEllipsis.assign({
+                    text: 'abcde',
+                    letterCount: 1,
+                })}></${ToniqMiddleEllipsis}>
+            `);
             assert.equal(getTextContentThroughShadow(rendered), `a${ellipsisCharacter}e`);
         }),
     );

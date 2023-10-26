@@ -51,27 +51,27 @@ function validateLetterCount(inputs: {letterCount?: number | undefined}): number
  * rendering it to the DOM.
  */
 export const ToniqMiddleEllipsis = defineToniqElement<
-    | {
-          text?: string | undefined;
-          /**
-           * Determines how many letter render before the truncation ellipsis. The same number of
-           * letters are also rendered after the ellipsis.
-           */
-          letterCount?: number | undefined;
-      } & (
-          | {
-                /**
-                 * Support optional specific behavior where an icon shows up that, when clicked,
-                 * copies the whole text to the user's clipboard.
-                 */
-                copyOnClick?: boolean;
-                externalLink?: undefined;
-            }
-          | {
-                copyOnClick?: undefined;
-                externalLink?: string;
-            }
-      )
+    {
+        text?: string | undefined;
+        /**
+         * Determines how many letter render before the truncation ellipsis. The same number of
+         * letters are also rendered after the ellipsis.
+         */
+        letterCount?: number | undefined;
+    } & (
+        | {
+              /**
+               * Support optional specific behavior where an icon shows up that, when clicked,
+               * copies the whole text to the user's clipboard.
+               */
+              copyOnClick?: boolean;
+              externalLink?: undefined;
+          }
+        | {
+              copyOnClick?: undefined;
+              externalLink?: string;
+          }
+    )
 >()({
     tagName: 'toniq-middle-ellipsis',
     events: {

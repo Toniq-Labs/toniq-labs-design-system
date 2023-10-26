@@ -14,14 +14,12 @@ describe(ToniqToggleButton.tagName, () => {
         createFixtureTest(async () => {
             const textToRender = 'Buy Now';
 
-            const rendered = await fixture(
-                html`
-                    <${ToniqToggleButton.assign({
-                        text: textToRender,
-                        toggled: false,
-                    })}></${ToniqToggleButton}>
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqToggleButton.assign({
+                    text: textToRender,
+                    toggled: false,
+                })}></${ToniqToggleButton}>
+            `);
             assert.equal(getTextContentThroughShadow(rendered), textToRender);
         }),
     );

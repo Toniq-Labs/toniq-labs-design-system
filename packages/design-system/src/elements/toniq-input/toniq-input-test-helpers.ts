@@ -57,11 +57,9 @@ export async function runBlockedTextTest(
             ></${ToniqInput}>
         `;
     });
-    const {toniqInputInstance, innerInput} = await setupToniqInputTest(
-        html`
-            <${inputStateWrapper}></${inputStateWrapper}>
-        `,
-    );
+    const {toniqInputInstance, innerInput} = await setupToniqInputTest(html`
+        <${inputStateWrapper}></${inputStateWrapper}>
+    `);
 
     await typeStringIntoElement(textToType, toniqInputInstance as any);
 

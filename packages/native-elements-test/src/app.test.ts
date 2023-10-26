@@ -15,11 +15,9 @@ describe(AppElement.tagName, () => {
     });
 
     it('should include icon svg', async () => {
-        const renderedApp = await fixture(
-            html`
-                <${AppElement}></${AppElement}>
-            `,
-        );
+        const renderedApp = await fixture(html`
+            <${AppElement}></${AppElement}>
+        `);
         const renderedCopyIcon = await getRenderedIconSvg(Copy16Icon);
         const renderedIconHtml = renderedCopyIcon.trim();
         // sanity check that the icon got rendered

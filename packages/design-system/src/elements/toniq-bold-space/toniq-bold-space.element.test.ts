@@ -7,11 +7,9 @@ import {ToniqBoldSpace} from './toniq-bold-space.element';
 describe(ToniqBoldSpace.tagName, () => {
     it('contains the input text', async () => {
         const randomText = randomString();
-        const fixture = await renderFixture(
-            html`
-                <${ToniqBoldSpace.assign({text: randomText})}></${ToniqBoldSpace}>
-            `,
-        );
+        const fixture = await renderFixture(html`
+            <${ToniqBoldSpace.assign({text: randomText})}></${ToniqBoldSpace}>
+        `);
 
         assertInstanceOf(fixture, ToniqBoldSpace);
 

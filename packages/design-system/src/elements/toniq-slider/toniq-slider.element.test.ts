@@ -19,11 +19,9 @@ describe(ToniqSlider.tagName, () => {
                 min: 10,
                 max: 100,
             };
-            const rendered = await fixture(
-                html`
-                    <${ToniqSlider.assign(initialValues)} />
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqSlider.assign(initialValues)} />
+            `);
 
             const sliderInput = getByTestId(toniqSliderTestIds.slider, rendered);
             assertInstanceOf(sliderInput, HTMLInputElement);
@@ -42,16 +40,14 @@ describe(ToniqSlider.tagName, () => {
         createFixtureTest(async () => {
             const value = 5;
             const suffix = 'ICP';
-            const rendered = await fixture(
-                html`
-                    <${ToniqSlider.assign({
-                        min: 0,
-                        max: 100,
-                        value,
-                        suffix,
-                    })} />
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqSlider.assign({
+                    min: 0,
+                    max: 100,
+                    value,
+                    suffix,
+                })} />
+            `);
 
             const label = getByTestId(toniqSliderTestIds.label, rendered);
             assertInstanceOf(label, HTMLSpanElement);
@@ -63,16 +59,14 @@ describe(ToniqSlider.tagName, () => {
         'should correctly set suffix',
         createFixtureTest(async () => {
             const suffix = 'ICP';
-            const rendered = await fixture(
-                html`
-                    <${ToniqSlider.assign({
-                        max: 100,
-                        min: 0,
-                        value: 0,
-                        suffix,
-                    })} />
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqSlider.assign({
+                    max: 100,
+                    min: 0,
+                    value: 0,
+                    suffix,
+                })} />
+            `);
 
             const label = getByTestId(toniqSliderTestIds.label, rendered);
             assertInstanceOf(label, HTMLSpanElement);

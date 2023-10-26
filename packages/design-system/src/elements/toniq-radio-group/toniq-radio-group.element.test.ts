@@ -14,19 +14,17 @@ describe(ToniqRadioGroup.tagName, () => {
         createFixtureTest(async () => {
             const textToRender = 'Orange';
 
-            const rendered = await fixture(
-                html`
-                    <${ToniqRadioGroup.assign({
-                        entries: [
-                            {
-                                label: textToRender,
-                                value: 'first',
-                            },
-                        ],
-                        value: 'first',
-                    })}></${ToniqRadioGroup}>
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqRadioGroup.assign({
+                    entries: [
+                        {
+                            label: textToRender,
+                            value: 'first',
+                        },
+                    ],
+                    value: 'first',
+                })}></${ToniqRadioGroup}>
+            `);
             assert.equal(getTextContentThroughShadow(rendered), textToRender);
         }),
     );

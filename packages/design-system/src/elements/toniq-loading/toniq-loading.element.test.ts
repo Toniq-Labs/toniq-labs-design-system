@@ -9,11 +9,9 @@ import {ToniqLoading, ToniqLoadingSizeEnum} from './toniq-loading.element';
 
 describe(ToniqLoading.tagName, () => {
     it('renders the animated loading spinner icon', async () => {
-        const renderedToniqLoading = await renderFixture(
-            html`
-                <${ToniqLoading.assign({size: ToniqLoadingSizeEnum.Small})}></${ToniqLoading}>
-            `,
-        );
+        const renderedToniqLoading = await renderFixture(html`
+            <${ToniqLoading.assign({size: ToniqLoadingSizeEnum.Small})}></${ToniqLoading}>
+        `);
 
         assertInstanceOf(renderedToniqLoading, ToniqLoading);
 
@@ -23,13 +21,11 @@ describe(ToniqLoading.tagName, () => {
     });
 
     async function testRender(testCase: {inputs: typeof ToniqLoading.inputsType}) {
-        const renderedWrapper = await renderFixture(
-            html`
-                <div style="display: inline-block;">
-                    <${ToniqLoading.assign(testCase.inputs)}></${ToniqLoading}>
-                </div>
-            `,
-        );
+        const renderedWrapper = await renderFixture(html`
+            <div style="display: inline-block;">
+                <${ToniqLoading.assign(testCase.inputs)}></${ToniqLoading}>
+            </div>
+        `);
         const renderedToniqLoading = renderedWrapper.querySelector(ToniqLoading.tagName);
         assertInstanceOf(renderedToniqLoading, ToniqLoading);
 

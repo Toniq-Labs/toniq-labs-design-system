@@ -30,7 +30,7 @@ export function makeDropShadowCardStyles(selector: string, allowHover = true) {
     const hoverSelector =
         selector === ':host'
             ? css`
-                  :host(:hover) ;
+                  :host(:hover);
               `
             : css`
                   ${cssSelector}:hover

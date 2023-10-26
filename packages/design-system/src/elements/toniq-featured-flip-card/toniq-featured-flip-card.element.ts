@@ -254,10 +254,9 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                     ${cardHeaderTemplate}
                     <div class="paragraphs">
                         ${inputs.infoParagraphs?.map(
-                            (paragraph) =>
-                                html`
-                                    <p>${paragraph}</p>
-                                `,
+                            (paragraph) => html`
+                                <p>${paragraph}</p>
+                            `,
                         )}
                     </div>
                     <${ToniqFeaturedFlipCardFooter.assign({

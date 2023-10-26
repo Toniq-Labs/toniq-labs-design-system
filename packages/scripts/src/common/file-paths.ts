@@ -33,9 +33,7 @@ export function generateExportsFromFilePaths(filePaths: string[], relativeDir: s
 
 export async function getElementFilePaths(): Promise<string[]> {
     const allElementsDirChildrenWithStats = await Promise.all(
-        (
-            await readdir(elementsDir)
-        ).map(async (childName) => {
+        (await readdir(elementsDir)).map(async (childName) => {
             const childFullPath = join(elementsDir, childName);
             const stats = await stat(childFullPath);
 

@@ -27,7 +27,8 @@ export const ToniqWithTooltip = defineToniqElement<{
         }
 
         .tooltip-wrapper {
-            transition: visibility ${toniqDurations.pretty} ${toniqDurations.pretty},
+            transition:
+                visibility ${toniqDurations.pretty} ${toniqDurations.pretty},
                 opacity ${toniqDurations.pretty};
             pointer-events: none;
             visibility: hidden;

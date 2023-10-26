@@ -32,13 +32,11 @@ describe(ToniqDropdown.tagName, () => {
     it(
         'should correctly set default option',
         createFixtureTest(async () => {
-            const rendered = await fixture(
-                html`
-                    <${ToniqDropdown.assign({
-                        options,
-                    })} />
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqDropdown.assign({
+                    options,
+                })} />
+            `);
 
             const selectedOption = queryThroughShadow('span.select-selected', rendered);
             assertInstanceOf(selectedOption, HTMLElement);
@@ -49,14 +47,12 @@ describe(ToniqDropdown.tagName, () => {
     it(
         'should render an icon when that input is set',
         createFixtureTest(async () => {
-            const rendered = await fixture(
-                html`
-                    <${ToniqDropdown.assign({
-                        options,
-                        icon: ArrowsSort24Icon,
-                    })} />
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqDropdown.assign({
+                    options,
+                    icon: ArrowsSort24Icon,
+                })} />
+            `);
 
             const renderedIcon = getByTestId('rendered-input-icon', rendered);
             assertInstanceOf(renderedIcon, ToniqIcon);
@@ -67,14 +63,12 @@ describe(ToniqDropdown.tagName, () => {
     it(
         'should correctly set selected default option',
         createFixtureTest(async () => {
-            const rendered = await fixture(
-                html`
-                    <${ToniqDropdown.assign({
-                        options,
-                        value: options[2],
-                    })} />
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqDropdown.assign({
+                    options,
+                    value: options[2],
+                })} />
+            `);
 
             const selectedOption = queryThroughShadow('span.select-selected', rendered);
             assertInstanceOf(selectedOption, HTMLElement);
@@ -85,13 +79,11 @@ describe(ToniqDropdown.tagName, () => {
     it(
         'should display the correct number of options',
         createFixtureTest(async () => {
-            const rendered = await fixture(
-                html`
-                    <${ToniqDropdown.assign({
-                        options,
-                    })} />
-                `,
-            );
+            const rendered = await fixture(html`
+                <${ToniqDropdown.assign({
+                    options,
+                })} />
+            `);
 
             const optionList = queryThroughShadow('div.select-options', rendered);
             assert.strictEqual(optionList?.childElementCount, options.length);
