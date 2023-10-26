@@ -11,9 +11,12 @@ module.exports = {
     words: [
         ...baseConfig.words,
         'dfinity',
+        'distrikt',
+        'dscvr',
         // for svgo plugin names
         'elems',
         'listbox',
+        'nftgeek',
         'tablist',
         'toniq',
     ],
