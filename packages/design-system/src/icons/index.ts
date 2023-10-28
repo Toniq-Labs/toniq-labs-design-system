@@ -77,11 +77,15 @@ import {CryptoIcp16Icon} from './svgs/cryptocurrencies/crypto-icp-16.icon';
 import {CryptoIcp24Icon} from './svgs/cryptocurrencies/crypto-icp-24.icon';
 import {EntrepotLogo144Icon} from './svgs/logos/entrepot-logo-144.icon';
 import {BrandDiscord24Icon} from './svgs/third-party-brands/brand-discord-24.icon';
+import {BrandDistrikt24Icon} from './svgs/third-party-brands/brand-distrikt-24.icon';
+import {BrandDscvr24Icon} from './svgs/third-party-brands/brand-dscvr-24.icon';
 import {BrandFacebookLogo24Icon} from './svgs/third-party-brands/brand-facebook-logo-24.icon';
 import {BrandGoogleLogo24Icon} from './svgs/third-party-brands/brand-google-logo-24.icon';
 import {BrandIcScan24Icon} from './svgs/third-party-brands/brand-ic-scan-24.icon';
 import {BrandInstagram24Icon} from './svgs/third-party-brands/brand-instagram-24.icon';
 import {BrandInstagramFlat24Icon} from './svgs/third-party-brands/brand-instagram-flat-24.icon';
+import {BrandMedium24Icon} from './svgs/third-party-brands/brand-medium-24.icon';
+import {BrandNftgeek24Icon} from './svgs/third-party-brands/brand-nftgeek-24.icon';
 import {BrandTelegram24Icon} from './svgs/third-party-brands/brand-telegram-24.icon';
 import {BrandTiktok24Icon} from './svgs/third-party-brands/brand-tiktok-24.icon';
 import {BrandTiktokFlat24Icon} from './svgs/third-party-brands/brand-tiktok-flat-24.icon';
@@ -164,11 +168,15 @@ export * from './svgs/cryptocurrencies/crypto-icp-16.icon';
 export * from './svgs/cryptocurrencies/crypto-icp-24.icon';
 export * from './svgs/logos/entrepot-logo-144.icon';
 export * from './svgs/third-party-brands/brand-discord-24.icon';
+export * from './svgs/third-party-brands/brand-distrikt-24.icon';
+export * from './svgs/third-party-brands/brand-dscvr-24.icon';
 export * from './svgs/third-party-brands/brand-facebook-logo-24.icon';
 export * from './svgs/third-party-brands/brand-google-logo-24.icon';
 export * from './svgs/third-party-brands/brand-ic-scan-24.icon';
 export * from './svgs/third-party-brands/brand-instagram-24.icon';
 export * from './svgs/third-party-brands/brand-instagram-flat-24.icon';
+export * from './svgs/third-party-brands/brand-medium-24.icon';
+export * from './svgs/third-party-brands/brand-nftgeek-24.icon';
 export * from './svgs/third-party-brands/brand-telegram-24.icon';
 export * from './svgs/third-party-brands/brand-tiktok-24.icon';
 export * from './svgs/third-party-brands/brand-tiktok-flat-24.icon';
@@ -267,11 +275,15 @@ export const allIconsByCategory = {
     ],
     'third-party-brands': [
         BrandDiscord24Icon,
+        BrandDistrikt24Icon,
+        BrandDscvr24Icon,
         BrandFacebookLogo24Icon,
         BrandGoogleLogo24Icon,
         BrandIcScan24Icon,
         BrandInstagram24Icon,
         BrandInstagramFlat24Icon,
+        BrandMedium24Icon,
+        BrandNftgeek24Icon,
         BrandTelegram24Icon,
         BrandTiktok24Icon,
         BrandTiktokFlat24Icon,
