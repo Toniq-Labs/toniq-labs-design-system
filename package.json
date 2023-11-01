@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system-root",
-    "version": "8.1.5",
+    "version": "8.2.0",
     "private": true,
     "description": "Root design system mono-repo package.",
     "homepage": "https://github.com/Toniq-Labs/toniq-labs-design-system",
@@ -41,7 +41,7 @@
     "devDependencies": {
         "concurrently": "^8.2.2",
         "cspell": "^7.3.8",
-        "dependency-cruiser": "^15.0.0",
+        "dependency-cruiser": "^15.1.1",
         "esbuild": "^0.19.5",
         "markdown-code-example-inserter": "^0.3.2",
         "mono-vir": "^0.1.6",
@@ -55,7 +55,7 @@
         "prettier-plugin-sort-json": "^3.1.0",
         "prettier-plugin-toml": "^1.0.0",
         "typescript": "5.2.2",
-        "virmator": "^10.0.0"
+        "virmator": "^11.1.0"
     },
     "overrides": {
         "semver": "^7.5.2"
