@@ -10,10 +10,10 @@ module.exports = {
     ],
     words: [
         ...baseConfig.words,
+        'bioniq',
         'dfinity',
         'distrikt',
         'dscvr',
-        // for svgo plugin names
         'elems',
         'listbox',
         'nftgeek',

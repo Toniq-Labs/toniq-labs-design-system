@@ -75,7 +75,6 @@ import {CryptoBtc24Icon} from './svgs/cryptocurrencies/crypto-btc-24.icon';
 import {CryptoCkBtc24Icon} from './svgs/cryptocurrencies/crypto-ck-btc-24.icon';
 import {CryptoIcp16Icon} from './svgs/cryptocurrencies/crypto-icp-16.icon';
 import {CryptoIcp24Icon} from './svgs/cryptocurrencies/crypto-icp-24.icon';
-import {EntrepotLogo144Icon} from './svgs/logos/entrepot-logo-144.icon';
 import {BrandDiscord24Icon} from './svgs/third-party-brands/brand-discord-24.icon';
 import {BrandDistrikt24Icon} from './svgs/third-party-brands/brand-distrikt-24.icon';
 import {BrandDscvr24Icon} from './svgs/third-party-brands/brand-dscvr-24.icon';
@@ -91,6 +90,8 @@ import {BrandTiktok24Icon} from './svgs/third-party-brands/brand-tiktok-24.icon'
 import {BrandTiktokFlat24Icon} from './svgs/third-party-brands/brand-tiktok-flat-24.icon';
 import {BrandTwitch24Icon} from './svgs/third-party-brands/brand-twitch-24.icon';
 import {BrandTwitter24Icon} from './svgs/third-party-brands/brand-twitter-24.icon';
+import {BioniqRobot100Icon} from './svgs/toniq/bioniq-robot-100.icon';
+import {EntrepotLogo144Icon} from './svgs/toniq/entrepot-logo-144.icon';
 export * from './svgs/core-16/copy-16.icon';
 export * from './svgs/core-16/external-link-16.icon';
 export * from './svgs/core-16/info-circle-16.icon';
@@ -166,7 +167,6 @@ export * from './svgs/cryptocurrencies/crypto-btc-24.icon';
 export * from './svgs/cryptocurrencies/crypto-ck-btc-24.icon';
 export * from './svgs/cryptocurrencies/crypto-icp-16.icon';
 export * from './svgs/cryptocurrencies/crypto-icp-24.icon';
-export * from './svgs/logos/entrepot-logo-144.icon';
 export * from './svgs/third-party-brands/brand-discord-24.icon';
 export * from './svgs/third-party-brands/brand-distrikt-24.icon';
 export * from './svgs/third-party-brands/brand-dscvr-24.icon';
@@ -182,6 +182,8 @@ export * from './svgs/third-party-brands/brand-tiktok-24.icon';
 export * from './svgs/third-party-brands/brand-tiktok-flat-24.icon';
 export * from './svgs/third-party-brands/brand-twitch-24.icon';
 export * from './svgs/third-party-brands/brand-twitter-24.icon';
+export * from './svgs/toniq/bioniq-robot-100.icon';
+export * from './svgs/toniq/entrepot-logo-144.icon';
 export * from './toniq-svg';
 
 export const allIconsByCategory = {
@@ -270,9 +272,6 @@ export const allIconsByCategory = {
         CryptoIcp16Icon,
         CryptoIcp24Icon,
     ],
-    logos: [
-        EntrepotLogo144Icon,
-    ],
     'third-party-brands': [
         BrandDiscord24Icon,
         BrandDistrikt24Icon,
@@ -289,5 +288,9 @@ export const allIconsByCategory = {
         BrandTiktokFlat24Icon,
         BrandTwitch24Icon,
         BrandTwitter24Icon,
+    ],
+    toniq: [
+        BioniqRobot100Icon,
+        EntrepotLogo144Icon,
     ],
 } as const;
