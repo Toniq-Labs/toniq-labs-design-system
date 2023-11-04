@@ -59,6 +59,7 @@
     },
     "overrides": {
         "@open-wc/scoped-elements": "2.2.3",
+        "@open-wc/testing-helpers": "2.3.1",
         "semver": "^7.5.2"
     }
 }
