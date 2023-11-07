@@ -1,5 +1,4 @@
 import {isTruthy} from '@augment-vir/common';
-import {VirResizableImage} from '@electrovir/resizable-image-element';
 import {css, defineElementEvent, html, listen} from 'element-vir';
 import {setCssVarValue} from 'lit-css-vars';
 import {SocialUrls} from '../../data';
@@ -186,16 +185,7 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
 
         const firstImageTemplate = firstImage
             ? html`
-                  <div class="big-image-wrapper">
-                      <${VirResizableImage.assign({
-                          imageUrl: inputs.imageUrls[0] ?? '',
-                          eagerLoading: true,
-                          min: {width: mainImageSize, height: mainImageSize},
-                          max: {width: mainImageSize, height: mainImageSize},
-                      })}>
-                          ${loadingImageTemplate}
-                      </${VirResizableImage}>
-                  </div>
+                  <div class="big-image-wrapper"></div>
               `
             : '';
 
@@ -212,22 +202,7 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                         <div class="secondary-images">
                             ${inputs.imageUrls.slice(1).map((imageUrl) => {
                                 return html`
-                                    <div class="pic-wrapper">
-                                        <${VirResizableImage.assign({
-                                            imageUrl: imageUrl,
-                                            eagerLoading: true,
-                                            min: {
-                                                width: secondaryImageSize,
-                                                height: secondaryImageSize,
-                                            },
-                                            max: {
-                                                width: secondaryImageSize,
-                                                height: secondaryImageSize,
-                                            },
-                                        })}>
-                                            ${loadingImageTemplate}
-                                        </${VirResizableImage}>
-                                    </div>
+                                    <div class="pic-wrapper"></div>
                                 `;
                             })}
                         </div>
