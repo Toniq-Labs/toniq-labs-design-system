@@ -88,26 +88,28 @@ export const toniqCarouselBookPage = defineBookPage({
             title: 'banner style',
             styles: exampleStyles,
             renderCallback() {
+                const wrapperDivStyles = css`
+                    /* make sure this width matches the ToniqCarousel width */
+                    width: 800px;
+                    max-width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 100px 0;
+                    box-sizing: border-box;
+                    border: 1px solid ${toniqColors.pageInteraction.foregroundColor};
+                    border-radius: 12px;
+                `;
+
                 return html`
                     <${ToniqCarousel.assign({
                         enableAutomaticCycling: true,
                         style: ToniqCarouselStyleEnum.BannerStyle,
                         templates: allIconsByCategory['core-24'].map((icon) => {
-                            const styles = css`
-                                /* make sure this width matches the ToniqCarousel width */
-                                width: 800px;
-                                max-width: 100%;
-                                padding: 100px 0;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                box-sizing: border-box;
-                                border: 1px solid ${toniqColors.pageInteraction.foregroundColor};
-                                border-radius: 12px;
-                            `;
-
                             return html`
-                                <${ToniqIcon.assign({icon})} style=${styles}></${ToniqIcon}>
+                            <div style=${wrapperDivStyles}>
+                                <${ToniqIcon.assign({icon})}></${ToniqIcon}>
+                        </div>
                             `;
                         }),
                     })}></${ToniqCarousel}>
@@ -115,21 +117,10 @@ export const toniqCarouselBookPage = defineBookPage({
                         enableAutomaticCycling: true,
                         style: ToniqCarouselStyleEnum.BannerStyle,
                         templates: [allIconsByCategory['core-24'][0]].map((icon) => {
-                            const styles = css`
-                                /* make sure this width matches the ToniqCarousel width */
-                                width: 800px;
-                                max-width: 100%;
-                                padding: 100px 0;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                box-sizing: border-box;
-                                border: 1px solid ${toniqColors.pageInteraction.foregroundColor};
-                                border-radius: 12px;
-                            `;
-
                             return html`
-                                <${ToniqIcon.assign({icon})} style=${styles}></${ToniqIcon}>
+                            <div style=${wrapperDivStyles}>
+                                <${ToniqIcon.assign({icon})}></${ToniqIcon}>
+                        </div>
                             `;
                         }),
                     })}
