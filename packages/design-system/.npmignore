@@ -5,18 +5,23 @@
 *.test.*
 *.tgz
 .*
+.not-committed/
 /Icon?
 /configs/
 /coverage/
 /cspell.config.js
 /graphics/
 /src/
+/www-static/
 bash-scripts/
+dist-docs/
+generated-config-*
 index.html
 test-files/
+ts.out/
 tsconfig*.json
+tsconfig.tsbuildinfo
 
 **/*/element-testing/
-*.book.*
 *.book-helper.*
-src/element-book
+*.book.*

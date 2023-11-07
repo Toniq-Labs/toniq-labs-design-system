@@ -41,7 +41,7 @@
     "devDependencies": {
         "concurrently": "^8.2.2",
         "cspell": "^7.3.8",
-        "dependency-cruiser": "^15.1.1",
+        "dependency-cruiser": "^15.2.0",
         "esbuild": "^0.19.5",
         "markdown-code-example-inserter": "^0.3.2",
         "mono-vir": "^0.1.6",

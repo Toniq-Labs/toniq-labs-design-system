@@ -107,9 +107,9 @@ export const toniqCarouselBookPage = defineBookPage({
                         style: ToniqCarouselStyleEnum.BannerStyle,
                         templates: allIconsByCategory['core-24'].map((icon) => {
                             return html`
-                            <div style=${wrapperDivStyles}>
-                                <${ToniqIcon.assign({icon})}></${ToniqIcon}>
-                        </div>
+                                <div style=${wrapperDivStyles}>
+                                    <${ToniqIcon.assign({icon})}></${ToniqIcon}>
+                                </div>
                             `;
                         }),
                     })}></${ToniqCarousel}>
@@ -118,9 +118,9 @@ export const toniqCarouselBookPage = defineBookPage({
                         style: ToniqCarouselStyleEnum.BannerStyle,
                         templates: [allIconsByCategory['core-24'][0]].map((icon) => {
                             return html`
-                            <div style=${wrapperDivStyles}>
-                                <${ToniqIcon.assign({icon})}></${ToniqIcon}>
-                        </div>
+                                <div style=${wrapperDivStyles}>
+                                    <${ToniqIcon.assign({icon})}></${ToniqIcon}>
+                                </div>
                             `;
                         }),
                     })}

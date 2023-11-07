@@ -43,7 +43,7 @@
         "test:watch": "wtr --watch --color --config configs/web-test-runner.config.mjs --only-one-browser"
     },
     "dependencies": {
-        "@augment-vir/common": "^21.5.0",
+        "@augment-vir/common": "^21.5.1",
         "date-vir": "^3.0.0",
         "element-vir": "^16.5.2",
         "lit-css-vars": "^3.0.2",
@@ -54,10 +54,10 @@
         "vira": "^2.3.1"
     },
     "devDependencies": {
-        "@augment-vir/browser": "^21.5.0",
-        "@augment-vir/browser-testing": "^21.5.0",
-        "@augment-vir/node-js": "^21.5.0",
-        "@open-wc/testing": "^3.2.2",
+        "@augment-vir/browser": "^21.5.1",
+        "@augment-vir/browser-testing": "^21.5.1",
+        "@augment-vir/node-js": "^21.5.1",
+        "@open-wc/testing": "^4.0.0",
         "@types/chai": "^4.3.9",
         "@types/mocha": "^10.0.3",
         "@web/dev-server-esbuild": "^1.0.0",
@@ -65,7 +65,7 @@
         "@web/test-runner-commands": "^0.9.0",
         "@web/test-runner-playwright": "^0.11.0",
         "@web/test-runner-visual-regression": "^0.9.0",
-        "element-book": "^10.1.3",
+        "element-book": "^10.1.4",
         "esbuild": "^0.19.5",
         "istanbul-smart-text-reporter": "^1.1.2",
         "npm-check-updates": "~16.12.3",
