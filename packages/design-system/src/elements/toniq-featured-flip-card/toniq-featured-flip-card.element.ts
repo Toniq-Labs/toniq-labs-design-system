@@ -1,8 +1,7 @@
 import {isTruthy} from '@augment-vir/common';
-import {Duration, DurationUnit} from 'date-vir';
 import {HTMLTemplateResult, css, defineElementEvent, html, listen} from 'element-vir';
 import {setCssVarValue} from 'lit-css-vars';
-import {ViraImage, ViraImageSlotNameEnum} from 'vira';
+import {ViraImage} from 'vira';
 import {SocialUrls} from '../../data';
 import {toniqFontStyles} from '../../styles';
 import {defineToniqElement} from '../define-toniq-element';
@@ -37,10 +36,13 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
     flipCardButtonTitle?: string | undefined;
     mainImageSize?: number | undefined;
     viewMoreUrl?: string | undefined;
-    imageLoadingTemplate?: HTMLTemplateResult | undefined;
-    imageErrorTemplate?: HTMLTemplateResult | undefined;
-    /** For debugging only: artificially set a delay for the image loading so you can see the loader. */
-    _debugImageLoadDelay?: Duration<DurationUnit.Milliseconds> | undefined;
+    /**
+     * An optional callback that generates the image's template for full consumer customization.
+     * This callback may return undefined to fallback to the default behavior.
+     *
+     * If this is not provided, the image will be simply shown without any styles.
+     */
+    customTemplateCallback?: ((imageUrl: string) => HTMLTemplateResult | undefined) | undefined;
 }>()({
     tagName: 'toniq-featured-flip-card',
     stateInitStatic: {
@@ -103,11 +105,6 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
             height: 100%;
         }
 
-        ${ViraImage} {
-            width: 100%;
-            height: 100%;
-        }
-
         .main-image-wrapper {
             max-width: 100%;
             flex-shrink: 0;
@@ -126,6 +123,12 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
         .slot-wrapper {
             height: 100%;
             width: 100%;
+        }
+
+        .main-image-wrapper > *,
+        .secondary-image-wrapper > * {
+            width: 100%;
+            height: 100%;
         }
 
         .main-image-wrapper,
@@ -203,32 +206,15 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
 
         const firstImage = inputs.imageUrls[0];
 
-        const imageSlots = html`
-            ${inputs.imageLoadingTemplate
-                ? html`
-                      <div class="slot-wrapper" slot=${ViraImageSlotNameEnum.Loading}>
-                          ${inputs.imageLoadingTemplate}
-                      </div>
-                  `
-                : ''}
-            ${inputs.imageErrorTemplate
-                ? html`
-                      <div class="slot-wrapper" slot=${ViraImageSlotNameEnum.Error}>
-                          ${inputs.imageErrorTemplate}
-                      </div>
-                  `
-                : ''}
-        `;
-
         const firstImageTemplate = firstImage
             ? html`
                   <div class="main-image-wrapper">
-                      <${ViraImage.assign({
-                          imageUrl: firstImage,
-                          _debugLoadDelay: inputs._debugImageLoadDelay,
-                      })}>
-                          ${imageSlots}
-                      </${ViraImage}>
+                      ${inputs.customTemplateCallback?.(firstImage) ||
+                      html`
+                          <${ViraImage.assign({
+                              imageUrl: firstImage,
+                          })}></${ViraImage}>
+                      `}
                   </div>
               `
             : '';
@@ -247,12 +233,12 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                             ${inputs.imageUrls.slice(1).map((imageUrl) => {
                                 return html`
                                     <div class="secondary-image-wrapper">
-                                        <${ViraImage.assign({
-                                            imageUrl,
-                                            _debugLoadDelay: inputs._debugImageLoadDelay,
-                                        })}>
-                                            ${imageSlots}
-                                        </${ViraImage}>
+                                        ${inputs.customTemplateCallback?.(imageUrl) ||
+                                        html`
+                                            <${ViraImage.assign({
+                                                imageUrl,
+                                            })}></${ViraImage}>
+                                        `}
                                     </div>
                                 `;
                             })}

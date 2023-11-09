@@ -1,6 +1,6 @@
 import {defineBookPage} from 'element-book';
 import {css, html, listen} from 'element-vir';
-import {StatusFailure24Icon, viraIconCssVars} from 'vira';
+import {StatusFailure24Icon, ViraImage, ViraImageSlotNameEnum, viraIconCssVars} from 'vira';
 import {emptySocialUrls} from '../../data/social-urls';
 import {createElementBookUrl} from '../../element-book/book-helpers/create-element-book-url';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
@@ -128,7 +128,7 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
         });
 
         defineExample({
-            title: 'with loading template',
+            title: 'with custom template',
             styles: css`
                 ${ToniqFeaturedFlipCard} {
                     width: 1000px;
@@ -142,42 +142,21 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
                     <${ToniqFeaturedFlipCard.assign({
                         imageUrls,
                         infoParagraphs,
-                        title: 'With Loading Template',
-                        _debugImageLoadDelay: {milliseconds: Infinity},
-                        imageLoadingTemplate: html`
-                            <div
-                                class="icon-wrapper"
-                                style=${css`
-                                    background-color: #f0faff;
-                                    box-sizing: border-box;
-                                    border-radius: 16px;
-                                    width: 100%;
-                                    height: 100%;
-                                    border: 2px solid blue;
-                                    display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                    color: blue;
-                                `}
-                            >
-                                <${ToniqIcon.assign({
-                                    icon: LoaderAnimated24Icon,
-                                    fitContainer: true,
-                                })}
-                                    style=${css`
-                                        width: 100%;
-                                        height: 100%;
-                                    `}
-                                ></${ToniqIcon}>
-                            </div>
-                        `,
+                        title: 'With custom Template',
+                        customTemplateCallback(imageUrl) {
+                            return html`
+                                <${ViraImage.assign({
+                                    imageUrl,
+                                })}></${ViraImage}>
+                            `;
+                        },
                     })}></${ToniqFeaturedFlipCard}>
                 `;
             },
         });
 
         defineExample({
-            title: 'with error template',
+            title: 'with custom template statuses',
             styles: css`
                 ${ToniqFeaturedFlipCard} {
                     width: 1000px;
@@ -189,38 +168,80 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
             renderCallback() {
                 return html`
                     <${ToniqFeaturedFlipCard.assign({
-                        imageUrls: Array(20)
-                            .fill(0)
-                            .map(() => '/invalid-image.png'),
+                        imageUrls: imageUrls.map((originalUrl, index) => {
+                            if (index % 2) {
+                                return '/invalid-image.png';
+                            } else {
+                                return originalUrl;
+                            }
+                        }),
                         infoParagraphs,
-                        title: 'With Error Template',
-                        imageErrorTemplate: html`
-                            <div
-                                class="icon-wrapper"
-                                style=${css`
-                                    background-color: #fff0f0;
-                                    box-sizing: border-box;
-                                    border-radius: 16px;
-                                    width: 100%;
-                                    height: 100%;
-                                    border: 2px solid red;
-                                    display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                    color: red;
-                                `}
-                            >
-                                <${ToniqIcon.assign({
-                                    icon: StatusFailure24Icon,
-                                    fitContainer: true,
-                                })}
-                                    style=${css`
-                                        ${viraIconCssVars['vira-icon-fill-color']
-                                            .name}: transparent;
-                                    `}
-                                ></${ToniqIcon}>
-                            </div>
-                        `,
+                        title: 'With custom Template Statuses',
+                        customTemplateCallback(imageUrl) {
+                            return html`
+                                <${ViraImage.assign({
+                                    imageUrl,
+                                    _debugLoadDelay: imageUrl.includes('invalid-image')
+                                        ? undefined
+                                        : {milliseconds: Infinity},
+                                })}>
+                                    <div
+                                        slot=${ViraImageSlotNameEnum.Loading}
+                                        class="icon-wrapper"
+                                        style=${css`
+                                            background-color: #f0faff;
+                                            box-sizing: border-box;
+                                            border-radius: 16px;
+                                            width: 100%;
+                                            height: 100%;
+                                            max-width: 100%;
+                                            border: 2px solid blue;
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            color: blue;
+                                        `}
+                                    >
+                                        <${ToniqIcon.assign({
+                                            icon: LoaderAnimated24Icon,
+                                            fitContainer: true,
+                                        })}
+                                            style=${css`
+                                                width: 100%;
+                                                height: 100%;
+                                            `}
+                                        ></${ToniqIcon}>
+                                    </div>
+                                    <div
+                                        slot=${ViraImageSlotNameEnum.Error}
+                                        class="icon-wrapper"
+                                        style=${css`
+                                            background-color: #fff0f0;
+                                            box-sizing: border-box;
+                                            border-radius: 16px;
+                                            width: 100%;
+                                            height: 100%;
+                                            max-width: 100%;
+                                            border: 2px solid red;
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            color: red;
+                                        `}
+                                    >
+                                        <${ToniqIcon.assign({
+                                            icon: StatusFailure24Icon,
+                                            fitContainer: true,
+                                        })}
+                                            style=${css`
+                                                ${viraIconCssVars['vira-icon-fill-color']
+                                                    .name}: transparent;
+                                            `}
+                                        ></${ToniqIcon}>
+                                    </div>
+                                </${ViraImage}>
+                            `;
+                        },
                     })}></${ToniqFeaturedFlipCard}>
                 `;
             },
