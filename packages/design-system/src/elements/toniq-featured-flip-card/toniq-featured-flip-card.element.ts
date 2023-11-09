@@ -1,12 +1,12 @@
 import {isTruthy} from '@augment-vir/common';
-import {css, defineElementEvent, html, listen} from 'element-vir';
+import {Duration, DurationUnit} from 'date-vir';
+import {HTMLTemplateResult, css, defineElementEvent, html, listen} from 'element-vir';
 import {setCssVarValue} from 'lit-css-vars';
+import {ViraImage, ViraImageSlotNameEnum} from 'vira';
 import {SocialUrls} from '../../data';
-import {LoaderAnimated24Icon} from '../../icons';
 import {toniqFontStyles} from '../../styles';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqFlipCard} from '../toniq-flip-card/toniq-flip-card.element';
-import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {
     calculateFeaturedFlipCardSecondaryImageSize,
     defaultFeaturedFlipCardMainImageSize,
@@ -37,6 +37,10 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
     flipCardButtonTitle?: string | undefined;
     mainImageSize?: number | undefined;
     viewMoreUrl?: string | undefined;
+    imageLoadingTemplate?: HTMLTemplateResult | undefined;
+    imageErrorTemplate?: HTMLTemplateResult | undefined;
+    /** For debugging only: artificially set a delay for the image loading so you can see the loader. */
+    _debugImageLoadDelay?: Duration<DurationUnit.Milliseconds> | undefined;
 }>()({
     tagName: 'toniq-featured-flip-card',
     stateInitStatic: {
@@ -99,13 +103,33 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
             height: 100%;
         }
 
-        .big-image-wrapper {
+        ${ViraImage} {
+            width: 100%;
+            height: 100%;
+        }
+
+        .main-image-wrapper {
             max-width: 100%;
             flex-shrink: 0;
         }
 
-        .big-image-wrapper,
-        .pic-wrapper {
+        .main-image-wrapper {
+            width: ${internalFeaturedFlipCarCssVars['main-image-size'].value};
+            height: ${internalFeaturedFlipCarCssVars['main-image-size'].value};
+        }
+
+        .secondary-image-wrapper {
+            width: ${internalFeaturedFlipCarCssVars['secondary-image-size'].value};
+            height: ${internalFeaturedFlipCarCssVars['secondary-image-size'].value};
+        }
+
+        .slot-wrapper {
+            height: 100%;
+            width: 100%;
+        }
+
+        .main-image-wrapper,
+        .secondary-image-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -152,7 +176,7 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
         }
     `,
     renderCallback({inputs, state, updateState, host, dispatch, events}) {
-        const mainImageSize = inputs.mainImageSize || defaultFeaturedFlipCardMainImageSize;
+        const mainImageSize: number = inputs.mainImageSize || defaultFeaturedFlipCardMainImageSize;
         const secondaryImageSize = calculateFeaturedFlipCardSecondaryImageSize(mainImageSize);
 
         setCssVarValue({
@@ -179,13 +203,33 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
 
         const firstImage = inputs.imageUrls[0];
 
-        const loadingImageTemplate = html`
-            <${ToniqIcon.assign({icon: LoaderAnimated24Icon})} slot="loading"></${ToniqIcon}>
+        const imageSlots = html`
+            ${inputs.imageLoadingTemplate
+                ? html`
+                      <div class="slot-wrapper" slot=${ViraImageSlotNameEnum.Loading}>
+                          ${inputs.imageLoadingTemplate}
+                      </div>
+                  `
+                : ''}
+            ${inputs.imageErrorTemplate
+                ? html`
+                      <div class="slot-wrapper" slot=${ViraImageSlotNameEnum.Error}>
+                          ${inputs.imageErrorTemplate}
+                      </div>
+                  `
+                : ''}
         `;
 
         const firstImageTemplate = firstImage
             ? html`
-                  <div class="big-image-wrapper"></div>
+                  <div class="main-image-wrapper">
+                      <${ViraImage.assign({
+                          imageUrl: firstImage,
+                          _debugLoadDelay: inputs._debugImageLoadDelay,
+                      })}>
+                          ${imageSlots}
+                      </${ViraImage}>
+                  </div>
               `
             : '';
 
@@ -202,7 +246,14 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                         <div class="secondary-images">
                             ${inputs.imageUrls.slice(1).map((imageUrl) => {
                                 return html`
-                                    <div class="pic-wrapper"></div>
+                                    <div class="secondary-image-wrapper">
+                                        <${ViraImage.assign({
+                                            imageUrl,
+                                            _debugLoadDelay: inputs._debugImageLoadDelay,
+                                        })}>
+                                            ${imageSlots}
+                                        </${ViraImage}>
+                                    </div>
                                 `;
                             })}
                         </div>
