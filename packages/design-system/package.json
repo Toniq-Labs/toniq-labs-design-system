@@ -43,7 +43,7 @@
         "test:watch": "wtr --watch --color --config configs/web-test-runner.config.mjs --only-one-browser"
     },
     "dependencies": {
-        "@augment-vir/common": "^21.5.1",
+        "@augment-vir/common": "^21.6.0",
         "date-vir": "^3.0.0",
         "element-vir": "^16.5.2",
         "lit-css-vars": "^3.0.2",
@@ -51,26 +51,26 @@
         "run-time-assertions": "^0.1.3",
         "scroll-snap-api": "^1.0.2",
         "spa-router-vir": "^3.0.2",
-        "vira": "^2.3.1"
+        "vira": "^2.5.0"
     },
     "devDependencies": {
-        "@augment-vir/browser": "^21.5.1",
-        "@augment-vir/browser-testing": "^21.5.1",
-        "@augment-vir/node-js": "^21.5.1",
+        "@augment-vir/browser": "^21.6.0",
+        "@augment-vir/browser-testing": "^21.6.0",
+        "@augment-vir/node-js": "^21.6.0",
         "@open-wc/testing": "^4.0.0",
-        "@types/chai": "^4.3.9",
-        "@types/mocha": "^10.0.3",
+        "@types/chai": "^4.3.10",
+        "@types/mocha": "^10.0.4",
         "@web/dev-server-esbuild": "^1.0.0",
         "@web/test-runner": "^0.18.0",
         "@web/test-runner-commands": "^0.9.0",
         "@web/test-runner-playwright": "^0.11.0",
         "@web/test-runner-visual-regression": "^0.9.0",
-        "element-book": "^10.1.4",
+        "element-book": "^10.1.5",
         "esbuild": "^0.19.5",
         "istanbul-smart-text-reporter": "^1.1.2",
         "npm-check-updates": "~16.12.3",
         "ts-node": "^10.9.1",
-        "type-fest": "^4.6.0",
+        "type-fest": "^4.7.0",
         "typescript": "^5.2.2",
         "vite": "^4.5.0",
         "vite-tsconfig-paths": "^4.2.1"

@@ -13,18 +13,6 @@ export function mapRange(
     return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
 }
 
-export function clamp(number: number, lower: number, upper: number) {
-    return Math.min(Math.max(number, lower), upper);
-}
-
-export function toPixel(value: number): string {
-    return `${value}px`;
-}
-
-export function toPercent(value: number): string {
-    return `${value}%`;
-}
-
 export function findClosestRangeIndex(logRange: number[], findValue: number): number {
     const lowestValue = logRange[0];
     const highestValue = logRange[logRange.length - 1];

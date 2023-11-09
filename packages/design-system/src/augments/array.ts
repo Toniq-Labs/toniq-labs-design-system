@@ -1,4 +1,4 @@
-import {clamp} from './number';
+import {clamp} from '@augment-vir/common';
 
 export const threeDots = '...' as const;
 
@@ -16,8 +16,8 @@ export function pagination(
     MINIMUM_PAGE_SHOWN: number = 5,
 ) {
     let delta: number;
-    currentPage = clamp(currentPage, 1, pageCount);
-    pagesShown = clamp(pagesShown, MINIMUM_PAGE_SHOWN, pageCount);
+    currentPage = clamp({value: currentPage, min: 1, max: pageCount});
+    pagesShown = clamp({value: pagesShown, min: MINIMUM_PAGE_SHOWN, max: pageCount});
     const centerPagesShown = pagesShown - 5;
     const boundaryPagesShown = pagesShown - 3;
 

@@ -1,15 +1,12 @@
 import {camelCaseToKebabCase, getObjectTypedKeys, mapObjectValues} from '@augment-vir/common';
 import {CSSResult, css, unsafeCSS} from 'element-vir';
-import {wrapTypeWithReadonly} from '../augments/type';
 import {toniqColors} from './colors';
 
 export type FontStyleDefinition = CSSResult;
 export type FontStyleKey = keyof typeof toniqFontStylesCssVarNames;
 
 // these should not be exported, hence they are a separate object
-const fontStylesFallbacks = wrapTypeWithReadonly<
-    Record<`${string}Font`, Readonly<Record<string, CSSResult>>>
->()({
+const fontStylesFallbacks = {
     toniqFont: {
         'font-family': css`'Rubik', sans-serif`,
     },
@@ -49,7 +46,7 @@ const fontStylesFallbacks = wrapTypeWithReadonly<
         'font-family': css`'Inconsolata', monospace`,
         'line-height': css`1.125em`,
     },
-});
+} as const satisfies Record<`${string}Font`, Readonly<Record<string, CSSResult>>>;
 
 export const toniqFontStylesCssVarNames = mapObjectValues(
     fontStylesFallbacks,
@@ -142,7 +139,7 @@ export const toniqFontStyles = (() => {
         ${combineFallbacksAndVars('monospaceFont')}
     `;
 
-    return wrapTypeWithReadonly<Record<FontStyleKey, FontStyleDefinition>>()({
+    const allFontStyles = {
         toniqFont,
         normalWeightFont,
         boldFont,
@@ -155,5 +152,7 @@ export const toniqFontStyles = (() => {
         h2Font,
         h3Font,
         monospaceFont,
-    });
+    } as const satisfies Record<FontStyleKey, FontStyleDefinition>;
+
+    return allFontStyles;
 })();

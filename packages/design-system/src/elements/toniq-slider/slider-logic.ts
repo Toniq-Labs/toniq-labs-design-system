@@ -1,9 +1,5 @@
-import {isObject, truncateNumber} from '@augment-vir/common';
-import {
-    clamp,
-    createReasonableLogarithmicRange,
-    findClosestRangeIndex,
-} from '../../augments/number';
+import {clamp, isObject, truncateNumber} from '@augment-vir/common';
+import {createReasonableLogarithmicRange, findClosestRangeIndex} from '../../augments/number';
 import {ToniqSliderDoubleRangeValue, ToniqSliderInputs} from './toniq-slider-inputs';
 
 export interface ToniqSliderReferenceElements {
@@ -134,8 +130,8 @@ function getCorrectedValue({
     if (double) {
         if (isDoubleRangeValue(value)) {
             const clampedValue: ToniqSliderDoubleRangeValue = {
-                min: clamp(value.min, min, Math.min(value.max, max)),
-                max: clamp(value.max, Math.max(value.min, min), max),
+                min: clamp({value: value.min, min, max: Math.min(value.max, max)}),
+                max: clamp({value: value.max, min: Math.max(value.min, min), max}),
             };
 
             return clampedValue;
@@ -146,7 +142,7 @@ function getCorrectedValue({
         if (isDoubleRangeValue(value)) {
             return min;
         } else {
-            const clampedValue: number = clamp(value, min, max);
+            const clampedValue: number = clamp({value, min, max});
 
             return clampedValue;
         }

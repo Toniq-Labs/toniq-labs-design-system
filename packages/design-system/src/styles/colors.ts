@@ -1,6 +1,5 @@
 import {camelCaseToKebabCase, mapObjectValues} from '@augment-vir/common';
 import {CSSResult, css, unsafeCSS} from 'element-vir';
-import {wrapTypeWithReadonly} from '../augments/type';
 
 export type ColorKey = keyof typeof fallbackColors;
 
@@ -93,7 +92,7 @@ const mainLightPalette = (() => {
         foregroundColor: css`#9A9A9D`,
     };
 
-    return wrapTypeWithReadonly<Record<string, DualColorDefinition>>()({
+    const allColors = {
         brandPrimary,
         pagePrimary,
         pageSecondary,
@@ -110,7 +109,9 @@ const mainLightPalette = (() => {
         accentPrimaryActive,
         accentSecondary,
         accentTertiary,
-    });
+    } as const satisfies Record<string, DualColorDefinition>;
+
+    return allColors;
 })();
 
 /**

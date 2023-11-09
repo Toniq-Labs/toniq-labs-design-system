@@ -1,6 +1,6 @@
+import {addPercent, addPx} from '@augment-vir/common';
 import {css, defineElementEvent, html, listen, onResize, unsafeCSS} from 'element-vir';
 import {noUserSelect} from 'vira';
-import {toPercent, toPixel} from '../../augments/number';
 import {testId} from '../../directives/test-id.directive';
 import {toniqDurations} from '../../styles/animation';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
@@ -204,12 +204,12 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
             elementLimits: ToniqSliderDoubleRangeValue,
         ) {
             const progressBarPosition = {
-                left: toPixel(
+                left: addPx(
                     ((rangeWidth - thumbSizeNumber) * (elementValue.min - elementLimits.min)) /
                         (elementLimits.max - elementLimits.min) +
                         thumbSizeNumber / 2,
                 ),
-                right: toPixel(
+                right: addPx(
                     ((rangeWidth - thumbSizeNumber) * (elementLimits.max - elementValue.max)) /
                         (elementLimits.max - elementLimits.min) +
                         thumbSizeNumber / 2,
@@ -274,11 +274,11 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                     >
                         <span
                             class="${classNames.labelPercentMarginWrapper}"
-                            style="margin-left: ${toPercent(lowerLabelPercentMargin)}"
+                            style="margin-left: ${addPercent(lowerLabelPercentMargin)}"
                         >
                             <span
                                 class="${classNames.labelPixelMarginWrapper}"
-                                style="margin-right: ${toPixel(lowerPixelMargin)}"
+                                style="margin-right: ${addPx(lowerPixelMargin)}"
                                 ${testId(toniqSliderTestIds.lowerLabel)}
                             >
                                 ${lowerLabel}
@@ -291,11 +291,11 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                     >
                         <span
                             class="${classNames.labelPercentMarginWrapper}"
-                            style="margin-right: ${toPercent(upperLabelPercentMargin)}"
+                            style="margin-right: ${addPercent(upperLabelPercentMargin)}"
                         >
                             <span
                                 class="${classNames.labelPixelMarginWrapper}"
-                                style="margin-left: ${toPixel(upperPixelMargin)}"
+                                style="margin-left: ${addPx(upperPixelMargin)}"
                                 ${testId(toniqSliderTestIds.upperLabel)}
                             >
                                 ${upperLabel}
@@ -364,7 +364,7 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
             elementValue: number,
             elementLimits: ToniqSliderDoubleRangeValue,
         ) {
-            const progressRightPosition = toPixel(
+            const progressRightPosition = addPx(
                 ((rangeWidth - thumbSizeNumber) * (elementLimits.max - elementValue)) /
                     (elementLimits.max - elementLimits.min) +
                     thumbSizeNumber / 2,
@@ -393,7 +393,7 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                     >
                         <span
                             class="${classNames.labelPercentMarginWrapper}"
-                            style="margin-right: ${toPercent(labelMargin)}"
+                            style="margin-right: ${addPercent(labelMargin)}"
                             ${testId(toniqSliderTestIds.label)}
                         >
                             ${label}

@@ -1,5 +1,5 @@
+import {addPx} from '@augment-vir/common';
 import {css, unsafeCSS} from 'element-vir';
-import {toPixel} from '../augments/number';
 import {toniqColors} from './colors';
 
 /**
@@ -24,7 +24,7 @@ export function createFocusStyles({
     outlineGap?: number;
     outlineWidth?: number;
 }) {
-    const outlineSpacing = unsafeCSS(toPixel(outlineWidth + outlineGap + elementBorderSize));
+    const outlineSpacing = unsafeCSS(addPx(outlineWidth + outlineGap + elementBorderSize));
 
     return css`
         ${unsafeCSS(mainSelector)}::after {
