@@ -1,4 +1,4 @@
-import {getNowInUserTimezone} from 'date-vir';
+import {calculateRelativeDate, getNowInUserTimezone} from 'date-vir';
 import {defineBookPage} from 'element-book';
 import {html} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
@@ -11,13 +11,16 @@ export const toniqDateTimeBookPage = defineBookPage({
         'Display a date and / or time in a consistent manner.',
     ],
     elementExamplesCallback({defineExample}) {
+        const dateToUse = getNowInUserTimezone();
+
         const examples: ReadonlyArray<{
             title: string;
-            inputs: Omit<typeof ToniqDateTime.inputsType, 'fullDate'>;
+            inputs: typeof ToniqDateTime.inputsType;
         }> = [
             {
                 title: 'date and time',
                 inputs: {
+                    fullDate: dateToUse,
                     parts: {
                         date: true,
                         time: true,
@@ -27,6 +30,7 @@ export const toniqDateTimeBookPage = defineBookPage({
             {
                 title: 'date only',
                 inputs: {
+                    fullDate: dateToUse,
                     parts: {
                         date: true,
                         time: false,
@@ -36,15 +40,40 @@ export const toniqDateTimeBookPage = defineBookPage({
             {
                 title: 'time only',
                 inputs: {
+                    fullDate: dateToUse,
                     parts: {
                         date: false,
                         time: true,
                     },
                 },
             },
+            {
+                title: 'humanize in before date',
+                inputs: {
+                    fullDate: calculateRelativeDate(dateToUse, {weeks: -1}),
+                    isHumanize: true,
+                },
+            },
+            {
+                title: 'humanize in after date',
+                inputs: {
+                    fullDate: calculateRelativeDate(dateToUse, {months: 1}),
+                    isHumanize: true,
+                },
+            },
+            {
+                title: 'humanize with custom relative unit',
+                inputs: {
+                    fullDate: calculateRelativeDate(dateToUse, {days: -2}),
+                    isHumanize: true,
+                    allowedRelativeUnits: [
+                        'day',
+                        'hour',
+                        'minute',
+                    ],
+                },
+            },
         ];
-
-        const dateToUse = getNowInUserTimezone();
 
         examples.forEach((example) => {
             defineExample({
@@ -52,7 +81,6 @@ export const toniqDateTimeBookPage = defineBookPage({
                 renderCallback() {
                     return html`
                         <${ToniqDateTime.assign({
-                            fullDate: dateToUse,
                             ...example.inputs,
                         })}></${ToniqDateTime}>
                     `;

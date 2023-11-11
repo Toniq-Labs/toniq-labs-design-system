@@ -1,35 +1,25 @@
 import {isTruthy} from '@augment-vir/common';
-import {FullDate, toLocaleString} from 'date-vir';
+import {FullDate} from 'date-vir';
 import {html} from 'element-vir';
+import {HumanizeDurationUnit, formatFullDate, humanizeDuration} from '../../duration';
 import {defineToniqElement} from '../define-toniq-element';
-
-function formatFullDate(fullDate: FullDate): {
-    date: string;
-    time: string;
-} {
-    /**
-     * Note that the below .replace strings are to fix weird behavior in Chromium where the "NARROW
-     * NO-BREAK SPACE" character (code 8239) is used instead of a space (code 32) before AM/PM.
-     */
-    return {
-        date: toLocaleString(fullDate, {dateStyle: 'medium'}).replace(/\s/g, ' '),
-        time: toLocaleString(fullDate, {timeStyle: 'short'}).replace(/\s/g, ' '),
-    };
-}
 
 export const ToniqDateTime = defineToniqElement<{
     fullDate: FullDate;
-    parts: {
+    parts?: {
         date: boolean;
         time: boolean;
     };
+    isHumanize?: boolean;
+    allowedRelativeUnits?: HumanizeDurationUnit[];
 }>()({
     tagName: 'toniq-date-time',
     renderCallback({inputs}) {
-        const formatted = formatFullDate(inputs.fullDate);
+        const {fullDate, allowedRelativeUnits, isHumanize, parts} = inputs;
+        const formatted = formatFullDate(fullDate);
         const outputString = [
-            inputs.parts.date && formatted.date,
-            inputs.parts.time && formatted.time,
+            parts?.date && formatted.date,
+            parts?.time && formatted.time,
         ]
             .filter(isTruthy)
             .join(' ');
@@ -37,11 +27,19 @@ export const ToniqDateTime = defineToniqElement<{
         const title = [
             formatted.date,
             formatted.time,
-            `(${inputs.fullDate.timezone})`,
+            `(${fullDate.timezone})`,
         ].join(' ');
 
+        const humanizeString = humanizeDuration({date: fullDate, allowedRelativeUnits});
+
         return html`
-            <span title=${title}>${outputString}</span>
+            ${isHumanize
+                ? html`
+                      <span title=${title}>${humanizeString}</span>
+                  `
+                : html`
+                      <span title=${title}>${outputString}</span>
+                  `}
         `;
     },
 });
