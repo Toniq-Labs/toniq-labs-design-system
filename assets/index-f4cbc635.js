@@ -3409,7 +3409,9 @@ var z0=Object.defineProperty;var Z0=(e,t,r)=>t in e?z0(e,t,{enumerable:!0,config
         }
     `,cleanupCallback:({state:e})=>{window.clearInterval(e.rotationIntervalId)},renderCallback({inputs:e,state:t,updateState:r,host:n}){e.enableAutomaticCycling&&t.rotationIntervalId==null?r({rotationIntervalId:window.setInterval(()=>{ni({host:n,direction:"right",allowWrapping:!0,blockIfHovering:!0})},e.cycleIntervalMs||ig)}):!e.enableAutomaticCycling&&t.rotationIntervalId!=null&&(window.clearInterval(t.rotationIntervalId),r({rotationIntervalId:void 0}));const o=Ol(t.scrollSnapPositions,0),i=Ol(t.scrollSnapPositions,-1);return u`
             <div>
-                <div class="arrow left ${ve({hidden:o==null?!0:t.currentScrollPosition.left<=o})}">
+                <div
+                    class="arrow left ${ve({hidden:o==null?!0:t.currentScrollPosition.left<=o})}"
+                >
                     <${S.assign({icon:Oa})}
                         ${T("click",()=>{ni({allowWrapping:!1,blockIfHovering:!1,direction:"left",host:n})})}
                     ></${S}>
@@ -3423,7 +3425,9 @@ var z0=Object.defineProperty;var Z0=(e,t,r)=>t in e?z0(e,t,{enumerable:!0,config
                             <div class="template-wrapper">${a}</div>
                         `)}
                 </div>
-                <div class="arrow right ${ve({hidden:i==null?!0:t.currentScrollPosition.left>=i})}">
+                <div
+                    class="arrow right ${ve({hidden:i==null?!0:t.currentScrollPosition.left>=i})}"
+                >
                     <${S.assign({icon:Da})}
                         ${T("click",()=>{ni({allowWrapping:!1,blockIfHovering:!1,direction:"right",host:n})})}
                     ></${S}>
