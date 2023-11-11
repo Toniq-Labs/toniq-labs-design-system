@@ -211,7 +211,6 @@ export const ToniqCarousel = defineToniqElement<{
                             <div class="template-wrapper">${template}</div>
                         `;
                     })}
-                    
                 </div>
                 <div class="arrow right">
                     <${ToniqIcon.assign({
