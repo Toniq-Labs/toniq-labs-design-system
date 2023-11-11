@@ -3217,10 +3217,11 @@ var Z0=Object.defineProperty;var W0=(e,t,r)=>t in e?Z0(e,t,{enumerable:!0,config
 
         .arrow {
             --background-degrees: 90deg;
-            position: sticky;
+            position: absolute;
             width: 100px;
             max-width: 20%;
             top: 0;
+            bottom: 0;
             left: 0;
             display: flex;
             align-items: center;
@@ -3267,20 +3268,22 @@ var Z0=Object.defineProperty;var W0=(e,t,r)=>t in e?Z0(e,t,{enumerable:!0,config
             pointer-events: none;
         }
     `,cleanupCallback:({state:e})=>{window.clearInterval(e.rotationIntervalId)},renderCallback({inputs:e,state:t,updateState:r,host:n}){e.enableAutomaticCycling&&t.rotationIntervalId==null?r({rotationIntervalId:window.setInterval(()=>{ni({host:n,direction:"right",allowWrapping:!0,blockIfHovering:!0})},e.cycleIntervalMs||ig)}):!e.enableAutomaticCycling&&t.rotationIntervalId!=null&&(window.clearInterval(t.rotationIntervalId),r({rotationIntervalId:void 0}));const o=Nl(t.scrollSnapPositions,0),i=Nl(t.scrollSnapPositions,-1);return u`
-            <div
-                ${Rr(()=>{r({scrollSnapPositions:Va(Yi(n)).x})})}
-                class=${Nn}
-                ${$("scroll",async a=>{const s=a.target;if(!(s instanceof HTMLElement))throw new Error("scroll event had no target");const l={left:s.scrollLeft,right:s.scrollWidth-s.scrollLeft-s.clientWidth};r({currentScrollPosition:l})})}
-            >
+            <div>
                 <div class="arrow left">
                     <${C.assign({icon:Na})}
                         class=${ve({hidden:o==null?!0:t.currentScrollPosition.left<=o})}
                         ${$("click",()=>{ni({allowWrapping:!1,blockIfHovering:!1,direction:"left",host:n})})}
                     ></${C}>
                 </div>
-                ${e.templates.map(a=>u`
-                        <div class="template-wrapper">${a}</div>
-                    `)}
+                <div
+                    ${Rr(()=>{r({scrollSnapPositions:Va(Yi(n)).x})})}
+                    class=${Nn}
+                    ${$("scroll",async a=>{const s=a.target;if(!(s instanceof HTMLElement))throw new Error("scroll event had no target");const l={left:s.scrollLeft,right:s.scrollWidth-s.scrollLeft-s.clientWidth};r({currentScrollPosition:l})})}
+                >
+                    ${e.templates.map(a=>u`
+                            <div class="template-wrapper">${a}</div>
+                        `)}
+                </div>
                 <div class="arrow right">
                     <${C.assign({icon:qa})}
                         class=${ve({hidden:i==null?!0:t.currentScrollPosition.left>=i})}
