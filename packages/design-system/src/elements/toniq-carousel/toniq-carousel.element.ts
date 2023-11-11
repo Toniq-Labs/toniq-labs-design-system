@@ -84,10 +84,11 @@ export const ToniqCarousel = defineToniqElement<{
 
         .arrow {
             --background-degrees: 90deg;
-            position: sticky;
+            position: absolute;
             width: 100px;
             max-width: 20%;
             top: 0;
+            bottom: 0;
             left: 0;
             display: flex;
             align-items: center;
@@ -160,30 +161,7 @@ export const ToniqCarousel = defineToniqElement<{
         const rightArrowHideZone = getMidSnapPosition(state.scrollSnapPositions, -1);
 
         return html`
-            <div
-                ${onResize(() => {
-                    updateState({
-                        scrollSnapPositions: getScrollSnapPositions(getScrollContainer(host)).x,
-                    });
-                })}
-                class=${templatesContainerClassName}
-                ${listen('scroll', async (event) => {
-                    const element = event.target;
-
-                    if (!(element instanceof HTMLElement)) {
-                        throw new Error('scroll event had no target');
-                    }
-
-                    const currentScrollPosition = {
-                        left: element.scrollLeft,
-                        right: element.scrollWidth - element.scrollLeft - element.clientWidth,
-                    };
-
-                    updateState({
-                        currentScrollPosition,
-                    });
-                })}
-            >
+            <div>
                 <div class="arrow left">
                     <${ToniqIcon.assign({
                         icon: ArrowLeft24Icon,
@@ -204,11 +182,36 @@ export const ToniqCarousel = defineToniqElement<{
                         })}
                     ></${ToniqIcon}>
                 </div>
-                ${inputs.templates.map((template) => {
-                    return html`
-                        <div class="template-wrapper">${template}</div>
-                    `;
-                })}
+                <div
+                    ${onResize(() => {
+                        updateState({
+                            scrollSnapPositions: getScrollSnapPositions(getScrollContainer(host)).x,
+                        });
+                    })}
+                    class=${templatesContainerClassName}
+                    ${listen('scroll', async (event) => {
+                        const element = event.target;
+
+                        if (!(element instanceof HTMLElement)) {
+                            throw new Error('scroll event had no target');
+                        }
+
+                        const currentScrollPosition = {
+                            left: element.scrollLeft,
+                            right: element.scrollWidth - element.scrollLeft - element.clientWidth,
+                        };
+
+                        updateState({
+                            currentScrollPosition,
+                        });
+                    })}
+                >
+                    ${inputs.templates.map((template) => {
+                        return html`
+                            <div class="template-wrapper">${template}</div>
+                        `;
+                    })}
+                </div>
                 <div class="arrow right">
                     <${ToniqIcon.assign({
                         icon: ArrowRight24Icon,
