@@ -10,7 +10,7 @@ import {
 import {getScrollSnapPositions, scrollSnapToNext} from 'scroll-snap-api';
 import {hideScrollbars} from 'vira';
 import {ArrowLeft24Icon, ArrowRight24Icon} from '../../icons';
-import {applyBackgroundAndForeground, toniqColors} from '../../styles';
+import {applyBackgroundAndForeground, toniqColors, toniqDurations} from '../../styles';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
@@ -87,6 +87,8 @@ export const ToniqCarousel = defineToniqElement<{
             position: absolute;
             width: 100px;
             max-width: 20%;
+            opacity: 1;
+            transition: ${toniqDurations.pretty};
             top: 0;
             bottom: 0;
             left: 0;
@@ -131,7 +133,15 @@ export const ToniqCarousel = defineToniqElement<{
                 Don't use "opacity: 0" here, it causes super wacky bugs where the scrolling gets reset
                 but only SOMETIMES. Refreshing repeatedly seems to eventually get it stuck.
             */
-            visibility: hidden;
+            /*visibility: hidden;*/
+            /*
+                I'm giving opacity a shot since we've moved the arrows to being absolutely
+                positioned. Maybe that will help? If the carousel starts resetting its scroll
+                position randomly for no apparent reason, try going back to using visibility. Note
+                that transitions won't work anymore, so remove the transition duration that was
+                added above in this same commit.
+            */
+            opacity: 0;
             pointer-events: none;
         }
     `,
@@ -162,16 +172,17 @@ export const ToniqCarousel = defineToniqElement<{
 
         return html`
             <div>
-                <div class="arrow left">
+                <div
+                    class="arrow left ${classMap({
+                        hidden:
+                            leftArrowHideZone == undefined
+                                ? true
+                                : state.currentScrollPosition.left <= leftArrowHideZone,
+                    })}"
+                >
                     <${ToniqIcon.assign({
                         icon: ArrowLeft24Icon,
                     })}
-                        class=${classMap({
-                            hidden:
-                                leftArrowHideZone == undefined
-                                    ? true
-                                    : state.currentScrollPosition.left <= leftArrowHideZone,
-                        })}
                         ${listen('click', () => {
                             rotateCarousel({
                                 allowWrapping: false,
@@ -212,16 +223,17 @@ export const ToniqCarousel = defineToniqElement<{
                         `;
                     })}
                 </div>
-                <div class="arrow right">
+                <div
+                    class="arrow right ${classMap({
+                        hidden:
+                            rightArrowHideZone == undefined
+                                ? true
+                                : state.currentScrollPosition.left >= rightArrowHideZone,
+                    })}"
+                >
                     <${ToniqIcon.assign({
                         icon: ArrowRight24Icon,
                     })}
-                        class=${classMap({
-                            hidden:
-                                rightArrowHideZone == undefined
-                                    ? true
-                                    : state.currentScrollPosition.left >= rightArrowHideZone,
-                        })}
                         ${listen('click', () => {
                             rotateCarousel({
                                 allowWrapping: false,
