@@ -44,7 +44,7 @@
     },
     "dependencies": {
         "@augment-vir/common": "^21.6.0",
-        "date-vir": "^3.0.0",
+        "date-vir": "^4.0.0",
         "element-vir": "^16.5.2",
         "lit-css-vars": "^3.0.2",
         "object-shape-tester": "^1.0.1",
@@ -60,7 +60,7 @@
         "@open-wc/testing": "^4.0.0",
         "@types/chai": "^4.3.10",
         "@types/mocha": "^10.0.4",
-        "@web/dev-server-esbuild": "^1.0.0",
+        "@web/dev-server-esbuild": "^1.0.1",
         "@web/test-runner": "^0.18.0",
         "@web/test-runner-commands": "^0.9.0",
         "@web/test-runner-playwright": "^0.11.0",
@@ -70,7 +70,7 @@
         "istanbul-smart-text-reporter": "^1.1.2",
         "npm-check-updates": "~16.12.3",
         "ts-node": "^10.9.1",
-        "type-fest": "^4.7.0",
+        "type-fest": "^4.7.1",
         "typescript": "^5.2.2",
         "vite": "^4.5.0",
         "vite-tsconfig-paths": "^4.2.1"

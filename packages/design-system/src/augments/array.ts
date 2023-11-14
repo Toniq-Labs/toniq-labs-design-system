@@ -43,8 +43,8 @@ export function pagination(
         currentPage > pageCount - boundaryPagesShown && pageCount > pagesShown
             ? getRange(pageCount - delta, pageCount)
             : currentPage > delta
-            ? getRange(Math.min(range.start, pageCount - delta), Math.min(range.end, pageCount))
-            : getRange(1, Math.min(pageCount, delta + 1));
+              ? getRange(Math.min(range.start, pageCount - delta), Math.min(range.end, pageCount))
+              : getRange(1, Math.min(pageCount, delta + 1));
 
     function withDots(value: number, pair: (string | number)[]) {
         return pages.length + 1 !== pageCount ? pair : [value];

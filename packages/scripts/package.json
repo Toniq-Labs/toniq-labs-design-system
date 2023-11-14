@@ -12,7 +12,7 @@
     "dependencies": {
         "@augment-vir/common": "^21.6.0",
         "@augment-vir/node-js": "^21.6.0",
-        "prettier": "^3.0.3"
+        "prettier": "^3.1.0"
     },
     "devDependencies": {
         "@types/node": "^20.9.0",

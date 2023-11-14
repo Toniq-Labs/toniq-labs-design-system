@@ -185,8 +185,8 @@ export const ToniqMiddleEllipsis = defineToniqElement<
         const icon: ToniqSvg | undefined = isLink
             ? ExternalLink24Icon
             : shouldCopy
-            ? Copy24Icon
-            : undefined;
+              ? Copy24Icon
+              : undefined;
 
         const iconTemplate = icon
             ? html`
