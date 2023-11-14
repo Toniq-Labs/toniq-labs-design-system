@@ -1,25 +1,28 @@
 import {isTruthy} from '@augment-vir/common';
-import {FullDate} from 'date-vir';
+import {FullDate, getNowInUserTimezone} from 'date-vir';
 import {html} from 'element-vir';
-import {HumanizeDurationUnit, formatFullDate, humanizeDuration} from '../../duration';
+import {RelativeDurationUnit, formatFullDate, formatRelativeDuration} from '../../augments/date';
 import {defineToniqElement} from '../define-toniq-element';
 
 export const ToniqDateTime = defineToniqElement<{
     fullDate: FullDate;
-    parts?: {
+    parts: {
         date: boolean;
         time: boolean;
     };
-    isHumanize?: boolean;
-    allowedRelativeUnits?: HumanizeDurationUnit[];
+    /**
+     * Passing anything here triggers a relative, rather than absolute, date string format.
+     * `ToniqDateTime` will attempt to create a relative string using the units provided or fallback
+     * to an absolute date string format.
+     */
+    relativeUnits?: ReadonlyArray<RelativeDurationUnit> | boolean | undefined;
 }>()({
     tagName: 'toniq-date-time',
     renderCallback({inputs}) {
-        const {fullDate, allowedRelativeUnits, isHumanize, parts} = inputs;
-        const formatted = formatFullDate(fullDate);
+        const formatted = formatFullDate(inputs.fullDate);
         const outputString = [
-            parts?.date && formatted.date,
-            parts?.time && formatted.time,
+            inputs.parts?.date && formatted.date,
+            inputs.parts?.time && formatted.time,
         ]
             .filter(isTruthy)
             .join(' ');
@@ -27,13 +30,20 @@ export const ToniqDateTime = defineToniqElement<{
         const title = [
             formatted.date,
             formatted.time,
-            `(${fullDate.timezone})`,
+            `(${inputs.fullDate.timezone})`,
         ].join(' ');
 
-        const humanizeString = humanizeDuration({date: fullDate, allowedRelativeUnits});
+        const humanizeString =
+            typeof inputs.relativeUnits == 'boolean'
+                ? formatRelativeDuration({start: inputs.fullDate, end: getNowInUserTimezone()})
+                : formatRelativeDuration({
+                      start: inputs.fullDate,
+                      end: getNowInUserTimezone(),
+                      allowedRelativeUnits: inputs.relativeUnits,
+                  });
 
         return html`
-            ${isHumanize
+            ${inputs.relativeUnits
                 ? html`
                       <span title=${title}>${humanizeString}</span>
                   `

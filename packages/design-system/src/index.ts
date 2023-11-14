@@ -1,3 +1,4 @@
+export * from './augments/date';
 export * from './data';
 export * from './elements';
 export * from './icons';

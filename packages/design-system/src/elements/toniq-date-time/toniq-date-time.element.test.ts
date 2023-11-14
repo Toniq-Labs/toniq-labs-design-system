@@ -9,7 +9,7 @@ import {
 } from 'date-vir';
 import {html} from 'element-vir';
 import {assertInstanceOf} from 'run-time-assertions';
-import {formatFullDate} from '../../duration';
+import {formatFullDate} from '../../augments/date';
 import {ToniqDateTime} from './toniq-date-time.element';
 
 async function testDateTimeContents(inputs: typeof ToniqDateTime.inputsType): Promise<{
@@ -96,7 +96,11 @@ describe(ToniqDateTime.tagName, () => {
             it: 'returns humanize format date in before date',
             input: {
                 fullDate: calculateRelativeDate(dateToUse, {weeks: -1}),
-                isHumanize: true,
+                parts: {
+                    date: true,
+                    time: true,
+                },
+                relativeUnits: true,
             },
             expect: {
                 content: '1 week ago',
@@ -111,7 +115,11 @@ describe(ToniqDateTime.tagName, () => {
             it: 'returns humanize format date in after date',
             input: {
                 fullDate: calculateRelativeDate(dateToUse, {months: 1}),
-                isHumanize: true,
+                parts: {
+                    date: true,
+                    time: true,
+                },
+                relativeUnits: true,
             },
             expect: {
                 content: 'in a month',
@@ -126,7 +134,11 @@ describe(ToniqDateTime.tagName, () => {
             it: 'returns humanize format date',
             input: {
                 fullDate: createFullDate(1234567891011, timezones['Africa/Banjul']),
-                isHumanize: true,
+                parts: {
+                    date: true,
+                    time: true,
+                },
+                relativeUnits: true,
             },
             expect: {
                 content: 'February 13, 2009',

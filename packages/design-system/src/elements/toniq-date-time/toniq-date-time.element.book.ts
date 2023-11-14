@@ -1,6 +1,7 @@
 import {calculateRelativeDate, getNowInUserTimezone} from 'date-vir';
 import {defineBookPage} from 'element-book';
 import {html} from 'element-vir';
+import {RelativeDurationUnit} from '../../augments/date';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {ToniqDateTime} from './toniq-date-time.element';
 
@@ -51,25 +52,36 @@ export const toniqDateTimeBookPage = defineBookPage({
                 title: 'humanize in before date',
                 inputs: {
                     fullDate: calculateRelativeDate(dateToUse, {weeks: -1}),
-                    isHumanize: true,
+                    parts: {
+                        date: true,
+                        time: true,
+                    },
+                    relativeUnits: true,
                 },
             },
             {
                 title: 'humanize in after date',
                 inputs: {
                     fullDate: calculateRelativeDate(dateToUse, {months: 1}),
-                    isHumanize: true,
+                    parts: {
+                        date: true,
+                        time: true,
+                    },
+                    relativeUnits: true,
                 },
             },
             {
                 title: 'humanize with custom relative unit',
                 inputs: {
                     fullDate: calculateRelativeDate(dateToUse, {days: -2}),
-                    isHumanize: true,
-                    allowedRelativeUnits: [
-                        'day',
-                        'hour',
-                        'minute',
+                    parts: {
+                        date: true,
+                        time: true,
+                    },
+                    relativeUnits: [
+                        RelativeDurationUnit.Day,
+                        RelativeDurationUnit.Hour,
+                        RelativeDurationUnit.Minute,
                     ],
                 },
             },
