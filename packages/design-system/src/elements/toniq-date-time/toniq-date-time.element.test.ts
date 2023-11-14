@@ -1,8 +1,15 @@
 import {itCases} from '@augment-vir/browser-testing';
 import {fixture as renderFixture} from '@open-wc/testing';
-import {createFullDate, timezones, utcTimezone} from 'date-vir';
+import {
+    calculateRelativeDate,
+    createFullDate,
+    getNowFullDate,
+    timezones,
+    utcTimezone,
+} from 'date-vir';
 import {html} from 'element-vir';
 import {assertInstanceOf} from 'run-time-assertions';
+import {formatFullDate} from '../../augments/date';
 import {ToniqDateTime} from './toniq-date-time.element';
 
 async function testDateTimeContents(inputs: typeof ToniqDateTime.inputsType): Promise<{
@@ -26,6 +33,7 @@ async function testDateTimeContents(inputs: typeof ToniqDateTime.inputsType): Pr
 
 describe(ToniqDateTime.tagName, () => {
     const utcDate = createFullDate(1234567891011, utcTimezone);
+    const dateToUse = getNowFullDate(timezones['Africa/Banjul']);
 
     itCases(testDateTimeContents, [
         {
@@ -81,6 +89,59 @@ describe(ToniqDateTime.tagName, () => {
             },
             expect: {
                 content: 'Feb 13, 2009 11:31 PM',
+                title: 'Feb 13, 2009 11:31 PM (Africa/Banjul)',
+            },
+        },
+        {
+            it: 'returns humanize format date in before date',
+            input: {
+                fullDate: calculateRelativeDate(dateToUse, {weeks: -1}),
+                parts: {
+                    date: true,
+                    time: true,
+                },
+                relativeUnits: true,
+            },
+            expect: {
+                content: '1 week ago',
+                title: `${[
+                    formatFullDate(calculateRelativeDate(dateToUse, {weeks: -1})).date,
+                    formatFullDate(calculateRelativeDate(dateToUse, {weeks: -1})).time,
+                    `(${calculateRelativeDate(dateToUse, {weeks: -1}).timezone})`,
+                ].join(' ')}`,
+            },
+        },
+        {
+            it: 'returns humanize format date in after date',
+            input: {
+                fullDate: calculateRelativeDate(dateToUse, {months: 1}),
+                parts: {
+                    date: true,
+                    time: true,
+                },
+                relativeUnits: true,
+            },
+            expect: {
+                content: 'in a month',
+                title: `${[
+                    formatFullDate(calculateRelativeDate(dateToUse, {months: 1})).date,
+                    formatFullDate(calculateRelativeDate(dateToUse, {months: 1})).time,
+                    `(${calculateRelativeDate(dateToUse, {months: 1}).timezone})`,
+                ].join(' ')}`,
+            },
+        },
+        {
+            it: 'returns humanize format date',
+            input: {
+                fullDate: createFullDate(1234567891011, timezones['Africa/Banjul']),
+                parts: {
+                    date: true,
+                    time: true,
+                },
+                relativeUnits: true,
+            },
+            expect: {
+                content: 'February 13, 2009',
                 title: 'Feb 13, 2009 11:31 PM (Africa/Banjul)',
             },
         },
