@@ -11,7 +11,7 @@ import {
 import {html} from 'element-vir';
 import {defineToniqElement} from '../define-toniq-element';
 
-function formatFullDate(fullDate: FullDate): {
+export function formatFullDate(fullDate: FullDate): {
     date: string;
     time: string;
 } {
