@@ -1,8 +1,29 @@
-import {isTruthy} from '@augment-vir/common';
-import {FullDate, getNowInUserTimezone} from 'date-vir';
+import {PartialAndUndefined, isTruthy} from '@augment-vir/common';
+import {
+    DurationUnit,
+    FullDate,
+    RelativeStringOptions,
+    getNowInUserTimezone,
+    toLocaleString,
+    toRelativeString,
+    toSimpleString,
+} from 'date-vir';
 import {html} from 'element-vir';
-import {RelativeDurationUnit, formatFullDate, formatRelativeDuration} from '../../augments/date';
 import {defineToniqElement} from '../define-toniq-element';
+
+function formatFullDate(fullDate: FullDate): {
+    date: string;
+    time: string;
+} {
+    /**
+     * Note that the below .replace strings are to fix weird behavior in Chromium where the "NARROW
+     * NO-BREAK SPACE" character (code 8239) is used instead of a space (code 32) before AM/PM.
+     */
+    return {
+        date: toLocaleString(fullDate, {dateStyle: 'medium'}).replace(/\s/g, ' '),
+        time: toLocaleString(fullDate, {timeStyle: 'short'}).replace(/\s/g, ' '),
+    };
+}
 
 export const ToniqDateTime = defineToniqElement<{
     fullDate: FullDate;
@@ -11,45 +32,57 @@ export const ToniqDateTime = defineToniqElement<{
         time: boolean;
     };
     /**
-     * Passing anything here triggers a relative, rather than absolute, date string format.
-     * `ToniqDateTime` will attempt to create a relative string using the units provided or fallback
-     * to an absolute date string format.
+     * Passing an object here with "tryRelative: true" triggers a relative, rather than absolute,
+     * date string format. `ToniqDateTime` will attempt to create a relative string and fallback to
+     * an absolute date string format if necessary.
      */
-    relativeUnits?: ReadonlyArray<RelativeDurationUnit> | boolean | undefined;
+    relativeOptions?:
+        | (PartialAndUndefined<
+              RelativeStringOptions & {
+                  /**
+                   * By default the relative string will be calculated relative to the current time.
+                   * Override that behavior by passing in a valid for relativeTo.
+                   */
+                  relativeTo: FullDate;
+              }
+          > & {
+              /** Set to true to use relative date. */
+              tryRelative: boolean;
+          })
+        | undefined;
 }>()({
     tagName: 'toniq-date-time',
     renderCallback({inputs}) {
         const formatted = formatFullDate(inputs.fullDate);
-        const outputString = [
+        const absoluteString = [
             inputs.parts?.date && formatted.date,
             inputs.parts?.time && formatted.time,
         ]
             .filter(isTruthy)
             .join(' ');
 
-        const title = [
-            formatted.date,
-            formatted.time,
-            `(${inputs.fullDate.timezone})`,
-        ].join(' ');
+        const everythingString = toSimpleString(inputs.fullDate, {
+            includeSeconds: true,
+            includeTimezone: true,
+        });
 
-        const humanizeString =
-            typeof inputs.relativeUnits == 'boolean'
-                ? formatRelativeDuration({start: inputs.fullDate, end: getNowInUserTimezone()})
-                : formatRelativeDuration({
-                      start: inputs.fullDate,
-                      end: getNowInUserTimezone(),
-                      allowedRelativeUnits: inputs.relativeUnits,
-                  });
+        const relativeString = inputs.relativeOptions?.tryRelative
+            ? toRelativeString({
+                  fullDate: inputs.fullDate,
+                  relativeTo: inputs.relativeOptions.relativeTo || getNowInUserTimezone(),
+                  options: {
+                      blockedRelativeUnits: [
+                          DurationUnit.Years,
+                          DurationUnit.Quarters,
+                      ],
+                      limitUnitMax: true,
+                      ...inputs.relativeOptions,
+                  },
+              })
+            : undefined;
 
         return html`
-            ${inputs.relativeUnits
-                ? html`
-                      <span title=${title}>${humanizeString}</span>
-                  `
-                : html`
-                      <span title=${title}>${outputString}</span>
-                  `}
+            <span title=${everythingString}>${relativeString || absoluteString}</span>
         `;
     },
 });

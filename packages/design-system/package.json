@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "10.0.1",
+    "version": "10.0.2",
     "private": false,
     "description": "Design system elements for Toniq Labs",
     "keywords": [
@@ -44,7 +44,7 @@
     },
     "dependencies": {
         "@augment-vir/common": "^21.6.0",
-        "date-vir": "^4.0.0",
+        "date-vir": "^4.1.0",
         "element-vir": "^16.5.2",
         "lit-css-vars": "^3.0.2",
         "object-shape-tester": "^1.0.1",

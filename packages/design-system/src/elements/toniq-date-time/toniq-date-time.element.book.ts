@@ -1,7 +1,6 @@
-import {calculateRelativeDate, getNowInUserTimezone} from 'date-vir';
+import {DurationUnit, calculateRelativeDate, getNowInUserTimezone} from 'date-vir';
 import {defineBookPage} from 'element-book';
 import {html} from 'element-vir';
-import {RelativeDurationUnit} from '../../augments/date';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {ToniqDateTime} from './toniq-date-time.element';
 
@@ -49,40 +48,46 @@ export const toniqDateTimeBookPage = defineBookPage({
                 },
             },
             {
-                title: 'humanize in before date',
+                title: 'relative past date',
                 inputs: {
                     fullDate: calculateRelativeDate(dateToUse, {weeks: -1}),
                     parts: {
                         date: true,
                         time: true,
                     },
-                    relativeUnits: true,
+                    relativeOptions: {
+                        tryRelative: true,
+                    },
                 },
             },
             {
-                title: 'humanize in after date',
+                title: 'relative future date',
                 inputs: {
                     fullDate: calculateRelativeDate(dateToUse, {months: 1}),
                     parts: {
                         date: true,
                         time: true,
                     },
-                    relativeUnits: true,
+                    relativeOptions: {
+                        tryRelative: true,
+                    },
                 },
             },
             {
-                title: 'humanize with custom relative unit',
+                title: 'relative forced unit',
                 inputs: {
                     fullDate: calculateRelativeDate(dateToUse, {days: -2}),
                     parts: {
                         date: true,
                         time: true,
                     },
-                    relativeUnits: [
-                        RelativeDurationUnit.Day,
-                        RelativeDurationUnit.Hour,
-                        RelativeDurationUnit.Minute,
-                    ],
+                    relativeOptions: {
+                        tryRelative: true,
+                        blockedRelativeUnits: [
+                            DurationUnit.Days,
+                            DurationUnit.Hours,
+                        ],
+                    },
                 },
             },
         ];

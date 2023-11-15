@@ -1,15 +1,14 @@
 import {itCases} from '@augment-vir/browser-testing';
 import {fixture as renderFixture} from '@open-wc/testing';
 import {
+    DurationUnit,
     calculateRelativeDate,
     createFullDate,
-    getNowFullDate,
     timezones,
     utcTimezone,
 } from 'date-vir';
 import {html} from 'element-vir';
 import {assertInstanceOf} from 'run-time-assertions';
-import {formatFullDate} from '../../augments/date';
 import {ToniqDateTime} from './toniq-date-time.element';
 
 async function testDateTimeContents(inputs: typeof ToniqDateTime.inputsType): Promise<{
@@ -33,7 +32,8 @@ async function testDateTimeContents(inputs: typeof ToniqDateTime.inputsType): Pr
 
 describe(ToniqDateTime.tagName, () => {
     const utcDate = createFullDate(1234567891011, utcTimezone);
-    const dateToUse = getNowFullDate(timezones['Africa/Banjul']);
+    const africaDate = createFullDate(1234567891011, timezones['Africa/Banjul']);
+    const longAgoAfricaDate = createFullDate(934567891011, timezones['Africa/Banjul']);
 
     itCases(testDateTimeContents, [
         {
@@ -47,7 +47,7 @@ describe(ToniqDateTime.tagName, () => {
             },
             expect: {
                 content: 'Feb 13, 2009 11:31 PM',
-                title: 'Feb 13, 2009 11:31 PM (UTC)',
+                title: '2009-02-13 23:31:31 (UTC)',
             },
         },
         {
@@ -61,7 +61,7 @@ describe(ToniqDateTime.tagName, () => {
             },
             expect: {
                 content: 'Feb 13, 2009',
-                title: 'Feb 13, 2009 11:31 PM (UTC)',
+                title: '2009-02-13 23:31:31 (UTC)',
             },
         },
         {
@@ -75,7 +75,7 @@ describe(ToniqDateTime.tagName, () => {
             },
             expect: {
                 content: '11:31 PM',
-                title: 'Feb 13, 2009 11:31 PM (UTC)',
+                title: '2009-02-13 23:31:31 (UTC)',
             },
         },
         {
@@ -89,60 +89,102 @@ describe(ToniqDateTime.tagName, () => {
             },
             expect: {
                 content: 'Feb 13, 2009 11:31 PM',
-                title: 'Feb 13, 2009 11:31 PM (Africa/Banjul)',
+                title: '2009-02-13 23:31:31 (Africa/Banjul)',
             },
         },
         {
-            it: 'returns humanize format date in before date',
+            it: 'uses relative before date',
             input: {
-                fullDate: calculateRelativeDate(dateToUse, {weeks: -1}),
+                fullDate: calculateRelativeDate(africaDate, {weeks: -1}),
                 parts: {
                     date: true,
                     time: true,
                 },
-                relativeUnits: true,
+                relativeOptions: {
+                    tryRelative: true,
+                    relativeTo: africaDate,
+                },
             },
             expect: {
-                content: '1 week ago',
-                title: `${[
-                    formatFullDate(calculateRelativeDate(dateToUse, {weeks: -1})).date,
-                    formatFullDate(calculateRelativeDate(dateToUse, {weeks: -1})).time,
-                    `(${calculateRelativeDate(dateToUse, {weeks: -1}).timezone})`,
-                ].join(' ')}`,
+                content: 'a week ago',
+                title: '2009-02-06 23:31:31 (Africa/Banjul)',
             },
         },
         {
-            it: 'returns humanize format date in after date',
+            it: 'uses relative after date',
             input: {
-                fullDate: calculateRelativeDate(dateToUse, {months: 1}),
+                fullDate: calculateRelativeDate(africaDate, {months: 1}),
                 parts: {
                     date: true,
                     time: true,
                 },
-                relativeUnits: true,
+                relativeOptions: {
+                    tryRelative: true,
+                    relativeTo: africaDate,
+                },
             },
             expect: {
                 content: 'in a month',
-                title: `${[
-                    formatFullDate(calculateRelativeDate(dateToUse, {months: 1})).date,
-                    formatFullDate(calculateRelativeDate(dateToUse, {months: 1})).time,
-                    `(${calculateRelativeDate(dateToUse, {months: 1}).timezone})`,
-                ].join(' ')}`,
+                title: '2009-03-13 23:31:31 (Africa/Banjul)',
             },
         },
         {
-            it: 'returns humanize format date',
+            it: 'defaults to the string parts',
             input: {
-                fullDate: createFullDate(1234567891011, timezones['Africa/Banjul']),
+                fullDate: africaDate,
                 parts: {
                     date: true,
-                    time: true,
+                    time: false,
                 },
-                relativeUnits: true,
+                relativeOptions: {
+                    tryRelative: true,
+                    relativeTo: africaDate,
+                },
             },
             expect: {
-                content: 'February 13, 2009',
-                title: 'Feb 13, 2009 11:31 PM (Africa/Banjul)',
+                content: 'just now',
+                title: '2009-02-13 23:31:31 (Africa/Banjul)',
+            },
+        },
+        {
+            it: 'uses long time ago relative date',
+            input: {
+                fullDate: longAgoAfricaDate,
+                parts: {
+                    date: true,
+                    time: false,
+                },
+                relativeOptions: {
+                    tryRelative: true,
+                    relativeTo: africaDate,
+                },
+            },
+            expect: {
+                content: 'Aug 13, 1999',
+                title: '1999-08-13 18:11:31 (Africa/Banjul)',
+            },
+        },
+        {
+            it: 'defaults to the string parts if too long ago',
+            input: {
+                fullDate: longAgoAfricaDate,
+                parts: {
+                    date: true,
+                    time: false,
+                },
+                relativeOptions: {
+                    tryRelative: true,
+                    relativeTo: africaDate,
+                    blockedRelativeUnits: [
+                        DurationUnit.Years,
+                        DurationUnit.Quarters,
+                    ],
+                    limitUnitMax: true,
+                },
+            },
+            expect: {
+                content: 'Aug 13, 1999',
+                title: '1999-08-13 18:11:31 (Africa/Banjul)',
             },
         },
     ]);
