@@ -25,6 +25,14 @@ function formatFullDate(fullDate: FullDate): {
     };
 }
 
+export const defaultRelativeDateStringOptions: Partial<RelativeStringOptions> = {
+    blockedRelativeUnits: [
+        DurationUnit.Years,
+        DurationUnit.Quarters,
+    ],
+    limitUnitMax: true,
+};
+
 export const ToniqDateTime = defineToniqElement<{
     fullDate: FullDate;
     parts: {
@@ -71,11 +79,7 @@ export const ToniqDateTime = defineToniqElement<{
                   fullDate: inputs.fullDate,
                   relativeTo: inputs.relativeOptions.relativeTo || getNowInUserTimezone(),
                   options: {
-                      blockedRelativeUnits: [
-                          DurationUnit.Years,
-                          DurationUnit.Quarters,
-                      ],
-                      limitUnitMax: true,
+                      ...defaultRelativeDateStringOptions,
                       ...inputs.relativeOptions,
                   },
               })
