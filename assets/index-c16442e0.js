@@ -3323,6 +3323,7 @@ var dh=Object.defineProperty;var hh=(e,t,r)=>t in e?dh(e,t,{enumerable:!0,config
             position: relative;
             overflow-y: hidden;
             box-sizing: border-box;
+            z-index: 0;
         }
 
         ${b2(`.${_n}`)}
