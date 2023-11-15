@@ -60,6 +60,7 @@ export const ToniqCarousel = defineToniqElement<{
             position: relative;
             overflow-y: hidden;
             box-sizing: border-box;
+            z-index: 0;
         }
 
         ${hideScrollbars(`.${templatesContainerClassName}`)}
