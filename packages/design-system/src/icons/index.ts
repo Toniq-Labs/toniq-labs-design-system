@@ -71,7 +71,9 @@ import {Kyc48Icon} from './svgs/core-48/kyc-48.icon';
 import {Api64Icon} from './svgs/core-64/api-64.icon';
 import {CircleDashes64Icon} from './svgs/core-64/circle-dashes-64.icon';
 import {Rocket64Icon} from './svgs/core-64/rocket-64.icon';
+import {CryptoBtc16Icon} from './svgs/cryptocurrencies/crypto-btc-16.icon';
 import {CryptoBtc24Icon} from './svgs/cryptocurrencies/crypto-btc-24.icon';
+import {CryptoCkBtc16Icon} from './svgs/cryptocurrencies/crypto-ck-btc-16.icon';
 import {CryptoCkBtc24Icon} from './svgs/cryptocurrencies/crypto-ck-btc-24.icon';
 import {CryptoIcp16Icon} from './svgs/cryptocurrencies/crypto-icp-16.icon';
 import {CryptoIcp24Icon} from './svgs/cryptocurrencies/crypto-icp-24.icon';
@@ -163,7 +165,9 @@ export * from './svgs/core-48/kyc-48.icon';
 export * from './svgs/core-64/api-64.icon';
 export * from './svgs/core-64/circle-dashes-64.icon';
 export * from './svgs/core-64/rocket-64.icon';
+export * from './svgs/cryptocurrencies/crypto-btc-16.icon';
 export * from './svgs/cryptocurrencies/crypto-btc-24.icon';
+export * from './svgs/cryptocurrencies/crypto-ck-btc-16.icon';
 export * from './svgs/cryptocurrencies/crypto-ck-btc-24.icon';
 export * from './svgs/cryptocurrencies/crypto-icp-16.icon';
 export * from './svgs/cryptocurrencies/crypto-icp-24.icon';
@@ -267,7 +271,9 @@ export const allIconsByCategory = {
         Rocket64Icon,
     ],
     cryptocurrencies: [
+        CryptoBtc16Icon,
         CryptoBtc24Icon,
+        CryptoCkBtc16Icon,
         CryptoCkBtc24Icon,
         CryptoIcp16Icon,
         CryptoIcp24Icon,
