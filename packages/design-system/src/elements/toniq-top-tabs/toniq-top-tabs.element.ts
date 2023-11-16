@@ -97,7 +97,7 @@ export const ToniqTopTabs = defineToniqElement<{
                         >
                             <button
                                 role="tab"
-                                title=${tab}
+                                title=${tab.label}
                                 aria-selected=${isSelected ? 'true' : 'false'}
                                 ${listen('click', () => {
                                     if (inputs.value !== tab.value) {
