@@ -6,10 +6,16 @@ import {toniqColors} from '../../styles/colors';
 import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqBoldSpace} from '../toniq-bold-space/toniq-bold-space.element';
+import {
+    ToniqHyperlink,
+    ToniqHyperlinkLinkTypeEnum,
+} from '../toniq-hyperlink/toniq-hyperlink.element';
 
 export type ToniqTopTab = {
     label: string;
     value: Primitive;
+    /** Set this to treat the tab as a router link. */
+    url?: string;
 };
 
 export const ToniqTopTabs = defineToniqElement<{
@@ -19,6 +25,12 @@ export const ToniqTopTabs = defineToniqElement<{
 }>()({
     tagName: 'toniq-top-tabs',
     events: {
+        /**
+         * If a clicked tab has a url attached, then this routeChange event will be fired on click
+         * rather than the valueChange event. ToniqTopTabs's value should then be deduced from the
+         * URL.
+         */
+        routeChange: defineElementEvent<void>(),
         valueChange: defineElementEvent<Primitive>(),
     },
     cssVars: {
@@ -45,15 +57,13 @@ export const ToniqTopTabs = defineToniqElement<{
                 border-color ${toniqDurations.interaction};
         }
 
-        button {
+        .tab {
             ${noNativeFormStyles};
             cursor: pointer;
+            display: inline-block;
             ${toniqFontStyles.paragraphFont};
             padding: ${cssVars['toniq-top-tabs-tab-vertical-padding'].value} 8px;
             transition: padding-bottom ${toniqDurations.interaction};
-        }
-
-        button {
             max-width: 300px;
         }
 
@@ -64,8 +74,9 @@ export const ToniqTopTabs = defineToniqElement<{
             overflow: hidden;
         }
 
-        li.selected button {
+        li.selected .tab {
             ${toniqFontStyles.boldFont};
+            cursor: default;
             padding-bottom: calc(
                 ${cssVars['toniq-top-tabs-tab-vertical-padding'].value} -
                     ${cssVars['toniq-top-tabs-selected-border-width'].value}
@@ -82,35 +93,53 @@ export const ToniqTopTabs = defineToniqElement<{
         }
     `,
     renderCallback({inputs, dispatch, events}) {
+        const tabElements = inputs.tabs.map((tab) => {
+            const isSelected = tab.value === inputs.value;
+
+            return html`
+                <li
+                    ${testId('tab')}
+                    role="presentation"
+                    class=${classMap({
+                        selected: isSelected,
+                    })}
+                >
+                    <${ToniqHyperlink.assign({
+                        linkType: ToniqHyperlinkLinkTypeEnum.RouteLink,
+                        url: tab.url || '',
+                    })}
+                        class="tab"
+                        role="tab"
+                        title=${tab.label}
+                        aria-selected=${isSelected ? 'true' : 'false'}
+                        ${listen('click', (event) => {
+                            /** If the current tab is already selected, then there is nothing to do. */
+                            if (isSelected) {
+                                event.preventDefault();
+                                return;
+                            }
+
+                            if (tab.url) {
+                                dispatch(new events.routeChange());
+                            } else {
+                                /**
+                                 * If there is no route URL then we don't want the hyperlink to do
+                                 * anything.
+                                 */
+                                event.preventDefault();
+                                dispatch(new events.valueChange(tab.value));
+                            }
+                        })}
+                    >
+                        <${ToniqBoldSpace.assign({text: tab.label})}></${ToniqBoldSpace}>
+                    </${ToniqHyperlink}>
+                </li>
+            `;
+        });
+
         return html`
             <ul role="tablist">
-                ${inputs.tabs.map((tab) => {
-                    const isSelected = tab.value === inputs.value;
-
-                    return html`
-                        <li
-                            ${testId('tab')}
-                            role="presentation"
-                            class=${classMap({
-                                selected: isSelected,
-                            })}
-                        >
-                            <button
-                                role="tab"
-                                title=${tab.label}
-                                aria-selected=${isSelected ? 'true' : 'false'}
-                                ${listen('click', () => {
-                                    if (inputs.value !== tab.value) {
-                                        dispatch(new events.valueChange(tab.value));
-                                    }
-                                })}
-                            >
-                                <${ToniqBoldSpace.assign({text: tab.label})}></${ToniqBoldSpace}>
-                            </button>
-                        </li>
-                    `;
-                })}
-                <li></li>
+                ${tabElements}
                 <li></li>
             </ul>
         `;
