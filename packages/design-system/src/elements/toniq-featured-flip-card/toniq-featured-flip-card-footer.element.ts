@@ -3,7 +3,10 @@ import {css, defineElementEvent, html, listen} from 'element-vir';
 import {SocialUrls, socialUrlIcons} from '../../data';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqButton, ToniqButtonStyleEnum} from '../toniq-button/toniq-button.element';
-import {ToniqHyperlink} from '../toniq-hyperlink/toniq-hyperlink.element';
+import {
+    ToniqHyperlink,
+    ToniqHyperlinkLinkTypeEnum,
+} from '../toniq-hyperlink/toniq-hyperlink.element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {internalFeaturedFlipCarCssVars} from './featured-flip-card-css-vars';
 
@@ -83,7 +86,7 @@ export const ToniqFeaturedFlipCardFooter = defineToniqElement<{
                       const socialIcon = socialUrlIcons[socialUrlType];
                       return html`
                           <${ToniqHyperlink.assign({
-                              newTab: true,
+                              linkType: ToniqHyperlinkLinkTypeEnum.NewTab,
                               url: socialUrl,
                           })}>
                               <${ToniqIcon.assign({icon: socialIcon})}></${ToniqIcon}>
@@ -102,12 +105,11 @@ export const ToniqFeaturedFlipCardFooter = defineToniqElement<{
                 ${inputs.viewMoreButtonUrl
                     ? html`
                           <${ToniqHyperlink.assign({
-                              newTab: false,
+                              linkType: ToniqHyperlinkLinkTypeEnum.RouteLink,
                               url: inputs.viewMoreButtonUrl,
                               scrollToTop: true,
-                              treatAsRouteChange: true,
                           })}
-                              ${listen(ToniqHyperlink.events.routeChangeTriggered, () => {
+                              ${listen(ToniqHyperlink.events.routeChange, () => {
                                   dispatch(new events.footerViewMoreButtonClick());
                               })}
                           >

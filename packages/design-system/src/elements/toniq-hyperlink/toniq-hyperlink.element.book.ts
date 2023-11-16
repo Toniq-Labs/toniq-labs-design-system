@@ -1,7 +1,8 @@
 import {defineBookPage} from 'element-book';
 import {html} from 'element-vir';
+import {SetOptional} from 'type-fest';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
-import {ToniqHyperlink} from './toniq-hyperlink.element';
+import {ToniqHyperlink, ToniqHyperlinkLinkTypeEnum} from './toniq-hyperlink.element';
 
 export const toniqHyperlinkPage = defineBookPage({
     parent: elementsBookPage,
@@ -9,24 +10,28 @@ export const toniqHyperlinkPage = defineBookPage({
     elementExamplesCallback({defineExample}) {
         const exampleConfigs: ReadonlyArray<{
             title: string;
-            inputs: Partial<typeof ToniqHyperlink.inputsType>;
+            inputs: SetOptional<typeof ToniqHyperlink.inputsType, 'url'>;
             descriptions?: string[] | undefined;
         }> = [
             {
                 title: 'default',
-                inputs: {},
+                inputs: {linkType: ToniqHyperlinkLinkTypeEnum.ReplacePage},
+            },
+            {
+                title: 'new tab',
+                inputs: {linkType: ToniqHyperlinkLinkTypeEnum.NewTab},
             },
             {
                 title: 'hover styles',
-                inputs: {withHoverStyles: true},
+                inputs: {withHoverStyles: true, linkType: ToniqHyperlinkLinkTypeEnum.NewTab},
             },
             {
                 title: 'route link',
-                inputs: {treatAsRouteChange: true},
+                inputs: {linkType: ToniqHyperlinkLinkTypeEnum.RouteLink},
             },
             {
                 title: 'link disabled',
-                inputs: {linkDisabled: true},
+                inputs: {linkType: ToniqHyperlinkLinkTypeEnum.Disabled},
             },
         ];
 
@@ -37,7 +42,6 @@ export const toniqHyperlinkPage = defineBookPage({
                 renderCallback() {
                     return html`
                         <${ToniqHyperlink.assign({
-                            newTab: true,
                             url: 'https://toniqlabs.com',
                             ...exampleConfig.inputs,
                         })}>
