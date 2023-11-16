@@ -7,9 +7,10 @@ export const CryptoIcp16Icon = defineIcon({
     svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
             stroke="none"
             fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
             width="16"
             height="16"
             viewBox="${icpSvgImageViewBox}"

@@ -6,11 +6,10 @@ export const CryptoCkBtc24Icon = defineIcon({
     svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            xml:space="preserve"
-            fill-rule="evenodd"
+            stroke="none"
+            fill="none"
+            stroke-linecap="round"
             stroke-linejoin="round"
-            stroke-miterlimit="2"
-            clip-rule="evenodd"
             width="24"
             height="24"
             viewBox="0 0 24 24"
