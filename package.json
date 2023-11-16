@@ -22,6 +22,7 @@
     "scripts": {
         "build": "npm run compile && cd packages/design-system && npm run build",
         "compile": "mono-vir for-each npm run compile",
+        "exports:update": "cd packages/scripts && npm run exports:update",
         "format": "virmator format",
         "postinstall": "node -e \"__dirname.includes('node_modules') && process.exit(0)\" && npm run compile",
         "publish": "virmator publish \"npm run test:all\"",
@@ -31,12 +32,11 @@
         "test:deps": "virmator deps check",
         "test:format": "virmator format check",
         "test:spelling": "virmator spellcheck",
-        "test:types": "mono-vir for-each-async tsc --noEmit",
-        "update:exports": "cd packages/scripts && npm run update:exports"
+        "test:types": "mono-vir for-each-async tsc --noEmit"
     },
     "dependencies": {
         "spa-router-vir": "^3.0.2",
-        "vira": "^2.5.0"
+        "vira": "^2.5.1"
     },
     "devDependencies": {
         "concurrently": "^8.2.2",

@@ -4,10 +4,10 @@
     "private": true,
     "scripts": {
         "compile": "virmator compile",
+        "exports:update": "ts-node src/update-all-exports.ts",
         "test": "npm run test:exports",
         "test:all": "npm run test",
-        "test:exports": "ts-node src/update-all-exports.ts --check",
-        "update:exports": "ts-node src/update-all-exports.ts"
+        "test:exports": "ts-node src/update-all-exports.ts --check"
     },
     "dependencies": {
         "@augment-vir/common": "^21.6.0",
