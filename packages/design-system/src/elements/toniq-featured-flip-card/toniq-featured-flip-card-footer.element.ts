@@ -45,7 +45,7 @@ export const ToniqFeaturedFlipCardFooter = defineToniqElement<{
             justify-content: flex-end;
         }
 
-        ${ToniqButton}, ${ToniqHyperlink} {
+        ${ToniqButton} {
             flex-grow: 2;
             white-space: nowrap;
             max-width: calc(${internalFeaturedFlipCarCssVars['secondary-image-size'].value} * 2);

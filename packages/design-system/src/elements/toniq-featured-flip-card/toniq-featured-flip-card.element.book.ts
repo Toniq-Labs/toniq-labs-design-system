@@ -126,6 +126,31 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
                 `;
             },
         });
+        defineExample({
+            title: 'with social URLs',
+            styles: css`
+                ${ToniqFeaturedFlipCard} {
+                    width: 1000px;
+                }
+            `,
+            stateInitStatic: {
+                flipped: false,
+            },
+            renderCallback() {
+                return html`
+                    <${ToniqFeaturedFlipCard.assign({
+                        imageUrls,
+                        infoParagraphs,
+                        title: 'Featured Stuff',
+                        socialUrls: {
+                            Discord: 'https://toniqlabs.com',
+                            Instagram: 'https://toniqlabs.com',
+                            Telegram: 'https://toniqlabs.com',
+                        },
+                    })}></${ToniqFeaturedFlipCard}>
+                `;
+            },
+        });
 
         defineExample({
             title: 'with custom template',
