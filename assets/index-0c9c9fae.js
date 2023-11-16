@@ -4946,7 +4946,7 @@ var dh=Object.defineProperty;var hh=(e,t,r)=>t in e?dh(e,t,{enumerable:!0,config
                         >
                             <button
                                 role="tab"
-                                title=${n}
+                                title=${n.label}
                                 aria-selected=${o?"true":"false"}
                                 ${T("click",()=>{e.value!==n.value&&t(new r.valueChange(n.value))})}
                             >
