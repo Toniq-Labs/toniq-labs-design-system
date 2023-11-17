@@ -106,7 +106,7 @@ describe(ToniqInput.tagName, () => {
             // possibly flaky: this might require a wait afterwards to give the document time to update
             toniqInputInstance.assignInputs({disabled: false});
             await waitUntil(() => {
-                return toniqInputInstance.lastRenderedProps.inputs.disabled === false;
+                return toniqInputInstance._lastRenderedProps.inputs.disabled === false;
             });
             await wait(2000);
             logActiveElement();
