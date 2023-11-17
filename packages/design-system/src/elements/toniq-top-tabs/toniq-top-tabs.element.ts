@@ -1,4 +1,5 @@
 import {classMap, css, defineElementEvent, html, listen, testId} from 'element-vir';
+import {FullRoute} from 'spa-router-vir';
 import {Primitive} from 'type-fest';
 import {noNativeFormStyles} from 'vira';
 import {toniqDurations} from '../../styles/animation';
@@ -11,12 +12,15 @@ import {
     ToniqHyperlinkLinkTypeEnum,
 } from '../toniq-hyperlink/toniq-hyperlink.element';
 
-export type ToniqTopTab = {
+export type ToniqTopTab = Readonly<{
     label: string;
     value: Primitive;
     /** Set this to treat the tab as a router link. */
-    url?: string;
-};
+    link?: {
+        route: FullRoute;
+        url: string | URL;
+    };
+}>;
 
 export const ToniqTopTabs = defineToniqElement<{
     // if text is not given, provide a child element
@@ -30,8 +34,8 @@ export const ToniqTopTabs = defineToniqElement<{
          * rather than the valueChange event. ToniqTopTabs's value should then be deduced from the
          * URL.
          */
-        routeChange: defineElementEvent<void>(),
-        valueChange: defineElementEvent<Primitive>(),
+        routeChange: defineElementEvent<NonNullable<ToniqTopTab['link']>['route']>(),
+        valueChange: defineElementEvent<ToniqTopTab['value']>(),
     },
     cssVars: {
         'toniq-top-tabs-selected-border-width': '4px',
@@ -105,30 +109,22 @@ export const ToniqTopTabs = defineToniqElement<{
                     })}
                 >
                     <${ToniqHyperlink.assign({
+                        url: tab.link?.url || '',
                         linkType: ToniqHyperlinkLinkTypeEnum.RouteLink,
-                        url: tab.url || '',
                     })}
                         class="tab"
                         role="tab"
                         title=${tab.label}
                         aria-selected=${isSelected ? 'true' : 'false'}
-                        ${listen('click', (event) => {
+                        ${listen('click', () => {
                             /** If the current tab is already selected, then there is nothing to do. */
                             if (isSelected) {
-                                event.preventDefault();
                                 return;
                             }
-
-                            if (tab.url) {
-                                dispatch(new events.routeChange());
-                            } else {
-                                /**
-                                 * If there is no route URL then we don't want the hyperlink to do
-                                 * anything.
-                                 */
-                                event.preventDefault();
-                                dispatch(new events.valueChange(tab.value));
+                            if (tab.link?.route) {
+                                dispatch(new events.routeChange(tab.link.route));
                             }
+                            dispatch(new events.valueChange(tab.value));
                         })}
                     >
                         <${ToniqBoldSpace.assign({text: tab.label})}></${ToniqBoldSpace}>

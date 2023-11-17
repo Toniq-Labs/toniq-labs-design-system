@@ -65,10 +65,38 @@ const examples: {
         inputs: {
             value: 0,
             tabs: [
-                {label: 'hi', value: 0, url: 'https://toniqlabs.com'},
-                {label: 'bye', value: 1, url: 'https://toniqlabs.com'},
-                {label: 'hello', value: 2, url: 'https://toniqlabs.com'},
-                {label: 'so long', value: 3, url: 'https://toniqlabs.com'},
+                {
+                    label: 'hi',
+                    value: 0,
+                    link: {
+                        url: 'https://toniqlabs.com',
+                        route: {paths: []},
+                    },
+                },
+                {
+                    label: 'bye',
+                    value: 1,
+                    link: {
+                        url: 'https://toniqlabs.com',
+                        route: {paths: []},
+                    },
+                },
+                {
+                    label: 'hello',
+                    value: 2,
+                    link: {
+                        url: 'https://toniqlabs.com',
+                        route: {paths: []},
+                    },
+                },
+                {
+                    label: 'so long',
+                    value: 3,
+                    link: {
+                        url: 'https://toniqlabs.com',
+                        route: {paths: []},
+                    },
+                },
             ],
         },
     },
