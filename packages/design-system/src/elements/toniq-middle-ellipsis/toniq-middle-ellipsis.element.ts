@@ -75,7 +75,7 @@ export const ToniqMiddleEllipsis = defineToniqElement<
 >()({
     tagName: 'toniq-middle-ellipsis',
     events: {
-        copied: defineElementEvent<void>(),
+        copy: defineElementEvent<void>(),
     },
     cssVars: {
         'toniq-middle-ellipsis-text-color': toniqColors.pagePrimary.foregroundColor,
@@ -256,7 +256,7 @@ export const ToniqMiddleEllipsis = defineToniqElement<
                         class="text-wrapper copyable"
                         ${listen('click', async () => {
                             await copyToClipboard(fullText);
-                            dispatch(new events.copied());
+                            dispatch(new events.copy());
                             if (state.showCopiedTextTimeoutId != undefined) {
                                 window.clearTimeout(state.showCopiedTextTimeoutId);
                             }
