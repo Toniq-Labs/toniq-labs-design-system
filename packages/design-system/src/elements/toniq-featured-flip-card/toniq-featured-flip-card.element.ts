@@ -221,7 +221,7 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
 
         return html`
             <${ToniqFlipCard.assign({flipped: state.flipped})}
-                ${listen(ToniqFeaturedFlipCardFooter.events.footerViewMoreButtonClick, () => {
+                ${listen(ToniqFeaturedFlipCardFooter.events.viewMoreButtonClick, () => {
                     dispatch(new events.viewMoreButtonClick());
                 })}
             >
@@ -252,14 +252,11 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                         viewMoreButtonUrl: inputs.viewMoreUrl || '',
                         socialUrls: inputs.socialUrls,
                     })}
-                        ${listen(
-                            ToniqFeaturedFlipCardFooter.events.footerFlipCardButtonClick,
-                            () => {
-                                updateState({
-                                    flipped: !state.flipped,
-                                });
-                            },
-                        )}
+                        ${listen(ToniqFeaturedFlipCardFooter.events.flipCardButtonClick, () => {
+                            updateState({
+                                flipped: !state.flipped,
+                            });
+                        })}
                     ></${ToniqFeaturedFlipCardFooter}>
                 </div>
                 <div class="card-face back" slot="back">
@@ -277,14 +274,11 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
                         viewMoreButtonUrl: inputs.viewMoreUrl || '',
                         socialUrls: inputs.socialUrls,
                     })}
-                        ${listen(
-                            ToniqFeaturedFlipCardFooter.events.footerFlipCardButtonClick,
-                            () => {
-                                updateState({
-                                    flipped: !state.flipped,
-                                });
-                            },
-                        )}
+                        ${listen(ToniqFeaturedFlipCardFooter.events.flipCardButtonClick, () => {
+                            updateState({
+                                flipped: !state.flipped,
+                            });
+                        })}
                     ></${ToniqFeaturedFlipCardFooter}>
                 </div>
             </${ToniqFlipCard}>
