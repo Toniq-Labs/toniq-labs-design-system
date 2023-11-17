@@ -122,7 +122,7 @@ export const ToniqInput = defineToniqElement<{
          * the user why their input did not propagate if it was blocked. This does not fire for text
          * that was blocked out of programmatic "value" property assignments.
          */
-        inputBlocked: defineElementEvent<string>(),
+        inputBlock: defineElementEvent<string>(),
     },
     styles: ({hostClasses}) => {
         return css`
@@ -291,7 +291,7 @@ export const ToniqInput = defineToniqElement<{
                                 ) {
                                     // prevent the change from happening
                                     finalText = beforeChangeText;
-                                    dispatch(new events.inputBlocked(changedText));
+                                    dispatch(new events.inputBlock(changedText));
                                 }
                             }
                             // filters out blocked pasted letters
@@ -302,7 +302,7 @@ export const ToniqInput = defineToniqElement<{
                                     blocked: inputs.blockedInputs,
                                 });
                                 finalText = filtered;
-                                dispatch(new events.inputBlocked(blocked));
+                                dispatch(new events.inputBlock(blocked));
                             }
                         }
 
