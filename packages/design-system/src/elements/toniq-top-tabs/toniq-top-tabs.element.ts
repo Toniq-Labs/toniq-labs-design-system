@@ -1,5 +1,5 @@
 import {classMap, css, defineElementEvent, html, listen, testId} from 'element-vir';
-import {FullRoute} from 'spa-router-vir';
+import {FullRoute, shouldMouseEventTriggerRoutes} from 'spa-router-vir';
 import {Primitive} from 'type-fest';
 import {noNativeFormStyles} from 'vira';
 import {toniqDurations} from '../../styles/animation';
@@ -116,15 +116,17 @@ export const ToniqTopTabs = defineToniqElement<{
                         role="tab"
                         title=${tab.label}
                         aria-selected=${isSelected ? 'true' : 'false'}
-                        ${listen('click', () => {
+                        ${listen('click', (clickEvent) => {
                             /** If the current tab is already selected, then there is nothing to do. */
                             if (isSelected) {
                                 return;
                             }
-                            if (tab.link?.route) {
-                                dispatch(new events.routeChange(tab.link.route));
+                            if (shouldMouseEventTriggerRoutes(clickEvent)) {
+                                if (tab.link?.route) {
+                                    dispatch(new events.routeChange(tab.link.route));
+                                }
+                                dispatch(new events.valueChange(tab.value));
                             }
-                            dispatch(new events.valueChange(tab.value));
                         })}
                     >
                         <${ToniqBoldSpace.assign({text: tab.label})}></${ToniqBoldSpace}>
