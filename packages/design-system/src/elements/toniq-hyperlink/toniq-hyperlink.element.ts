@@ -1,4 +1,4 @@
-import {css, defineElementEvent, html, ifDefined, listen} from 'element-vir';
+import {css, html, ifDefined, listen} from 'element-vir';
 import {shouldMouseEventTriggerRoutes} from 'spa-router-vir';
 import {toniqColors} from '../../styles';
 import {defineToniqElement} from '../define-toniq-element';
@@ -13,7 +13,7 @@ export enum ToniqHyperlinkLinkTypeEnum {
     NewTab = 'new-tab',
     /**
      * Treats the link as a route link. Emits a routeChange event and doesn't automatically redirect
-     * the page. Right click or ctrl+click link behaviors still work.
+     * the page. Right click or ctrl+click and other link behaviors still work.
      */
     RouteLink = 'route-link',
     /** The link is disabled entirely. */
@@ -36,9 +36,6 @@ export const ToniqHyperlink = defineToniqElement<{
         'toniq-hyperlink-with-hover-styles': ({inputs}) => !!inputs.withHoverStyles,
         'toniq-hyperlink-link-disabled': ({inputs}) =>
             inputs.linkType === ToniqHyperlinkLinkTypeEnum.Disabled,
-    },
-    events: {
-        routeChange: defineElementEvent<void>(),
     },
     styles: ({hostClasses}) => css`
         :host {
@@ -74,24 +71,21 @@ export const ToniqHyperlink = defineToniqElement<{
             cursor: default;
         }
     `,
-    renderCallback({inputs, dispatch, events}) {
+    renderCallback({inputs}) {
         function clickCallback(clickEvent: MouseEvent) {
             if (inputs.linkType === ToniqHyperlinkLinkTypeEnum.Disabled) {
                 clickEvent.preventDefault();
                 return;
             }
 
-            /** If the link it's a route, there's nothing more to do here. */
-            if (inputs.linkType !== ToniqHyperlinkLinkTypeEnum.RouteLink) {
-                return;
-            }
-
-            if (shouldMouseEventTriggerRoutes(clickEvent)) {
+            if (
+                inputs.linkType === ToniqHyperlinkLinkTypeEnum.RouteLink &&
+                shouldMouseEventTriggerRoutes(clickEvent)
+            ) {
                 clickEvent.preventDefault();
                 if (inputs.scrollToTop) {
                     window.scrollTo(0, 0);
                 }
-                dispatch(new events.routeChange());
             }
         }
 
