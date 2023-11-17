@@ -21,7 +21,7 @@ export enum ToniqHyperlinkLinkTypeEnum {
 }
 
 export const ToniqHyperlink = defineToniqElement<{
-    url: string;
+    url: string | URL;
     linkType: ToniqHyperlinkLinkTypeEnum;
     withHoverStyles?: boolean | undefined;
     /**
@@ -93,7 +93,7 @@ export const ToniqHyperlink = defineToniqElement<{
 
         return html`
             <a
-                href=${inputs.url}
+                href=${inputs.url.toString()}
                 ${listen('click', clickCallback)}
                 target=${ifDefined(shouldUseNewTab ? '_blank' : undefined)}
                 rel=${ifDefined(
