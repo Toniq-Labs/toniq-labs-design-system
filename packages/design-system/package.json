@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "12.0.1",
+    "version": "12.0.2",
     "private": false,
     "description": "Design system elements for Toniq Labs",
     "keywords": [
@@ -43,20 +43,20 @@
         "test:watch": "wtr --watch --color --config configs/web-test-runner.config.mjs --only-one-browser"
     },
     "dependencies": {
-        "@augment-vir/common": "^21.6.1",
-        "date-vir": "^4.1.0",
-        "element-vir": "^17.0.0",
-        "lit-css-vars": "^3.0.2",
-        "object-shape-tester": "^1.0.1",
-        "run-time-assertions": "^0.1.3",
+        "@augment-vir/common": "^22.0.0",
+        "date-vir": "^4.1.1",
+        "element-vir": "^17.0.1",
+        "lit-css-vars": "^3.0.4",
+        "object-shape-tester": "^1.0.2",
+        "run-time-assertions": "^0.2.1",
         "scroll-snap-api": "^1.0.2",
-        "spa-router-vir": "^3.0.2",
-        "vira": "^2.5.2"
+        "spa-router-vir": "^3.0.3",
+        "vira": "^2.5.3"
     },
     "devDependencies": {
-        "@augment-vir/browser": "^21.6.1",
-        "@augment-vir/browser-testing": "^21.6.1",
-        "@augment-vir/node-js": "^21.6.1",
+        "@augment-vir/browser": "^22.0.0",
+        "@augment-vir/browser-testing": "^22.0.0",
+        "@augment-vir/node-js": "^22.0.0",
         "@open-wc/testing": "^4.0.0",
         "@types/chai": "^4.3.10",
         "@types/mocha": "^10.0.4",
@@ -65,13 +65,13 @@
         "@web/test-runner-commands": "^0.9.0",
         "@web/test-runner-playwright": "^0.11.0",
         "@web/test-runner-visual-regression": "^0.9.0",
-        "element-book": "^10.1.6",
-        "esbuild": "^0.19.5",
-        "istanbul-smart-text-reporter": "^1.1.2",
+        "element-book": "^10.1.8",
+        "esbuild": "^0.19.6",
+        "istanbul-smart-text-reporter": "^1.1.3",
         "npm-check-updates": "~16.12.3",
         "ts-node": "^10.9.1",
-        "type-fest": "^4.7.1",
-        "typescript": "^5.2.2",
+        "type-fest": "^4.8.1",
+        "typescript": "5.2.2",
         "vite": "^5.0.0",
         "vite-tsconfig-paths": "^4.2.1"
     },

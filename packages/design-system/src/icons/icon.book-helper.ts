@@ -1,6 +1,7 @@
-import {addSuffix, isRuntimeTypeOf} from '@augment-vir/common';
+import {addSuffix} from '@augment-vir/common';
 import {BookPageControlTypeEnum, definePageControl} from 'element-book';
 import {css, html} from 'element-vir';
+import {isRunTimeType} from 'run-time-assertions';
 import {ToniqIcon, defineToniqElement} from '../elements';
 import {toniqColors, toniqIconCssVars} from '../styles';
 import {allIconsByCategory} from './index';
@@ -93,7 +94,7 @@ export function iconCssVarsToStyles(controls: Record<string, string | number>) {
                 if (cssVarName.toLowerCase() === 'css color') {
                     cssVarName = 'color';
                 }
-                if (isRuntimeTypeOf(value, 'number')) {
+                if (isRunTimeType(value, 'number')) {
                     value = addSuffix({value, suffix: 'px'});
                 }
                 return `${cssVarName}: ${value};`;
