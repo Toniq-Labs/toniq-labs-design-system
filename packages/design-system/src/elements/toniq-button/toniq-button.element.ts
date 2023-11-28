@@ -11,24 +11,23 @@ import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 export const buttonBorderRadius = css`8px`;
 
-export enum ToniqButtonStyleEnum {
+export enum ToniqButtonVariantEnum {
     Default = 'default',
     Outline = 'outline',
     Secondary = 'secondary',
 }
 
 export const ToniqButton = defineToniqElement<{
-    // if text is not given, provide a child element
-    text?: string;
-    icon?: undefined | ToniqSvg;
-    buttonStyle?: ToniqButtonStyleEnum | undefined;
+    /** If text is not provided as an input, instead provide a child element. */
+    text?: string | undefined;
+    icon?: ToniqSvg | undefined;
+    variant?: ToniqButtonVariantEnum | undefined;
     disabled?: boolean | undefined;
 }>()({
     tagName: 'toniq-button',
     hostClasses: {
-        'toniq-button-secondary': ({inputs}) =>
-            inputs.buttonStyle === ToniqButtonStyleEnum.Secondary,
-        'toniq-button-outline': ({inputs}) => inputs.buttonStyle === ToniqButtonStyleEnum.Outline,
+        'toniq-button-secondary': ({inputs}) => inputs.variant === ToniqButtonVariantEnum.Secondary,
+        'toniq-button-outline': ({inputs}) => inputs.variant === ToniqButtonVariantEnum.Outline,
         'toniq-button-disabled': ({inputs}) => !!inputs.disabled,
     },
     styles: ({hostClasses}) => css`

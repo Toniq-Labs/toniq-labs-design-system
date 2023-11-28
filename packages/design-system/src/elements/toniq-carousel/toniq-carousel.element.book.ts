@@ -5,7 +5,7 @@ import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {allIconsByCategory} from '../../icons/index';
 import {toniqColors} from '../../styles';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
-import {ToniqCarousel, ToniqCarouselStyleEnum} from './toniq-carousel.element';
+import {ToniqCarousel, ToniqCarouselVariantEnum} from './toniq-carousel.element';
 
 const exampleStyles = css`
     :host {
@@ -104,7 +104,7 @@ export const toniqCarouselBookPage = defineBookPage({
                 return html`
                     <${ToniqCarousel.assign({
                         enableAutomaticCycling: true,
-                        style: ToniqCarouselStyleEnum.BannerStyle,
+                        variant: ToniqCarouselVariantEnum.Banner,
                         templates: allIconsByCategory['core-24'].map((icon) => {
                             return html`
                                 <div style=${wrapperDivStyles}>
@@ -115,7 +115,7 @@ export const toniqCarouselBookPage = defineBookPage({
                     })}></${ToniqCarousel}>
                     <${ToniqCarousel.assign({
                         enableAutomaticCycling: true,
-                        style: ToniqCarouselStyleEnum.BannerStyle,
+                        variant: ToniqCarouselVariantEnum.Banner,
                         templates: [allIconsByCategory['core-24'][0]].map((icon) => {
                             return html`
                                 <div style=${wrapperDivStyles}>
@@ -124,7 +124,7 @@ export const toniqCarouselBookPage = defineBookPage({
                             `;
                         }),
                     })}
-                        class=${ToniqCarousel.hostClasses['toniq-carousel-banner-style']}
+                        class=${ToniqCarousel.hostClasses['toniq-carousel-banner-variant']}
                     ></${ToniqCarousel}>
                 `;
             },

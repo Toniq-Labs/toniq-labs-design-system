@@ -3,7 +3,7 @@ import {CSSResult, css, html, listen} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {Search24Icon} from '../../icons';
 import {allIconsByName, createIconPicker} from '../../icons/icon.book-helper';
-import {ToniqInput, ToniqInputStyleEnum} from './toniq-input.element';
+import {ToniqInput, ToniqInputVariantEnum} from './toniq-input.element';
 
 export const toniqInputPage = defineBookPage({
     title: ToniqInput.tagName,
@@ -61,13 +61,13 @@ export const toniqInputPage = defineBookPage({
             {
                 title: 'default',
                 inputs: {
-                    style: ToniqInputStyleEnum.Default,
+                    variant: ToniqInputVariantEnum.Default,
                 },
             },
             {
                 title: 'outline',
                 inputs: {
-                    style: ToniqInputStyleEnum.Outline,
+                    variant: ToniqInputVariantEnum.Outline,
                 },
             },
             {

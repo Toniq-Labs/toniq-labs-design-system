@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system-scripts",
-    "version": "12.0.3",
+    "version": "13.0.0",
     "private": true,
     "scripts": {
         "compile": "virmator compile",
@@ -10,12 +10,12 @@
         "test:exports": "ts-node src/update-all-exports.ts --check"
     },
     "dependencies": {
-        "@augment-vir/common": "^22.0.0",
-        "@augment-vir/node-js": "^22.0.0",
+        "@augment-vir/common": "^22.1.0",
+        "@augment-vir/node-js": "^22.1.0",
         "prettier": "^3.1.0"
     },
     "devDependencies": {
-        "@types/node": "^20.9.2",
+        "@types/node": "^20.10.0",
         "@types/svgo": "^2.6.4",
         "svgo": "^3.0.4",
         "typescript": "5.2.2"

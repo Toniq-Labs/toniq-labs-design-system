@@ -19,9 +19,9 @@ const defaultCarouselCycleDelayMs = 4000;
 
 export type ScrollDirection = 'left' | 'right';
 
-export enum ToniqCarouselStyleEnum {
+export enum ToniqCarouselVariantEnum {
     Default = 'default',
-    BannerStyle = 'banner-style',
+    Banner = 'banner',
 }
 
 export const ToniqCarousel = defineToniqElement<{
@@ -35,15 +35,15 @@ export const ToniqCarousel = defineToniqElement<{
     enableAutomaticCycling?: boolean;
     /** Number of milliseconds between each automatic cycling. Defaults to 4000. */
     cycleIntervalMs?: number;
-    style?: ToniqCarouselStyleEnum | undefined;
+    variant?: ToniqCarouselVariantEnum | undefined;
 }>()({
     tagName: 'toniq-carousel',
     cssVars: {
         'toniq-carousel-arrow-margin': '40px',
     },
     hostClasses: {
-        'toniq-carousel-banner-style': ({inputs}) =>
-            inputs.style === ToniqCarouselStyleEnum.BannerStyle,
+        'toniq-carousel-banner-variant': ({inputs}) =>
+            inputs.variant === ToniqCarouselVariantEnum.Banner,
     },
     stateInitStatic: {
         currentScrollPosition: {
@@ -106,7 +106,7 @@ export const ToniqCarousel = defineToniqElement<{
             will-change: visibility;
         }
 
-        ${hostClasses['toniq-carousel-banner-style'].selector} .arrow {
+        ${hostClasses['toniq-carousel-banner-variant'].selector} .arrow {
             background: none;
         }
 

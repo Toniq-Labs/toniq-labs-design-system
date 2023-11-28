@@ -77,7 +77,7 @@ function filterToAllowedCharactersOnly(inputs: IsAllowedInputs): {
     };
 }
 
-export enum ToniqInputStyleEnum {
+export enum ToniqInputVariantEnum {
     Default = 'default',
     Outline = 'outline',
 }
@@ -103,11 +103,11 @@ export const ToniqInput = defineToniqElement<{
     disableBrowserHelps?: boolean | undefined;
     /** A suffix that, if provided, is shown following the user input field. */
     suffix?: string | undefined;
-    style?: ToniqInputStyleEnum | undefined;
+    variant?: ToniqInputVariantEnum | undefined;
 }>()({
     tagName: 'toniq-input',
     hostClasses: {
-        'toniq-input-outline': ({inputs}) => inputs.style === ToniqInputStyleEnum.Outline,
+        'toniq-input-outline': ({inputs}) => inputs.variant === ToniqInputVariantEnum.Outline,
         'toniq-input-has-a-value': ({inputs}) => !!inputs.value,
         'toniq-input-disabled': ({inputs}) => !!inputs.disabled,
     },

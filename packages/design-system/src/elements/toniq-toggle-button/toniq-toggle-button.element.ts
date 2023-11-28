@@ -9,7 +9,7 @@ import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
-export enum ToniqToggleButtonStyleEnum {
+export enum ToniqToggleButtonVariantEnum {
     Default = 'default',
     TextOnly = 'text-only',
 }
@@ -19,12 +19,12 @@ export const ToniqToggleButton = defineToniqElement<{
     toggled: boolean;
     icon?: ToniqSvg | undefined;
     disabled?: boolean | undefined;
-    style?: ToniqToggleButtonStyleEnum;
+    variant?: ToniqToggleButtonVariantEnum;
 }>()({
     tagName: 'toniq-toggle-button',
     hostClasses: {
         'toniq-toggle-button-text-only': ({inputs}) =>
-            inputs.style === ToniqToggleButtonStyleEnum.TextOnly,
+            inputs.variant === ToniqToggleButtonVariantEnum.TextOnly,
         'toniq-toggle-button-disabled': ({inputs}) => !!inputs.disabled,
     },
     styles: ({hostClasses}) => css`

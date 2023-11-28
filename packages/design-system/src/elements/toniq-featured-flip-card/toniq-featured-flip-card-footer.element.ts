@@ -2,7 +2,7 @@ import {getObjectTypedKeys, isTruthy} from '@augment-vir/common';
 import {css, defineElementEvent, html, listen} from 'element-vir';
 import {SocialUrls, socialUrlIcons} from '../../data';
 import {defineToniqElement} from '../define-toniq-element';
-import {ToniqButton, ToniqButtonStyleEnum} from '../toniq-button/toniq-button.element';
+import {ToniqButton, ToniqButtonVariantEnum} from '../toniq-button/toniq-button.element';
 import {
     ToniqHyperlink,
     ToniqHyperlinkLinkTypeEnum,
@@ -113,7 +113,7 @@ export const ToniqFeaturedFlipCardFooter = defineToniqElement<{
                 >
                     <${ToniqButton.assign({
                         text: inputs.viewMoreButtonText,
-                        buttonStyle: ToniqButtonStyleEnum.Outline,
+                        variant: ToniqButtonVariantEnum.Outline,
                     })}></${ToniqButton}>
                 </${ToniqHyperlink}>
                 ${!!inputs.flipCardButtonText

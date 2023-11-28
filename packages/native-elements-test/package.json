@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system-native-elements-test",
-    "version": "12.0.3",
+    "version": "13.0.0",
     "private": true,
     "scripts": {
         "compile": "virmator compile",
@@ -10,14 +10,14 @@
     },
     "dependencies": {
         "@toniq-labs/design-system": "*",
-        "element-vir": "^17.0.1",
+        "element-vir": "^17.0.3",
         "run-time-assertions": "^0.2.1"
     },
     "devDependencies": {
-        "@augment-vir/browser-testing": "^22.0.0",
+        "@augment-vir/browser-testing": "^22.1.0",
         "@open-wc/testing": "^4.0.0",
-        "@types/chai": "^4.3.10",
-        "@types/mocha": "^10.0.4",
+        "@types/chai": "^4.3.11",
+        "@types/mocha": "^10.0.6",
         "@web/dev-server-esbuild": "^1.0.1",
         "@web/test-runner": "^0.18.0",
         "@web/test-runner-commands": "^0.9.0",

@@ -2,7 +2,7 @@ import {defineBookPage} from 'element-book';
 import {css, html} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {Trash24Icon} from '../../icons';
-import {ToniqButton, ToniqButtonStyleEnum} from './toniq-button.element';
+import {ToniqButton, ToniqButtonVariantEnum} from './toniq-button.element';
 
 export const toniqButtonPage = defineBookPage({
     parent: elementsBookPage,
@@ -17,13 +17,13 @@ export const toniqButtonPage = defineBookPage({
                 {
                     name: 'Secondary',
                     inputs: {
-                        buttonStyle: ToniqButtonStyleEnum.Secondary,
+                        variant: ToniqButtonVariantEnum.Secondary,
                     },
                 },
                 {
                     name: 'Outline',
                     inputs: {
-                        buttonStyle: ToniqButtonStyleEnum.Outline,
+                        variant: ToniqButtonVariantEnum.Outline,
                     },
                 },
                 {

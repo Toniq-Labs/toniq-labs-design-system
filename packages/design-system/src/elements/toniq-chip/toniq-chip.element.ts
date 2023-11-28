@@ -5,7 +5,7 @@ import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
-export enum ToniqChipStyleEnum {
+export enum ToniqChipVariantEnum {
     Default = 'default',
     Secondary = 'secondary',
 }
@@ -15,11 +15,11 @@ export const ToniqChip = defineToniqElement<{
     text?: string | undefined;
     icon?: undefined | ToniqSvg;
     /** Defaults to ToniqChipStyle.Default. */
-    style?: ToniqChipStyleEnum | undefined;
+    variant?: ToniqChipVariantEnum | undefined;
 }>()({
     tagName: 'toniq-chip',
     hostClasses: {
-        'toniq-chip-secondary': ({inputs}) => inputs.style === ToniqChipStyleEnum.Secondary,
+        'toniq-chip-secondary': ({inputs}) => inputs.variant === ToniqChipVariantEnum.Secondary,
     },
     styles: ({hostClasses}) => css`
         :host {

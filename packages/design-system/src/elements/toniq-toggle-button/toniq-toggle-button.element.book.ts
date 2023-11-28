@@ -4,7 +4,7 @@ import {css, html, listen} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {Rocket24Icon} from '../../icons';
 import {allIconsByName, createIconPicker} from '../../icons/icon.book-helper';
-import {ToniqToggleButton, ToniqToggleButtonStyleEnum} from './toniq-toggle-button.element';
+import {ToniqToggleButton, ToniqToggleButtonVariantEnum} from './toniq-toggle-button.element';
 
 const exampleStyleVariations: ReadonlyArray<{
     title: string;
@@ -17,7 +17,7 @@ const exampleStyleVariations: ReadonlyArray<{
     {
         title: 'text only',
         inputs: {
-            style: ToniqToggleButtonStyleEnum.TextOnly,
+            variant: ToniqToggleButtonVariantEnum.TextOnly,
         },
     },
     {

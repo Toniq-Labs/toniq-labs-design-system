@@ -2,7 +2,7 @@ import {defineBookPage} from 'element-book';
 import {CSSResult, HTMLTemplateResult, css, html, renderIf} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {InfoCircle16Icon} from '../../icons';
-import {ToniqChip, ToniqChipStyleEnum} from './toniq-chip.element';
+import {ToniqChip, ToniqChipVariantEnum} from './toniq-chip.element';
 
 export const toniqChipBookPage = defineBookPage({
     parent: elementsBookPage,
@@ -58,11 +58,11 @@ export const toniqChipBookPage = defineBookPage({
             [
                 {
                     title: 'default',
-                    inputs: {style: ToniqChipStyleEnum.Default},
+                    inputs: {variant: ToniqChipVariantEnum.Default},
                 },
                 {
                     title: 'secondary style',
-                    inputs: {style: ToniqChipStyleEnum.Secondary},
+                    inputs: {variant: ToniqChipVariantEnum.Secondary},
                 },
             ];
 
