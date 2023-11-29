@@ -75,6 +75,14 @@ export const ToniqCarousel = defineToniqElement<{
             overflow-y: hidden;
         }
 
+        .${unsafeCSS(templatesContainerClassName)}:first-child {
+            padding-left: 12px;
+        }
+
+        .${unsafeCSS(templatesContainerClassName)}:last-child {
+            padding-right: 12px;
+        }
+
         .template-wrapper {
             scroll-snap-align: center;
             /*
