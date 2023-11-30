@@ -38,9 +38,6 @@ export const ToniqCarousel = defineToniqElement<{
     variant?: ToniqCarouselVariantEnum | undefined;
 }>()({
     tagName: 'toniq-carousel',
-    cssVars: {
-        'toniq-carousel-arrow-margin': '-20px',
-    },
     hostClasses: {
         'toniq-carousel-banner-variant': ({inputs}) =>
             inputs.variant === ToniqCarouselVariantEnum.Banner,
@@ -54,11 +51,11 @@ export const ToniqCarousel = defineToniqElement<{
         rotationIntervalId: undefined as undefined | number,
         enableRotation: true,
     },
-    styles: ({cssVars, hostClasses}) => css`
+    styles: ({hostClasses}) => css`
         :host {
             display: block;
             position: relative;
-            overflow: visible;
+            overflow-y: hidden;
             box-sizing: border-box;
             z-index: 0;
         }
@@ -75,14 +72,6 @@ export const ToniqCarousel = defineToniqElement<{
             overflow-y: hidden;
         }
 
-        .${unsafeCSS(templatesContainerClassName)}:first-child {
-            padding-left: 12px;
-        }
-
-        .${unsafeCSS(templatesContainerClassName)}:last-child {
-            padding-right: 12px;
-        }
-
         .template-wrapper {
             scroll-snap-align: center;
             /*
@@ -94,7 +83,6 @@ export const ToniqCarousel = defineToniqElement<{
         .arrow {
             --background-degrees: 90deg;
             position: absolute;
-            width: 100px;
             max-width: 20%;
             opacity: 1;
             transition: ${toniqDurations.pretty};
@@ -108,7 +96,7 @@ export const ToniqCarousel = defineToniqElement<{
             background: linear-gradient(
                 var(--background-degrees),
                 white 0%,
-                rgba(255, 255, 255, 0.6) 30%,
+                rgba(255, 255, 255, 0.6) 70%,
                 rgba(255, 255, 255, 0) 100%
             );
             will-change: visibility;
@@ -129,8 +117,8 @@ export const ToniqCarousel = defineToniqElement<{
             cursor: pointer;
             position: relative;
             z-index: 11;
-            margin: 0 ${cssVars['toniq-carousel-arrow-margin'].value};
-            box-shadow: 0px 2px 28px rgba(0, 0, 0, 0.12);
+            margin: 12px;
+            box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.12);
             display: inline-flex;
             padding: 8px;
             border-radius: 50%;
