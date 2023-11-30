@@ -3396,7 +3396,6 @@ var P0=Object.defineProperty;var B0=(e,t,r)=>t in e?P0(e,t,{enumerable:!0,config
             background: linear-gradient(
                 var(--background-degrees),
                 white 0%,
-                rgba(255, 255, 255, 0.6) 70%,
                 rgba(255, 255, 255, 0) 100%
             );
             will-change: visibility;
