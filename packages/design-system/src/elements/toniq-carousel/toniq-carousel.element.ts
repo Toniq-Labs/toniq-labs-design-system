@@ -39,7 +39,7 @@ export const ToniqCarousel = defineToniqElement<{
 }>()({
     tagName: 'toniq-carousel',
     cssVars: {
-        'toniq-carousel-arrow-margin': '40px',
+        'toniq-carousel-arrow-margin': '-20px',
     },
     hostClasses: {
         'toniq-carousel-banner-variant': ({inputs}) =>
@@ -58,7 +58,7 @@ export const ToniqCarousel = defineToniqElement<{
         :host {
             display: block;
             position: relative;
-            overflow-y: hidden;
+            overflow: visible;
             box-sizing: border-box;
             z-index: 0;
         }
@@ -73,6 +73,14 @@ export const ToniqCarousel = defineToniqElement<{
             scroll-snap-type: x mandatory;
             z-index: 9;
             overflow-y: hidden;
+        }
+
+        .${unsafeCSS(templatesContainerClassName)}:first-child {
+            padding-left: 12px;
+        }
+
+        .${unsafeCSS(templatesContainerClassName)}:last-child {
+            padding-right: 12px;
         }
 
         .template-wrapper {
