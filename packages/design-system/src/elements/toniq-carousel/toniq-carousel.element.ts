@@ -122,7 +122,14 @@ export const ToniqCarousel = defineToniqElement<{
             display: inline-flex;
             padding: 8px;
             border-radius: 50%;
+            transition: ${toniqDurations.interaction};
+            border: 1px solid transparent;
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
+        }
+
+        .arrow ${ToniqIcon}:hover {
+            border-color: ${toniqColors.pageInteractionHover.foregroundColor};
+            ${applyBackgroundAndForeground(toniqColors.pageInteractionHover)};
         }
 
         .hidden {
