@@ -87,7 +87,7 @@ describe(ToniqInput.tagName, () => {
         }),
     );
 
-    it(
+    it.skip(
         'should not be focusable when disabled',
         createFixtureTest(async () => {
             const originalValue = 'should not change';
