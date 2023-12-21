@@ -18,7 +18,7 @@ import {ToniqFeaturedFlipCardFooter} from './toniq-featured-flip-card-footer.ele
 export const ToniqFeaturedFlipCard = defineToniqElement<{
     title: string;
     imageUrls: ReadonlyArray<string>;
-    socialUrls?: Readonly<SocialUrls> | undefined;
+    socialUrls?: Readonly<Partial<SocialUrls>> | undefined;
     /**
      * Text for the backside of the card, viewed by clicking the "More Info" button. If this is
      * empty, the "More Info" button will be hidden.

@@ -14,7 +14,7 @@ export const ToniqFeaturedFlipCardFooter = defineToniqElement<{
     viewMoreButtonText: string;
     viewMoreButtonUrl: string;
     flipCardButtonText: string;
-    socialUrls: Readonly<SocialUrls> | undefined;
+    socialUrls: Readonly<Partial<SocialUrls>> | undefined;
 }>()({
     tagName: 'toniq-featured-flip-card-footer',
     styles: css`

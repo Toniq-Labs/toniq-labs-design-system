@@ -143,9 +143,9 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
                         infoParagraphs,
                         title: 'Featured Stuff',
                         socialUrls: {
-                            Discord: 'https://toniqlabs.com',
-                            Instagram: 'https://toniqlabs.com',
-                            Telegram: 'https://toniqlabs.com',
+                            discord: 'https://toniqlabs.com',
+                            instagram: 'https://toniqlabs.com',
+                            telegram: 'https://toniqlabs.com',
                         },
                     })}></${ToniqFeaturedFlipCard}>
                 `;
