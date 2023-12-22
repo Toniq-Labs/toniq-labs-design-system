@@ -33,7 +33,7 @@ export const defaultRelativeDateStringOptions: Partial<RelativeStringOptions> = 
     limitUnitMax: true,
 };
 
-export const ToniqDateTime = defineToniqElement<{
+export type DateTimeOptions = {
     fullDate: FullDate;
     parts: {
         date: boolean;
@@ -58,35 +58,46 @@ export const ToniqDateTime = defineToniqElement<{
               tryRelative: boolean;
           })
         | undefined;
-}>()({
+};
+
+export function formatAsDateTimeString(inputs: DateTimeOptions) {
+    const formatted = formatFullDate(inputs.fullDate);
+    const absoluteString = [
+        inputs.parts?.date && formatted.date,
+        inputs.parts?.time && formatted.time,
+    ]
+        .filter(isTruthy)
+        .join(' ');
+
+    const everythingString = toSimpleString(inputs.fullDate, {
+        includeSeconds: true,
+        includeTimezone: true,
+    });
+
+    const relativeString = inputs.relativeOptions?.tryRelative
+        ? toRelativeString({
+              fullDate: inputs.fullDate,
+              relativeTo: inputs.relativeOptions.relativeTo || getNowInUserTimezone(),
+              options: {
+                  ...defaultRelativeDateStringOptions,
+                  ...inputs.relativeOptions,
+              },
+          })
+        : undefined;
+
+    return {
+        everythingString,
+        displayString: relativeString || absoluteString,
+    };
+}
+
+export const ToniqDateTime = defineToniqElement<DateTimeOptions>()({
     tagName: 'toniq-date-time',
     renderCallback({inputs}) {
-        const formatted = formatFullDate(inputs.fullDate);
-        const absoluteString = [
-            inputs.parts?.date && formatted.date,
-            inputs.parts?.time && formatted.time,
-        ]
-            .filter(isTruthy)
-            .join(' ');
-
-        const everythingString = toSimpleString(inputs.fullDate, {
-            includeSeconds: true,
-            includeTimezone: true,
-        });
-
-        const relativeString = inputs.relativeOptions?.tryRelative
-            ? toRelativeString({
-                  fullDate: inputs.fullDate,
-                  relativeTo: inputs.relativeOptions.relativeTo || getNowInUserTimezone(),
-                  options: {
-                      ...defaultRelativeDateStringOptions,
-                      ...inputs.relativeOptions,
-                  },
-              })
-            : undefined;
+        const {displayString, everythingString} = formatAsDateTimeString(inputs);
 
         return html`
-            <span title=${everythingString}>${relativeString || absoluteString}</span>
+            <span title=${everythingString}>${displayString}</span>
         `;
     },
 });
