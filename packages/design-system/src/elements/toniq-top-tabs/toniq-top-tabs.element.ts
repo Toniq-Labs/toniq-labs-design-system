@@ -1,7 +1,8 @@
 import {classMap, css, defineElementEvent, html, listen, testId} from 'element-vir';
 import {FullRoute, shouldMouseEventTriggerRoutes} from 'spa-router-vir';
 import {Primitive} from 'type-fest';
-import {noNativeFormStyles} from 'vira';
+import {noNativeFormStyles, noNativeSpacing} from 'vira';
+import {ToniqSvg} from '../../icons';
 import {toniqDurations} from '../../styles/animation';
 import {toniqColors} from '../../styles/colors';
 import {toniqFontStyles} from '../../styles/fonts';
@@ -11,15 +12,18 @@ import {
     ToniqHyperlink,
     ToniqHyperlinkLinkTypeEnum,
 } from '../toniq-hyperlink/toniq-hyperlink.element';
+import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
 export type ToniqTopTab = Readonly<{
     label: string;
     value: Primitive;
+    icon?: ToniqSvg;
     /** Set this to treat the tab as a router link. */
     link?: {
         route: FullRoute;
         url: string | URL;
     };
+    disabled?: undefined | boolean;
 }>;
 
 export const ToniqTopTabs = defineToniqElement<{
@@ -53,22 +57,35 @@ export const ToniqTopTabs = defineToniqElement<{
         }
 
         li {
+            display: flex;
+            align-items: center;
             list-style: none;
             position: relative;
             border-bottom: 1px solid ${toniqColors.pageTertiary.foregroundColor};
             transition:
                 border-bottom-width ${toniqDurations.interaction},
-                border-color ${toniqDurations.interaction};
+                border-color ${toniqDurations.interaction},
+                padding-bottom ${toniqDurations.interaction};
+            padding: ${cssVars['toniq-top-tabs-tab-vertical-padding'].value} 8px;
         }
 
         .tab {
             ${noNativeFormStyles};
+            ${noNativeSpacing};
             cursor: pointer;
             display: inline-block;
             ${toniqFontStyles.paragraphFont};
-            padding: ${cssVars['toniq-top-tabs-tab-vertical-padding'].value} 8px;
-            transition: padding-bottom ${toniqDurations.interaction};
             max-width: 300px;
+        }
+
+        .tab-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .disabled-tab {
+            pointer-events: none;
         }
 
         ${ToniqBoldSpace} {
@@ -81,15 +98,17 @@ export const ToniqTopTabs = defineToniqElement<{
         li.selected .tab {
             ${toniqFontStyles.boldFont};
             cursor: default;
-            padding-bottom: calc(
-                ${cssVars['toniq-top-tabs-tab-vertical-padding'].value} -
-                    ${cssVars['toniq-top-tabs-selected-border-width'].value}
-            );
         }
 
         li.selected {
             border-color: ${toniqColors.pageInteraction.foregroundColor};
             border-bottom-width: ${cssVars['toniq-top-tabs-selected-border-width'].value};
+            padding-bottom: calc(
+                calc(
+                        ${cssVars['toniq-top-tabs-tab-vertical-padding'].value} -
+                            ${cssVars['toniq-top-tabs-selected-border-width'].value}
+                    ) + 1px
+            );
         }
 
         li:last-child {
@@ -99,6 +118,19 @@ export const ToniqTopTabs = defineToniqElement<{
     renderCallback({inputs, dispatch, events}) {
         const tabElements = inputs.tabs.map((tab) => {
             const isSelected = tab.value === inputs.value;
+            const tabIconTemplate = tab.icon
+                ? html`
+                      <${ToniqIcon.assign({icon: tab.icon})}></${ToniqIcon}>
+                  `
+                : '';
+
+            const tabTextTemplate = tab.label
+                ? html`
+                      <${ToniqBoldSpace.assign({
+                          text: tab.label,
+                      })}></${ToniqBoldSpace}>
+                  `
+                : '';
 
             return html`
                 <li
@@ -112,7 +144,7 @@ export const ToniqTopTabs = defineToniqElement<{
                         url: tab.link?.url || '',
                         linkType: ToniqHyperlinkLinkTypeEnum.RouteLink,
                     })}
-                        class="tab"
+                        class="tab ${classMap({'disabled-tab': !!tab.disabled})}"
                         role="tab"
                         title=${tab.label}
                         aria-selected=${isSelected ? 'true' : 'false'}
@@ -129,7 +161,7 @@ export const ToniqTopTabs = defineToniqElement<{
                             }
                         })}
                     >
-                        <${ToniqBoldSpace.assign({text: tab.label})}></${ToniqBoldSpace}>
+                        <div class="tab-content">${tabIconTemplate} ${tabTextTemplate}</div>
                     </${ToniqHyperlink}>
                 </li>
             `;

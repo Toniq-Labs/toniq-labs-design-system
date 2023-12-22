@@ -2,6 +2,8 @@ import {Overwrite} from '@augment-vir/common';
 import {defineBookPage} from 'element-book';
 import {CSSResult, css, html, listen} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
+import {Infinity24Icon} from '../../icons';
+import {InfoCircle16Icon} from '../../icons/svgs/core-16/info-circle-16.icon';
 import {ToniqTopTab, ToniqTopTabs} from './toniq-top-tabs.element';
 
 const examples: {
@@ -57,6 +59,45 @@ const examples: {
                 'bye',
                 'hello',
                 'So long, farewell, auf Wiedersehen, adieu. Adieu, adieu, to you and you and you',
+            ],
+        },
+    },
+    {
+        title: 'with icon and disabled',
+        extraStyles: css``,
+        inputs: {
+            value: 'hi',
+            tabs: [
+                {
+                    label: 'hi',
+                    value: 0,
+                },
+                {
+                    label: '',
+                    value: 1,
+                    icon: Infinity24Icon,
+                },
+                {
+                    label: 'label here',
+                    value: 2,
+                    icon: Infinity24Icon,
+                },
+                {
+                    label: '',
+                    value: 3,
+                    icon: InfoCircle16Icon,
+                    disabled: true,
+                },
+                {
+                    label: '16px icon',
+                    value: 4,
+                    icon: InfoCircle16Icon,
+                },
+                {
+                    label: 'disabled',
+                    value: 5,
+                    disabled: true,
+                },
             ],
         },
     },

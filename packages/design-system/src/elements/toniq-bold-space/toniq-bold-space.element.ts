@@ -8,9 +8,8 @@ export const ToniqBoldSpace = defineToniqElement<{text: string}>()({
 
     styles: css`
         :host {
-            display: inline-block;
+            display: inline-flex;
             position: relative;
-            vertical-align: top;
         }
 
         .text {
@@ -34,6 +33,10 @@ export const ToniqBoldSpace = defineToniqElement<{text: string}>()({
         }
     `,
     renderCallback({inputs}) {
+        if (!inputs.text) {
+            return '';
+        }
+
         return html`
             <span hidden aria-hidden="true" class="text bold">${inputs.text}</span>
             <span class="text visible">${inputs.text}</span>
