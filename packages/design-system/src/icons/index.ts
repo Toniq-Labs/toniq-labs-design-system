@@ -143,6 +143,7 @@ export * from './svgs/core-24/loader-animated-24.icon';
 export * from './svgs/core-24/lock-24.icon';
 export * from './svgs/core-24/lock-open-24.icon';
 export * from './svgs/core-24/menu-24.icon';
+export * from './svgs/core-24/notification-bell-24.icon';
 export * from './svgs/core-24/paper-24.icon';
 export * from './svgs/core-24/people-24.icon';
 export * from './svgs/core-24/person-24.icon';
