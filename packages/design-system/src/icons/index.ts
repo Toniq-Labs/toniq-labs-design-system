@@ -12,6 +12,7 @@ import {ArrowRight24Icon} from './svgs/core-24/arrow-right-24.icon';
 import {ArrowsSort24Icon} from './svgs/core-24/arrows-sort-24.icon';
 import {ArrowsSortAscending24Icon} from './svgs/core-24/arrows-sort-ascending-24.icon';
 import {ArrowsSortDescending24Icon} from './svgs/core-24/arrows-sort-descending-24.icon';
+import {Bell24Icon} from './svgs/core-24/bell-24.icon';
 import {Bucket24Icon} from './svgs/core-24/bucket-24.icon';
 import {BuildingStore24Icon} from './svgs/core-24/building-store-24.icon';
 import {CalendarEvent24Icon} from './svgs/core-24/calendar-event-24.icon';
@@ -48,7 +49,6 @@ import {LoaderAnimated24Icon} from './svgs/core-24/loader-animated-24.icon';
 import {Lock24Icon} from './svgs/core-24/lock-24.icon';
 import {LockOpen24Icon} from './svgs/core-24/lock-open-24.icon';
 import {Menu24Icon} from './svgs/core-24/menu-24.icon';
-import {NotificationBell24Icon} from './svgs/core-24/notification-bell-24.icon';
 import {Paper24Icon} from './svgs/core-24/paper-24.icon';
 import {People24Icon} from './svgs/core-24/people-24.icon';
 import {Person24Icon} from './svgs/core-24/person-24.icon';
@@ -107,6 +107,7 @@ export * from './svgs/core-24/arrow-right-24.icon';
 export * from './svgs/core-24/arrows-sort-24.icon';
 export * from './svgs/core-24/arrows-sort-ascending-24.icon';
 export * from './svgs/core-24/arrows-sort-descending-24.icon';
+export * from './svgs/core-24/bell-24.icon';
 export * from './svgs/core-24/bucket-24.icon';
 export * from './svgs/core-24/building-store-24.icon';
 export * from './svgs/core-24/calendar-event-24.icon';
@@ -143,7 +144,6 @@ export * from './svgs/core-24/loader-animated-24.icon';
 export * from './svgs/core-24/lock-24.icon';
 export * from './svgs/core-24/lock-open-24.icon';
 export * from './svgs/core-24/menu-24.icon';
-export * from './svgs/core-24/notification-bell-24.icon';
 export * from './svgs/core-24/paper-24.icon';
 export * from './svgs/core-24/people-24.icon';
 export * from './svgs/core-24/person-24.icon';
@@ -208,6 +208,7 @@ export const allIconsByCategory = {
         ArrowsSort24Icon,
         ArrowsSortAscending24Icon,
         ArrowsSortDescending24Icon,
+        Bell24Icon,
         Bucket24Icon,
         BuildingStore24Icon,
         CalendarEvent24Icon,
@@ -244,7 +245,6 @@ export const allIconsByCategory = {
         Lock24Icon,
         LockOpen24Icon,
         Menu24Icon,
-        NotificationBell24Icon,
         Paper24Icon,
         People24Icon,
         Person24Icon,
