@@ -3,7 +3,7 @@ name: build-for-gh-pages
 on:
     push:
         branches:
-            - main
+            - dev
 
 jobs:
     build-for-gh-pages:
