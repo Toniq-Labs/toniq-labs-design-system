@@ -34,6 +34,7 @@ import {Download24Icon} from './svgs/core-24/download-24.icon';
 import {Edit24Icon} from './svgs/core-24/edit-24.icon';
 import {ExternalLink24Icon} from './svgs/core-24/external-link-24.icon';
 import {Filter24Icon} from './svgs/core-24/filter-24.icon';
+import {Gear24Icon} from './svgs/core-24/gear-24.icon';
 import {Geometry24Icon} from './svgs/core-24/geometry-24.icon';
 import {GridDots24Icon} from './svgs/core-24/grid-dots-24.icon';
 import {Heart24Icon} from './svgs/core-24/heart-24.icon';
@@ -129,6 +130,7 @@ export * from './svgs/core-24/download-24.icon';
 export * from './svgs/core-24/edit-24.icon';
 export * from './svgs/core-24/external-link-24.icon';
 export * from './svgs/core-24/filter-24.icon';
+export * from './svgs/core-24/gear-24.icon';
 export * from './svgs/core-24/geometry-24.icon';
 export * from './svgs/core-24/grid-dots-24.icon';
 export * from './svgs/core-24/heart-24.icon';
@@ -230,6 +232,7 @@ export const allIconsByCategory = {
         Edit24Icon,
         ExternalLink24Icon,
         Filter24Icon,
+        Gear24Icon,
         Geometry24Icon,
         GridDots24Icon,
         Heart24Icon,
