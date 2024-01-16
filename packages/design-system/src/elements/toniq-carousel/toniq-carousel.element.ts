@@ -1,5 +1,6 @@
 import {
     DeclarativeElementHost,
+    HtmlInterpolation,
     classMap,
     css,
     html,
@@ -31,7 +32,7 @@ export const ToniqCarousel = defineToniqElement<{
      *
      * This is used instead of <slot> because this element needs to wrap each individual template.
      */
-    templates: ReadonlyArray<unknown>;
+    templates: ReadonlyArray<HtmlInterpolation>;
     enableAutomaticCycling?: boolean;
     /** Number of milliseconds between each automatic cycling. Defaults to 4000. */
     cycleIntervalMs?: number;

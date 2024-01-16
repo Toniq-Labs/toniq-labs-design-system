@@ -20,7 +20,9 @@ describe(ToniqMiddleEllipsis.tagName, () => {
         'should not render text when none is input',
         createFixtureTest(async () => {
             const rendered = await fixture(html`
-                <${ToniqMiddleEllipsis}></${ToniqMiddleEllipsis}>
+                <${ToniqMiddleEllipsis.assign({
+                    copyOnClick: true,
+                })}></${ToniqMiddleEllipsis}>
             `);
             assert.equal(getTextContentThroughShadow(rendered), '');
             assert.isUndefined(queryThroughShadow(ToniqIcon.tagName, rendered));

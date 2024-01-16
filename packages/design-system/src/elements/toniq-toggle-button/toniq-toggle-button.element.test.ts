@@ -26,7 +26,10 @@ describe(ToniqToggleButton.tagName, () => {
 
     runFocusTests(
         html`
-            <${ToniqToggleButton}></${ToniqToggleButton}>
+            <${ToniqToggleButton.assign({
+                text: 'text',
+                toggled: false,
+            })}></${ToniqToggleButton}>
         `,
         true,
     );

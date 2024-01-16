@@ -76,7 +76,11 @@ describe(ToniqSlider.tagName, () => {
 
     runFocusTests(
         html`
-            <${ToniqSlider} />
+            <${ToniqSlider.assign({
+                max: 100,
+                min: 0,
+                value: 50,
+            })}></${ToniqSlider}>
         `,
         true,
     );

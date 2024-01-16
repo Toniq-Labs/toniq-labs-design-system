@@ -156,7 +156,9 @@ describe(ToniqInput.tagName, () => {
 
     runFocusTests(
         html`
-            <${ToniqInput}></${ToniqInput}>
+            <${ToniqInput.assign({
+                value: 'value',
+            })}></${ToniqInput}>
         `,
         true,
     );

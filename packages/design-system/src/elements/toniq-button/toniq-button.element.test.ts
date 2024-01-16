@@ -17,7 +17,7 @@ describe(ToniqButton.tagName, () => {
         'renders with default values',
         createFixtureTest(async () => {
             const rendered = await fixture(html`
-                <${ToniqButton}></${ToniqButton}>
+                <${ToniqButton.assign({text: 'hi'})}></${ToniqButton}>
             `);
 
             const innerButton = queryThroughShadow('button', rendered);
@@ -39,7 +39,9 @@ describe(ToniqButton.tagName, () => {
 
     runFocusTests(
         html`
-            <${ToniqButton}></${ToniqButton}>
+            <${ToniqButton.assign({
+                text: 'hi',
+            })}></${ToniqButton}>
         `,
         true,
     );

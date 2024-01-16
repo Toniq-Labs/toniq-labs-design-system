@@ -26,7 +26,9 @@ describe(ToniqCheckbox.tagName, () => {
 
     runFocusTests(
         html`
-            <${ToniqCheckbox}></${ToniqCheckbox}>
+            <${ToniqCheckbox.assign({
+                checked: true,
+            })}></${ToniqCheckbox}>
         `,
         true,
     );

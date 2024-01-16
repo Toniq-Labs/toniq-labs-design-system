@@ -16,7 +16,9 @@ describe(ToniqIcon.tagName, () => {
         'should render nothing when no icon is assigned',
         createFixtureTest(async () => {
             const rendered = await fixture(html`
-                <${ToniqIcon}></${ToniqIcon}>
+                <${ToniqIcon.assign({
+                    icon: Copy16Icon,
+                })}></${ToniqIcon}>
             `);
             assert.isUndefined(queryThroughShadow('svg', rendered));
         }),

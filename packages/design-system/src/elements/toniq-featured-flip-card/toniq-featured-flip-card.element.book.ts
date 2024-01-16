@@ -30,7 +30,7 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
                         infoParagraphs: longInfoParagraphs,
                         imageUrls,
                         socialUrls: emptySocialUrls,
-                        title: 'Featured Stuff',
+                        cardTitle: 'Featured Stuff',
                         viewButtonTitle: 'Stuff',
                     })}></${ToniqFeaturedFlipCard}>
                 `;
@@ -45,7 +45,7 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
                 return html`
                     <${ToniqFeaturedFlipCard.assign({
                         imageUrls,
-                        title: 'Featured Stuff',
+                        cardTitle: 'Featured Stuff',
                         infoParagraphs: undefined,
                     })}></${ToniqFeaturedFlipCard}>
                 `;
@@ -60,7 +60,7 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
                 return html`
                     <${ToniqFeaturedFlipCard.assign({
                         imageUrls: [],
-                        title: 'Featured Stuff',
+                        cardTitle: 'Featured Stuff',
                         infoParagraphs: longInfoParagraphs,
                         viewMoreUrl: 'https://toniqlabs.com',
                     })}
@@ -80,7 +80,7 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
                 return html`
                     <${ToniqFeaturedFlipCard.assign({
                         imageUrls: [],
-                        title: 'Featured Stuff',
+                        cardTitle: 'Featured Stuff',
                         infoParagraphs: longInfoParagraphs,
                     })}></${ToniqFeaturedFlipCard}>
                 `;
@@ -100,7 +100,7 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
                 return html`
                     <${ToniqFeaturedFlipCard.assign({
                         imageUrls: [],
-                        title: 'Featured Stuff',
+                        cardTitle: 'Featured Stuff',
                         infoParagraphs: longInfoParagraphs,
                     })}></${ToniqFeaturedFlipCard}>
                 `;
@@ -121,7 +121,7 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
                     <${ToniqFeaturedFlipCard.assign({
                         imageUrls,
                         infoParagraphs,
-                        title: 'Featured Stuff',
+                        cardTitle: 'Featured Stuff',
                     })}></${ToniqFeaturedFlipCard}>
                 `;
             },
@@ -141,7 +141,7 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
                     <${ToniqFeaturedFlipCard.assign({
                         imageUrls,
                         infoParagraphs,
-                        title: 'Featured Stuff',
+                        cardTitle: 'Featured Stuff',
                         socialUrls: {
                             discord: 'https://toniqlabs.com',
                             instagram: 'https://toniqlabs.com',
@@ -167,7 +167,7 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
                     <${ToniqFeaturedFlipCard.assign({
                         imageUrls,
                         infoParagraphs,
-                        title: 'With custom Template',
+                        cardTitle: 'With custom Template',
                         customTemplateCallback(imageUrl) {
                             return html`
                                 <${ViraImage.assign({
@@ -201,7 +201,7 @@ export const toniqFeaturedFlipCardBookPage = defineBookPage({
                             }
                         }),
                         infoParagraphs,
-                        title: 'With custom Template Statuses',
+                        cardTitle: 'With custom Template Statuses',
                         customTemplateCallback(imageUrl) {
                             return html`
                                 <${ViraImage.assign({

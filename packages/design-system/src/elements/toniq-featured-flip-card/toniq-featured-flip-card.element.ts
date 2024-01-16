@@ -16,7 +16,7 @@ import {ToniqFeaturedFlipCardFooter} from './toniq-featured-flip-card-footer.ele
 
 /** A specific version of toniq-flip-card that Toniq Labs frequently re-uses. */
 export const ToniqFeaturedFlipCard = defineToniqElement<{
-    title: string;
+    cardTitle: string;
     imageUrls: ReadonlyArray<string>;
     socialUrls?: Readonly<Partial<SocialUrls>> | undefined;
     /**
@@ -201,7 +201,7 @@ export const ToniqFeaturedFlipCard = defineToniqElement<{
             .join(' ');
 
         const cardHeaderTemplate = html`
-            <h3>${inputs.title}</h3>
+            <h3>${inputs.cardTitle}</h3>
         `;
 
         const firstImage = inputs.imageUrls[0];

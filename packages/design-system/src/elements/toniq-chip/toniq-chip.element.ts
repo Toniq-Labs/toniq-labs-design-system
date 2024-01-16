@@ -21,6 +21,9 @@ export const ToniqChip = defineToniqElement<{
     hostClasses: {
         'toniq-chip-secondary': ({inputs}) => inputs.variant === ToniqChipVariantEnum.Secondary,
     },
+    options: {
+        ignoreUnsetInputs: true,
+    },
     styles: ({hostClasses}) => css`
         :host {
             display: inline-flex;
