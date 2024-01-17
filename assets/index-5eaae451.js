@@ -112,7 +112,7 @@ var V0=Object.defineProperty;var j0=(e,t,n)=>t in e?V0(e,t,{enumerable:!0,config
             display: block;
         }
 
-        ${e["vira-icon-fit-container"].selector} svg 
+        ${e["vira-icon-fit-container"].selector} svg {
             height: 100%;
             width: 100%;
         }
