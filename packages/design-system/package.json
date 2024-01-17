@@ -50,7 +50,7 @@
         "run-time-assertions": "^0.3.0",
         "scroll-snap-api": "^1.0.2",
         "spa-router-vir": "^3.0.3",
-        "vira": "^20.0.2"
+        "vira": "^20.0.5"
     },
     "devDependencies": {
         "@augment-vir/browser": "^22.4.0",
@@ -64,7 +64,7 @@
         "@web/test-runner-commands": "^0.9.0",
         "@web/test-runner-playwright": "^0.11.0",
         "@web/test-runner-visual-regression": "^0.9.0",
-        "element-book": "^20.0.2",
+        "element-book": "^20.0.5",
         "esbuild": "^0.19.11",
         "istanbul-smart-text-reporter": "^1.1.3",
         "npm-check-updates": "~16.12.3",
@@ -72,7 +72,7 @@
         "type-fest": "^4.9.0",
         "typescript": "5.3.3",
         "vite": "^4.5.0",
-        "vite-tsconfig-paths": "^4.2.3"
+        "vite-tsconfig-paths": "^4.3.1"
     },
     "peerDependencies": {
         "element-vir": ">=17"

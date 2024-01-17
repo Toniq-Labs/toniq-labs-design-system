@@ -36,7 +36,7 @@
     },
     "dependencies": {
         "spa-router-vir": "^3.0.3",
-        "vira": "^20.0.2"
+        "vira": "^20.0.5"
     },
     "devDependencies": {
         "concurrently": "^8.2.2",
