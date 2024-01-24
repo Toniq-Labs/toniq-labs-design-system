@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system-root",
-    "version": "15.0.1",
+    "version": "15.1.0",
     "private": true,
     "description": "Root design system mono-repo package.",
     "homepage": "https://github.com/Toniq-Labs/toniq-labs-design-system",
@@ -36,13 +36,13 @@
     },
     "dependencies": {
         "spa-router-vir": "^3.0.3",
-        "vira": "^20.0.6"
+        "vira": "^20.0.8"
     },
     "devDependencies": {
         "concurrently": "^8.2.2",
         "cspell": "^8.3.2",
         "dependency-cruiser": "^16.0.0",
-        "esbuild": "^0.19.11",
+        "esbuild": "^0.19.12",
         "markdown-code-example-inserter": "^0.3.3",
         "mono-vir": "^0.1.7",
         "npm-check-updates": "~16.12.3",

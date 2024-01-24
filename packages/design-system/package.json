@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "15.0.1",
+    "version": "15.1.0",
     "private": false,
     "description": "Design system elements for Toniq Labs",
     "keywords": [
@@ -50,7 +50,7 @@
         "run-time-assertions": "^0.3.0",
         "scroll-snap-api": "^1.0.2",
         "spa-router-vir": "^3.0.3",
-        "vira": "^20.0.6"
+        "vira": "^20.0.8"
     },
     "devDependencies": {
         "@augment-vir/browser": "^23.0.0",
@@ -64,12 +64,12 @@
         "@web/test-runner-commands": "^0.9.0",
         "@web/test-runner-playwright": "^0.11.0",
         "@web/test-runner-visual-regression": "^0.9.0",
-        "element-book": "^20.0.6",
-        "esbuild": "^0.19.11",
+        "element-book": "^20.0.8",
+        "esbuild": "^0.19.12",
         "istanbul-smart-text-reporter": "^1.1.3",
         "npm-check-updates": "~16.12.3",
         "ts-node": "^10.9.2",
-        "type-fest": "^4.9.0",
+        "type-fest": "^4.10.1",
         "typescript": "5.3.3",
         "vite": "^4.5.0",
         "vite-tsconfig-paths": "^4.3.1"
