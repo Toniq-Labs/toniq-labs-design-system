@@ -32,6 +32,7 @@ import {CreateFile24Icon} from './svgs/core-24/create-file-24.icon';
 import {DotsVertical24Icon} from './svgs/core-24/dots-vertical-24.icon';
 import {Download24Icon} from './svgs/core-24/download-24.icon';
 import {Edit24Icon} from './svgs/core-24/edit-24.icon';
+import {Envelope24Icon} from './svgs/core-24/envelope-24.icon';
 import {ExternalLink24Icon} from './svgs/core-24/external-link-24.icon';
 import {Filter24Icon} from './svgs/core-24/filter-24.icon';
 import {Gear24Icon} from './svgs/core-24/gear-24.icon';
@@ -128,6 +129,7 @@ export * from './svgs/core-24/create-file-24.icon';
 export * from './svgs/core-24/dots-vertical-24.icon';
 export * from './svgs/core-24/download-24.icon';
 export * from './svgs/core-24/edit-24.icon';
+export * from './svgs/core-24/envelope-24.icon';
 export * from './svgs/core-24/external-link-24.icon';
 export * from './svgs/core-24/filter-24.icon';
 export * from './svgs/core-24/gear-24.icon';
@@ -230,6 +232,7 @@ export const allIconsByCategory = {
         DotsVertical24Icon,
         Download24Icon,
         Edit24Icon,
+        Envelope24Icon,
         ExternalLink24Icon,
         Filter24Icon,
         Gear24Icon,
