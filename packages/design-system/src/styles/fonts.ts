@@ -8,7 +8,7 @@ export type FontStyleKey = keyof typeof toniqFontStylesCssVarNames;
 // these should not be exported, hence they are a separate object
 const fontStylesFallbacks = {
     toniqFont: {
-        'font-family': css`'Rubik', sans-serif`,
+        'font-family': css`'Lexend', sans-serif`,
     },
     normalWeightFont: {
         'font-weight': css`400`,
@@ -35,10 +35,14 @@ const fontStylesFallbacks = {
         'font-size': css`64px`,
     },
     h2Font: {
+        'line-height': css`64px`,
+        'font-size': css`48px`,
+    },
+    h3Font: {
         'line-height': css`48px`,
         'font-size': css`32px`,
     },
-    h3Font: {
+    h4Font: {
         'line-height': css`32px`,
         'font-size': css`24px`,
     },
@@ -135,6 +139,11 @@ export const toniqFontStyles = (() => {
         ${boldFont};
     `;
 
+    const h4Font = css`
+        ${combineFallbacksAndVars('h4Font')};
+        ${boldFont};
+    `;
+
     const monospaceFont = css`
         ${combineFallbacksAndVars('monospaceFont')}
     `;
@@ -151,6 +160,7 @@ export const toniqFontStyles = (() => {
         h1Font,
         h2Font,
         h3Font,
+        h4Font,
         monospaceFont,
     } as const satisfies Record<FontStyleKey, FontStyleDefinition>;
 

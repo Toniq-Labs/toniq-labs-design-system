@@ -31,7 +31,7 @@ const colorExampleStyles = css`
         display: flex;
         justify-content: center;
         align-items: center;
-        ${toniqFontStyles.h2Font};
+        ${toniqFontStyles.h3Font};
     }
 `;
 
