@@ -8,6 +8,7 @@ import {toniqDateTimeBookPage} from '../elements/toniq-date-time/toniq-date-time
 import {toniqDropdownPage} from '../elements/toniq-dropdown/toniq-dropdown.element.book';
 import {toniqFeaturedFlipCardBookPage} from '../elements/toniq-featured-flip-card/toniq-featured-flip-card.element.book';
 import {toniqFlipCardBookPage} from '../elements/toniq-flip-card/toniq-flip-card.element.book';
+import {toniqHeadingBookPage} from '../elements/toniq-heading/toniq-heading.element.book';
 import {toniqHyperlinkPage} from '../elements/toniq-hyperlink/toniq-hyperlink.element.book';
 import {toniqIconBookPage} from '../elements/toniq-icon/toniq-icon.element.book';
 import {toniqInputPage} from '../elements/toniq-input/toniq-input.element.book';
@@ -47,6 +48,7 @@ const childPages = [
     toniqFeaturedFlipCardBookPage,
     toniqFlipCardBookPage,
     toniqFontsBookPage,
+    toniqHeadingBookPage,
     toniqHyperlinkPage,
     toniqIconBookPage,
     toniqInputPage,
