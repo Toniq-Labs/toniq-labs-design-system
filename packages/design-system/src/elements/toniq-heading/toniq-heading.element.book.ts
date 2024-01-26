@@ -12,7 +12,9 @@ export const toniqHeadingBookPage = defineBookPage({
             defineExample({
                 title: headingLevel,
                 renderCallback() {
-                    return html`<${ToniqHeading.assign({level: headingLevel})}>Some text</${ToniqHeading}>`;
+                    return html`
+                        <${ToniqHeading.assign({level: headingLevel})}>Some text</${ToniqHeading}>
+                    `;
                 },
             });
         });
