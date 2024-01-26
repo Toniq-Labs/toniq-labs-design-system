@@ -20,11 +20,14 @@ export const ToniqDesignSystemApp = defineElementNoInputs({
 
         .nav-header {
             padding-left: 16px;
-            margin-top: 8px;
             display: flex;
             flex-direction: column;
             gap: 4px;
             margin-bottom: 16px;
+        }
+
+        img {
+            width: 180px;
         }
 
         h1,
@@ -43,7 +46,7 @@ export const ToniqDesignSystemApp = defineElementNoInputs({
                 themeColor: '#00D093',
             })}>
                 <div class="nav-header" slot=${ElementBookSlotName.NavHeader}>
-                    <h1>Toniq Labs</h1>
+                    <img src="/logo.png" />
                     <p>Design System</p>
                 </div>
             </${ElementBookApp}>
