@@ -18,6 +18,7 @@ export * from './toniq-input/toniq-input.element';
 export * from './toniq-loading/toniq-loading.element';
 export * from './toniq-middle-ellipsis/toniq-middle-ellipsis.element';
 export * from './toniq-pagination/toniq-pagination.element';
+export * from './toniq-progress/toniq-progress.element';
 export * from './toniq-radio-group/toniq-radio-group.element';
 export * from './toniq-slider/toniq-slider.element';
 export * from './toniq-toggle-button/toniq-toggle-button.element';
