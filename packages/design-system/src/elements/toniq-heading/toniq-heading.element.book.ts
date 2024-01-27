@@ -1,7 +1,8 @@
 import {getEnumTypedValues} from '@augment-vir/common';
 import {defineBookPage} from 'element-book';
-import {html} from 'element-vir';
+import {css, html} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
+import {toniqFontStyles} from '../../styles/fonts';
 import {ToniqHeading, ToniqHeadingLevel} from './toniq-heading.element';
 
 export const toniqHeadingBookPage = defineBookPage({
@@ -17,6 +18,25 @@ export const toniqHeadingBookPage = defineBookPage({
                     `;
                 },
             });
+        });
+
+        defineExample({
+            title: 'can be restyled',
+            styles: css`
+                ${ToniqHeading}:first-of-type {
+                    ${toniqFontStyles.h4Font};
+                }
+            `,
+            renderCallback() {
+                return html`
+                    <${ToniqHeading.assign({level: ToniqHeadingLevel.H1})}>
+                        This is an h1
+                    </${ToniqHeading}>
+                    <${ToniqHeading.assign({level: ToniqHeadingLevel.H1})}>
+                        This is an h1
+                    </${ToniqHeading}>
+                `;
+            },
         });
     },
 });
