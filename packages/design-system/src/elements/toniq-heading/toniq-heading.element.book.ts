@@ -38,5 +38,29 @@ export const toniqHeadingBookPage = defineBookPage({
                 `;
             },
         });
+        defineExample({
+            title: 'can do ellipsis',
+            styles: css`
+                ${ToniqHeading}:first-of-type {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                :host {
+                    width: 300px;
+                }
+            `,
+            renderCallback() {
+                return html`
+                    <${ToniqHeading.assign({level: ToniqHeadingLevel.H3})}>
+                        title longer than bounds
+                    </${ToniqHeading}>
+                    <${ToniqHeading.assign({level: ToniqHeadingLevel.H3})}>
+                        title longer than bounds
+                    </${ToniqHeading}>
+                `;
+            },
+        });
     },
 });

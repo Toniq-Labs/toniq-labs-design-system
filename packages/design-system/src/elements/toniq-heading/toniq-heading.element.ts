@@ -39,6 +39,8 @@ export const ToniqHeading = defineToniqElement<{level: ToniqHeadingLevel}>()({
         h4 {
             ${noNativeSpacing};
             font: inherit;
+            overflow: inherit;
+            text-overflow: inherit;
         }
     `,
     renderCallback({inputs}) {
