@@ -9,8 +9,8 @@ import {
     BrandTiktok24Icon,
     BrandTwitch24Icon,
     BrandTwitter24Icon,
-    Code24Icon,
     ToniqSvg,
+    World24Icon,
 } from '../icons';
 
 export const socialUrlsShape = defineShape({
@@ -48,5 +48,5 @@ export const socialUrlIcons = {
     dscvr: BrandDscvr24Icon,
     medium: BrandMedium24Icon,
     twitter: BrandTwitter24Icon,
-    website: Code24Icon,
+    website: World24Icon,
 } as const satisfies Record<keyof SocialUrls, ToniqSvg>;
