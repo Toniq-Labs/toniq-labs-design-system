@@ -11,6 +11,7 @@ export * from './toniq-dropdown/toniq-dropdown.element';
 export * from './toniq-featured-flip-card/toniq-featured-flip-card-footer.element';
 export * from './toniq-featured-flip-card/toniq-featured-flip-card.element';
 export * from './toniq-flip-card/toniq-flip-card.element';
+export * from './toniq-heading/toniq-heading.element';
 export * from './toniq-hyperlink/toniq-hyperlink.element';
 export * from './toniq-icon/toniq-icon.element';
 export * from './toniq-input/toniq-input.element';
