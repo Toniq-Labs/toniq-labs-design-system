@@ -14,7 +14,7 @@ const fontStylesFallbacks = {
         'font-weight': css`400`,
     },
     boldFont: {
-        'font-weight': css`700`,
+        'font-weight': css`600`,
     },
     extraBoldFont: {
         'font-weight': css`900`,
