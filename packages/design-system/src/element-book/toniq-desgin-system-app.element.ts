@@ -2,6 +2,7 @@ import {ElementBookApp, ElementBookSlotName} from 'element-book';
 import {css, defineElementNoInputs, html} from 'element-vir';
 import {toniqFontStyles} from '..';
 import {allElementBookEntries} from './all-element-book-entries';
+import {createElementBookUrl} from './book-helpers/create-element-book-url';
 
 export const ToniqDesignSystemApp = defineElementNoInputs({
     tagName: 'toniq-design-system-app',
@@ -46,7 +47,7 @@ export const ToniqDesignSystemApp = defineElementNoInputs({
                 themeColor: '#00D093',
             })}>
                 <div class="nav-header" slot=${ElementBookSlotName.NavHeader}>
-                    <img src="/logo.png" />
+                    <img src=${createElementBookUrl('/logo.png')} />
                     <p>Design System</p>
                 </div>
             </${ElementBookApp}>
