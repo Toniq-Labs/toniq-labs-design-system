@@ -1659,7 +1659,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 fill="none"
             />
         </svg>
-    `}),xd=v({name:"Code24Icon",svgTemplate:u`
+    `}),jm=v({name:"Code24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1675,7 +1675,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 stroke-width=${d["toniq-icon-stroke-width"].value}
             />
         </svg>
-    `}),Td=v({name:"Copy24Icon",svgTemplate:u`
+    `}),xd=v({name:"Copy24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1691,7 +1691,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M20 10a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v8c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-8Zm-4-2V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8c0 1.1.9 2 2 2h2"
             />
         </svg>
-    `}),jm=v({name:"CreateFile24Icon",svgTemplate:u`
+    `}),zm=v({name:"CreateFile24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1707,7 +1707,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M11 15V7m-4 4h8m4-6.4c0-.9-.7-1.6-1.6-1.6H4.6C3.7 3 3 3.7 3 4.6v12.8c0 .9.7 1.6 1.6 1.6h12.8c.9 0 1.6-.7 1.6-1.6V4.6ZM6 19v1.4c0 .9.7 1.6 1.6 1.6h12.8c.9 0 1.6-.7 1.6-1.6V7.6c0-.9-.7-1.6-1.6-1.6H19"
             />
         </svg>
-    `}),zm=v({name:"DotsVertical24Icon",svgTemplate:u`
+    `}),Zm=v({name:"DotsVertical24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1723,7 +1723,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M12 11a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 7a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0-14a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"
             />
         </svg>
-    `}),Zm=v({name:"Download24Icon",svgTemplate:u`
+    `}),Wm=v({name:"Download24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1739,7 +1739,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M4 14v6h16v-6M12 4v11l-4-4m8 0-4 4"
             />
         </svg>
-    `}),Wm=v({name:"Edit24Icon",svgTemplate:u`
+    `}),Um=v({name:"Edit24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1755,7 +1755,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M9 7H6a2 2 0 0 0-2 2v9c0 1.1.9 2 2 2h9a2 2 0 0 0 2-2v-3m-8 0h3l8.5-8.5a2.12 2.12 0 0 0-3-3L9 12v3m7-10 3 3"
             />
         </svg>
-    `}),Um=v({name:"Envelope24Icon",svgTemplate:u`
+    `}),Gm=v({name:"Envelope24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1771,7 +1771,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M4.8 19c-.5 0-1-.2-1.3-.5-.4-.3-.5-.7-.5-1.2V6.8c0-.5.1-1 .5-1.3.4-.3.8-.5 1.3-.5h14.4c.5 0 1 .2 1.3.5.4.3.5.8.5 1.3v10.5c0 .5-.1.9-.5 1.2-.4.3-.8.5-1.3.5H4.8ZM20.5 5.5 12 13 3.5 5.5"
             />
         </svg>
-    `}),Sd=v({name:"ExternalLink24Icon",svgTemplate:u`
+    `}),Td=v({name:"ExternalLink24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1792,7 +1792,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M10 14 20 4m-5 0h5v5"
             />
         </svg>
-    `}),Gm=v({name:"Filter24Icon",svgTemplate:u`
+    `}),Ym=v({name:"Filter24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1808,7 +1808,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M18 5c1 0 1 .32 1 .63C19 6 14 12 14 12v7l-4-3v-4S5 6 5 5.63C5 5.32 5 5 6 5h12Z"
             />
         </svg>
-    `}),Ym=v({name:"Gear24Icon",svgTemplate:u`
+    `}),Jm=v({name:"Gear24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1824,7 +1824,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M5.74 10.25c.3-1.07.86-2.03 1.62-2.8L6.2 4.95l2.6-1.5 1.58 2.25a6.53 6.53 0 0 1 3.24 0l1.58-2.24 2.6 1.5-1.16 2.5a6.49 6.49 0 0 1 1.62 2.8l2.74.24v3l-2.74.25a6.49 6.49 0 0 1-1.62 2.8l1.16 2.5-2.6 1.5-1.58-2.25a6.53 6.53 0 0 1-3.24 0L8.8 20.54l-2.6-1.5 1.16-2.5a6.49 6.49 0 0 1-1.62-2.8L3 13.5v-3l2.74-.25ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"
             />
         </svg>
-    `}),Jm=v({name:"Geometry24Icon",svgTemplate:u`
+    `}),Km=v({name:"Geometry24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1840,7 +1840,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M12 5a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm-8 7a9.12 9.12 0 0 0 8 5 9.13 9.13 0 0 0 8-5m-8-7V3M7 21l4-12m2 0 1.33 4m1.34 4L17 21"
             />
         </svg>
-    `}),Km=v({name:"GridDots24Icon",svgTemplate:u`
+    `}),Xm=v({name:"GridDots24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1856,7 +1856,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M5 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2ZM5 11a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2ZM5 18a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"
             />
         </svg>
-    `}),Xm=v({name:"Heart24Icon",svgTemplate:u`
+    `}),Qm=v({name:"Heart24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1888,7 +1888,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M9.83 9.17a4 4 0 1 0 0 5.66A10 10 0 0 0 12 12a10 10 0 0 1 2.17-2.83 4 4 0 1 1 0 5.66A10 10 0 0 1 12 12a10 10 0 0 0-2.17-2.83Z"
             />
         </svg>
-    `}),Qm=v({name:"Info24Icon",svgTemplate:u`
+    `}),ep=v({name:"Info24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1915,7 +1915,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M12 11.5v5"
             />
         </svg>
-    `}),ep=v({name:"LayersLinked24Icon",svgTemplate:u`
+    `}),tp=v({name:"LayersLinked24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1931,7 +1931,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M19 8.27A2 2 0 0 1 20 10v8a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h3m-8 7.73A2 2 0 0 1 4 14V6c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3"
             />
         </svg>
-    `}),tp=v({name:"LayoutGrid24Icon",svgTemplate:u`
+    `}),rp=v({name:"LayoutGrid24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1947,7 +1947,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M10 5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V5Zm10 0a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V5ZM10 15a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-4Zm10 0a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-4Z"
             />
         </svg>
-    `}),rp=v({name:"Lifebuoy24Icon",svgTemplate:u`
+    `}),np=v({name:"Lifebuoy24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1968,7 +1968,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 fill="none"
             />
         </svg>
-    `}),np=v({name:"List24Icon",svgTemplate:u`
+    `}),op=v({name:"List24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -1984,7 +1984,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M9 6h11M9 12h11M9 18h11M5 6v.01M5 12v.01M5 18v.01"
             />
         </svg>
-    `}),op=v({name:"ListDetails24Icon",svgTemplate:u`
+    `}),ip=v({name:"ListDetails24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2005,7 +2005,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M9 5c0-.5-.5-1-1-1H4a1 1 0 0 0-1 1v4c0 .5.5 1 1 1h4c.5 0 1-.5 1-1V5Zm0 10c0-.5-.5-1-1-1H4a1 1 0 0 0-1 1v4c0 .5.5 1 1 1h4c.5 0 1-.5 1-1v-4Z"
             />
         </svg>
-    `}),ip=v({name:"Loader24Icon",svgTemplate:u`
+    `}),ap=v({name:"Loader24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2051,7 +2051,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M12 6V3m4.25 4.75L18.4 5.6M18 12h3m-4.75 4.25 2.15 2.15M12 18v3m-4.25-4.75L5.6 18.4M6 12H3m4.75-4.25L5.6 5.6"
             />
         </svg>
-    `}),ap=v({name:"Lock24Icon",svgTemplate:u`
+    `}),sp=v({name:"Lock24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2079,7 +2079,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M8 11V7a4 4 0 0 1 4-4 4 4 0 0 1 4 4v4"
             />
         </svg>
-    `}),sp=v({name:"LockOpen24Icon",svgTemplate:u`
+    `}),lp=v({name:"LockOpen24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2107,7 +2107,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M8 11V6a4 4 0 0 1 4-4 4 4 0 0 1 3.8 2.8"
             />
         </svg>
-    `}),lp=v({name:"Menu24Icon",svgTemplate:u`
+    `}),cp=v({name:"Menu24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2123,7 +2123,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M4 6h16M4 12h16M4 18h16"
             />
         </svg>
-    `}),cp=v({name:"Paper24Icon",svgTemplate:u`
+    `}),up=v({name:"Paper24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2139,7 +2139,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M9 8h3m-3 4h6m-6 4h6m4-11.552C19 3.649 18.351 3 17.552 3H6.448C5.649 3 5 3.649 5 4.448v15.104C5 20.351 5.649 21 6.448 21h11.104c.799 0 1.448-.649 1.448-1.448V4.448Z"
             />
         </svg>
-    `}),up=v({name:"People24Icon",svgTemplate:u`
+    `}),dp=v({name:"People24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2155,7 +2155,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M9 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8ZM3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2m1-17.87a4 4 0 0 1 0 7.75M21 21v-2a4 4 0 0 0-3-3.85"
             />
         </svg>
-    `}),dp=v({name:"Person24Icon",svgTemplate:u`
+    `}),hp=v({name:"Person24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2183,7 +2183,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M5.6 18.3A7.2 7.2 0 0 1 12 14c2.8 0 5.2 1.8 6.4 4.3a9 9 0 0 1-12.8 0Z"
             />
         </svg>
-    `}),hp=v({name:"Photo24Icon",svgTemplate:u`
+    `}),fp=v({name:"Photo24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2209,7 +2209,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="m4 15 4-4c1-.9 2-.9 3 0l5 5m-2-2 1-1c1-.9 2-.9 3 0l2 2"
             />
         </svg>
-    `}),fp=v({name:"Refresh24Icon",svgTemplate:u`
+    `}),mp=v({name:"Refresh24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2229,7 +2229,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M19 5v5h-5"
             />
         </svg>
-    `}),Cd=v({name:"Rocket24Icon",svgTemplate:u`
+    `}),Sd=v({name:"Rocket24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2245,7 +2245,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M11 20a6 6 0 0 0 3-5 9 9 0 0 0 6-8 3 3 0 0 0-3-3 9 9 0 0 0-8 6 6 6 0 0 0-5 3 8 8 0 0 1 7 7Zm-4-6a6 6 0 0 0-3 6 6 6 0 0 0 6-3m5-9a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"
             />
         </svg>
-    `}),Md=v({name:"Search24Icon",svgTemplate:u`
+    `}),Cd=v({name:"Search24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2261,7 +2261,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M10 3a7 7 0 1 1 0 14 7 7 0 0 1 0-14Zm11 18-6-6"
             />
         </svg>
-    `}),mp=v({name:"Send24Icon",svgTemplate:u`
+    `}),pp=v({name:"Send24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2277,7 +2277,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M10 14 21 3m0 0-6.5 17.68a.55.55 0 0 1-1 0L10 14l-6.68-3.5a.55.55 0 0 1 0-1L21 3Z"
             />
         </svg>
-    `}),pp=v({name:"ShoppingCart24Icon",svgTemplate:u`
+    `}),gp=v({name:"ShoppingCart24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2306,7 +2306,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M17 17H6V3H4"
             />
         </svg>
-    `}),gp=v({name:"Social24Icon",svgTemplate:u`
+    `}),wp=v({name:"Social24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2322,7 +2322,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M12 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM5 17a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm14 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm-7-6a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0-4v4m-5.3 6.8 2.8-2m7.8 2-2.8-2"
             />
         </svg>
-    `}),wp=v({name:"Square24Icon",svgTemplate:u`
+    `}),vp=v({name:"Square24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2342,7 +2342,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 rx="2"
             />
         </svg>
-    `}),Ol={interactionDuration:p`--toniq-interaction-transition-duration`,prettyDuration:p`--toniq-pretty-transition-duration`},K={interaction:p`var(${Ol.interactionDuration}, 84ms)`,pretty:p`var(${Ol.prettyDuration}, 300ms)`};function ii(e){return{foregroundColor:e.backgroundColor,backgroundColor:e.foregroundColor}}const vp=(()=>{const e={backgroundColor:p`#ffffff`,foregroundColor:p`#000000`},t={...e,foregroundColor:p`#00D093`},r={...e,foregroundColor:p`#ACADAD`},n={...e,foregroundColor:p`#D6D6D6`},o={...t},i={...t,foregroundColor:p`#00A876`},a={...t,foregroundColor:p`#1D6852`},s={...n},l={...e,foregroundColor:p`#EAFBF7`},c={...e,backgroundColor:p`#D2EEFA`},h=ii(o),f=ii(i),m=ii(a),g=m,w={backgroundColor:p`#F1F3F6`,foregroundColor:e.foregroundColor},$={...w,foregroundColor:p`#9A9A9D`};return{brandPrimary:t,pagePrimary:e,pageSecondary:r,pageTertiary:n,pageInteraction:o,pageInteractionHover:i,pageInteractionActive:a,divider:s,dividerFaint:l,dropShadow:c,pageDarkPrimary:g,accentPrimary:h,accentPrimaryHover:f,accentPrimaryActive:m,accentSecondary:w,accentTertiary:$}})(),Ad=vp;function Bl(e,t){return N(`--toniq-${Mi(e)}-${Mi(t)}`)}const ja=ve(Ad,e=>({backgroundColor:Bl(e,"backgroundColor"),foregroundColor:Bl(e,"foregroundColor")}));function Ue(e,t){const r=Ad[e][t],n=ja[e][t];return p`var(${n}, ${r})`}const b=ve(ja,e=>({foregroundColor:Ue(e,"foregroundColor"),backgroundColor:Ue(e,"backgroundColor")}));function V(e){return p`
+    `}),Ol={interactionDuration:p`--toniq-interaction-transition-duration`,prettyDuration:p`--toniq-pretty-transition-duration`},K={interaction:p`var(${Ol.interactionDuration}, 84ms)`,pretty:p`var(${Ol.prettyDuration}, 300ms)`};function ii(e){return{foregroundColor:e.backgroundColor,backgroundColor:e.foregroundColor}}const bp=(()=>{const e={backgroundColor:p`#ffffff`,foregroundColor:p`#000000`},t={...e,foregroundColor:p`#00D093`},r={...e,foregroundColor:p`#ACADAD`},n={...e,foregroundColor:p`#D6D6D6`},o={...t},i={...t,foregroundColor:p`#00A876`},a={...t,foregroundColor:p`#1D6852`},s={...n},l={...e,foregroundColor:p`#EAFBF7`},c={...e,backgroundColor:p`#D2EEFA`},h=ii(o),f=ii(i),m=ii(a),g=m,w={backgroundColor:p`#F1F3F6`,foregroundColor:e.foregroundColor},$={...w,foregroundColor:p`#9A9A9D`};return{brandPrimary:t,pagePrimary:e,pageSecondary:r,pageTertiary:n,pageInteraction:o,pageInteractionHover:i,pageInteractionActive:a,divider:s,dividerFaint:l,dropShadow:c,pageDarkPrimary:g,accentPrimary:h,accentPrimaryHover:f,accentPrimaryActive:m,accentSecondary:w,accentTertiary:$}})(),Md=bp;function Bl(e,t){return N(`--toniq-${Mi(e)}-${Mi(t)}`)}const ja=ve(Md,e=>({backgroundColor:Bl(e,"backgroundColor"),foregroundColor:Bl(e,"foregroundColor")}));function Ue(e,t){const r=Md[e][t],n=ja[e][t];return p`var(${n}, ${r})`}const b=ve(ja,e=>({foregroundColor:Ue(e,"foregroundColor"),backgroundColor:Ue(e,"backgroundColor")}));function V(e){return p`
         background-color: ${e.backgroundColor};
         color: ${e.foregroundColor};
     `}const Ut=p`
@@ -2363,7 +2363,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
             border-radius: 12px;
             z-index: 100;
         }
-    `}const Ed={toniqFont:{"font-family":p`'Lexend', sans-serif`},normalWeightFont:{"font-weight":p`400`},boldFont:{"font-weight":p`600`},extraBoldFont:{"font-weight":p`900`},paragraphFont:{"line-height":p`24px`,"font-size":p`16px`},boldParagraphFont:{},labelFont:{"line-height":p`16px`,"font-size":p`12px`},boldLabelFont:{},h1Font:{"line-height":p`96px`,"font-size":p`64px`},h2Font:{"line-height":p`64px`,"font-size":p`48px`},h3Font:{"line-height":p`48px`,"font-size":p`32px`},h4Font:{"line-height":p`32px`,"font-size":p`24px`},monospaceFont:{"font-family":p`'Inconsolata', monospace`,"line-height":p`1.125em`}},bp=ve(Ed,(e,t)=>{const r=N(Mi(e.replace(/Font$/,"")));return ve(t,o=>{const i=N(o);return p`--toniq-font-${r}-${i}`})});function Ve(e){const t=bp[e],r=Ed[e],n=he(t).map(o=>{const i=r[o],a=t[o];return p`
+    `}const Ad={toniqFont:{"font-family":p`'Lexend', sans-serif`},normalWeightFont:{"font-weight":p`400`},boldFont:{"font-weight":p`600`},extraBoldFont:{"font-weight":p`900`},paragraphFont:{"line-height":p`24px`,"font-size":p`16px`},boldParagraphFont:{},labelFont:{"line-height":p`16px`,"font-size":p`12px`},boldLabelFont:{},h1Font:{"line-height":p`96px`,"font-size":p`64px`},h2Font:{"line-height":p`64px`,"font-size":p`48px`},h3Font:{"line-height":p`48px`,"font-size":p`32px`},h4Font:{"line-height":p`32px`,"font-size":p`24px`},monospaceFont:{"font-family":p`'Inconsolata', monospace`,"line-height":p`1.125em`}},yp=ve(Ad,(e,t)=>{const r=N(Mi(e.replace(/Font$/,"")));return ve(t,o=>{const i=N(o);return p`--toniq-font-${r}-${i}`})});function Ve(e){const t=yp[e],r=Ad[e],n=he(t).map(o=>{const i=r[o],a=t[o];return p`
             ${N(o)}: var(${a}, ${i});
         `});return N(n.join(`
 `))}const R=(()=>{const e=p`
@@ -2426,7 +2426,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
             This helps force the drop shadow to re-render when the element moves or the page changes.
         */
         will-change: filter;
-    `};function yp(e,t=!0){const r=N(e),n=e===":host"?p`
+    `};function kp(e,t=!0){const r=N(e),n=e===":host"?p`
                   :host(:hover);
               `:p`
                   ${r}:hover
@@ -2448,7 +2448,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
         }
 
         ${o}
-    `}const kp=v({name:"SquareCheck24Icon",svgTemplate:u`
+    `}const $p=v({name:"SquareCheck24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2504,7 +2504,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M14 11v6"
             />
         </svg>
-    `}),$p=v({name:"Upload24Icon",svgTemplate:u`
+    `}),xp=v({name:"Upload24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2520,7 +2520,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M4 14v6h16v-6m-8 1V4L8 8m8 0-4-4"
             />
         </svg>
-    `}),xp=v({name:"Wallet24Icon",svgTemplate:u`
+    `}),Tp=v({name:"Wallet24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -2544,7 +2544,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M20 12v4h-4a2 2 0 0 1-2-2c0-1.1.9-2 2-2h4"
             />
         </svg>
-    `}),Tp=v({name:"World24Icon",svgTemplate:u`
+    `}),Ed=v({name:"World24Icon",svgTemplate:u`
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${d["toniq-icon-stroke-color"].value}
@@ -3298,7 +3298,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                 d="M80.595 12.615a552.965 552.965 0 0 1-3.647 20.588L30.045 18.546a1.001 1.001 0 0 0-1.299.954v2c0 .326.16.632.427.819C34.99 26.391 43.9 38.508 40.502 55.286 38.21 66.605 30.346 79.989 12.394 94.5H5.746a1 1 0 0 0-.852.476s-1.796 2.928-2.676 5.108c-.306.758-.499 1.442-.528 1.928-.022.375.043.683.152.914.116.246.332.524.66.798.486.406 1.285.867 2.187 1.357 1.033.562 4.057 1.419 4.163 2.866.186 2.548-1.106 6.782-1.106 12.553 0 16.268 19 19 19 19-1.725-.975-9-6-9-15 0-9.311 6.533-13 13-13 6.343 0 11 4.521 11 10 0 2.933-.741 4.765-1.861 5.866-.998.981-2.269 1.353-3.426 1.467a8.702 8.702 0 0 1-.744.04 9.13 9.13 0 0 0 .738-.666c.548-.548.927-1.517.949-2.591.031-1.533-.644-3.228-2.208-4.01-1.697-.849-5.199-.584-7.134 2.191-.78 1.118-1.314 2.651-1.314 4.703 0 2.063 1.232 4.622 3.321 6.916 3.014 3.31 7.774 6.084 12.679 6.084 10.186 0 20.741-7.959 28.555-13.168 7.471-4.981 12.948-8.718 17.431-11.208 4.314-2.396 7.659-3.624 11.014-3.624 5.334 0 8 4.444 8 8 0 2.101-.587 4.218-2.226 5.563-1.1.902-2.511 1.77-4.626 1.77-3.234 0-5.148-1.716-5.148-3.333 0-1.777.895-3.553.895-3.553a1.002 1.002 0 0 0-.578-1.396c-1.485-.495-3.183-.066-4.668 1.023-2.035 1.492-3.649 4.213-3.649 6.926 0 6.426 5.29 14 16 14 8.42 0 19-8.37 19-21 0-13.65-10.5-21-21-21-2.92 0-5.368.485-7.152.928.699-.382 1.498-.731 2.318-1.053 2.964-1.163 6.264-1.875 6.834-1.875a1 1 0 0 0 1-1v-10c0-1.056.022-1.929.354-2.757.385-.959 1.191-1.832 2.747-2.902 1.75-1.205 4.38-2.595 8.322-4.435l7.493-3.496h-.001l7.508-3.504c.514-.24.802-.568.966-.901.248-.502.221-1.069.028-1.582-.202-.536-.657-1.073-.657-1.073-.45-.53-1.041-.31-1.041-.31l-33.319 9.766c2.883-5.13 6.536-12.927 7.125-20.237.372-4.63-.466-9.065-3.377-12.585l8.627 1.99a.999.999 0 0 0 .524-1.928l-30.784-9.62c1.43-8.034 2.553-15.532 3.462-21.969l-.002.013.005-.034c.37-2.617.704-5.057 1.009-7.286l.011-.184v-.002a1 1 0 0 0-.18-.537l-.054-.07-.128-.127-.079-.06a1.046 1.046 0 0 0-.205-.106c-.402-.161-5.21-2.064-8.354-2.064-3 0-6 1-9 4-1.325 1.325-5 4-8 4-.918 0-1.574-.229-2.22-.447-.834-.283-1.655-.553-2.78-.553-2.161 0-6 1-9 5 0 0 4.249-2.462 7-2.462 3 0 4.242 1.438 5.208 2.194.933.73 1.778 1.268 2.792 1.268 1.35 0 2.892-.827 4.725-1.896 2.345-1.367 5.288-3.104 9.275-3.104l.054-.001s4.194-.202 7.795 3.116Zm-54.86 83.038a1.006 1.006 0 0 0-.229-.804 1.003 1.003 0 0 0-.76-.349h-8.257c3.842-3.151 12.622-9.99 23.111-15.812 8.913-4.946 19.063-9.173 28.449-9.7-6.88 21.744-13.208 30.244-16.196 33.269-4.634 1.021-10.033 1.767-16.184 2.246-4.59.357-7.128-.925-8.486-2.703-2.005-2.625-1.448-6.147-1.448-6.147Zm45.577-26.692c7.033.299 13.458 3.016 18.323 9.547l-17.17 5.032a1 1 0 0 0-.705 1.124c1.173 7.041-3.141 12.11-12.454 15.483 4.876-9.35 8.811-20.119 12.006-31.186ZM85.746 84.5c3.312 0 6 2.689 6 6s-2.688 6-6 6c-3.311 0-6-2.689-6-6s2.689-6 6-6Z"
             />
         </svg>
-    `}),yt={"core-16":[Tm,Sm,Ct],"core-24":[Cm,Mm,Ha,Am,Em,Fa,bd,Im,Lm,Pm,qm,Nm,Om,Bm,Dm,yd,kd,Rm,_m,$d,Hm,Fm,Vm,xd,Td,jm,zm,Zm,Wm,Um,Sd,Gm,Ym,Jm,Km,Xm,Gi,Qm,ep,tp,rp,np,op,ip,Va,ap,sp,lp,cp,up,dp,hp,fp,Cd,Md,mp,pp,gp,wp,kp,Wn,$p,xp,Tp,Sp,Cp],"core-48":[Mp,Id,Ap],"core-64":[Ld,Ep,Ip],cryptocurrencies:[Lp,Pp,qp,Np,Op,Bp],"third-party-brands":[Nd,Od,Bd,Dp,Rp,_p,Dd,Hp,Rd,Fp,_d,Hd,Vp,Fd,Vd],toniq:[jp,zp]},Zp=un({discord:Qe(void 0,""),distrikt:Qe(void 0,""),dscvr:Qe(void 0,""),instagram:Qe(void 0,""),medium:Qe(void 0,""),telegram:Qe(void 0,""),tikTok:Qe(void 0,""),twitch:Qe(void 0,""),twitter:Qe(void 0,""),website:Qe(void 0,"")}),Wp=Zp.defaultValue,jd={discord:Nd,instagram:Dd,telegram:_d,tikTok:Hd,distrikt:Od,twitch:Fd,dscvr:Bd,medium:Rd,twitter:Vd,website:xd},Dl="toniq-",{defineElement:te,defineElementNoInputs:Up}=La({assertInputs:e=>{if(!e.tagName.startsWith(Dl))throw new Error(`Tag name should start with '${Dl}' but got '${e.tagName}'`)}}),jt=te()({tagName:"toniq-bold-space",styles:p`
+    `}),yt={"core-16":[Tm,Sm,Ct],"core-24":[Cm,Mm,Ha,Am,Em,Fa,bd,Im,Lm,Pm,qm,Nm,Om,Bm,Dm,yd,kd,Rm,_m,$d,Hm,Fm,Vm,jm,xd,zm,Zm,Wm,Um,Gm,Td,Ym,Jm,Km,Xm,Qm,Gi,ep,tp,rp,np,op,ip,ap,Va,sp,lp,cp,up,dp,hp,fp,mp,Sd,Cd,pp,gp,wp,vp,$p,Wn,xp,Tp,Ed,Sp,Cp],"core-48":[Mp,Id,Ap],"core-64":[Ld,Ep,Ip],cryptocurrencies:[Lp,Pp,qp,Np,Op,Bp],"third-party-brands":[Nd,Od,Bd,Dp,Rp,_p,Dd,Hp,Rd,Fp,_d,Hd,Vp,Fd,Vd],toniq:[jp,zp]},Zp=un({discord:Qe(void 0,""),distrikt:Qe(void 0,""),dscvr:Qe(void 0,""),instagram:Qe(void 0,""),medium:Qe(void 0,""),telegram:Qe(void 0,""),tikTok:Qe(void 0,""),twitch:Qe(void 0,""),twitter:Qe(void 0,""),website:Qe(void 0,"")}),Wp=Zp.defaultValue,jd={discord:Nd,instagram:Dd,telegram:_d,tikTok:Hd,distrikt:Od,twitch:Fd,dscvr:Bd,medium:Rd,twitter:Vd,website:Ed},Dl="toniq-",{defineElement:te,defineElementNoInputs:Up}=La({assertInputs:e=>{if(!e.tagName.startsWith(Dl))throw new Error(`Tag name should start with '${Dl}' but got '${e.tagName}'`)}}),jt=te()({tagName:"toniq-bold-space",styles:p`
         :host {
             display: inline-flex;
             position: relative;
@@ -3959,7 +3959,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
             pointer-events: auto;
         }
 
-        ${yp(".card-face",!1)}
+        ${kp(".card-face",!1)}
 
         .card-face {
             height: 100%;
@@ -4400,7 +4400,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
         .show-copied-text {
             opacity: 1;
         }
-    `,hostClasses:{"toniq-middle-ellipsis-clickable":({inputs:e})=>!!e.externalLink||!!e.copyOnClick},stateInitStatic:{showCopiedTextTimeoutId:void 0},renderCallback({inputs:e,dispatch:t,events:r,state:n,updateState:o}){if(!e.text)return u``;const i=e.text,a=N4(e),s=!!e.externalLink,l=!!e.copyOnClick,c=i.length>a*2+2,h=c?P4(i,a):i,f=c?i:"",m=s?Sd:l?Td:void 0,g=m?u`
+    `,hostClasses:{"toniq-middle-ellipsis-clickable":({inputs:e})=>!!e.externalLink||!!e.copyOnClick},stateInitStatic:{showCopiedTextTimeoutId:void 0},renderCallback({inputs:e,dispatch:t,events:r,state:n,updateState:o}){if(!e.text)return u``;const i=e.text,a=N4(e),s=!!e.externalLink,l=!!e.copyOnClick,c=i.length>a*2+2,h=c?P4(i,a):i,f=c?i:"",m=s?Td:l?xd:void 0,g=m?u`
                   <${T.assign({icon:m})}></${T}>
               `:"",w=u`
             <span title=${f} class="text-content">
@@ -5407,7 +5407,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                     <${T.assign({icon:Ct,fitContainer:!0})}
                         style=${Qn(r)}
                     ></${T}>
-                `}})}}),fv=W({title:Bn.tagName,parent:oe,controls:{"External value":{controlType:O.Text,initValue:""},Placeholder:{controlType:O.Text,initValue:"placeholder"},Icon:es(Md.name),Suffix:{controlType:O.Text,initValue:"ICP"},"No browser helps":{controlType:O.Checkbox,initValue:!1},"Blocked characters":{controlType:O.Text,initValue:""},"Exclusive characters":{controlType:O.Text,initValue:""}},elementExamplesCallback({defineExample:e}){const t=[{},{customStyles:p`
+                `}})}}),fv=W({title:Bn.tagName,parent:oe,controls:{"External value":{controlType:O.Text,initValue:""},Placeholder:{controlType:O.Text,initValue:"placeholder"},Icon:es(Cd.name),Suffix:{controlType:O.Text,initValue:"ICP"},"No browser helps":{controlType:O.Checkbox,initValue:!1},"Blocked characters":{controlType:O.Text,initValue:""},"Exclusive characters":{controlType:O.Text,initValue:""}},elementExamplesCallback({defineExample:e}){const t=[{},{customStyles:p`
                     height: 75px;
                     width: 300px;
                 `},{customStyles:p`
@@ -5553,7 +5553,7 @@ var ah=Object.defineProperty;var sh=(e,t,r)=>t in e?ah(e,t,{enumerable:!0,config
                     <${H.assign({double:!0,value:t.value,min:0,max:100})}
                         ${S(H.events.valueChange,n=>{if(typeof n.detail=="number")throw new Error("was expecting a double slider value");r({value:n.detail})})}
                     ></${H}>
-                `}})}}),vv=[{title:"default",inputs:{}},{title:"text only",inputs:{variant:K0.TextOnly}},{title:"disabled",inputs:{disabled:!0}}],Pc=[{inputs:{icon:void 0}},{inputs:{toggled:!0}},{inputs:{}},{inputs:{text:void 0}}],bv=W({title:Ti.tagName,parent:oe,controls:{Text:{controlType:O.Text,initValue:"Toggle Button"},Icon:es(Cd.name)},elementExamplesCallback({defineExample:e}){vv.forEach(t=>{e({title:t.title,stateInitStatic:{buttonStates:Pc.map(r=>!!r.inputs.toggled)},styles:p`
+                `}})}}),vv=[{title:"default",inputs:{}},{title:"text only",inputs:{variant:K0.TextOnly}},{title:"disabled",inputs:{disabled:!0}}],Pc=[{inputs:{icon:void 0}},{inputs:{toggled:!0}},{inputs:{}},{inputs:{text:void 0}}],bv=W({title:Ti.tagName,parent:oe,controls:{Text:{controlType:O.Text,initValue:"Toggle Button"},Icon:es(Sd.name)},elementExamplesCallback({defineExample:e}){vv.forEach(t=>{e({title:t.title,stateInitStatic:{buttonStates:Pc.map(r=>!!r.inputs.toggled)},styles:p`
                     :host {
                         display: flex;
                         flex-wrap: wrap;
