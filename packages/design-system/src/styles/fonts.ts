@@ -131,7 +131,7 @@ export const toniqFontStyles = (() => {
 
     const h2Font = css`
         ${combineFallbacksAndVars('h2Font')};
-        ${boldFont};
+        ${extraBoldFont};
     `;
 
     const h3Font = css`
