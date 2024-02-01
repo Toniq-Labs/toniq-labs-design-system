@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "16.2.1",
+    "version": "16.2.2",
     "private": false,
     "description": "Design system elements for Toniq Labs",
     "keywords": [
@@ -43,7 +43,7 @@
         "test:watch": "wtr --watch --color --config configs/web-test-runner.config.mjs --only-one-browser"
     },
     "dependencies": {
-        "@augment-vir/common": "^23.0.0",
+        "@augment-vir/common": "^23.1.1",
         "date-vir": "^5.1.2",
         "lit-css-vars": "^3.0.8",
         "object-shape-tester": "^2.1.0",
@@ -53,9 +53,9 @@
         "vira": "^20.0.8"
     },
     "devDependencies": {
-        "@augment-vir/browser": "^23.0.0",
-        "@augment-vir/browser-testing": "^23.0.0",
-        "@augment-vir/node-js": "^23.0.0",
+        "@augment-vir/browser": "^23.1.1",
+        "@augment-vir/browser-testing": "^23.1.1",
+        "@augment-vir/node-js": "^23.1.1",
         "@open-wc/testing": "^4.0.0",
         "@types/chai": "^4.3.11",
         "@types/mocha": "^10.0.6",
@@ -65,11 +65,11 @@
         "@web/test-runner-playwright": "^0.11.0",
         "@web/test-runner-visual-regression": "^0.9.0",
         "element-book": "^20.0.8",
-        "esbuild": "^0.19.12",
+        "esbuild": "^0.20.0",
         "istanbul-smart-text-reporter": "^1.1.3",
         "npm-check-updates": "~16.12.3",
         "ts-node": "^10.9.2",
-        "type-fest": "^4.10.1",
+        "type-fest": "^4.10.2",
         "typescript": "5.3.3",
         "vite": "^4.5.0",
         "vite-tsconfig-paths": "^4.3.1"
