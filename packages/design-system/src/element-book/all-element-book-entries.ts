@@ -6,6 +6,7 @@ import {toniqCheckboxPage} from '../elements/toniq-checkbox/toniq-checkbox.eleme
 import {toniqChipBookPage} from '../elements/toniq-chip/toniq-chip.element.book';
 import {toniqDateTimeBookPage} from '../elements/toniq-date-time/toniq-date-time.element.book';
 import {toniqDropdownPage} from '../elements/toniq-dropdown/toniq-dropdown.element.book';
+import {toniqErrorMessageBookPage} from '../elements/toniq-error-message/toniq-error-message.element.book';
 import {toniqFeaturedFlipCardBookPage} from '../elements/toniq-featured-flip-card/toniq-featured-flip-card.element.book';
 import {toniqFlipCardBookPage} from '../elements/toniq-flip-card/toniq-flip-card.element.book';
 import {toniqHeadingBookPage} from '../elements/toniq-heading/toniq-heading.element.book';
@@ -47,6 +48,7 @@ const childPages = [
     toniqColorsBookPage,
     toniqDateTimeBookPage,
     toniqDropdownPage,
+    toniqErrorMessageBookPage,
     toniqFeaturedFlipCardBookPage,
     toniqFlipCardBookPage,
     toniqFontsBookPage,

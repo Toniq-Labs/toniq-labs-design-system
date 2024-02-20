@@ -8,6 +8,7 @@ export * from './toniq-checkbox/toniq-checkbox.element';
 export * from './toniq-chip/toniq-chip.element';
 export * from './toniq-date-time/toniq-date-time.element';
 export * from './toniq-dropdown/toniq-dropdown.element';
+export * from './toniq-error-message/toniq-error-message.element';
 export * from './toniq-featured-flip-card/toniq-featured-flip-card-footer.element';
 export * from './toniq-featured-flip-card/toniq-featured-flip-card.element';
 export * from './toniq-flip-card/toniq-flip-card.element';
