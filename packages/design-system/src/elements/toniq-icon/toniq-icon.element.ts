@@ -7,7 +7,7 @@ export const ToniqIcon = defineToniqElement<typeof ViraIcon.inputsType>()({
     tagName: 'toniq-icon',
     styles: css`
         :host {
-            display: inline-flex;
+            display: flex;
             ${viraIconCssVars['vira-icon-fill-color'].name}: ${toniqIconCssVars[
                 'toniq-icon-fill-color'
             ].value}
