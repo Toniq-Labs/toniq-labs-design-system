@@ -1,6 +1,6 @@
 import {css} from 'element-vir';
 
-export const animationCssVarNames = {
+export const durationCssVarNames = {
     interactionDuration: css`--toniq-interaction-transition-duration`,
     prettyDuration: css`--toniq-pretty-transition-duration`,
 } as const;
@@ -11,7 +11,7 @@ export const toniqDurations = {
      *
      * A duration of 84ms gives us 5 frames on a 60Hz screen.
      */
-    interaction: css`var(${animationCssVarNames.interactionDuration}, 84ms)`,
+    interaction: css`var(${durationCssVarNames.interactionDuration}, 84ms)`,
     /** A longer duration to emphasize the animation. */
-    pretty: css`var(${animationCssVarNames.prettyDuration}, 300ms)`,
+    pretty: css`var(${durationCssVarNames.prettyDuration}, 300ms)`,
 };
