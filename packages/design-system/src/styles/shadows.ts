@@ -17,7 +17,7 @@ export const toniqShadows = {
         will-change: filter;
     `,
     menuShadow: css`
-        filter: drop-shadow(0px 12px 8px ${toniqColors.divider.foregroundColor});
+        filter: drop-shadow(0px 8px 8px ${toniqColors.pageSecondary.foregroundColor});
         /*
             This helps force the drop shadow to re-render when the element moves or the page changes.
         */

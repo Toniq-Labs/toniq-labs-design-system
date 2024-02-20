@@ -23,6 +23,7 @@ import {toniqTopTabsPage} from '../elements/toniq-top-tabs/toniq-top-tabs.elemen
 import {iconPages, iconsBookPage} from '../icons/icons.book';
 import {toniqColorsBookPage} from '../styles/colors.book';
 import {toniqFontsBookPage} from '../styles/fonts.book';
+import {toniqShadowsBookPage} from '../styles/shadows.book';
 import {dataBookPage} from './book-pages/data.book';
 import {elementsBookPage} from './book-pages/elements.book';
 import {stylesBookPage} from './book-pages/styles.book';
@@ -57,6 +58,7 @@ const childPages = [
     toniqMiddleEllipsisPage,
     toniqProgressBookPage,
     toniqRadioGroupPage,
+    toniqShadowsBookPage,
     toniqSliderPage,
     toniqToggleButtonBookPage,
     toniqTopTabsPage,
