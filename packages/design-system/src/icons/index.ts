@@ -1,5 +1,6 @@
 /** This file is automatically updated by update-icon-exports.ts */
 
+import {ChevronsRight16Icon} from './svgs/core-16/chevrons-right-16.icon';
 import {Copy16Icon} from './svgs/core-16/copy-16.icon';
 import {ExternalLink16Icon} from './svgs/core-16/external-link-16.icon';
 import {InfoCircle16Icon} from './svgs/core-16/info-circle-16.icon';
@@ -35,6 +36,7 @@ import {Edit24Icon} from './svgs/core-24/edit-24.icon';
 import {Envelope24Icon} from './svgs/core-24/envelope-24.icon';
 import {ExternalLink24Icon} from './svgs/core-24/external-link-24.icon';
 import {Filter24Icon} from './svgs/core-24/filter-24.icon';
+import {Fire24Icon} from './svgs/core-24/fire-24.icon';
 import {Gear24Icon} from './svgs/core-24/gear-24.icon';
 import {Geometry24Icon} from './svgs/core-24/geometry-24.icon';
 import {GridDots24Icon} from './svgs/core-24/grid-dots-24.icon';
@@ -63,6 +65,7 @@ import {ShoppingCart24Icon} from './svgs/core-24/shopping-cart-24.icon';
 import {Social24Icon} from './svgs/core-24/social-24.icon';
 import {Square24Icon} from './svgs/core-24/square-24.icon';
 import {SquareCheck24Icon} from './svgs/core-24/square-check-24.icon';
+import {Tag24Icon} from './svgs/core-24/tag-24.icon';
 import {Trash24Icon} from './svgs/core-24/trash-24.icon';
 import {Upload24Icon} from './svgs/core-24/upload-24.icon';
 import {Wallet24Icon} from './svgs/core-24/wallet-24.icon';
@@ -72,6 +75,7 @@ import {X24Icon} from './svgs/core-24/x-24.icon';
 import {Folder48Icon} from './svgs/core-48/folder-48.icon';
 import {FolderOff48Icon} from './svgs/core-48/folder-off-48.icon';
 import {Kyc48Icon} from './svgs/core-48/kyc-48.icon';
+import {Tag48Icon} from './svgs/core-48/tag-48.icon';
 import {Api64Icon} from './svgs/core-64/api-64.icon';
 import {CircleDashes64Icon} from './svgs/core-64/circle-dashes-64.icon';
 import {Rocket64Icon} from './svgs/core-64/rocket-64.icon';
@@ -98,6 +102,7 @@ import {BrandTwitch24Icon} from './svgs/third-party-brands/brand-twitch-24.icon'
 import {BrandTwitter24Icon} from './svgs/third-party-brands/brand-twitter-24.icon';
 import {BioniqRobot100Icon} from './svgs/toniq/bioniq-robot-100.icon';
 import {EntrepotLogo144Icon} from './svgs/toniq/entrepot-logo-144.icon';
+export * from './svgs/core-16/chevrons-right-16.icon';
 export * from './svgs/core-16/copy-16.icon';
 export * from './svgs/core-16/external-link-16.icon';
 export * from './svgs/core-16/info-circle-16.icon';
@@ -133,6 +138,7 @@ export * from './svgs/core-24/edit-24.icon';
 export * from './svgs/core-24/envelope-24.icon';
 export * from './svgs/core-24/external-link-24.icon';
 export * from './svgs/core-24/filter-24.icon';
+export * from './svgs/core-24/fire-24.icon';
 export * from './svgs/core-24/gear-24.icon';
 export * from './svgs/core-24/geometry-24.icon';
 export * from './svgs/core-24/grid-dots-24.icon';
@@ -161,6 +167,7 @@ export * from './svgs/core-24/shopping-cart-24.icon';
 export * from './svgs/core-24/social-24.icon';
 export * from './svgs/core-24/square-24.icon';
 export * from './svgs/core-24/square-check-24.icon';
+export * from './svgs/core-24/tag-24.icon';
 export * from './svgs/core-24/trash-24.icon';
 export * from './svgs/core-24/upload-24.icon';
 export * from './svgs/core-24/wallet-24.icon';
@@ -170,6 +177,7 @@ export * from './svgs/core-24/x-24.icon';
 export * from './svgs/core-48/folder-48.icon';
 export * from './svgs/core-48/folder-off-48.icon';
 export * from './svgs/core-48/kyc-48.icon';
+export * from './svgs/core-48/tag-48.icon';
 export * from './svgs/core-64/api-64.icon';
 export * from './svgs/core-64/circle-dashes-64.icon';
 export * from './svgs/core-64/rocket-64.icon';
@@ -200,6 +208,7 @@ export * from './toniq-svg';
 
 export const allIconsByCategory = {
     'core-16': [
+        ChevronsRight16Icon,
         Copy16Icon,
         ExternalLink16Icon,
         InfoCircle16Icon,
@@ -237,6 +246,7 @@ export const allIconsByCategory = {
         Envelope24Icon,
         ExternalLink24Icon,
         Filter24Icon,
+        Fire24Icon,
         Gear24Icon,
         Geometry24Icon,
         GridDots24Icon,
@@ -265,6 +275,7 @@ export const allIconsByCategory = {
         Social24Icon,
         Square24Icon,
         SquareCheck24Icon,
+        Tag24Icon,
         Trash24Icon,
         Upload24Icon,
         Wallet24Icon,
@@ -276,6 +287,7 @@ export const allIconsByCategory = {
         Folder48Icon,
         FolderOff48Icon,
         Kyc48Icon,
+        Tag48Icon,
     ],
     'core-64': [
         Api64Icon,

@@ -7,6 +7,7 @@ module.exports = {
         '.storybook-dist',
         '*.otf',
         '/graphics/',
+        './.github/CODEOWNERS',
     ],
     words: [
         ...baseConfig.words,
@@ -19,5 +20,6 @@ module.exports = {
         'nftgeek',
         'tablist',
         'toniq',
+        'CODEOWNERS',
     ],
 };

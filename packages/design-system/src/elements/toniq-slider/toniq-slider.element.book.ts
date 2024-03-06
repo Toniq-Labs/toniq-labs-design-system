@@ -258,5 +258,31 @@ export const toniqSliderPage = defineBookPage({
                 `;
             },
         });
+        defineExample({
+            title: 'Color Temperature',
+            stateInitStatic: {
+                value: 9,
+            },
+            styles: css`
+                ${defaultExampleWidth}
+            `,
+            renderCallback({state, updateState}) {
+                return html`
+                    <${ToniqSlider.assign({
+                        value: state.value,
+                        colorTemperature: true,
+                        min: 0,
+                        max: 100,
+                    })}
+                        ${listen(ToniqSlider.events.valueChange, (event) => {
+                            if (typeof event.detail !== 'number') {
+                                throw new Error('was expecting a single numeric slider value');
+                            }
+                            updateState({value: event.detail});
+                        })}
+                    ></${ToniqSlider}>
+                `;
+            },
+        });
     },
 });
