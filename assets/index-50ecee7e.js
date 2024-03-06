@@ -2446,7 +2446,7 @@ var rh=Object.defineProperty;var nh=(e,t,r)=>t in e?rh(e,t,{enumerable:!0,config
         */
         will-change: filter;
     `,menuShadow:p`
-        filter: drop-shadow(0px 8px 8px ${b.pageSecondary.foregroundColor});
+        filter: drop-shadow(0px 8px 8px rgba(0, 0, 0, 0.12));
         /*
             This helps force the drop shadow to re-render when the element moves or the page changes.
         */
