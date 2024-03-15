@@ -163,6 +163,7 @@ export * from './svgs/core-24/shopping-cart-24.icon';
 export * from './svgs/core-24/social-24.icon';
 export * from './svgs/core-24/square-24.icon';
 export * from './svgs/core-24/square-check-24.icon';
+export * from './svgs/core-24/tag-24.icon';
 export * from './svgs/core-24/trash-24.icon';
 export * from './svgs/core-24/upload-24.icon';
 export * from './svgs/core-24/wallet-24.icon';
@@ -172,6 +173,7 @@ export * from './svgs/core-24/x-24.icon';
 export * from './svgs/core-48/folder-48.icon';
 export * from './svgs/core-48/folder-off-48.icon';
 export * from './svgs/core-48/kyc-48.icon';
+export * from './svgs/core-48/tag-48.icon';
 export * from './svgs/core-64/api-64.icon';
 export * from './svgs/core-64/circle-dashes-64.icon';
 export * from './svgs/core-64/rocket-64.icon';
@@ -267,8 +269,8 @@ export const allIconsByCategory = {
         Social24Icon,
         Square24Icon,
         SquareCheck24Icon,
-        Trash24Icon,
         Tag24Icon,
+        Trash24Icon,
         Upload24Icon,
         Wallet24Icon,
         World24Icon,
