@@ -63,6 +63,7 @@ import {ShoppingCart24Icon} from './svgs/core-24/shopping-cart-24.icon';
 import {Social24Icon} from './svgs/core-24/social-24.icon';
 import {Square24Icon} from './svgs/core-24/square-24.icon';
 import {SquareCheck24Icon} from './svgs/core-24/square-check-24.icon';
+import {Tag24Icon} from './svgs/core-24/tag-24.icon';
 import {Trash24Icon} from './svgs/core-24/trash-24.icon';
 import {Upload24Icon} from './svgs/core-24/upload-24.icon';
 import {Wallet24Icon} from './svgs/core-24/wallet-24.icon';
@@ -266,6 +267,7 @@ export const allIconsByCategory = {
         Square24Icon,
         SquareCheck24Icon,
         Trash24Icon,
+        Tag24Icon,
         Upload24Icon,
         Wallet24Icon,
         World24Icon,
