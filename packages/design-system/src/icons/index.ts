@@ -1,5 +1,6 @@
 /** This file is automatically updated by update-icon-exports.ts */
 
+import {ChevronsRight16Icon} from './svgs/core-16/chevrons-right-16.icon';
 import {Copy16Icon} from './svgs/core-16/copy-16.icon';
 import {ExternalLink16Icon} from './svgs/core-16/external-link-16.icon';
 import {InfoCircle16Icon} from './svgs/core-16/info-circle-16.icon';
@@ -101,6 +102,7 @@ import {BrandTwitch24Icon} from './svgs/third-party-brands/brand-twitch-24.icon'
 import {BrandTwitter24Icon} from './svgs/third-party-brands/brand-twitter-24.icon';
 import {BioniqRobot100Icon} from './svgs/toniq/bioniq-robot-100.icon';
 import {EntrepotLogo144Icon} from './svgs/toniq/entrepot-logo-144.icon';
+export * from './svgs/core-16/chevrons-right-16.icon';
 export * from './svgs/core-16/copy-16.icon';
 export * from './svgs/core-16/external-link-16.icon';
 export * from './svgs/core-16/info-circle-16.icon';
@@ -206,6 +208,7 @@ export * from './toniq-svg';
 
 export const allIconsByCategory = {
     'core-16': [
+        ChevronsRight16Icon,
         Copy16Icon,
         ExternalLink16Icon,
         InfoCircle16Icon,

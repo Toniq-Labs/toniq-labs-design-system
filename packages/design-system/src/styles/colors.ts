@@ -62,7 +62,7 @@ const mainLightPalette = (() => {
 
     const dividerFaint: DualColorDefinition = {
         ...pagePrimary,
-        foregroundColor: css`#EAFBF7`,
+        foregroundColor: css`rgba(0, 0, 0, 0.08)`,
     };
 
     /** Drop shadow for some rounded rectangle shapes. */
