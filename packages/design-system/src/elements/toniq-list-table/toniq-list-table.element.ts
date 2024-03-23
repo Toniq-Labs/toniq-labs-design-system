@@ -34,7 +34,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
     },
     styles: ({cssVars}) => css`
         :host {
-            width: 100%;
             display: flex;
             overflow-x: auto;
             border-radius: ${cssVars['toniq-list-table-header-radius'].value};
