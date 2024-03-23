@@ -13,6 +13,7 @@ import {toniqHeadingBookPage} from '../elements/toniq-heading/toniq-heading.elem
 import {toniqHyperlinkPage} from '../elements/toniq-hyperlink/toniq-hyperlink.element.book';
 import {toniqIconBookPage} from '../elements/toniq-icon/toniq-icon.element.book';
 import {toniqInputPage} from '../elements/toniq-input/toniq-input.element.book';
+import {toniqListTableElementBookPage} from '../elements/toniq-list-table/toniq-list-table.element.book';
 import {toniqLoadingBookPage} from '../elements/toniq-loading/toniq-loading.element.book';
 import {toniqMiddleEllipsisPage} from '../elements/toniq-middle-ellipsis/toniq-middle-ellipsis.element.book';
 import {toniqProgressBookPage} from '../elements/toniq-progress/toniq-progress.element.book';
@@ -64,6 +65,7 @@ const childPages = [
     toniqSliderPage,
     toniqToggleButtonBookPage,
     toniqTopTabsPage,
+    toniqListTableElementBookPage,
 ].sort((a, b) => a.title.localeCompare(b.title));
 
 export const allElementBookEntries = [
