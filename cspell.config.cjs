@@ -19,5 +19,7 @@ module.exports = {
         'nftgeek',
         'tablist',
         'toniq',
+        'stephenandrews',
+        'ponnexcodev',
     ],
 };
