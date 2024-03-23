@@ -136,6 +136,7 @@ export * from './svgs/core-24/edit-24.icon';
 export * from './svgs/core-24/envelope-24.icon';
 export * from './svgs/core-24/external-link-24.icon';
 export * from './svgs/core-24/filter-24.icon';
+export * from './svgs/core-24/fire-24.icon';
 export * from './svgs/core-24/gear-24.icon';
 export * from './svgs/core-24/geometry-24.icon';
 export * from './svgs/core-24/grid-dots-24.icon';
@@ -242,6 +243,7 @@ export const allIconsByCategory = {
         Envelope24Icon,
         ExternalLink24Icon,
         Filter24Icon,
+        Fire24Icon,
         Gear24Icon,
         Geometry24Icon,
         GridDots24Icon,
@@ -271,7 +273,6 @@ export const allIconsByCategory = {
         Square24Icon,
         SquareCheck24Icon,
         Tag24Icon,
-        Fire24Icon,
         Trash24Icon,
         Upload24Icon,
         Wallet24Icon,
