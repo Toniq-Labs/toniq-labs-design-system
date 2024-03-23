@@ -16,6 +16,7 @@ export * from './toniq-heading/toniq-heading.element';
 export * from './toniq-hyperlink/toniq-hyperlink.element';
 export * from './toniq-icon/toniq-icon.element';
 export * from './toniq-input/toniq-input.element';
+export * from './toniq-list-table/toniq-list-table.element';
 export * from './toniq-loading/toniq-loading.element';
 export * from './toniq-middle-ellipsis/toniq-middle-ellipsis.element';
 export * from './toniq-pagination/toniq-pagination.element';

@@ -1,9 +1,10 @@
 import {assert, fixture} from '@open-wc/testing';
-import {Copy16Icon, ToniqIcon} from '@toniq-labs/design-system';
 import {
     assertIconEquals,
     getRenderedIconSvg,
 } from '@toniq-labs/design-system/src/element-testing/icon-testing';
+import {ToniqIcon} from '@toniq-labs/design-system/src/elements/toniq-icon/toniq-icon.element';
+import {Copy16Icon} from '@toniq-labs/design-system/src/icons';
 import {convertTemplateToString, html} from 'element-vir';
 import {assertInstanceOf} from 'run-time-assertions';
 import {AppElement} from './app.element';
