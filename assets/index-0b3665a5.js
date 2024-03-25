@@ -4542,7 +4542,6 @@ var hh=Object.defineProperty;var fh=(e,t,r)=>t in e?hh(e,t,{enumerable:!0,config
                 </button>
             `}}),Oi=b.pageInteraction.foregroundColor,Bi=b.accentSecondary.backgroundColor,_t=te()({tagName:"toniq-list-table",cssVars:{"toniq-list-table-border-width":"1px","toniq-list-table-header-radius":"16px","toniq-list-table-row-gap":"36px"},events:{pageChange:ee()},styles:({cssVars:e})=>m`
         :host {
-            width: 100%;
             display: flex;
             overflow-x: auto;
             border-radius: ${e["toniq-list-table-header-radius"].value};
