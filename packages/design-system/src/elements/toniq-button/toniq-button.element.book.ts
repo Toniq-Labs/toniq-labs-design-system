@@ -27,6 +27,12 @@ export const toniqButtonPage = defineBookPage({
                     },
                 },
                 {
+                    name: 'Text Only',
+                    inputs: {
+                        variant: ToniqButtonVariantEnum.TextOnly,
+                    },
+                },
+                {
                     name: 'Disabled',
                     inputs: {
                         disabled: true,

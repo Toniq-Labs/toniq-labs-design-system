@@ -15,6 +15,7 @@ export enum ToniqButtonVariantEnum {
     Default = 'default',
     Outline = 'outline',
     Secondary = 'secondary',
+    TextOnly = 'text-only',
 }
 
 export const ToniqButton = defineToniqElement<{
@@ -28,6 +29,7 @@ export const ToniqButton = defineToniqElement<{
     hostClasses: {
         'toniq-button-secondary': ({inputs}) => inputs.variant === ToniqButtonVariantEnum.Secondary,
         'toniq-button-outline': ({inputs}) => inputs.variant === ToniqButtonVariantEnum.Outline,
+        'toniq-button-text-only': ({inputs}) => inputs.variant === ToniqButtonVariantEnum.TextOnly,
         'toniq-button-disabled': ({inputs}) => !!inputs.disabled,
     },
     styles: ({hostClasses}) => css`
@@ -81,6 +83,16 @@ export const ToniqButton = defineToniqElement<{
         ${hostClasses['toniq-button-outline'].selector} button {
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
             border-color: ${toniqColors.accentPrimary.backgroundColor};
+        }
+
+        ${hostClasses['toniq-button-text-only'].selector} button {
+            color: inherit;
+            background-color: transparent;
+            border-color: transparent;
+        }
+
+        :host(.${hostClasses['toniq-button-text-only'].name}:hover) button {
+            filter: brightness(85%);
         }
 
         ${hostClasses['toniq-button-disabled'].selector} {
