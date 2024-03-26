@@ -87,6 +87,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .table-list {
+            min-height: 40px;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -383,9 +384,10 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                     )}
                 </div>
                 <div
-                    class="loading-wrapper ${classMap({
+                    class=${classMap({
+                        'loading-wrapper': true,
                         hidden: !isLoading,
-                    })}"
+                    })}
                 >
                     <${ToniqLoading.assign({
                         size: ToniqLoadingSizeEnum.Large,
