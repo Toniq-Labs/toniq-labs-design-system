@@ -18,7 +18,7 @@ import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {ToniqLoading, ToniqLoadingSizeEnum} from '../toniq-loading/toniq-loading.element';
 import {ToniqPagination} from '../toniq-pagination/toniq-pagination.element';
-import {Columns, HeaderItem, ListTableInputs, ListTableRow} from './list-table-inputs';
+import {Columns, ListTableInputs, ListTableRow} from './list-table-inputs';
 
 const scrollbarColorCssVar = toniqColors.pageInteraction.foregroundColor;
 const scrollbarTrackColorCssVar = toniqColors.accentSecondary.backgroundColor;
@@ -97,7 +97,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .table-list.hidden {
-            visibility: none;
+            visibility: hidden;
             opacity: 0;
         }
 
@@ -192,7 +192,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .loading-wrapper.hidden {
-            visibility: none;
+            visibility: hidden;
             pointer-events: none;
             opacity: 0;
             transition: ${toniqDurations.interaction};
@@ -220,10 +220,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
     `,
     stateInitStatic: {
-        table: {
-            header: [] as HeaderItem[],
-            row: [] as ListTableRow<any>[],
-        },
         canScroll: false,
         debouncedResize: perInstance(() =>
             createDebounce(DebounceStyle.FirstThenWait, {milliseconds: 30}),
@@ -235,22 +231,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
     initCallback({inputs, state, updateState}) {
         const enabledColumns = inputs.columns.filter((column) => !column.disabled);
         updateState({
-            table: {
-                header: enabledColumns.map((item) => {
-                    return {
-                        title: item.title,
-                        key: item.key,
-                        left: 0,
-                        mobile: {
-                            sticky: item.mobile?.sticky,
-                        },
-                    };
-                }) as HeaderItem[],
-                row: [
-                    inputs.rows[0],
-                    ...inputs.rows,
-                ].filter(isTruthy),
-            },
             widthSizes: enabledColumns.reduce((accum, item: Columns) => {
                 accum[item.key as string] = undefined;
                 return accum;
@@ -258,23 +238,16 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         });
     },
     renderCallback({inputs, state, updateState, events, dispatch}) {
+        const enabledColumns = inputs.columns.filter((column) => !column.disabled);
+        const rows = [
+            inputs.rows[0],
+            ...inputs.rows,
+        ];
+
         function tableUpdate(container: HTMLElement | EventTarget | null) {
             if (container instanceof HTMLElement) {
-                const containerLeft = container.getBoundingClientRect().left;
-                const header = state.table.header.map((item: HeaderItem, index: number) => {
-                    const rowItem = container.querySelectorAll('.row-item')[index] as HTMLElement;
-                    const left = rowItem?.getBoundingClientRect().left;
-                    return {
-                        ...item,
-                        left: left - containerLeft,
-                    };
-                });
                 state.debouncedResize(() => {
                     updateState({
-                        table: {
-                            ...state.table,
-                            header,
-                        },
                         canScroll: container.scrollWidth > container.clientWidth,
                     });
                 });
@@ -308,7 +281,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                           })
                         : nothing}
                 >
-                    ${state.table.header.map((item, index) => {
+                    ${enabledColumns.map((item, index) => {
                         const contents = row.cells[item.key as keyof typeof row];
                         return html`
                             <div
@@ -319,10 +292,9 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                         : false,
                                 })}
                                 style=${css`
-                                    left: ${unsafeCSS(`${item.left}px`)};
-                                    min-width: ${index >= state.table.header.length - 1
+                                    min-width: ${index >= enabledColumns.length - 1
                                         ? unsafeCSS('unset')
-                                        : unsafeCSS(`${state.widthSizes[item.key]}px`)};
+                                        : unsafeCSS(`${state.widthSizes[item.key as string]}px`)};
                                 `}
                             >
                                 <div
@@ -335,8 +307,9 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                             container.getBoundingClientRect().width;
 
                                         if (
-                                            !state.widthSizes[item.key] ||
-                                            currentWidth > (state.widthSizes[item.key] as number)
+                                            !state.widthSizes[item.key as string] ||
+                                            currentWidth >
+                                                (state.widthSizes[item.key as string] as number)
                                         ) {
                                             updateState({
                                                 widthSizes: {
@@ -365,8 +338,8 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             `;
         }
 
-        const isAllItemPainted =
-            state.itemsPainted >= state.table.header.length * state.table.row.length;
+        const isLoading =
+            state.itemsPainted < enabledColumns.length * inputs.rows.length || !!inputs.showLoading;
 
         return html`
             <div
@@ -378,7 +351,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                 <div
                     class=${classMap({
                         'table-list': true,
-                        hidden: !isAllItemPainted && !inputs.showLoading,
+                        hidden: isLoading,
                     })}
                     ${onResize((event) => {
                         tableUpdate(event.target);
@@ -393,8 +366,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                         }
                     })}
                 >
-                    ${state.table.row.length &&
-                    state.table.row.map((item: ListTableRow<any>, index: number) => {
+                    ${rows.filter(isTruthy).map((item: ListTableRow<any>, index: number) => {
                         return html`
                             ${listItem(item, index)}
                         `;
@@ -412,7 +384,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                 </div>
                 <div
                     class="loading-wrapper ${classMap({
-                        hidden: isAllItemPainted && !inputs.showLoading,
+                        hidden: !isLoading,
                     })}"
                 >
                     <${ToniqLoading.assign({
