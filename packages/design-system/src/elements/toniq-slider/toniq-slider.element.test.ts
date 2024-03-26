@@ -74,6 +74,24 @@ describe(ToniqSlider.tagName, () => {
         }),
     );
 
+    it(
+        'should correctly show slider handle color',
+        createFixtureTest(async () => {
+            const rendered = await fixture(html`
+                <${ToniqSlider.assign({
+                    max: 100,
+                    min: 0,
+                    value: 90,
+                    colorTemperature: true,
+                })} />
+            `);
+
+            const sliderInput = getByTestId(toniqSliderTestIds.slider, rendered);
+            assertInstanceOf(sliderInput, HTMLInputElement);
+            assert.isTrue(sliderInput.classList.contains('hot'));
+        }),
+    );
+
     runFocusTests(
         html`
             <${ToniqSlider.assign({

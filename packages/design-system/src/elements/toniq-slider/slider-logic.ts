@@ -1,4 +1,5 @@
 import {clamp, isObject, truncateNumber} from '@augment-vir/common';
+import {css, unsafeCSS} from 'element-vir';
 import {createReasonableLogarithmicRange, findClosestRangeIndex} from '../../augments/number';
 import {ToniqSliderDoubleRangeValue, ToniqSliderInputs} from './toniq-slider-inputs';
 
@@ -44,6 +45,19 @@ export const toniqSliderTestIds = {
     lowerLabel: 'upper-label',
     slider: 'slider',
 };
+
+export const toniqSliderTempColorLevels = {
+    hot: 'rgb(200,0,0)',
+    medium: 'orange',
+    cold: 'rgb(0,200,0)',
+} as const;
+
+export function setToniqSliderTempColor(level: keyof typeof toniqSliderTempColorLevels) {
+    return css`
+        background-color: ${unsafeCSS(toniqSliderTempColorLevels[level])};
+        color: ${unsafeCSS(toniqSliderTempColorLevels[level])};
+    `;
+}
 
 export function getLabelElementBoxes(host: HTMLElement) {
     const lowerLabel = host.shadowRoot?.querySelector(
