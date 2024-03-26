@@ -18,6 +18,8 @@ import {
     makeLabel,
     maybeFixSliderValues,
     maybeTransformToLogValue,
+    setToniqSliderTempColor,
+    toniqSliderTempColorLevels,
     toniqSliderTestIds,
 } from './slider-logic';
 import {ToniqSliderDoubleRangeValue, ToniqSliderInputs} from './toniq-slider-inputs';
@@ -43,6 +45,16 @@ const thumbStyle = css`
 const thumbHoverStyle = css`
     transform: scale(1.2);
 `;
+
+function getCurrentTemp(percentage: number) {
+    if (percentage > 100 * (2 / 3)) {
+        return 'cold';
+    }
+    if (percentage > 100 * (1 / 3)) {
+        return 'medium';
+    }
+    return 'hot';
+}
 
 export function maybeFixRecursively(slider: (typeof ToniqSlider)['instanceType']) {
     requestAnimationFrame(() => {
@@ -82,6 +94,15 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
             display: block;
         }
 
+        .${unsafeCSS(classNames.range)}-temp {
+            background: linear-gradient(
+                90deg,
+                ${unsafeCSS(toniqSliderTempColorLevels.cold)},
+                ${unsafeCSS(toniqSliderTempColorLevels.medium)},
+                ${unsafeCSS(toniqSliderTempColorLevels.hot)}
+            );
+        }
+
         .${unsafeCSS(classNames.range)} {
             display: flex;
             height: 8px;
@@ -100,6 +121,10 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
             pointer-events: none;
             border-radius: 4px;
             ${applyBackgroundAndForeground(toniqColors.accentPrimary)};
+        }
+
+        .progress-temp {
+            background-color: transparent;
         }
 
         .${unsafeCSS(classNames.labelOuterWrapper)} {
@@ -156,9 +181,29 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
             ${thumbStyle}
         }
 
+        .${unsafeCSS(classNames.slider)}.hot::-moz-range-thumb {
+            ${setToniqSliderTempColor('hot')}
+        }
+        .${unsafeCSS(classNames.slider)}.medium::-moz-range-thumb {
+            ${setToniqSliderTempColor('medium')}
+        }
+        .${unsafeCSS(classNames.slider)}.cold::-moz-range-thumb {
+            ${setToniqSliderTempColor('cold')}
+        }
+
         /* these selectors fail if combined with a comma */
         .${unsafeCSS(classNames.slider)}::-webkit-slider-thumb {
             ${thumbStyle}
+        }
+
+        .${unsafeCSS(classNames.slider)}.hot::-webkit-slider-thumb {
+            ${setToniqSliderTempColor('hot')}
+        }
+        .${unsafeCSS(classNames.slider)}.medium::-webkit-slider-thumb {
+            ${setToniqSliderTempColor('medium')}
+        }
+        .${unsafeCSS(classNames.slider)}.cold::-webkit-slider-thumb {
+            ${setToniqSliderTempColor('cold')}
         }
 
         /* these selectors fail if combined with a comma */
@@ -379,14 +424,17 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
 
             return html`
                 <div
-                    class="range"
+                    class="range ${inputs.colorTemperature ? 'range-temp' : ''}"
                     ${onResize(() => {
                         updateState({
                             rangeWidth: getRangeWidth(host),
                         });
                     })}
                 >
-                    <div class="progress" style="left: 0px; right: ${progressRightPosition}"></div>
+                    <div
+                        class="progress ${inputs.colorTemperature ? 'progress-temp' : ''}"
+                        style="left: 0px; right: ${progressRightPosition}"
+                    ></div>
                     <span
                         class="${classNames.labelOuterWrapper} ${classNames.rightAlignedLabelWrapper}"
                         style="right: ${progressRightPosition}"
@@ -402,7 +450,9 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                     <input
                         ?disabled=${inputs.disabled ?? false}
                         type="range"
-                        class="${classNames.slider}"
+                        class="${classNames.slider} ${inputs.colorTemperature
+                            ? getCurrentTemp(Math.abs(labelMargin))
+                            : ''}"
                         step=${inputs.step}
                         .min=${elementLimits.min}
                         .max=${elementLimits.max}

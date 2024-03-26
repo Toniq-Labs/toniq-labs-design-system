@@ -32,5 +32,7 @@ export type ToniqSliderInputs = Readonly<
         /** Appends the given string to the slider's value for label text. */
         suffix?: string;
         disabled?: boolean;
+        /** Temperature like background */
+        colorTemperature?: boolean;
     } & (ToniqSliderSingleValueInputs | ToniqSliderDoubleValueInputs)
 >;
