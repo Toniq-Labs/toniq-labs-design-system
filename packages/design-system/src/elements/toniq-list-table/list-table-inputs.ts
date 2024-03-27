@@ -1,21 +1,20 @@
 import {ArrayElement, PartialAndUndefined, areJsonEqual} from '@augment-vir/common';
 import {HtmlInterpolation} from 'element-vir';
 
-export type Columns = {
-    key: PropertyKey;
-    title: string;
-    disabled?: boolean;
-    mobile?: {
-        sticky: boolean | undefined;
-    };
-};
-
-export type ColumnsBase = ReadonlyArray<Readonly<Columns>>;
+export type ColumnsBase = ReadonlyArray<
+    Readonly<{
+        key: PropertyKey;
+        title: string;
+        disabled?: boolean;
+        mobile?: {
+            sticky: boolean | undefined;
+        };
+    }>
+>;
 
 export type HeaderItem = {
     title: string;
     key: string;
-    left: number;
     mobile?: {
         sticky: boolean;
     };
