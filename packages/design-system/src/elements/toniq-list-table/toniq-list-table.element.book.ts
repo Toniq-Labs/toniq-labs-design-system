@@ -51,6 +51,10 @@ const entries = Array(5).fill({
             style=${css`
                 color: ${toniqColors.pageInteraction.foregroundColor};
             `}
+            ${listen('click', (event) => {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+            })}
         ></${ToniqMiddleEllipsis}>
     `,
     to: html`
@@ -61,6 +65,9 @@ const entries = Array(5).fill({
             style=${css`
                 color: ${toniqColors.pageInteraction.foregroundColor};
             `}
+            ${listen('click', (event) => {
+                event.stopImmediatePropagation();
+            })}
         ></${ToniqMiddleEllipsis}>
     `,
     date: 'April 3, 2024 (1:57pm)',
@@ -87,6 +94,261 @@ const entries = Array(5).fill({
     `,
 }) as ReadonlyArray<{
     imageUrl: string;
+    price: HTMLTemplateResult;
+    from: HTMLTemplateResult;
+    to: HTMLTemplateResult;
+    date: string;
+    time: string;
+    action: HTMLTemplateResult;
+}>;
+
+const activityEntries = [
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: 'Payment Sent',
+        price: html`
+            <div
+                style=${css`
+                    display: flex;
+                    gap: 8px;
+                `}
+            >
+                <${ToniqIcon.assign({
+                    icon: CryptoBtc24Icon,
+                })}></${ToniqIcon}>
+                <span>0.00042753</span>
+            </div>
+        `,
+        from: html`
+            <${ToniqMiddleEllipsis.assign({
+                text: 'QP6Wqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3K14U',
+                copyOnClick: true,
+            })}
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+                ${listen('click', (event) => {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                })}
+            ></${ToniqMiddleEllipsis}>
+        `,
+        to: html`
+            <${ToniqMiddleEllipsis.assign({
+                text: 'TR5Gqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3E87V',
+                externalLink: 'https://toniqlabs.com',
+            })}
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+                ${listen('click', (event) => {
+                    event.stopImmediatePropagation();
+                })}
+            ></${ToniqMiddleEllipsis}>
+        `,
+        date: 'April 3, 2024 (1:57pm)',
+        time: '2h ago',
+        action: html`
+            <div
+                style=${css`
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-end;
+                `}
+            >
+                <button
+                    style=${css`
+                        ${noNativeFormStyles}
+                        ${toniqFontStyles.boldParagraphFont};
+                        color: ${toniqColors.pageInteraction.foregroundColor};
+                        cursor: pointer;
+                    `}
+                >
+                    Cancel
+                </button>
+            </div>
+        `,
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: 'Transfer',
+        price: html`
+            -
+        `,
+        from: html`
+            <${ToniqMiddleEllipsis.assign({
+                text: 'QP6Wqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3K14U',
+                copyOnClick: true,
+            })}
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+                ${listen('click', (event) => {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                })}
+            ></${ToniqMiddleEllipsis}>
+        `,
+        to: html`
+            <${ToniqMiddleEllipsis.assign({
+                text: 'TR5Gqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3E87V',
+                externalLink: 'https://toniqlabs.com',
+            })}
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+                ${listen('click', (event) => {
+                    event.stopImmediatePropagation();
+                })}
+            ></${ToniqMiddleEllipsis}>
+        `,
+        date: 'April 3, 2024 (1:57pm)',
+        time: '2h ago',
+        action: html`
+            <div
+                style=${css`
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-end;
+                `}
+            >
+                <button
+                    style=${css`
+                        ${noNativeFormStyles}
+                        ${toniqFontStyles.boldParagraphFont};
+                        color: ${toniqColors.pageInteraction.foregroundColor};
+                        cursor: pointer;
+                    `}
+                >
+                    Cancel
+                </button>
+            </div>
+        `,
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: 'Accept Offer',
+        price: html`
+            -
+        `,
+        from: html`
+            <${ToniqMiddleEllipsis.assign({
+                text: 'QP6Wqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3K14U',
+                copyOnClick: true,
+            })}
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+                ${listen('click', (event) => {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                })}
+            ></${ToniqMiddleEllipsis}>
+        `,
+        to: html`
+            <${ToniqMiddleEllipsis.assign({
+                text: 'TR5Gqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3E87V',
+                externalLink: 'https://toniqlabs.com',
+            })}
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+                ${listen('click', (event) => {
+                    event.stopImmediatePropagation();
+                })}
+            ></${ToniqMiddleEllipsis}>
+        `,
+        date: 'April 3, 2024 (1:57pm)',
+        time: '2h ago',
+        action: html`
+            <div
+                style=${css`
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-end;
+                `}
+            >
+                <button
+                    style=${css`
+                        ${noNativeFormStyles}
+                        ${toniqFontStyles.boldParagraphFont};
+                        color: ${toniqColors.pageInteraction.foregroundColor};
+                        cursor: pointer;
+                    `}
+                >
+                    Cancel
+                </button>
+            </div>
+        `,
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: 'Cancel Listing',
+        price: html`
+            -
+        `,
+        from: html`
+            <${ToniqMiddleEllipsis.assign({
+                text: 'QP6Wqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3K14U',
+                copyOnClick: true,
+            })}
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+                ${listen('click', (event) => {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                })}
+            ></${ToniqMiddleEllipsis}>
+        `,
+        to: html`
+            -
+        `,
+        date: 'April 3, 2024 (1:57pm)',
+        time: '2h ago',
+        action: html`
+            <div
+                style=${css`
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-end;
+                `}
+            >
+                <button
+                    style=${css`
+                        ${noNativeFormStyles}
+                        ${toniqFontStyles.boldParagraphFont};
+                        color: ${toniqColors.pageInteraction.foregroundColor};
+                        cursor: pointer;
+                    `}
+                >
+                    Cancel
+                </button>
+            </div>
+        `,
+    },
+] as ReadonlyArray<{
+    imageUrl: string;
+    type: string;
+    price: HTMLTemplateResult;
+    from: HTMLTemplateResult;
+    to: HTMLTemplateResult;
+    date: string;
+    time: string;
+    action: HTMLTemplateResult;
+}>;
+
+const emptyEntries = [] as ReadonlyArray<{
+    imageUrl: string;
+    type: string;
     price: HTMLTemplateResult;
     from: HTMLTemplateResult;
     to: HTMLTemplateResult;
@@ -135,6 +397,88 @@ const exampleListTableInputs = createListTableTable({
     },
 });
 
+const exampleActivityListTableInputs = createListTableTable({
+    entries: activityEntries,
+    columns: [
+        {key: 'image', title: '', mobile: {sticky: true}},
+        {key: 'type', title: 'TYPE', mobile: {sticky: true}},
+        {key: 'price', title: 'PRICE'},
+        {key: 'from', title: 'FROM'},
+        {key: 'to', title: 'TO'},
+        {key: 'date', title: 'DATE'},
+        {key: 'time', title: 'TIME'},
+        {key: 'action', title: ''},
+    ],
+    createRowObject: (entry) => {
+        return {
+            cells: {
+                image: html`
+                    <img
+                        style=${css`
+                            width: 24px;
+                            height: auto;
+                        `}
+                        src=${entry.imageUrl}
+                    />
+                `,
+                type: entry.type,
+                price: entry.price,
+                from: entry.from,
+                to: entry.to,
+                date: entry.date,
+                time: entry.time,
+                action: entry.action,
+            },
+            rowActions: {
+                click() {
+                    alert('This could be useful on opening specific inscription or transaction');
+                },
+            },
+        };
+    },
+});
+
+const exampleEmptyListTableInputs = createListTableTable({
+    entries: emptyEntries,
+    columns: [
+        {key: 'image', title: '', mobile: {sticky: true}},
+        {key: 'type', title: 'TYPE', mobile: {sticky: true}},
+        {key: 'price', title: 'PRICE'},
+        {key: 'from', title: 'FROM'},
+        {key: 'to', title: 'TO'},
+        {key: 'date', title: 'DATE'},
+        {key: 'time', title: 'TIME'},
+        {key: 'action', title: ''},
+    ],
+    createRowObject: (entry) => {
+        return {
+            cells: {
+                image: html`
+                    <img
+                        style=${css`
+                            width: 24px;
+                            height: auto;
+                        `}
+                        src=${entry.imageUrl}
+                    />
+                `,
+                type: entry.type,
+                price: entry.price,
+                from: entry.from,
+                to: entry.to,
+                date: entry.date,
+                time: entry.time,
+                action: entry.action,
+            },
+            rowActions: {
+                click() {
+                    alert('This could be useful on opening specific inscription or transaction');
+                },
+            },
+        };
+    },
+});
+
 const examples: ReadonlyArray<
     Readonly<{
         title: string;
@@ -149,7 +493,7 @@ const examples: ReadonlyArray<
         title: 'with pagination',
         inputs: {
             pagination: {
-                currentPage: 3,
+                currentPage: 1,
                 pageCount: 10,
             },
         },
@@ -197,7 +541,7 @@ const examples: ReadonlyArray<
         `,
     },
     {
-        title: 'with loading',
+        title: 'show loading',
         styles: css`
             :host {
                 max-height: 500px;
@@ -250,6 +594,47 @@ export const toniqListTableElementBookPage = defineBookPage({
     title: ToniqListTable.tagName,
     parent: elementsBookPage,
     elementExamplesCallback({defineExample}) {
+        defineExample({
+            title: 'takes time to load',
+            stateInitStatic: {
+                tableInputs: {
+                    ...exampleEmptyListTableInputs,
+                    showLoading: true,
+                    pagination: {
+                        currentPage: 1,
+                        pageCount: 5,
+                    },
+                },
+            },
+            renderCallback({state, updateState}) {
+                setTimeout(() => {
+                    updateState({
+                        tableInputs: {
+                            ...state.tableInputs,
+                            ...exampleActivityListTableInputs,
+                            showLoading: false,
+                        },
+                    });
+                }, 5000);
+                return html`
+                    <${ToniqListTable.assign(state.tableInputs)}
+                        ${listen(ToniqListTable.events.pageChange, (event) => {
+                            updateState({
+                                tableInputs: {
+                                    ...state.tableInputs,
+                                    ...exampleActivityListTableInputs,
+                                    pagination: {
+                                        currentPage: 2,
+                                        pageCount: 5,
+                                    },
+                                },
+                            });
+                        })}
+                    ></${ToniqListTable}>
+                `;
+            },
+        });
+
         examples.forEach((example) => {
             defineExample({
                 title: example.title,
