@@ -15,7 +15,6 @@ export type ColumnsBase = ReadonlyArray<
 export type HeaderItem = {
     title: string;
     key: string;
-    left: number;
     mobile?: {
         sticky: boolean;
     };

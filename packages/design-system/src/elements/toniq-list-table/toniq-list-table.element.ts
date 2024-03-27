@@ -18,7 +18,7 @@ import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {ToniqLoading, ToniqLoadingSizeEnum} from '../toniq-loading/toniq-loading.element';
 import {ToniqPagination} from '../toniq-pagination/toniq-pagination.element';
-import {HeaderItem, ListTableInputs, ListTableRow} from './list-table-inputs';
+import {ListTableInputs, ListTableRow} from './list-table-inputs';
 
 const scrollbarColorCssVar = toniqColors.pageInteraction.foregroundColor;
 const scrollbarTrackColorCssVar = toniqColors.accentSecondary.backgroundColor;
@@ -176,7 +176,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .row-content {
-            padding: 12px 0;
+            min-height: 48px;
         }
 
         .row-content.hidden {
@@ -246,65 +246,43 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
     `,
     stateInitStatic: {
-        table: {
-            header: [] as HeaderItem[],
-            rows: [] as ListTableRow<any>[],
-        },
         canScroll: false,
         debouncedResize: perInstance(() =>
             createDebounce(DebounceStyle.FirstThenWait, {milliseconds: 30}),
         ),
-        widthSizes: {} as {[key: string]: number | undefined},
+        rowStyles: {} as {
+            [key: string]: {
+                width: number | undefined;
+                left: number | undefined;
+            };
+        },
         isPainting: false,
         itemsPainted: 0,
     },
     initCallback({inputs, state, updateState}) {
         const enabledColumns = inputs.columns.filter((column) => !column.disabled);
         updateState({
-            widthSizes: enabledColumns.reduce((accum, item) => {
-                accum[item.key as string] = undefined;
+            rowStyles: enabledColumns.reduce((accum, item) => {
+                accum[item.key as string] = {
+                    width: undefined,
+                    left: undefined,
+                };
                 return accum;
-            }, state.widthSizes),
+            }, state.rowStyles),
         });
     },
     renderCallback({inputs, state, updateState, events, dispatch}) {
         const enabledColumns = inputs.columns.filter((column) => !column.disabled);
-        updateState({
-            table: {
-                header: enabledColumns.map((item) => {
-                    return {
-                        title: item.title,
-                        key: item.key,
-                        left: 0,
-                        mobile: {
-                            sticky: item.mobile?.sticky,
-                        },
-                    };
-                }) as HeaderItem[],
-                rows: [
-                    inputs.rows[0],
-                    ...inputs.rows,
-                ].filter(isTruthy),
-            },
-        });
+        // Duplicate first entry for the header column
+        const rows = [
+            inputs.rows[0],
+            ...inputs.rows,
+        ].filter(isTruthy);
 
         function tableUpdate(container: HTMLElement | EventTarget | null) {
             if (container instanceof HTMLElement) {
-                const containerLeft = container.getBoundingClientRect().left;
-                const header = state.table.header.map((item: HeaderItem, index: number) => {
-                    const rowItem = container.querySelectorAll('.row-item')[index] as HTMLElement;
-                    const left = rowItem?.getBoundingClientRect().left;
-                    return {
-                        ...item,
-                        left: left - containerLeft,
-                    };
-                });
                 state.debouncedResize(() => {
                     updateState({
-                        table: {
-                            ...state.table,
-                            header,
-                        },
                         canScroll: container.scrollWidth > container.clientWidth,
                     });
                 });
@@ -338,7 +316,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                           })
                         : nothing}
                 >
-                    ${state.table.header.map((item, index) => {
+                    ${enabledColumns.map((item, index) => {
                         const contents = row.cells[item.key as keyof typeof row];
                         return html`
                             <div
@@ -349,10 +327,14 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                         : false,
                                 })}
                                 style=${css`
-                                    left: ${unsafeCSS(`${item.left}px`)};
-                                    min-width: ${index >= state.table.header.length - 1
+                                    left: ${unsafeCSS(
+                                        `${state.rowStyles[item.key as string]?.left}px`,
+                                    )};
+                                    min-width: ${index >= enabledColumns.length - 1
                                         ? unsafeCSS('unset')
-                                        : unsafeCSS(`${state.widthSizes[item.key as string]}px`)};
+                                        : unsafeCSS(
+                                              `${state.rowStyles[item.key as string]?.width}px`,
+                                          )};
                                 `}
                             >
                                 <div
@@ -361,18 +343,32 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                         hidden: rowIndex === 0,
                                     })}
                                     ${onDomCreated((container) => {
+                                        const parentEl = container.closest('.table-list');
+                                        const containerLeft =
+                                            parentEl?.getBoundingClientRect().left;
+
+                                        const rowItem = parentEl?.querySelectorAll('.row-item')[
+                                            index
+                                        ] as HTMLElement;
+                                        const left = rowItem?.getBoundingClientRect().left;
+
                                         const currentWidth =
                                             container.getBoundingClientRect().width;
-
                                         if (
-                                            !state.widthSizes[item.key as string] ||
+                                            !state.rowStyles[item.key as string]?.width ||
                                             currentWidth >
-                                                (state.widthSizes[item.key as string] as number)
+                                                (state.rowStyles[item.key as string]
+                                                    ?.width as number)
                                         ) {
                                             updateState({
-                                                widthSizes: {
-                                                    ...state.widthSizes,
-                                                    [item.key]: currentWidth,
+                                                rowStyles: {
+                                                    ...state.rowStyles,
+                                                    [item.key]: {
+                                                        width: currentWidth,
+                                                        left: containerLeft
+                                                            ? left - containerLeft
+                                                            : left,
+                                                    },
                                                 },
                                             });
                                         }
@@ -397,8 +393,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         const isLoading =
-            state.itemsPainted < state.table.header.length * state.table.rows.length ||
-            !!inputs.showLoading;
+            state.itemsPainted < enabledColumns.length * rows.length || !!inputs.showLoading;
 
         return html`
             <div
@@ -425,13 +420,11 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                         }
                     })}
                 >
-                    ${state.table.rows
-                        .filter(isTruthy)
-                        .map((item: ListTableRow<any>, index: number) => {
-                            return html`
-                                ${listItem(item, index)}
-                            `;
-                        })}
+                    ${rows.filter(isTruthy).map((item: ListTableRow<any>, index: number) => {
+                        return html`
+                            ${listItem(item, index)}
+                        `;
+                    })}
                     ${renderIf(
                         state.canScroll,
                         html`
