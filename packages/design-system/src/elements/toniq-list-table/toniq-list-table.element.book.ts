@@ -356,7 +356,6 @@ const emptyEntries = [] as ReadonlyArray<{
     time: string;
     action: HTMLTemplateResult;
 }>;
-// cspell:enable
 
 const entriesNoAction = Array(5).fill({
     imageUrl: mockInscriptionUrl.thumbnail(
@@ -422,6 +421,8 @@ const entriesNoAction = Array(5).fill({
     date: string;
     time: string;
 }>;
+
+// cspell:enable
 
 const exampleListTableInputs = createListTableTable({
     entries: entries,
