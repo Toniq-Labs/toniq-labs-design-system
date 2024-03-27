@@ -1,5 +1,5 @@
 import {ArrayElement, PartialAndUndefined, areJsonEqual} from '@augment-vir/common';
-import {HtmlInterpolation} from 'element-vir';
+import {CSSResult, HtmlInterpolation} from 'element-vir';
 
 export type ColumnsBase = ReadonlyArray<
     Readonly<{
@@ -9,6 +9,7 @@ export type ColumnsBase = ReadonlyArray<
         mobile?: {
             sticky: boolean | undefined;
         };
+        style?: CSSResult;
     }>
 >;
 

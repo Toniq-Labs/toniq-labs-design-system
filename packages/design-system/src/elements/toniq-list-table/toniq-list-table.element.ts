@@ -326,16 +326,18 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                         ? item.mobile?.sticky && state.canScroll
                                         : false,
                                 })}
-                                style=${css`
-                                    left: ${unsafeCSS(
-                                        `${state.rowStyles[item.key as string]?.left}px`,
-                                    )};
-                                    min-width: ${index >= enabledColumns.length - 1
-                                        ? unsafeCSS('unset')
-                                        : unsafeCSS(
-                                              `${state.rowStyles[item.key as string]?.width}px`,
+                                style=${item.style
+                                    ? item.style
+                                    : css`
+                                          left: ${unsafeCSS(
+                                              `${state.rowStyles[item.key as string]?.left}px`,
                                           )};
-                                `}
+                                          min-width: ${index >= enabledColumns.length - 1
+                                              ? unsafeCSS('unset')
+                                              : unsafeCSS(
+                                                    `${state.rowStyles[item.key as string]?.width}px`,
+                                                )};
+                                      `}
                             >
                                 <div
                                     class=${classMap({

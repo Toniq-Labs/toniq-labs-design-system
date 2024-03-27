@@ -356,6 +356,72 @@ const emptyEntries = [] as ReadonlyArray<{
     time: string;
     action: HTMLTemplateResult;
 }>;
+
+const entriesNoAction = Array(5).fill({
+    imageUrl: mockInscriptionUrl.thumbnail(
+        'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+    ),
+    price: html`
+        <div
+            style=${css`
+                display: flex;
+                gap: 8px;
+            `}
+        >
+            <${ToniqIcon.assign({
+                icon: CryptoBtc24Icon,
+            })}></${ToniqIcon}>
+            <span>0.00042753</span>
+        </div>
+    `,
+    from: html`
+        <${ToniqMiddleEllipsis.assign({
+            text: 'QP6Wqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3K14U',
+            copyOnClick: true,
+        })}
+            style=${css`
+                color: ${toniqColors.pageInteraction.foregroundColor};
+            `}
+            ${listen('click', (event) => {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+            })}
+        ></${ToniqMiddleEllipsis}>
+    `,
+    to: html`
+        <${ToniqMiddleEllipsis.assign({
+            text: 'TR5Gqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3E87V',
+            externalLink: 'https://toniqlabs.com',
+        })}
+            style=${css`
+                color: ${toniqColors.pageInteraction.foregroundColor};
+            `}
+            ${listen('click', (event) => {
+                event.stopImmediatePropagation();
+            })}
+        ></${ToniqMiddleEllipsis}>
+    `,
+    date: 'April 3, 2024 (1:57pm)',
+    time: html`
+        <div
+            style=${css`
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+            `}
+        >
+            <span>2h ago</span>
+        </div>
+    `,
+}) as ReadonlyArray<{
+    imageUrl: string;
+    price: HTMLTemplateResult;
+    from: HTMLTemplateResult;
+    to: HTMLTemplateResult;
+    date: string;
+    time: string;
+}>;
+
 // cspell:enable
 
 const exampleListTableInputs = createListTableTable({
@@ -469,6 +535,50 @@ const exampleEmptyListTableInputs = createListTableTable({
                 date: entry.date,
                 time: entry.time,
                 action: entry.action,
+            },
+            rowActions: {
+                click() {
+                    alert('This could be useful on opening specific inscription or transaction');
+                },
+            },
+        };
+    },
+});
+
+const exampleNoActionListTableInputs = createListTableTable({
+    entries: entriesNoAction,
+    columns: [
+        {key: 'image', title: '', mobile: {sticky: true}},
+        {key: 'price', title: 'PRICE'},
+        {key: 'from', title: 'FROM'},
+        {key: 'to', title: 'TO'},
+        {key: 'date', title: 'DATE'},
+        {
+            key: 'time',
+            title: 'TIME',
+            style: css`
+                display: flex;
+                justify-content: flex-end;
+            `,
+        },
+    ],
+    createRowObject: (entry) => {
+        return {
+            cells: {
+                image: html`
+                    <img
+                        style=${css`
+                            width: 24px;
+                            height: auto;
+                        `}
+                        src=${entry.imageUrl}
+                    />
+                `,
+                price: entry.price,
+                from: entry.from,
+                to: entry.to,
+                date: entry.date,
+                time: entry.time,
             },
             rowActions: {
                 click() {
@@ -594,6 +704,15 @@ export const toniqListTableElementBookPage = defineBookPage({
     title: ToniqListTable.tagName,
     parent: elementsBookPage,
     elementExamplesCallback({defineExample}) {
+        defineExample({
+            title: 'no action',
+            renderCallback() {
+                return html`
+                    <${ToniqListTable.assign(exampleNoActionListTableInputs)}></${ToniqListTable}>
+                `;
+            },
+        });
+
         defineExample({
             title: 'takes time to load',
             stateInitStatic: {
