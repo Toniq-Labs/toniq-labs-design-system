@@ -76,6 +76,7 @@ import {Folder48Icon} from './svgs/core-48/folder-48.icon';
 import {FolderOff48Icon} from './svgs/core-48/folder-off-48.icon';
 import {Kyc48Icon} from './svgs/core-48/kyc-48.icon';
 import {Tag48Icon} from './svgs/core-48/tag-48.icon';
+import {Wallet48Icon} from './svgs/core-48/wallet-48.icon';
 import {Api64Icon} from './svgs/core-64/api-64.icon';
 import {CircleDashes64Icon} from './svgs/core-64/circle-dashes-64.icon';
 import {Rocket64Icon} from './svgs/core-64/rocket-64.icon';
@@ -178,6 +179,7 @@ export * from './svgs/core-48/folder-48.icon';
 export * from './svgs/core-48/folder-off-48.icon';
 export * from './svgs/core-48/kyc-48.icon';
 export * from './svgs/core-48/tag-48.icon';
+export * from './svgs/core-48/wallet-48.icon';
 export * from './svgs/core-64/api-64.icon';
 export * from './svgs/core-64/circle-dashes-64.icon';
 export * from './svgs/core-64/rocket-64.icon';
@@ -288,6 +290,7 @@ export const allIconsByCategory = {
         FolderOff48Icon,
         Kyc48Icon,
         Tag48Icon,
+        Wallet48Icon,
     ],
     'core-64': [
         Api64Icon,
