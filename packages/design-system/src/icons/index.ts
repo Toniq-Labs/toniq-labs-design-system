@@ -53,6 +53,7 @@ import {LoaderAnimated24Icon} from './svgs/core-24/loader-animated-24.icon';
 import {Lock24Icon} from './svgs/core-24/lock-24.icon';
 import {LockOpen24Icon} from './svgs/core-24/lock-open-24.icon';
 import {Menu24Icon} from './svgs/core-24/menu-24.icon';
+import {Pamphlet24Icon} from './svgs/core-24/pamphlet-24.icon';
 import {Paper24Icon} from './svgs/core-24/paper-24.icon';
 import {People24Icon} from './svgs/core-24/people-24.icon';
 import {Person24Icon} from './svgs/core-24/person-24.icon';
@@ -157,6 +158,7 @@ export * from './svgs/core-24/loader-animated-24.icon';
 export * from './svgs/core-24/lock-24.icon';
 export * from './svgs/core-24/lock-open-24.icon';
 export * from './svgs/core-24/menu-24.icon';
+export * from './svgs/core-24/pamphlet-24.icon';
 export * from './svgs/core-24/paper-24.icon';
 export * from './svgs/core-24/people-24.icon';
 export * from './svgs/core-24/person-24.icon';
@@ -267,6 +269,7 @@ export const allIconsByCategory = {
         Lock24Icon,
         LockOpen24Icon,
         Menu24Icon,
+        Pamphlet24Icon,
         Paper24Icon,
         People24Icon,
         Person24Icon,
