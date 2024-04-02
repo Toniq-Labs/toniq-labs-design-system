@@ -61,6 +61,7 @@ import {Refresh24Icon} from './svgs/core-24/refresh-24.icon';
 import {Rocket24Icon} from './svgs/core-24/rocket-24.icon';
 import {Search24Icon} from './svgs/core-24/search-24.icon';
 import {Send24Icon} from './svgs/core-24/send-24.icon';
+import {ShootingStar24Icon} from './svgs/core-24/shooting-star-24.icon';
 import {ShoppingCart24Icon} from './svgs/core-24/shopping-cart-24.icon';
 import {Social24Icon} from './svgs/core-24/social-24.icon';
 import {Square24Icon} from './svgs/core-24/square-24.icon';
@@ -164,6 +165,7 @@ export * from './svgs/core-24/refresh-24.icon';
 export * from './svgs/core-24/rocket-24.icon';
 export * from './svgs/core-24/search-24.icon';
 export * from './svgs/core-24/send-24.icon';
+export * from './svgs/core-24/shooting-star-24.icon';
 export * from './svgs/core-24/shopping-cart-24.icon';
 export * from './svgs/core-24/social-24.icon';
 export * from './svgs/core-24/square-24.icon';
@@ -273,6 +275,7 @@ export const allIconsByCategory = {
         Rocket24Icon,
         Search24Icon,
         Send24Icon,
+        ShootingStar24Icon,
         ShoppingCart24Icon,
         Social24Icon,
         Square24Icon,
