@@ -53,6 +53,7 @@ import {LoaderAnimated24Icon} from './svgs/core-24/loader-animated-24.icon';
 import {Lock24Icon} from './svgs/core-24/lock-24.icon';
 import {LockOpen24Icon} from './svgs/core-24/lock-open-24.icon';
 import {Menu24Icon} from './svgs/core-24/menu-24.icon';
+import {Pamphlet24Icon} from './svgs/core-24/pamphlet-24.icon';
 import {Paper24Icon} from './svgs/core-24/paper-24.icon';
 import {People24Icon} from './svgs/core-24/people-24.icon';
 import {Person24Icon} from './svgs/core-24/person-24.icon';
@@ -61,6 +62,7 @@ import {Refresh24Icon} from './svgs/core-24/refresh-24.icon';
 import {Rocket24Icon} from './svgs/core-24/rocket-24.icon';
 import {Search24Icon} from './svgs/core-24/search-24.icon';
 import {Send24Icon} from './svgs/core-24/send-24.icon';
+import {ShootingStar24Icon} from './svgs/core-24/shooting-star-24.icon';
 import {ShoppingCart24Icon} from './svgs/core-24/shopping-cart-24.icon';
 import {Social24Icon} from './svgs/core-24/social-24.icon';
 import {Square24Icon} from './svgs/core-24/square-24.icon';
@@ -156,6 +158,7 @@ export * from './svgs/core-24/loader-animated-24.icon';
 export * from './svgs/core-24/lock-24.icon';
 export * from './svgs/core-24/lock-open-24.icon';
 export * from './svgs/core-24/menu-24.icon';
+export * from './svgs/core-24/pamphlet-24.icon';
 export * from './svgs/core-24/paper-24.icon';
 export * from './svgs/core-24/people-24.icon';
 export * from './svgs/core-24/person-24.icon';
@@ -164,6 +167,7 @@ export * from './svgs/core-24/refresh-24.icon';
 export * from './svgs/core-24/rocket-24.icon';
 export * from './svgs/core-24/search-24.icon';
 export * from './svgs/core-24/send-24.icon';
+export * from './svgs/core-24/shooting-star-24.icon';
 export * from './svgs/core-24/shopping-cart-24.icon';
 export * from './svgs/core-24/social-24.icon';
 export * from './svgs/core-24/square-24.icon';
@@ -265,6 +269,7 @@ export const allIconsByCategory = {
         Lock24Icon,
         LockOpen24Icon,
         Menu24Icon,
+        Pamphlet24Icon,
         Paper24Icon,
         People24Icon,
         Person24Icon,
@@ -273,6 +278,7 @@ export const allIconsByCategory = {
         Rocket24Icon,
         Search24Icon,
         Send24Icon,
+        ShootingStar24Icon,
         ShoppingCart24Icon,
         Social24Icon,
         Square24Icon,
