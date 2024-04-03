@@ -16,21 +16,21 @@ export const Pamphlet24Icon = defineIcon({
                 <path
                     d="M3 7L9 4L15 7L21 4V17L15 20L9 17L3 20V7Z"
                     stroke="${toniqIconCssVars['toniq-icon-stroke-color'].value}"
-                    stroke-width="1.75"
+                    stroke-width="${toniqIconCssVars['toniq-icon-stroke-width'].value}"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                 />
                 <path
                     d="M9 4V17"
                     stroke="${toniqIconCssVars['toniq-icon-stroke-color'].value}"
-                    stroke-width="1.75"
+                    stroke-width="${toniqIconCssVars['toniq-icon-stroke-width'].value}"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                 />
                 <path
                     d="M15 7V20"
                     stroke="${toniqIconCssVars['toniq-icon-stroke-color'].value}"
-                    stroke-width="1.75"
+                    stroke-width="${toniqIconCssVars['toniq-icon-stroke-width'].value}"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                 />
