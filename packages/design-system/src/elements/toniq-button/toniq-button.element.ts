@@ -1,7 +1,7 @@
-import {css, html} from 'element-vir';
+import {css, html, renderIf} from 'element-vir';
 import {noNativeFormStyles, noUserSelect} from 'vira';
 import {ToniqSvg} from '../../icons';
-import {toniqDurations} from '../../styles/animation';
+import {toniqAnimations, toniqDurations} from '../../styles';
 import {applyBackgroundAndForeground, toniqColors} from '../../styles/colors';
 import {toniqDisabledStyles} from '../../styles/disabled';
 import {createFocusStyles} from '../../styles/focus';
@@ -18,12 +18,18 @@ export enum ToniqButtonVariantEnum {
     TextOnly = 'text-only',
 }
 
+export enum ToniqButtonEffectsEnum {
+    Pulse = 'pulse',
+}
+
 export const ToniqButton = defineToniqElement<{
     /** If text is not provided as an input, instead provide a child element. */
     text?: string | undefined;
     icon?: ToniqSvg | undefined;
     variant?: ToniqButtonVariantEnum | undefined;
     disabled?: boolean | undefined;
+    effect?: ToniqButtonEffectsEnum;
+    iconPlacement?: 'left' | 'right';
 }>()({
     tagName: 'toniq-button',
     hostClasses: {
@@ -31,6 +37,7 @@ export const ToniqButton = defineToniqElement<{
         'toniq-button-outline': ({inputs}) => inputs.variant === ToniqButtonVariantEnum.Outline,
         'toniq-button-text-only': ({inputs}) => inputs.variant === ToniqButtonVariantEnum.TextOnly,
         'toniq-button-disabled': ({inputs}) => !!inputs.disabled,
+        'toniq-button-effect-pulse': ({inputs}) => inputs.effect === ToniqButtonEffectsEnum.Pulse,
     },
     styles: ({hostClasses}) => css`
         :host {
@@ -91,6 +98,13 @@ export const ToniqButton = defineToniqElement<{
             border-color: transparent;
         }
 
+        ${hostClasses['toniq-button-effect-pulse'].selector} button {
+            animation: ${toniqAnimations.buttonPulse.animationName};
+            animation-iteration-count: infinite;
+            animation-duration: ${toniqDurations.pulse};
+            animation-timing-function: ease-in-out;
+        }
+
         :host(.${hostClasses['toniq-button-text-only'].name}:hover) button {
             filter: brightness(85%);
         }
@@ -112,8 +126,14 @@ export const ToniqButton = defineToniqElement<{
         button .icon-template + .text-template {
             margin-left: 8px;
         }
+        button .text-template + .icon-template {
+            margin-left: 8px;
+        }
+
+        ${toniqAnimations.buttonPulse.keyFrames}
     `,
     renderCallback({inputs}) {
+        const iconPlacement = inputs.iconPlacement ?? 'left';
         const iconTemplate = inputs.icon
             ? html`
                   <${ToniqIcon.assign({
@@ -129,9 +149,12 @@ export const ToniqButton = defineToniqElement<{
               `
             : '';
 
+        const leftIcon = renderIf(iconPlacement === 'left', iconTemplate);
+        const rightIcon = renderIf(iconPlacement === 'right', iconTemplate);
+
         return html`
             <button ?disabled=${inputs.disabled}>
-                <slot>${iconTemplate} ${textTemplate}</slot>
+                <slot>${leftIcon} ${textTemplate} ${rightIcon}</slot>
             </button>
         `;
     },

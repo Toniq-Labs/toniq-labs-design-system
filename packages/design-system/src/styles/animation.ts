@@ -1,8 +1,10 @@
 import {CSSResult, css} from 'element-vir';
+import {toniqColors} from './colors';
 
 export const durationCssVarNames = {
     interactionDuration: css`--toniq-interaction-transition-duration`,
     prettyDuration: css`--toniq-pretty-transition-duration`,
+    pulseDuration: css`--toniq-pulse-transition-duration`,
 } as const;
 
 export const toniqDurations = {
@@ -14,6 +16,8 @@ export const toniqDurations = {
     interaction: css`var(${durationCssVarNames.interactionDuration}, 84ms)`,
     /** A longer duration to emphasize the animation. */
     pretty: css`var(${durationCssVarNames.prettyDuration}, 300ms)`,
+    /** Pulse effect duration */
+    pulse: css`var(${durationCssVarNames.pulseDuration}, 3s)`,
 };
 
 export type ToniqAnimationDefinition = {animationName: CSSResult; keyFrames: CSSResult};
@@ -46,6 +50,25 @@ export const toniqAnimations = {
                 100% {
                     transform: scale(1);
                     opacity: 1;
+                }
+            }
+        `,
+    },
+    buttonPulse: {
+        animationName: css`toniq-button-pulse`,
+        keyFrames: css`
+            @keyframes toniq-button-pulse {
+                0% {
+                    transform: scale(0.95);
+                    box-shadow: 0 0 0 0 ${toniqColors.brandPrimary.foregroundColor};
+                }
+                70% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 10px #ffffff00;
+                }
+                100% {
+                    transform: scale(0.95);
+                    box-shadow: 0 0 0 0 #ffffff00;
                 }
             }
         `,
