@@ -2,7 +2,7 @@ import {defineBookPage} from 'element-book';
 import {css, html} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {Trash24Icon} from '../../icons';
-import {ToniqButton, ToniqButtonVariantEnum} from './toniq-button.element';
+import {ToniqButton, ToniqButtonEffectsEnum, ToniqButtonVariantEnum} from './toniq-button.element';
 
 export const toniqButtonPage = defineBookPage({
     parent: elementsBookPage,
@@ -36,6 +36,19 @@ export const toniqButtonPage = defineBookPage({
                     name: 'Disabled',
                     inputs: {
                         disabled: true,
+                    },
+                },
+                {
+                    name: 'Right Icon',
+                    inputs: {
+                        iconPlacement: 'right',
+                        variant: ToniqButtonVariantEnum.Outline,
+                    },
+                },
+                {
+                    name: 'Pulsing Effect',
+                    inputs: {
+                        effect: ToniqButtonEffectsEnum.Pulse,
                     },
                 },
             ];
