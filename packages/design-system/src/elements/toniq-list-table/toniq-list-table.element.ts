@@ -189,7 +189,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .row-item {
-            height: -webkit-fill-available;
             border: ${cssVars['toniq-list-table-border-width'].value} solid transparent;
         }
 
