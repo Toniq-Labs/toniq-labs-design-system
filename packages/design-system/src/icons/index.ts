@@ -88,6 +88,18 @@ import {CryptoCkBtc16Icon} from './svgs/cryptocurrencies/crypto-ck-btc-16.icon';
 import {CryptoCkBtc24Icon} from './svgs/cryptocurrencies/crypto-ck-btc-24.icon';
 import {CryptoIcp16Icon} from './svgs/cryptocurrencies/crypto-icp-16.icon';
 import {CryptoIcp24Icon} from './svgs/cryptocurrencies/crypto-icp-24.icon';
+import {WalletInfinity24Icon} from './svgs/external-wallets/wallet-infinity-24.icon';
+import {WalletInfinity64Icon} from './svgs/external-wallets/wallet-infinity-64.icon';
+import {WalletLeather24Icon} from './svgs/external-wallets/wallet-leather-24.icon';
+import {WalletLeather64Icon} from './svgs/external-wallets/wallet-leather-64.icon';
+import {WalletPlug24Icon} from './svgs/external-wallets/wallet-plug-24.icon';
+import {WalletPlug64Icon} from './svgs/external-wallets/wallet-plug-64.icon';
+import {WalletStoic24Icon} from './svgs/external-wallets/wallet-stoic-24.icon';
+import {WalletStoic64Icon} from './svgs/external-wallets/wallet-stoic-64.icon';
+import {WalletUnisat24Icon} from './svgs/external-wallets/wallet-unisat-24.icon';
+import {WalletUnisat64Icon} from './svgs/external-wallets/wallet-unisat-64.icon';
+import {WalletXverse24Icon} from './svgs/external-wallets/wallet-xverse-24.icon';
+import {WalletXverse64Icon} from './svgs/external-wallets/wallet-xverse-64.icon';
 import {BrandDiscord24Icon} from './svgs/third-party-brands/brand-discord-24.icon';
 import {BrandDistrikt24Icon} from './svgs/third-party-brands/brand-distrikt-24.icon';
 import {BrandDscvr24Icon} from './svgs/third-party-brands/brand-dscvr-24.icon';
@@ -193,6 +205,18 @@ export * from './svgs/cryptocurrencies/crypto-ck-btc-16.icon';
 export * from './svgs/cryptocurrencies/crypto-ck-btc-24.icon';
 export * from './svgs/cryptocurrencies/crypto-icp-16.icon';
 export * from './svgs/cryptocurrencies/crypto-icp-24.icon';
+export * from './svgs/external-wallets/wallet-infinity-24.icon';
+export * from './svgs/external-wallets/wallet-infinity-64.icon';
+export * from './svgs/external-wallets/wallet-leather-24.icon';
+export * from './svgs/external-wallets/wallet-leather-64.icon';
+export * from './svgs/external-wallets/wallet-plug-24.icon';
+export * from './svgs/external-wallets/wallet-plug-64.icon';
+export * from './svgs/external-wallets/wallet-stoic-24.icon';
+export * from './svgs/external-wallets/wallet-stoic-64.icon';
+export * from './svgs/external-wallets/wallet-unisat-24.icon';
+export * from './svgs/external-wallets/wallet-unisat-64.icon';
+export * from './svgs/external-wallets/wallet-xverse-24.icon';
+export * from './svgs/external-wallets/wallet-xverse-64.icon';
 export * from './svgs/third-party-brands/brand-discord-24.icon';
 export * from './svgs/third-party-brands/brand-distrikt-24.icon';
 export * from './svgs/third-party-brands/brand-dscvr-24.icon';
@@ -310,6 +334,20 @@ export const allIconsByCategory = {
         CryptoCkBtc24Icon,
         CryptoIcp16Icon,
         CryptoIcp24Icon,
+    ],
+    'external-wallets': [
+        WalletInfinity24Icon,
+        WalletInfinity64Icon,
+        WalletLeather24Icon,
+        WalletLeather64Icon,
+        WalletPlug24Icon,
+        WalletPlug64Icon,
+        WalletStoic24Icon,
+        WalletStoic64Icon,
+        WalletUnisat24Icon,
+        WalletUnisat64Icon,
+        WalletXverse24Icon,
+        WalletXverse64Icon,
     ],
     'third-party-brands': [
         BrandDiscord24Icon,
