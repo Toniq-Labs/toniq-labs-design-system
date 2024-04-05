@@ -5175,7 +5175,6 @@ var bh=Object.defineProperty;var yh=(e,t,r)=>t in e?bh(e,t,{enumerable:!0,config
         }
 
         .row-item {
-            height: -webkit-fill-available;
             border: ${e["toniq-list-table-border-width"].value} solid transparent;
         }
 
