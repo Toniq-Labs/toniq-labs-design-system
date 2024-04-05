@@ -21,5 +21,9 @@ module.exports = {
         'tablist',
         'toniq',
         'CODEOWNERS',
+        'Unisat',
+        'unisat',
+        'Xverse',
+        'xverse',
     ],
 };
