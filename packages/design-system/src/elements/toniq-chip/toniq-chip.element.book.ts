@@ -64,6 +64,14 @@ export const toniqChipBookPage = defineBookPage({
                     title: 'secondary style',
                     inputs: {variant: ToniqChipVariantEnum.Secondary},
                 },
+                {
+                    title: 'warning style',
+                    inputs: {variant: ToniqChipVariantEnum.Warning},
+                },
+                {
+                    title: 'danger style',
+                    inputs: {variant: ToniqChipVariantEnum.Danger},
+                },
             ];
 
         styleVariations.forEach((styleVariation) => {
