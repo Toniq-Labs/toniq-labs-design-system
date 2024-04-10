@@ -18,6 +18,11 @@ export enum ToniqButtonVariantEnum {
     TextOnly = 'text-only',
 }
 
+export enum ToniqButtonIconPlacement {
+    Left = 'left',
+    Right = 'right',
+}
+
 export enum ToniqButtonEffectsEnum {
     Pulse = 'pulse',
 }
@@ -29,7 +34,7 @@ export const ToniqButton = defineToniqElement<{
     variant?: ToniqButtonVariantEnum | undefined;
     disabled?: boolean | undefined;
     effect?: ToniqButtonEffectsEnum;
-    iconPlacement?: 'left' | 'right';
+    iconPlacement?: ToniqButtonIconPlacement;
 }>()({
     tagName: 'toniq-button',
     hostClasses: {
@@ -133,7 +138,7 @@ export const ToniqButton = defineToniqElement<{
         ${toniqAnimations.buttonPulse.keyFrames}
     `,
     renderCallback({inputs}) {
-        const iconPlacement = inputs.iconPlacement ?? 'left';
+        const iconPlacement = inputs.iconPlacement ?? ToniqButtonIconPlacement.Left;
         const iconTemplate = inputs.icon
             ? html`
                   <${ToniqIcon.assign({
@@ -149,8 +154,8 @@ export const ToniqButton = defineToniqElement<{
               `
             : '';
 
-        const leftIcon = renderIf(iconPlacement === 'left', iconTemplate);
-        const rightIcon = renderIf(iconPlacement === 'right', iconTemplate);
+        const leftIcon = renderIf(iconPlacement === ToniqButtonIconPlacement.Left, iconTemplate);
+        const rightIcon = renderIf(iconPlacement === ToniqButtonIconPlacement.Right, iconTemplate);
 
         return html`
             <button ?disabled=${inputs.disabled}>
