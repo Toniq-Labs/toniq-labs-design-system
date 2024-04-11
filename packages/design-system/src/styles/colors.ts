@@ -41,6 +41,21 @@ const mainLightPalette = (() => {
         foregroundColor: css`#D6D6D6`,
     };
 
+    const colorDanger: DualColorDefinition = {
+        foregroundColor: css`#ffffff`,
+        backgroundColor: css`#FF5357`,
+    };
+
+    const colorSuccess: DualColorDefinition = {
+        foregroundColor: css`#ffffff`,
+        backgroundColor: css`#01C9A0`,
+    };
+
+    const colorWarning: DualColorDefinition = {
+        foregroundColor: css`#ffffff`,
+        backgroundColor: css`#FFAC00`,
+    };
+
     const pageInteraction: DualColorDefinition = {
         ...brandPrimary,
     };
@@ -109,6 +124,9 @@ const mainLightPalette = (() => {
         accentPrimaryActive,
         accentSecondary,
         accentTertiary,
+        colorDanger,
+        colorSuccess,
+        colorWarning,
     } as const satisfies Record<string, DualColorDefinition>;
 
     return allColors;

@@ -8,6 +8,9 @@ import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 export enum ToniqChipVariantEnum {
     Default = 'default',
     Secondary = 'secondary',
+    Success = 'success',
+    Warning = 'warning',
+    Danger = 'danger',
 }
 
 export const ToniqChip = defineToniqElement<{
@@ -20,6 +23,9 @@ export const ToniqChip = defineToniqElement<{
     tagName: 'toniq-chip',
     hostClasses: {
         'toniq-chip-secondary': ({inputs}) => inputs.variant === ToniqChipVariantEnum.Secondary,
+        'toniq-chip-success': ({inputs}) => inputs.variant === ToniqChipVariantEnum.Success,
+        'toniq-chip-warning': ({inputs}) => inputs.variant === ToniqChipVariantEnum.Warning,
+        'toniq-chip-danger': ({inputs}) => inputs.variant === ToniqChipVariantEnum.Danger,
     },
     options: {
         ignoreUnsetInputs: true,
@@ -39,6 +45,18 @@ export const ToniqChip = defineToniqElement<{
 
         ${hostClasses['toniq-chip-secondary'].selector} {
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
+        }
+
+        ${hostClasses['toniq-chip-warning'].selector} {
+            ${applyBackgroundAndForeground(toniqColors.colorWarning)};
+        }
+
+        ${hostClasses['toniq-chip-danger'].selector} {
+            ${applyBackgroundAndForeground(toniqColors.colorDanger)};
+        }
+
+        ${hostClasses['toniq-chip-success'].selector} {
+            ${applyBackgroundAndForeground(toniqColors.colorSuccess)};
         }
     `,
     renderCallback({inputs}) {
