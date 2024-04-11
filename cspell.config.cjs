@@ -12,6 +12,7 @@ module.exports = {
     words: [
         ...baseConfig.words,
         'bioniq',
+        'bitfinity',
         'dfinity',
         'distrikt',
         'dscvr',

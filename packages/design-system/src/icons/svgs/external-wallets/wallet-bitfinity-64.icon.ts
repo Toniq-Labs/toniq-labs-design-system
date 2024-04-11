@@ -1,8 +1,8 @@
 import {html} from 'element-vir';
 import {defineIcon} from 'vira';
 
-export const WalletInfinity64Icon = defineIcon({
-    name: 'WalletInfinity64Icon',
+export const WalletBitfinity64Icon = defineIcon({
+    name: 'WalletBitfinity64Icon',
     svgTemplate: html`
         <svg
             width="64"

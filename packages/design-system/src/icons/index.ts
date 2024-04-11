@@ -88,8 +88,8 @@ import {CryptoCkBtc16Icon} from './svgs/cryptocurrencies/crypto-ck-btc-16.icon';
 import {CryptoCkBtc24Icon} from './svgs/cryptocurrencies/crypto-ck-btc-24.icon';
 import {CryptoIcp16Icon} from './svgs/cryptocurrencies/crypto-icp-16.icon';
 import {CryptoIcp24Icon} from './svgs/cryptocurrencies/crypto-icp-24.icon';
-import {WalletInfinity24Icon} from './svgs/external-wallets/wallet-infinity-24.icon';
-import {WalletInfinity64Icon} from './svgs/external-wallets/wallet-infinity-64.icon';
+import {WalletBitfinity24Icon} from './svgs/external-wallets/wallet-bitfinity-24.icon';
+import {WalletBitfinity64Icon} from './svgs/external-wallets/wallet-bitfinity-64.icon';
 import {WalletLeather24Icon} from './svgs/external-wallets/wallet-leather-24.icon';
 import {WalletLeather64Icon} from './svgs/external-wallets/wallet-leather-64.icon';
 import {WalletPlug24Icon} from './svgs/external-wallets/wallet-plug-24.icon';
@@ -205,8 +205,8 @@ export * from './svgs/cryptocurrencies/crypto-ck-btc-16.icon';
 export * from './svgs/cryptocurrencies/crypto-ck-btc-24.icon';
 export * from './svgs/cryptocurrencies/crypto-icp-16.icon';
 export * from './svgs/cryptocurrencies/crypto-icp-24.icon';
-export * from './svgs/external-wallets/wallet-infinity-24.icon';
-export * from './svgs/external-wallets/wallet-infinity-64.icon';
+export * from './svgs/external-wallets/wallet-bitfinity-24.icon';
+export * from './svgs/external-wallets/wallet-bitfinity-64.icon';
 export * from './svgs/external-wallets/wallet-leather-24.icon';
 export * from './svgs/external-wallets/wallet-leather-64.icon';
 export * from './svgs/external-wallets/wallet-plug-24.icon';
@@ -336,8 +336,8 @@ export const allIconsByCategory = {
         CryptoIcp24Icon,
     ],
     'external-wallets': [
-        WalletInfinity24Icon,
-        WalletInfinity64Icon,
+        WalletBitfinity24Icon,
+        WalletBitfinity64Icon,
         WalletLeather24Icon,
         WalletLeather64Icon,
         WalletPlug24Icon,

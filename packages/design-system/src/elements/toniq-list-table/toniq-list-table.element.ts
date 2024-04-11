@@ -317,6 +317,13 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                 >
                     ${enabledColumns.map((item, index) => {
                         const contents = row.cells[item.key as keyof typeof row];
+
+                        const rowItemStyle = css`
+                            left: ${unsafeCSS(`${state.rowStyles[item.key as string]?.left}px`)};
+                            min-width: ${index >= enabledColumns.length - 1
+                                ? unsafeCSS('unset')
+                                : unsafeCSS(`${state.rowStyles[item.key as string]?.width}px`)};
+                        `;
                         return html`
                             <div
                                 class=${classMap({
@@ -326,17 +333,10 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                         : false,
                                 })}
                                 style=${item.style
-                                    ? item.style
-                                    : css`
-                                          left: ${unsafeCSS(
-                                              `${state.rowStyles[item.key as string]?.left}px`,
-                                          )};
-                                          min-width: ${index >= enabledColumns.length - 1
-                                              ? unsafeCSS('unset')
-                                              : unsafeCSS(
-                                                    `${state.rowStyles[item.key as string]?.width}px`,
-                                                )};
-                                      `}
+                                    ? css`
+                                          ${item.style} ${rowItemStyle}
+                                      `
+                                    : rowItemStyle}
                             >
                                 <div
                                     class=${classMap({
