@@ -4,6 +4,7 @@ import {
     css,
     defineElementEvent,
     html,
+    keyed,
     listen,
     nothing,
     onDomCreated,
@@ -39,7 +40,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             display: flex;
             overflow-x: auto;
             border-radius: ${cssVars['toniq-list-table-header-radius'].value};
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            border: 1px solid ${toniqColors.dividerFaint.foregroundColor};
         }
 
         /* Firefox */
@@ -257,6 +258,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         },
         isPainting: false,
         itemsPainted: 0,
+        pageCountKey: 0,
     },
     initCallback({inputs, state, updateState}) {
         const enabledColumns = inputs.columns.filter((column) => !column.disabled);
@@ -299,6 +301,11 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                               'blocked-pagination': !!inputs.showLoading,
                           })}
                           ${listen(ToniqPagination.events.pageChange, (event) => {
+                              updateState({
+                                  pageCountKey: inputs.pagination?.pageCount
+                                      ? inputs.pagination?.pageCount
+                                      : state.pageCountKey + 1,
+                              });
                               dispatch(new events.pageChange(event.detail));
                           })}
                       ></${ToniqPagination}>
@@ -307,89 +314,98 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
 
         function listItem(row: ListTableRow<any>, rowIndex: number) {
             return html`
-                <div
-                    class="row-wrapper"
-                    ${rowIndex > 0
-                        ? listen('click', (clickEvent) => {
-                              row.rowActions?.click?.({clickEvent, dispatch});
-                          })
-                        : nothing}
-                >
-                    ${enabledColumns.map((item, index) => {
-                        const contents = row.cells[item.key as keyof typeof row];
+                ${keyed(
+                    state.pageCountKey,
+                    html`
+                        <div
+                            class="row-wrapper"
+                            ${rowIndex > 0
+                                ? listen('click', (clickEvent) => {
+                                      row.rowActions?.click?.({clickEvent, dispatch});
+                                  })
+                                : nothing}
+                        >
+                            ${enabledColumns.map((item, index) => {
+                                const contents = row.cells[item.key as keyof typeof row];
 
-                        const rowItemStyle = css`
-                            left: ${unsafeCSS(`${state.rowStyles[item.key as string]?.left}px`)};
-                            min-width: ${index >= enabledColumns.length - 1
-                                ? unsafeCSS('unset')
-                                : unsafeCSS(`${state.rowStyles[item.key as string]?.width}px`)};
-                        `;
-                        return html`
-                            <div
-                                class=${classMap({
-                                    'row-item': true,
-                                    sticky: item.mobile?.sticky
-                                        ? item.mobile?.sticky && state.canScroll
-                                        : false,
-                                })}
-                                style=${item.style
-                                    ? css`
-                                          ${item.style} ${rowItemStyle}
-                                      `
-                                    : rowItemStyle}
-                            >
-                                <div
-                                    class=${classMap({
-                                        'row-content': true,
-                                        hidden: rowIndex === 0,
-                                    })}
-                                    ${onDomCreated((container) => {
-                                        const parentEl = container.closest('.table-list');
-                                        const containerLeft =
-                                            parentEl?.getBoundingClientRect().left;
+                                const rowItemStyle = css`
+                                    left: ${unsafeCSS(
+                                        `${state.rowStyles[item.key as string]?.left}px`,
+                                    )};
+                                    min-width: ${index >= enabledColumns.length - 1
+                                        ? unsafeCSS('unset')
+                                        : unsafeCSS(
+                                              `${state.rowStyles[item.key as string]?.width}px`,
+                                          )};
+                                `;
+                                return html`
+                                    <div
+                                        class=${classMap({
+                                            'row-item': true,
+                                            sticky: item.mobile?.sticky
+                                                ? item.mobile?.sticky && state.canScroll
+                                                : false,
+                                        })}
+                                        style=${item.style
+                                            ? css`
+                                                  ${item.style} ${rowItemStyle}
+                                              `
+                                            : rowItemStyle}
+                                    >
+                                        <div
+                                            class=${classMap({
+                                                'row-content': true,
+                                                hidden: rowIndex === 0,
+                                            })}
+                                            ${onDomCreated((container) => {
+                                                const parentEl = container.closest('.table-list');
+                                                const containerLeft =
+                                                    parentEl?.getBoundingClientRect().left;
 
-                                        const rowItem = parentEl?.querySelectorAll('.row-item')[
-                                            index
-                                        ] as HTMLElement;
-                                        const left = rowItem?.getBoundingClientRect().left;
+                                                const rowItem = parentEl?.querySelectorAll(
+                                                    '.row-item',
+                                                )[index] as HTMLElement;
+                                                const left = rowItem?.getBoundingClientRect().left;
 
-                                        const currentWidth =
-                                            container.getBoundingClientRect().width;
-                                        if (
-                                            !state.rowStyles[item.key as string]?.width ||
-                                            currentWidth >
-                                                (state.rowStyles[item.key as string]
-                                                    ?.width as number)
-                                        ) {
-                                            updateState({
-                                                rowStyles: {
-                                                    ...state.rowStyles,
-                                                    [item.key]: {
-                                                        width: currentWidth,
-                                                        left: containerLeft
-                                                            ? left - containerLeft
-                                                            : left,
-                                                    },
-                                                },
-                                            });
-                                        }
-                                        updateState({
-                                            itemsPainted: state.itemsPainted + 1,
-                                        });
-                                    })}
-                                >
-                                    ${contents}
-                                </div>
-                                ${renderIf(
-                                    rowIndex === 0,
-                                    html`
-                                        <span class="header">${item.title}</span>
-                                    `,
-                                )}
-                            </div>
-                        `;
-                    })}
-                </div>
+                                                const currentWidth =
+                                                    container.getBoundingClientRect().width;
+                                                if (
+                                                    !state.rowStyles[item.key as string]?.width ||
+                                                    currentWidth >
+                                                        (state.rowStyles[item.key as string]
+                                                            ?.width as number)
+                                                ) {
+                                                    updateState({
+                                                        rowStyles: {
+                                                            ...state.rowStyles,
+                                                            [item.key]: {
+                                                                width: currentWidth,
+                                                                left: containerLeft
+                                                                    ? left - containerLeft
+                                                                    : left,
+                                                            },
+                                                        },
+                                                    });
+                                                }
+                                                updateState({
+                                                    itemsPainted: state.itemsPainted + 1,
+                                                });
+                                            })}
+                                        >
+                                            ${contents}
+                                        </div>
+                                        ${renderIf(
+                                            rowIndex === 0,
+                                            html`
+                                                <span class="header">${item.title}</span>
+                                            `,
+                                        )}
+                                    </div>
+                                `;
+                            })}
+                        </div>
+                    `,
+                )}
             `;
         }
 
