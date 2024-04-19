@@ -102,9 +102,7 @@ export const toniqToggleButtonBookPage = defineBookPage({
                                     newStates[index] = !newStates[index];
                                     updateState({buttonStates: newStates});
                                 })}
-                            >
-                                <span>Sample Text</span>
-                            </${ToniqToggleButton}>
+                            ></${ToniqToggleButton}>
                         `;
                     });
                 },
