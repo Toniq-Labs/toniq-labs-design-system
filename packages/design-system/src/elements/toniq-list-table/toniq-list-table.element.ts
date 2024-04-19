@@ -4,7 +4,6 @@ import {
     css,
     defineElementEvent,
     html,
-    keyed,
     listen,
     nothing,
     onDomCreated,
@@ -314,98 +313,89 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
 
         function listItem(row: ListTableRow<any>, rowIndex: number) {
             return html`
-                ${keyed(
-                    state.pageCountKey,
-                    html`
-                        <div
-                            class="row-wrapper"
-                            ${rowIndex > 0
-                                ? listen('click', (clickEvent) => {
-                                      row.rowActions?.click?.({clickEvent, dispatch});
-                                  })
-                                : nothing}
-                        >
-                            ${enabledColumns.map((item, index) => {
-                                const contents = row.cells[item.key as keyof typeof row];
+                <div
+                    class="row-wrapper"
+                    ${rowIndex > 0
+                        ? listen('click', (clickEvent) => {
+                              row.rowActions?.click?.({clickEvent, dispatch});
+                          })
+                        : nothing}
+                >
+                    ${enabledColumns.map((item, index) => {
+                        const contents = row.cells[item.key as keyof typeof row];
 
-                                const rowItemStyle = css`
-                                    left: ${unsafeCSS(
-                                        `${state.rowStyles[item.key as string]?.left}px`,
-                                    )};
-                                    min-width: ${index >= enabledColumns.length - 1
-                                        ? unsafeCSS('unset')
-                                        : unsafeCSS(
-                                              `${state.rowStyles[item.key as string]?.width}px`,
-                                          )};
-                                `;
-                                return html`
-                                    <div
-                                        class=${classMap({
-                                            'row-item': true,
-                                            sticky: item.mobile?.sticky
-                                                ? item.mobile?.sticky && state.canScroll
-                                                : false,
-                                        })}
-                                        style=${item.style
-                                            ? css`
-                                                  ${item.style} ${rowItemStyle}
-                                              `
-                                            : rowItemStyle}
-                                    >
-                                        <div
-                                            class=${classMap({
-                                                'row-content': true,
-                                                hidden: rowIndex === 0,
-                                            })}
-                                            ${onDomCreated((container) => {
-                                                const parentEl = container.closest('.table-list');
-                                                const containerLeft =
-                                                    parentEl?.getBoundingClientRect().left;
+                        const rowItemStyle = css`
+                            left: ${unsafeCSS(`${state.rowStyles[item.key as string]?.left}px`)};
+                            min-width: ${index >= enabledColumns.length - 1
+                                ? unsafeCSS('unset')
+                                : unsafeCSS(`${state.rowStyles[item.key as string]?.width}px`)};
+                        `;
+                        return html`
+                            <div
+                                class=${classMap({
+                                    'row-item': true,
+                                    sticky: item.mobile?.sticky
+                                        ? item.mobile?.sticky && state.canScroll
+                                        : false,
+                                })}
+                                style=${item.style
+                                    ? css`
+                                          ${item.style} ${rowItemStyle}
+                                      `
+                                    : rowItemStyle}
+                            >
+                                <div
+                                    class=${classMap({
+                                        'row-content': true,
+                                        hidden: rowIndex === 0,
+                                    })}
+                                    ${onDomCreated((container) => {
+                                        const parentEl = container.closest('.table-list');
+                                        const containerLeft =
+                                            parentEl?.getBoundingClientRect().left;
 
-                                                const rowItem = parentEl?.querySelectorAll(
-                                                    '.row-item',
-                                                )[index] as HTMLElement;
-                                                const left = rowItem?.getBoundingClientRect().left;
+                                        const rowItem = parentEl?.querySelectorAll('.row-item')[
+                                            index
+                                        ] as HTMLElement;
+                                        const left = rowItem?.getBoundingClientRect().left;
 
-                                                const currentWidth =
-                                                    container.getBoundingClientRect().width;
-                                                if (
-                                                    !state.rowStyles[item.key as string]?.width ||
-                                                    currentWidth >
-                                                        (state.rowStyles[item.key as string]
-                                                            ?.width as number)
-                                                ) {
-                                                    updateState({
-                                                        rowStyles: {
-                                                            ...state.rowStyles,
-                                                            [item.key]: {
-                                                                width: currentWidth,
-                                                                left: containerLeft
-                                                                    ? left - containerLeft
-                                                                    : left,
-                                                            },
-                                                        },
-                                                    });
-                                                }
-                                                updateState({
-                                                    itemsPainted: state.itemsPainted + 1,
-                                                });
-                                            })}
-                                        >
-                                            ${contents}
-                                        </div>
-                                        ${renderIf(
-                                            rowIndex === 0,
-                                            html`
-                                                <span class="header">${item.title}</span>
-                                            `,
-                                        )}
-                                    </div>
-                                `;
-                            })}
-                        </div>
-                    `,
-                )}
+                                        const currentWidth =
+                                            container.getBoundingClientRect().width;
+                                        if (
+                                            !state.rowStyles[item.key as string]?.width ||
+                                            currentWidth >
+                                                (state.rowStyles[item.key as string]
+                                                    ?.width as number)
+                                        ) {
+                                            updateState({
+                                                rowStyles: {
+                                                    ...state.rowStyles,
+                                                    [item.key]: {
+                                                        width: currentWidth,
+                                                        left: containerLeft
+                                                            ? left - containerLeft
+                                                            : left,
+                                                    },
+                                                },
+                                            });
+                                        }
+                                        updateState({
+                                            itemsPainted: state.itemsPainted + 1,
+                                        });
+                                    })}
+                                >
+                                    ${contents}
+                                </div>
+                                ${renderIf(
+                                    rowIndex === 0,
+                                    html`
+                                        <span class="header">${item.title}</span>
+                                    `,
+                                )}
+                            </div>
+                        `;
+                    })}
+                </div>
             `;
         }
 
@@ -453,6 +443,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                         `,
                     )}
                 </div>
+
                 <div
                     class=${classMap({
                         'loading-wrapper': true,

@@ -1,4 +1,4 @@
-import {css, html} from 'element-vir';
+import {css, html, renderIf} from 'element-vir';
 import {noNativeFormStyles, noUserSelect} from 'vira';
 import {ToniqSvg} from '../../icons';
 import {toniqDurations} from '../../styles/animation';
@@ -14,12 +14,18 @@ export enum ToniqToggleButtonVariantEnum {
     TextOnly = 'text-only',
 }
 
+export enum ToniqToggleButtonIconPlacementEnum {
+    Left = 'left',
+    Right = 'right',
+}
+
 export const ToniqToggleButton = defineToniqElement<{
     text?: string | undefined;
     toggled: boolean;
     icon?: ToniqSvg | undefined;
     disabled?: boolean | undefined;
     variant?: ToniqToggleButtonVariantEnum;
+    iconPlacement?: ToniqToggleButtonIconPlacementEnum;
 }>()({
     tagName: 'toniq-toggle-button',
     hostClasses: {
@@ -102,11 +108,13 @@ export const ToniqToggleButton = defineToniqElement<{
             ${toniqDisabledStyles};
         }
 
-        .icon-template + .text-template {
+        .icon-template + .text-template,
+        .text-template + .icon-template {
             margin-left: 8px;
         }
     `,
     renderCallback({inputs}) {
+        const iconPlacement = inputs.iconPlacement ?? ToniqToggleButtonIconPlacementEnum.Left;
         const iconTemplate = inputs.icon
             ? html`
                   <${ToniqIcon.assign({
@@ -122,6 +130,15 @@ export const ToniqToggleButton = defineToniqElement<{
               `
             : '';
 
+        const leftIcon = renderIf(
+            iconPlacement === ToniqToggleButtonIconPlacementEnum.Left,
+            iconTemplate,
+        );
+        const rightIcon = renderIf(
+            iconPlacement === ToniqToggleButtonIconPlacementEnum.Right,
+            iconTemplate,
+        );
+
         return html`
             <button
                 class="${inputs.toggled ? 'toggled' : ''}"
@@ -129,7 +146,7 @@ export const ToniqToggleButton = defineToniqElement<{
                 ?disabled=${inputs.disabled}
                 aria-checked=${inputs.toggled}
             >
-                ${iconTemplate} ${textTemplate}
+                <slot>${leftIcon} ${textTemplate} ${rightIcon}</slot>
             </button>
         `;
     },
