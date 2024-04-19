@@ -5,7 +5,7 @@ import {Trash24Icon} from '../../icons';
 import {
     ToniqButton,
     ToniqButtonEffectsEnum,
-    ToniqButtonIconPlacement,
+    ToniqButtonIconPlacementEnum,
     ToniqButtonVariantEnum,
 } from './toniq-button.element';
 
@@ -46,7 +46,7 @@ export const toniqButtonPage = defineBookPage({
                 {
                     name: 'Right Icon',
                     inputs: {
-                        iconPlacement: ToniqButtonIconPlacement.Right,
+                        iconPlacement: ToniqButtonIconPlacementEnum.Right,
                         variant: ToniqButtonVariantEnum.Outline,
                     },
                 },
