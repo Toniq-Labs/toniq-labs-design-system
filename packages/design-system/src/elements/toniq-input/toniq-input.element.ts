@@ -150,7 +150,7 @@ export const ToniqInput = defineToniqElement<{
             }
 
             ${hostClasses['toniq-input-outline'].selector} ${ToniqIcon} {
-                color: ${toniqColors.pageSecondary.foregroundColor};
+                color: ${toniqColors.pagePrimary.foregroundColor};
             }
 
             :host(
