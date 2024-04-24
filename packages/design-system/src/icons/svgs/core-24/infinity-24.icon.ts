@@ -8,7 +8,7 @@ export const Infinity24Icon = defineIcon({
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke=${toniqIconCssVars['toniq-icon-stroke-color'].value}
-            fill="none"
+            fill=${toniqIconCssVars['toniq-icon-fill-color'].value}
             stroke-linecap="round"
             stroke-linejoin="round"
             width="24"

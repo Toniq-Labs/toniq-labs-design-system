@@ -8,28 +8,15 @@ export const ChevronsRight16Icon = defineIcon({
         <svg
             width="16"
             height="16"
-            fill=${toniqIconCssVars['toniq-icon-fill-color'].value}
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke=${toniqIconCssVars['toniq-icon-stroke-color'].value}
+            stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+            stroke-linecap="round"
+            stroke-linejoin="round"
             xmlns="http://www.w3.org/2000/svg"
         >
-            <g
-                clip-path="url(#a)"
-                stroke=${toniqIconCssVars['toniq-icon-stroke-color'].value}
-                stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path
-                    d="m4.66699 4.6665 3.33334 3.33334-3.33334 3.33336m4-6.6667 3.33331 3.33334-3.33331 3.33336"
-                />
-            </g>
-            <defs>
-                <clipPath id="a">
-                    <path
-                        fill=${toniqIconCssVars['toniq-icon-fill-color'].value}
-                        d="M0 0h16v16H0z"
-                    />
-                </clipPath>
-            </defs>
+            <path d="M4.666 4.667 7.999 8l-3.333 3.333m4-6.666L11.999 8l-3.333 3.333" />
         </svg>
     `,
 });
