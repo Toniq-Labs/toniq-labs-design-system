@@ -7,8 +7,8 @@ export const Chain24Icon = defineIcon({
     svgTemplate: html`
         <svg
             xmlns="http://www.w3.org/2000/svg"
+            fill=${toniqIconCssVars['toniq-icon-fill-color'].value}
             stroke=${toniqIconCssVars['toniq-icon-stroke-color'].value}
-            fill="none"
             stroke-linecap="round"
             stroke-linejoin="round"
             viewBox="0 0 24 24"
