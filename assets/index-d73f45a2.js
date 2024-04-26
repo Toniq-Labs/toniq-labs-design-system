@@ -1434,7 +1434,7 @@ var kh=Object.defineProperty;var xh=(e,t,n)=>t in e?kh(e,t,{enumerable:!0,config
             viewBox="0 0 16 16"
             fill=${d["toniq-icon-fill-color"].value}
             stroke=${d["toniq-icon-stroke-color"].value}
-            stroke-width=${d["toniq-icon-stroke-width"].value}
+            stroke-width=${`calc(${d["toniq-icon-stroke-width"].value} / 2)`}
             xmlns="http://www.w3.org/2000/svg"
         >
             <path
