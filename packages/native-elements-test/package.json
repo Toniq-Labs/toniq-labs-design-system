@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system-native-elements-test",
-    "version": "16.8.5",
+    "version": "16.8.6",
     "private": true,
     "scripts": {
         "compile": "virmator compile",
