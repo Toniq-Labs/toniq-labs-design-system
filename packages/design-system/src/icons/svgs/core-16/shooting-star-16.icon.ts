@@ -11,7 +11,7 @@ export const ShootingStar16Icon = defineIcon({
             viewBox="0 0 16 16"
             fill=${toniqIconCssVars['toniq-icon-fill-color'].value}
             stroke=${toniqIconCssVars['toniq-icon-stroke-color'].value}
-            stroke-width=${toniqIconCssVars['toniq-icon-stroke-width'].value}
+            stroke-width=${`calc(${toniqIconCssVars['toniq-icon-stroke-width'].value} / 2)`}
             xmlns="http://www.w3.org/2000/svg"
         >
             <path
