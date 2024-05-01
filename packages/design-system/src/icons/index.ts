@@ -78,6 +78,7 @@ import {Wallet24Icon} from './svgs/core-24/wallet-24.icon';
 import {World24Icon} from './svgs/core-24/world-24.icon';
 import {WorldUpload24Icon} from './svgs/core-24/world-upload-24.icon';
 import {X24Icon} from './svgs/core-24/x-24.icon';
+import {XCircle24Icon} from './svgs/core-24/x-circle-24.icon';
 import {Folder48Icon} from './svgs/core-48/folder-48.icon';
 import {FolderOff48Icon} from './svgs/core-48/folder-off-48.icon';
 import {Kyc48Icon} from './svgs/core-48/kyc-48.icon';
@@ -199,6 +200,7 @@ export * from './svgs/core-24/wallet-24.icon';
 export * from './svgs/core-24/world-24.icon';
 export * from './svgs/core-24/world-upload-24.icon';
 export * from './svgs/core-24/x-24.icon';
+export * from './svgs/core-24/x-circle-24.icon';
 export * from './svgs/core-48/folder-48.icon';
 export * from './svgs/core-48/folder-off-48.icon';
 export * from './svgs/core-48/kyc-48.icon';
@@ -326,6 +328,7 @@ export const allIconsByCategory = {
         World24Icon,
         WorldUpload24Icon,
         X24Icon,
+        XCircle24Icon,
     ],
     'core-48': [
         Folder48Icon,

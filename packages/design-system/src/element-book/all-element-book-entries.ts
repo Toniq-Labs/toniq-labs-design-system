@@ -1,4 +1,5 @@
 import {socialUrlsBookPage} from '../data/social-urls.book';
+import {toniqAlertPage} from '../elements/toniq-alert/toniq-alert.element.book';
 import {toniqBoldSpacePage} from '../elements/toniq-bold-space/toniq-bold-space.element.book';
 import {toniqButtonPage} from '../elements/toniq-button/toniq-button.element.book';
 import {toniqCarouselBookPage} from '../elements/toniq-carousel/toniq-carousel.element.book';
@@ -42,6 +43,7 @@ const childPages = [
     ...toniqTooltipElementBookEntries,
     socialUrlsBookPage,
     toniqBoldSpacePage,
+    toniqAlertPage,
     toniqButtonPage,
     toniqCarouselBookPage,
     toniqCheckboxPage,

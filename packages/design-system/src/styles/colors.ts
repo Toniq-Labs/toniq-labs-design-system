@@ -46,14 +46,29 @@ const mainLightPalette = (() => {
         backgroundColor: css`#FF5357`,
     };
 
+    const alertDanger: DualColorDefinition = {
+        ...swapColors(colorDanger),
+        backgroundColor: css`transparent`,
+    };
+
     const colorSuccess: DualColorDefinition = {
         foregroundColor: css`#ffffff`,
         backgroundColor: css`#01C9A0`,
     };
 
+    const alertSuccess: DualColorDefinition = {
+        ...swapColors(colorSuccess),
+        backgroundColor: css`transparent`,
+    };
+
     const colorWarning: DualColorDefinition = {
         foregroundColor: css`#ffffff`,
         backgroundColor: css`#FFAC00`,
+    };
+
+    const alertWarning: DualColorDefinition = {
+        ...swapColors(colorWarning),
+        backgroundColor: css`transparent`,
     };
 
     const pageInteraction: DualColorDefinition = {
@@ -127,6 +142,9 @@ const mainLightPalette = (() => {
         colorDanger,
         colorSuccess,
         colorWarning,
+        alertDanger,
+        alertWarning,
+        alertSuccess,
     } as const satisfies Record<string, DualColorDefinition>;
 
     return allColors;
@@ -189,5 +207,12 @@ export function applyBackgroundAndForeground(colorDefinition: DualColorDefinitio
     return css`
         background-color: ${colorDefinition.backgroundColor};
         color: ${colorDefinition.foregroundColor};
+    `;
+}
+
+export function applyBorderAndBackground(colorDefinition: DualColorDefinition): CSSResult {
+    return css`
+        background: ${colorDefinition.backgroundColor};
+        border-color: ${colorDefinition.foregroundColor};
     `;
 }
