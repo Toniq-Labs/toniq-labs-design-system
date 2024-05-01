@@ -1,6 +1,7 @@
 /** This file is automatically updated by update-element-exports.ts */
 
 export * from './define-toniq-element';
+export * from './toniq-alert/toniq-alert.element';
 export * from './toniq-bold-space/toniq-bold-space.element';
 export * from './toniq-button/toniq-button.element';
 export * from './toniq-carousel/toniq-carousel.element';

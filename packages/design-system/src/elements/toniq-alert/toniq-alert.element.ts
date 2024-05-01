@@ -1,6 +1,7 @@
 import {css, defineElement, html} from 'element-vir';
 import {ViraIconSvg} from 'vira';
-import {CheckMark24Icon, Info24Icon, X24Icon} from '../../icons';
+import {CheckMark24Icon, Info24Icon} from '../../icons';
+import {XCircle24Icon} from '../../icons/svgs/core-24/x-circle-24.icon';
 import {applyBorderAndBackground, toniqColors} from '../../styles';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
@@ -61,7 +62,7 @@ export const ToniqAlert = defineElement<{
                 icon = Info24Icon;
                 break;
             default:
-                icon = X24Icon;
+                icon = XCircle24Icon;
                 break;
         }
 

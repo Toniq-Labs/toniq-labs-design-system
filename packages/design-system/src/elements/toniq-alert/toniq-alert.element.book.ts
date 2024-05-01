@@ -25,7 +25,7 @@ export const toniqAlertPage = defineBookPage({
                 inputs: {
                     variant: ToniqAlertVariantEnum.Warning,
                 },
-                slot: 'This is a warning, proceed with caution',
+                slot: 'This is a warning, proceed with caution 🚧',
             },
 
             {
@@ -49,7 +49,7 @@ export const toniqAlertPage = defineBookPage({
                         gap: 16px;
                     }
                 `,
-                renderCallback({state, updateState}) {
+                renderCallback() {
                     return html`
                         <${ToniqAlert.assign(exampleSetup.inputs)}>
                             ${exampleSetup.slot}
