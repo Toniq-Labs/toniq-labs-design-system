@@ -65,6 +65,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .table-wrapper {
+            min-height: 500px;
             position: relative;
             overflow-y: hidden;
             overflow-x: auto;
@@ -76,7 +77,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             align-items: center;
             gap: 32px;
 
-            background: ${toniqColors.pageInteraction.backgroundColor};
+            background-color: ${toniqColors.pageInteraction.backgroundColor};
             border-radius: ${cssVars['toniq-list-table-header-radius'].value};
             border: 24px solid ${toniqColors.pageInteraction.backgroundColor};
         }
