@@ -113,6 +113,7 @@ const mainLightPalette = (() => {
         /** Color for foreground (text) on top of accentSecondaryBackgroundColor. */
         foregroundColor: pagePrimary.foregroundColor,
     };
+
     const accentTertiary: DualColorDefinition = {
         ...accentSecondary,
         /**
@@ -120,6 +121,13 @@ const mainLightPalette = (() => {
          * foreground is just a placeholder.
          */
         foregroundColor: css`#9A9A9D`,
+    };
+
+    const opaqueOverlay: DualColorDefinition = {
+        ...pagePrimary,
+        backgroundColor: css`color(
+            from ${pageInteraction.backgroundColor} srgb r g b / 0.9
+        )`,
     };
 
     const allColors = {
@@ -145,6 +153,7 @@ const mainLightPalette = (() => {
         alertDanger,
         alertWarning,
         alertSuccess,
+        opaqueOverlay,
     } as const satisfies Record<string, DualColorDefinition>;
 
     return allColors;
