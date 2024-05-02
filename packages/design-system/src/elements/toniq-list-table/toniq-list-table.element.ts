@@ -236,7 +236,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             align-items: center;
             justify-content: center;
             z-index: 200;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: ${toniqColors.opaqueOverlay.backgroundColor};
         }
 
         .blocked-pagination {

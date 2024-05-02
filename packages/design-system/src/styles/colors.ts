@@ -122,6 +122,11 @@ const mainLightPalette = (() => {
         foregroundColor: css`#9A9A9D`,
     };
 
+    const opaqueOverlay: DualColorDefinition = {
+        ...pagePrimary,
+        backgroundColor: css`#ffffffe6`,
+    };
+
     const allColors = {
         brandPrimary,
         pagePrimary,
@@ -145,6 +150,7 @@ const mainLightPalette = (() => {
         alertDanger,
         alertWarning,
         alertSuccess,
+        opaqueOverlay,
     } as const satisfies Record<string, DualColorDefinition>;
 
     return allColors;
