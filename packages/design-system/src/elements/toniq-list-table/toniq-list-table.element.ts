@@ -147,7 +147,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             top: 0;
             height: 2px;
             width: 100%;
-            background-color: #e2e9f3;
+            background-color: ${toniqColors.dropShadow.backgroundColor};
         }
 
         .row-wrapper:not(:first-of-type):hover:after {
@@ -156,7 +156,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             bottom: 0;
             height: 2px;
             width: 100%;
-            background-color: #e2e9f3;
+            background-color: ${toniqColors.dropShadow.backgroundColor};
         }
 
         .row-wrapper:not(:first-of-type):hover .row-item,
