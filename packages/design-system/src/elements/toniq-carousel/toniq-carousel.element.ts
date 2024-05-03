@@ -114,7 +114,11 @@ export const ToniqCarousel = defineToniqElement<{
         }
 
         ${hostClasses['toniq-carousel-offset-arrows'].selector} .arrow ${ToniqIcon} {
-            margin: 0 -20px;
+            margin: 0 20px 0 -20px;
+        }
+
+        ${hostClasses['toniq-carousel-offset-arrows'].selector} .arrow.right ${ToniqIcon} {
+            margin: 0 -20px 0 20px;
         }
 
         .arrow.right {
@@ -158,6 +162,16 @@ export const ToniqCarousel = defineToniqElement<{
             */
             opacity: 0;
             pointer-events: none;
+        }
+
+        @media (max-width: 700px) {
+            ${hostClasses['toniq-carousel-offset-arrows'].selector} .arrow ${ToniqIcon} {
+                margin: 0 12px 0 -12px;
+            }
+
+            ${hostClasses['toniq-carousel-offset-arrows'].selector} .arrow.right ${ToniqIcon} {
+                margin: 0 -12px 0 12px;
+            }
         }
     `,
     cleanupCallback: ({state}) => {
