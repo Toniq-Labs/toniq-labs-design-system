@@ -129,5 +129,55 @@ export const toniqCarouselBookPage = defineBookPage({
                 `;
             },
         });
+
+        defineExample({
+            title: 'offset arrows',
+            styles: exampleStyles,
+            renderCallback() {
+                const wrapperDivStyles = css`
+                    /* make sure this width matches the ToniqCarousel width */
+                    width: 800px;
+                    max-width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 100px 0;
+                    box-sizing: border-box;
+                    border: 1px solid ${toniqColors.pageInteraction.foregroundColor};
+                    border-radius: 12px;
+                `;
+
+                return html`
+                    <${ToniqCarousel.assign({
+                        enableAutomaticCycling: false,
+                        offsetArrows: true,
+                        cycleIntervalMs: 1000,
+                        templates: allIconsByCategory['core-24'].map((icon) => {
+                            const styles = css`
+                                padding: 24px;
+                                border: 1px solid ${toniqColors.pageInteraction.foregroundColor};
+                                border-radius: 12px;
+                            `;
+
+                            return html`
+                                <${ToniqIcon.assign({icon})} style=${styles}></${ToniqIcon}>
+                            `;
+                        }),
+                    })}></${ToniqCarousel}>
+                    <${ToniqCarousel.assign({
+                        enableAutomaticCycling: false,
+                        offsetArrows: true,
+                        variant: ToniqCarouselVariantEnum.Banner,
+                        templates: allIconsByCategory['core-24'].map((icon) => {
+                            return html`
+                                <div style=${wrapperDivStyles}>
+                                    <${ToniqIcon.assign({icon})}></${ToniqIcon}>
+                                </div>
+                            `;
+                        }),
+                    })}></${ToniqCarousel}>
+                `;
+            },
+        });
     },
 });

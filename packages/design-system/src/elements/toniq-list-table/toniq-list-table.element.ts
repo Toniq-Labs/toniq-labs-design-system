@@ -88,7 +88,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .table-list {
-            min-height: 40px;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -224,7 +223,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .loading-wrapper {
-            min-height: 300px;
+            min-height: 40px;
             transition: ${toniqDurations.pretty};
             opacity: 1;
             width: 100%;

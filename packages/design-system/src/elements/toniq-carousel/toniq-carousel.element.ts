@@ -37,11 +37,13 @@ export const ToniqCarousel = defineToniqElement<{
     /** Number of milliseconds between each automatic cycling. Defaults to 4000. */
     cycleIntervalMs?: number;
     variant?: ToniqCarouselVariantEnum | undefined;
+    offsetArrows?: boolean | undefined;
 }>()({
     tagName: 'toniq-carousel',
     hostClasses: {
         'toniq-carousel-banner-variant': ({inputs}) =>
             inputs.variant === ToniqCarouselVariantEnum.Banner,
+        'toniq-carousel-offset-arrows': ({inputs}) => !!inputs.offsetArrows,
     },
     stateInitStatic: {
         currentScrollPosition: {
@@ -104,6 +106,15 @@ export const ToniqCarousel = defineToniqElement<{
 
         ${hostClasses['toniq-carousel-banner-variant'].selector} .arrow {
             background: none;
+        }
+
+        ${hostClasses['toniq-carousel-offset-arrows'].selector} {
+            overflow-y: unset;
+            overflow: visible;
+        }
+
+        ${hostClasses['toniq-carousel-offset-arrows'].selector} .arrow ${ToniqIcon} {
+            margin: 0 -20px;
         }
 
         .arrow.right {
