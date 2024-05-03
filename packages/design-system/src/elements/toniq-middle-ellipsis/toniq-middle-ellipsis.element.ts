@@ -1,4 +1,4 @@
-import {classMap, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
+import {classMap, css, defineElementEvent, html, ifDefined, listen, renderIf} from 'element-vir';
 import {noNativeFormStyles} from 'vira';
 import {copyToClipboard} from '../../clipboard';
 import {Copy24Icon, ExternalLink24Icon, ToniqSvg} from '../../icons';
@@ -243,7 +243,7 @@ export const ToniqMiddleEllipsis = defineToniqElement<
                             target="_blank"
                             rel="noopener noreferrer"
                             class="text-wrapper"
-                            href=${inputs.externalLink}
+                            href=${ifDefined(inputs.externalLink)}
                             title=${hoverText}
                         >
                             ${textTemplate} ${iconTemplate}

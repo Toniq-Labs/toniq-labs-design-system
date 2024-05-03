@@ -96,7 +96,7 @@ export const ToniqCarousel = defineToniqElement<{
             z-index: 200;
             background: linear-gradient(
                 var(--background-degrees),
-                white 0%,
+                ${toniqColors.pagePrimary.backgroundColor} 0%,
                 rgba(255, 255, 255, 0) 100%
             );
             will-change: visibility;
@@ -123,7 +123,7 @@ export const ToniqCarousel = defineToniqElement<{
             padding: 8px;
             border-radius: 50%;
             transition: ${toniqDurations.interaction};
-            border: 1px solid transparent;
+            border: 1px solid ${toniqColors.dividerFaint.foregroundColor};
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
         }
 

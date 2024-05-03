@@ -97,6 +97,7 @@ export const ToniqTopTabs = defineToniqElement<{
 
         li.selected .tab {
             ${toniqFontStyles.boldFont};
+            color: ${toniqColors.pageInteraction.foregroundColor};
             cursor: default;
         }
 

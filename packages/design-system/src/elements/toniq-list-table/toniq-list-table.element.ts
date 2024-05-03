@@ -65,7 +65,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .table-wrapper {
-            min-height: 500px;
             position: relative;
             overflow-y: hidden;
             overflow-x: auto;
@@ -225,6 +224,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .loading-wrapper {
+            min-height: 300px;
             transition: ${toniqDurations.pretty};
             opacity: 1;
             width: 100%;
