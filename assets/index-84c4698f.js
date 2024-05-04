@@ -4140,6 +4140,10 @@ var Sh=Object.defineProperty;var Th=(e,t,r)=>t in e?Sh(e,t,{enumerable:!0,config
             ${j(b.pagePrimary)};
         }
 
+        .arrow.hidden ${y} {
+            pointer-events: none;
+        }
+
         .arrow ${y}:hover {
             border-color: ${b.pageInteractionHover.foregroundColor};
             ${j(b.pageInteractionHover)};
@@ -4159,7 +4163,6 @@ var Sh=Object.defineProperty;var Th=(e,t,r)=>t in e?Sh(e,t,{enumerable:!0,config
                 added above in this same commit.
             */
             opacity: 0;
-            pointer-events: none;
         }
 
         @media (max-width: 700px) {
@@ -5145,6 +5148,7 @@ var Sh=Object.defineProperty;var Th=(e,t,r)=>t in e?Sh(e,t,{enumerable:!0,config
         }
 
         .table-list {
+            min-height: 40px;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -5185,8 +5189,8 @@ var Sh=Object.defineProperty;var Th=(e,t,r)=>t in e?Sh(e,t,{enumerable:!0,config
         }
 
         .row-wrapper {
+            min-height: 48px;
             display: flex;
-            align-items: center;
             position: relative;
             background: ${b.pageInteraction.backgroundColor};
             cursor: pointer;
@@ -5229,10 +5233,6 @@ var Sh=Object.defineProperty;var Th=(e,t,r)=>t in e?Sh(e,t,{enumerable:!0,config
             display: flex;
             align-items: center;
             background: ${b.pageInteraction.backgroundColor};
-        }
-
-        .row-content {
-            min-height: 48px;
         }
 
         .row-content.hidden {
@@ -5280,7 +5280,6 @@ var Sh=Object.defineProperty;var Th=(e,t,r)=>t in e?Sh(e,t,{enumerable:!0,config
         }
 
         .loading-wrapper {
-            min-height: 40px;
             transition: ${K.pretty};
             opacity: 1;
             width: 100%;
