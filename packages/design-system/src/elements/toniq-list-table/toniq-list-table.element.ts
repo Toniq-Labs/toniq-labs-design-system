@@ -88,6 +88,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .table-list {
+            min-height: 40px;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -128,8 +129,8 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .row-wrapper {
+            min-height: 48px;
             display: flex;
-            align-items: center;
             position: relative;
             background: ${toniqColors.pageInteraction.backgroundColor};
             cursor: pointer;
@@ -172,10 +173,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             display: flex;
             align-items: center;
             background: ${toniqColors.pageInteraction.backgroundColor};
-        }
-
-        .row-content {
-            min-height: 48px;
         }
 
         .row-content.hidden {
@@ -223,7 +220,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .loading-wrapper {
-            min-height: 40px;
             transition: ${toniqDurations.pretty};
             opacity: 1;
             width: 100%;

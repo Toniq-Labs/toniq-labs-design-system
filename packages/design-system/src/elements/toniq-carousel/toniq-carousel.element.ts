@@ -142,6 +142,10 @@ export const ToniqCarousel = defineToniqElement<{
             ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
         }
 
+        .arrow.hidden ${ToniqIcon} {
+            pointer-events: none;
+        }
+
         .arrow ${ToniqIcon}:hover {
             border-color: ${toniqColors.pageInteractionHover.foregroundColor};
             ${applyBackgroundAndForeground(toniqColors.pageInteractionHover)};
@@ -161,7 +165,6 @@ export const ToniqCarousel = defineToniqElement<{
                 added above in this same commit.
             */
             opacity: 0;
-            pointer-events: none;
         }
 
         @media (max-width: 700px) {
