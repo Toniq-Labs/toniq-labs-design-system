@@ -5189,11 +5189,14 @@ var Sh=Object.defineProperty;var Th=(e,t,r)=>t in e?Sh(e,t,{enumerable:!0,config
         }
 
         .row-wrapper {
-            min-height: 48px;
             display: flex;
             position: relative;
             background: ${b.pageInteraction.backgroundColor};
             cursor: pointer;
+        }
+
+        .row-wrapper:not(:first-of-type) {
+            min-height: 48px;
         }
 
         .row-wrapper:first-of-type,
