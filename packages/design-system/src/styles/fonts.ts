@@ -46,6 +46,10 @@ const fontStylesFallbacks = {
         'line-height': css`32px`,
         'font-size': css`24px`,
     },
+    h5Font: {
+        'line-height': css`28px`,
+        'font-size': css`20px`,
+    },
     monospaceFont: {
         'font-family': css`'Inconsolata', monospace`,
         'line-height': css`1.125em`,
@@ -144,6 +148,11 @@ export const toniqFontStyles = (() => {
         ${boldFont};
     `;
 
+    const h5Font = css`
+        ${combineFallbacksAndVars('h5Font')};
+        ${boldFont};
+    `;
+
     const monospaceFont = css`
         ${combineFallbacksAndVars('monospaceFont')}
     `;
@@ -161,6 +170,7 @@ export const toniqFontStyles = (() => {
         h2Font,
         h3Font,
         h4Font,
+        h5Font,
         monospaceFont,
     } as const satisfies Record<FontStyleKey, FontStyleDefinition>;
 

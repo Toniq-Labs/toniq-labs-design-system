@@ -5,6 +5,7 @@ import {CloseX16Icon} from './svgs/core-16/close-x-16.icon';
 import {Copy16Icon} from './svgs/core-16/copy-16.icon';
 import {ExternalLink16Icon} from './svgs/core-16/external-link-16.icon';
 import {InfoCircle16Icon} from './svgs/core-16/info-circle-16.icon';
+import {Refresh16Icon} from './svgs/core-16/refresh-16.icon';
 import {ShootingStar16Icon} from './svgs/core-16/shooting-star-16.icon';
 import {ArrowBarUp24Icon} from './svgs/core-24/arrow-bar-up-24.icon';
 import {ArrowForwardUp24Icon} from './svgs/core-24/arrow-forward-up-24.icon';
@@ -127,6 +128,7 @@ export * from './svgs/core-16/close-x-16.icon';
 export * from './svgs/core-16/copy-16.icon';
 export * from './svgs/core-16/external-link-16.icon';
 export * from './svgs/core-16/info-circle-16.icon';
+export * from './svgs/core-16/refresh-16.icon';
 export * from './svgs/core-16/shooting-star-16.icon';
 export * from './svgs/core-24/arrow-bar-up-24.icon';
 export * from './svgs/core-24/arrow-forward-up-24.icon';
@@ -253,6 +255,7 @@ export const allIconsByCategory = {
         Copy16Icon,
         ExternalLink16Icon,
         InfoCircle16Icon,
+        Refresh16Icon,
         ShootingStar16Icon,
     ],
     'core-24': [
