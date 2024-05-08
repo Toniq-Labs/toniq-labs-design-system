@@ -129,11 +129,14 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .row-wrapper {
-            min-height: 48px;
             display: flex;
             position: relative;
             background: ${toniqColors.pageInteraction.backgroundColor};
             cursor: pointer;
+        }
+
+        .row-wrapper:not(:first-of-type) {
+            min-height: 48px;
         }
 
         .row-wrapper:first-of-type,
