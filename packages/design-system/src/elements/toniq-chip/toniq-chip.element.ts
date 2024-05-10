@@ -11,6 +11,7 @@ export enum ToniqChipVariantEnum {
     Success = 'success',
     Warning = 'warning',
     Danger = 'danger',
+    Outline = 'outline',
 }
 
 export const ToniqChip = defineToniqElement<{
@@ -26,6 +27,7 @@ export const ToniqChip = defineToniqElement<{
         'toniq-chip-success': ({inputs}) => inputs.variant === ToniqChipVariantEnum.Success,
         'toniq-chip-warning': ({inputs}) => inputs.variant === ToniqChipVariantEnum.Warning,
         'toniq-chip-danger': ({inputs}) => inputs.variant === ToniqChipVariantEnum.Danger,
+        'toniq-chip-outline': ({inputs}) => inputs.variant === ToniqChipVariantEnum.Outline,
     },
     options: {
         ignoreUnsetInputs: true,
@@ -57,6 +59,12 @@ export const ToniqChip = defineToniqElement<{
 
         ${hostClasses['toniq-chip-success'].selector} {
             ${applyBackgroundAndForeground(toniqColors.colorSuccess)};
+        }
+
+        ${hostClasses['toniq-chip-outline'].selector} {
+            box-sizing: border-box;
+            ${applyBackgroundAndForeground(toniqColors.pagePrimary)};
+            border: 2px solid ${toniqColors.accentPrimary.backgroundColor};
         }
     `,
     renderCallback({inputs}) {
