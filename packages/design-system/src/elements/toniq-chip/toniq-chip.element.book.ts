@@ -72,6 +72,10 @@ export const toniqChipBookPage = defineBookPage({
                     title: 'danger style',
                     inputs: {variant: ToniqChipVariantEnum.Danger},
                 },
+                {
+                    title: 'outline style',
+                    inputs: {variant: ToniqChipVariantEnum.Outline},
+                },
             ];
 
         styleVariations.forEach((styleVariation) => {
