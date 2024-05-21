@@ -11,6 +11,7 @@ export const ToniqTooltip = defineToniqElementNoInputs({
             border-radius: 8px;
             border: 2px solid ${toniqColors.accentPrimary.backgroundColor};
             ${toniqShadows.menuShadow};
+            color: ${toniqColors.pagePrimary.foregroundColor};
             background-color: ${toniqColors.pagePrimary.backgroundColor};
         }
     `,
