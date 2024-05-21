@@ -59,13 +59,13 @@ const toniqWithTooltipBookPage = defineBookPage({
                 <p>a paragraph element</p>
                 <p>another one</p>
             `,
-            forceShow: true,
+            forceShow: false,
         });
         defineTooltipExample({
             title: 'long tooltip',
             tooltipContent:
                 "This tooltip is really really long! You probably shouldn't ever have a tooltip this long.",
-            forceShow: true,
+            forceShow: false,
         });
     },
 });
