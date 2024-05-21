@@ -6040,7 +6040,6 @@ var Ih=Object.defineProperty;var Bh=(e,t,n)=>t in e?Ih(e,t,{enumerable:!0,config
             </button>
         `}}),ur=ys({tagName:"toniq-tooltip",styles:f`
         :host {
-            display: block;
             padding: 4px 8px;
             border-radius: 8px;
             border: 2px solid ${b.accentPrimary.backgroundColor};
