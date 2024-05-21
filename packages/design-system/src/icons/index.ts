@@ -81,11 +81,13 @@ import {World24Icon} from './svgs/core-24/world-24.icon';
 import {WorldUpload24Icon} from './svgs/core-24/world-upload-24.icon';
 import {X24Icon} from './svgs/core-24/x-24.icon';
 import {XCircle24Icon} from './svgs/core-24/x-circle-24.icon';
+import {Fire48Icon} from './svgs/core-48/fire-48.icon';
 import {Folder48Icon} from './svgs/core-48/folder-48.icon';
 import {FolderOff48Icon} from './svgs/core-48/folder-off-48.icon';
 import {Kyc48Icon} from './svgs/core-48/kyc-48.icon';
 import {Rocket48Icon} from './svgs/core-48/rocket-48.icon';
 import {Tag48Icon} from './svgs/core-48/tag-48.icon';
+import {Trophy48Icon} from './svgs/core-48/trophy-48.icon';
 import {Wallet48Icon} from './svgs/core-48/wallet-48.icon';
 import {Api64Icon} from './svgs/core-64/api-64.icon';
 import {CircleDashes64Icon} from './svgs/core-64/circle-dashes-64.icon';
@@ -206,11 +208,13 @@ export * from './svgs/core-24/world-24.icon';
 export * from './svgs/core-24/world-upload-24.icon';
 export * from './svgs/core-24/x-24.icon';
 export * from './svgs/core-24/x-circle-24.icon';
+export * from './svgs/core-48/fire-48.icon';
 export * from './svgs/core-48/folder-48.icon';
 export * from './svgs/core-48/folder-off-48.icon';
 export * from './svgs/core-48/kyc-48.icon';
 export * from './svgs/core-48/rocket-48.icon';
 export * from './svgs/core-48/tag-48.icon';
+export * from './svgs/core-48/trophy-48.icon';
 export * from './svgs/core-48/wallet-48.icon';
 export * from './svgs/core-64/api-64.icon';
 export * from './svgs/core-64/circle-dashes-64.icon';
@@ -339,11 +343,13 @@ export const allIconsByCategory = {
         XCircle24Icon,
     ],
     'core-48': [
+        Fire48Icon,
         Folder48Icon,
         FolderOff48Icon,
         Kyc48Icon,
         Rocket48Icon,
         Tag48Icon,
+        Trophy48Icon,
         Wallet48Icon,
     ],
     'core-64': [
