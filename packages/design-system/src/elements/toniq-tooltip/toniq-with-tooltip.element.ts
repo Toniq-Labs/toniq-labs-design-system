@@ -18,11 +18,7 @@ export const ToniqWithTooltip = defineToniqElement<{
     forceShow?: boolean | undefined;
 }>()({
     tagName: 'toniq-with-tooltip',
-    hostClasses: {
-        'toniq-with-tooltip-force-tooltip': ({inputs, state}) =>
-            !!inputs.forceShow || state.clickToggled,
-    },
-    styles: ({hostClasses}) => css`
+    styles: css`
         :host {
             display: inline-block;
             position: relative;
