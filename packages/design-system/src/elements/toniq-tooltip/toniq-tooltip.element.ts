@@ -6,7 +6,6 @@ export const ToniqTooltip = defineToniqElementNoInputs({
     tagName: 'toniq-tooltip',
     styles: css`
         :host {
-            display: block;
             padding: 4px 8px;
             border-radius: 8px;
             border: 2px solid ${toniqColors.accentPrimary.backgroundColor};
