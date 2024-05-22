@@ -18,6 +18,7 @@ import {ArrowsSort24Icon} from './svgs/core-24/arrows-sort-24.icon';
 import {ArrowsSortAscending24Icon} from './svgs/core-24/arrows-sort-ascending-24.icon';
 import {ArrowsSortDescending24Icon} from './svgs/core-24/arrows-sort-descending-24.icon';
 import {Bell24Icon} from './svgs/core-24/bell-24.icon';
+import {BellFilled24Icon} from './svgs/core-24/bell-filled-24.icon';
 import {Bucket24Icon} from './svgs/core-24/bucket-24.icon';
 import {BuildingStore24Icon} from './svgs/core-24/building-store-24.icon';
 import {CalendarEvent24Icon} from './svgs/core-24/calendar-event-24.icon';
@@ -146,6 +147,7 @@ export * from './svgs/core-24/arrows-sort-24.icon';
 export * from './svgs/core-24/arrows-sort-ascending-24.icon';
 export * from './svgs/core-24/arrows-sort-descending-24.icon';
 export * from './svgs/core-24/bell-24.icon';
+export * from './svgs/core-24/bell-filled-24.icon';
 export * from './svgs/core-24/bucket-24.icon';
 export * from './svgs/core-24/building-store-24.icon';
 export * from './svgs/core-24/calendar-event-24.icon';
@@ -280,6 +282,7 @@ export const allIconsByCategory = {
         ArrowsSortAscending24Icon,
         ArrowsSortDescending24Icon,
         Bell24Icon,
+        BellFilled24Icon,
         Bucket24Icon,
         BuildingStore24Icon,
         CalendarEvent24Icon,
