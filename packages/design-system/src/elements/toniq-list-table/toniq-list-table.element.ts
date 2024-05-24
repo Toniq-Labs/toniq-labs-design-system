@@ -10,6 +10,7 @@ import {
     onResize,
     perInstance,
     renderIf,
+    styleMap,
     unsafeCSS,
 } from 'element-vir';
 import {ChevronsRight16Icon} from '../../icons/svgs/core-16/chevrons-right-16.icon';
@@ -90,7 +91,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         .table-list {
             min-height: 40px;
             width: 100%;
-            display: flex;
+            display: grid;
             flex-direction: column;
             align-self: flex-start;
             overflow-x: auto;
@@ -129,7 +130,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .row-wrapper {
-            display: flex;
+            display: contents;
             position: relative;
             background: ${toniqColors.pageInteraction.backgroundColor};
             cursor: pointer;
@@ -378,9 +379,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                                 },
                                             });
                                         }
-                                        updateState({
-                                            itemsPainted: state.itemsPainted + 1,
-                                        });
                                     })}
                                 >
                                     ${contents}
@@ -398,8 +396,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             `;
         }
 
-        const isLoading =
-            state.itemsPainted < enabledColumns.length * rows.length || !!inputs.showLoading;
+        const isLoading = !!inputs.showLoading;
 
         return html`
             <div
@@ -412,6 +409,9 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                     class=${classMap({
                         'table-list': true,
                         hidden: isLoading,
+                    })}
+                    style=${styleMap({
+                        'grid-template-columns': enabledColumns.map(() => 'auto').join(' '),
                     })}
                     ${onResize((event) => {
                         tableUpdate(event.target);
