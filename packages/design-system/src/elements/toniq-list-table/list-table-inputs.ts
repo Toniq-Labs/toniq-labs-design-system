@@ -54,6 +54,8 @@ export type ListTableInputs = {
           }>
         | undefined;
     showLoading?: boolean | undefined;
+    /** Experimental!!! CSS Grid based Table */
+    useGrid?: boolean | undefined;
 };
 
 export type CreateRowObjectCallback<EntryType, Columns extends ColumnsBase> = (

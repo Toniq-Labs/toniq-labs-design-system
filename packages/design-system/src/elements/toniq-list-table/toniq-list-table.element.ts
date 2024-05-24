@@ -35,7 +35,10 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
     events: {
         pageChange: defineElementEvent<number>(),
     },
-    styles: ({cssVars}) => css`
+    hostClasses: {
+        'toniq-list-table-grid': ({inputs}) => !!inputs.useGrid,
+    },
+    styles: ({cssVars, hostClasses}) => css`
         :host {
             display: flex;
             overflow-x: auto;
@@ -91,12 +94,16 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         .table-list {
             min-height: 40px;
             width: 100%;
-            display: grid;
+            display: flex;
             flex-direction: column;
             align-self: flex-start;
             overflow-x: auto;
             scrollbar-width: auto;
             scrollbar-color: ${scrollbarColorCssVar} ${scrollbarTrackColorCssVar};
+        }
+
+        ${hostClasses['toniq-list-table-grid'].selector} .table-list {
+            display: grid;
         }
 
         .table-list.hidden {
@@ -130,10 +137,14 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .row-wrapper {
-            display: contents;
+            display: flex;
             position: relative;
             background: ${toniqColors.pageInteraction.backgroundColor};
             cursor: pointer;
+        }
+
+        ${hostClasses['toniq-list-table-grid'].selector} .row-wrapper {
+            display: grid;
         }
 
         .row-wrapper:not(:first-of-type) {
@@ -379,6 +390,11 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                                 },
                                             });
                                         }
+                                        if (!inputs.useGrid) {
+                                            updateState({
+                                                itemsPainted: state.itemsPainted + 1,
+                                            });
+                                        }
                                     })}
                                 >
                                     ${contents}
@@ -396,7 +412,9 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             `;
         }
 
-        const isLoading = !!inputs.showLoading;
+        const isLoading =
+            (state.itemsPainted < enabledColumns.length * rows.length && !inputs.useGrid) ||
+            !!inputs.showLoading;
 
         return html`
             <div
@@ -411,7 +429,9 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                         hidden: isLoading,
                     })}
                     style=${styleMap({
-                        'grid-template-columns': enabledColumns.map(() => 'auto').join(' '),
+                        'grid-template-columns': inputs.useGrid
+                            ? enabledColumns.map(() => 'auto').join(' ')
+                            : undefined,
                     })}
                     ${onResize((event) => {
                         tableUpdate(event.target);
