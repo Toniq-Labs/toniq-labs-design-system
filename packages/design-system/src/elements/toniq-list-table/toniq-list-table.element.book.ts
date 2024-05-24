@@ -821,5 +821,45 @@ export const toniqListTableElementBookPage = defineBookPage({
                 `;
             },
         });
+
+        defineExample({
+            title: 'CSS Grid',
+            stateInitStatic: {
+                tableInputs: {
+                    ...exampleEmptyListTableInputs,
+                    showLoading: true,
+                    pagination: {
+                        currentPage: 1,
+                        pageCount: 5,
+                    },
+                },
+            },
+            renderCallback({state, updateState}) {
+                updateState({
+                    tableInputs: {
+                        ...state.tableInputs,
+                        ...exampleActivityListTableInputs,
+                        showLoading: false,
+                    },
+                });
+
+                return html`
+                    <${ToniqListTable.assign({...state.tableInputs, useGrid: true})}
+                        ${listen(ToniqListTable.events.pageChange, (event) => {
+                            updateState({
+                                tableInputs: {
+                                    ...state.tableInputs,
+                                    ...exampleActivityListTableInputs,
+                                    pagination: {
+                                        currentPage: 2,
+                                        pageCount: 5,
+                                    },
+                                },
+                            });
+                        })}
+                    ></${ToniqListTable}>
+                `;
+            },
+        });
     },
 });

@@ -144,7 +144,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         ${hostClasses['toniq-list-table-grid'].selector} .row-wrapper {
-            display: grid;
+            display: contents;
         }
 
         .row-wrapper:not(:first-of-type) {
@@ -361,6 +361,10 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                         hidden: rowIndex === 0,
                                     })}
                                     ${onDomCreated((container) => {
+                                        //** Do not perform sizing calculations on grid mode */
+                                        if (inputs.useGrid) {
+                                            return;
+                                        }
                                         const parentEl = container.closest('.table-list');
                                         const containerLeft =
                                             parentEl?.getBoundingClientRect().left;
@@ -390,11 +394,9 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                                 },
                                             });
                                         }
-                                        if (!inputs.useGrid) {
-                                            updateState({
-                                                itemsPainted: state.itemsPainted + 1,
-                                            });
-                                        }
+                                        updateState({
+                                            itemsPainted: state.itemsPainted + 1,
+                                        });
                                     })}
                                 >
                                     ${contents}
