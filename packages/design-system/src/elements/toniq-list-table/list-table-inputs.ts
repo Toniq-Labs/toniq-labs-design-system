@@ -54,6 +54,8 @@ export type ListTableInputs = {
           }>
         | undefined;
     showLoading?: boolean | undefined;
+    /** Used to show event if all times haved not bean painted yet */
+    nonBlocking?: boolean | undefined;
 };
 
 export type CreateRowObjectCallback<EntryType, Columns extends ColumnsBase> = (
