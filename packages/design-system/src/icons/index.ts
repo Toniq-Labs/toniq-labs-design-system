@@ -88,6 +88,7 @@ import {Folder48Icon} from './svgs/core-48/folder-48.icon';
 import {FolderOff48Icon} from './svgs/core-48/folder-off-48.icon';
 import {Kyc48Icon} from './svgs/core-48/kyc-48.icon';
 import {Rocket48Icon} from './svgs/core-48/rocket-48.icon';
+import {Sunrise48Icon} from './svgs/core-48/sunrise-48.icon';
 import {Tag48Icon} from './svgs/core-48/tag-48.icon';
 import {Trophy48Icon} from './svgs/core-48/trophy-48.icon';
 import {Wallet48Icon} from './svgs/core-48/wallet-48.icon';
@@ -217,6 +218,7 @@ export * from './svgs/core-48/folder-48.icon';
 export * from './svgs/core-48/folder-off-48.icon';
 export * from './svgs/core-48/kyc-48.icon';
 export * from './svgs/core-48/rocket-48.icon';
+export * from './svgs/core-48/sunrise-48.icon';
 export * from './svgs/core-48/tag-48.icon';
 export * from './svgs/core-48/trophy-48.icon';
 export * from './svgs/core-48/wallet-48.icon';
@@ -354,6 +356,7 @@ export const allIconsByCategory = {
         FolderOff48Icon,
         Kyc48Icon,
         Rocket48Icon,
+        Sunrise48Icon,
         Tag48Icon,
         Trophy48Icon,
         Wallet48Icon,
