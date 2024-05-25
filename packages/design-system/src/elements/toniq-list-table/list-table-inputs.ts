@@ -54,7 +54,10 @@ export type ListTableInputs = {
           }>
         | undefined;
     showLoading?: boolean | undefined;
-    /** Used to show event if all times haved not bean painted yet */
+    /**
+     * Used to show the table even if all items have not been painted yet, ideally to be used only
+     * in fixed/consistent column sizes in all rows
+     */
     nonBlocking?: boolean | undefined;
 };
 
