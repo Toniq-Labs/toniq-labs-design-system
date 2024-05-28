@@ -18,6 +18,7 @@ import {ArrowsSort24Icon} from './svgs/core-24/arrows-sort-24.icon';
 import {ArrowsSortAscending24Icon} from './svgs/core-24/arrows-sort-ascending-24.icon';
 import {ArrowsSortDescending24Icon} from './svgs/core-24/arrows-sort-descending-24.icon';
 import {Bell24Icon} from './svgs/core-24/bell-24.icon';
+import {BellFilled24Icon} from './svgs/core-24/bell-filled-24.icon';
 import {Bucket24Icon} from './svgs/core-24/bucket-24.icon';
 import {BuildingStore24Icon} from './svgs/core-24/building-store-24.icon';
 import {CalendarEvent24Icon} from './svgs/core-24/calendar-event-24.icon';
@@ -45,6 +46,7 @@ import {Fire24Icon} from './svgs/core-24/fire-24.icon';
 import {FrameBolt24Icon} from './svgs/core-24/frame-bolt-24.icon';
 import {Gear24Icon} from './svgs/core-24/gear-24.icon';
 import {Geometry24Icon} from './svgs/core-24/geometry-24.icon';
+import {Gift24Icon} from './svgs/core-24/gift-24.icon';
 import {GridDots24Icon} from './svgs/core-24/grid-dots-24.icon';
 import {Heart24Icon} from './svgs/core-24/heart-24.icon';
 import {Infinity24Icon} from './svgs/core-24/infinity-24.icon';
@@ -86,6 +88,7 @@ import {Folder48Icon} from './svgs/core-48/folder-48.icon';
 import {FolderOff48Icon} from './svgs/core-48/folder-off-48.icon';
 import {Kyc48Icon} from './svgs/core-48/kyc-48.icon';
 import {Rocket48Icon} from './svgs/core-48/rocket-48.icon';
+import {Sunrise48Icon} from './svgs/core-48/sunrise-48.icon';
 import {Tag48Icon} from './svgs/core-48/tag-48.icon';
 import {Trophy48Icon} from './svgs/core-48/trophy-48.icon';
 import {Wallet48Icon} from './svgs/core-48/wallet-48.icon';
@@ -145,6 +148,7 @@ export * from './svgs/core-24/arrows-sort-24.icon';
 export * from './svgs/core-24/arrows-sort-ascending-24.icon';
 export * from './svgs/core-24/arrows-sort-descending-24.icon';
 export * from './svgs/core-24/bell-24.icon';
+export * from './svgs/core-24/bell-filled-24.icon';
 export * from './svgs/core-24/bucket-24.icon';
 export * from './svgs/core-24/building-store-24.icon';
 export * from './svgs/core-24/calendar-event-24.icon';
@@ -172,6 +176,7 @@ export * from './svgs/core-24/fire-24.icon';
 export * from './svgs/core-24/frame-bolt-24.icon';
 export * from './svgs/core-24/gear-24.icon';
 export * from './svgs/core-24/geometry-24.icon';
+export * from './svgs/core-24/gift-24.icon';
 export * from './svgs/core-24/grid-dots-24.icon';
 export * from './svgs/core-24/heart-24.icon';
 export * from './svgs/core-24/infinity-24.icon';
@@ -213,6 +218,7 @@ export * from './svgs/core-48/folder-48.icon';
 export * from './svgs/core-48/folder-off-48.icon';
 export * from './svgs/core-48/kyc-48.icon';
 export * from './svgs/core-48/rocket-48.icon';
+export * from './svgs/core-48/sunrise-48.icon';
 export * from './svgs/core-48/tag-48.icon';
 export * from './svgs/core-48/trophy-48.icon';
 export * from './svgs/core-48/wallet-48.icon';
@@ -278,6 +284,7 @@ export const allIconsByCategory = {
         ArrowsSortAscending24Icon,
         ArrowsSortDescending24Icon,
         Bell24Icon,
+        BellFilled24Icon,
         Bucket24Icon,
         BuildingStore24Icon,
         CalendarEvent24Icon,
@@ -305,6 +312,7 @@ export const allIconsByCategory = {
         FrameBolt24Icon,
         Gear24Icon,
         Geometry24Icon,
+        Gift24Icon,
         GridDots24Icon,
         Heart24Icon,
         Infinity24Icon,
@@ -348,6 +356,7 @@ export const allIconsByCategory = {
         FolderOff48Icon,
         Kyc48Icon,
         Rocket48Icon,
+        Sunrise48Icon,
         Tag48Icon,
         Trophy48Icon,
         Wallet48Icon,
