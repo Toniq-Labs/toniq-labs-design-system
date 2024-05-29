@@ -378,9 +378,11 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                                 },
                                             });
                                         }
-                                        updateState({
-                                            itemsPainted: state.itemsPainted + 1,
-                                        });
+                                        if (!inputs.nonBlocking) {
+                                            updateState({
+                                                itemsPainted: state.itemsPainted + 1,
+                                            });
+                                        }
                                     })}
                                 >
                                     ${contents}
@@ -398,8 +400,9 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             `;
         }
 
-        const isLoading =
-            state.itemsPainted < enabledColumns.length * rows.length || !!inputs.showLoading;
+        const isStillPainting = state.itemsPainted < enabledColumns.length * rows.length;
+
+        const isLoading = (inputs.nonBlocking ? false : isStillPainting) || !!inputs.showLoading;
 
         return html`
             <div
