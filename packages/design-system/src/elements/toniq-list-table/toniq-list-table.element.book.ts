@@ -9,8 +9,7 @@ import {toniqColors} from '../../styles/colors';
 import {defineToniqElementNoInputs} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {ToniqMiddleEllipsis} from '../toniq-middle-ellipsis/toniq-middle-ellipsis.element';
-import {ListTableInputs, createListTableTable} from './list-table-inputs';
-import {ToniqListTable} from './toniq-list-table.element';
+import {ListTableInputs, ToniqListTable, createListTableTable} from './toniq-list-table.element';
 
 const bioniqBitcoinCdn = 'https://cdn-bitcoin.bioniq.io';
 export const mockInscriptionContentUrl = joinUrlParts(bioniqBitcoinCdn, 'content');
@@ -427,8 +426,8 @@ const entriesNoAction = Array(5).fill({
 const exampleListTableInputs = createListTableTable({
     entries: entries,
     columns: [
-        {key: 'image', title: '', mobile: {sticky: true}},
-        {key: 'price', title: 'PRICE', mobile: {sticky: true}},
+        {key: 'image', title: '', option: {sticky: true}},
+        {key: 'price', title: 'PRICE', option: {sticky: true}},
         {key: 'from', title: 'FROM'},
         {key: 'to', title: 'TO'},
         {key: 'date', title: 'DATE'},
@@ -463,11 +462,48 @@ const exampleListTableInputs = createListTableTable({
     },
 });
 
+const exampleLongColumnNameListTableInputs = createListTableTable({
+    entries: entries,
+    columns: [
+        {key: 'image', title: '', option: {sticky: true}},
+        {
+            key: 'price',
+            title: 'PRICE LONG COLUMN NAME',
+            option: {sticky: true, spaceEvenly: true},
+        },
+        {key: 'from', title: 'FROM', option: {spaceEvenly: true}},
+        {key: 'to', title: 'TO', option: {spaceEvenly: true}},
+    ],
+    createRowObject: (entry) => {
+        return {
+            cells: {
+                image: html`
+                    <img
+                        style=${css`
+                            width: 24px;
+                            height: auto;
+                        `}
+                        src=${entry.imageUrl}
+                    />
+                `,
+                price: entry.price,
+                from: entry.from,
+                to: entry.to,
+            },
+            rowActions: {
+                click() {
+                    alert('This could be useful on opening specific inscription or transaction');
+                },
+            },
+        };
+    },
+});
+
 const exampleActivityListTableInputs = createListTableTable({
     entries: activityEntries,
     columns: [
-        {key: 'image', title: '', mobile: {sticky: true}},
-        {key: 'type', title: 'TYPE', mobile: {sticky: true}},
+        {key: 'image', title: '', option: {sticky: true}},
+        {key: 'type', title: 'TYPE', option: {sticky: true}},
         {key: 'price', title: 'PRICE'},
         {key: 'from', title: 'FROM'},
         {key: 'to', title: 'TO'},
@@ -507,8 +543,8 @@ const exampleActivityListTableInputs = createListTableTable({
 const exampleEmptyListTableInputs = createListTableTable({
     entries: emptyEntries,
     columns: [
-        {key: 'image', title: '', mobile: {sticky: true}},
-        {key: 'type', title: 'TYPE', mobile: {sticky: true}},
+        {key: 'image', title: '', option: {sticky: true}},
+        {key: 'type', title: 'TYPE', option: {sticky: true}},
         {key: 'price', title: 'PRICE'},
         {key: 'from', title: 'FROM'},
         {key: 'to', title: 'TO'},
@@ -548,7 +584,7 @@ const exampleEmptyListTableInputs = createListTableTable({
 const exampleNoActionListTableInputs = createListTableTable({
     entries: entriesNoAction,
     columns: [
-        {key: 'image', title: '', mobile: {sticky: true}},
+        {key: 'image', title: '', option: {sticky: true}},
         {key: 'price', title: 'PRICE'},
         {key: 'from', title: 'FROM'},
         {key: 'to', title: 'TO'},
@@ -796,7 +832,12 @@ export const toniqListTableElementBookPage = defineBookPage({
             title: 'changing child size',
             styles: css`
                 :host {
-                    width: 600px;
+                    width: 100%;
+                }
+
+                ${ToniqListTable} {
+                    width: 100%;
+                    flex-grow: 1;
                 }
             `,
             stateInitStatic: {
@@ -818,6 +859,31 @@ export const toniqListTableElementBookPage = defineBookPage({
             renderCallback({state}) {
                 return html`
                     <${ToniqListTable.assign(state.tableInputs)}></${ToniqListTable}>
+                `;
+            },
+        });
+
+        defineExample({
+            title: 'long column name',
+            styles: css`
+                :host {
+                    width: 100%;
+                }
+
+                ${ToniqListTable} {
+                    width: 100%;
+                    flex-grow: 1;
+                }
+            `,
+            renderCallback() {
+                return html`
+                    <${ToniqListTable.assign({
+                        ...exampleLongColumnNameListTableInputs,
+                        pagination: {
+                            currentPage: 1,
+                            pageCount: 5,
+                        },
+                    })}></${ToniqListTable}>
                 `;
             },
         });
