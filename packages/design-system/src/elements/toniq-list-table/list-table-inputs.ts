@@ -6,20 +6,13 @@ export type ColumnsBase = ReadonlyArray<
         key: PropertyKey;
         title: string;
         disabled?: boolean;
-        mobile?: {
-            sticky: boolean | undefined;
+        option?: {
+            sticky?: boolean | undefined;
+            spaceEvenly?: boolean | undefined;
         };
         style?: CSSResult;
     }>
 >;
-
-export type HeaderItem = {
-    title: string;
-    key: string;
-    mobile?: {
-        sticky: boolean;
-    };
-};
 
 export type ListTableRow<Columns extends ColumnsBase> = {
     cells: Readonly<

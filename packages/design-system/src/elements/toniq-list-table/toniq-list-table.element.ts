@@ -6,7 +6,6 @@ import {
     html,
     listen,
     nothing,
-    onDomCreated,
     onResize,
     perInstance,
     renderIf,
@@ -104,18 +103,20 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         .header {
-            position: absolute;
-            top: 0;
             ${toniqFontStyles.labelFont};
         }
 
         .scroll-indicator {
-            height: 32px;
+            height: 16px;
             padding-left: 8px;
             position: absolute;
             top: 0;
             right: 0;
-            background: ${toniqColors.pageInteraction.backgroundColor};
+            background: linear-gradient(
+                to right,
+                transparent,
+                ${toniqColors.pageInteraction.backgroundColor}
+            );
         }
 
         .scroll-indicator ${ToniqIcon} {
@@ -213,6 +214,14 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         .row-item:last-of-type,
         .row-item:last-of-type .row-content {
             flex-grow: 1;
+        }
+
+        .row-item.fill {
+            flex: 1;
+        }
+
+        .row-item.fill .row-content {
+            flex: 1;
         }
 
         .loading-wrapper.hidden {
@@ -333,9 +342,8 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                             <div
                                 class=${classMap({
                                     'row-item': true,
-                                    sticky: item.mobile?.sticky
-                                        ? item.mobile?.sticky && state.canScroll
-                                        : false,
+                                    sticky: !!item.option?.sticky && state.canScroll,
+                                    fill: !!item.option?.spaceEvenly,
                                 })}
                                 style=${item.style
                                     ? css`
@@ -346,9 +354,13 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                 <div
                                     class=${classMap({
                                         'row-content': true,
-                                        hidden: rowIndex === 0,
                                     })}
-                                    ${onDomCreated((container) => {
+                                    ${onResize((event) => {
+                                        const container = event.target;
+                                        if (!(container instanceof HTMLElement)) {
+                                            throw new Error('onResize event had no target');
+                                        }
+
                                         const parentEl = container.closest('.table-list');
                                         const containerLeft =
                                             parentEl?.getBoundingClientRect().left;
@@ -385,14 +397,16 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                         }
                                     })}
                                 >
-                                    ${contents}
+                                    ${renderIf(
+                                        rowIndex === 0,
+                                        html`
+                                            <span class="header">${item.title}</span>
+                                        `,
+                                        html`
+                                            ${contents}
+                                        `,
+                                    )}
                                 </div>
-                                ${renderIf(
-                                    rowIndex === 0,
-                                    html`
-                                        <span class="header">${item.title}</span>
-                                    `,
-                                )}
                             </div>
                         `;
                     })}
