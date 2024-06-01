@@ -9,8 +9,7 @@ import {toniqColors} from '../../styles/colors';
 import {defineToniqElementNoInputs} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {ToniqMiddleEllipsis} from '../toniq-middle-ellipsis/toniq-middle-ellipsis.element';
-import {ListTableInputs, createListTableTable} from './list-table-inputs';
-import {ToniqListTable} from './toniq-list-table.element';
+import {ListTableInputs, ToniqListTable, createListTableTable} from './toniq-list-table.element';
 
 const bioniqBitcoinCdn = 'https://cdn-bitcoin.bioniq.io';
 export const mockInscriptionContentUrl = joinUrlParts(bioniqBitcoinCdn, 'content');

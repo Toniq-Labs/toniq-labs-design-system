@@ -1,5 +1,14 @@
-import {DebounceStyle, createDebounce, isTruthy} from '@augment-vir/common';
 import {
+    ArrayElement,
+    DebounceStyle,
+    PartialAndUndefined,
+    areJsonEqual,
+    createDebounce,
+    isTruthy,
+} from '@augment-vir/common';
+import {
+    CSSResult,
+    HtmlInterpolation,
     classMap,
     css,
     defineElementEvent,
@@ -17,7 +26,94 @@ import {defineToniqElement} from '../define-toniq-element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {ToniqLoading, ToniqLoadingSizeEnum} from '../toniq-loading/toniq-loading.element';
 import {ToniqPagination} from '../toniq-pagination/toniq-pagination.element';
-import {ListTableInputs, ListTableRow} from './list-table-inputs';
+
+export type ColumnsBase = ReadonlyArray<
+    Readonly<{
+        key: PropertyKey;
+        title: string;
+        disabled?: boolean;
+        option?: {
+            sticky?: boolean | undefined;
+            spaceEvenly?: boolean | undefined;
+        };
+        style?: CSSResult;
+    }>
+>;
+
+export type ListTableRow<Columns extends ColumnsBase> = {
+    cells: Readonly<
+        ArrayElement<Columns> extends never
+            ? never
+            : Record<ArrayElement<Columns>['key'], HtmlInterpolation>
+    >;
+    rowActions?:
+        | PartialAndUndefined<{
+              click: (params: {
+                  clickEvent: MouseEvent;
+                  dispatch: (newEvent: Event) => void;
+              }) => void;
+          }>
+        | undefined;
+};
+
+export enum ListTableHeaderStyleEnum {
+    Default = 'default',
+    Transparent = 'transparent',
+}
+
+export type ListTableInputs = {
+    columns: Readonly<ColumnsBase>;
+    rows: ReadonlyArray<Readonly<ListTableRow<any>>>;
+    /** Defaults to ListTableHeaderStyleEnum.Default. */
+    headerStyle?: ListTableHeaderStyleEnum | undefined;
+    pagination?:
+        | Readonly<{
+              currentPage: number;
+              pageCount: number;
+          }>
+        | undefined;
+    showLoading?: boolean | undefined;
+    /**
+     * Used to show the table even if all items have not been painted yet, ideally to be used only
+     * in fixed/consistent column sizes in all rows
+     */
+    nonBlocking?: boolean | undefined;
+};
+
+export type CreateRowObjectCallback<EntryType, Columns extends ColumnsBase> = (
+    entry: Readonly<EntryType>,
+    index: number,
+) => Readonly<ListTableRow<Columns>>;
+
+export function createListTableTable<EntryType, const Columns extends ColumnsBase>({
+    entries,
+    columns,
+    createRowObject,
+}: {
+    entries: ReadonlyArray<Readonly<EntryType>>;
+    columns: Readonly<Columns>;
+    createRowObject: CreateRowObjectCallback<EntryType, Columns>;
+}): Pick<ListTableInputs, 'rows' | 'columns'> {
+    const columnsObject = Object.fromEntries(
+        columns.map((column) => [
+            column.key,
+            '',
+        ]),
+    );
+
+    const rows = entries.map((entry, index) => {
+        const row = createRowObject(entry, index);
+
+        if (!areJsonEqual(Object.keys(columnsObject).sort(), Object.keys(row.cells).sort())) {
+            console.error('broken list table row', {cells: row.cells, columns: columnsObject});
+            throw new Error('List table row keys does not match expect column keys.');
+        }
+
+        return row;
+    });
+
+    return {rows, columns};
+}
 
 const scrollbarColorCssVar = toniqColors.pageInteraction.foregroundColor;
 const scrollbarTrackColorCssVar = toniqColors.accentSecondary.backgroundColor;
