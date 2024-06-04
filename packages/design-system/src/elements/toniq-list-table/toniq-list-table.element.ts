@@ -238,7 +238,8 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
 
         .row-wrapper:first-of-type,
         .row-wrapper:first-of-type .row-item {
-            max-height: 32px;
+            min-height: 32px;
+            align-items: start;
         }
 
         .row-wrapper:not(:first-of-type):hover:before {
@@ -441,11 +442,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                     sticky: !!item.option?.sticky && state.canScroll,
                                     fill: !!item.option?.spaceEvenly,
                                 })}
-                                style=${item.style
-                                    ? css`
-                                          ${item.style} ${rowItemStyle}
-                                      `
-                                    : rowItemStyle}
+                                style=${rowItemStyle}
                             >
                                 <div
                                     class=${classMap({
@@ -496,7 +493,9 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                     ${renderIf(
                                         rowIndex === 0,
                                         html`
-                                            <span class="header">${item.title}</span>
+                                            <span class="header" style=${item.style}>
+                                                ${item.title}
+                                            </span>
                                         `,
                                         html`
                                             ${contents}

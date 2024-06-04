@@ -472,7 +472,16 @@ const exampleLongColumnNameListTableInputs = createListTableTable({
             option: {sticky: true, spaceEvenly: true},
         },
         {key: 'from', title: 'FROM', option: {spaceEvenly: true}},
-        {key: 'to', title: 'TO', option: {spaceEvenly: true}},
+        {
+            key: 'to',
+            title: 'TO',
+            option: {spaceEvenly: true},
+            style: css`
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+            `,
+        },
     ],
     createRowObject: (entry) => {
         return {
@@ -488,7 +497,17 @@ const exampleLongColumnNameListTableInputs = createListTableTable({
                 `,
                 price: entry.price,
                 from: entry.from,
-                to: entry.to,
+                to: html`
+                    <div
+                        style=${css`
+                            width: 100%;
+                            display: flex;
+                            justify-content: flex-end;
+                        `}
+                    >
+                        ${entry.to}
+                    </div>
+                `,
             },
             rowActions: {
                 click() {
