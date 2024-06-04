@@ -104,6 +104,8 @@ export const ToniqInput = defineToniqElement<{
     /** A suffix that, if provided, is shown following the user input field. */
     suffix?: string | undefined;
     variant?: ToniqInputVariantEnum | undefined;
+    /** Set to use textarea to allow multiline input */
+    multiline?: boolean | undefined;
 }>()({
     tagName: 'toniq-input',
     hostClasses: {
@@ -191,7 +193,8 @@ export const ToniqInput = defineToniqElement<{
                 margin-right: 10px;
             }
 
-            input {
+            input,
+            textarea {
                 ${noNativeFormStyles};
                 flex-grow: 1;
                 max-width: 100%;
@@ -201,12 +204,14 @@ export const ToniqInput = defineToniqElement<{
                 overflow: hidden;
             }
 
-            input:placeholder-shown {
+            input:placeholder-shown,
+            textarea:placeholder-shown {
                 text-overflow: ellipsis;
                 overflow: hidden;
             }
 
-            input:focus {
+            input:focus,
+            textarea:focus {
                 outline: none;
             }
 
@@ -239,83 +244,35 @@ export const ToniqInput = defineToniqElement<{
               `
             : '';
 
+        const singlelineTemplate = html`
+            <input
+                autocomplete=${inputs.disableBrowserHelps ? 'off' : ''}
+                autocorrect=${inputs.disableBrowserHelps ? 'off' : ''}
+                autocapitalize=${inputs.disableBrowserHelps ? 'off' : ''}
+                spellcheck=${inputs.disableBrowserHelps ? 'false' : ''}
+                ?disabled=${inputs.disabled}
+                .value=${filteredValue}
+                ${listen('input', handleInput)}
+                placeholder=${inputs.placeholder}
+            />
+        `;
+
+        const multilineTemplate = html`
+            <textarea
+                autocomplete=${inputs.disableBrowserHelps ? 'off' : ''}
+                autocorrect=${inputs.disableBrowserHelps ? 'off' : ''}
+                autocapitalize=${inputs.disableBrowserHelps ? 'off' : ''}
+                spellcheck=${inputs.disableBrowserHelps ? 'false' : ''}
+                ?disabled=${inputs.disabled}
+                .value=${filteredValue}
+                ${listen('input', handleInput)}
+                placeholder=${inputs.placeholder}
+            ></textarea>
+        `;
+
         return html`
             <label>
-                ${iconTemplate}
-                <input
-                    autocomplete=${inputs.disableBrowserHelps ? 'off' : ''}
-                    autocorrect=${inputs.disableBrowserHelps ? 'off' : ''}
-                    autocapitalize=${inputs.disableBrowserHelps ? 'off' : ''}
-                    spellcheck=${inputs.disableBrowserHelps ? 'false' : ''}
-                    ?disabled=${inputs.disabled}
-                    .value=${filteredValue}
-                    ${listen('input', (event) => {
-                        /**
-                         * When attached to an input element (like here) this event type should
-                         * always be InputEvent.
-                         */
-                        if (!(event instanceof InputEvent)) {
-                            throw new Error(
-                                `Input event type mismatch: "${event.constructor.name}"`,
-                            );
-                        }
-                        const inputElement = event.target;
-                        if (!(inputElement instanceof HTMLInputElement)) {
-                            throw new Error(
-                                `Failed to find input element target from input event.`,
-                            );
-                        }
-                        /**
-                         * This is usually a single character, but can be a bunch of characters in
-                         * some circumstances. For example, when a bunch of characters are pasted,
-                         * this will be the entire pasted contents.
-                         */
-                        const changedText = event.data;
-                        const beforeChangeText = filteredValue;
-
-                        // this will be overwritten below if blocked characters are encountered
-                        let finalText = inputElement.value ?? '';
-
-                        /**
-                         * When changedText is falsy, that means an operation other than inserting
-                         * characters happened. Such as: deleting, cutting the text, etc.
-                         */
-                        if (changedText) {
-                            if (changedText.length === 1) {
-                                if (
-                                    !isAllowed({
-                                        value: changedText,
-                                        allowed: inputs.allowedInputs,
-                                        blocked: inputs.blockedInputs,
-                                    })
-                                ) {
-                                    // prevent the change from happening
-                                    finalText = beforeChangeText;
-                                    dispatch(new events.inputBlock(changedText));
-                                }
-                            }
-                            // filters out blocked pasted letters
-                            else {
-                                const {filtered, blocked} = filterToAllowedCharactersOnly({
-                                    value: changedText,
-                                    allowed: inputs.allowedInputs,
-                                    blocked: inputs.blockedInputs,
-                                });
-                                finalText = filtered;
-                                dispatch(new events.inputBlock(blocked));
-                            }
-                        }
-
-                        if (inputElement.value !== finalText) {
-                            // this prevents blocked inputs by simply overwriting them
-                            inputElement.value = finalText;
-                        }
-                        if (beforeChangeText !== finalText) {
-                            dispatch(new events.valueChange(finalText));
-                        }
-                    })}
-                    placeholder=${inputs.placeholder}
-                />
+                ${iconTemplate} ${inputs.multiline ? multilineTemplate : singlelineTemplate}
                 ${renderIf(
                     !!inputs.suffix,
                     html`
@@ -325,5 +282,73 @@ export const ToniqInput = defineToniqElement<{
                 <div class="focus-border"></div>
             </label>
         `;
+
+        function handleInput(event: Event) {
+            /**
+             * When attached to an input element (like here) this event type should always be
+             * InputEvent.
+             */
+            if (!(event instanceof InputEvent)) {
+                throw new Error(`Input event type mismatch: "${event.constructor.name}"`);
+            }
+            const inputElement = event.target;
+            if (
+                !(
+                    inputElement instanceof HTMLInputElement ||
+                    inputElement instanceof HTMLTextAreaElement
+                )
+            ) {
+                throw new Error(`Failed to find input element target from input event.`);
+            }
+            /**
+             * This is usually a single character, but can be a bunch of characters in some
+             * circumstances. For example, when a bunch of characters are pasted, this will be the
+             * entire pasted contents.
+             */
+            const changedText = event.data;
+            const beforeChangeText = filteredValue;
+
+            // this will be overwritten below if blocked characters are encountered
+            let finalText = inputElement.value ?? '';
+
+            /**
+             * When changedText is falsy, that means an operation other than inserting characters
+             * happened. Such as: deleting, cutting the text, etc.
+             */
+            if (changedText) {
+                if (changedText.length === 1) {
+                    if (
+                        !isAllowed({
+                            value: changedText,
+                            allowed: inputs.allowedInputs,
+                            blocked: inputs.blockedInputs,
+                        })
+                    ) {
+                        // prevent the change from happening
+                        finalText = beforeChangeText;
+                        dispatch(new events.inputBlock(changedText));
+                    }
+                }
+                // filters out blocked pasted letters
+                else {
+                    const {filtered, blocked} = filterToAllowedCharactersOnly({
+                        value: changedText,
+                        allowed: inputs.allowedInputs,
+                        blocked: inputs.blockedInputs,
+                    });
+                    // when in multi-line, this appends the previously entered text instead of overwriting the whole pasted text
+                    finalText = (inputs.multiline ? beforeChangeText : '') + filtered;
+                    dispatch(new events.inputBlock(blocked));
+                }
+            }
+
+            if (inputElement.value !== finalText) {
+                // this prevents blocked inputs by simply overwriting them
+                inputElement.value = finalText;
+            }
+            if (beforeChangeText !== finalText) {
+                dispatch(new events.valueChange(finalText));
+            }
+        }
     },
 });
