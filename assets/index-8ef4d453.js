@@ -5351,7 +5351,8 @@ var Bh=Object.defineProperty;var qh=(e,t,n)=>t in e?Bh(e,t,{enumerable:!0,config
 
         .row-wrapper:first-of-type,
         .row-wrapper:first-of-type .row-item {
-            max-height: 32px;
+            min-height: 32px;
+            align-items: start;
         }
 
         .row-wrapper:not(:first-of-type):hover:before {
@@ -5476,16 +5477,16 @@ var Bh=Object.defineProperty;var qh=(e,t,n)=>t in e?Bh(e,t,{enumerable:!0,config
                         `;return c`
                             <div
                                 class=${fe({"row-item":!0,sticky:!!((X=k.option)!=null&&X.sticky)&&t.canScroll,fill:!!((le=k.option)!=null&&le.spaceEvenly)})}
-                                style=${k.style?h`
-                                          ${k.style} ${S}
-                                      `:S}
+                                style=${S}
                             >
                                 <div
                                     class=${fe({"row-content":!0})}
                                     ${Bt(ce=>{var nn,Fn;const W=ce.target;if(!(W instanceof HTMLElement))throw new Error("onResize event had no target");const Q=W.closest(".table-list"),Se=Q==null?void 0:Q.getBoundingClientRect().left,ve=Q==null?void 0:Q.querySelectorAll(".row-item")[$],ut=ve==null?void 0:ve.getBoundingClientRect().left,yt=W.getBoundingClientRect().width;(!((nn=t.rowStyles[k.key])!=null&&nn.width)||yt>((Fn=t.rowStyles[k.key])==null?void 0:Fn.width))&&n({rowStyles:{...t.rowStyles,[k.key]:{width:yt,left:Se?ut-Se:ut}}}),e.nonBlocking||n({itemsPainted:t.itemsPainted+1})})}
                                 >
                                     ${we(b===0,c`
-                                            <span class="header">${k.title}</span>
+                                            <span class="header" style=${k.style}>
+                                                ${k.title}
+                                            </span>
                                         `,c`
                                             ${C}
                                         `)}
@@ -6884,7 +6885,11 @@ var Bh=Object.defineProperty;var qh=(e,t,n)=>t in e?Bh(e,t,{enumerable:!0,config
                         `}
                         src=${e.imageUrl}
                     />
-                `,price:e.price,from:e.from,to:e.to,date:e.date,time:e.time,action:e.action},rowActions:{click(){alert("This could be useful on opening specific inscription or transaction")}}})}),T5=Fr({entries:Ah,columns:[{key:"image",title:"",option:{sticky:!0}},{key:"price",title:"PRICE LONG COLUMN NAME",option:{sticky:!0,spaceEvenly:!0}},{key:"from",title:"FROM",option:{spaceEvenly:!0}},{key:"to",title:"TO",option:{spaceEvenly:!0}}],createRowObject:e=>({cells:{image:c`
+                `,price:e.price,from:e.from,to:e.to,date:e.date,time:e.time,action:e.action},rowActions:{click(){alert("This could be useful on opening specific inscription or transaction")}}})}),T5=Fr({entries:Ah,columns:[{key:"image",title:"",option:{sticky:!0}},{key:"price",title:"PRICE LONG COLUMN NAME",option:{sticky:!0,spaceEvenly:!0}},{key:"from",title:"FROM",option:{spaceEvenly:!0}},{key:"to",title:"TO",option:{spaceEvenly:!0},style:h`
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+            `}],createRowObject:e=>({cells:{image:c`
                     <img
                         style=${h`
                             width: 24px;
@@ -6892,7 +6897,17 @@ var Bh=Object.defineProperty;var qh=(e,t,n)=>t in e?Bh(e,t,{enumerable:!0,config
                         `}
                         src=${e.imageUrl}
                     />
-                `,price:e.price,from:e.from,to:e.to},rowActions:{click(){alert("This could be useful on opening specific inscription or transaction")}}})}),Gc=Fr({entries:A5,columns:[{key:"image",title:"",option:{sticky:!0}},{key:"type",title:"TYPE",option:{sticky:!0}},{key:"price",title:"PRICE"},{key:"from",title:"FROM"},{key:"to",title:"TO"},{key:"date",title:"DATE"},{key:"time",title:"TIME"},{key:"action",title:""}],createRowObject:e=>({cells:{image:c`
+                `,price:e.price,from:e.from,to:c`
+                    <div
+                        style=${h`
+                            width: 100%;
+                            display: flex;
+                            justify-content: flex-end;
+                        `}
+                    >
+                        ${e.to}
+                    </div>
+                `},rowActions:{click(){alert("This could be useful on opening specific inscription or transaction")}}})}),Gc=Fr({entries:A5,columns:[{key:"image",title:"",option:{sticky:!0}},{key:"type",title:"TYPE",option:{sticky:!0}},{key:"price",title:"PRICE"},{key:"from",title:"FROM"},{key:"to",title:"TO"},{key:"date",title:"DATE"},{key:"time",title:"TIME"},{key:"action",title:""}],createRowObject:e=>({cells:{image:c`
                     <img
                         style=${h`
                             width: 24px;
