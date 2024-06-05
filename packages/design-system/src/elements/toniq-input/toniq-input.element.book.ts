@@ -76,6 +76,12 @@ export const toniqInputPage = defineBookPage({
                     disabled: true,
                 },
             },
+            {
+                title: 'multi-line (textarea)',
+                inputs: {
+                    multiline: true,
+                },
+            },
         ];
 
         styleVariations.forEach((styleVariation) => {
