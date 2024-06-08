@@ -43,7 +43,7 @@ export const ToniqTopTabs = defineToniqElement<{
     },
     cssVars: {
         'toniq-top-tabs-selected-border-width': '4px',
-        'toniq-top-tabs-tab-vertical-padding': '8px',
+        'toniq-top-tabs-tab-vertical-padding': '18px',
     },
     styles: ({cssVars}) => css`
         :host {
@@ -66,7 +66,7 @@ export const ToniqTopTabs = defineToniqElement<{
                 border-bottom-width ${toniqDurations.interaction},
                 border-color ${toniqDurations.interaction},
                 padding-bottom ${toniqDurations.interaction};
-            padding: ${cssVars['toniq-top-tabs-tab-vertical-padding'].value} 8px;
+            padding: 4px 4px ${cssVars['toniq-top-tabs-tab-vertical-padding'].value};
         }
 
         .tab {
