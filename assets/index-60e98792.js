@@ -6189,7 +6189,7 @@ var Bh=Object.defineProperty;var qh=(e,t,n)=>t in e?Bh(e,t,{enumerable:!0,config
             >
                 ${e.tooltipContent}
             </${hr}>
-        `}}),er=ie()({tagName:"toniq-top-tabs",events:{routeChange:oe(),valueChange:oe()},cssVars:{"toniq-top-tabs-selected-border-width":"4px","toniq-top-tabs-tab-vertical-padding":"8px"},styles:({cssVars:e})=>f`
+        `}}),er=ie()({tagName:"toniq-top-tabs",events:{routeChange:oe(),valueChange:oe()},cssVars:{"toniq-top-tabs-selected-border-width":"4px","toniq-top-tabs-tab-vertical-padding":"18px"},styles:({cssVars:e})=>f`
         :host {
             display: block;
         }
@@ -6210,7 +6210,7 @@ var Bh=Object.defineProperty;var qh=(e,t,n)=>t in e?Bh(e,t,{enumerable:!0,config
                 border-bottom-width ${re.interaction},
                 border-color ${re.interaction},
                 padding-bottom ${re.interaction};
-            padding: ${e["toniq-top-tabs-tab-vertical-padding"].value} 8px;
+            padding: 4px 4px ${e["toniq-top-tabs-tab-vertical-padding"].value};
         }
 
         .tab {
