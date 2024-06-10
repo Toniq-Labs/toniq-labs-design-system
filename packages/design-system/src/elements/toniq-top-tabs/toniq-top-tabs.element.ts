@@ -42,7 +42,7 @@ export const ToniqTopTabs = defineToniqElement<{
         valueChange: defineElementEvent<ToniqTopTab['value']>(),
     },
     cssVars: {
-        'toniq-top-tabs-selected-border-width': '4px',
+        'toniq-top-tabs-selected-border-width': '2px',
         'toniq-top-tabs-tab-vertical-padding': '18px',
     },
     styles: ({cssVars}) => css`
@@ -61,7 +61,7 @@ export const ToniqTopTabs = defineToniqElement<{
             align-items: center;
             list-style: none;
             position: relative;
-            border-bottom: 1px solid ${toniqColors.pageTertiary.foregroundColor};
+            border-bottom: 2px solid ${toniqColors.pageTertiary.foregroundColor};
             transition:
                 border-bottom-width ${toniqDurations.interaction},
                 border-color ${toniqDurations.interaction},
