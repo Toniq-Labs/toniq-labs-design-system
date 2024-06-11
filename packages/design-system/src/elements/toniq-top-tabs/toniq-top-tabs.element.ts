@@ -42,7 +42,7 @@ export const ToniqTopTabs = defineToniqElement<{
         valueChange: defineElementEvent<ToniqTopTab['value']>(),
     },
     cssVars: {
-        'toniq-top-tabs-selected-border-width': '4px',
+        'toniq-top-tabs-selected-border-width': '2px',
         'toniq-top-tabs-tab-vertical-padding': '18px',
     },
     styles: ({cssVars}) => css`
@@ -61,12 +61,20 @@ export const ToniqTopTabs = defineToniqElement<{
             align-items: center;
             list-style: none;
             position: relative;
-            border-bottom: 1px solid ${toniqColors.pageTertiary.foregroundColor};
+            border-bottom: 2px solid ${toniqColors.pageTertiary.foregroundColor};
             transition:
                 border-bottom-width ${toniqDurations.interaction},
                 border-color ${toniqDurations.interaction},
                 padding-bottom ${toniqDurations.interaction};
-            padding: 4px 4px ${cssVars['toniq-top-tabs-tab-vertical-padding'].value};
+            padding: 4px 4px ${cssVars['toniq-top-tabs-tab-vertical-padding'].value} 12px;
+        }
+
+        li:first-child {
+            padding-left: 4px;
+        }
+
+        li:has(+ li.selected) {
+            padding-right: 12px;
         }
 
         .tab {
@@ -104,12 +112,8 @@ export const ToniqTopTabs = defineToniqElement<{
         li.selected {
             border-color: ${toniqColors.pageInteraction.foregroundColor};
             border-bottom-width: ${cssVars['toniq-top-tabs-selected-border-width'].value};
-            padding-bottom: calc(
-                calc(
-                        ${cssVars['toniq-top-tabs-tab-vertical-padding'].value} -
-                            ${cssVars['toniq-top-tabs-selected-border-width'].value}
-                    ) + 1px
-            );
+            padding-left: 4px;
+            padding-right: 4px;
         }
 
         li:last-child {
