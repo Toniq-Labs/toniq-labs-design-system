@@ -114,12 +114,6 @@ export const ToniqTopTabs = defineToniqElement<{
             border-bottom-width: ${cssVars['toniq-top-tabs-selected-border-width'].value};
             padding-left: 4px;
             padding-right: 4px;
-            padding-bottom: calc(
-                calc(
-                        ${cssVars['toniq-top-tabs-tab-vertical-padding'].value} -
-                            ${cssVars['toniq-top-tabs-selected-border-width'].value}
-                    ) + 1px
-            );
         }
 
         li:last-child {
