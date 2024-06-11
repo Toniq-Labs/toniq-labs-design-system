@@ -6,7 +6,7 @@ import {
     cssVarsToPageControls,
 } from '../../element-book/book-helpers/css-var-page-controls';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
-import {ToniqCheckbox} from './toniq-checkbox.element';
+import {ToniqCheckbox, ToniqCheckboxVariantEnum} from './toniq-checkbox.element';
 
 const exampleVariations: ReadonlyArray<{
     title: string;
@@ -15,6 +15,12 @@ const exampleVariations: ReadonlyArray<{
     {
         title: 'default',
         inputs: {},
+    },
+    {
+        title: 'button',
+        inputs: {
+            variant: ToniqCheckboxVariantEnum.Button,
+        },
     },
     {
         title: 'disabled',

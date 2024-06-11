@@ -1,4 +1,4 @@
-import {classMap, css, defineElementEvent, html, listen} from 'element-vir';
+import {classMap, css, defineElementEvent, html, listen, renderIf} from 'element-vir';
 import {noNativeFormStyles, noUserSelect} from 'vira';
 import {CheckMark24Icon} from '../../icons/svgs/core-24/check-mark-24.icon';
 import {toniqDurations} from '../../styles/animation';
@@ -7,11 +7,18 @@ import {toniqDisabledStyles} from '../../styles/disabled';
 import {createFocusStyles} from '../../styles/focus';
 import {toniqFontStyles} from '../../styles/fonts';
 import {defineToniqElement} from '../define-toniq-element';
+import {ToniqButton, ToniqButtonVariantEnum} from '../toniq-button/toniq-button.element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
+
+export enum ToniqCheckboxVariantEnum {
+    Default = 'default',
+    Button = 'button',
+}
 
 export const ToniqCheckbox = defineToniqElement<{
     text?: string | undefined;
     disabled?: boolean | undefined;
+    variant?: ToniqCheckboxVariantEnum;
     checked: boolean;
 }>()({
     tagName: 'toniq-checkbox',
@@ -113,31 +120,45 @@ export const ToniqCheckbox = defineToniqElement<{
         }
     `,
     renderCallback({inputs, dispatch, events}) {
-        const iconTemplate = html`
-            <span class="checkbox ${inputs.checked ? 'checked' : ''}">
-                <${ToniqIcon.assign({icon: CheckMark24Icon})}
-                    class="check-mark ${classMap({hidden: !inputs.checked})}"
-                ></${ToniqIcon}>
-            </span>
-        `;
+        const iconTemplate = renderIf(
+            inputs.variant !== ToniqCheckboxVariantEnum.Button,
+            html`
+                <span class="checkbox ${inputs.checked ? 'checked' : ''}">
+                    <${ToniqIcon.assign({icon: CheckMark24Icon})}
+                        class="check-mark ${classMap({hidden: !inputs.checked})}"
+                    ></${ToniqIcon}>
+                </span>
+            `,
+        );
 
-        const textTemplate = html`
-            <slot
-                class=${classMap({
-                    label: true,
-                    checked: inputs.checked,
-                })}
-            >
-                <span
+        const textTemplate = renderIf(
+            inputs.variant !== ToniqCheckboxVariantEnum.Button,
+            html`
+                <slot
                     class=${classMap({
                         label: true,
                         checked: inputs.checked,
                     })}
                 >
-                    ${inputs.text}
-                </span>
-            </slot>
-        `;
+                    <span
+                        class=${classMap({
+                            label: true,
+                            checked: inputs.checked,
+                        })}
+                    >
+                        ${inputs.text}
+                    </span>
+                </slot>
+            `,
+            html`
+                <${ToniqButton.assign({
+                    text: inputs.text,
+                    variant: inputs.checked
+                        ? ToniqButtonVariantEnum.Default
+                        : ToniqButtonVariantEnum.Outline,
+                })}></${ToniqButton}>
+            `,
+        );
 
         return html`
             <button
