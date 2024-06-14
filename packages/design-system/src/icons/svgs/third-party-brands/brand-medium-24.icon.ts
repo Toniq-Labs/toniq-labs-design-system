@@ -1,6 +1,6 @@
 import {html} from 'element-vir';
 import {defineIcon} from 'vira';
-import {toniqIconCssVarWithFallback} from '../../../styles';
+import {toniqIconCssVars} from '../../../styles';
 
 export const BrandMedium24Icon = defineIcon({
     name: 'BrandMedium24Icon',
@@ -8,7 +8,7 @@ export const BrandMedium24Icon = defineIcon({
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke="none"
-            fill=${toniqIconCssVarWithFallback['toniq-icon-fill-color']('#000')}
+            fill=${toniqIconCssVars['toniq-icon-stroke-color'].value}
             width="24"
             height="24"
             viewBox="0 0 24 24"
