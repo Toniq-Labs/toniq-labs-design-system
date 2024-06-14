@@ -3904,7 +3904,7 @@ var qh=Object.defineProperty;var Lh=(e,t,n)=>t in e?qh(e,t,{enumerable:!0,config
         <svg
             xmlns="http://www.w3.org/2000/svg"
             stroke="none"
-            fill=${Y["toniq-icon-fill-color"]("#000")}
+            fill=${d["toniq-icon-stroke-color"].value}
             width="24"
             height="24"
             viewBox="0 0 24 24"
