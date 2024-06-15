@@ -13,6 +13,7 @@ import {
     css,
     defineElementEvent,
     html,
+    ifDefined,
     listen,
     nothing,
     onResize,
@@ -277,6 +278,10 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             background: ${toniqColors.pageInteraction.backgroundColor};
         }
 
+        .row-item.lazy {
+            display: none;
+        }
+
         .row-content.hidden {
             visibility: hidden;
         }
@@ -433,14 +438,18 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                         (item, index) => {
                             const contents = row.cells[item.key as keyof typeof row];
 
-                            const rowItemStyle = css`
+                            const rowItemLeftStyle = css`
                                 left: ${unsafeCSS(
                                     `${state.rowStyles[item.key as string]?.left}px`,
                                 )};
+                            `;
+
+                            const rowItemMinWidthStyle = css`
                                 min-width: ${index >= enabledColumns.length - 1
                                     ? unsafeCSS('unset')
                                     : unsafeCSS(`${state.rowStyles[item.key as string]?.width}px`)};
                             `;
+
                             return html`
                                 <div
                                     class=${classMap({
@@ -448,7 +457,11 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                         sticky: !!item.option?.sticky && state.canScroll,
                                         fill: !!item.option?.spaceEvenly,
                                     })}
-                                    style=${rowItemStyle}
+                                    style=${ifDefined(
+                                        rowItemLeftStyle || rowItemMinWidthStyle
+                                            ? `${rowItemLeftStyle} ${rowItemMinWidthStyle}`
+                                            : undefined,
+                                    )}
                                 >
                                     <div
                                         class=${classMap({
@@ -456,39 +469,46 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                         })}
                                         ${onResize((event) => {
                                             setTimeout(() => {
-                                                const container = event.target;
-                                                if (!(container instanceof HTMLElement)) {
-                                                    throw new Error('onResize event had no target');
-                                                }
+                                                if (!inputs.nonBlocking || rowIndex < 2) {
+                                                    const container = event.target;
+                                                    if (!(container instanceof HTMLElement)) {
+                                                        throw new Error(
+                                                            'onResize event had no target',
+                                                        );
+                                                    }
 
-                                                const parentEl = container.closest('.table-list');
-                                                const containerLeft =
-                                                    parentEl?.getBoundingClientRect().left;
+                                                    const parentEl =
+                                                        container.closest('.table-list');
+                                                    const containerLeft =
+                                                        parentEl?.getBoundingClientRect().left;
 
-                                                const rowItem = parentEl?.querySelectorAll(
-                                                    '.row-item',
-                                                )[index] as HTMLElement;
-                                                const left = rowItem?.getBoundingClientRect().left;
+                                                    const rowItem = parentEl?.querySelectorAll(
+                                                        '.row-item',
+                                                    )[index] as HTMLElement;
+                                                    const left =
+                                                        rowItem?.getBoundingClientRect().left;
 
-                                                const currentWidth =
-                                                    container.getBoundingClientRect().width;
-                                                if (
-                                                    !state.rowStyles[item.key as string]?.width ||
-                                                    currentWidth >
-                                                        (state.rowStyles[item.key as string]
-                                                            ?.width as number)
-                                                ) {
-                                                    updateState({
-                                                        rowStyles: {
-                                                            ...state.rowStyles,
-                                                            [item.key]: {
-                                                                width: currentWidth,
-                                                                left: containerLeft
-                                                                    ? left - containerLeft
-                                                                    : left,
+                                                    const currentWidth =
+                                                        container.getBoundingClientRect().width;
+                                                    if (
+                                                        !state.rowStyles[item.key as string]
+                                                            ?.width ||
+                                                        currentWidth >
+                                                            (state.rowStyles[item.key as string]
+                                                                ?.width as number)
+                                                    ) {
+                                                        updateState({
+                                                            rowStyles: {
+                                                                ...state.rowStyles,
+                                                                [item.key]: {
+                                                                    width: currentWidth,
+                                                                    left: containerLeft
+                                                                        ? left - containerLeft
+                                                                        : left,
+                                                                },
                                                             },
-                                                        },
-                                                    });
+                                                        });
+                                                    }
                                                 }
                                                 if (!inputs.nonBlocking) {
                                                     updateState({
