@@ -1249,7 +1249,6 @@ export const toniqListTableElementBookPage = defineBookPage({
                             currentPage: 1,
                             pageCount: 5,
                         },
-                        nonBlocking: true,
                     })}></${ToniqListTable}>
                 `;
             },
