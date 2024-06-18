@@ -466,54 +466,56 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                             ? `${rowItemLeftStyle} ${rowItemMinWidthStyle}`
                                             : undefined,
                                     )}
+                                    ${onResize((event) => {
+                                        function updateRowStyles() {
+                                            const container = event.target;
+                                            if (!(container instanceof HTMLElement)) {
+                                                throw new Error('onResize event had no target');
+                                            }
+
+                                            const left = container.getBoundingClientRect().left;
+
+                                            const currentWidth = (
+                                                container.querySelector(
+                                                    '.row-content',
+                                                ) as HTMLElement
+                                            ).getBoundingClientRect().width;
+
+                                            if (
+                                                !state.rowStyles[item.key as string]?.width ||
+                                                currentWidth >
+                                                    (state.rowStyles[item.key as string]
+                                                        ?.width as number)
+                                            ) {
+                                                updateState({
+                                                    rowStyles: {
+                                                        ...state.rowStyles,
+                                                        [item.key]: {
+                                                            width: currentWidth,
+                                                            left: state.tableListLeft
+                                                                ? left - state.tableListLeft
+                                                                : left,
+                                                        },
+                                                    },
+                                                });
+                                            }
+                                        }
+                                        if (rowIndex < 2) {
+                                            updateRowStyles();
+                                        }
+                                        if (!inputs.nonBlocking) {
+                                            setTimeout(() => {
+                                                updateRowStyles();
+                                                updateState({
+                                                    itemsPainted: state.itemsPainted + 1,
+                                                });
+                                            }, 0);
+                                        }
+                                    })}
                                 >
                                     <div
                                         class=${classMap({
                                             'row-content': true,
-                                        })}
-                                        ${onResize((event) => {
-                                            function updateRowStyles() {
-                                                const container = event.target;
-                                                if (!(container instanceof HTMLElement)) {
-                                                    throw new Error('onResize event had no target');
-                                                }
-
-                                                const left = (
-                                                    container.closest('.row-item') as HTMLElement
-                                                ).getBoundingClientRect().left;
-
-                                                const currentWidth =
-                                                    container.getBoundingClientRect().width;
-                                                if (
-                                                    !state.rowStyles[item.key as string]?.width ||
-                                                    currentWidth >
-                                                        (state.rowStyles[item.key as string]
-                                                            ?.width as number)
-                                                ) {
-                                                    updateState({
-                                                        rowStyles: {
-                                                            ...state.rowStyles,
-                                                            [item.key]: {
-                                                                width: currentWidth,
-                                                                left: state.tableListLeft
-                                                                    ? left - state.tableListLeft
-                                                                    : left,
-                                                            },
-                                                        },
-                                                    });
-                                                }
-                                            }
-                                            if (rowIndex < 2) {
-                                                updateRowStyles();
-                                            }
-                                            if (!inputs.nonBlocking) {
-                                                setTimeout(() => {
-                                                    updateRowStyles();
-                                                    updateState({
-                                                        itemsPainted: state.itemsPainted + 1,
-                                                    });
-                                                }, 0);
-                                            }
                                         })}
                                     >
                                         ${renderIf(
