@@ -367,7 +367,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             };
         },
         isPainting: false,
-        itemsPainted: 0,
+        isStillPainting: true,
         pageCountKey: 0,
         tableListLeft: 0,
     },
@@ -383,7 +383,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             }, state.rowStyles),
         });
     },
-    renderCallback({inputs, state, updateState, events, dispatch}) {
+    renderCallback({inputs, state, updateState, events, dispatch, host}) {
         const enabledColumns = inputs.columns.filter((column) => !column.disabled);
         // Duplicate first entry for the header column
         const rows = [
@@ -463,22 +463,22 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                         enabledColumns,
                         (item, index) => index,
                         (item, index) => {
-                            const contents = row.cells[item.key as keyof typeof row];
+                            const itemKey = item.key as keyof typeof row;
+                            const contents = row.cells[itemKey];
 
                             const rowItemLeftStyle = css`
-                                left: ${unsafeCSS(
-                                    `${state.rowStyles[item.key as string]?.left}px`,
-                                )};
+                                left: ${unsafeCSS(`${state.rowStyles[itemKey]?.left}px`)};
                             `;
 
                             const rowItemMinWidthStyle = css`
                                 min-width: ${index >= enabledColumns.length - 1
                                     ? unsafeCSS('unset')
-                                    : unsafeCSS(`${state.rowStyles[item.key as string]?.width}px`)};
+                                    : unsafeCSS(`${state.rowStyles[itemKey]?.width}px`)};
                             `;
 
                             return html`
                                 <div
+                                    data-column=${itemKey}
                                     class=${classMap({
                                         'row-item': true,
                                         sticky: !!item.option?.sticky && state.canScroll,
@@ -486,52 +486,9 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                     })}
                                     style=${ifDefined(
                                         rowItemLeftStyle || rowItemMinWidthStyle
-                                            ? `${rowItemLeftStyle} ${rowItemMinWidthStyle}`
+                                            ? `${rowItemLeftStyle ? rowItemLeftStyle : ''} ${rowItemMinWidthStyle ? rowItemMinWidthStyle : ''}`
                                             : undefined,
                                     )}
-                                    ${onResize((event) => {
-                                        function updateRowStyles() {
-                                            const container = event.target;
-                                            if (!(container instanceof HTMLElement)) {
-                                                throw new Error('onResize event had no target');
-                                            }
-
-                                            const left = container.getBoundingClientRect().left;
-
-                                            const currentWidth = (
-                                                container.querySelector(
-                                                    '.row-content',
-                                                ) as HTMLElement
-                                            ).getBoundingClientRect().width;
-
-                                            if (
-                                                !state.rowStyles[item.key as string]?.width ||
-                                                currentWidth >
-                                                    (state.rowStyles[item.key as string]
-                                                        ?.width as number)
-                                            ) {
-                                                updateState({
-                                                    rowStyles: {
-                                                        ...state.rowStyles,
-                                                        [item.key]: {
-                                                            width: currentWidth,
-                                                            left: state.tableListLeft
-                                                                ? left - state.tableListLeft
-                                                                : left,
-                                                        },
-                                                    },
-                                                });
-                                            }
-                                        }
-                                        if (rowIndex < 2 || !inputs.nonBlocking) {
-                                            setTimeout(() => {
-                                                updateRowStyles();
-                                                updateState({
-                                                    itemsPainted: state.itemsPainted + 1,
-                                                });
-                                            }, 0);
-                                        }
-                                    })}
                                 >
                                     <div
                                         class=${classMap({
@@ -558,8 +515,8 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             `;
         }
 
-        const isStillPainting = state.itemsPainted < enabledColumns.length * rows.length;
-        const isLoading = (inputs.nonBlocking ? false : isStillPainting) || !!inputs.showLoading;
+        const isLoading =
+            (inputs.nonBlocking ? false : state.isStillPainting) || !!inputs.showLoading;
         return html`
             <div
                 class=${classMap({
@@ -574,6 +531,45 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                     })}
                     ${onResize((event) => {
                         tableUpdate(event.target);
+
+                        setTimeout(() => {
+                            enabledColumns.forEach((column) => {
+                                const columnKey = column.key as string;
+
+                                const rowItems = host.shadowRoot
+                                    .querySelector('.table-list')
+                                    ?.querySelectorAll(`.row-item[data-column="${columnKey}"]`);
+
+                                if (rowItems) {
+                                    rowItems.forEach((rowItem) => {
+                                        const left = rowItem.getBoundingClientRect().left;
+                                        const currentWidth = (
+                                            rowItem.querySelector('.row-content') as HTMLElement
+                                        ).getBoundingClientRect().width;
+                                        if (
+                                            !state.rowStyles[columnKey]?.width ||
+                                            currentWidth >
+                                                (state.rowStyles[columnKey]?.width as number)
+                                        ) {
+                                            updateState({
+                                                rowStyles: {
+                                                    ...state.rowStyles,
+                                                    [columnKey]: {
+                                                        width: currentWidth,
+                                                        left: state.tableListLeft
+                                                            ? left - state.tableListLeft
+                                                            : left,
+                                                    },
+                                                },
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                            updateState({
+                                isStillPainting: false,
+                            });
+                        }, 0);
                     })}
                     ${listen('scroll', (event) => {
                         tableUpdate(event.target);
@@ -589,9 +585,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                         rows,
                         (item, index) => index,
                         (item: ListTableRow<any>, index: number) => {
-                            return html`
-                                ${listItem(item, index)}
-                            `;
+                            return listItem(item, index);
                         },
                     )}
                     ${renderIf(
