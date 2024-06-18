@@ -468,54 +468,53 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                             'row-content': true,
                                         })}
                                         ${onResize((event) => {
-                                            setTimeout(() => {
-                                                if (!inputs.nonBlocking || rowIndex < 2) {
-                                                    const container = event.target;
-                                                    if (!(container instanceof HTMLElement)) {
-                                                        throw new Error(
-                                                            'onResize event had no target',
-                                                        );
-                                                    }
-
-                                                    const parentEl =
-                                                        container.closest('.table-list');
-                                                    const containerLeft =
-                                                        parentEl?.getBoundingClientRect().left;
-
-                                                    const rowItem = parentEl?.querySelectorAll(
-                                                        '.row-item',
-                                                    )[index] as HTMLElement;
-                                                    const left =
-                                                        rowItem?.getBoundingClientRect().left;
-
-                                                    const currentWidth =
-                                                        container.getBoundingClientRect().width;
-                                                    if (
-                                                        !state.rowStyles[item.key as string]
-                                                            ?.width ||
-                                                        currentWidth >
-                                                            (state.rowStyles[item.key as string]
-                                                                ?.width as number)
-                                                    ) {
-                                                        updateState({
-                                                            rowStyles: {
-                                                                ...state.rowStyles,
-                                                                [item.key]: {
-                                                                    width: currentWidth,
-                                                                    left: containerLeft
-                                                                        ? left - containerLeft
-                                                                        : left,
-                                                                },
-                                                            },
-                                                        });
-                                                    }
+                                            function updateRowStyles() {
+                                                const container = event.target;
+                                                if (!(container instanceof HTMLElement)) {
+                                                    throw new Error('onResize event had no target');
                                                 }
-                                                if (!inputs.nonBlocking) {
+
+                                                const parentEl = container.closest('.table-list');
+                                                const containerLeft =
+                                                    parentEl?.getBoundingClientRect().left;
+
+                                                const rowItem = parentEl?.querySelectorAll(
+                                                    '.row-item',
+                                                )[index] as HTMLElement;
+                                                const left = rowItem?.getBoundingClientRect().left;
+
+                                                const currentWidth =
+                                                    container.getBoundingClientRect().width;
+                                                if (
+                                                    !state.rowStyles[item.key as string]?.width ||
+                                                    currentWidth >
+                                                        (state.rowStyles[item.key as string]
+                                                            ?.width as number)
+                                                ) {
+                                                    updateState({
+                                                        rowStyles: {
+                                                            ...state.rowStyles,
+                                                            [item.key]: {
+                                                                width: currentWidth,
+                                                                left: containerLeft
+                                                                    ? left - containerLeft
+                                                                    : left,
+                                                            },
+                                                        },
+                                                    });
+                                                }
+                                            }
+                                            if (rowIndex < 2) {
+                                                updateRowStyles();
+                                            }
+                                            if (!inputs.nonBlocking) {
+                                                setTimeout(() => {
+                                                    updateRowStyles();
                                                     updateState({
                                                         itemsPainted: state.itemsPainted + 1,
                                                     });
-                                                }
-                                            }, 0);
+                                                }, 0);
+                                            }
                                         })}
                                     >
                                         ${renderIf(
