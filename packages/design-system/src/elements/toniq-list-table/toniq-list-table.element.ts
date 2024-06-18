@@ -489,43 +489,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                             ? `${rowItemLeftStyle ? rowItemLeftStyle : ''} ${rowItemMinWidthStyle ? rowItemMinWidthStyle : ''}`
                                             : undefined,
                                     )}
-                                    ${onResize((event) => {
-                                        function updateRowStyles() {
-                                            const container = event.target;
-                                            if (!(container instanceof HTMLElement)) {
-                                                throw new Error('onResize event had no target');
-                                            }
-
-                                            const left = container.getBoundingClientRect().left;
-
-                                            const currentWidth =
-                                                container.firstElementChild?.getBoundingClientRect()
-                                                    .width;
-
-                                            if (
-                                                !state.rowStyles[item.key as string]?.width ||
-                                                (currentWidth &&
-                                                    currentWidth >
-                                                        (state.rowStyles[item.key as string]
-                                                            ?.width as number))
-                                            ) {
-                                                updateState({
-                                                    rowStyles: {
-                                                        ...state.rowStyles,
-                                                        [item.key]: {
-                                                            width: currentWidth,
-                                                            left: state.tableListLeft
-                                                                ? left - state.tableListLeft
-                                                                : left,
-                                                        },
-                                                    },
-                                                });
-                                            }
-                                        }
-                                        if (rowIndex < 2) {
-                                            updateRowStyles();
-                                        }
-                                    })}
                                 >
                                     <div
                                         class=${classMap({
@@ -569,48 +532,44 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                     ${onResize((event) => {
                         tableUpdate(event.target);
 
-                        if (!inputs.nonBlocking) {
-                            setTimeout(() => {
-                                enabledColumns.forEach((column) => {
-                                    const columnKey = column.key as string;
+                        setTimeout(() => {
+                            enabledColumns.forEach((column) => {
+                                const columnKey = column.key as string;
 
-                                    const rowItems = host.shadowRoot
-                                        .querySelector('.table-list')
-                                        ?.querySelectorAll(`.row-item[data-column="${columnKey}"]`);
+                                const rowItems = host.shadowRoot
+                                    .querySelector('.table-list')
+                                    ?.querySelectorAll(`.row-item[data-column="${columnKey}"]`);
 
-                                    if (rowItems) {
-                                        const newRowItems = Array.from(rowItems);
-                                        newRowItems.shift();
-                                        newRowItems.forEach((rowItem) => {
-                                            const left = rowItem.getBoundingClientRect().left;
-                                            const currentWidth = (
-                                                rowItem.querySelector('.row-content') as HTMLElement
-                                            ).getBoundingClientRect().width;
-                                            if (
-                                                !state.rowStyles[columnKey]?.width ||
-                                                currentWidth >
-                                                    (state.rowStyles[columnKey]?.width as number)
-                                            ) {
-                                                updateState({
-                                                    rowStyles: {
-                                                        ...state.rowStyles,
-                                                        [columnKey]: {
-                                                            width: currentWidth,
-                                                            left: state.tableListLeft
-                                                                ? left - state.tableListLeft
-                                                                : left,
-                                                        },
+                                if (rowItems) {
+                                    rowItems.forEach((rowItem) => {
+                                        const left = rowItem.getBoundingClientRect().left;
+                                        const currentWidth = (
+                                            rowItem.querySelector('.row-content') as HTMLElement
+                                        ).getBoundingClientRect().width;
+                                        if (
+                                            !state.rowStyles[columnKey]?.width ||
+                                            currentWidth >
+                                                (state.rowStyles[columnKey]?.width as number)
+                                        ) {
+                                            updateState({
+                                                rowStyles: {
+                                                    ...state.rowStyles,
+                                                    [columnKey]: {
+                                                        width: currentWidth,
+                                                        left: state.tableListLeft
+                                                            ? left - state.tableListLeft
+                                                            : left,
                                                     },
-                                                });
-                                            }
-                                        });
-                                    }
-                                });
-                                updateState({
-                                    isStillPainting: false,
-                                });
-                            }, 0);
-                        }
+                                                },
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                            updateState({
+                                isStillPainting: false,
+                            });
+                        }, 0);
                     })}
                     ${listen('scroll', (event) => {
                         tableUpdate(event.target);
