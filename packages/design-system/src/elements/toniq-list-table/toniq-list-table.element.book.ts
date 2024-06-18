@@ -1073,7 +1073,7 @@ const examples: ReadonlyArray<
 const ToniqTestResize = defineToniqElementNoInputs({
     tagName: 'toniq-test-resize',
     stateInitStatic: {
-        message: '',
+        message: 'April 3, 2024 (1:57pm)',
         cleanup: undefined as undefined | (() => void),
     },
     initCallback({updateState, state}) {
