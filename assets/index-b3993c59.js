@@ -5520,7 +5520,7 @@ var Bh=Object.defineProperty;var Lh=(e,t,n)=>t in e?Bh(e,t,{enumerable:!0,config
                                 <div
                                     class=${pe({"row-item":!0,sticky:!!((ue=x.option)!=null&&ue.sticky)&&t.canScroll,fill:!!((ae=x.option)!=null&&ae.spaceEvenly)})}
                                     style=${To(S||N?`${S} ${N}`:void 0)}
-                                    ${Pt(V=>{function se(){var xt,an;const Ce=V.target;if(!(Ce instanceof HTMLElement))throw new Error("onResize event had no target");const ve=Ce.getBoundingClientRect().left,dt=Ce.querySelector(".row-content").getBoundingClientRect().width;(!((xt=t.rowStyles[x.key])!=null&&xt.width)||dt>((an=t.rowStyles[x.key])==null?void 0:an.width))&&n({rowStyles:{...t.rowStyles,[x.key]:{width:dt,left:t.tableListLeft?ve-t.tableListLeft:ve}}})}(b<2||!e.nonBlocking)&&setTimeout(()=>{se(),n({itemsPainted:b===1?i.length*a.length:t.itemsPainted+1})},0)})}
+                                    ${Pt(V=>{function se(){var xt,an;const Ce=V.target;if(!(Ce instanceof HTMLElement))throw new Error("onResize event had no target");const ve=Ce.getBoundingClientRect().left,dt=Ce.querySelector(".row-content").getBoundingClientRect().width;(!((xt=t.rowStyles[x.key])!=null&&xt.width)||dt>((an=t.rowStyles[x.key])==null?void 0:an.width))&&n({rowStyles:{...t.rowStyles,[x.key]:{width:dt,left:t.tableListLeft?ve-t.tableListLeft:ve}}})}(b<2||!e.nonBlocking)&&setTimeout(()=>{se(),n({itemsPainted:t.itemsPainted+1})},0)})}
                                 >
                                     <div
                                         class=${pe({"row-content":!0})}
@@ -5536,7 +5536,7 @@ var Bh=Object.defineProperty;var Lh=(e,t,n)=>t in e?Bh(e,t,{enumerable:!0,config
                                 </div>
                             `})}
                 </div>
-            `}const f=t.itemsPainted<i.length*a.length||!!e.showLoading;return c`
+            `}const p=t.itemsPainted<i.length*a.length,f=(e.nonBlocking?!1:p)||!!e.showLoading;return c`
             <div
                 class=${pe({"table-wrapper":!0,"can-scroll":t.canScroll})}
             >
