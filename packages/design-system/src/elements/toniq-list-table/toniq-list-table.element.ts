@@ -365,6 +365,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         itemsPainted: 0,
         pageCountKey: 0,
         tableListLeft: 0,
+        resizeDone: false,
     },
     initCallback({inputs, state, updateState}) {
         const enabledColumns = inputs.columns.filter((column) => !column.disabled);
@@ -472,6 +473,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                         sticky: !!item.option?.sticky && state.canScroll,
                                         fill: !!item.option?.spaceEvenly,
                                     })}
+                                    style=${`min-width: ${state.rowStyles[item.key as string]?.width}px; left: ${state.rowStyles[item.key as string]?.left}px;`}
                                 >
                                     <div
                                         class=${classMap({
@@ -536,7 +538,49 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                         }
                     })}
                 >
-                    ${asyncAppend(testRows, (row) => row)}
+                    ${asyncAppend(testRows, (row, index) => {
+                        if ((index as number) >= rows.length - 1 && !state.resizeDone) {
+                            let rowStyles = state.rowStyles;
+
+                            enabledColumns.forEach((column) => {
+                                const columnKey = column.key as string;
+
+                                const rowItems = host.shadowRoot
+                                    .querySelector('.table-list')
+                                    ?.querySelectorAll(`.row-item[data-column="${columnKey}"]`);
+
+                                if (rowItems) {
+                                    rowItems.forEach((rowItem) => {
+                                        const left = rowItem.getBoundingClientRect().left;
+                                        const currentWidth = (
+                                            rowItem.querySelector('.row-content') as HTMLElement
+                                        ).getBoundingClientRect().width;
+                                        if (
+                                            !rowStyles[columnKey]?.width ||
+                                            currentWidth > (rowStyles[columnKey]?.width as number)
+                                        ) {
+                                            rowStyles = {
+                                                ...rowStyles,
+                                                [columnKey]: {
+                                                    width: currentWidth,
+                                                    left: state.tableListLeft
+                                                        ? left - state.tableListLeft
+                                                        : left,
+                                                },
+                                            };
+                                        }
+                                    });
+                                }
+                            });
+
+                            updateState({
+                                rowStyles,
+                                resizeDone: true,
+                            });
+                        }
+
+                        return row;
+                    })}
                     ${renderIf(
                         state.canScroll,
                         html`
