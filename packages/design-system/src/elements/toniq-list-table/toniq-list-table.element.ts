@@ -426,6 +426,29 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                   `
                 : nothing;
 
+        function updateRowStyles(container: HTMLElement, key: string) {
+            const left = container.getBoundingClientRect().left;
+
+            const currentWidth = (
+                container.querySelector('.row-content') as HTMLElement
+            ).getBoundingClientRect().width;
+
+            if (
+                !state.rowStyles[key]?.width ||
+                currentWidth > (state.rowStyles[key]?.width as number)
+            ) {
+                updateState({
+                    rowStyles: {
+                        ...state.rowStyles,
+                        [key]: {
+                            width: currentWidth,
+                            left: state.tableListLeft ? left - state.tableListLeft : left,
+                        },
+                    },
+                });
+            }
+        }
+
         function listItem(row: ListTableRow<any>, rowIndex: number) {
             return html`
                 <div
@@ -500,14 +523,14 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                                 });
                                             }
                                         }
-                                        if (rowIndex < 2) {
-                                            updateRowStyles();
-                                        }
-                                        if (!inputs.nonBlocking) {
+                                        if (rowIndex < 2 || !inputs.nonBlocking) {
                                             setTimeout(() => {
                                                 updateRowStyles();
                                                 updateState({
-                                                    itemsPainted: state.itemsPainted + 1,
+                                                    itemsPainted:
+                                                        rowIndex === 1
+                                                            ? enabledColumns.length * rows.length
+                                                            : state.itemsPainted + 1,
                                                 });
                                             }, 0);
                                         }
@@ -539,9 +562,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
 
         const isStillPainting = state.itemsPainted < enabledColumns.length * rows.length;
-
-        const isLoading = (inputs.nonBlocking ? false : isStillPainting) || !!inputs.showLoading;
-
+        const isLoading = isStillPainting || !!inputs.showLoading;
         return html`
             <div
                 class=${classMap({
