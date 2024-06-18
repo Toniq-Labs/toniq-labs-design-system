@@ -8,19 +8,19 @@ import {
 } from '@augment-vir/common';
 import {
     CSSResult,
-    HTMLTemplateResult,
     HtmlInterpolation,
-    asyncAppend,
     classMap,
     css,
     defineElementEvent,
     html,
+    ifDefined,
     listen,
     nothing,
     onResize,
     perInstance,
     renderIf,
     repeat,
+    unsafeCSS,
 } from 'element-vir';
 import {ChevronsRight16Icon} from '../../icons/svgs/core-16/chevrons-right-16.icon';
 import {toniqColors, toniqDurations, toniqFontStyles} from '../../styles';
@@ -75,6 +75,11 @@ export type ListTableInputs = {
           }>
         | undefined;
     showLoading?: boolean | undefined;
+    /**
+     * Used to show the table even if all items have not been painted yet, ideally to be used only
+     * in fixed/consistent column sizes in all rows
+     */
+    nonBlocking?: boolean | undefined;
 };
 
 export type CreateRowObjectCallback<EntryType, Columns extends ColumnsBase> = (
@@ -362,10 +367,9 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             };
         },
         isPainting: false,
-        itemsPainted: 0,
+        isStillPainting: true,
         pageCountKey: 0,
         tableListLeft: 0,
-        resizeDone: false,
     },
     initCallback({inputs, state, updateState}) {
         const enabledColumns = inputs.columns.filter((column) => !column.disabled);
@@ -445,11 +449,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             }
         }
 
-        function listItem(
-            enabledColumns: Readonly<ColumnsBase>,
-            row: ListTableRow<any>,
-            rowIndex: number,
-        ) {
+        function listItem(row: ListTableRow<any>, rowIndex: number) {
             return html`
                 <div
                     class="row-wrapper"
@@ -461,19 +461,34 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                 >
                     ${repeat(
                         enabledColumns,
-                        (item) => `${item.key as string}-${rowIndex}`,
-                        (item) => {
-                            const contents = row.cells[item.key as keyof typeof row];
+                        (item, index) => index,
+                        (item, index) => {
+                            const itemKey = item.key as keyof typeof row;
+                            const contents = row.cells[itemKey];
+
+                            const rowItemLeftStyle = css`
+                                left: ${unsafeCSS(`${state.rowStyles[itemKey]?.left}px`)};
+                            `;
+
+                            const rowItemMinWidthStyle = css`
+                                min-width: ${index >= enabledColumns.length - 1
+                                    ? unsafeCSS('unset')
+                                    : unsafeCSS(`${state.rowStyles[itemKey]?.width}px`)};
+                            `;
 
                             return html`
                                 <div
-                                    data-column=${item.key as string}
+                                    data-column=${itemKey}
                                     class=${classMap({
                                         'row-item': true,
                                         sticky: !!item.option?.sticky && state.canScroll,
                                         fill: !!item.option?.spaceEvenly,
                                     })}
-                                    style=${`min-width: ${state.rowStyles[item.key as string]?.width}px; left: ${state.rowStyles[item.key as string]?.left}px;`}
+                                    style=${ifDefined(
+                                        rowItemLeftStyle || rowItemMinWidthStyle
+                                            ? `${rowItemLeftStyle ? rowItemLeftStyle : ''} ${rowItemMinWidthStyle ? rowItemMinWidthStyle : ''}`
+                                            : undefined,
+                                    )}
                                 >
                                     <div
                                         class=${classMap({
@@ -500,19 +515,8 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             `;
         }
 
-        async function* testRow(
-            rows: Readonly<ListTableRow<any>>[],
-        ): AsyncGenerator<HTMLTemplateResult> {
-            for (let [
-                index,
-                row,
-            ] of rows.entries()) {
-                yield listItem(enabledColumns, row, index);
-            }
-        }
-
-        const isLoading = !!inputs.showLoading;
-        const testRows = testRow(rows);
+        const isLoading =
+            (inputs.nonBlocking ? false : state.isStillPainting) || !!inputs.showLoading;
         return html`
             <div
                 class=${classMap({
@@ -527,6 +531,47 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                     })}
                     ${onResize((event) => {
                         tableUpdate(event.target);
+
+                        if (!inputs.nonBlocking) {
+                            setTimeout(() => {
+                                enabledColumns.forEach((column) => {
+                                    const columnKey = column.key as string;
+
+                                    const rowItems = host.shadowRoot
+                                        .querySelector('.table-list')
+                                        ?.querySelectorAll(`.row-item[data-column="${columnKey}"]`);
+
+                                    if (rowItems) {
+                                        rowItems.forEach((rowItem) => {
+                                            const left = rowItem.getBoundingClientRect().left;
+                                            const currentWidth = (
+                                                rowItem.querySelector('.row-content') as HTMLElement
+                                            ).getBoundingClientRect().width;
+                                            if (
+                                                !state.rowStyles[columnKey]?.width ||
+                                                currentWidth >
+                                                    (state.rowStyles[columnKey]?.width as number)
+                                            ) {
+                                                updateState({
+                                                    rowStyles: {
+                                                        ...state.rowStyles,
+                                                        [columnKey]: {
+                                                            width: currentWidth,
+                                                            left: state.tableListLeft
+                                                                ? left - state.tableListLeft
+                                                                : left,
+                                                        },
+                                                    },
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                                updateState({
+                                    isStillPainting: false,
+                                });
+                            }, 0);
+                        }
                     })}
                     ${listen('scroll', (event) => {
                         tableUpdate(event.target);
@@ -538,49 +583,13 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                         }
                     })}
                 >
-                    ${asyncAppend(testRows, (row, index) => {
-                        if ((index as number) >= rows.length - 1 && !state.resizeDone) {
-                            let rowStyles = state.rowStyles;
-
-                            enabledColumns.forEach((column) => {
-                                const columnKey = column.key as string;
-
-                                const rowItems = host.shadowRoot
-                                    .querySelector('.table-list')
-                                    ?.querySelectorAll(`.row-item[data-column="${columnKey}"]`);
-
-                                if (rowItems) {
-                                    rowItems.forEach((rowItem) => {
-                                        const left = rowItem.getBoundingClientRect().left;
-                                        const currentWidth = (
-                                            rowItem.querySelector('.row-content') as HTMLElement
-                                        ).getBoundingClientRect().width;
-                                        if (
-                                            !rowStyles[columnKey]?.width ||
-                                            currentWidth > (rowStyles[columnKey]?.width as number)
-                                        ) {
-                                            rowStyles = {
-                                                ...rowStyles,
-                                                [columnKey]: {
-                                                    width: currentWidth,
-                                                    left: state.tableListLeft
-                                                        ? left - state.tableListLeft
-                                                        : left,
-                                                },
-                                            };
-                                        }
-                                    });
-                                }
-                            });
-
-                            updateState({
-                                rowStyles,
-                                resizeDone: true,
-                            });
-                        }
-
-                        return row;
-                    })}
+                    ${repeat(
+                        rows,
+                        (item, index) => index,
+                        (item: ListTableRow<any>, index: number) => {
+                            return listItem(item, index);
+                        },
+                    )}
                     ${renderIf(
                         state.canScroll,
                         html`

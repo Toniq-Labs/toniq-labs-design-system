@@ -1073,7 +1073,7 @@ const examples: ReadonlyArray<
 const ToniqTestResize = defineToniqElementNoInputs({
     tagName: 'toniq-test-resize',
     stateInitStatic: {
-        message: 'April 3, 2024 (1:57pm)',
+        message: '',
         cleanup: undefined as undefined | (() => void),
     },
     initCallback({updateState, state}) {
@@ -1249,6 +1249,7 @@ export const toniqListTableElementBookPage = defineBookPage({
                             currentPage: 1,
                             pageCount: 5,
                         },
+                        nonBlocking: true,
                     })}></${ToniqListTable}>
                 `;
             },
