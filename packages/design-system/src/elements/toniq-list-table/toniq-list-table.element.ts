@@ -13,11 +13,13 @@ import {
     css,
     defineElementEvent,
     html,
+    ifDefined,
     listen,
     nothing,
     onResize,
     perInstance,
     renderIf,
+    repeat,
     unsafeCSS,
 } from 'element-vir';
 import {ChevronsRight16Icon} from '../../icons/svgs/core-16/chevrons-right-16.icon';
@@ -276,6 +278,10 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             background: ${toniqColors.pageInteraction.backgroundColor};
         }
 
+        .row-item.lazy {
+            display: none;
+        }
+
         .row-content.hidden {
             visibility: hidden;
         }
@@ -363,6 +369,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         isPainting: false,
         itemsPainted: 0,
         pageCountKey: 0,
+        tableListLeft: 0,
     },
     initCallback({inputs, state, updateState}) {
         const enabledColumns = inputs.columns.filter((column) => !column.disabled);
@@ -386,11 +393,14 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
 
         function tableUpdate(container: HTMLElement | EventTarget | null) {
             if (container instanceof HTMLElement) {
-                state.debouncedResize(() => {
-                    updateState({
-                        canScroll: container.scrollWidth > container.clientWidth,
+                setTimeout(() => {
+                    state.debouncedResize(() => {
+                        updateState({
+                            canScroll: container.scrollWidth > container.clientWidth,
+                            tableListLeft: container.getBoundingClientRect().left,
+                        });
                     });
-                });
+                }, 0);
             }
         }
 
@@ -416,6 +426,29 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                   `
                 : nothing;
 
+        function updateRowStyles(container: HTMLElement, key: string) {
+            const left = container.getBoundingClientRect().left;
+
+            const currentWidth = (
+                container.querySelector('.row-content') as HTMLElement
+            ).getBoundingClientRect().width;
+
+            if (
+                !state.rowStyles[key]?.width ||
+                currentWidth > (state.rowStyles[key]?.width as number)
+            ) {
+                updateState({
+                    rowStyles: {
+                        ...state.rowStyles,
+                        [key]: {
+                            width: currentWidth,
+                            left: state.tableListLeft ? left - state.tableListLeft : left,
+                        },
+                    },
+                });
+            }
+        }
+
         function listItem(row: ListTableRow<any>, rowIndex: number) {
             return html`
                 <div
@@ -426,93 +459,110 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                           })
                         : nothing}
                 >
-                    ${enabledColumns.map((item, index) => {
-                        const contents = row.cells[item.key as keyof typeof row];
+                    ${repeat(
+                        enabledColumns,
+                        (item, index) => index,
+                        (item, index) => {
+                            const contents = row.cells[item.key as keyof typeof row];
 
-                        const rowItemStyle = css`
-                            left: ${unsafeCSS(`${state.rowStyles[item.key as string]?.left}px`)};
-                            min-width: ${index >= enabledColumns.length - 1
-                                ? unsafeCSS('unset')
-                                : unsafeCSS(`${state.rowStyles[item.key as string]?.width}px`)};
-                        `;
-                        return html`
-                            <div
-                                class=${classMap({
-                                    'row-item': true,
-                                    sticky: !!item.option?.sticky && state.canScroll,
-                                    fill: !!item.option?.spaceEvenly,
-                                })}
-                                style=${rowItemStyle}
-                            >
+                            const rowItemLeftStyle = css`
+                                left: ${unsafeCSS(
+                                    `${state.rowStyles[item.key as string]?.left}px`,
+                                )};
+                            `;
+
+                            const rowItemMinWidthStyle = css`
+                                min-width: ${index >= enabledColumns.length - 1
+                                    ? unsafeCSS('unset')
+                                    : unsafeCSS(`${state.rowStyles[item.key as string]?.width}px`)};
+                            `;
+
+                            return html`
                                 <div
                                     class=${classMap({
-                                        'row-content': true,
+                                        'row-item': true,
+                                        sticky: !!item.option?.sticky && state.canScroll,
+                                        fill: !!item.option?.spaceEvenly,
                                     })}
+                                    style=${ifDefined(
+                                        rowItemLeftStyle || rowItemMinWidthStyle
+                                            ? `${rowItemLeftStyle} ${rowItemMinWidthStyle}`
+                                            : undefined,
+                                    )}
                                     ${onResize((event) => {
-                                        const container = event.target;
-                                        if (!(container instanceof HTMLElement)) {
-                                            throw new Error('onResize event had no target');
-                                        }
+                                        function updateRowStyles() {
+                                            const container = event.target;
+                                            if (!(container instanceof HTMLElement)) {
+                                                throw new Error('onResize event had no target');
+                                            }
 
-                                        const parentEl = container.closest('.table-list');
-                                        const containerLeft =
-                                            parentEl?.getBoundingClientRect().left;
+                                            const left = container.getBoundingClientRect().left;
 
-                                        const rowItem = parentEl?.querySelectorAll('.row-item')[
-                                            index
-                                        ] as HTMLElement;
-                                        const left = rowItem?.getBoundingClientRect().left;
+                                            const currentWidth = (
+                                                container.querySelector(
+                                                    '.row-content',
+                                                ) as HTMLElement
+                                            ).getBoundingClientRect().width;
 
-                                        const currentWidth =
-                                            container.getBoundingClientRect().width;
-                                        if (
-                                            !state.rowStyles[item.key as string]?.width ||
-                                            currentWidth >
-                                                (state.rowStyles[item.key as string]
-                                                    ?.width as number)
-                                        ) {
-                                            updateState({
-                                                rowStyles: {
-                                                    ...state.rowStyles,
-                                                    [item.key]: {
-                                                        width: currentWidth,
-                                                        left: containerLeft
-                                                            ? left - containerLeft
-                                                            : left,
+                                            if (
+                                                !state.rowStyles[item.key as string]?.width ||
+                                                currentWidth >
+                                                    (state.rowStyles[item.key as string]
+                                                        ?.width as number)
+                                            ) {
+                                                updateState({
+                                                    rowStyles: {
+                                                        ...state.rowStyles,
+                                                        [item.key]: {
+                                                            width: currentWidth,
+                                                            left: state.tableListLeft
+                                                                ? left - state.tableListLeft
+                                                                : left,
+                                                        },
                                                     },
-                                                },
-                                            });
+                                                });
+                                            }
                                         }
-                                        if (!inputs.nonBlocking) {
-                                            updateState({
-                                                itemsPainted: state.itemsPainted + 1,
-                                            });
+                                        if (rowIndex < 2 || !inputs.nonBlocking) {
+                                            setTimeout(() => {
+                                                updateRowStyles();
+                                                updateState({
+                                                    itemsPainted:
+                                                        rowIndex === 1
+                                                            ? enabledColumns.length * rows.length
+                                                            : state.itemsPainted + 1,
+                                                });
+                                            }, 0);
                                         }
                                     })}
                                 >
-                                    ${renderIf(
-                                        rowIndex === 0,
-                                        html`
-                                            <span class="header" style=${item.style}>
-                                                ${item.title}
-                                            </span>
-                                        `,
-                                        html`
-                                            ${contents}
-                                        `,
-                                    )}
+                                    <div
+                                        class=${classMap({
+                                            'row-content': true,
+                                        })}
+                                    >
+                                        ${renderIf(
+                                            rowIndex === 0,
+                                            html`
+                                                <span class="header" style=${item.style}>
+                                                    ${item.title}
+                                                </span>
+                                            `,
+                                            html`
+                                                ${contents}
+                                            `,
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        `;
-                    })}
+                            `;
+                        },
+                    )}
                 </div>
             `;
         }
 
         const isStillPainting = state.itemsPainted < enabledColumns.length * rows.length;
-
-        const isLoading = (inputs.nonBlocking ? false : isStillPainting) || !!inputs.showLoading;
-
+        const isLoading = isStillPainting || !!inputs.showLoading;
         return html`
             <div
                 class=${classMap({
@@ -538,11 +588,15 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                         }
                     })}
                 >
-                    ${rows.filter(isTruthy).map((item: ListTableRow<any>, index: number) => {
-                        return html`
-                            ${listItem(item, index)}
-                        `;
-                    })}
+                    ${repeat(
+                        rows,
+                        (item, index) => index,
+                        (item: ListTableRow<any>, index: number) => {
+                            return html`
+                                ${listItem(item, index)}
+                            `;
+                        },
+                    )}
                     ${renderIf(
                         state.canScroll,
                         html`
