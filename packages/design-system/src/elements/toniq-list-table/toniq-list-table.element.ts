@@ -369,6 +369,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         isPainting: false,
         itemsPainted: 0,
         pageCountKey: 0,
+        tableListLeft: 0,
     },
     initCallback({inputs, state, updateState}) {
         const enabledColumns = inputs.columns.filter((column) => !column.disabled);
@@ -392,11 +393,14 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
 
         function tableUpdate(container: HTMLElement | EventTarget | null) {
             if (container instanceof HTMLElement) {
-                state.debouncedResize(() => {
-                    updateState({
-                        canScroll: container.scrollWidth > container.clientWidth,
+                setTimeout(() => {
+                    state.debouncedResize(() => {
+                        updateState({
+                            canScroll: container.scrollWidth > container.clientWidth,
+                            tableListLeft: container.getBoundingClientRect().left,
+                        });
                     });
-                });
+                }, 0);
             }
         }
 
@@ -474,14 +478,9 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                                     throw new Error('onResize event had no target');
                                                 }
 
-                                                const parentEl = container.closest('.table-list');
-                                                const containerLeft =
-                                                    parentEl?.getBoundingClientRect().left;
-
-                                                const rowItem = parentEl?.querySelectorAll(
-                                                    '.row-item',
-                                                )[index] as HTMLElement;
-                                                const left = rowItem?.getBoundingClientRect().left;
+                                                const left = (
+                                                    container.closest('.row-item') as HTMLElement
+                                                ).getBoundingClientRect().left;
 
                                                 const currentWidth =
                                                     container.getBoundingClientRect().width;
@@ -496,8 +495,8 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                                             ...state.rowStyles,
                                                             [item.key]: {
                                                                 width: currentWidth,
-                                                                left: containerLeft
-                                                                    ? left - containerLeft
+                                                                left: state.tableListLeft
+                                                                    ? left - state.tableListLeft
                                                                     : left,
                                                             },
                                                         },
