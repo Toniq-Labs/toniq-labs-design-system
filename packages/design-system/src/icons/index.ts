@@ -44,6 +44,7 @@ import {ExternalLink24Icon} from './svgs/core-24/external-link-24.icon';
 import {Filter24Icon} from './svgs/core-24/filter-24.icon';
 import {Fire24Icon} from './svgs/core-24/fire-24.icon';
 import {FrameBolt24Icon} from './svgs/core-24/frame-bolt-24.icon';
+import {GameController24Icon} from './svgs/core-24/game-controller-24.icon';
 import {Gear24Icon} from './svgs/core-24/gear-24.icon';
 import {Geometry24Icon} from './svgs/core-24/geometry-24.icon';
 import {Gift24Icon} from './svgs/core-24/gift-24.icon';
@@ -175,6 +176,7 @@ export * from './svgs/core-24/external-link-24.icon';
 export * from './svgs/core-24/filter-24.icon';
 export * from './svgs/core-24/fire-24.icon';
 export * from './svgs/core-24/frame-bolt-24.icon';
+export * from './svgs/core-24/game-controller-24.icon';
 export * from './svgs/core-24/gear-24.icon';
 export * from './svgs/core-24/geometry-24.icon';
 export * from './svgs/core-24/gift-24.icon';
@@ -312,6 +314,7 @@ export const allIconsByCategory = {
         Filter24Icon,
         Fire24Icon,
         FrameBolt24Icon,
+        GameController24Icon,
         Gear24Icon,
         Geometry24Icon,
         Gift24Icon,
