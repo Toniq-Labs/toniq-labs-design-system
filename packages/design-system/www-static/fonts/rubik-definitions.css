@@ -1,0 +1,76 @@
+/*
+   Light
+*/
+@font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(./rubik.woff2) format('woff2');
+}
+
+/*
+   Regular
+*/
+@font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(./rubik.woff2) format('woff2');
+}
+
+/*
+   Medium
+*/
+@font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(./rubik.woff2) format('woff2');
+}
+
+/*
+   SemiBold
+*/
+@font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(./rubik.woff2) format('woff2');
+}
+
+/*
+   Bold
+*/
+@font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(./rubik.woff2) format('woff2');
+}
+
+/*
+   ExtraBold
+*/
+@font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url(./rubik.woff2) format('woff2');
+}
+
+/*
+   Black
+*/
+@font-face {
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url(./rubik.woff2) format('woff2');
+}

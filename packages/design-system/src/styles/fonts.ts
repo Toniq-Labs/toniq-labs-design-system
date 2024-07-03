@@ -54,6 +54,10 @@ const fontStylesFallbacks = {
         'font-family': css`'Inconsolata', monospace`,
         'line-height': css`1.125em`,
     },
+    rubikFont: {
+        'font-family': css`'Rubik', sans-serif`,
+        'line-height': css`1.125em`,
+    },
 } as const satisfies Record<`${string}Font`, Readonly<Record<string, CSSResult>>>;
 
 export const toniqFontStylesCssVarNames = mapObjectValues(
@@ -157,6 +161,10 @@ export const toniqFontStyles = (() => {
         ${combineFallbacksAndVars('monospaceFont')}
     `;
 
+    const rubikFont = css`
+        ${combineFallbacksAndVars('rubikFont')}
+    `;
+
     const allFontStyles = {
         toniqFont,
         normalWeightFont,
@@ -172,6 +180,7 @@ export const toniqFontStyles = (() => {
         h4Font,
         h5Font,
         monospaceFont,
+        rubikFont,
     } as const satisfies Record<FontStyleKey, FontStyleDefinition>;
 
     return allFontStyles;
