@@ -14,6 +14,11 @@ import {
 } from '../toniq-hyperlink/toniq-hyperlink.element';
 import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 
+export enum ToniqTopTabVariantEnum {
+    Default = 'default',
+    Minimal = 'minimal',
+}
+
 export type ToniqTopTab = Readonly<{
     label: string;
     value: Primitive;
@@ -30,6 +35,7 @@ export const ToniqTopTabs = defineToniqElement<{
     // if text is not given, provide a child element
     tabs: ReadonlyArray<ToniqTopTab>;
     value: Primitive;
+    variant?: ToniqTopTabVariantEnum | undefined;
 }>()({
     tagName: 'toniq-top-tabs',
     events: {
@@ -41,11 +47,14 @@ export const ToniqTopTabs = defineToniqElement<{
         routeChange: defineElementEvent<NonNullable<ToniqTopTab['link']>['route']>(),
         valueChange: defineElementEvent<ToniqTopTab['value']>(),
     },
+    hostClasses: {
+        'toniq-top-tabs-minimal': ({inputs}) => inputs.variant === ToniqTopTabVariantEnum.Minimal,
+    },
     cssVars: {
         'toniq-top-tabs-selected-border-width': '2px',
         'toniq-top-tabs-tab-vertical-padding': '18px',
     },
-    styles: ({cssVars}) => css`
+    styles: ({hostClasses, cssVars}) => css`
         :host {
             display: block;
         }
@@ -67,6 +76,10 @@ export const ToniqTopTabs = defineToniqElement<{
                 border-color ${toniqDurations.interaction},
                 padding-bottom ${toniqDurations.interaction};
             padding: 4px 4px ${cssVars['toniq-top-tabs-tab-vertical-padding'].value} 12px;
+        }
+
+        ${hostClasses['toniq-top-tabs-minimal'].selector} li:not(.selected) {
+            border-color: transparent;
         }
 
         li:first-child {

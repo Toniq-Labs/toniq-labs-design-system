@@ -4,7 +4,7 @@ import {CSSResult, css, html, listen} from 'element-vir';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
 import {Infinity24Icon} from '../../icons';
 import {InfoCircle16Icon} from '../../icons/svgs/core-16/info-circle-16.icon';
-import {ToniqTopTab, ToniqTopTabs} from './toniq-top-tabs.element';
+import {ToniqTopTab, ToniqTopTabVariantEnum, ToniqTopTabs} from './toniq-top-tabs.element';
 
 const examples: {
     title: string;
@@ -141,6 +141,19 @@ const examples: {
             ],
         },
     },
+    {
+        title: 'no bottom border',
+        inputs: {
+            value: 'hi',
+            tabs: [
+                'hi',
+                'bye',
+                'hello',
+                'so long',
+            ],
+            variant: ToniqTopTabVariantEnum.Minimal,
+        },
+    },
 ];
 
 export const toniqTopTabsPage = defineBookPage({
@@ -169,6 +182,7 @@ export const toniqTopTabsPage = defineBookPage({
                         <${ToniqTopTabs.assign({
                             tabs,
                             value: state.selectedTab,
+                            variant: example.inputs.variant,
                         })}
                             ${listen(ToniqTopTabs.events.valueChange, (event) => {
                                 updateState({selectedTab: event.detail});
