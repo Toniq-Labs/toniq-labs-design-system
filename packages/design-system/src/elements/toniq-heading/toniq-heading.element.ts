@@ -9,6 +9,7 @@ export enum ToniqHeadingLevel {
     H3 = 'h3',
     H4 = 'h4',
     H5 = 'h5',
+    H6 = 'h6',
 }
 
 /** A replacement for the h* heading elements. */
@@ -20,6 +21,7 @@ export const ToniqHeading = defineToniqElement<{level: ToniqHeadingLevel}>()({
         'toniq-heading-h3': ({inputs}) => inputs.level === ToniqHeadingLevel.H3,
         'toniq-heading-h4': ({inputs}) => inputs.level === ToniqHeadingLevel.H4,
         'toniq-heading-h5': ({inputs}) => inputs.level === ToniqHeadingLevel.H5,
+        'toniq-heading-h6': ({inputs}) => inputs.level === ToniqHeadingLevel.H6,
     },
     styles: ({hostClasses}) => css`
         ${hostClasses['toniq-heading-h1'].selector} {
@@ -37,12 +39,16 @@ export const ToniqHeading = defineToniqElement<{level: ToniqHeadingLevel}>()({
         ${hostClasses['toniq-heading-h5'].selector} {
             ${toniqFontStyles.h5Font};
         }
+        ${hostClasses['toniq-heading-h6'].selector} {
+            ${toniqFontStyles.h5Font};
+        }
 
         h1,
         h2,
         h3,
         h4,
-        h5 {
+        h5,
+        h6 {
             ${noNativeSpacing};
             font: inherit;
             overflow: inherit;
@@ -67,6 +73,10 @@ export const ToniqHeading = defineToniqElement<{level: ToniqHeadingLevel}>()({
                 <h4><slot></slot></h4>
             `;
         } else if (inputs.level === ToniqHeadingLevel.H5) {
+            return html`
+                <h5><slot></slot></h5>
+            `;
+        } else if (inputs.level === ToniqHeadingLevel.H6) {
             return html`
                 <h5><slot></slot></h5>
             `;
