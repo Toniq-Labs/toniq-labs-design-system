@@ -6246,18 +6246,17 @@ var Lh=Object.defineProperty;var Ph=(e,t,n)=>t in e?Lh(e,t,{enumerable:!0,config
                 border-bottom-width ${oe.interaction},
                 border-color ${oe.interaction},
                 padding-bottom ${oe.interaction};
-            padding: 4px 4px ${t["toniq-top-tabs-tab-vertical-padding"].value} 12px;
         }
 
         ${e["toniq-top-tabs-minimal"].selector} li:not(.selected) {
             border-color: transparent;
         }
 
-        li:first-child {
+        li:first-child .tab {
             padding-left: 4px;
         }
 
-        li:has(+ li.selected) {
+        li:has(+ li.selected) .tab {
             padding-right: 12px;
         }
 
@@ -6268,6 +6267,7 @@ var Lh=Object.defineProperty;var Ph=(e,t,n)=>t in e?Lh(e,t,{enumerable:!0,config
             display: inline-block;
             ${B.paragraphFont};
             max-width: 300px;
+            padding: 4px 4px ${t["toniq-top-tabs-tab-vertical-padding"].value} 12px;
         }
 
         .tab-content {
@@ -6291,13 +6291,13 @@ var Lh=Object.defineProperty;var Ph=(e,t,n)=>t in e?Lh(e,t,{enumerable:!0,config
             ${B.boldFont};
             color: ${w.pageInteraction.foregroundColor};
             cursor: default;
+            padding-left: 4px;
+            padding-right: 4px;
         }
 
         li.selected {
             border-color: ${w.pageInteraction.foregroundColor};
             border-bottom-width: ${t["toniq-top-tabs-selected-border-width"].value};
-            padding-left: 4px;
-            padding-right: 4px;
         }
 
         li:last-child {
