@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system-root",
-    "version": "16.20.1",
+    "version": "16.20.2",
     "private": true,
     "description": "Root design system mono-repo package.",
     "homepage": "https://github.com/Toniq-Labs/toniq-labs-design-system",
