@@ -299,7 +299,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             position: sticky;
             filter: drop-shadow(rgba(0, 0, 0, 0.12) 4px 1px 3px);
             will-change: filter;
-            z-index: 100;
+            z-index: 2;
         }
 
         .row-wrapper:last-child .row-item {
