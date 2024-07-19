@@ -151,7 +151,35 @@ const examples: {
                 'hello',
                 'so long',
             ],
-            variant: ToniqTopTabVariantEnum.Minimal,
+            options: {
+                variant: ToniqTopTabVariantEnum.Minimal,
+            },
+        },
+    },
+    {
+        title: 'icon only',
+        inputs: {
+            value: 0,
+            tabs: [
+                {
+                    label: 'tab 1',
+                    value: 0,
+                    icon: Infinity24Icon,
+                },
+                {
+                    label: 'tab 2',
+                    value: 1,
+                    icon: Infinity24Icon,
+                },
+                {
+                    label: 'tab 3',
+                    value: 2,
+                    icon: Infinity24Icon,
+                },
+            ],
+            options: {
+                iconOnlyMobile: true,
+            },
         },
     },
 ];
@@ -182,7 +210,7 @@ export const toniqTopTabsPage = defineBookPage({
                         <${ToniqTopTabs.assign({
                             tabs,
                             value: state.selectedTab,
-                            variant: example.inputs.variant,
+                            options: example.inputs.options,
                         })}
                             ${listen(ToniqTopTabs.events.valueChange, (event) => {
                                 updateState({selectedTab: event.detail});

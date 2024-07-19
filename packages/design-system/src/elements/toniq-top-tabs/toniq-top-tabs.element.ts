@@ -35,7 +35,12 @@ export const ToniqTopTabs = defineToniqElement<{
     // if text is not given, provide a child element
     tabs: ReadonlyArray<ToniqTopTab>;
     value: Primitive;
-    variant?: ToniqTopTabVariantEnum | undefined;
+    options?:
+        | {
+              iconOnlyMobile?: boolean;
+              variant?: ToniqTopTabVariantEnum;
+          }
+        | undefined;
 }>()({
     tagName: 'toniq-top-tabs',
     events: {
@@ -48,7 +53,9 @@ export const ToniqTopTabs = defineToniqElement<{
         valueChange: defineElementEvent<ToniqTopTab['value']>(),
     },
     hostClasses: {
-        'toniq-top-tabs-minimal': ({inputs}) => inputs.variant === ToniqTopTabVariantEnum.Minimal,
+        'toniq-top-tabs-minimal': ({inputs}) =>
+            inputs.options?.variant === ToniqTopTabVariantEnum.Minimal,
+        'toniq-top-tabs-icon-only-mobile': ({inputs}) => !!inputs.options?.iconOnlyMobile,
     },
     cssVars: {
         'toniq-top-tabs-selected-border-width': '2px',
@@ -131,6 +138,12 @@ export const ToniqTopTabs = defineToniqElement<{
 
         li:last-child {
             flex-grow: 1;
+        }
+
+        @media (max-width: 600px) {
+            ${hostClasses['toniq-top-tabs-icon-only-mobile'].selector} ${ToniqBoldSpace} {
+                display: none;
+            }
         }
     `,
     renderCallback({inputs, dispatch, events}) {
