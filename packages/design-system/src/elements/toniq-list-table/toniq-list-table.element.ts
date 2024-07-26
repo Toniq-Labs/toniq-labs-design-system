@@ -8,6 +8,7 @@ import {
 } from '@augment-vir/common';
 import {
     CSSResult,
+    HTMLTemplateResult,
     HtmlInterpolation,
     classMap,
     css,
@@ -80,6 +81,7 @@ export type ListTableInputs = {
      * in fixed/consistent column sizes in all rows
      */
     nonBlocking?: boolean | undefined;
+    paginationAction?: HTMLTemplateResult | undefined;
 };
 
 export type CreateRowObjectCallback<EntryType, Columns extends ColumnsBase> = (
@@ -410,6 +412,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                       <${ToniqPagination.assign({
                           currentPage: inputs.pagination.currentPage,
                           pageCount: inputs.pagination.pageCount,
+                          paginationAction: inputs.paginationAction,
                       })}
                           class=${classMap({
                               'blocked-pagination': !!inputs.showLoading,
