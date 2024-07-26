@@ -1,4 +1,12 @@
-import {classMap, css, defineElementEvent, html, listen} from 'element-vir';
+import {
+    classMap,
+    css,
+    defineElementEvent,
+    html,
+    HTMLTemplateResult,
+    listen,
+    renderIf,
+} from 'element-vir';
 import {noNativeFormStyles, noUserSelect} from 'vira';
 import {pagination} from '../../augments/array';
 import {ArrowLeft24Icon, ArrowRight24Icon} from '../../icons';
@@ -17,6 +25,7 @@ export const ToniqPagination = defineToniqElement<{
      * into "...". Instances of "..." are included in the pagesShown count.
      */
     pagesShown?: number | undefined;
+    paginationAction?: HTMLTemplateResult | undefined;
 }>()({
     tagName: 'toniq-pagination',
     styles: css`
@@ -129,6 +138,12 @@ export const ToniqPagination = defineToniqElement<{
                 >
                     <${ToniqIcon.assign({icon: ArrowRight24Icon})}></${ToniqIcon}>
                 </button>
+                ${renderIf(
+                    !!inputs.paginationAction,
+                    html`
+                        <button class="control">${inputs.paginationAction}</button>
+                    `,
+                )}
             `;
         }
     },
