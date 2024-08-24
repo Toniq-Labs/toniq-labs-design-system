@@ -1,6 +1,6 @@
 import {html} from 'element-vir';
 import {defineIcon} from 'vira';
-
+// cspell:disable
 export const CryptoBoxy24Icon = defineIcon({
     name: 'CryptoBoxy24Icon',
     svgTemplate: html`
@@ -23,3 +23,4 @@ export const CryptoBoxy24Icon = defineIcon({
         </svg>
     `,
 });
+// cspell:enable
