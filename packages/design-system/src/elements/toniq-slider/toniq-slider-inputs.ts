@@ -28,6 +28,7 @@ export type ToniqSliderInputs = Readonly<
          */
         max: number;
         logScale?: boolean;
+        noLabel?: boolean | undefined;
         step?: number;
         /** Appends the given string to the slider's value for label text. */
         suffix?: string;
