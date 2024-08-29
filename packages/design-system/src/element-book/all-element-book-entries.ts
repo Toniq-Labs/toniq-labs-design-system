@@ -17,6 +17,7 @@ import {toniqInputPage} from '../elements/toniq-input/toniq-input.element.book';
 import {toniqListTableElementBookPage} from '../elements/toniq-list-table/toniq-list-table.element.book';
 import {toniqLoadingBookPage} from '../elements/toniq-loading/toniq-loading.element.book';
 import {toniqMiddleEllipsisPage} from '../elements/toniq-middle-ellipsis/toniq-middle-ellipsis.element.book';
+import {toniqNfidIdentityPage} from '../elements/toniq-nfid-identitykit/toniq-nfid-identitykit.element.book';
 import {toniqProgressBookPage} from '../elements/toniq-progress/toniq-progress.element.book';
 import {toniqRadioGroupPage} from '../elements/toniq-radio-group/toniq-radio-group.element.book';
 import {toniqSliderPage} from '../elements/toniq-slider/toniq-slider.element.book';
@@ -57,6 +58,7 @@ const childPages = [
     toniqFontsBookPage,
     toniqHeadingBookPage,
     toniqHyperlinkPage,
+    toniqNfidIdentityPage,
     toniqIconBookPage,
     toniqInputPage,
     toniqLoadingBookPage,

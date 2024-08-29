@@ -20,6 +20,7 @@ export * from './toniq-input/toniq-input.element';
 export * from './toniq-list-table/toniq-list-table.element';
 export * from './toniq-loading/toniq-loading.element';
 export * from './toniq-middle-ellipsis/toniq-middle-ellipsis.element';
+export * from './toniq-nfid-identitykit/toniq-nfid-identitykit.element';
 export * from './toniq-pagination/toniq-pagination.element';
 export * from './toniq-progress/toniq-progress.element';
 export * from './toniq-radio-group/toniq-radio-group.element';
