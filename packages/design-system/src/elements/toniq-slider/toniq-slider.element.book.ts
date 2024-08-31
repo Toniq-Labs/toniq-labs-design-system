@@ -284,5 +284,30 @@ export const toniqSliderPage = defineBookPage({
                 `;
             },
         });
+        defineExample({
+            title: 'No label',
+            stateInitStatic: {
+                value: 20,
+            },
+            styles: css`
+                ${defaultExampleWidth}
+            `,
+            renderCallback({state, updateState}) {
+                return html`
+                    <${ToniqSlider.assign({
+                        value: state.value,
+                        noLabel: true,
+                        ...defaultMinMax,
+                    })}
+                        ${listen(ToniqSlider.events.valueChange, (event) => {
+                            if (typeof event.detail !== 'number') {
+                                throw new Error('was expecting a single numeric slider value');
+                            }
+                            updateState({value: event.detail});
+                        })}
+                    ></${ToniqSlider}>
+                `;
+            },
+        });
     },
 });

@@ -1,5 +1,14 @@
 import {addPercent, addPx} from '@augment-vir/common';
-import {css, defineElementEvent, html, listen, onResize, unsafeCSS} from 'element-vir';
+import {
+    classMap,
+    css,
+    defineElementEvent,
+    html,
+    listen,
+    onResize,
+    renderIf,
+    unsafeCSS,
+} from 'element-vir';
 import {noUserSelect} from 'vira';
 import {testId} from '../../directives/test-id.directive';
 import {toniqDurations} from '../../styles/animation';
@@ -112,6 +121,10 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
             margin-bottom: 48px;
             position: relative;
             ${applyBackgroundAndForeground(toniqColors.accentSecondary)};
+        }
+
+        .range-no-label {
+            margin-bottom: 0;
         }
 
         .progress {
@@ -315,7 +328,7 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                     ></div>
                     <span
                         class="${classNames.labelOuterWrapper} ${classNames.lowerLabelWrapper}"
-                        style="left: ${progressBarPosition.left}"
+                        style="left: ${progressBarPosition.left};"
                     >
                         <span
                             class="${classNames.labelPercentMarginWrapper}"
@@ -424,7 +437,11 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
 
             return html`
                 <div
-                    class="range ${inputs.colorTemperature ? 'range-temp' : ''}"
+                    class="${classMap({
+                        range: true,
+                        'range-temp': !!inputs.colorTemperature,
+                        'range-no-label': !!inputs.noLabel,
+                    })}"
                     ${onResize(() => {
                         updateState({
                             rangeWidth: getRangeWidth(host),
@@ -435,18 +452,24 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
                         class="progress ${inputs.colorTemperature ? 'progress-temp' : ''}"
                         style="left: 0px; right: ${progressRightPosition}"
                     ></div>
-                    <span
-                        class="${classNames.labelOuterWrapper} ${classNames.rightAlignedLabelWrapper}"
-                        style="right: ${progressRightPosition}"
-                    >
-                        <span
-                            class="${classNames.labelPercentMarginWrapper}"
-                            style="margin-right: ${addPercent(labelMargin)}"
-                            ${testId(toniqSliderTestIds.label)}
-                        >
-                            ${label}
-                        </span>
-                    </span>
+                    ${renderIf(
+                        !!!inputs.noLabel,
+                        html`
+                            <span
+                                class="${classNames.labelOuterWrapper} ${classNames.rightAlignedLabelWrapper}"
+                                style="right: ${progressRightPosition}"
+                            >
+                                <span
+                                    class="${classNames.labelPercentMarginWrapper}"
+                                    style="margin-right: ${addPercent(labelMargin)}"
+                                    ${testId(toniqSliderTestIds.label)}
+                                >
+                                    ${label}
+                                </span>
+                            </span>
+                        `,
+                    )}
+
                     <input
                         ?disabled=${inputs.disabled ?? false}
                         type="range"
