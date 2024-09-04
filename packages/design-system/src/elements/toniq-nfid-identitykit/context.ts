@@ -1,12 +1,14 @@
 import {ContextConsumer, createContext} from '@lit/context';
 import {
     IdentityKit,
-    IdentityKitAccountsSignerClient,
-    IdentityKitDelegationSignerClient,
     IdentityKitSignerAgent,
     IdentityKitSignerAgentOptions,
     IdentityKitSignerConfig,
 } from '@nfid/identitykit';
+import {
+    AccountsSignerClient,
+    DelegationSignerClient,
+} from '@nfid/identitykit/dist/src/lib/signer-client';
 import {Signer} from '@slide-computer/signer';
 import {DeclarativeElementHost} from 'element-vir';
 import {IdentityKitTheme} from './constants';
@@ -42,7 +44,7 @@ export function useIdentityKit(host: DeclarativeElementHost): {
     selectedSigner?: Signer | undefined;
     savedSigner?: Signer | undefined;
     selectSigner: (signerId?: string | undefined) => void | IdentityKitSignerConfig;
-    signerClient?: IdentityKitDelegationSignerClient | IdentityKitAccountsSignerClient | undefined;
+    signerClient?: DelegationSignerClient | AccountsSignerClient | undefined;
     agent: IdentityKitSignerAgent;
 } {
     const identityKitContext = new ContextConsumer(host, {

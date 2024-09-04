@@ -1,20 +1,20 @@
+import {IdentityKitSignerAgentOptions} from '@nfid/identitykit';
 import {
-    IdentityKitAccountsSignerClient,
-    IdentityKitDelegationSignerClient,
-    IdentityKitSignerAgentOptions,
-    IdentityKitSignerConfig,
-} from '@nfid/identitykit';
+    AccountsSignerClient,
+    DelegationSignerClient,
+} from '@nfid/identitykit/dist/src/lib/signer-client';
+import {SignerConfig} from '@nfid/identitykit/dist/src/lib/types';
 import {Signer} from '@slide-computer/signer';
 import {IdentityKitTheme} from './constants';
 
 export interface IdentityKitProvider {
-    signers: IdentityKitSignerConfig[];
-    featuredSigner?: IdentityKitSignerConfig | undefined;
+    signers: SignerConfig[];
+    featuredSigner?: SignerConfig;
     selectedSigner?: Signer | undefined;
     savedSigner?: Signer | undefined;
     isModalOpen: boolean;
     toggleModal: () => void;
-    selectSigner: (signerId?: string) => IdentityKitSignerConfig | void;
+    selectSigner: (signerId?: string) => SignerConfig | void;
     selectCustomSigner: (url: string) => void;
     theme: IdentityKitTheme;
     agentOptions?:
@@ -23,9 +23,7 @@ export interface IdentityKitProvider {
               agent?: IdentityKitSignerAgentOptions['agent'];
           }
         | undefined;
-    signerClient?: IdentityKitDelegationSignerClient | IdentityKitAccountsSignerClient | undefined;
-    setSignerClient: (
-        sc?: IdentityKitDelegationSignerClient | IdentityKitAccountsSignerClient,
-    ) => void;
+    signerClient?: DelegationSignerClient | AccountsSignerClient | undefined;
+    setSignerClient: (sc?: DelegationSignerClient | AccountsSignerClient) => void;
     shouldLogoutByIdle?: boolean;
 }
