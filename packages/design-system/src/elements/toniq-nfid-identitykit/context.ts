@@ -1,23 +1,19 @@
+import {type Identity} from '@dfinity/agent';
+import {PartialIdentity} from '@dfinity/identity';
+import {SubAccount} from '@dfinity/ledger-icp';
+import {Principal} from '@dfinity/principal';
 import {ContextConsumer, createContext} from '@lit/context';
-import {
-    IdentityKit,
-    IdentityKitSignerAgent,
-    IdentityKitSignerAgentOptions,
-    IdentityKitSignerConfig,
-} from '@nfid/identitykit';
-import {
-    AccountsSignerClient,
-    DelegationSignerClient,
-} from '@nfid/identitykit/dist/src/lib/signer-client';
+import {IdentityKitAuthType, IdentityKitDelegationType} from '@nfid/identitykit';
 import {Signer} from '@slide-computer/signer';
+import {SignerAgent} from '@slide-computer/signer-agent';
 import {DeclarativeElementHost} from 'element-vir';
 import {IdentityKitTheme} from './constants';
+import {useAccounts, useDelegationType, useIdentity} from './hooks';
 import {IdentityKitProvider} from './types';
 
 const defaultState: IdentityKitProvider = {
     signers: [],
     selectedSigner: undefined,
-    savedSigner: undefined,
     isModalOpen: false,
     toggleModal: () => {
         throw new Error('toggleModal not implemented');
@@ -29,41 +25,71 @@ const defaultState: IdentityKitProvider = {
         throw new Error('signer is not available on this url');
     },
     theme: IdentityKitTheme.SYSTEM,
-    agentOptions: {} as {
-        signer?: IdentityKitSignerAgentOptions['signer'];
-        agent?: IdentityKitSignerAgentOptions['agent'];
+    disconnect: () => {
+        throw new Error('disconnect not implemented');
     },
-    setSignerClient: () => {
-        throw new Error('setSignerClient not implemented');
+    connect: () => {
+        throw new Error('connect not implemented');
     },
+    agent: null,
+    authType: IdentityKitAuthType.ACCOUNTS,
 };
 
 export const IdentityKitContext = createContext<IdentityKitProvider>(defaultState);
 
 export function useIdentityKit(host: DeclarativeElementHost): {
-    selectedSigner?: Signer | undefined;
-    savedSigner?: Signer | undefined;
-    selectSigner: (signerId?: string | undefined) => void | IdentityKitSignerConfig;
-    signerClient?: DelegationSignerClient | AccountsSignerClient | undefined;
-    agent: IdentityKitSignerAgent;
+    signer?: Signer | undefined;
+    agent: SignerAgent<Signer> | null | undefined;
+    user?:
+        | {
+              principal: Principal;
+              subaccount?: SubAccount;
+          }
+        | undefined;
+    icpBalance?: number | undefined;
+    authType: IdentityKitAuthType;
+    delegationType?: IdentityKitDelegationType | undefined;
+    accounts?:
+        | {
+              principal: Principal;
+              subAccount?: SubAccount;
+          }[]
+        | undefined;
+    identity?: Identity | PartialIdentity | undefined;
+    connect: (() => void) | undefined;
+    disconnect: (() => Promise<void>) | undefined;
+    fetchIcpBalance?: (() => Promise<void>) | undefined;
 } {
     const identityKitContext = new ContextConsumer(host, {
         context: IdentityKitContext,
-        subscribe: true,
     });
 
     const {
         selectedSigner,
-        savedSigner,
-        selectSigner = () => {},
-        signerClient,
+        agent,
+        user,
+        icpBalance,
+        authType,
+        connect,
+        disconnect,
+        fetchIcpBalance,
     } = identityKitContext.value || {};
 
+    const {identity} = useIdentity(host);
+    const {delegationType} = useDelegationType(host);
+    const {accounts} = useAccounts(host);
+
     return {
-        selectedSigner,
-        savedSigner,
-        selectSigner,
-        signerClient,
-        agent: IdentityKit.signerAgent,
+        signer: selectedSigner,
+        agent,
+        user,
+        icpBalance,
+        authType: authType!,
+        accounts,
+        delegationType,
+        identity,
+        connect,
+        disconnect,
+        fetchIcpBalance,
     };
 }

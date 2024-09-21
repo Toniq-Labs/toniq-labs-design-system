@@ -45,7 +45,14 @@
     "dependencies": {
         "@augment-vir/common": "^23.3.4",
         "@lit/context": "^1.1.2",
-        "@nfid/identitykit": "^0.0.0-alpha.5",
+        "@nfid/identitykit": "^0.0.0-alpha.14",
+        "@slide-computer/signer": "^3.6.3",
+        "@slide-computer/signer-agent": "^3.6.3",
+        "@slide-computer/signer-storage": "^3.6.3",
+        "@slide-computer/signer-transport-auth-client": "^3.6.3",
+        "@slide-computer/signer-transport-plug": "^3.6.3",
+        "@slide-computer/signer-transport-stoic": "^3.6.3",
+        "@slide-computer/signer-web": "^3.6.3",
         "date-vir": "^5.1.2",
         "lit-css-vars": "^3.0.9",
         "object-shape-tester": "^2.3.1",
@@ -57,7 +64,7 @@
     "devDependencies": {
         "@augment-vir/browser": "^23.3.4",
         "@augment-vir/browser-testing": "^23.3.4",
-        "@augment-vir/node-js": "^23.3.4",
+        "@augment-vir/node-js": "^26.4.0",
         "@open-wc/testing": "^4.0.0",
         "@types/chai": "^4.3.11",
         "@types/mocha": "^10.0.6",
@@ -67,14 +74,14 @@
         "@web/test-runner-playwright": "^0.11.0",
         "@web/test-runner-visual-regression": "^0.9.0",
         "element-book": "^20.0.9",
-        "esbuild": "^0.20.1",
+        "esbuild": "^0.20.2",
         "istanbul-smart-text-reporter": "^1.1.4",
         "npm-check-updates": "~16.12.3",
         "ts-node": "^10.9.2",
         "type-fest": "^4.10.2",
         "typescript": "5.3.3",
         "vite": "^4.5.0",
-        "vite-tsconfig-paths": "^4.3.1"
+        "vite-tsconfig-paths": "^4.3.2"
     },
     "peerDependencies": {
         "element-vir": ">=17"

@@ -12,10 +12,8 @@ export const toniqNfidIdentityPage = defineBookPage({
             inputs: typeof ToniqNfidIdentityKit.inputsType;
         }> = [
             {
-                name: 'danger',
-                inputs: {
-                    test: '',
-                },
+                name: 'modal',
+                inputs: {test: ''},
             },
         ];
 

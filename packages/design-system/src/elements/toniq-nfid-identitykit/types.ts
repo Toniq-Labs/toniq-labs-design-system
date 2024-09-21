@@ -1,29 +1,34 @@
-import {IdentityKitSignerAgentOptions} from '@nfid/identitykit';
+import {SubAccount} from '@dfinity/ledger-icp';
+import {Principal} from '@dfinity/principal';
 import {
-    AccountsSignerClient,
-    DelegationSignerClient,
-} from '@nfid/identitykit/dist/src/lib/signer-client';
+    IdentityKitAuthType,
+    IdentityKitSignerAgent,
+    IdentityKitSignerClient,
+} from '@nfid/identitykit';
 import {SignerConfig} from '@nfid/identitykit/dist/src/lib/types';
 import {Signer} from '@slide-computer/signer';
 import {IdentityKitTheme} from './constants';
 
 export interface IdentityKitProvider {
     signers: SignerConfig[];
-    featuredSigner?: SignerConfig;
+    featuredSigner?: SignerConfig | undefined;
     selectedSigner?: Signer | undefined;
-    savedSigner?: Signer | undefined;
     isModalOpen: boolean;
-    toggleModal: () => void;
-    selectSigner: (signerId?: string) => SignerConfig | void;
-    selectCustomSigner: (url: string) => void;
     theme: IdentityKitTheme;
-    agentOptions?:
+    agent: IdentityKitSignerAgent<Signer> | null;
+    user?:
         | {
-              signer?: IdentityKitSignerAgentOptions['signer'];
-              agent?: IdentityKitSignerAgentOptions['agent'];
+              principal: Principal;
+              subAccount?: SubAccount;
           }
         | undefined;
-    signerClient?: DelegationSignerClient | AccountsSignerClient | undefined;
-    setSignerClient: (sc?: DelegationSignerClient | AccountsSignerClient) => void;
-    shouldLogoutByIdle?: boolean;
+    icpBalance?: number | undefined;
+    authType: IdentityKitAuthType;
+    signerClient?: IdentityKitSignerClient | undefined;
+    toggleModal: () => void;
+    selectSigner: (signerId?: string) => Promise<SignerConfig | void>;
+    selectCustomSigner: (url: string) => Promise<void>;
+    connect: () => void;
+    disconnect: () => Promise<void>;
+    fetchIcpBalance?: (() => Promise<void>) | undefined;
 }
