@@ -55,6 +55,8 @@ import {Info24Icon} from './svgs/core-24/info-24.icon';
 import {LayersLinked24Icon} from './svgs/core-24/layers-linked-24.icon';
 import {LayoutGrid24Icon} from './svgs/core-24/layout-grid-24.icon';
 import {Lifebuoy24Icon} from './svgs/core-24/lifebuoy-24.icon';
+import {LightningBolt24Icon} from './svgs/core-24/lightning-bolt-24.icon';
+import {LightningBoltFilled24Icon} from './svgs/core-24/lightning-bolt-filled-24.icon';
 import {List24Icon} from './svgs/core-24/list-24.icon';
 import {ListDetails24Icon} from './svgs/core-24/list-details-24.icon';
 import {Loader24Icon} from './svgs/core-24/loader-24.icon';
@@ -192,6 +194,8 @@ export * from './svgs/core-24/info-24.icon';
 export * from './svgs/core-24/layers-linked-24.icon';
 export * from './svgs/core-24/layout-grid-24.icon';
 export * from './svgs/core-24/lifebuoy-24.icon';
+export * from './svgs/core-24/lightning-bolt-24.icon';
+export * from './svgs/core-24/lightning-bolt-filled-24.icon';
 export * from './svgs/core-24/list-24.icon';
 export * from './svgs/core-24/list-details-24.icon';
 export * from './svgs/core-24/loader-24.icon';
@@ -335,6 +339,8 @@ export const allIconsByCategory = {
         LayersLinked24Icon,
         LayoutGrid24Icon,
         Lifebuoy24Icon,
+        LightningBolt24Icon,
+        LightningBoltFilled24Icon,
         List24Icon,
         ListDetails24Icon,
         Loader24Icon,
