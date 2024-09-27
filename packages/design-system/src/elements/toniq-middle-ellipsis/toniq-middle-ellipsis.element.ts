@@ -245,6 +245,9 @@ export const ToniqMiddleEllipsis = defineToniqElement<
                             class="text-wrapper"
                             href=${ifDefined(inputs.externalLink)}
                             title=${hoverText}
+                            style=${css`
+                                pointer-events: none;
+                            `}
                         >
                             ${textTemplate} ${iconTemplate}
                         </a>

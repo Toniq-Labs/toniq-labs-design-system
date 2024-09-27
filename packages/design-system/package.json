@@ -1,6 +1,6 @@
 {
     "name": "@toniq-labs/design-system",
-    "version": "16.21.7",
+    "version": "16.21.8",
     "private": false,
     "description": "Design system elements for Toniq Labs",
     "keywords": [
@@ -55,7 +55,7 @@
     "devDependencies": {
         "@augment-vir/browser": "^23.3.4",
         "@augment-vir/browser-testing": "^23.3.4",
-        "@augment-vir/node-js": "^23.3.4",
+        "@augment-vir/node-js": "^26.4.0",
         "@open-wc/testing": "^4.0.0",
         "@types/chai": "^4.3.11",
         "@types/mocha": "^10.0.6",
@@ -65,14 +65,14 @@
         "@web/test-runner-playwright": "^0.11.0",
         "@web/test-runner-visual-regression": "^0.9.0",
         "element-book": "^20.0.9",
-        "esbuild": "^0.20.1",
+        "esbuild": "^0.20.2",
         "istanbul-smart-text-reporter": "^1.1.4",
         "npm-check-updates": "~16.12.3",
         "ts-node": "^10.9.2",
         "type-fest": "^4.10.2",
         "typescript": "5.3.3",
         "vite": "^4.5.0",
-        "vite-tsconfig-paths": "^4.3.1"
+        "vite-tsconfig-paths": "^4.3.2"
     },
     "peerDependencies": {
         "element-vir": ">=17"
