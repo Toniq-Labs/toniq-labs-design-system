@@ -49,11 +49,7 @@ export const ToniqNfidIdentityKit = defineElement<{
 
         const options = {crypto: globalThis.crypto};
 
-        function closeModal() {
-            console.log('closeModal');
-        }
-
-        const innerSelectSigner = async (cb: (signer?: Signer) => unknown, signerId?: string) => {
+        const selectSigner = async (cb: (signer?: Signer) => unknown, signerId?: string) => {
             if (!signerId) {
                 localStorage.removeItem('signerId');
                 return cb(undefined);
@@ -81,15 +77,13 @@ export const ToniqNfidIdentityKit = defineElement<{
             });
 
             cb(createdSigner);
-
             localStorage.setItem('signerId', signerId);
-            closeModal();
 
             return signer;
         };
 
-        const selectSigner = async (signerId?: string) => {
-            await innerSelectSigner(
+        const onSelectSigner = async (signerId?: string) => {
+            await selectSigner(
                 (signer) =>
                     updateState({
                         selectedSigner: signer,
@@ -110,23 +104,22 @@ export const ToniqNfidIdentityKit = defineElement<{
             updateState({
                 selectedSigner: createdSigner,
             });
-            closeModal();
         };
 
         const clearSigner = async () => {
-            await innerSelectSigner((signer) =>
+            await selectSigner((signer) =>
                 updateState({
                     selectedSigner: signer,
                 }),
             );
-            await innerSelectSigner((signer) =>
+            await selectSigner((signer) =>
                 updateState({
                     prevSigner: signer,
                 }),
             );
         };
 
-        function useCreateIdentityKit<
+        function createIdentityKit<
             T extends IdentityKitAuthType = typeof IdentityKitAuthType.ACCOUNTS,
         >({
             clearSigner,
@@ -285,13 +278,12 @@ export const ToniqNfidIdentityKit = defineElement<{
 
         return html`
             ${guard([state.selectedSigner], () => {
-                const identityKit = useCreateIdentityKit({
+                const identityKit = createIdentityKit({
                     clearSigner,
                     signerClientOptions: {...signerClientOptions, crypto},
                     authType: IdentityKitAuthType.ACCOUNTS,
                     onConnectSuccess: () => {
-                        console.log('onConnectSuccess');
-                        console.log(contextProvider.value);
+                        console.log('onConnectSuccess', contextProvider.value);
                     },
                     onConnectFailure: (e) => {
                         console.log('onConnectFailure', e.message);
@@ -304,9 +296,8 @@ export const ToniqNfidIdentityKit = defineElement<{
                     signers,
                     featuredSigner: nfidw,
                     selectedSigner: state.selectedSigner,
-                    isModalOpen: true,
                     toggleModal: () => {},
-                    selectSigner,
+                    onSelectSigner,
                     selectCustomSigner,
                     theme: IdentityKitTheme.SYSTEM,
                     agent: identityKit.agent,
@@ -321,7 +312,7 @@ export const ToniqNfidIdentityKit = defineElement<{
 
                 return html`
                     <${ToniqNfidIdentitykitModal.assign({
-                        onSelectSigner: selectSigner,
+                        onSelectSigner,
                     })}></${ToniqNfidIdentitykitModal}>
                 `;
             })}

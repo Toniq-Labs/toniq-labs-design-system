@@ -14,11 +14,10 @@ import {IdentityKitProvider} from './types';
 const defaultState: IdentityKitProvider = {
     signers: [],
     selectedSigner: undefined,
-    isModalOpen: false,
     toggleModal: () => {
         throw new Error('toggleModal not implemented');
     },
-    selectSigner: () => {
+    onSelectSigner: () => {
         throw new Error('selectSigner not implemented');
     },
     selectCustomSigner: () => {

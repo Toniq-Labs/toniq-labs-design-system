@@ -13,7 +13,6 @@ export interface IdentityKitProvider {
     signers: SignerConfig[];
     featuredSigner?: SignerConfig | undefined;
     selectedSigner?: Signer | undefined;
-    isModalOpen: boolean;
     theme: IdentityKitTheme;
     agent: IdentityKitSignerAgent<Signer> | null;
     user?:
@@ -26,7 +25,7 @@ export interface IdentityKitProvider {
     authType: IdentityKitAuthType;
     signerClient?: IdentityKitSignerClient | undefined;
     toggleModal: () => void;
-    selectSigner: (signerId?: string) => Promise<SignerConfig | void>;
+    onSelectSigner: (signerId?: string) => Promise<SignerConfig | void>;
     selectCustomSigner: (url: string) => Promise<void>;
     connect: () => void;
     disconnect: () => Promise<void>;
