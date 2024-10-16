@@ -21,6 +21,5 @@ jobs:
             - name: run test
               run: |
                   npm ci
-                  sudo rm /etc/apt/sources.list.d/microsoft-prod.list
                   npx playwright@latest install --with-deps
                   npm run test:all
