@@ -5412,7 +5412,7 @@ var L1=Object.defineProperty;var O1=(e,t,n)=>t in e?L1(e,t,{enumerable:!0,config
         }
     `,renderCallback:({inputs:e})=>c`
             <${b.assign({icon:bs,fitContainer:e.size!=="small"})}></${b}>
-        `}),zc="...";function Uw(e,t,n=7,r=5){let o;e=yn({value:e,min:1,max:t}),n=yn({value:n,min:r,max:t});const i=n-5,a=n-3;t<=n?o=n:o=e<a||e>t-a?a:i;const s={start:Math.round(e-o/2),end:Math.round(e+o/2)};(s.start-1===1||s.end+1===t)&&(s.start+=1,s.end+=1);const l=e>t-a&&t>n?Ki(t-o,t):e>o?Ki(Math.min(s.start,t-o),Math.min(s.end,t)):Ki(1,Math.min(t,o+1));function u(f,m){return l.length+1!==t?m:[f]}const p=l[l.length-1];if(p&&p<t){const f=u(t,[zc,t]);return[...l,...f]}else return l[0]!==1?u(1,[1,zc]).concat(l):l}function Ki(e,t){const n=t-e+1;return Array.from({length:n},(r,o)=>e+o)}const Qi=ae()({tagName:"toniq-pagination",styles:h`
+        `}),zc="...";function Uw(e,t,n=7,r=5){let o;e=yn({value:e,min:1,max:t}),n=yn({value:n,min:r,max:t});const i=n-5,a=n-3;t<=n?o=n:o=e<a||e>t-a?a:i;const s={start:Math.round(e-o/2),end:Math.round(e+o/2)};(s.start-1===1||s.end+1===t)&&(s.start+=1,s.end+=1);let l=e>t-a&&t>n?Ki(t-o,t):e>o?Ki(Math.min(s.start,t-o),Math.min(s.end,t)):Ki(1,Math.min(t,o+1));function u(f,m){return l.length+1!==t?m:[f]}const p=l[l.length-1];return l[0]!==1&&(l=u(1,[1,zc]).concat(l)),typeof p=="number"&&p<t&&(l=l.concat(u(t,[zc,t]))),l}function Ki(e,t){const n=t-e+1;return Array.from({length:n},(r,o)=>e+o)}const Qi=ae()({tagName:"toniq-pagination",styles:h`
         :host {
             display: flex;
         }
@@ -5882,6 +5882,9 @@ var L1=Object.defineProperty;var O1=(e,t,n)=>t in e?L1(e,t,{enumerable:!0,config
                             class="text-wrapper"
                             href=${Mo(e.externalLink)}
                             title=${f}
+                            style=${h`
+                                pointer-events: none;
+                            `}
                         >
                             ${v} ${g}
                         </a>
