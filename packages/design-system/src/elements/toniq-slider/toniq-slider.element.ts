@@ -98,9 +98,17 @@ export const ToniqSlider = defineToniqElement<ToniqSliderInputs>()({
     events: {
         valueChange: defineElementEvent<ToniqSliderValueType>(),
     },
-    styles: css`
+    hostClasses: {
+        'toniq-slider-disabled': ({inputs}) => !!inputs.disabled,
+    },
+    styles: ({hostClasses}) => css`
         :host {
             display: block;
+        }
+
+        ${hostClasses['toniq-slider-disabled'].selector} {
+            filter: saturate(0);
+            opacity: 0.7;
         }
 
         .${unsafeCSS(classNames.range)}-temp {

@@ -309,5 +309,30 @@ export const toniqSliderPage = defineBookPage({
                 `;
             },
         });
+        defineExample({
+            title: 'Disabled',
+            stateInitStatic: {
+                value: 28,
+            },
+            styles: css`
+                ${defaultExampleWidth}
+            `,
+            renderCallback({state, updateState}) {
+                return html`
+                    <${ToniqSlider.assign({
+                        value: state.value,
+                        disabled: true,
+                        ...defaultMinMax,
+                    })}
+                        ${listen(ToniqSlider.events.valueChange, (event) => {
+                            if (typeof event.detail !== 'number') {
+                                throw new Error('was expecting a single numeric slider value');
+                            }
+                            updateState({value: event.detail});
+                        })}
+                    ></${ToniqSlider}>
+                `;
+            },
+        });
     },
 });
