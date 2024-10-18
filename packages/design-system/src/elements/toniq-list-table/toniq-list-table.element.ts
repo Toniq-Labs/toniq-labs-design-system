@@ -369,7 +369,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                 left: number | undefined;
             };
         },
-        isPainting: false,
+        isLoading: false,
         tableListLeft: 0,
     },
     initCallback({inputs, state, updateState}) {
@@ -497,7 +497,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             `;
         }
 
-        const isLoading = (inputs.nonBlocking ? false : state.isPainting) || !!inputs.showLoading;
+        const isLoading = (inputs.nonBlocking ? false : state.isLoading) || !!inputs.showLoading;
         return html`
             <div
                 class=${classMap({
@@ -515,6 +515,16 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                             })}
                             ${onResize((event) => {
                                 tableUpdate(event.target);
+
+                                updateState({
+                                    rowStyles: enabledColumns.reduce((accum, item) => {
+                                        accum[item.key as string] = {
+                                            width: undefined,
+                                            left: undefined,
+                                        };
+                                        return accum;
+                                    }, state.rowStyles),
+                                });
 
                                 setTimeout(() => {
                                     enabledColumns.forEach((column) => {
@@ -556,8 +566,9 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                             });
                                         }
                                     });
+
                                     updateState({
-                                        isPainting: false,
+                                        isLoading: false,
                                     });
                                 }, 0);
                             })}
