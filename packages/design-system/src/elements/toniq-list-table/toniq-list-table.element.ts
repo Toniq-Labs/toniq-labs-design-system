@@ -450,8 +450,8 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                 left: ${unsafeCSS(`${state.rowStyles[itemKey]?.left}px`)};
                             `;
 
-                            const rowItemWidthStyle = css`
-                                width: ${index >= enabledColumns.length - 1
+                            const rowItemMinWidthStyle = css`
+                                min-width: ${index >= enabledColumns.length - 1
                                     ? unsafeCSS('unset')
                                     : unsafeCSS(`${state.rowStyles[itemKey]?.width}px`)};
                             `;
@@ -472,9 +472,9 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                     })}
                                     style=${ifDefined(
                                         rowItemLeftStyle ||
-                                            rowItemWidthStyle ||
+                                            rowItemMinWidthStyle ||
                                             rowItemMaxWidthStyle
-                                            ? `${rowItemLeftStyle ? rowItemLeftStyle : ''} ${rowItemWidthStyle ? rowItemWidthStyle : ''} ${rowItemMaxWidthStyle ? rowItemMaxWidthStyle : ''}`
+                                            ? `${rowItemLeftStyle ? rowItemLeftStyle : ''} ${rowItemMinWidthStyle ? rowItemMinWidthStyle : ''} ${rowItemMaxWidthStyle ? rowItemMaxWidthStyle : ''}`
                                             : undefined,
                                     )}
                                 >
@@ -616,7 +616,7 @@ function getElementWidthWithMarginPadding(element: HTMLElement) {
     const gap = parseFloat(style.gap) || 0;
 
     return {
-        width: width + marginLeft + marginRight + gap,
+        width: width + marginLeft + marginRight + paddingLeft + paddingRight + gap,
         margin: {
             left: marginLeft,
             right: marginRight,
