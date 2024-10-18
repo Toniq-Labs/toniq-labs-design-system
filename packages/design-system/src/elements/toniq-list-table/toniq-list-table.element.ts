@@ -15,6 +15,7 @@ import {
     defineElementEvent,
     html,
     ifDefined,
+    keyed,
     listen,
     nothing,
     onResize,
@@ -369,8 +370,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             };
         },
         isPainting: false,
-        isStillPainting: true,
-        pageCountKey: 0,
         tableListLeft: 0,
     },
     initCallback({inputs, state, updateState}) {
@@ -418,11 +417,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                               'blocked-pagination': !!inputs.showLoading,
                           })}
                           ${listen(ToniqPagination.events.pageChange, (event) => {
-                              updateState({
-                                  pageCountKey: inputs.pagination?.pageCount
-                                      ? inputs.pagination?.pageCount
-                                      : state.pageCountKey + 1,
-                              });
                               dispatch(new events.pageChange(event.detail));
                           })}
                       ></${ToniqPagination}>
@@ -503,8 +497,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             `;
         }
 
-        const isLoading =
-            (inputs.nonBlocking ? false : state.isStillPainting) || !!inputs.showLoading;
+        const isLoading = (inputs.nonBlocking ? false : state.isPainting) || !!inputs.showLoading;
         return html`
             <div
                 class=${classMap({
@@ -512,81 +505,92 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                     'can-scroll': state.canScroll,
                 })}
             >
-                <div
-                    class=${classMap({
-                        'table-list': true,
-                        hidden: isLoading,
-                    })}
-                    ${onResize((event) => {
-                        tableUpdate(event.target);
+                ${keyed(
+                    inputs.pagination?.currentPage,
+                    html`
+                        <div
+                            class=${classMap({
+                                'table-list': true,
+                                hidden: isLoading,
+                            })}
+                            ${onResize((event) => {
+                                tableUpdate(event.target);
 
-                        setTimeout(() => {
-                            enabledColumns.forEach((column) => {
-                                const columnKey = column.key as string;
+                                setTimeout(() => {
+                                    enabledColumns.forEach((column) => {
+                                        const columnKey = column.key as string;
 
-                                const rowItems = host.shadowRoot
-                                    .querySelector('.table-list')
-                                    ?.querySelectorAll(`.row-item[data-column="${columnKey}"]`);
+                                        const rowItems = host.shadowRoot
+                                            .querySelector('.table-list')
+                                            ?.querySelectorAll(
+                                                `.row-item[data-column="${columnKey}"]`,
+                                            );
 
-                                if (rowItems) {
-                                    rowItems.forEach((rowItem) => {
-                                        const left = rowItem.getBoundingClientRect().left;
-                                        const currentWidth = getElementWidthWithMarginPadding(
-                                            rowItem.querySelector('.row-content') as HTMLElement,
-                                        ).width;
-                                        if (
-                                            !state.rowStyles[columnKey]?.width ||
-                                            currentWidth >
-                                                (state.rowStyles[columnKey]?.width as number)
-                                        ) {
-                                            updateState({
-                                                rowStyles: {
-                                                    ...state.rowStyles,
-                                                    [columnKey]: {
-                                                        width: currentWidth,
-                                                        left: state.tableListLeft
-                                                            ? left - state.tableListLeft
-                                                            : left,
-                                                    },
-                                                },
+                                        if (rowItems) {
+                                            rowItems.forEach((rowItem) => {
+                                                const left = rowItem.getBoundingClientRect().left;
+                                                const currentWidth =
+                                                    getElementWidthWithMarginPadding(
+                                                        rowItem.querySelector(
+                                                            '.row-content',
+                                                        ) as HTMLElement,
+                                                    ).width;
+                                                if (
+                                                    !state.rowStyles[columnKey]?.width ||
+                                                    currentWidth >
+                                                        (state.rowStyles[columnKey]
+                                                            ?.width as number)
+                                                ) {
+                                                    updateState({
+                                                        rowStyles: {
+                                                            ...state.rowStyles,
+                                                            [columnKey]: {
+                                                                width: currentWidth,
+                                                                left: state.tableListLeft
+                                                                    ? left - state.tableListLeft
+                                                                    : left,
+                                                            },
+                                                        },
+                                                    });
+                                                }
                                             });
                                         }
                                     });
+                                    updateState({
+                                        isPainting: false,
+                                    });
+                                }, 0);
+                            })}
+                            ${listen('scroll', (event) => {
+                                tableUpdate(event.target);
+                            })}
+                            ${listen('keydown', (event) => {
+                                if (inputs.showLoading) {
+                                    event.preventDefault();
+                                    event.stopImmediatePropagation();
                                 }
-                            });
-                            updateState({
-                                isStillPainting: false,
-                            });
-                        }, 0);
-                    })}
-                    ${listen('scroll', (event) => {
-                        tableUpdate(event.target);
-                    })}
-                    ${listen('keydown', (event) => {
-                        if (inputs.showLoading) {
-                            event.preventDefault();
-                            event.stopImmediatePropagation();
-                        }
-                    })}
-                >
-                    ${repeat(
-                        rows,
-                        (item, index) => index,
-                        (item: ListTableRow<any>, index: number) => {
-                            return listItem(item, index);
-                        },
-                    )}
-                    ${renderIf(
-                        state.canScroll,
-                        html`
-                            <div class="scroll-indicator">
-                                <${ToniqIcon.assign({
-                                    icon: ChevronsRight16Icon,
-                                })}></${ToniqIcon}>
-                            </div>
-                        `,
-                    )}
-                </div>
+                            })}
+                        >
+                            ${repeat(
+                                rows,
+                                (item, index) => index,
+                                (item: ListTableRow<any>, index: number) => {
+                                    return listItem(item, index);
+                                },
+                            )}
+                            ${renderIf(
+                                state.canScroll,
+                                html`
+                                    <div class="scroll-indicator">
+                                        <${ToniqIcon.assign({
+                                            icon: ChevronsRight16Icon,
+                                        })}></${ToniqIcon}>
+                                    </div>
+                                `,
+                            )}
+                        </div>
+                    `,
+                )}
 
                 <div
                     class=${classMap({
@@ -616,7 +620,7 @@ function getElementWidthWithMarginPadding(element: HTMLElement) {
     const gap = parseFloat(style.gap) || 0;
 
     return {
-        width: width + marginLeft + marginRight + paddingLeft + paddingRight + gap,
+        width: width + marginLeft + marginRight + gap,
         margin: {
             left: marginLeft,
             right: marginRight,
