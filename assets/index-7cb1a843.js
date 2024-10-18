@@ -5731,7 +5731,7 @@ var L1=Object.defineProperty;var O1=(e,t,n)=>t in e?L1(e,t,{enumerable:!0,config
                     ${fa(a,(k,x)=>x,(k,x)=>{var ne,le,W,se,Ce;const $=k.key,T=g.cells[$],N=h`
                                 left: ${M(`${(ne=t.rowStyles[$])==null?void 0:ne.left}px`)};
                             `,j=h`
-                                width: ${x>=a.length-1?M("unset"):M(`${(le=t.rowStyles[$])==null?void 0:le.width}px`)};
+                                min-width: ${x>=a.length-1?M("unset"):M(`${(le=t.rowStyles[$])==null?void 0:le.width}px`)};
                             `,U=h`
                                 max-width: ${x>=a.length-1?M("unset"):M(`${(W=t.rowStyles[$])==null?void 0:W.width}px`)};
                             `;return c`
@@ -5779,7 +5779,7 @@ var L1=Object.defineProperty;var O1=(e,t,n)=>t in e?L1(e,t,{enumerable:!0,config
                 </div>
                 ${u}
             </div>
-        `}});function Zw(e){const t=getComputedStyle(e),n=e.offsetWidth,r=parseFloat(t.marginLeft),o=parseFloat(t.marginRight),i=parseFloat(t.paddingLeft),a=parseFloat(t.paddingRight),s=parseFloat(t.gap)||0;return{width:n+r+o+s,margin:{left:r,right:o},padding:{left:i,right:a}}}async function Gw(e){return navigator.clipboard.writeText(e)}const Yw="…";function Xw(e,t){const n=e.slice(0,t).trim(),r=e.slice(-1*t).trim();return`${n}${Yw}${r}`}function Kw(e){return!(e%1)}function Qw(e){return e.letterCount==null?4:Kw(e.letterCount)?e.letterCount<1?1:e.letterCount:Math.floor(e.letterCount)}const S=ae()({tagName:"toniq-middle-ellipsis",events:{copy:ie()},cssVars:{"toniq-middle-ellipsis-text-color":A.pagePrimary.foregroundColor,"toniq-middle-ellipsis-icon-color":A.pagePrimary.foregroundColor,"toniq-middle-ellipsis-text-hover-color":A.pageInteraction.foregroundColor,"toniq-middle-ellipsis-icon-hover-color":A.pageInteraction.foregroundColor},styles:({hostClasses:e,cssVars:t})=>h`
+        `}});function Zw(e){const t=getComputedStyle(e),n=e.offsetWidth,r=parseFloat(t.marginLeft),o=parseFloat(t.marginRight),i=parseFloat(t.paddingLeft),a=parseFloat(t.paddingRight),s=parseFloat(t.gap)||0;return{width:n+r+o+i+a+s,margin:{left:r,right:o},padding:{left:i,right:a}}}async function Gw(e){return navigator.clipboard.writeText(e)}const Yw="…";function Xw(e,t){const n=e.slice(0,t).trim(),r=e.slice(-1*t).trim();return`${n}${Yw}${r}`}function Kw(e){return!(e%1)}function Qw(e){return e.letterCount==null?4:Kw(e.letterCount)?e.letterCount<1?1:e.letterCount:Math.floor(e.letterCount)}const S=ae()({tagName:"toniq-middle-ellipsis",events:{copy:ie()},cssVars:{"toniq-middle-ellipsis-text-color":A.pagePrimary.foregroundColor,"toniq-middle-ellipsis-icon-color":A.pagePrimary.foregroundColor,"toniq-middle-ellipsis-text-hover-color":A.pageInteraction.foregroundColor,"toniq-middle-ellipsis-icon-hover-color":A.pageInteraction.foregroundColor},styles:({hostClasses:e,cssVars:t})=>h`
         :host {
             /* 5 frames at 60 fps */
             transition: ${oe.interaction};
