@@ -308,11 +308,11 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             border-bottom-color: ${toniqColors.dividerFaint.foregroundColor};
         }
 
-        .row-item:not(:first-child) {
+        .row-item:not(:first-child) .row-content {
             padding-left: calc(${cssVars['toniq-list-table-row-gap'].value} / 2);
         }
 
-        .row-item:not(:last-child) {
+        .row-item:not(:last-child) .row-content {
             padding-right: calc(${cssVars['toniq-list-table-row-gap'].value} / 2);
         }
 
@@ -429,29 +429,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                   `
                 : nothing;
 
-        function updateRowStyles(container: HTMLElement, key: string) {
-            const left = container.getBoundingClientRect().left;
-
-            const currentWidth = (
-                container.querySelector('.row-content') as HTMLElement
-            ).getBoundingClientRect().width;
-
-            if (
-                !state.rowStyles[key]?.width ||
-                currentWidth > (state.rowStyles[key]?.width as number)
-            ) {
-                updateState({
-                    rowStyles: {
-                        ...state.rowStyles,
-                        [key]: {
-                            width: currentWidth,
-                            left: state.tableListLeft ? left - state.tableListLeft : left,
-                        },
-                    },
-                });
-            }
-        }
-
         function listItem(row: ListTableRow<any>, rowIndex: number) {
             return html`
                 <div
@@ -473,8 +450,14 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                 left: ${unsafeCSS(`${state.rowStyles[itemKey]?.left}px`)};
                             `;
 
-                            const rowItemMinWidthStyle = css`
-                                min-width: ${index >= enabledColumns.length - 1
+                            const rowItemWidthStyle = css`
+                                width: ${index >= enabledColumns.length - 1
+                                    ? unsafeCSS('unset')
+                                    : unsafeCSS(`${state.rowStyles[itemKey]?.width}px`)};
+                            `;
+
+                            const rowItemMaxWidthStyle = css`
+                                max-width: ${index >= enabledColumns.length - 1
                                     ? unsafeCSS('unset')
                                     : unsafeCSS(`${state.rowStyles[itemKey]?.width}px`)};
                             `;
@@ -488,8 +471,10 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                         fill: !!item.option?.spaceEvenly,
                                     })}
                                     style=${ifDefined(
-                                        rowItemLeftStyle || rowItemMinWidthStyle
-                                            ? `${rowItemLeftStyle ? rowItemLeftStyle : ''} ${rowItemMinWidthStyle ? rowItemMinWidthStyle : ''}`
+                                        rowItemLeftStyle ||
+                                            rowItemWidthStyle ||
+                                            rowItemMaxWidthStyle
+                                            ? `${rowItemLeftStyle ? rowItemLeftStyle : ''} ${rowItemWidthStyle ? rowItemWidthStyle : ''} ${rowItemMaxWidthStyle ? rowItemMaxWidthStyle : ''}`
                                             : undefined,
                                     )}
                                 >
@@ -546,9 +531,9 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                 if (rowItems) {
                                     rowItems.forEach((rowItem) => {
                                         const left = rowItem.getBoundingClientRect().left;
-                                        const currentWidth = (
-                                            rowItem.querySelector('.row-content') as HTMLElement
-                                        ).getBoundingClientRect().width;
+                                        const currentWidth = getElementWidthWithMarginPadding(
+                                            rowItem.querySelector('.row-content') as HTMLElement,
+                                        ).width;
                                         if (
                                             !state.rowStyles[columnKey]?.width ||
                                             currentWidth >
@@ -618,3 +603,27 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         `;
     },
 });
+
+function getElementWidthWithMarginPadding(element: HTMLElement) {
+    const style = getComputedStyle(element);
+
+    const width = element.offsetWidth;
+    const marginLeft = parseFloat(style.marginLeft);
+    const marginRight = parseFloat(style.marginRight);
+    const paddingLeft = parseFloat(style.paddingLeft);
+    const paddingRight = parseFloat(style.paddingRight);
+
+    const gap = parseFloat(style.gap) || 0;
+
+    return {
+        width: width + marginLeft + marginRight + gap,
+        margin: {
+            left: marginLeft,
+            right: marginRight,
+        },
+        padding: {
+            left: paddingLeft,
+            right: paddingRight,
+        },
+    };
+}
