@@ -3,7 +3,7 @@ import {defineBookPage} from 'element-book';
 import {CSSResult, HTMLTemplateResult, css, html, listen, unsafeCSS} from 'element-vir';
 import {noNativeFormStyles} from 'vira';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
-import {CryptoBtc24Icon, Target24Icon} from '../../icons';
+import {CryptoBtc24Icon} from '../../icons';
 import {toniqFontStyles} from '../../styles';
 import {toniqColors} from '../../styles/colors';
 import {defineToniqElementNoInputs} from '../define-toniq-element';
@@ -1011,22 +1011,6 @@ const examples: ReadonlyArray<
         },
     },
     {
-        title: 'with pagination and custom action',
-        inputs: {
-            pagination: {
-                currentPage: 1,
-                pageCount: 10,
-            },
-            paginationAction: html`
-                <${ToniqIcon.assign({icon: Target24Icon})}
-                    ${listen('click', () => {
-                        alert('pagination action');
-                    })}
-                ></${ToniqIcon}>
-            `,
-        },
-    },
-    {
         title: 'squished horizontally',
         styles: css`
             :host {
@@ -1265,7 +1249,6 @@ export const toniqListTableElementBookPage = defineBookPage({
                             currentPage: 1,
                             pageCount: 5,
                         },
-                        nonBlocking: true,
                     })}></${ToniqListTable}>
                 `;
             },
