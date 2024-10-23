@@ -171,12 +171,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             border: 24px solid ${toniqColors.pageInteraction.backgroundColor};
         }
 
-        .table-wrapper.can-scroll {
-            gap: 16px;
-            border-radius: ${cssVars['toniq-list-table-header-radius'].value};
-            border: 16px solid ${toniqColors.pageInteraction.backgroundColor};
-        }
-
         .table-list {
             min-height: 40px;
             width: 100%;
@@ -249,7 +243,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             position: relative;
         }
 
-        .column-content * {
+        .column-content {
             text-wrap: nowrap;
         }
 
@@ -265,6 +259,11 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             border: ${cssVars['toniq-list-table-border-width'].value} solid transparent;
             border-top-color: ${toniqColors.dividerFaint.foregroundColor};
             cursor: pointer;
+        }
+
+        .column-wrapper .column-content:first-of-type {
+            height: 32px;
+            align-items: start;
         }
 
         .column-content:last-of-type {
@@ -348,25 +347,25 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             }
         }
 
-        function listItem(columnItem: ListTableColumn) {
-            function calculateLeft(columnKey: string) {
-                const wrapperEl = host.shadowRoot.querySelector(
-                    `.column-wrapper[data-column="${columnKey}"]`,
-                );
+        function calculateLeft(columnKey: string) {
+            const wrapperEl = host.shadowRoot.querySelector(
+                `.column-wrapper[data-column="${columnKey}"]`,
+            );
 
-                if (!(wrapperEl instanceof HTMLElement)) {
-                    return css`
-                        left: 0px;
-                    `;
-                }
-
-                const wrapperLeft = wrapperEl.getBoundingClientRect().left;
-                const left = state.tableListLeft ? wrapperLeft - state.tableListLeft : wrapperLeft;
+            if (!(wrapperEl instanceof HTMLElement)) {
                 return css`
-                    left: ${left > 0 ? left : 0}px;
+                    left: 0px;
                 `;
             }
 
+            const wrapperLeft = wrapperEl.getBoundingClientRect().left;
+            const left = state.tableListLeft ? wrapperLeft - state.tableListLeft : wrapperLeft;
+            return css`
+                left: ${left > 0 ? left : 0}px;
+            `;
+        }
+
+        function listItem(columnItem: ListTableColumn) {
             const isSticky = !!columnItem.option?.sticky && state.canScroll;
 
             return html`
@@ -465,7 +464,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             <div
                 class=${classMap({
                     'table-wrapper': true,
-                    'can-scroll': state.canScroll,
                 })}
             >
                 <div
