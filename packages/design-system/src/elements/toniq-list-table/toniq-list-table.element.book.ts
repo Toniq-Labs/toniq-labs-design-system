@@ -3,7 +3,7 @@ import {defineBookPage} from 'element-book';
 import {CSSResult, HTMLTemplateResult, css, html, listen, unsafeCSS} from 'element-vir';
 import {noNativeFormStyles} from 'vira';
 import {elementsBookPage} from '../../element-book/book-pages/elements.book';
-import {CryptoBtc24Icon} from '../../icons';
+import {CryptoBtc24Icon, CryptoCkBtc24Icon} from '../../icons';
 import {toniqFontStyles} from '../../styles';
 import {toniqColors} from '../../styles/colors';
 import {defineToniqElementNoInputs} from '../define-toniq-element';
@@ -371,83 +371,6 @@ const entries = [
     action: HTMLTemplateResult;
 }>;
 
-// cspell:disable
-const entriesHuge = Array(50).fill({
-    imageUrl: mockInscriptionUrl.thumbnail(
-        'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
-    ),
-    price: html`
-        <div
-            style=${css`
-                display: flex;
-                gap: 8px;
-            `}
-        >
-            <${ToniqIcon.assign({
-                icon: CryptoBtc24Icon,
-            })}></${ToniqIcon}>
-            <span>0.00042753</span>
-        </div>
-    `,
-    from: html`
-        <${ToniqMiddleEllipsis.assign({
-            text: 'QP6Wqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3K14U',
-            copyOnClick: true,
-        })}
-            style=${css`
-                color: ${toniqColors.pageInteraction.foregroundColor};
-            `}
-            ${listen('click', (event) => {
-                event.preventDefault();
-                event.stopImmediatePropagation();
-            })}
-        ></${ToniqMiddleEllipsis}>
-    `,
-    to: html`
-        <${ToniqMiddleEllipsis.assign({
-            text: 'TR5Gqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3E87V',
-            externalLink: 'https://toniqlabs.com',
-        })}
-            style=${css`
-                color: ${toniqColors.pageInteraction.foregroundColor};
-            `}
-            ${listen('click', (event) => {
-                event.stopImmediatePropagation();
-            })}
-        ></${ToniqMiddleEllipsis}>
-    `,
-    date: 'April 3, 2024 (1:57pm)',
-    time: '2h ago',
-    action: html`
-        <div
-            style=${css`
-                width: 100%;
-                display: flex;
-                justify-content: flex-end;
-            `}
-        >
-            <button
-                style=${css`
-                    ${noNativeFormStyles}
-                    ${toniqFontStyles.boldParagraphFont};
-                    color: ${toniqColors.pageInteraction.foregroundColor};
-                    cursor: pointer;
-                `}
-            >
-                Cancel
-            </button>
-        </div>
-    `,
-}) as ReadonlyArray<{
-    imageUrl: string;
-    price: HTMLTemplateResult;
-    from: HTMLTemplateResult;
-    to: HTMLTemplateResult;
-    date: string;
-    time: string;
-    action: HTMLTemplateResult;
-}>;
-
 const activityEntries = [
     {
         imageUrl: mockInscriptionUrl.thumbnail(
@@ -703,71 +626,449 @@ const emptyEntries = [] as ReadonlyArray<{
     action: HTMLTemplateResult;
 }>;
 
-const entriesNoAction = Array(5).fill({
-    imageUrl: mockInscriptionUrl.thumbnail(
-        'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
-    ),
-    price: html`
-        <div
-            style=${css`
-                display: flex;
-                gap: 8px;
-            `}
-        >
-            <${ToniqIcon.assign({
-                icon: CryptoBtc24Icon,
-            })}></${ToniqIcon}>
-            <span>0.00042753</span>
-        </div>
-    `,
-    from: html`
-        <${ToniqMiddleEllipsis.assign({
-            text: 'QP6Wqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3K14U',
-            copyOnClick: true,
-        })}
-            style=${css`
-                color: ${toniqColors.pageInteraction.foregroundColor};
-            `}
-            ${listen('click', (event) => {
-                event.preventDefault();
-                event.stopImmediatePropagation();
-            })}
-        ></${ToniqMiddleEllipsis}>
-    `,
-    to: html`
-        <${ToniqMiddleEllipsis.assign({
-            text: 'TR5Gqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3E87V',
-            externalLink: 'https://toniqlabs.com',
-        })}
-            style=${css`
-                color: ${toniqColors.pageInteraction.foregroundColor};
-            `}
-            ${listen('click', (event) => {
-                event.stopImmediatePropagation();
-            })}
-        ></${ToniqMiddleEllipsis}>
-    `,
-    date: 'April 3, 2024 (1:57pm)',
-    time: html`
-        <div
-            style=${css`
-                width: 100%;
-                display: flex;
-                justify-content: flex-end;
-            `}
-        >
-            <span>2h ago</span>
-        </div>
-    `,
-}) as ReadonlyArray<{
+const dynamicEntries = [
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>Cancel Listing</span>
+        `,
+        price: html`
+            <span>-</span>
+        `,
+        from: html`
+            <span>You</span>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '5 days ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>Cancel Listing</span>
+        `,
+        price: html`
+            <span>-</span>
+        `,
+        from: html`
+            <${ToniqMiddleEllipsis.assign({
+                text: 'bc1qqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3usuy',
+                copyOnClick: true,
+                letterCount: 5,
+            })}></${ToniqMiddleEllipsis}>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '5 days ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>New Auction</span>
+        `,
+        price: html`
+            <div
+                style=${css`
+                    display: flex;
+                    gap: 8px;
+                `}
+            >
+                <${ToniqIcon.assign({
+                    icon: CryptoCkBtc24Icon,
+                })}></${ToniqIcon}>
+                <span>999,999 ckBTC</span>
+            </div>
+        `,
+        from: html`
+            <span>You</span>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '5 days ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>New Auction</span>
+        `,
+        price: html`
+            <div
+                style=${css`
+                    display: flex;
+                    gap: 8px;
+                `}
+            >
+                <${ToniqIcon.assign({
+                    icon: CryptoCkBtc24Icon,
+                })}></${ToniqIcon}>
+                <span>9,999,999 ckBTC</span>
+            </div>
+        `,
+        from: html`
+            <${ToniqMiddleEllipsis.assign({
+                text: 'bc1qqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3usuy',
+                copyOnClick: true,
+                letterCount: 5,
+            })}></${ToniqMiddleEllipsis}>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '5 days ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>Cancel Listing</span>
+        `,
+        price: html`
+            <span>-</span>
+        `,
+        from: html`
+            <${ToniqMiddleEllipsis.assign({
+                text: 'bc1qqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3usuy',
+                copyOnClick: true,
+                letterCount: 5,
+            })}></${ToniqMiddleEllipsis}>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '5 days ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>New Auction</span>
+        `,
+        price: html`
+            <div
+                style=${css`
+                    display: flex;
+                    gap: 8px;
+                `}
+            >
+                <${ToniqIcon.assign({
+                    icon: CryptoCkBtc24Icon,
+                })}></${ToniqIcon}>
+                <span>99,999 ckBTC</span>
+            </div>
+        `,
+        from: html`
+            <span>You</span>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '5 days ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>New Auction</span>
+        `,
+        price: html`
+            <div
+                style=${css`
+                    display: flex;
+                    gap: 8px;
+                `}
+            >
+                <${ToniqIcon.assign({
+                    icon: CryptoCkBtc24Icon,
+                })}></${ToniqIcon}>
+                <span>9,999 ckBTC</span>
+            </div>
+        `,
+        from: html`
+            <${ToniqMiddleEllipsis.assign({
+                text: 'bc1qqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3usuy',
+                copyOnClick: true,
+                letterCount: 5,
+            })}></${ToniqMiddleEllipsis}>
+        `,
+        to: html`
+            <${ToniqMiddleEllipsis.assign({
+                text: 'bc1qqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3usuy',
+                copyOnClick: true,
+                letterCount: 5,
+            })}></${ToniqMiddleEllipsis}>
+        `,
+        time: '5 days ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>New Auction</span>
+        `,
+        price: html`
+            <div
+                style=${css`
+                    display: flex;
+                    gap: 8px;
+                `}
+            >
+                <${ToniqIcon.assign({
+                    icon: CryptoCkBtc24Icon,
+                })}></${ToniqIcon}>
+                <span>99,999,999,999 ckBTC</span>
+            </div>
+        `,
+        from: html`
+            <span>You</span>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '3 weeks ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>End Auction</span>
+        `,
+        price: html`
+            <span>-</span>
+        `,
+        from: html`
+            <span>You</span>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '3 weeks ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>End Auction</span>
+        `,
+        price: html`
+            <span>-</span>
+        `,
+        from: html`
+            <span>You</span>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '3 weeks ago',
+    },
+] as ReadonlyArray<{
     imageUrl: string;
+    type: HTMLTemplateResult;
     price: HTMLTemplateResult;
     from: HTMLTemplateResult;
     to: HTMLTemplateResult;
-    date: string;
     time: string;
 }>;
 
+const dynamicEntries1 = [
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>New Auction</span>
+        `,
+        price: html`
+            <div
+                style=${css`
+                    display: flex;
+                    gap: 8px;
+                `}
+            >
+                <${ToniqIcon.assign({
+                    icon: CryptoCkBtc24Icon,
+                })}></${ToniqIcon}>
+                <span>99,999 ckBTC</span>
+            </div>
+        `,
+        from: html`
+            <span>You</span>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '3 weeks ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>New Auction</span>
+        `,
+        price: html`
+            <div
+                style=${css`
+                    display: flex;
+                    gap: 8px;
+                `}
+            >
+                <${ToniqIcon.assign({
+                    icon: CryptoCkBtc24Icon,
+                })}></${ToniqIcon}>
+                <span>99,999 ckBTC</span>
+            </div>
+        `,
+        from: html`
+            <span>You</span>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '3 weeks ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>Cancel Listing</span>
+        `,
+        price: html`
+            <span>-</span>
+        `,
+        from: html`
+            <${ToniqMiddleEllipsis.assign({
+                text: 'bc1qqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3usuy',
+                copyOnClick: true,
+                letterCount: 5,
+            })}></${ToniqMiddleEllipsis}>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '3 months ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>New Listing</span>
+        `,
+        price: html`
+            <div
+                style=${css`
+                    display: flex;
+                    gap: 8px;
+                `}
+            >
+                <${ToniqIcon.assign({
+                    icon: CryptoCkBtc24Icon,
+                })}></${ToniqIcon}>
+                <span>0.100005 ckBTC</span>
+            </div>
+        `,
+        from: html`
+            <${ToniqMiddleEllipsis.assign({
+                text: 'bc1qqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3usuy',
+                copyOnClick: true,
+                letterCount: 5,
+            })}></${ToniqMiddleEllipsis}>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '3 months ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>New Listing</span>
+        `,
+        price: html`
+            <div
+                style=${css`
+                    display: flex;
+                    gap: 8px;
+                `}
+            >
+                <${ToniqIcon.assign({
+                    icon: CryptoCkBtc24Icon,
+                })}></${ToniqIcon}>
+                <span>0.100009 ckBTC</span>
+            </div>
+        `,
+        from: html`
+            <span>You</span>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '3 months ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>Cancel Listing</span>
+        `,
+        price: html`
+            <span>-</span>
+        `,
+        from: html`
+            <span>You</span>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '3 months ago',
+    },
+    {
+        imageUrl: mockInscriptionUrl.thumbnail(
+            'b3e3275c0d0793b9f64a86eaa5e9d6bdad1e69282ebfb59cc68ccbcfd4e093a4i0',
+        ),
+        type: html`
+            <span>Cancel Listing</span>
+        `,
+        price: html`
+            <span>-</span>
+        `,
+        from: html`
+            <span>You</span>
+        `,
+        to: html`
+            <span>-</span>
+        `,
+        time: '3 months ago',
+    },
+] as ReadonlyArray<{
+    imageUrl: string;
+    type: HTMLTemplateResult;
+    price: HTMLTemplateResult;
+    from: HTMLTemplateResult;
+    to: HTMLTemplateResult;
+    time: string;
+}>;
 // cspell:enable
 
 const exampleListTableInputs = createListTableTable({
@@ -799,62 +1100,6 @@ const exampleListTableInputs = createListTableTable({
                 date: entry.date,
                 time: entry.time,
                 action: entry.action,
-            },
-            rowActions: {
-                click() {
-                    alert('This could be useful on opening specific inscription or transaction');
-                },
-            },
-        };
-    },
-});
-
-const exampleLongColumnNameListTableInputs = createListTableTable({
-    entries: entriesHuge,
-    columns: [
-        {key: 'image', title: '', option: {sticky: true}},
-        {
-            key: 'price',
-            title: 'PRICE LONG COLUMN NAME',
-            option: {sticky: true, spaceEvenly: true},
-        },
-        {key: 'from', title: 'FROM', option: {spaceEvenly: true}},
-        {
-            key: 'to',
-            title: 'TO',
-            option: {spaceEvenly: true},
-            style: css`
-                width: 100%;
-                display: flex;
-                justify-content: flex-end;
-            `,
-        },
-    ],
-    createRowObject: (entry) => {
-        return {
-            cells: {
-                image: html`
-                    <img
-                        style=${css`
-                            width: 24px;
-                            height: auto;
-                        `}
-                        src=${entry.imageUrl}
-                    />
-                `,
-                price: entry.price,
-                from: entry.from,
-                to: html`
-                    <div
-                        style=${css`
-                            width: 100%;
-                            display: flex;
-                            justify-content: flex-end;
-                        `}
-                    >
-                        ${entry.to}
-                    </div>
-                `,
             },
             rowActions: {
                 click() {
@@ -937,50 +1182,6 @@ const exampleEmptyListTableInputs = createListTableTable({
                 date: entry.date,
                 time: entry.time,
                 action: entry.action,
-            },
-            rowActions: {
-                click() {
-                    alert('This could be useful on opening specific inscription or transaction');
-                },
-            },
-        };
-    },
-});
-
-const exampleNoActionListTableInputs = createListTableTable({
-    entries: entriesNoAction,
-    columns: [
-        {key: 'image', title: '', option: {sticky: true}},
-        {key: 'price', title: 'PRICE'},
-        {key: 'from', title: 'FROM'},
-        {key: 'to', title: 'TO'},
-        {key: 'date', title: 'DATE'},
-        {
-            key: 'time',
-            title: 'TIME',
-            style: css`
-                display: flex;
-                justify-content: flex-end;
-            `,
-        },
-    ],
-    createRowObject: (entry) => {
-        return {
-            cells: {
-                image: html`
-                    <img
-                        style=${css`
-                            width: 24px;
-                            height: auto;
-                        `}
-                        src=${entry.imageUrl}
-                    />
-                `,
-                price: entry.price,
-                from: entry.from,
-                to: entry.to,
-                date: entry.date,
-                time: entry.time,
             },
             rowActions: {
                 click() {
@@ -1106,13 +1307,42 @@ export const toniqListTableElementBookPage = defineBookPage({
     title: ToniqListTable.tagName,
     parent: elementsBookPage,
     elementExamplesCallback({defineExample}) {
-        defineExample({
-            title: 'no action',
-            renderCallback() {
-                return html`
-                    <${ToniqListTable.assign(exampleNoActionListTableInputs)}></${ToniqListTable}>
-                `;
-            },
+        examples.forEach((example) => {
+            defineExample({
+                title: example.title,
+                styles: css`
+                    ${unsafeCSS(example.styles)}
+                `,
+                stateInitStatic: {
+                    currentPage: example.inputs?.pagination?.currentPage,
+                },
+                renderCallback({state, updateState}) {
+                    const paginationInputs: Pick<
+                        (typeof ToniqListTable)['inputsType'],
+                        'pagination'
+                    > =
+                        example.inputs?.pagination && state.currentPage
+                            ? {
+                                  pagination: {
+                                      ...example.inputs.pagination,
+                                      currentPage: state.currentPage,
+                                  },
+                              }
+                            : {};
+
+                    return html`
+                        <${ToniqListTable.assign({
+                            ...exampleListTableInputs,
+                            ...example.inputs,
+                            ...paginationInputs,
+                        })}
+                            ${listen(ToniqListTable.events.pageChange, (event) => {
+                                updateState({currentPage: event.detail});
+                            })}
+                        ></${ToniqListTable}>
+                    `;
+                },
+            });
         });
 
         defineExample({
@@ -1156,42 +1386,91 @@ export const toniqListTableElementBookPage = defineBookPage({
             },
         });
 
-        examples.forEach((example) => {
-            defineExample({
-                title: example.title,
-                styles: css`
-                    ${unsafeCSS(example.styles)}
-                `,
-                stateInitStatic: {
-                    currentPage: example.inputs?.pagination?.currentPage,
-                },
-                renderCallback({state, updateState}) {
-                    const paginationInputs: Pick<
-                        (typeof ToniqListTable)['inputsType'],
-                        'pagination'
-                    > =
-                        example.inputs?.pagination && state.currentPage
-                            ? {
-                                  pagination: {
-                                      ...example.inputs.pagination,
-                                      currentPage: state.currentPage,
-                                  },
-                              }
-                            : {};
+        defineExample({
+            title: 'dynamic content',
+            stateInitStatic: {
+                currentPage: 1,
+            },
+            renderCallback({state, updateState}) {
+                const paginationInputs: Pick<(typeof ToniqListTable)['inputsType'], 'pagination'> =
+                    {
+                        pagination: {
+                            currentPage: state.currentPage,
+                            pageCount: 2,
+                        },
+                    };
 
-                    return html`
-                        <${ToniqListTable.assign({
-                            ...exampleListTableInputs,
-                            ...example.inputs,
-                            ...paginationInputs,
+                const exampleListTableInputs = createListTableTable({
+                    entries: state.currentPage! % 2 ? dynamicEntries : dynamicEntries1,
+                    columns: [
+                        {key: 'image', title: '', option: {sticky: true}},
+                        {key: 'type', title: 'TYPE', option: {sticky: true}},
+                        {key: 'price', title: 'PRICE'},
+                        {key: 'from', title: 'FROM'},
+                        {key: 'to', title: 'TO'},
+                        {
+                            key: 'time',
+                            title: 'TIME',
+                            option: {
+                                spaceEvenly: true,
+                            },
+                            style: css`
+                                width: 100%;
+                                display: flex;
+                                justify-content: flex-end;
+                            `,
+                        },
+                    ],
+                    createRowObject: (entry) => {
+                        return {
+                            cells: {
+                                image: html`
+                                    <img
+                                        style=${css`
+                                            width: 36px;
+                                            height: auto;
+                                        `}
+                                        src=${entry.imageUrl}
+                                    />
+                                `,
+                                type: entry.type,
+                                price: entry.price,
+                                from: entry.from,
+                                to: entry.to,
+                                time: html`
+                                    <div
+                                        style=${css`
+                                            width: 100%;
+                                            display: flex;
+                                            justify-content: flex-end;
+                                        `}
+                                    >
+                                        ${entry.time}
+                                    </div>
+                                `,
+                            },
+                            rowActions: {
+                                click() {
+                                    alert(
+                                        'This could be useful on opening specific inscription or transaction',
+                                    );
+                                },
+                            },
+                        };
+                    },
+                });
+
+                return html`
+                    <${ToniqListTable.assign({
+                        ...exampleListTableInputs,
+                        ...paginationInputs,
+                    })}
+                        ${listen(ToniqListTable.events.pageChange, (event) => {
+                            updateState({currentPage: event.detail});
                         })}
-                            ${listen(ToniqListTable.events.pageChange, (event) => {
-                                updateState({currentPage: event.detail});
-                            })}
-                        ></${ToniqListTable}>
-                    `;
-                },
-            });
+                    ></${ToniqListTable}>
+                `;
+            },
         });
 
         defineExample({
@@ -1225,31 +1504,6 @@ export const toniqListTableElementBookPage = defineBookPage({
             renderCallback({state}) {
                 return html`
                     <${ToniqListTable.assign(state.tableInputs)}></${ToniqListTable}>
-                `;
-            },
-        });
-
-        defineExample({
-            title: 'long column name',
-            styles: css`
-                :host {
-                    width: 100%;
-                }
-
-                ${ToniqListTable} {
-                    width: 100%;
-                    flex-grow: 1;
-                }
-            `,
-            renderCallback() {
-                return html`
-                    <${ToniqListTable.assign({
-                        ...exampleLongColumnNameListTableInputs,
-                        pagination: {
-                            currentPage: 1,
-                            pageCount: 5,
-                        },
-                    })}></${ToniqListTable}>
                 `;
             },
         });
