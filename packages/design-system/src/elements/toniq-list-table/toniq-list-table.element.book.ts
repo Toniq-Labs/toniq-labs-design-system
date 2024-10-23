@@ -638,10 +638,22 @@ const dynamicEntries = [
             <span>-</span>
         `,
         from: html`
-            <span>You</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                You
+            </span>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '5 days ago',
     },
@@ -660,10 +672,24 @@ const dynamicEntries = [
                 text: 'bc1qqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3usuy',
                 copyOnClick: true,
                 letterCount: 5,
-            })}></${ToniqMiddleEllipsis}>
+            })}
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+                ${listen('click', (event) => {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                })}
+            ></${ToniqMiddleEllipsis}>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '5 days ago',
     },
@@ -688,10 +714,22 @@ const dynamicEntries = [
             </div>
         `,
         from: html`
-            <span>You</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                You
+            </span>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '5 days ago',
     },
@@ -720,10 +758,24 @@ const dynamicEntries = [
                 text: 'bc1qqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3usuy',
                 copyOnClick: true,
                 letterCount: 5,
-            })}></${ToniqMiddleEllipsis}>
+            })}
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+                ${listen('click', (event) => {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                })}
+            ></${ToniqMiddleEllipsis}>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '5 days ago',
     },
@@ -742,10 +794,24 @@ const dynamicEntries = [
                 text: 'bc1qqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3usuy',
                 copyOnClick: true,
                 letterCount: 5,
-            })}></${ToniqMiddleEllipsis}>
+            })}
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+                ${listen('click', (event) => {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                })}
+            ></${ToniqMiddleEllipsis}>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '5 days ago',
     },
@@ -770,10 +836,22 @@ const dynamicEntries = [
             </div>
         `,
         from: html`
-            <span>You</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                You
+            </span>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '5 days ago',
     },
@@ -802,14 +880,30 @@ const dynamicEntries = [
                 text: 'bc1qqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3usuy',
                 copyOnClick: true,
                 letterCount: 5,
-            })}></${ToniqMiddleEllipsis}>
+            })}
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+                ${listen('click', (event) => {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                })}
+            ></${ToniqMiddleEllipsis}>
         `,
         to: html`
             <${ToniqMiddleEllipsis.assign({
                 text: 'bc1qqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3usuy',
                 copyOnClick: true,
                 letterCount: 5,
-            })}></${ToniqMiddleEllipsis}>
+            })}
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+                ${listen('click', (event) => {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                })}
+            ></${ToniqMiddleEllipsis}>
         `,
         time: '5 days ago',
     },
@@ -834,10 +928,22 @@ const dynamicEntries = [
             </div>
         `,
         from: html`
-            <span>You</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                You
+            </span>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '3 weeks ago',
     },
@@ -852,10 +958,22 @@ const dynamicEntries = [
             <span>-</span>
         `,
         from: html`
-            <span>You</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                You
+            </span>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '3 weeks ago',
     },
@@ -870,10 +988,22 @@ const dynamicEntries = [
             <span>-</span>
         `,
         from: html`
-            <span>You</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                You
+            </span>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '3 weeks ago',
     },
@@ -908,10 +1038,22 @@ const dynamicEntries1 = [
             </div>
         `,
         from: html`
-            <span>You</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                You
+            </span>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '3 weeks ago',
     },
@@ -936,10 +1078,22 @@ const dynamicEntries1 = [
             </div>
         `,
         from: html`
-            <span>You</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                You
+            </span>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '3 weeks ago',
     },
@@ -958,10 +1112,24 @@ const dynamicEntries1 = [
                 text: 'bc1qqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3usuy',
                 copyOnClick: true,
                 letterCount: 5,
-            })}></${ToniqMiddleEllipsis}>
+            })}
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+                ${listen('click', (event) => {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                })}
+            ></${ToniqMiddleEllipsis}>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '3 months ago',
     },
@@ -990,10 +1158,24 @@ const dynamicEntries1 = [
                 text: 'bc1qqf97r0ydgw9yxfmptu4krqjgy49kx7m5g3usuy',
                 copyOnClick: true,
                 letterCount: 5,
-            })}></${ToniqMiddleEllipsis}>
+            })}
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+                ${listen('click', (event) => {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                })}
+            ></${ToniqMiddleEllipsis}>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '3 months ago',
     },
@@ -1018,10 +1200,22 @@ const dynamicEntries1 = [
             </div>
         `,
         from: html`
-            <span>You</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                You
+            </span>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '3 months ago',
     },
@@ -1036,10 +1230,22 @@ const dynamicEntries1 = [
             <span>-</span>
         `,
         from: html`
-            <span>You</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                You
+            </span>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '3 months ago',
     },
@@ -1054,10 +1260,22 @@ const dynamicEntries1 = [
             <span>-</span>
         `,
         from: html`
-            <span>You</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                You
+            </span>
         `,
         to: html`
-            <span>-</span>
+            <span
+                style=${css`
+                    color: ${toniqColors.pageInteraction.foregroundColor};
+                `}
+            >
+                -
+            </span>
         `,
         time: '3 months ago',
     },

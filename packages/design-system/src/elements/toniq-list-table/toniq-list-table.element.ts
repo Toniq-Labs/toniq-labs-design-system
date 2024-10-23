@@ -226,7 +226,6 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             align-items: flex-start;
             position: relative;
             background: ${toniqColors.pageInteraction.backgroundColor};
-            cursor: pointer;
         }
 
         .column-wrapper.sticky {
@@ -265,6 +264,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         .column-content:not(:first-of-type) {
             border: ${cssVars['toniq-list-table-border-width'].value} solid transparent;
             border-top-color: ${toniqColors.dividerFaint.foregroundColor};
+            cursor: pointer;
         }
 
         .column-content:last-of-type {
@@ -425,25 +425,13 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                                 ${columnItem.title}
                                             </span>
                                         `,
-                                        html`
-                                            <div
-                                                class="content-wrapper"
-                                                ${listen('click', (event) => {
-                                                    event.preventDefault();
-                                                    event.stopPropagation();
-                                                })}
-                                            >
-                                                ${guard(
-                                                    [
-                                                        rowIndex,
-                                                        row.cells[
-                                                            columnItem.key as keyof typeof row
-                                                        ],
-                                                    ],
-                                                    () => rowItem.contents,
-                                                )}
-                                            </div>
-                                        `,
+                                        guard(
+                                            [
+                                                rowIndex,
+                                                row.cells[columnItem.key as keyof typeof row],
+                                            ],
+                                            () => rowItem.contents,
+                                        ),
                                     )}
                                 </div>
                             `;
