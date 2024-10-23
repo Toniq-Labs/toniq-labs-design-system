@@ -44,7 +44,9 @@ describe(ToniqListTable.tagName, () => {
             <${ToniqListTable.assign(testCase.inputs)}></${ToniqListTable}>
         `);
         assertInstanceOf(renderedToniqListTable, ToniqListTable);
-        const renderedRows = renderedToniqListTable.shadowRoot.querySelectorAll('.row-wrapper');
+        const renderedRows = renderedToniqListTable.shadowRoot
+            .querySelector('.column-wrapper')
+            ?.querySelectorAll('.column-content');
 
         if (testCase.inputs.pagination) {
             assertInstanceOf(renderedToniqListTable, ToniqListTable);
@@ -56,7 +58,7 @@ describe(ToniqListTable.tagName, () => {
 
         return {
             // Minus the header row
-            row: renderedRows.length - 1,
+            row: renderedRows ? renderedRows.length - 1 : 0,
         };
     }
 

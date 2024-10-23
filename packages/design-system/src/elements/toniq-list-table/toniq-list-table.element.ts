@@ -13,16 +13,15 @@ import {
     classMap,
     css,
     defineElementEvent,
+    guard,
     html,
     ifDefined,
-    keyed,
     listen,
     nothing,
-    onResize,
+    onDomCreated,
     perInstance,
     renderIf,
     repeat,
-    unsafeCSS,
 } from 'element-vir';
 import {ChevronsRight16Icon} from '../../icons/svgs/core-16/chevrons-right-16.icon';
 import {toniqColors, toniqDurations, toniqFontStyles} from '../../styles';
@@ -31,18 +30,18 @@ import {ToniqIcon} from '../toniq-icon/toniq-icon.element';
 import {ToniqLoading, ToniqLoadingSizeEnum} from '../toniq-loading/toniq-loading.element';
 import {ToniqPagination} from '../toniq-pagination/toniq-pagination.element';
 
-export type ColumnsBase = ReadonlyArray<
-    Readonly<{
-        key: PropertyKey;
-        title: string;
-        disabled?: boolean;
-        option?: {
-            sticky?: boolean | undefined;
-            spaceEvenly?: boolean | undefined;
-        };
-        style?: CSSResult;
-    }>
->;
+export type ListTableColumn = Readonly<{
+    key: PropertyKey;
+    title: string;
+    disabled?: boolean;
+    option?: {
+        sticky?: boolean | undefined;
+        spaceEvenly?: boolean | undefined;
+    };
+    style?: CSSResult;
+}>;
+
+export type ColumnsBase = ReadonlyArray<ListTableColumn>;
 
 export type ListTableRow<Columns extends ColumnsBase> = {
     cells: Readonly<
@@ -77,11 +76,6 @@ export type ListTableInputs = {
           }>
         | undefined;
     showLoading?: boolean | undefined;
-    /**
-     * Used to show the table even if all items have not been painted yet, ideally to be used only
-     * in fixed/consistent column sizes in all rows
-     */
-    nonBlocking?: boolean | undefined;
     paginationAction?: HTMLTemplateResult | undefined;
 };
 
@@ -144,14 +138,14 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
 
         /* Firefox */
         :host {
-            scrollbar-width: auto;
+            scrollbar-width: thin;
             scrollbar-color: ${scrollbarColorCssVar} ${scrollbarTrackColorCssVar};
         }
 
         /* Chrome, Edge, and Safari */
         :host::-webkit-scrollbar {
-            width: 2px;
-            height: 2px;
+            width: 8px;
+            height: 8px;
         }
 
         :host::-webkit-scrollbar-track {
@@ -166,35 +160,25 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
 
         .table-wrapper {
             position: relative;
-            overflow-y: hidden;
             overflow-x: auto;
-
             display: flex;
             flex-grow: 1;
-
             flex-direction: column;
             align-items: center;
             gap: 32px;
-
             background-color: ${toniqColors.pageInteraction.backgroundColor};
             border-radius: ${cssVars['toniq-list-table-header-radius'].value};
             border: 24px solid ${toniqColors.pageInteraction.backgroundColor};
-        }
-
-        .table-wrapper.can-scroll {
-            gap: 16px;
-            border-radius: ${cssVars['toniq-list-table-header-radius'].value};
-            border: 16px solid ${toniqColors.pageInteraction.backgroundColor};
         }
 
         .table-list {
             min-height: 40px;
             width: 100%;
             display: flex;
-            flex-direction: column;
-            align-self: flex-start;
+            flex-direction: row;
             overflow-x: auto;
-            scrollbar-width: auto;
+            overflow-y: hidden;
+            scrollbar-width: thin;
             scrollbar-color: ${scrollbarColorCssVar} ${scrollbarTrackColorCssVar};
         }
 
@@ -230,111 +214,78 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             display: none;
         }
 
-        .row-wrapper {
+        .column-wrapper {
             display: flex;
+            flex-direction: column;
+            align-items: flex-start;
             position: relative;
             background: ${toniqColors.pageInteraction.backgroundColor};
-            cursor: pointer;
         }
 
-        .row-wrapper:not(:first-of-type) {
-            min-height: 48px;
+        .column-wrapper.sticky {
+            position: sticky;
+            z-index: 2;
+            filter: drop-shadow(rgba(0, 0, 0, 0.12) 4px 1px 3px);
+            will-change: filter;
         }
 
-        .row-wrapper:first-of-type,
-        .row-wrapper:first-of-type .row-item {
-            min-height: 32px;
-            align-items: start;
+        .column-wrapper.fill {
+            flex: 1;
         }
 
-        .row-wrapper:not(:first-of-type):hover:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            height: 2px;
-            width: 100%;
-            background-color: ${toniqColors.dropShadow.backgroundColor};
-        }
-
-        .row-wrapper:not(:first-of-type):hover:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            height: 2px;
-            width: 100%;
-            background-color: ${toniqColors.dropShadow.backgroundColor};
-        }
-
-        .row-wrapper:not(:first-of-type):hover .row-item,
-        .row-wrapper:not(:first-of-type):hover + .row-wrapper .row-item {
-            border-top-color: transparent;
-        }
-
-        .row-wrapper:not(:first-of-type) .row-item {
-            border-top-color: ${toniqColors.dividerFaint.foregroundColor};
-        }
-
-        .row-item,
-        .row-content {
-            display: flex;
+        .column-content {
+            height: 48px;
+            max-height: 48px;
+            width: -webkit-fill-available;
+            width: -moz-available;
             align-items: center;
-            background: ${toniqColors.pageInteraction.backgroundColor};
+            display: flex;
+            position: relative;
         }
 
-        .row-item.lazy {
-            display: none;
-        }
-
-        .row-content.hidden {
-            visibility: hidden;
-        }
-
-        .row-content,
-        .row-content * {
+        .column-content {
             text-wrap: nowrap;
         }
 
-        .row-item {
-            border: ${cssVars['toniq-list-table-border-width'].value} solid transparent;
-        }
-
-        .row-item.sticky {
-            position: sticky;
-            filter: drop-shadow(rgba(0, 0, 0, 0.12) 4px 1px 3px);
-            will-change: filter;
-            z-index: 2;
-        }
-
-        .row-wrapper:last-child .row-item {
-            border-bottom-color: ${toniqColors.dividerFaint.foregroundColor};
-        }
-
-        .row-item:not(:first-child) .row-content {
+        .column-wrapper:not(:first-of-type) .column-content {
             padding-left: calc(${cssVars['toniq-list-table-row-gap'].value} / 2);
         }
 
-        .row-item:not(:last-child) .row-content {
+        .column-wrapper:not(:last-of-type) .column-content {
             padding-right: calc(${cssVars['toniq-list-table-row-gap'].value} / 2);
         }
 
-        .row-item:last-of-type,
-        .row-item:last-of-type .row-content {
-            flex-grow: 1;
+        .column-content:not(:first-of-type) {
+            border: ${cssVars['toniq-list-table-border-width'].value} solid transparent;
+            border-top-color: ${toniqColors.dividerFaint.foregroundColor};
+            cursor: pointer;
         }
 
-        .row-item.fill {
-            flex: 1;
+        .column-wrapper .column-content:first-of-type {
+            height: 32px;
+            align-items: start;
         }
 
-        .row-item.fill .row-content {
-            flex: 1;
+        .column-content:last-of-type {
+            border-bottom-color: ${toniqColors.dividerFaint.foregroundColor};
         }
 
-        .loading-wrapper.hidden {
-            visibility: hidden;
-            pointer-events: none;
-            opacity: 0;
-            transition: ${toniqDurations.interaction};
+        .column-content.hover {
+            border-top-color: ${toniqColors.dropShadow.backgroundColor};
+        }
+
+        .column-content.hover:last-of-type {
+            border-bottom-color: ${toniqColors.dropShadow.backgroundColor};
+        }
+
+        .column-content.hover + .column-content {
+            border-top-color: ${toniqColors.dropShadow.backgroundColor};
+        }
+
+        .content-wrapper {
+            width: 100%;
+            display: flex;
+            align-items: center;
         }
 
         .loading-wrapper {
@@ -359,50 +310,134 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
         }
     `,
     stateInitStatic: {
-        canScroll: false,
         debouncedResize: perInstance(() =>
             createDebounce(DebounceStyle.FirstThenWait, {milliseconds: 30}),
         ),
-        rowStyles: {} as {
-            [key: string]: {
-                width: number | undefined;
-                left: number | undefined;
-            };
-        },
-        isLoading: false,
+        canScroll: false,
         tableListLeft: 0,
-    },
-    initCallback({inputs, state, updateState}) {
-        const enabledColumns = inputs.columns.filter((column) => !column.disabled);
-        updateState({
-            rowStyles: enabledColumns.reduce((accum, item) => {
-                accum[item.key as string] = {
-                    width: undefined,
-                    left: undefined,
-                };
-                return accum;
-            }, state.rowStyles),
-        });
+        hoverIndex: undefined as undefined | number,
     },
     renderCallback({inputs, state, updateState, events, dispatch, host}) {
         const enabledColumns = inputs.columns.filter((column) => !column.disabled);
         // Duplicate first entry for the header column
-        const rows = [
+        const rows: ReadonlyArray<Readonly<ListTableRow<any>>> = [
             inputs.rows[0],
             ...inputs.rows,
         ].filter(isTruthy);
 
-        function tableUpdate(container: HTMLElement | EventTarget | null) {
+        function tableUpdate() {
+            const container = host.shadowRoot.querySelector('.table-list') as HTMLElement;
             if (container instanceof HTMLElement) {
-                setTimeout(() => {
-                    state.debouncedResize(() => {
-                        updateState({
-                            canScroll: container.scrollWidth > container.clientWidth,
-                            tableListLeft: container.getBoundingClientRect().left,
-                        });
+                state.debouncedResize(() => {
+                    requestAnimationFrame(() => {
+                        const newCanScroll = container.scrollWidth > container.clientWidth;
+                        const newTableListLeft = container.getBoundingClientRect().left;
+
+                        if (
+                            newCanScroll !== state.canScroll ||
+                            newTableListLeft !== state.tableListLeft
+                        ) {
+                            updateState({
+                                canScroll: newCanScroll,
+                                tableListLeft: newTableListLeft,
+                            });
+                        }
                     });
-                }, 0);
+                });
             }
+        }
+
+        function calculateLeft(columnKey: string) {
+            const wrapperEl = host.shadowRoot.querySelector(
+                `.column-wrapper[data-column="${columnKey}"]`,
+            );
+
+            if (!(wrapperEl instanceof HTMLElement)) {
+                return css`
+                    left: 0px;
+                `;
+            }
+
+            const wrapperLeft = wrapperEl.getBoundingClientRect().left;
+            const left = state.tableListLeft ? wrapperLeft - state.tableListLeft : wrapperLeft;
+            return css`
+                left: ${left > 0 ? left : 0}px;
+            `;
+        }
+
+        function listItem(columnItem: ListTableColumn) {
+            const isSticky = !!columnItem.option?.sticky && state.canScroll;
+
+            return html`
+                <div
+                    data-column=${columnItem.key as string}
+                    class=${classMap({
+                        'column-wrapper': true,
+                        sticky: isSticky,
+                        fill: !!columnItem.option?.spaceEvenly,
+                    })}
+                    style=${ifDefined(
+                        isSticky ? calculateLeft(columnItem.key as string) : undefined,
+                    )}
+                >
+                    ${repeat(
+                        rows,
+                        (row, rowIndex) => rowIndex,
+                        (row, rowIndex) => {
+                            const rowItem = {
+                                contents: row.cells[columnItem.key as keyof typeof row],
+                                rowActions: row.rowActions,
+                            } as {
+                                contents: HtmlInterpolation;
+                                rowActions: typeof row.rowActions;
+                            };
+
+                            return html`
+                                <div
+                                    ${listen('mouseenter', () => {
+                                        updateState({
+                                            hoverIndex: rowIndex,
+                                        });
+                                    })}
+                                    ${listen('mouseleave', () => {
+                                        updateState({
+                                            hoverIndex: undefined,
+                                        });
+                                    })}
+                                    ${rowIndex > 0
+                                        ? listen('click', (clickEvent) => {
+                                              rowItem?.rowActions?.click?.({
+                                                  clickEvent,
+                                                  dispatch,
+                                              });
+                                          })
+                                        : nothing}
+                                    class=${classMap({
+                                        'column-content': true,
+                                        hover: rowIndex === state.hoverIndex,
+                                    })}
+                                >
+                                    ${renderIf(
+                                        rowIndex === 0,
+                                        html`
+                                            <span class="header" style=${columnItem.style}>
+                                                ${columnItem.title}
+                                            </span>
+                                        `,
+                                        guard(
+                                            [
+                                                rowIndex,
+                                                row.cells[columnItem.key as keyof typeof row],
+                                            ],
+                                            () => rowItem.contents,
+                                        ),
+                                    )}
+                                </div>
+                            `;
+                        },
+                    )}
+                </div>
+            `;
         }
 
         const paginationTemplate =
@@ -423,222 +458,63 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                   `
                 : nothing;
 
-        function listItem(row: ListTableRow<any>, rowIndex: number) {
-            return html`
-                <div
-                    class="row-wrapper"
-                    ${rowIndex > 0
-                        ? listen('click', (clickEvent) => {
-                              row.rowActions?.click?.({clickEvent, dispatch});
-                          })
-                        : nothing}
-                >
-                    ${repeat(
-                        enabledColumns,
-                        (item, index) => index,
-                        (item, index) => {
-                            const itemKey = item.key as keyof typeof row;
-                            const contents = row.cells[itemKey];
+        const isLoading = !!inputs.showLoading || !!!rows.length || !!!enabledColumns.length;
 
-                            const rowItemLeftStyle = css`
-                                left: ${unsafeCSS(`${state.rowStyles[itemKey]?.left}px`)};
-                            `;
-
-                            const rowItemMinWidthStyle = css`
-                                min-width: ${index >= enabledColumns.length - 1
-                                    ? unsafeCSS('unset')
-                                    : unsafeCSS(`${state.rowStyles[itemKey]?.width}px`)};
-                            `;
-
-                            const rowItemMaxWidthStyle = css`
-                                max-width: ${index >= enabledColumns.length - 1
-                                    ? unsafeCSS('unset')
-                                    : unsafeCSS(`${state.rowStyles[itemKey]?.width}px`)};
-                            `;
-
-                            return html`
-                                <div
-                                    data-column=${itemKey}
-                                    class=${classMap({
-                                        'row-item': true,
-                                        sticky: !!item.option?.sticky && state.canScroll,
-                                        fill: !!item.option?.spaceEvenly,
-                                    })}
-                                    style=${ifDefined(
-                                        rowItemLeftStyle ||
-                                            rowItemMinWidthStyle ||
-                                            rowItemMaxWidthStyle
-                                            ? `${rowItemLeftStyle ? rowItemLeftStyle : ''} ${rowItemMinWidthStyle ? rowItemMinWidthStyle : ''} ${rowItemMaxWidthStyle ? rowItemMaxWidthStyle : ''}`
-                                            : undefined,
-                                    )}
-                                >
-                                    <div
-                                        class=${classMap({
-                                            'row-content': true,
-                                        })}
-                                    >
-                                        ${renderIf(
-                                            rowIndex === 0,
-                                            html`
-                                                <span class="header" style=${item.style}>
-                                                    ${item.title}
-                                                </span>
-                                            `,
-                                            html`
-                                                ${contents}
-                                            `,
-                                        )}
-                                    </div>
-                                </div>
-                            `;
-                        },
-                    )}
-                </div>
-            `;
-        }
-
-        const isLoading = (inputs.nonBlocking ? false : state.isLoading) || !!inputs.showLoading;
         return html`
             <div
                 class=${classMap({
                     'table-wrapper': true,
-                    'can-scroll': state.canScroll,
                 })}
             >
-                ${keyed(
-                    inputs.pagination?.currentPage,
+                <div
+                    class=${classMap({
+                        'table-list': true,
+                        hidden: isLoading,
+                    })}
+                    ${onDomCreated(() => {
+                        tableUpdate();
+                        window.addEventListener('resize', () => {
+                            tableUpdate();
+                        });
+                    })}
+                    ${listen('scroll', () => {
+                        tableUpdate();
+                    })}
+                    ${listen('keydown', (event) => {
+                        if (inputs.showLoading) {
+                            event.preventDefault();
+                            event.stopImmediatePropagation();
+                        }
+                    })}
+                >
+                    ${repeat(
+                        enabledColumns,
+                        (columnItem, columnIndex) => columnIndex,
+                        (columnItem) => listItem(columnItem),
+                    )}
+                    ${renderIf(
+                        state.canScroll,
+                        html`
+                            <div class="scroll-indicator">
+                                <${ToniqIcon.assign({
+                                    icon: ChevronsRight16Icon,
+                                })}></${ToniqIcon}>
+                            </div>
+                        `,
+                    )}
+                </div>
+                ${renderIf(
+                    isLoading,
                     html`
-                        <div
-                            class=${classMap({
-                                'table-list': true,
-                                hidden: isLoading,
-                            })}
-                            ${onResize((event) => {
-                                tableUpdate(event.target);
-
-                                updateState({
-                                    rowStyles: enabledColumns.reduce((accum, item) => {
-                                        accum[item.key as string] = {
-                                            width: undefined,
-                                            left: undefined,
-                                        };
-                                        return accum;
-                                    }, state.rowStyles),
-                                });
-
-                                setTimeout(() => {
-                                    enabledColumns.forEach((column) => {
-                                        const columnKey = column.key as string;
-
-                                        const rowItems = host.shadowRoot
-                                            .querySelector('.table-list')
-                                            ?.querySelectorAll(
-                                                `.row-item[data-column="${columnKey}"]`,
-                                            );
-
-                                        if (rowItems) {
-                                            rowItems.forEach((rowItem) => {
-                                                const left = rowItem.getBoundingClientRect().left;
-                                                const currentWidth =
-                                                    getElementWidthWithMarginPadding(
-                                                        rowItem.querySelector(
-                                                            '.row-content',
-                                                        ) as HTMLElement,
-                                                    ).width;
-                                                if (
-                                                    !state.rowStyles[columnKey]?.width ||
-                                                    currentWidth >
-                                                        (state.rowStyles[columnKey]
-                                                            ?.width as number)
-                                                ) {
-                                                    updateState({
-                                                        rowStyles: {
-                                                            ...state.rowStyles,
-                                                            [columnKey]: {
-                                                                width: currentWidth,
-                                                                left: state.tableListLeft
-                                                                    ? left - state.tableListLeft
-                                                                    : left,
-                                                            },
-                                                        },
-                                                    });
-                                                }
-                                            });
-                                        }
-                                    });
-
-                                    updateState({
-                                        isLoading: false,
-                                    });
-                                }, 0);
-                            })}
-                            ${listen('scroll', (event) => {
-                                tableUpdate(event.target);
-                            })}
-                            ${listen('keydown', (event) => {
-                                if (inputs.showLoading) {
-                                    event.preventDefault();
-                                    event.stopImmediatePropagation();
-                                }
-                            })}
-                        >
-                            ${repeat(
-                                rows,
-                                (item, index) => index,
-                                (item: ListTableRow<any>, index: number) => {
-                                    return listItem(item, index);
-                                },
-                            )}
-                            ${renderIf(
-                                state.canScroll,
-                                html`
-                                    <div class="scroll-indicator">
-                                        <${ToniqIcon.assign({
-                                            icon: ChevronsRight16Icon,
-                                        })}></${ToniqIcon}>
-                                    </div>
-                                `,
-                            )}
+                        <div class="loading-wrapper">
+                            <${ToniqLoading.assign({
+                                size: ToniqLoadingSizeEnum.Large,
+                            })}></${ToniqLoading}>
                         </div>
                     `,
                 )}
-
-                <div
-                    class=${classMap({
-                        'loading-wrapper': true,
-                        hidden: !isLoading,
-                    })}
-                >
-                    <${ToniqLoading.assign({
-                        size: ToniqLoadingSizeEnum.Large,
-                    })}></${ToniqLoading}>
-                </div>
                 ${paginationTemplate}
             </div>
         `;
     },
 });
-
-function getElementWidthWithMarginPadding(element: HTMLElement) {
-    const style = getComputedStyle(element);
-
-    const width = element.offsetWidth;
-    const marginLeft = parseFloat(style.marginLeft);
-    const marginRight = parseFloat(style.marginRight);
-    const paddingLeft = parseFloat(style.paddingLeft);
-    const paddingRight = parseFloat(style.paddingRight);
-
-    const gap = parseFloat(style.gap) || 0;
-
-    return {
-        width: width + marginLeft + marginRight + gap,
-        margin: {
-            left: marginLeft,
-            right: marginRight,
-        },
-        padding: {
-            left: paddingLeft,
-            right: paddingRight,
-        },
-    };
-}
