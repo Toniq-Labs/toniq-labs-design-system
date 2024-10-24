@@ -22,6 +22,7 @@ import {
     perInstance,
     renderIf,
     repeat,
+    until,
 } from 'element-vir';
 import {ChevronsRight16Icon} from '../../icons/svgs/core-16/chevrons-right-16.icon';
 import {toniqColors, toniqDurations, toniqFontStyles} from '../../styles';
@@ -392,48 +393,50 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                 rowActions: typeof row.rowActions;
                             };
 
-                            return html`
-                                <div
-                                    ${listen('mouseenter', () => {
-                                        updateState({
-                                            hoverIndex: rowIndex,
-                                        });
-                                    })}
-                                    ${listen('mouseleave', () => {
-                                        updateState({
-                                            hoverIndex: undefined,
-                                        });
-                                    })}
-                                    ${rowIndex > 0
-                                        ? listen('click', (clickEvent) => {
-                                              rowItem?.rowActions?.click?.({
-                                                  clickEvent,
-                                                  dispatch,
-                                              });
-                                          })
-                                        : nothing}
-                                    class=${classMap({
-                                        'column-content': true,
-                                        hover: rowIndex === state.hoverIndex,
-                                    })}
-                                >
-                                    ${renderIf(
-                                        rowIndex === 0,
-                                        html`
-                                            <span class="header" style=${columnItem.style}>
-                                                ${columnItem.title}
-                                            </span>
-                                        `,
-                                        guard(
-                                            [
-                                                rowIndex,
-                                                row.cells[columnItem.key as keyof typeof row],
-                                            ],
-                                            () => rowItem.contents,
-                                        ),
-                                    )}
-                                </div>
-                            `;
+                            return until(
+                                deferRendering(html`
+                                    <div
+                                        ${listen('mouseenter', () => {
+                                            updateState({
+                                                hoverIndex: rowIndex,
+                                            });
+                                        })}
+                                        ${listen('mouseleave', () => {
+                                            updateState({
+                                                hoverIndex: undefined,
+                                            });
+                                        })}
+                                        ${rowIndex > 0
+                                            ? listen('click', (clickEvent) => {
+                                                  rowItem?.rowActions?.click?.({
+                                                      clickEvent,
+                                                      dispatch,
+                                                  });
+                                              })
+                                            : nothing}
+                                        class=${classMap({
+                                            'column-content': true,
+                                            hover: rowIndex === state.hoverIndex,
+                                        })}
+                                    >
+                                        ${renderIf(
+                                            rowIndex === 0,
+                                            html`
+                                                <span class="header" style=${columnItem.style}>
+                                                    ${columnItem.title}
+                                                </span>
+                                            `,
+                                            guard(
+                                                [
+                                                    rowIndex,
+                                                    row.cells[columnItem.key as keyof typeof row],
+                                                ],
+                                                () => rowItem.contents,
+                                            ),
+                                        )}
+                                    </div>
+                                `),
+                            );
                         },
                     )}
                 </div>
@@ -457,6 +460,14 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                       ></${ToniqPagination}>
                   `
                 : nothing;
+
+        function deferRendering(template: HTMLTemplateResult) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(template);
+                }, 0);
+            });
+        }
 
         const isLoading = !!inputs.showLoading || !!!rows.length || !!!enabledColumns.length;
 
@@ -490,7 +501,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                     ${repeat(
                         enabledColumns,
                         (columnItem, columnIndex) => columnIndex,
-                        (columnItem) => listItem(columnItem),
+                        (columnItem) => until(deferRendering(listItem(columnItem))),
                     )}
                     ${renderIf(
                         state.canScroll,
