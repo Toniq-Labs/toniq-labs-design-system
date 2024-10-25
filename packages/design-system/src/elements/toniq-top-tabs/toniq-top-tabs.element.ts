@@ -21,6 +21,7 @@ export enum ToniqTopTabVariantEnum {
 
 export type ToniqTopTab = Readonly<{
     label: string;
+    shortenedLabel?: string;
     value: Primitive;
     icon?: ToniqSvg | undefined;
     /** Set this to treat the tab as a router link. */
@@ -139,9 +140,27 @@ export const ToniqTopTabs = defineToniqElement<{
         li:last-child {
             flex-grow: 1;
         }
+        .tab-content .shortened-label ${ToniqBoldSpace} {
+            display: none;
+        }
 
         @media (max-width: 600px) {
-            ${hostClasses['toniq-top-tabs-icon-only-mobile'].selector} ${ToniqBoldSpace} {
+            .tab-content ${ToniqBoldSpace} {
+                display: none;
+            }
+
+            .tab-content .shortened-label {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+            }
+
+            .tab-content .shortened-label ${ToniqBoldSpace} {
+                display: inline-block;
+            }
+
+            ${hostClasses['toniq-top-tabs-icon-only-mobile']
+                .selector} .tab-content ${ToniqBoldSpace} {
                 display: none;
             }
         }
@@ -162,6 +181,18 @@ export const ToniqTopTabs = defineToniqElement<{
                       })}></${ToniqBoldSpace}>
                   `
                 : '';
+
+            const shortTabTextTemplate = tab.shortenedLabel
+                ? html`
+                      <span class="shortened-label">
+                          <${ToniqBoldSpace.assign({
+                              text: tab.shortenedLabel,
+                          })}></${ToniqBoldSpace}>
+                      </span>
+                  `
+                : html`
+                      <span class="shortened-label">${tabTextTemplate}</span>
+                  `;
 
             return html`
                 <li
@@ -192,7 +223,9 @@ export const ToniqTopTabs = defineToniqElement<{
                             }
                         })}
                     >
-                        <div class="tab-content">${tabIconTemplate} ${tabTextTemplate}</div>
+                        <div class="tab-content">
+                            ${tabIconTemplate} ${tabTextTemplate} ${shortTabTextTemplate}
+                        </div>
                     </${ToniqHyperlink}>
                 </li>
             `;

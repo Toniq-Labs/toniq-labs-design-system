@@ -182,6 +182,29 @@ const examples: {
             },
         },
     },
+    {
+        title: 'with shortened labels for mobile',
+        inputs: {
+            value: 0,
+            tabs: [
+                {
+                    label: 'desktop tab 1',
+                    shortenedLabel: 'tab 1',
+                    value: 0,
+                },
+                {
+                    label: 'desktop tab 2',
+                    value: 1,
+                    shortenedLabel: 'tab 2',
+                },
+                {
+                    label: 'desktop tab 3',
+                    value: 2,
+                    shortenedLabel: 'tab 3',
+                },
+            ],
+        },
+    },
 ];
 
 export const toniqTopTabsPage = defineBookPage({
