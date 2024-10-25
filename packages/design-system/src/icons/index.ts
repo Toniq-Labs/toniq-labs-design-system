@@ -50,6 +50,7 @@ import {Geometry24Icon} from './svgs/core-24/geometry-24.icon';
 import {Gift24Icon} from './svgs/core-24/gift-24.icon';
 import {GridDots24Icon} from './svgs/core-24/grid-dots-24.icon';
 import {Heart24Icon} from './svgs/core-24/heart-24.icon';
+import {Inbound24Icon} from './svgs/core-24/inbound-24.icon';
 import {Infinity24Icon} from './svgs/core-24/infinity-24.icon';
 import {Info24Icon} from './svgs/core-24/info-24.icon';
 import {LayersLinked24Icon} from './svgs/core-24/layers-linked-24.icon';
@@ -190,6 +191,7 @@ export * from './svgs/core-24/geometry-24.icon';
 export * from './svgs/core-24/gift-24.icon';
 export * from './svgs/core-24/grid-dots-24.icon';
 export * from './svgs/core-24/heart-24.icon';
+export * from './svgs/core-24/inbound-24.icon';
 export * from './svgs/core-24/infinity-24.icon';
 export * from './svgs/core-24/info-24.icon';
 export * from './svgs/core-24/layers-linked-24.icon';
@@ -336,6 +338,7 @@ export const allIconsByCategory = {
         Gift24Icon,
         GridDots24Icon,
         Heart24Icon,
+        Inbound24Icon,
         Infinity24Icon,
         Info24Icon,
         LayersLinked24Icon,
