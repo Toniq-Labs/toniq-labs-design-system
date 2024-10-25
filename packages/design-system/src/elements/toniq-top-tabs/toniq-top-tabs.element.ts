@@ -22,7 +22,7 @@ export enum ToniqTopTabVariantEnum {
 export type ToniqTopTab = Readonly<{
     label: string;
     value: Primitive;
-    icon?: ToniqSvg;
+    icon?: ToniqSvg | undefined;
     /** Set this to treat the tab as a router link. */
     link?: {
         route: FullRoute;

@@ -50,6 +50,7 @@ import {Geometry24Icon} from './svgs/core-24/geometry-24.icon';
 import {Gift24Icon} from './svgs/core-24/gift-24.icon';
 import {GridDots24Icon} from './svgs/core-24/grid-dots-24.icon';
 import {Heart24Icon} from './svgs/core-24/heart-24.icon';
+import {Inbound24Icon} from './svgs/core-24/inbound-24.icon';
 import {Infinity24Icon} from './svgs/core-24/infinity-24.icon';
 import {Info24Icon} from './svgs/core-24/info-24.icon';
 import {LayersLinked24Icon} from './svgs/core-24/layers-linked-24.icon';
@@ -64,6 +65,7 @@ import {LoaderAnimated24Icon} from './svgs/core-24/loader-animated-24.icon';
 import {Lock24Icon} from './svgs/core-24/lock-24.icon';
 import {LockOpen24Icon} from './svgs/core-24/lock-open-24.icon';
 import {Menu24Icon} from './svgs/core-24/menu-24.icon';
+import {Outbound24Icon} from './svgs/core-24/outbound-24.icon';
 import {Pamphlet24Icon} from './svgs/core-24/pamphlet-24.icon';
 import {Paper24Icon} from './svgs/core-24/paper-24.icon';
 import {People24Icon} from './svgs/core-24/people-24.icon';
@@ -189,6 +191,7 @@ export * from './svgs/core-24/geometry-24.icon';
 export * from './svgs/core-24/gift-24.icon';
 export * from './svgs/core-24/grid-dots-24.icon';
 export * from './svgs/core-24/heart-24.icon';
+export * from './svgs/core-24/inbound-24.icon';
 export * from './svgs/core-24/infinity-24.icon';
 export * from './svgs/core-24/info-24.icon';
 export * from './svgs/core-24/layers-linked-24.icon';
@@ -203,6 +206,7 @@ export * from './svgs/core-24/loader-animated-24.icon';
 export * from './svgs/core-24/lock-24.icon';
 export * from './svgs/core-24/lock-open-24.icon';
 export * from './svgs/core-24/menu-24.icon';
+export * from './svgs/core-24/outbound-24.icon';
 export * from './svgs/core-24/pamphlet-24.icon';
 export * from './svgs/core-24/paper-24.icon';
 export * from './svgs/core-24/people-24.icon';
@@ -334,6 +338,7 @@ export const allIconsByCategory = {
         Gift24Icon,
         GridDots24Icon,
         Heart24Icon,
+        Inbound24Icon,
         Infinity24Icon,
         Info24Icon,
         LayersLinked24Icon,
@@ -348,6 +353,7 @@ export const allIconsByCategory = {
         Lock24Icon,
         LockOpen24Icon,
         Menu24Icon,
+        Outbound24Icon,
         Pamphlet24Icon,
         Paper24Icon,
         People24Icon,
