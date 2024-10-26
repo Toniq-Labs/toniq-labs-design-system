@@ -414,7 +414,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
                                         : nothing}
                                     class=${classMap({
                                         'column-content': true,
-                                        hover: rowIndex === state.hoverIndex,
+                                        hover: rowIndex !== 0 && rowIndex === state.hoverIndex,
                                     })}
                                 >
                                     ${renderIf(
