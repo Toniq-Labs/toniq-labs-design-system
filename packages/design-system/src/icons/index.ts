@@ -8,6 +8,7 @@ import {ExternalLink16Icon} from './svgs/core-16/external-link-16.icon';
 import {InfoCircle16Icon} from './svgs/core-16/info-circle-16.icon';
 import {Refresh16Icon} from './svgs/core-16/refresh-16.icon';
 import {ShootingStar16Icon} from './svgs/core-16/shooting-star-16.icon';
+import {ActivityMonitor24Icon} from './svgs/core-24/activity-monitor-24.icon';
 import {ArrowBarUp24Icon} from './svgs/core-24/arrow-bar-up-24.icon';
 import {ArrowForwardUp24Icon} from './svgs/core-24/arrow-forward-up-24.icon';
 import {ArrowLeft24Icon} from './svgs/core-24/arrow-left-24.icon';
@@ -65,6 +66,7 @@ import {LoaderAnimated24Icon} from './svgs/core-24/loader-animated-24.icon';
 import {Lock24Icon} from './svgs/core-24/lock-24.icon';
 import {LockOpen24Icon} from './svgs/core-24/lock-open-24.icon';
 import {Menu24Icon} from './svgs/core-24/menu-24.icon';
+import {Ordinals24Icon} from './svgs/core-24/ordinals-24.icon';
 import {Outbound24Icon} from './svgs/core-24/outbound-24.icon';
 import {Pamphlet24Icon} from './svgs/core-24/pamphlet-24.icon';
 import {Paper24Icon} from './svgs/core-24/paper-24.icon';
@@ -149,6 +151,7 @@ export * from './svgs/core-16/external-link-16.icon';
 export * from './svgs/core-16/info-circle-16.icon';
 export * from './svgs/core-16/refresh-16.icon';
 export * from './svgs/core-16/shooting-star-16.icon';
+export * from './svgs/core-24/activity-monitor-24.icon';
 export * from './svgs/core-24/arrow-bar-up-24.icon';
 export * from './svgs/core-24/arrow-forward-up-24.icon';
 export * from './svgs/core-24/arrow-left-24.icon';
@@ -206,6 +209,7 @@ export * from './svgs/core-24/loader-animated-24.icon';
 export * from './svgs/core-24/lock-24.icon';
 export * from './svgs/core-24/lock-open-24.icon';
 export * from './svgs/core-24/menu-24.icon';
+export * from './svgs/core-24/ordinals-24.icon';
 export * from './svgs/core-24/outbound-24.icon';
 export * from './svgs/core-24/pamphlet-24.icon';
 export * from './svgs/core-24/paper-24.icon';
@@ -296,6 +300,7 @@ export const allIconsByCategory = {
         ShootingStar16Icon,
     ],
     'core-24': [
+        ActivityMonitor24Icon,
         ArrowBarUp24Icon,
         ArrowForwardUp24Icon,
         ArrowLeft24Icon,
@@ -353,6 +358,7 @@ export const allIconsByCategory = {
         Lock24Icon,
         LockOpen24Icon,
         Menu24Icon,
+        Ordinals24Icon,
         Outbound24Icon,
         Pamphlet24Icon,
         Paper24Icon,
