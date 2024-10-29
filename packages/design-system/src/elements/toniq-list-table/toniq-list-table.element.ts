@@ -160,7 +160,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
 
         .table-wrapper {
             position: relative;
-            overflow-x: auto;
+            overflow: auto hidden;
             display: flex;
             flex-grow: 1;
             flex-direction: column;
@@ -176,8 +176,7 @@ export const ToniqListTable = defineToniqElement<ListTableInputs>()({
             width: 100%;
             display: flex;
             flex-direction: row;
-            overflow-x: auto;
-            overflow-y: hidden;
+            overflow: auto hidden;
             scrollbar-width: thin;
             scrollbar-color: ${scrollbarColorCssVar} ${scrollbarTrackColorCssVar};
         }
