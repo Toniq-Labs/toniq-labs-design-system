@@ -5596,7 +5596,7 @@ var L1=Object.defineProperty;var O1=(e,t,n)=>t in e?L1(e,t,{enumerable:!0,config
 
         .table-wrapper {
             position: relative;
-            overflow-x: auto;
+            overflow: auto hidden;
             display: flex;
             flex-grow: 1;
             flex-direction: column;
@@ -5612,8 +5612,7 @@ var L1=Object.defineProperty;var O1=(e,t,n)=>t in e?L1(e,t,{enumerable:!0,config
             width: 100%;
             display: flex;
             flex-direction: row;
-            overflow-x: auto;
-            overflow-y: hidden;
+            overflow: auto hidden;
             scrollbar-width: thin;
             scrollbar-color: ${ea} ${ta};
         }
@@ -5759,7 +5758,7 @@ var L1=Object.defineProperty;var O1=(e,t,n)=>t in e?L1(e,t,{enumerable:!0,config
                                     ${y("mouseenter",()=>{n({hoverIndex:N})})}
                                     ${y("mouseleave",()=>{n({hoverIndex:void 0})})}
                                     ${N>0?y("click",J=>{var ae,ce;(ce=(ae=j==null?void 0:j.rowActions)==null?void 0:ae.click)==null||ce.call(ae,{clickEvent:J,dispatch:o})}):K}
-                                    class=${ge({"column-content":!0,hover:N===t.hoverIndex})}
+                                    class=${ge({"column-content":!0,hover:N!==0&&N===t.hoverIndex})}
                                 >
                                     ${le(N===0,c`
                                             <span class="header" style=${A.style}>
