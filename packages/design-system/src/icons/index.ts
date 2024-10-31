@@ -70,6 +70,7 @@ import {Ordinals24Icon} from './svgs/core-24/ordinals-24.icon';
 import {Outbound24Icon} from './svgs/core-24/outbound-24.icon';
 import {Pamphlet24Icon} from './svgs/core-24/pamphlet-24.icon';
 import {Paper24Icon} from './svgs/core-24/paper-24.icon';
+import {Pencil24Icon} from './svgs/core-24/pencil-24.icon';
 import {People24Icon} from './svgs/core-24/people-24.icon';
 import {Person24Icon} from './svgs/core-24/person-24.icon';
 import {Photo24Icon} from './svgs/core-24/photo-24.icon';
@@ -213,6 +214,7 @@ export * from './svgs/core-24/ordinals-24.icon';
 export * from './svgs/core-24/outbound-24.icon';
 export * from './svgs/core-24/pamphlet-24.icon';
 export * from './svgs/core-24/paper-24.icon';
+export * from './svgs/core-24/pencil-24.icon';
 export * from './svgs/core-24/people-24.icon';
 export * from './svgs/core-24/person-24.icon';
 export * from './svgs/core-24/photo-24.icon';
@@ -362,6 +364,7 @@ export const allIconsByCategory = {
         Outbound24Icon,
         Pamphlet24Icon,
         Paper24Icon,
+        Pencil24Icon,
         People24Icon,
         Person24Icon,
         Photo24Icon,
